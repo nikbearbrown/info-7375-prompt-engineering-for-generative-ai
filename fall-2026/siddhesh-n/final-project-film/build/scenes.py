@@ -324,9 +324,22 @@ def finish(self):
     self.wait(max(0.3, target - _elapsed(self)) if target else 2.0)
 
 
-# ═════════════════════════════ checkedsql-pitch — Siddhesh Nikam, INFO 7375 ═════════════════════════════
-# Every body drawing is a sketch of something that WILL exist, so each carries the on-screen tag
-# "sketch · planned" (assignment honesty rule: mock-ups labelled as constructed).
+
+
+# ═════════════════════════════ checkedsql-pitch v2 — Siddhesh Nikam, INFO 7375 ═════════════════════════════
+# Every body beat carries two labels on its top line:
+#   left  — which of the assignment's seven questions it answers ("3 · Who opens it?")
+#   right — an honesty badge: REAL (ran / real data, dated) or PLANNED (a sketch of something not built yet).
+# Real numbers on screen come from checkedsql/ (data/campaigns.csv, results/baseline.md), run 2026-10-24.
+
+MONO = "PT Mono"
+EMAIL_C, SEARCH_C, SOCIAL_C = "#4F6FA8", "#4E8A63", "#C9962E"   # one colour per channel, same in every beat
+CONNECT = "#9C8462"                                             # connectors in deep kraft (never fuse with blocks)
+
+
+def M(s, size=34, color=INK):
+    return Text(s, font=MONO, color=color, font_size=size)
+
 
 def _target_and_text(self):
     bid = type(self).__name__.split("_")[0]
@@ -334,8 +347,8 @@ def _target_and_text(self):
 
 
 def cue(self, phrase, dur, lead=0.25, margin=0.24):
-    """Wait for `phrase`, then make sure an animation of `dur` seconds stays off the clip MIDPOINT
-    (GATE T and Gate V sample there). If it would overlap, start it just after the midpoint."""
+    """Wait for `phrase`, then keep an animation of `dur` seconds off the clip MIDPOINT
+    (GATE T and Gate V sample there): if it would overlap, start it just after."""
     n, target = _target_and_text(self)
     now = _elapsed(self)
     t = now
@@ -354,12 +367,19 @@ def go(self, phrase, dur, *anims, **kw):
     self.play(*anims, run_time=dur, **kw)
 
 
-def planned_tag():
-    return T("sketch · planned", 32).move_to([-4.3, 3.0, 0])
+def topline(question, badge, real=True):
+    """Question label (top left) + honesty badge with a marker dot (top right). On screen from frame 0."""
+    q = T(question, 36)
+    q.move_to([-6.0 + q.width / 2, 3.0, 0])
+    b = T(badge, 32)
+    b.move_to([6.0 - b.width / 2, 3.0, 0])
+    x = 6.0 - b.width - 0.3
+    mark = Dot([x, 3.0, 0], radius=0.11, color=INK) if real else \
+        Circle(radius=0.11, color=INK, stroke_width=4).move_to([x, 3.0, 0])
+    return VGroup(q, b, mark)
 
 
 def sheet(x, y, w=1.2, h=1.5, n=3):
-    """A flat white page with ghost text lines (a question, a query, a log)."""
     pg = paper(x, y, w, h)
     lines = VGroup(*[Line([x - w / 2 + 0.2, y + h / 2 - 0.35 - i * 0.3, 0], [x + w / 2 - 0.2, y + h / 2 - 0.35 - i * 0.3, 0],
                           color=GHOST, stroke_width=5) for i in range(n)])
@@ -367,40 +387,14 @@ def sheet(x, y, w=1.2, h=1.5, n=3):
 
 
 def panel(x, y, w, h):
-    """A pale UI window: card face, ink outline, grey title band (never a dark band inside an ink card)."""
     face = RoundedRectangle(width=w, height=h, corner_radius=0.14, fill_color=CARD, fill_opacity=1,
                             stroke_color=INK, stroke_width=4).move_to([x, y, 0])
     band = Rectangle(width=w - 0.3, height=0.3, fill_color=BAR1, fill_opacity=1, stroke_width=0).move_to([x, y + h / 2 - 0.3, 0])
     return VGroup(face, band)
 
 
-DB = Iso(0.0, -1.9, 0.8)
-
-
-def database(iso=DB):
-    stack, lights = iso.server(-0.7, -0.7, 0, w=1.4, d=1.4, slab=0.5, n=3)
-    return stack, lights
-
-
-class B00_OneSentence(Scene):
-    def construct(self):
-        self.add(planned_tag())
-        stack, lights = database()
-        self.add(stack, lights)
-        q = sheet(-5.0, 0.3)
-        self.play(q.animate.move_to([-2.6, 0.3, 0]), run_time=0.9, rate_func=smooth)
-        self.play(FadeIn(T("question", 40).move_to([-2.6, -1.0, 0])), run_time=0.4)
-        go(self, "run it on", 0.6, *[l.animate.set_color(TERRA) for l in lights])
-        out = sheet(0.0, 0.3)
-        out.set_z_index(-1)
-        self.add(out)
-        go(self, "show the answer", 0.8, out.animate.move_to([2.6, 0.3, 0]))
-        ck = check(4.0, 0.9, s=0.3)
-        self.play(Create(ck), FadeIn(T("checked", 40).move_to([2.6, -1.0, 0])), run_time=0.5)
-        finish(self)
-
-
-REPO = Iso(0.0, -2.4, 0.75)
+def ghost_box(x, y, w=1.1, h=0.8):
+    return Rectangle(width=w, height=h, fill_color=STAGE, fill_opacity=1, stroke_color=DIM, stroke_width=4).move_to([x, y, 0])
 
 
 def drop(self, mob, dur=0.7):
@@ -409,174 +403,281 @@ def drop(self, mob, dur=0.7):
     self.play(mob.animate.shift(DOWN * 4.5), run_time=dur, rate_func=ease_in)
 
 
+def bar(x, base, h, color, w=0.8):
+    return Rectangle(width=w, height=max(h, 0.02), fill_color=color, fill_opacity=1, stroke_color=INK,
+                     stroke_width=3).move_to([x, base + max(h, 0.02) / 2, 0])
+
+
+def database(iso):
+    return iso.server(-0.7, -0.7, 0, w=1.4, d=1.4, slab=0.45, n=3)
+
+
+# ── 1 · What is it? ─────────────────────────────────────────────────────────────────────────────
+class B00_OneSentence(Scene):
+    def construct(self):
+        self.add(topline("1 · What is it?", "PLANNED · sketch", real=False))
+        card = RoundedRectangle(width=3.3, height=2.0, corner_radius=0.2, fill_color=CARD, fill_opacity=1,
+                                stroke_color=GHOST, stroke_width=3).move_to([-4.4, 0.8, 0])
+        qtext = VGroup(T("Which channel", 32), T("had the highest", 32), T("ROAS?", 32)).arrange(DOWN, buff=0.1).move_to([-4.4, 0.8, 0])
+        go(self, "ask a campaign question", 0.6, FadeIn(card), FadeIn(qtext))
+        blk = Iso(-1.3, -0.3, 0.65).mcp(-0.65, -0.65, 0, 1.3, 1.3, 0.8)
+        a1 = Arrow([-2.7, 0.4, 0], [-2.15, 0.4, 0], color=CONNECT, stroke_width=6, buff=0)
+        go(self, "have Claude write", 0.6, FadeIn(blk, shift=DOWN * 0.3), GrowArrow(a1))
+        self.play(FadeIn(T("Claude", 36).move_to([-1.3, -1.25, 0])), run_time=0.3)
+        sq = sheet(1.2, 0.4, 1.1, 1.4)
+        sq.set_z_index(-1)
+        a2 = Arrow([-0.4, 0.4, 0], [0.55, 0.4, 0], color=CONNECT, stroke_width=6, buff=0)
+        go(self, "the S Q L", 0.6, GrowArrow(a2), FadeIn(sq, shift=RIGHT * 0.4))
+        self.play(FadeIn(T("SQL", 36).move_to([1.2, -0.75, 0])), run_time=0.3)
+        stack, lights = database(Iso(4.3, -0.9, 0.65))
+        a3 = Arrow([1.85, 0.4, 0], [3.25, 0.4, 0], color=CONNECT, stroke_width=6, buff=0)
+        go(self, "run it on the data", 0.7, FadeIn(stack), FadeIn(lights), GrowArrow(a3))
+        self.play(*[l.animate.set_color(TERRA) for l in lights], FadeIn(T("campaigns", 36).move_to([4.3, -1.85, 0])), run_time=0.5)
+        ans = T("Search", 48).move_to([2.6, -2.45, 0])
+        go(self, "show the answer", 0.6, FadeIn(ans, shift=UP * 0.2))
+        self.play(Create(check(3.75, -2.35, s=0.28)), run_time=0.4)
+        finish(self)
+
+
+# ── 1 · What it will be ─────────────────────────────────────────────────────────────────────────
 class B01_Repo(Scene):
     def construct(self):
-        self.add(planned_tag())
-        back, front = REPO.open_box(0, 0, 0, 3.2, 3.2, 1.5)
-        self.add(back, front)
-        self.add(T("repo", 40).move_to([-3.6, -2.4, 0]))
-        data = REPO.box(0.3, 1.8, 0.05, 1.1, 1.1, 0.7, DARK_TOP, DARK_L, DARK_R); data.set_z_index(1)
-        tool = REPO.page(1.8, 1.8, 0.05); tool.set_z_index(1)
-        tests = VGroup(*[REPO.page(1.8, 0.3, 0.05 + 0.12 * i) for i in range(3)]); tests.set_z_index(1)
-        log = REPO.page(0.3, 0.3, 0.05); log.set_z_index(1)
-        cue(self, "A synthetic", 1.1); drop(self, data)
-        self.play(FadeIn(T("dataset", 40).move_to([3.9, 0.9, 0])), run_time=0.4)
-        cue(self, "The question tool", 0.7); drop(self, tool)
-        cue(self, "A test set", 1.1); drop(self, tests)
-        self.play(FadeIn(T("test set", 40).move_to([3.9, -0.6, 0])), run_time=0.4)
-        cue(self, "And an evaluation log", 0.7); drop(self, log)
+        self.add(topline("1 · What it will be", "PART REAL · Oct 24"))
+        R = Iso(-3.0, -2.3, 0.62)
+        back, front = R.open_box(0, 0, 0, 3.4, 3.4, 1.5)
+        self.add(back, front, T("repo", 36).move_to([-3.0, -2.85, 0]))
+        data = R.box(0.3, 1.9, 0.05, 1.1, 1.1, 0.7, DARK_TOP, DARK_L, DARK_R); data.set_z_index(1)
+        qs = R.page(1.9, 1.9, 0.05); qs.set_z_index(1)
+        ck = VGroup(*[R.page(1.9, 0.3, 0.05 + 0.12 * i) for i in range(3)]); ck.set_z_index(1)
+        built = T("built", 36).move_to([1.0, 1.9, 0])
+        nxt = T("next", 36).move_to([4.4, 1.9, 0])
+        self.add(built, nxt)
+        names = ["campaigns.csv", "questions.json", "checker.py"]
+        for i, (mob, name, phrase) in enumerate(zip([data, qs, ck], names, ["synthetic dataset", "ten test questions", "and the checker"])):
+            cue(self, phrase, 1.0)
+            self.play(FadeIn(mob, shift=DOWN * 0.4), run_time=0.6)
+            lab = M(name, 28)
+            lab.move_to([-0.35 + lab.width / 2, 1.1 - i * 0.75, 0])
+            self.play(FadeIn(Dot([-0.6, 1.1 - i * 0.75, 0], radius=0.09, color=INK)), FadeIn(lab), run_time=0.3)
+        todo = ["contract", "Claude step", "eval log"]
+        cue(self, "Still to come", 1.2)
+        anims = []
+        for i, name in enumerate(todo):
+            y = 1.1 - i * 0.75
+            anims += [Create(Circle(radius=0.09, color=INK, stroke_width=4).move_to([3.3, y, 0])),
+                      FadeIn(T(name, 34).move_to([3.55 + T(name, 34).width / 2, y, 0]))]
+        self.play(LaggedStart(*anims, lag_ratio=0.12), run_time=1.2)
         finish(self)
 
 
+# ── 2 · Why care? alternative 1 ─────────────────────────────────────────────────────────────────
 class B02_Dashboard(Scene):
     def construct(self):
-        self.add(planned_tag())
-        dash = panel(2.0, 0.5, 5.4, 3.6)
+        self.add(topline("2 · Why care? Alternative 1", "SKETCH · made with AI help", real=False))
+        dash = panel(2.0, 0.3, 5.6, 3.8)
         self.add(dash)
-        heights = [1.0, 1.7, 1.3, 2.3]
-        bars = VGroup(*[Rectangle(width=0.7, height=h, fill_color=[BAR1, BAR2][i % 2], fill_opacity=1, stroke_width=0)
-                        .move_to([0.35 + i * 1.1, -1.0 + h / 2, 0]) for i, h in enumerate(heights)])
+        base = -0.9
+        bars = VGroup(bar(0.6, base, 1.4, EMAIL_C), bar(2.0, base, 2.4, SEARCH_C), bar(3.4, base, 0.9, SOCIAL_C))
         go(self, "Tableau dashboard", 1.0, LaggedStart(*[GrowFromEdge(b, DOWN) for b in bars], lag_ratio=0.2))
-        self.play(FadeIn(T("dashboard", 40).move_to([2.0, -1.8, 0])), run_time=0.4)
-        q = sheet(-5.6, 0.5)
-        self.add(q)
-        go(self, "A new question", 0.6, q.animate.move_to([-1.6, 0.5, 0]))
-        self.play(q.animate.move_to([-3.9, 0.5, 0]), run_time=0.5, rate_func=rate_functions.ease_out_bounce)
-        self.play(FadeIn(T("new question", 40).move_to([-3.9, -0.9, 0])), run_time=0.4)
+        self.play(*[FadeIn(T(n, 32).move_to([x, -1.25, 0])) for n, x in zip(["Email", "Search", "Social"], [0.6, 2.0, 3.4])],
+                  FadeIn(T("Tableau", 36).move_to([2.0, -2.6, 0])), run_time=0.5)
+        q = VGroup(sheet(-3.9, 0.4), T("new question", 36).move_to([-3.9, -0.85, 0]))
+        go(self, "It answers the questions", 0.6, FadeIn(q, shift=RIGHT * 0.4))
+        go(self, "A new question", 0.5, q.animate.shift(RIGHT * 1.6))
+        self.play(q.animate.shift(LEFT * 1.6), run_time=0.5, rate_func=rate_functions.ease_out_bounce)
         finish(self)
 
 
-class B03_Scored(Scene):
+# ── 2 · Why care? alternative 2 — the REAL chat-assistant test ─────────────────────────────────
+CHAT_SHOT = "chat_test.png"   # my own ChatGPT screenshot (2026-10-24), cropped to its answer sentence; shown with colours inverted (see _inv)
+def _inv(path):
+    from PIL import Image as _PI, ImageOps as _PO
+    return ImageMobject(np.array(_PO.invert(_PI.open(path).convert("RGB"))))
+
+
+SHOT_W = 9.0                  # displayed width; the crop is 650 x 58 px, so the text clears Gate T's 41px floor at 4K
+
+
+class B03_ChatTest(Scene):
     def construct(self):
-        self.add(planned_tag())
-        chat = panel(-3.8, 0.6, 3.6, 2.6)
-        p1 = pill(-4.4, 0.6, 2.0, 0.4, fill=BAR3)
-        p2 = pill(-3.2, -0.1, 2.0, 0.4, fill=BAR2)
-        self.add(chat, p1, p2, T("chat", 40).move_to([-3.8, -1.3, 0]))
-        q = sheet(-3.8, 0.4, 1.0, 1.3)
-        q.set_z_index(-1)
-        self.add(q)
-        go(self, "It writes a query", 0.8, q.animate.move_to([-0.6, 0.4, 0]))
-        posts = VGroup(Rectangle(width=0.35, height=2.6, fill_color=BAR1, fill_opacity=1, stroke_width=0).move_to([1.4, 0.4, 0]),
-                       Rectangle(width=0.35, height=2.6, fill_color=BAR1, fill_opacity=1, stroke_width=0).move_to([3.0, 0.4, 0]),
-                       Rectangle(width=1.95, height=0.35, fill_color=BAR2, fill_opacity=1, stroke_width=0).move_to([2.2, 1.85, 0]))
-        go(self, "no fixed test set", 0.6, FadeIn(posts))
-        self.play(FadeIn(T("test set", 40).move_to([2.2, -1.4, 0])), run_time=0.4)
-        go(self, "every answer is run", 1.0, q.animate.move_to([4.7, 0.4, 0]))
-        self.play(Create(check(4.8, 1.8, s=0.3)), run_time=0.5)
+        self.add(topline("2 · Why care? Alternative 2", "REAL · my ChatGPT test, Oct 24"))
+        cx, cy = -1.5, 1.3
+        h = SHOT_W * 58 / 650
+        frame_box = Rectangle(width=SHOT_W + 0.3, height=h + 0.3, stroke_color=GHOST, stroke_width=4).move_to([cx, cy, 0])
+        try:
+            img = _inv(_os.path.join(_os.path.dirname(_os.path.abspath(__file__)), CHAT_SHOT))
+            img.width = SHOT_W
+        except Exception:
+            img = Rectangle(width=SHOT_W, height=h, fill_color=DARK_R, fill_opacity=1, stroke_width=0)
+        img.move_to([cx, cy, 0])
+        cap = T("ChatGPT, my test, Oct 24 (cropped, colours inverted)", 32).move_to([cx, cy + h / 2 + 0.55, 0])
+        go(self, "I gave", 0.7, FadeIn(img), Create(frame_box), FadeIn(cap))
+        sx = cx - SHOT_W / 2 + SHOT_W * 72 / 650          # centre of the word "Search" in the crop
+        arrow = Arrow([sx, cy - h / 2 - 0.95, 0], [sx, cy - h / 2 - 0.2, 0], color=INK, stroke_width=6, buff=0)
+        go(self, "It answered", 0.5, GrowArrow(arrow))
+        self.play(FadeIn(T("its answer", 32).move_to([sx + 1.2, cy - h / 2 - 0.65, 0])), run_time=0.3)
+        key = RoundedRectangle(width=2.6, height=1.6, corner_radius=0.18, fill_color=CARD, fill_opacity=1,
+                               stroke_color=GHOST, stroke_width=3).move_to([4.7, cy, 0])
+        go(self, "which is right", 0.6, FadeIn(key, shift=LEFT * 0.3),
+           FadeIn(T("my key", 32).move_to([4.7, cy + 0.42, 0])), FadeIn(T("Search", 44).move_to([4.7, cy - 0.2, 0])))
+        self.play(Create(check(4.7, cy - 1.15, s=0.26)), run_time=0.4)
+        xs = [-5.4 + i * 1.05 for i in range(10)]
+        first = sheet(xs[0], -1.45, 0.7, 0.9, n=2)
+        rest = VGroup(*[Rectangle(width=0.7, height=0.9, fill_color=STAGE, fill_opacity=1, stroke_color=DIM,
+                                  stroke_width=4).move_to([x, -1.45, 0]) for x in xs[1:]])
+        go(self, "no fixed test set", 1.0, FadeIn(first), LaggedStart(*[Create(r) for r in rest], lag_ratio=0.08))
+        go(self, "CheckedSQL runs every answer", 0.5,
+           FadeIn(T("one answer is not a record", 34).move_to([-0.7, -2.55, 0])))
         finish(self)
 
 
+# ── 3 · Who opens it? ──────────────────────────────────────────────────────────────────────────
 class B04_SixtySeconds(Scene):
     def construct(self):
-        self.add(planned_tag())
-        win = panel(2.4, 0.9, 5.4, 2.8)
-        rows = VGroup(*[Rectangle(width=4.4, height=0.32, fill_color=[BAR2, BAR3][i % 2], fill_opacity=1, stroke_width=0)
-                        .move_to([2.4, 0.9 - i * 0.5, 0]) for i in range(4)])
-        go(self, "first sixty seconds", 0.6, FadeIn(T("60 s", 120).move_to([-3.6, 0.6, 0]), shift=UP * 0.2))
+        self.add(topline("3 · Who opens it?", "REAL · ran Oct 24"))
+        go(self, "first sixty seconds", 0.6, FadeIn(T("60 s", 120).move_to([-4.2, 0.6, 0]), shift=UP * 0.2))
+        self.play(FadeIn(T("hiring manager", 36).move_to([-4.2, -0.9, 0])), run_time=0.4)
+        win = panel(2.4, 0.8, 5.6, 2.6)
+        rows = VGroup(*[Rectangle(width=4.6, height=0.3, fill_color=[BAR2, BAR3][i % 2], fill_opacity=1, stroke_width=0)
+                        .move_to([2.4, 0.8 - i * 0.48, 0]) for i in range(3)])
         go(self, "open the README", 0.6, FadeIn(win), FadeIn(rows))
-        self.play(FadeIn(T("README", 40).move_to([2.4, 2.75, 0])), run_time=0.4)
-        strip = Rectangle(width=5.4, height=0.8, fill_color=DARK_TOP, fill_opacity=1, stroke_width=0).move_to([2.4, -1.6, 0])
-        prompt = Line([0.0, -1.6, 0], [2.0, -1.6, 0], color=GHOST, stroke_width=6)
-        go(self, "run one command", 0.6, FadeIn(strip, shift=UP * 0.3), Create(prompt))
-        self.play(Create(check(5.75, -1.4, s=0.28)), run_time=0.5)
+        self.play(FadeIn(T("README", 36).move_to([1.2, 2.45, 0])), run_time=0.3)
+        strip = Rectangle(width=5.6, height=1.5, fill_color=DARK_TOP, fill_opacity=1, stroke_width=0).move_to([2.4, -1.65, 0])
+        cmd = M("$ python3 checker.py", 32, STAGE)
+        cmd.move_to([0.0 + cmd.width / 2, -1.35, 0])
+        go(self, "run one command", 0.6, FadeIn(strip, shift=UP * 0.3), FadeIn(cmd))
+        score = M("Score: 10/10", 32, STAGE)
+        score.move_to([0.0 + score.width / 2, -1.95, 0])
+        go(self, "see a score table", 0.4, FadeIn(score))
+        self.play(Create(check(5.75, -1.6, s=0.26, color=STAGE)), run_time=0.4)
         finish(self)
 
 
+# ── 4 · What it proves ──────────────────────────────────────────────────────────────────────────
 class B05_Proves(Scene):
     def construct(self):
-        self.add(planned_tag())
+        self.add(topline("4 · What it proves", "PART REAL · Oct 24"))
         xs = [-3.8, 0.0, 3.8]
-        cards = VGroup(*[sheet(x, 0.9, 2.0, 2.4, n=4) for x in xs])
-        names = ["contract", "verification", "evaluation"]
-        self.play(LaggedStart(*[FadeIn(c, shift=UP * 0.3) for c in cards], lag_ratio=0.2), run_time=1.0)
-        self.play(*[FadeIn(T(nm, 36).move_to([x, -0.75, 0])) for nm, x in zip(names, xs)], run_time=0.5)
-        for phrase, x in zip(["a prompt contract", "verification against", "a repeatable evaluation"], xs):
-            go(self, phrase, 0.4, GrowFromCenter(Dot([x + 0.7, 1.85, 0], radius=0.11, color=TERRA)))
-        logp = sheet(0.0, -2.2, 4.0, 0.9, n=1)
-        go(self, "The evidence", 0.7, FadeIn(logp, shift=UP * 0.4))
+        contract = Rectangle(width=2.0, height=2.4, fill_color=STAGE, fill_opacity=1, stroke_color=DIM, stroke_width=4).move_to([xs[0], 0.7, 0])
+        real = VGroup(sheet(xs[1], 0.7, 2.0, 2.4, n=4), sheet(xs[2], 0.7, 2.0, 2.4, n=4))
+        go(self, "three course", 1.0, Create(contract), LaggedStart(*[FadeIn(c, shift=UP * 0.3) for c in real], lag_ratio=0.2))
+        self.play(*[FadeIn(T(nm, 36).move_to([x, -0.95, 0])) for nm, x in zip(["contract", "verification", "evaluation"], xs)], run_time=0.5)
+        self.play(FadeIn(T("next", 32).move_to([xs[0], -1.6, 0])), run_time=0.3)
+        go(self, "now have real evidence", 0.6, Create(check(xs[1] + 0.75, 2.2, s=0.28)), Create(check(xs[2] + 0.75, 2.2, s=0.28)))
+        ev1, ev2 = M("checker.py", 30), M("score table", 30)
+        ev1.move_to([xs[1], -1.6, 0]); ev2.move_to([xs[2], -1.6, 0])
+        self.play(FadeIn(ev1), FadeIn(ev2), run_time=0.4)
         finish(self)
 
 
+# ── 5 · What's out ──────────────────────────────────────────────────────────────────────────────
 class B06_ReadOnly(Scene):
     def construct(self):
-        self.add(planned_tag())
-        stack, lights = database(Iso(0.0, -1.4, 0.8))
+        self.add(topline("5 · What's out", "REAL · checker.py"))
+        stack, lights = database(Iso(0.0, -1.2, 0.8))
         self.add(stack, lights)
-        w_arrow = Arrow([-4.6, 0.3, 0], [-1.6, 0.3, 0], color=INK, stroke_width=8, buff=0)
-        go(self, "It will not change", 0.6, GrowArrow(w_arrow))
-        cross = VGroup(Line([-3.4, -0.1, 0], [-2.6, 0.7, 0], color=INK, stroke_width=9),
-                       Line([-3.4, 0.7, 0], [-2.6, -0.1, 0], color=INK, stroke_width=9))
-        self.play(Create(cross), FadeIn(T("write", 40).move_to([-3.1, -0.75, 0])), run_time=0.5)
-        r_arrow = Arrow([1.6, 0.3, 0], [4.6, 0.3, 0], color=INK, stroke_width=8, buff=0)
-        go(self, "read-only queries", 0.6, GrowArrow(r_arrow))
-        self.play(Create(check(5.3, 0.4, s=0.3)), FadeIn(T("read", 40).move_to([3.1, -0.75, 0])), run_time=0.5)
-        go(self, "no real company data", 0.5, *[l.animate.set_color(TERRA) for l in lights])
+        w_arrow = Arrow([-4.6, 0.5, 0], [-1.7, 0.5, 0], color=INK, stroke_width=8, buff=0)
+        go(self, "never change the database", 0.6, GrowArrow(w_arrow))
+        cross = VGroup(Line([-3.5, 0.1, 0], [-2.7, 0.9, 0], color=INK, stroke_width=9),
+                       Line([-3.5, 0.9, 0], [-2.7, 0.1, 0], color=INK, stroke_width=9))
+        self.play(Create(cross), FadeIn(T("write", 36).move_to([-3.1, -0.5, 0])), run_time=0.5)
+        r_arrow = Arrow([1.7, 0.5, 0], [4.6, 0.5, 0], color=INK, stroke_width=8, buff=0)
+        go(self, "read-only SELECT", 0.6, GrowArrow(r_arrow))
+        sel = M("SELECT only", 32)
+        sel.move_to([3.15, -0.5, 0])
+        self.play(Create(check(5.3, 0.6, s=0.3)), FadeIn(sel), run_time=0.5)
+        go(self, "twenty-four rows", 0.6, *[l.animate.set_color(TERRA) for l in lights],
+           FadeIn(T("24 rows · synthetic", 36).move_to([0.0, -2.6, 0])))
         finish(self)
 
 
-class B07_Baseline(Scene):
+# ── 6 · What could sink it? — Email's eight real rows ───────────────────────────────────────────
+EMAIL_ROW_ROAS = [20.0, 2.0, 18.0, 1.69, 19.0, 1.5, 14.0, 1.8]   # revenue / spend per row, from data/campaigns.csv
+SCALE = 0.22                                                      # 1 ROAS = 0.22 units: 20 -> 4.4
+
+
+class B08_RowTrap(Scene):
     def construct(self):
-        self.add(planned_tag())
-        xs = [-5.4 + 1.2 * i for i in range(10)]
-        pages = VGroup(*[sheet(x, 0.2, 0.8, 1.0, n=2) for x in xs])
-        go(self, "ten questions", 1.0, LaggedStart(*[FadeIn(p, shift=DOWN * 0.3) for p in pages], lag_ratio=0.08))
-        self.play(FadeIn(T("ten questions", 40).move_to([0.0, -1.2, 0])), run_time=0.4)
-        scan = Line([-6.0, -0.5, 0], [-6.0, 0.9, 0], color=TERRA, stroke_width=8)
-        self.add(scan)
-        go(self, "through the checker", 1.4, scan.animate.move_to([6.0, 0.2, 0]), rate_func=linear)
-        self.remove(scan)
-        go(self, "prints a score table", 1.0,
-           LaggedStart(*[Create(check(x, 1.35, s=0.24)) for x in xs], lag_ratio=0.08))
-        self.play(FadeIn(T("baseline", 40).move_to([0.0, -2.1, 0])), run_time=0.4)
+        self.add(topline("6 · What could sink it?", "REAL DATA · campaigns.csv"))
+        base = -2.3
+        axis = Line([-5.4, base, 0], [2.6, base, 0], color=INK, stroke_width=4)
+        self.add(axis, T("Email rows", 34).move_to([-1.4, -2.75, 0]))
+        xs = [-4.9 + i * 0.95 for i in range(8)]
+        bars = VGroup(*[bar(x, base, v * SCALE, EMAIL_C, w=0.6) for x, v in zip(xs, EMAIL_ROW_ROAS)])
+        go(self, "Email's eight real rows", 1.2, LaggedStart(*[GrowFromEdge(b, DOWN) for b in bars], lag_ratio=0.1))
+        tall = M("20×", 32); tall.move_to([xs[0], base + 20 * SCALE + 0.3, 0])
+        low = M("2×", 32); low.move_to([xs[1], base + 2 * SCALE + 0.3, 0])
+        go(self, "spend almost nothing", 0.5, FadeIn(tall), FadeIn(low))
+        avg_y = base + 9.75 * SCALE
+        line = Line([-5.4, avg_y, 0], [2.6, avg_y, 0], color=INK, stroke_width=5)
+        go(self, "Average the row ratios", 0.7, Create(line))
+        lab = VGroup(T("row average", 36), M("9.75", 44)).arrange(DOWN, buff=0.15).move_to([4.6, avg_y, 0])
+        self.play(FadeIn(lab), run_time=0.4)
         finish(self)
 
 
-class B08_Ratio(Scene):
+# ── 6 · The fix — true ROAS per channel ─────────────────────────────────────────────────────────
+class B09_TotalFix(Scene):
     def construct(self):
-        self.add(planned_tag())
-        left = Rectangle(width=1.4, height=2.2, fill_color=BAR2, fill_opacity=1, stroke_width=0).move_to([-1.8, -1.6 + 1.1, 0])
-        right = Rectangle(width=1.4, height=3.2, fill_color=BAR1, fill_opacity=1, stroke_width=0).move_to([1.4, -1.6 + 1.6, 0])
-        go(self, "ROAS is a ratio", 0.9, GrowFromEdge(left, DOWN), GrowFromEdge(right, DOWN))
-        self.play(FadeIn(T("row average", 40).move_to([-1.8, -2.25, 0])),
-                  FadeIn(T("total ÷ total", 40).move_to([1.4, -2.25, 0])), run_time=0.5)
-        go(self, "My fix", 0.5, Create(check(1.4, 2.25, s=0.32)))
-        tp = sheet(4.6, 0.3, 1.2, 1.5)
-        go(self, "add ratio questions", 0.7, FadeIn(tp, shift=LEFT * 0.8))
+        self.add(topline("6 · The fix", "REAL DATA · campaigns.csv"))
+        base, S = -2.0, 0.42
+        ghost = Rectangle(width=1.0, height=9.75 * S, fill_color=STAGE, fill_opacity=1, stroke_color=DIM,
+                          stroke_width=4).move_to([-4.6, base + 9.75 * S * 0.5, 0])
+        self.add(Line([-5.6, base, 0], [2.4, base, 0], color=INK, stroke_width=4), ghost)
+        self.add(M("9.75", 32).move_to([-4.6, base + 9.75 * S + 0.3, 0]))
+        cross = VGroup(Line([-5.0, base + 0.4, 0], [-4.2, base + 1.6, 0], color=INK, stroke_width=8),
+                       Line([-5.0, base + 1.6, 0], [-4.2, base + 0.4, 0], color=INK, stroke_width=8))
+        go(self, "Divide total revenue", 0.4, Create(cross))
+        vals = [("Email", 2.29, EMAIL_C, -2.6), ("Search", 3.98, SEARCH_C, -0.8), ("Social", 1.05, SOCIAL_C, 1.0)]
+        bars = VGroup(*[bar(x, base, v * S, c, w=1.0) for _, v, c, x in vals])
+        go(self, "Email is two point two nine", 0.9, LaggedStart(*[GrowFromEdge(b, DOWN) for b in bars], lag_ratio=0.15))
+        self.play(*[FadeIn(M(f"{v:.2f}", 32).move_to([x, base + v * S + 0.3, 0])) for _, v, _, x in vals],
+                  *[FadeIn(T(n, 32).move_to([x, base - 0.35, 0])) for n, _, _, x in vals],
+                  FadeIn(T("row avg", 32).move_to([-4.6, base - 0.35, 0])), run_time=0.5)
+        go(self, "The best channel is", 0.4, Create(check(-0.8, base + 3.98 * S + 0.85, s=0.3)))
+        tp = sheet(4.6, 0.2, 1.3, 1.6)
+        go(self, "ratio questions", 0.6, FadeIn(tp, shift=LEFT * 0.6))
+        self.play(FadeIn(M("Q06 · Q07", 32).move_to([4.6, -1.0, 0])), run_time=0.3)
         finish(self)
 
 
-class B09_HaveNew(Scene):
+# ── 7 · Why this project? ──────────────────────────────────────────────────────────────────────
+class B10_HaveNew(Scene):
     def construct(self):
-        self.add(planned_tag())
-        L = Iso(-3.6, -1.9, 0.7)
+        self.add(topline("7 · Why this project?", "HONEST · AI-built repo"))
+        L = Iso(-3.6, -1.7, 0.7)
         have = VGroup(L.box(0, 0, 0, 2.6, 2.6, 1.6), L.tape(0, 0, 1.6, 2.6, 2.6))
-        go(self, "I already have", 0.8, FadeIn(have, shift=DOWN * 0.4))
-        self.play(FadeIn(T("have", 40).move_to([-3.6, -2.6, 0])), run_time=0.4)
-        R = Iso(3.0, -1.9, 0.7)
+        go(self, "Mostly to learn", 0.8, FadeIn(have, shift=DOWN * 0.4))
+        self.play(FadeIn(T("have", 36).move_to([-3.6, -2.25, 0])), FadeIn(T("campaign KPIs", 32).move_to([-3.6, -2.85, 0])), run_time=0.4)
+        R = Iso(3.0, -1.7, 0.7)
         back, front = R.open_box(0, 0, 0, 2.6, 2.6, 1.4)
         go(self, "New to me", 0.5, FadeIn(back), FadeIn(front))
-        self.play(FadeIn(T("new", 40).move_to([3.0, -2.6, 0])), run_time=0.4)
-        for i, phrase in enumerate(["calling Claude", "writing prompt contracts", "evaluation harness"]):
-            pg = R.page(0.4 + 0.5 * i, 0.5 + 0.4 * i, 0.05 + 0.1 * i)
+        self.play(FadeIn(T("new", 36).move_to([3.0, -2.25, 0])), FadeIn(T("SQL · Claude API · contracts · evals", 32).move_to([2.8, -2.85, 0])), run_time=0.4)
+        for i, phrase in enumerate(["writing and checking", "calling Claude", "prompt contracts", "and evaluation"]):
+            pg = R.page(0.25 + 0.35 * i, 0.25 + 0.3 * i, 0.05 + 0.1 * i)
             pg.set_z_index(1)
             cue(self, phrase, 0.6)
-            drop(self, pg, 0.6)
+            self.play(FadeIn(pg, shift=DOWN * 0.4), run_time=0.6)
         finish(self)
 
 
-class B10_TodayWill(Scene):
+# ── exists today · will exist ───────────────────────────────────────────────────────────────────
+class B11_TodayWill(Scene):
     def construct(self):
-        self.add(planned_tag())
-        L = Iso(-4.0, -1.5, 0.6)
-        today = VGroup(L.box(0, 0, 0, 1.6, 1.6, 1.2), L.box(2.0, -0.4, 0, 1.6, 1.6, 1.2))
-        go(self, "What exists today", 0.8, FadeIn(today, shift=DOWN * 0.3))
-        self.play(FadeIn(T("today", 40).move_to([-3.6, -2.5, 0])), run_time=0.4)
-        R = Iso(2.0, -1.8, 0.5)
-        will = VGroup(*[R.box(x, y, 0, 1.6, 1.6, 1.2, top=STAGE, left=STAGE, right=STAGE, sw=3).set_stroke(DIM)
-                        for x, y in [(0, 0), (2.2, 0), (0, 2.2), (2.2, 2.2)]])
-        go(self, "will exist", 1.2, LaggedStart(*[Create(b) for b in will], lag_ratio=0.25))
-        self.play(FadeIn(T("will exist", 40).move_to([3.4, -2.5, 0])), run_time=0.4)
+        self.add(topline("Exists today · will exist", "PART REAL · Oct 24"))
+        today = [("2 repos", -1.0), ("film", 0.1), ("checker", 1.2)]
+        L = Iso(-4.6, -1.6, 0.45)
+        solid = VGroup(*[L.box(i * 1.8, -i * 1.8, 0, 1.4, 1.4, 1.0) for i in range(3)])
+        go(self, "what exists today", 0.8, LaggedStart(*[FadeIn(b, shift=DOWN * 0.3) for b in solid], lag_ratio=0.2))
+        self.play(FadeIn(T("today", 36).move_to([-3.2, -2.6, 0])),
+                  FadeIn(VGroup(*[M(n, 30) for n, _ in today]).arrange(DOWN, buff=0.18, aligned_edge=LEFT).move_to([-3.2, 0.9, 0])),
+                  run_time=0.5)
+        names = ["contract", "Claude step", "30 questions", "eval log"]
+        boxes = VGroup(*[ghost_box(1.6 + (i % 2) * 2.6, 0.9 - (i // 2) * 1.5, 2.2, 0.9) for i in range(4)])
+        go(self, "What will exist", 1.2, LaggedStart(*[Create(b) for b in boxes], lag_ratio=0.25))
+        self.play(*[FadeIn(T(n, 30).move_to(b.get_center())) for n, b in zip(names, boxes)],
+                  FadeIn(T("will exist", 36).move_to([2.9, -2.6, 0])), run_time=0.5)
+        go(self, "whether thirty is", 0.5, FadeIn(M("30?", 44).move_to([5.6, -1.6, 0])))
         finish(self)
 
 
