@@ -1,0 +1,45 @@
+Speech-to-text (faster-whisper small.en) on every re-voiced beat, final audio, 2026-11-23
+
+B02 (13.71 s)
+  Kokoro input: I'm Aravind Ravi, and this film is read by a synthetic voice. My project is called Reed-back. It will find the clause behind a disagreement, and ask the PM a clarifying question about it, instead of rewriting the rubric for them.
+  heard:        I'm Eravind Ravi and this film is read by a synthetic voice. My project is called Read Back. It will find the clause behind a disagreement and ask the PM a clarifying question about it instead of rewriting the rubric for them.
+
+B03 (16.84 s)
+  Kokoro input: Why should anyone care? Because a rubric is a product decision. If a judge reads one clause differently than the PM meant, the scores can still look fine, the feature ships, and the wrong grading goes unnoticed. Reed-back will catch that misreading before it ships, and keep the PM in charge of what their words mean.
+  heard:        Why should anyone care because a rubric is a product decision? If a judge reads one clause differently than the PM meant, the scores can still look fine, the feature ships, and the wrong grading goes unnoticed. Read back will catch that misreading before it ships and keep the PM in charge of what their words mean.
+
+B07 (12.83 s)
+  Kokoro input: So the tools I checked give you an agreement score, a rewritten prompt, or a clearer spec. What I couldn't find in their documentation, read on October fourteenth, is any of them naming the rubric clause behind a judge disagreement.
+  heard:        So the tools I checked give you an agreement score, a rewritten prompt, or a clearer spec. What I couldn't find in their documentation, read on October 14th, is any of them naming the rubric clause behind a judge disagreement.
+
+B08 (10.19 s)
+  Kokoro input: That gap is why Reed-back matters. A score tells you something is wrong. A clause tells you what to fix. And a question, instead of a rewrite, keeps the fix a product decision.
+  heard:        That gap is why readback matters, a score tells you something is wrong, a clause tells you what to fix, and a question instead of a rewrite keeps the fix a product decision.
+
+B13 (13.88 s)
+  Kokoro input: Then three judges score every recap: Claude, a second provider's model, and a local open-weight model, each one going clause by clause. I'll measure how often they agree with each other, and with my human labels on the decisions clause.
+  heard:        Then three judges score every recap, clawed, a second provider's model, and a local open weight model, each one going clause by clause. I'll measure how often they agree with each other and with my human labels on the decisions clause.
+
+B14 (10.87 s)
+  Kokoro input: Where the judges split, Reed-back will trace the split back to the clause that caused it, and turn it into a question for the PM: did you mean this, or that? The PM answers, and revises the clause.
+  heard:        Where the judges split, read back will trace the split back to the clause that caused it and turn it into a question for the PM. Did you mean this or that? The PM answers and revises the clause.
+
+B15 (14.22 s)
+  Kokoro input: Do I have what I need? The data and the ten recaps are in my repository, and Claude runs here on my subscription. My API credits and a second provider account aren't wired in yet. Still to come: the local model, and my human labels.
+  heard:        Do I have what I need, the data and the ten recaps are in my repository and Claude runs here on my subscription. My API credits and a second provider account aren't wired in yet, still to come, the local model and my human labels.
+
+B16 (14.69 s)
+  Kokoro input: How will I know it worked? Three checks, each with a pass and a fail. First, a planted ambiguity: I'll make one clause deliberately vague, so I know the right answer in advance. It passes if Reed-back blames the clause I planted. It fails if it blames another clause, or noise.
+  heard:        How will I know it worked? Three checks, each with a pass and a fail. First, a planted ambiguity. I'll make one clause deliberately vague, so I know the right answer in advance. It passes if read back blames the clause I planted. It fails if it blames another clause or noise.
+
+B17 (14.92 s)
+  Kokoro input: Second, agreement on the decisions clause: each judge against my human labels on all eighty-six decisions, measured with Cohen's kappa. It passes at point six or higher, a bar I'll fix before any run. Below that, the judges can't be trusted on this clause.
+  heard:        Second agreement on the Decisions Clause. Each judge against my human labels on all 86 decisions, measured with Cohen's Kappa. It passes at .6 or higher, a bar I'll fix before any run. Below that, the judges can't be trusted on this clause.
+
+B18 (12.17 s)
+  Kokoro input: Third, before and after. The PM revises the flagged clause, and I re-measure judge agreement on meetings held out from the revision. If agreement doesn't rise, Reed-back didn't help, and I'll say so.
+  heard:        Third, before and after, the PM revises the flagged clause and I remeasure Judge Agreement on meetings held out from the revision. If agreement doesn't rise, read back didn't help and I'll say so.
+
+BOUT (4.33 s)
+  Kokoro input: Reed-back. A project film by Aravind Ravi.
+  heard:        Read back a project film by Aravind Ravi.

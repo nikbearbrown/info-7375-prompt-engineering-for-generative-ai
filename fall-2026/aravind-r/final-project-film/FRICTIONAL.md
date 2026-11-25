@@ -1,6 +1,6 @@
-# FRICTIONAL — Final Project Pitch Film (Readback)
+# FRICTIONAL — Readback: pitch film and project film
 
-Machine: MacBook (Apple Silicon), macOS (Darwin 25.5.0). Claude Code 2.1.283.
+Machine: MacBook (Apple Silicon), macOS (Darwin 25.5.0). Claude Code 2.1.283. Project film (2026-11-23): Claude Code 2.1.323. Project film: macOS Darwin 27.2.
 Entries were drafted by Claude Code from the session as it happened; decisions marked (Aravind) are mine; I reviewed all entries.
 Toolkit: brutalist.art checkout at `/Users/aravindravi/Desktop/Northeastern/Coursework/Fall 26/Prompt_Engineering_Agentic_AI/Assignments/A01/brutalist.art`, starting commit `cd4bf20904be4e7d63babd9622b17963c2361b27`. Final toolkit commit: `cd4bf20904be4e7d63babd9622b17963c2361b27` (not pulled; see the 2026-10-14 entry "decision: no pull").
 
@@ -347,3 +347,334 @@ Replaced `PROJECT-BRIEF.md` with my final text, with no draft markers left. It w
 - **CI:** the PR showed 0 checks when I opened it. The course workflow (`scripts/validate_course.py`) normally waits for a maintainer to approve workflows on a fork's PR. It passes locally on this branch (13 tests, OK).
 - **Status:** open, not merged. The Week 1 film is PR #8 (open) and the Week 2 recipe is PR #23 (open, not merged).
 - **This entry:** added after the PR opened, in its own commit. PR #18 picks the commit up automatically, and the Canvas zip is rebuilt from it.
+
+## 2026-11-23 — Project film (four-part brief), Phase 0: orientation and timebox
+
+- **New assignment:** a project film in four parts, in this order:
+  1. executive summary;
+  2. introduction (prior work);
+  3. methods;
+  4. evaluation.
+- It's a new film, not a re-cut. The pitch films (v1 `31005a1`, v2 in `636c77e`/`2cad8ba`) stay untouched. Output: `aravind-r-readback-project-film.mp4`, built in `film/project/`.
+- **Timebox (Aravind):** the deadline is tonight, 2026-11-23 23:59 EST, so the **hard stop is 22:29 EST**. If the film isn't fully gated by then, the best gated cut gets submitted and logged here. Phase 0 started at 05:19 EST.
+- **Runtime cap (Aravind):** 4 minutes.
+- **Resources for Methods (Aravind):**
+  - claude -p on my subscription;
+  - Anthropic API credits and OpenAI API credits (accounts held, project keys not yet created);
+  - local open-weight models via Ollama (installed later on 2026-11-23, after Claude Code's checks; see my judgment-calls entry).
+- **What Claude Code verified on this machine:**
+  - `claude` CLI 2.1.323 is installed (it produced the 10 recaps on 14 Oct).
+  - No `ANTHROPIC_API_KEY`, `OPENAI_API_KEY` or `GEMINI_API_KEY` in this shell's environment.
+  - Ollama isn't installed yet.
+- **Toolchain after the macOS update (Darwin 27.2):** the Brutalist venv (Python 3.12.14, manim 0.18.1) works; a Kokoro smoke test synthesized audio, and Manim renders.
+  - faster-whisper, ffmpeg 9.0.2 (with `freezedetect`, `blackdetect`, `ebur128`, `loudnorm` and `silencedetect`), Node 20 and Remotion's `node_modules` are present.
+  - The toolkit is still at `cd4bf20` with my outro patch.
+  - **False alarm:** my first check reported `No module named 'kokoro_onnx'`. It had piped `source brutalist-env.sh` into `tail`, which ran the activation in a subshell; re-run properly, the import works.
+- **Repo:** branch `final-project-film-aravind-r` in the course-repo fork (not a Brutalist fork). **PR #18 has been merged**: `2cad8ba` is in `origin/main`, so pushing to this branch doesn't change a PR.
+- **AMI annotations for the 10 selected meetings:**
+  - all 10 have the human-written abstractive DECISIONS list (86 decisions in total) and the summary-to-dialogue-act links (`extractive/*.summlink.xml`);
+  - only 3 (ES2010b, IS1003c, IS1004d) have AMI's separate `decision/manual` annotations.
+  - The DECISIONS list is a reference; it isn't a pass/fail label on our recaps. Judge-vs-human agreement on the decisions clause still needs coverage labels for those 86 decisions. To be settled in Phase 1.
+
+## 2026-11-23 — Project film, Phase 1: script and claims ledger drafted (awaiting my review)
+
+- **Pacing, measured rather than guessed:** the pitch film's Kokoro clips (`mp3/`, `am_onyx`, speed 1.0) ran 554 words over 169.0 s of speech, which is **3.278 words/s (197 wpm)**; beats ranged from 3.01 to 3.61 words/s.
+  - The 4:00 cap was budgeted roughly 20/20/35/25 across the four parts, with 0.5 s holds and a 4 s outro.
+  - The draft comes to 675 words, about 3:39: summary 123, introduction 147, methods 249, evaluation 156.
+- **Files:**
+  - `film/project/make_sheet.py` generates `film/project/beat_sheet.json`, with 19 drawn beats plus the patched outro.
+  - `film/project/CLAIMS.md` has 53 narration sentences (N01–N53) and 15 intended on-screen numbers (O01–O15), each mapped to an evidence path or marked PLANNED.
+  - `film/project/EVAL-PLAN.md` (PLANNED · DRAFT) is where planned settings like κ ≥ 0.6 and "3 judges" come from, so no number on screen lacks a repo source.
+- **Wording kept honest:**
+  - "nobody can tell which clause caused it" became "it's hard to tell";
+  - everything Readback does is "will";
+  - "the compute is my laptop" was cut, because the judge pipeline isn't tested locally;
+  - only the three alternatives I verified on 2026-10-14 are named.
+- **Open decisions for me (marked "(decide)"):**
+  - how the human labels get made;
+  - the κ threshold;
+  - the planted-ambiguity variants;
+  - the held-out split.
+
+## 2026-11-23 — Project film, Phase 1 approved; Phase 2 storyboard built (awaiting my review)
+
+- **Phase 1 approved (Aravind), as drafted:**
+  - the narration;
+  - human labels by proposal A: I mark the 86 decisions myself and commit them before any judge runs;
+  - κ ≥ 0.6;
+  - one planted variant per clause (C1–C5);
+  - the held-out split fixed before any revision.
+  - Recorded in `film/project/EVAL-PLAN.md` and `film/project/CLAIMS.md`.
+- **Outro background (Claude Code):** the toolkit's `ClaudeTitleOutro` picks light or dark from a hash of the slug, and paints `#FAF9F5` or ink. Neither matches the film's stage colour `#F2F0E9` at the last cut.
+  - It now takes two optional props, `polarity` and `background`. When they're omitted, it behaves as before.
+  - Patch: `toolkit-patches/ClaudeTitleOutro-handle-hideMascot-polarity-bg.patch`, a superset of the pitch film's patch, which is untouched.
+  - Measured: the outro still's ground is `#F2F0E9`, the same as every scene.
+- **Narration voiced early, for timing only (Claude Code):**
+  - Kokoro `am_onyx`, same settings as the pitch film, from the approved script.
+  - 20 clips, **232.43 s with holds (3:52, cap 4:00)**, against the 3:39 estimate.
+  - This is not a film render. `mp3/` is git-ignored.
+  - Whisper heard every line as written except two:
+    - In B13, "clause by clause: Claude, …" came back as "clause by clause, clause".
+    - In B16, "Readback" came back as "Reidbeck", although B02 and B14 transcribed it correctly.
+- **Design system and storyboard (Claude Code):**
+  - `film/project/DESIGN.md` covers the colour roles, the type scale, the grid, the motion rules, the C4 clause chip as the object that runs through the film, and every number on screen with its source.
+  - The scenes are in `film/project/scenes.py` (19 beats). The checks are `film/project/overlap_check.py` and `film/project/make_storyboard.py`.
+  - The deliverables are `film/project/storyboard.png` and `film/project/style-frames/` (one frame per part).
+- **Checks (Claude Code):**
+  - Gate A: 19 of 19 scenes clean, 0 warnings.
+  - Frame-by-frame text-overlap check: 19 of 19 scenes, 0 overlaps at 24 fps. The first pass flagged 99, from morphs crossing type, a crowded rail and entrances sliding into the tag line.
+  - One stacking bug was found by eye: pulsing a meeting card raised it above its own ID and length, which hid them.
+  - κ is spelled out as "kappa" on screen, because EB Garamond draws κ as ϰ.
+- **Open decisions for me:**
+  1. B15 puts "compute · this Mac · local judge untested" on screen. I cut a compute claim from the narration in Phase 1.
+  2. B13 "Claude" may be misheard as "clause". The judge is labelled "Claude" on screen. The alternative is rewording that line and re-voicing B13 only.
+  3. The constructed illustrations: B01–B03 (the judges' split, "what the PM meant ≠ how a judge reads it", the misgraded C4) and B14 (✓ ✗ ✓). All of them carry CONSTRUCTED or PLANNED tags.
+  4. The on-screen wording for Maxim AI, orq.ai and Spec Kit (B04–B07). It's limited to what my 2026-10-14 checks above record.
+
+## 2026-11-23 — Project film, Phases 3–4: build, fixes, and the gate table (Claude Code; awaiting my review)
+
+- **Approval (Aravind):** I approved the Phase 2 storyboard as shown ("Approve, go to Phase 3"). The four open decisions stayed as drafted:
+  - the B15 compute line;
+  - B13 as voiced;
+  - the constructed illustrations;
+  - the wording for the three tools.
+- **Gate F paperwork:**
+  - `film/project/FACTCHECK.md` has 72 rows, 49 narration and 23 on-screen, and the factcheck gate is clean.
+  - `SHOTLIST.md` and `PROMPTS.md` are in place.
+- **Gate V, first run:** 14 MAJOR "low contrast" findings and one "underfill".
+  - Cause: Gate V averages every non-background pixel as "ink", so large pale fills pulled the average toward the cream. Those fills were the light-kraft cards and nodes and the grey-filled planned cells.
+  - Fix:
+    - real-evidence cards in the deeper kraft `#C7AE86`, with ink on it at 5.4:1;
+    - planned grid cells as dashed outlines only;
+    - the tool nodes 0.4 shorter, re-entering with each tool;
+    - B10's recap card on screen before the clip's midpoint.
+  - Every later run: 0 defects.
+- **Freeze:**
+  - ffmpeg's `freezedetect` averages the change over all three colour planes, so even a 36-pt line fading in stays under n=0.003.
+  - The first per-scene measurement found 50.9 s frozen, 22 % of the runtime.
+  - Every static window got a change tied to its line: the judges stepping back and returning, page, card and tile flashes, the judges' rows pulling apart, names and rows pulsing, the feature leaving the frame and coming back, inverted flashes on the "—" results.
+  - On the delivered file: 7.04 s frozen (3.0 %), with three holds of 2.5 s or more, each on a key line and listed in `SHOTLIST.md`.
+- **Gate T, first `art final`:** 12 FAILs, all the same cause. The chip's closed terracotta ring around "C4" read as terracotta *text*.
+  - The toolkit only exempts that pattern by listing scene names, for other reels.
+  - I didn't add exemptions. Instead, the outline is drawn as four open strokes (two flat edges and two end caps) with hairline gaps. It looks the same, and the type stays ink.
+  - Then: PASS, 20 of 20 beats.
+- **Flashes that hid text:** the contact sheet caught an ink flash on B17's fail zone that hid the word "fail" for a moment. B09, B18 and B19 had the same pattern. Those flashes now change only the box (or invert box and text), so the type stays readable throughout.
+- **Loudness:** the toolkit doesn't normalise, and its publish window is −28 to −18 LUFS (the pitch film measured −24.7). My brief asks for −16.
+  - `film/project/normalize_audio.py` rebuilds the narration timeline the way `compile.py` does and runs a two-pass loudnorm to −16 LUFS / −1.5 dBTP.
+  - `art final --audio` uses that track, so the verified master is the delivered file.
+  - Measured: −16.1 LUFS, −1.4 dBTP.
+- **Result:**
+  - `film/project/aravind-r-readback-project-film.mp4`, 3:52.8 (232.83 s), SHA-256 `b763e8c4…`.
+  - Toolkit gates: F, factcheck, L, A, W, B, V, T and bookends all pass, and the verified record is `ready`.
+  - My overlap check: 19 of 19 scenes, 0 overlaps.
+  - The full table was in `film/project/gates/GATES.md` (since rewritten for later cuts).
+  - 7 `art run`s and 5 `art final`s. The superseded clips are in `film/project/_superseded/` (git-ignored).
+  - The storyboard and style frames show the Phase 2 state: the kraft is lighter there and some motion has been added since.
+
+## 2026-11-23 — Project film, revisions before Phase 5 (my review requests; Claude Code made the changes)
+
+- **Not approved yet (Aravind).** Before Phase 5 I asked for seven things:
+  1. B15 shows "have" only for what is set up on this machine.
+  2. The human labels read as my planned work, not AMI's.
+  3. Prior work is scoped to the tools I checked.
+  4. B13 is reworded, and Readback respelled for the voice.
+  5. The storyboard is regenerated.
+  6. Every gate is re-run.
+  7. The PR options are laid out.
+- **Checked on this Mac (15:50 EST):**
+  - `claude` 2.1.323 is installed.
+  - No API key for Anthropic, OpenAI, Gemini, Google or Mistral is set in the environment.
+  - Ollama is not installed.
+- **B15 checklist:**
+  - Ticks only for AMI data, the 10 recaps and `claude -p`.
+  - API credits and the second provider are marked "account, not yet wired".
+  - The local model and my human labels are "planned".
+- **Narration changes:**
+  - B15 now says "Claude runs here on my subscription. My API credits and a second provider account aren't wired in yet. Still to come: the local model, and my human labels."
+  - B13 and B17 say "my human labels".
+  - B12, B13, B17 and the scorecard say "my human labels … marked by me · planned" on screen.
+  - B07 is scoped ("So the tools I checked give you…", title "From the tools I checked").
+  - B03's "nobody notices" became "the wrong grading goes unnoticed".
+- **B13** was reworded so "Claude" and "clause" are never adjacent: "…every recap: Claude, a second provider's model, and a local open-weight model, each one going clause by clause." Speech-to-text still writes the homophone "clawed" for "Claude" there.
+- **Pronunciation:**
+  - "Reedback" still came back as "Reidbeck" inside B16's sentence.
+  - "Reed-back" came back as "read back" there and everywhere else.
+  - So the Kokoro input uses "Reed-back" in all 7 beats that say the name. On screen and in the paperwork it stays Readback.
+  - 11 beats were re-voiced with the same voice and settings. The transcripts are in `film/project/gates/review-cut-1/stt-revoiced-beats.txt`.
+- **Two fixes along the way:**
+  - Regenerating the sheet dropped `audio_file`, and `align.py` then wrote an empty `words.json`. `make_sheet.py` now writes `audio_file` itself.
+  - Pulses that grew text into its box, and the new B13/B15 wording, needed re-cueing. The overlap check found these first.
+- **Result:**
+  - `film/project/aravind-r-readback-project-film.mp4`, 3:55.4 (235.38 s), SHA-256 `79aa3ec6…`.
+  - 4.6 % frozen; five holds of 2.5 s or more, all on key lines and listed in `SHOTLIST.md`.
+  - −16.1 LUFS and −1.2 dBTP; no black frames or dead air; one ground colour at every cut.
+  - Toolkit gates F, factcheck, L, A, W, B (all 19), V, T and bookends all pass, and the verified record is `ready`.
+  - My overlap check: 19 of 19 scenes, 0 overlaps.
+  - `film/project/gates/GATES.md` was updated; that version is kept as `film/project/gates/review-cut-1/GATES.md`. The storyboard and style frames were regenerated from this master.
+
+## 2026-11-23 — Project film, checks before Phase 5 (my requests; Claude Code ran them)
+
+- **Submission route (my choice, item 7):** a new branch from the current head (`2cad8ba`), named `project-film-aravind-r`.
+  - No merge or rebase of `origin/main`.
+  - Commit only the project-film work and push it to my fork.
+  - No PR until I say so.
+  - Nothing is committed, branched or pushed yet. That waits until I approve the cut.
+- **The 9 clips that weren't re-voiced** (B01, B04, B05, B06, B09, B10, B11, B12, B19): all 9 SHA-256 hashes match the pre-revoice backup (`film/project/gates/review-cut-1/unchanged-clips-sha256.txt`).
+- **Speech-to-text on the full master:**
+  - Method: `film/project/stt_check.py`, faster-whisper small.en, one diff over the whole film.
+  - Words: 697 in the script, 697 heard.
+  - 4 of 20 beats differ: B02 and BOUT ("Aravind" heard as "Eravind"), B06 ("GitHub's" heard as "GitHub") and B19 ("this scorecard" heard as "the scorecard").
+  - Transcribed alone, B06, B19 and BOUT match the script. B02 still gives "Eravind".
+  - In the full film, B13's "Claude" is heard as "Claude".
+  - Results: `film/project/gates/review-cut-1/stt-full-master.txt` and the table in `review-cut-1/GATES.md`.
+- **B15 checklist:** the code and B15's last frame in the delivered master match word for word (the frame at 3:00.25 is `film/project/gates/review-cut-1/B15-final-frame.png`).
+- **Full gate re-run:** 16:14–16:19 EST, on the same master (`79aa3ec6…`). Every gate passes with the same values as the table (`film/project/gates/review-cut-1/gate-rerun.txt`, `review-cut-1/GATES.md`).
+
+## 2026-11-23 — Project film, positioning revision (my review of the cut; Claude Code made the changes)
+
+- My feedback on the review cut (Aravind): remove the four-part section bar; rubric isn't PM vocabulary, so define it or use a PM term; remove the "CONSTRUCTED illustration · no judge has run yet" clutter from the opening; lead with why Readback matters and its long-term impact (the real consequence of a wrong ship decision) rather than the mechanism; position Readback as application-agnostic, with the AMI meeting-recap feature as the test case only.
+- Claude (chat) turned that into the P0/P1 list, added the frame-by-frame production items and proposed the positioning-audit gate. Claude Code made the changes.
+- **Drafts approved as shown ("OK, go", Aravind).** That includes the lines flagged in the drafts:
+  - "Every AI feature ships against acceptance criteria a PM wrote" (a generalisation);
+  - "evals are becoming the launch gate" (a trend claim with no source in the repo);
+  - the ES2010b example and my phrase "two quick yeses";
+  - C4's plain-English version, which drops "disagreements";
+  - the hook ending near 0:14, because it carries the rubric definition.
+- **Real-evidence search (Claude Code):** all 10 recaps' Decisions lists, checked against AMI's DECISIONS and PROBLEMS/ISSUES and the transcripts.
+  - **Used: ES2010b.** Asked "Do we want this thing to be able to be found easily?", the PM said "I think so" and ME said "Sure, yeah"; how to do it was left for later. The recap lists "The remote should be easy to find if lost" as a decision. AMI's annotators wrote that the group "will consider" a locator function. The film shows it as a line where C4 is hard to call, not as a recap error.
+  - **Ruled out:** IS1005c's "5 cm by 10 cm" (the transcript shows it was agreed) and IS1009d's "well within budget" (the recap's own Unresolved list flags the open cost).
+  - **Not used:** several recaps go the other way and list AMI decisions as unresolved (for example ES2008c's kinetic battery). That is a C1 story, not this one.
+- **Narration:** 13 beats were re-voiced with the same voice and settings: B01, B02, B03, B08, B09, B11, B13, B14, B16, B17, B19, the new B20, and BOUT. The other 8 clips keep their speech; only their edge silence was trimmed.
+  - `add_holds.py` now trims each clip's edges to 0.05 s, so the silence between beats is 0.35–0.55 s, varied, instead of about 1.1 s.
+  - Speech-to-text on the new clips: `film/project/gates/stt-revoiced-beats.txt`.
+- **Scenes (`film/project/scenes.py`):**
+  - The section bar is gone. Chapter cards open each part; card 1 is also the poster frame.
+  - Corner tags (illustration, planned, vision, test case) are set in `#6B675C`, which is 4.9:1 on the stage.
+  - A generic "criterion" chip appears in the summary and the introduction; C4 is written in plain English from B11 on.
+  - New or rebuilt beats: B01–B03, B09 (the test bench), the ES2010b example in B14, B15 in three columns, and B20 (the close).
+  - The end card uses a new `tagline` prop in my outro patch (`toolkit-patches/ClaudeTitleOutro-handle-hideMascot-polarity-bg-tagline.patch`). The bookend gate's no-subline rule still applies, and `subline` stays empty.
+- **New gate:** `film/project/positioning_check.py`. It reads the narration and every on-screen string on every frame (`strings_dump.py`) and writes `film/project/gates/positioning-audit.md`.
+- **Fixes along the way:**
+  - Gate A's stub over-measures text, so the vignette criterion pills and the B03 bubble now have fixed widths.
+  - Gate B's safe area is ±3.4, so the corner tag moved to y 3.12.
+  - My overlap check found 34 overlaps across 10 scenes: transitions crossing text, widths I had estimated instead of measured, and a key collision in B10 where the corner tag overwrote the Claude label. All are fixed; 0 remain.
+  - Gate V flagged B03 and B09 as under-filled at their midpoints, B09 with its meeting cards still fading in at the 85 % sample, and later a B15 flash at the 85 % sample. All were re-timed or re-laid out; Gate V is 0/0.
+  - The freeze gate first measured 47.62 s (20.0 %), over the 15 % cap, because the new scenes change in small steps that ffmpeg's detector doesn't count. Colour flashes on large cards and soft bands, each on a spoken word, brought it to 5.08 s (2.1 %); only the end card is static.
+  - The toolkit's compile step prints `channel_title` over the whole first beat. With the voice credit inside the channel title, it would have been back on the opening frames, so the channel title is again "Aravind Ravi · INFO 7375" and the voice credit is its own end-card line (outro patch `credit`).
+- **P1 items:**
+  - Done: 8 (gaps), 10 (B10's transcript and recap at hero size), 11 (B15 in three columns), 12 (poster frame 0; voice credit off the opening) and 13 (end card).
+  - **Not done:** 9, scaling Methods and Evaluation content about 1.3–1.4× with a 34 px type floor. Those frames already span the full width, so it needs a per-scene re-layout, which didn't fit before the stop.
+- **Speech-to-text (`film/project/gates/stt-full-master.txt`):** 732 of 732 words heard in the full film. One line differs: B06 "GitHub's" heard as "GitHub" (full film only).
+  - Transcribed alone, B02's clip gives "the valves" for "evals" and B13's gives "clawed" for "Claude". Both are heard correctly in the full film.
+  - This needs my ear, not a gate: if "evals" sounds unclear, it can be respelled for the voice, the way "Reed-back" was.
+- **Result:**
+  - `film/project/aravind-r-readback-project-film.mp4`, 3:58.5 (238.46 s), SHA-256 `8ed1366a…`, verified `ready`.
+  - Freeze 2.1 %; −16.1 LUFS, −1.2 dBTP; no black frames or dead air; one ground colour at all 20 cuts.
+  - Toolkit gates F, factcheck (81 rows), L, A, W, B (all 20 scenes), V (0/0 on the review cut and the clean master), T (21 of 21) and bookends all pass.
+  - My overlap check: 20 of 20 scenes, 0 overlaps.
+  - The new positioning audit passes: 110 of 110 test-case mentions are in Methods or Evaluation under the "test case" tag, and the summary has 0.
+  - The tables are in `film/project/gates/GATES.md`.
+  - Rebuilt from this master: `film/project/storyboard.png`, `film/project/style-frames/` and the contact sheets `film/project/gates/contact-*.png`.
+  - Nothing is committed. That waits for my approval of this cut.
+- **Cut approved ("Approve cut", Aravind).**
+
+## 2026-11-23 — Project film, Phase 5: paperwork, commit and push (Claude Code; my route)
+
+- **Paperwork:**
+  - `film/project/CLAIMS.md`, `FACTCHECK.md`, `SHOTLIST.md`, `DESIGN.md` and `PROMPTS.md` describe the approved cut.
+  - `SOURCES.md` has a project-film section.
+  - The first review cut's records are kept in `film/project/gates/review-cut-1/`, and the earlier entries above point there.
+  - The judgment-call entries, and anything drafted in Claude chat, are marked TODO for me to write (written later the same evening; see the entries at the end of this log).
+- **Commit:**
+  - A new branch, `project-film-aravind-r`, cut from `2cad8ba` (no merge or rebase of `origin/main`).
+  - Only the project-film work goes in: `film/project/` (sources and records, plus the film via `git add -f`), the two outro patches, `FRICTIONAL.md` and `SOURCES.md`. The build caches (mp3, manim, clips, media, exports, _qc, _superseded) stay ignored.
+  - No attribution trailers, checked with `git log -1 --format=%B` after the commit.
+- **Push:** to my fork only (`fork`, aravindravi7/prompt-engineering-and-agentic-ai). No PR until I say so. This entry is part of that commit.
+
+## 2026-11-23 — Project film, final fix pass (my requests; Claude Code made the changes)
+
+- **My requests (Aravind):**
+  - B01 opens "AI features ship against acceptance criteria a PM wrote."
+  - B02 says "And where an eval is the launch gate, a misread criterion ships wrong behaviour at scale, with a passing score attached."
+  - CLAIMS N01 and N05 match; N05 is a conditional POSITION with no trend claim.
+  - B07's label reads "names the criterion behind a disagreement".
+  - B15 shows "compute: this Mac" under "have", and "my human labels" under "planned" beside the open-weight model.
+  - Re-voice B01 and B02 only. Commit and push by 22:45 ET, or keep `6aadb5a`.
+- **Voice:** B01 and B02 re-voiced, same voice and settings. "eval" is heard as "eval", so no respelling. The other clips are byte-identical.
+- **Scenes:**
+  - B07's label changed.
+  - B15's columns were re-measured: "AMI data · 10 meetings" fits on one line, the local model wraps to two, and compute lands on "here" ("Claude runs here").
+  - B01's new timing opened a 3.04 s static stretch, so it gained two colour flashes, on "meant" and "and".
+  - B01, B02, B07, B08, B15 and B16 were re-rendered; B08 and B16 open on B07's and B15's last frames.
+- **Result:**
+  - `film/project/aravind-r-readback-project-film.mp4`, 3:56.8 (236.79 s), SHA-256 `4d790803…`, verified `ready`.
+  - Freeze 2.15 % (the end card only); −16.1 LUFS, −1.2 dBTP; no black frames or dead air; one ground colour at all 20 cuts.
+  - Toolkit gates F, factcheck (81 rows), L, A, W, B (20 of 20), V (0/0 on the review cut and the clean master), T (21 of 21) and bookends all pass.
+  - Overlap 0 in 20 of 20 scenes; positioning audit PASS (108 of 108); speech-to-text 728 of 728 words.
+  - Tables: `film/project/gates/GATES.md`.
+  - Committed as d3b87e9 on project-film-aravind-r and pushed to my fork; master SHA-256 4d790803…
+
+## 2026-11-23 — Project film, B15 Ollama line and paperwork pass (my requests; Claude Code made the changes)
+
+- **Ollama check (22:11 EST):**
+  - `ollama --version` gives 0.40.17;
+  - `/Applications/Ollama.app` is present;
+  - Homebrew lists the cask `ollama-app`;
+  - `ollama serve` is running;
+  - `ollama list` shows no model, and there is no judge code in the repo.
+- **B15:**
+  - The planned line now reads "local open-weight model · Ollama installed, judge not wired". The narration is unchanged, so nothing was re-voiced.
+  - B15 and B16 were re-rendered, and every gate was re-run with the same values: 3:56.8, freeze 2.15 %, −16.1 LUFS, −1.2 dBTP, A/W/B and overlap 20 of 20, Gate V 0/0, positioning 108 of 108, speech-to-text 728 of 728.
+  - Master SHA-256 `535fe61b…`, committed as `8424a49`.
+  - `film/project/EVAL-PLAN.md`'s Ollama status was updated to match.
+- **Paperwork:**
+  - My judgment-calls entry and the Claude (chat) entry went in word for word.
+  - My feedback bullets, the Phase 0 resources, the header and the final-fix-pass commit line were corrected, and `SOURCES.md` was updated as I asked.
+  - This entry and those edits are in the commit after `8424a49`, pushed to my fork. No PR.
+
+## 2026-11-23 — Project film PR #54 opened (Aravind)
+- I opened PR #54 myself: aravindravi7:project-film-aravind-r into nikbearbrown:main.
+- Head at opening: 8fb0730. Final master SHA-256 535fe61b…, 3:56.8, built in commit 8424a49.
+- **PR at opening** (recorded by Claude Code from the public GitHub API; `gh` isn't logged in on this Mac):
+  - opened 2026-11-24 04:01:02 UTC (2026-11-23 23:01:02 EST);
+  - 4 commits and 100 changed files (+41,442 / −3);
+  - a local compare against `2cad8ba` gives the same 4 commits and 100 files, all under `fall-2026/aravind-r/final-project-film/`.
+- **CI as the PR showed it** (recorded by Claude Code):
+  - The "Python course" workflow runs `scripts/validate_course.py` on Python 3.11, 3.12 and 3.13. It started at 04:02:21 UTC and was still in progress at 23:03 EST, so it was not waiting for maintainer approval. GitHub listed the PR as "unstable" while the checks ran.
+  - The same workflow fails on `main` itself: its last three push runs (`d0ef02a`, `8d8e92f9`, `0801bc2c`) all concluded "failure".
+- **`scripts/validate_course.py` run locally on `8fb0730`** (Python 3.12.14, and again on 3.9.6): exit 1.
+  - All 13 week lessons and the 13 integration tests pass.
+  - The 17 findings are broken local links or non-Python files in other students' folders: deepak-s 11, suketh-p 2, and one each in nik-bear-brown, pavithra-p, sreevarshan-s and yudan-z. None is under `fall-2026/aravind-r/`.
+- This entry goes in its own commit; PR #54 picks it up automatically.
+
+## 2026-11-23 — Project film, my judgment calls (Aravind, my words)
+Written 2026-11-23 evening, after the final fix pass; moved here so the log reads in order.
+1. Film subject: Readback is the final project, so that's why the video was created for that.
+2. Application-agnostic positioning: I didn't want people to mistake that Readback is applicable just for a meeting note taker application. So to emphasize that, I positioned it for any AI feature's acceptance criteria and kept the AMI meeting-recap feature as the test bench only.
+3. PM vocabulary first: PM vocabulary would make the project easily relatable for PMs, who are the target audience for the project. I didn't want to make it sound too technical. I believe if you really understand something, or if you want people to understand your concepts, it's important to share it in a simpler language, which makes it relatable and understandable. I focussed on that aspect.
+4. Cutting the section bar and full-sentence labels: I made sure only relevant and necessary information was kept on every page.
+5. Consequences before mechanism: Before jumping into how it's built, it's very important to communicate the relevance, or the why, of the project. That's why I decided to focus on that first before getting into the solutioning and mechanism.
+6. ES2010b as the real example: Using a real example from the test data was the right approach, rather than a synthetic one.
+7. Softening the two flagged claims in the final pass: "Every AI feature" overgeneralised and the "launch gate" trend had no source in the repo. I didn't want unverifiable claims in the opening, which gets the most scrutiny, in a course that grades fact-checking.
+8. Skipping P1 item 9 and B15's tight spacing: The video was looking good without that, and I didn't want to spend time on unnecessary fluff.
+9. Listening checks: Whisper flagged B13's "Claude"/"clause" line and "Readback" on the first review cut; I listened, confirmed them and approved rewording and re-voicing. The speech-to-text slips logged on the final cut I left as logged.
+
+Resources: I hold Anthropic and OpenAI API credits from other projects. I'll create project-specific keys at implementation time, which is why the film shows them as "account, not yet wired". OpenAI is the second provider. Ollama: Claude Code's checks at 05:19 and 15:50 EST found it not installed. I then installed Ollama 0.40.17 with Homebrew (brew install --cask ollama-app), and it's running. Outcome: Claude Code confirmed the install at 22:11 EST (`ollama --version` 0.40.17, `/Applications/Ollama.app`, Homebrew cask `ollama-app`, `ollama serve` running; `ollama list` empty). B15's planned line was updated to "local open-weight model · Ollama installed, judge not wired" and re-gated; new master SHA-256 535fe61b…, commit 8424a49.
+
+## 2026-11-23 — Project film: what Claude (chat) contributed (Aravind)
+Written 2026-11-23 evening, after the final fix pass; moved here so the log reads in order.
+I used Claude.ai chat in my "Prompt Engineering & Agentic AI" project alongside Claude Code. It:
+- recommended Readback as the film's subject over the job-search agent, mapped to the four-part brief;
+- drafted the Claude Code prompt "Readback project film (four-part brief)" from my request;
+- reviewed Claude Code's Phase 4 report and flagged honesty risks before Phase 5: B15 claiming resources not set up, human labels reading as AMI's, prior work not scoped to the tools I checked, the B13 "Claude"/"clause" adjacency, the Readback pronunciation, and the merged PR #18; it recommended the new branch from 2cad8ba;
+- reviewed the first review cut and the revised cut frame by frame, from timestamped contact sheets plus ffmpeg freeze and silence detection, and listed the production issues by timestamp: the empty poster frame, the 0:09 credit, uniform ~1.15 s gaps, small type and dead zones in Methods and Evaluation, near-empty boundary frames, the small evidence beats, the B15 checklist, the end card;
+- turned my feedback (removing the section bar, rubric vocabulary, cutting the clutter labels, consequences and long-term impact, application-agnostic positioning) into the P0/P1 revision prompts, and proposed the positioning-audit gate;
+- on the revised cut, caught the missing compute line and the two unsourced opening claims, and drafted the final fix-pass prompt;
+- listed what FRICTIONAL.md and SOURCES.md still needed, and drafted this prompt from my answers.
+The decisions are mine. Claude chat never touched the repo; everything it drafted reached Claude Code through me.
+
+## 2026-11-23 — Project film, documentation fix pass and appendix
+Documentation fix pass and appendix (Aravind's requests; Claude Code made the changes; appendix reviewed by me).
+
+## 2026-11-24 — Project film, B15 spacing re-layout (my request; Claude Code made the change)
+B15 was re-laid out, with no wording change: a baseline grid; the heads 0.37 higher; "this Mac" 0.36 clear of the footer, against a largest row gap of 0.34; "local open-weight model" on one line, with the planned column's names at 32, the film's smallest size. B15 and B16 were re-rendered and every gate was re-run. Every value matches `535fe61b` except the SHA (now `37cbfaa6…`) and a positioning count corrected from 108 to 107, where the old table held a stale B11 row; the first `art final` of this pass wrote the master and it was then missing from `exports/landscape/` (cause not found), so `art final` was run again and gave the same SHA.
