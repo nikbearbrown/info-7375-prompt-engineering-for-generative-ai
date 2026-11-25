@@ -8,9 +8,9 @@ the numbers can and cannot show.
 | Step | When (UTC) | What | Evidence |
 |---|---|---|---|
 | Filter v1 on everything collected | 2026-11-24 | 2,576 postings (JS2 day-2 corpus) → **55 kept, 2,212 rejected, 309 cannot_tell** | `out/v1/summary.json`, `out/v1/decisions.jsonl` |
-| Seeded sample drawn | 2026-11-24, before I labeled | seed 7375: 32 random rejects (R), 10 closest calls (N), 10 kept (K), 6 cannot_tell (T), 20 held-out (H) | `audit/sample.json`, commit `44a80ca` |
+| Seeded sample drawn | 2026-11-24, before I labeled | seed 7375: 32 random rejects (R), 10 closest calls (N), 10 kept (K), 6 cannot_tell (T), 20 held-out (H) | `audit/sample.json`, commit `b00ccee` |
 | My blind labels | 2026-11-24 ~21:15–21:41 | 78 postings, shuffled, filter verdict hidden; "Show to Arya / Not for Arya / Can't tell" | `audit/label-sheet.html`, `audit/hand-labels.json` |
-| Labels frozen | right after download | sha256 committed before any comparison | `audit/hand-labels.sha256`, commit `fe8f7e5`; `tests/test_heldout.py` |
+| Labels frozen | right after download | sha256 committed before any comparison | `audit/hand-labels.sha256`, commit `3d704da`; `tests/test_heldout.py` |
 | My reasons + corrections | 2026-11-24, in chat, **after** seeing the filter's verdicts | 33 reasons; 11 corrections (1 withdrawn) | `audit/hand-reasons.json`, `audit/hand-label-corrections.json` |
 
 "Closest calls" = the gate-passing postings nearest the threshold: 6 rejected at score 5 and 4 abstentions at
@@ -77,7 +77,7 @@ Every result in this folder is reported both ways.
 ## 4. Rules added, cut or rejected after measuring
 
 All candidates were measured on the 58 audit labels (dev) only; I chose v1.1 from those results; v1.1 was committed
-(`810ee17`) before the held-out 20 were scored. Full table: `SCORE.md` §2.
+(`5df989b`) before the held-out 20 were scored. Full table: `SCORE.md` §2.
 
 | Rule | Decision | Measured (dev, corrected labels) |
 |---|---|---|

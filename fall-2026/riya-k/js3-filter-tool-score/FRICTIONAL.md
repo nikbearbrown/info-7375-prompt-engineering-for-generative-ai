@@ -11,7 +11,7 @@ commit and the file. They are not my words. My reasons for individual labels are
 "it was not easy for me to go through all the JDs and read each and everything so i wantd you to give it to me short to save my time"
 
 **Trace:** yellow "Years of experience" box and blue "Requirements" box added to every card, copied from the posting;
-same sample and card order (commit `9adef86`, `tools/make_sheets.py`).
+same sample and card order (commit `f6703bb`, `tools/make_sheets.py`).
 
 ## 2. The years box missed "8 or more years" (card #41)
 
@@ -23,8 +23,8 @@ same sample and card order (commit `9adef86`, `tools/make_sheets.py`).
 
 "yes i started reading th eblue box description more carefully"
 
-**Trace:** box pattern fixed (commit `c1007a5`). The filter's own years check had the same hole; fixed as candidate c2,
-included in v1.1 (`FILTER.md` §6, commit `810ee17`). Still not caught: "Extensive years" (`SHORTLIST.md` §3,
+**Trace:** box pattern fixed (commit `68deab2`). The filter's own years check had the same hole; fixed as candidate c2,
+included in v1.1 (`FILTER.md` §6, commit `5df989b`). Still not caught: "Extensive years" (`SHORTLIST.md` §3,
 counterexample 3).
 
 ## 3. I judged some cards as myself, not as Arya
@@ -35,7 +35,7 @@ as Arya. What did you learn from that?*
 "that the labels should be for arya not me , i was considering that she inherited all my ex but that wasnt the case"
 
 **Trace:** chosen in chat, "A, keep 19 as not". #19 correction withdrawn; #45 corrected to Not
-(`audit/hand-label-corrections.json`, commit `0d21d78`).
+(`audit/hand-label-corrections.json`, commit `e5dcb29`).
 
 ## 4. What I accepted, changed or rejected from Claude
 
@@ -43,9 +43,9 @@ as Arya. What did you learn from that?*
 
 "i accepted the weights, added G5, kept 78 labels because that how i would be accurate"
 
-**Trace:** weights and threshold 6 in `FILTER.md` v1 (commit `27646b2`); G5 added in the same commit after Claude's
+**Trace:** weights and threshold 6 in `FILTER.md` v1 (commit `e97c292`); G5 added in the same commit after Claude's
 "Sales Engineer scores 7" example; 78 labels kept when Claude offered 52; v1.1 = all four candidates, chosen on dev
-labels (commit `810ee17`).
+labels (commit `5df989b`).
 
 ## 5. Unresolved: "always not" and my own worry while labeling
 

@@ -49,7 +49,7 @@ What the transcripts show (observed, not assumed):
 |---|---|---|
 | one tool, `readOnlyHint: true`, `openWorldHint: false` | reads two kinds of local file; writes only the transcript, refuses paths outside `transcripts/` (including `../` escapes) | `tests/test_mcp_server.py` (`Boundaries`), reading the 146-line source |
 | "each claim labeled supported / contradicted / insufficient with the quoted text" | **partly.** A C2 claim exists only for skills that matched. A skill the posting doesn't mention gets no claim at all, so a reader can't tell "not mentioned" from "not checked". In s2 Claude said it did not know what C2 was. | transcript s2; `js3/evidence.py` |
-| "the decision" | the v1 decision, including v1's known errors: C4 misses "8 or more years" (found by Riya while labeling, card #41), and city-only US locations like "San Francisco; Remote" fall into abstention A2 | label sheet fix `c1007a5`; `out/v1/summary.json` (A2 = 301) |
+| "the decision" | the v1 decision, including v1's known errors: C4 misses "8 or more years" (found by Riya while labeling, card #41), and city-only US locations like "San Francisco; Remote" fall into abstention A2 | label sheet fix `68deab2`; `out/v1/summary.json` (A2 = 301) |
 | the 2026-11-10 corpus | yes, and nothing tells the client how stale that is except the date in the description | s1 and s2: Claude added the staleness caveat itself |
 | an MCP server | answers 2025-era `initialize` only; no `server/discover` | s1/s2 first message |
 

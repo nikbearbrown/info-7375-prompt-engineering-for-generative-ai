@@ -7,7 +7,7 @@
 | Whole-word matching ("AI" not in "maintain", "SQL" not in "NoSQL") (W1) | `tests/test_filter.py::W1SubstringMatching` | test written before running v1 on the corpus |
 | Gates beat the score (a London or Staff posting with score 11 is rejected) (W2) | `W2ScoreWithoutGates` | same |
 | No keep without a ROLE word in the title (W3) | `W3TitleBlind` | same; the G5 gate itself came from a worked example in chat |
-| Labels frozen before measurement (W4) | `tests/test_heldout.py`; `audit/hand-labels.sha256` committed in `fe8f7e5` before any comparison | by a test + commit order |
+| Labels frozen before measurement (W4) | `tests/test_heldout.py`; `audit/hand-labels.sha256` committed in `3d704da` before any comparison | by a test + commit order |
 | Each wrong version is actually caught | `tools/check_wrong_versions.py`: W1, W2, W3, W4a, W4b planted into temp copies, all CAUGHT | by mutation |
 | `filters/filter-v1.json` = the FILTER.md table | `FilterFileMatchesDocument` | by a test |
 | Abstention A1–A3 and evidence labels (years, location, absent skill ≠ contradiction) | `Abstention`, `Evidence` | by tests |

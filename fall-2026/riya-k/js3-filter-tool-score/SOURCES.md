@@ -38,7 +38,7 @@
   pointed out where my reasons didn't match my verdicts (#16, #56). It checked the persona and posting text in answer
   to my questions (Arya has no work before her MS, no governance experience; #32 is a London hybrid job).
 - **Errors Claude made and corrected in this session:** it first wrote that I had reviewed the FILTER.md reasons
-  before commit (I hadn't; fixed before pushing, `27646b2`); it told me #37 contained "not intended for … entry-level
+  before commit (I hadn't; fixed before pushing, `e97c292`); it told me #37 contained "not intended for … entry-level
   applicants" when that sentence is in a different posting (`8546367002`); the label sheet's years pattern missed
   "8 or more years" until I found it.
 - Drafted AUDIT.md, SHORTLIST.md, SCORE.md, TOOLSERVER.md, SIGNOFF.md and this file. Every number in them comes from a

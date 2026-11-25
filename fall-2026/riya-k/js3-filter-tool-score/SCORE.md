@@ -24,7 +24,7 @@ by looking at dev labels; that is selection, not fitting, and it was done on dev
 | "experience" within 80 characters after "N years"; ignore N > 20 | 80, 20 | hand-set **by Claude in code; I never reviewed it** | Claude |
 | US city list (v1.1) | 18 cities | hand-set | Claude drafted; I accepted |
 | Sample sizes and seed | 32/10/10/6/20, seed 7375 | hand-set | Claude drafted; I kept 78 rather than 52 |
-| Claude prompt v1 / v2 | `prompts/score-v1.md`, `score-v2.md` | hand-written | Claude; v2's rules restate my FILTER.md; committed `52a7a58` before my labels existed |
+| Claude prompt v1 / v2 | `prompts/score-v1.md`, `score-v2.md` | hand-written | Claude; v2's rules restate my FILTER.md; committed `d470281` before my labels existed |
 | Text shown to Claude | first 6,000 characters | hand-set | Claude |
 | Model | CLI default `claude-opus-5-5` | **inherited** setting (from each saved response's `modelUsage`) | default |
 | Claude Code CLI | 2.1.331 | inherited | — |

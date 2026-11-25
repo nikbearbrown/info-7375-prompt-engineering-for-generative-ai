@@ -11,7 +11,7 @@ the 2,576 postings JS2 saved in its live day-2 run (2026-11-10 19:45 UTC; read i
 
 | The brief asks for | Here |
 |---|---|
-| FILTER.md written first: filter + reasons, evidence rules, expected sources, ≥2 wrong versions, versioned | `FILTER.md`, commit `27646b2`, **before any JS3 code**; v1.1 added in §6 (`810ee17`) |
+| FILTER.md written first: filter + reasons, evidence rules, expected sources, ≥2 wrong versions, versioned | `FILTER.md`, commit `e97c292`, **before any JS3 code**; v1.1 added in §6 (`5df989b`) |
 | The filter run on everything collected | `out/v1/` (55 kept / 2,212 rejected / 309 cannot_tell), `out/v1.1/` (46 / 2,505 / 25) |
 | Reject audit: ≥30 random rejects judged by hand, closest calls, kept sample, what the sample can show, a false friend, rules added/cut/rejected | `AUDIT.md`; every row with my verdict and reason in `audit/audit-table.md`; labels `audit/hand-labels.json` (frozen, sha256), reasons `audit/hand-reasons.json`, corrections `audit/hand-label-corrections.json` |
 | Source-grounded shortlist, every claim labeled; relevance ≠ entailment; abstention rule + counterexample | `SHORTLIST.md`; `shortlist/shortlist-v1.md`, `shortlist-v1.1.md` (+ `.json`) |
@@ -61,7 +61,7 @@ python3 tools/claude_score.py --label B1 --split heldout                 # see t
 | Run | When | Who ran it | Kind | Result |
 |---|---|---|---|---|
 | Filter v1 on the corpus | ~21:15 | Claude Code, in my session | offline, on saved real postings | 55 / 2,212 / 309 |
-| My blind labels | ~21:15–21:41 (sheet opened after the 21:15 sample commit; downloaded 21:41) | **me** | by hand | 78 labels, frozen `fe8f7e5` |
+| My blind labels | ~21:15–21:41 (sheet opened after the 21:15 sample commit; downloaded 21:41) | **me** | by hand | 78 labels, frozen `3d704da` |
 | Tool-server sessions s1, s2 | 21:27 | Claude Code CLI as the client | **live** Claude | `transcripts/20261124T2127*` |
 | Filesystem server probes P1–P4 | ~21:30 | Claude Code, in my session | live, local sandbox | `transcripts/20261124-fs-*` |
 | Claude scoring B1, B2, E3, E4, E5 (held-out) | 21:31–21:35 (before my labels were downloaded) |
