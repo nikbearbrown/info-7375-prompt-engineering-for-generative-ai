@@ -76,44 +76,44 @@ python3 -m agent.loop
 
 ## What is where
 
-| Requirement | Where |
-|---|---|
-| FILTER.md (filter, evidence rules, expected sources, wrong versions) | `FILTER.md` (v1.0 written before code; changelog to v1.3) |
-| Code and tests | `agent/`, `tests/` |
-| Reject audit: 30 random rejects, close calls, kept sample, confidence interval | `audit/filter-v1.0/`; results below and in `score/origins.md` |
-| False friend | below |
-| Source-grounded shortlist, relevance ≠ entailment, abstention counterexample | `shortlist/shortlist.md`, `shortlist/CASES.md` |
-| MCP server from scratch, transcripts, two evaluations | `agent/mcp_server.py`, `evidence/mcp/`, `mcp/EVALUATIONS.md` |
-| One change at a time on held-out, origin of every number | `score/report.md`, `score/origins.md` |
-| Persistence ≠ training | `PERSISTENCE.md` |
-| Sign-off and driver's seat | `SIGNOFF.md` |
-| Sources, friction log | `SOURCES.md`, `FRICTIONAL.md` |
+| Requirement | Location |
+| :--- | :--- |
+| **`FILTER.md` (rules, evidence rules, expected sources, wrong versions)** | `FILTER.md` (`v1.0` written before code; changelog through `v1.3`) |
+| **Agent code and test suite** | `agent/`, `tests/` |
+| **Reject audit (30 random rejects, close calls, kept set, confidence interval)** | `audit/filter-v1.0/`; summarized below and in `score/origins.md` |
+| **False friend example** | Section below |
+| **Source-grounded shortlist, relevance ≠ entailment, abstention counterexample** | `shortlist/shortlist.md`, `shortlist/CASES.md` |
+| **From-scratch MCP server, transcripts, and two evaluations** | `agent/mcp_server.py`, `evidence/mcp/`, `mcp/EVALUATIONS.md` |
+| **Single rule change on held-out and metric provenance** | `score/report.md`, `score/origins.md` |
+| **Persistence vs. model training** | `PERSISTENCE.md` |
+| **Human sign-off and driver's-seat record** | `SIGNOFF.md` |
+| **Sources and friction log** | `SOURCES.md`, `FRICTIONAL.md` |
 
 ## Results
 
-These are results on one run of 400 postings (Nov 23, 2026). The audit interval is a sample estimate; every other count is a count for this run.
+All results below reflect the single 400-posting collection from Nov 23, 2026. The reject miss-rate interval is a sample estimate; every other figure is an exact count for this run.
 
-- **Filter v1.0** kept 22 of 400.
-  - Of the 30 rejects drawn at random (seed 2026) from 378, I judged **0** should have been kept. The 95% Wilson interval is **0% to 11.4%**, about 0 to 43 of this run's rejects. This is an estimate, not a measured miss rate.
-  - Of all 22 kept postings, I judged **11** right, a precision of 50% for this run. 7 of the 11 wrong ones ask for exactly 3 years.
-- **One change (v1.2):** 3 years now scores like 4 or more.
+- **`FILTER.md` v1.0 kept 22 of 400 postings:**
+  - Across `30` rejects sampled at random (seed `2026`) from `378`, I judged `0` should have been kept. The 95% Wilson confidence interval is `0%` to `11.4%` (roughly `0` to `43` of this run's `378` rejects)—a sample estimate rather than an exhaustive miss rate.
+  - Across all `22` kept postings, I judged `11` to be genuine fits (`50%` precision for this run). `7` of the `11` wrong keeps asked for `3` years of experience.
+- **Single rule change (`v1.2`) — `3` years now scores like `4` or more (`−0.40` in `R2`):**
 
-| | dev: false positives | held-out: false positives | recall (dev / held-out) |
-|---|---|---|---|
-| v1.0 | 6 | 5 | 6/6 / 5/5 |
-| v1.2 | 0 | 4 | 6/6 / 5/5 |
+| Version | `dev`: false positives | `heldout`: false positives | Recall (`dev` / `heldout`) |
+| :--- | :--- | :--- | :--- |
+| **`v1.0`** | `6` | `5` | `6/6` / `5/5` |
+| **`v1.2`** | `0` | `4` | `6/6` / `5/5` |
 
-- **Held-out tells a smaller story than dev.** The change fixed 6 false positives on dev and 1 on held-out. Held-out was run once, and some of its postings had already appeared on my audit sheet (`score/report.md`).
-- **The shortlist** sorts v1.2's 15 kept postings into 10 ranked, 1 "I cannot tell" and 4 contradicted by their own text.
+- **`heldout` shows a smaller gain than `dev`:** Penalizing `N ≥ 3` eliminated `6` false positives on `dev` and `1` on `heldout`. `heldout` was evaluated once (`agent/evaluate.py`), and some held-out postings had already appeared in `audit/filter-v1.0/kept.csv` before `v1.2` was chosen (`score/report.md`).
+- **Shortlist breakdown (`v1.2`):** The `15` postings kept by `v1.2` sort into `10` ranked entries, `1` `"I cannot tell"`, and `4` contradicted by their own posting text.
 
 ## False friend
 
-`Manager, Software Engineering (Resilience Engineering)` (`affirm:7701909003`, Remote US) looks like a valid match under the scoring rules because R1's pattern has no word boundary at the end, so `"Software Engineer"` matches inside `"Software Engineering"` and triggers R1 (`+0.50`) and a skill match adds R4 (`+0.10`), giving it a passing score of `0.60`. In reality, the posting is for a seasoned Engineering Manager leading a team rather than an individual-contributor role for a new grad with 0–2 years of experience. It is rejected only because the G1 seniority gate catches `"Manager"` in the title; the 0.60 is still computed, but a gated posting is never kept. Without G1—or if a similar leadership title omitted an explicit seniority keyword—the open-ended R1 match would surface a management role as a high-scoring junior engineering fit.
+`Manager, Software Engineering (Resilience Engineering)` (`affirm:7701909003`, Remote US) looks like a valid match under the scoring rules because `R1`'s pattern has no trailing word boundary, so `"Software Engineer"` matches inside `"Software Engineering"` (`+0.50`) and a skill hit adds `R4` (`+0.10`), giving it a passing score of `0.60`. In reality, the posting is for a seasoned Engineering Manager leading a team rather than an individual-contributor role for a new grad with 0–2 years of experience. It is rejected only because the `G1` seniority gate catches `"Manager"` in the title; the `0.60` score is still computed, but a gated posting is never kept. Without `G1`—or if a similar leadership title omitted an explicit seniority keyword—the open-ended `R1` match would surface a management role as a high-scoring junior engineering fit.
 
 ## Honesty notes
 
-- **Two Day 1 survey facts in FILTER.md v1.0 were false.** Both were corrected in later versions, and v1.0 is left as written:
-  - "SWE II asks 5+ years" is wrong: it asks 1.5+ (corrected in v1.1).
-  - "91 postings share a title" is wrong: 173 do, and 91 is the number of extra copies (corrected in v1.3).
-- **The real Claude Code answer contains a miscount.** It says "23 Software Engineer II postings"; the recount is 22. The transcript is left as I got it.
-- **Every Claude response shown is one I actually got, with its date.** The scripted MCP transcript is labeled as a script, not a model.
+- **Two Day 1 survey claims in `FILTER.md` v1.0 were incorrect.** Both were documented in later versions while leaving `v1.0` untouched:
+  - `"SWE II asks 5+ years"` was wrong: the posting asks for `1.5+` years (corrected in `v1.1`).
+  - `"91 postings share a title"` was wrong: `173` postings share a board and title across `82` groups, and `91` is the number of extra copies (corrected in `v1.3`).
+- **Live Claude Code transcript miscount:** Claude Code's answer states `"23 Software Engineer II postings"`, whereas a script recount of the 31 matched titles gives `22`. The saved transcript is preserved verbatim without editing.
+- **Authenticity of transcripts:** Every Claude response in `evidence/mcp/` is an actual recorded output with its timestamp; the scripted MCP session (`evidence/mcp/scripted-transcript.jsonl`) is explicitly labeled as a deterministic script rather than a model.
