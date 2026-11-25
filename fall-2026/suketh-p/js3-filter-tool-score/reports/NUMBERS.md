@@ -28,6 +28,8 @@ Claude Code drafted this table on 2026-11-24 from FILTER.md, the code and the co
 | Shortlist size | 8 | chosen from Claude Code's options (5, 8, 10) | the student |
 | The claims prompt | [prompts/claims-v1.md](../prompts/claims-v1.md) | hand-set, written once, not tuned | Claude Code |
 | At most 3 qualification claims per posting | 3 | hand-set, to keep the labelling to about 60 claims | Claude Code |
+| The challenge prompt | [prompts/flip-v1.md](../prompts/flip-v1.md) | hand-set, written once, not tuned. Its three label definitions are quoted from FILTER.md | Claude Code |
+| What counts as a proposed change | the sentence is in the posting word for word and argues for a different label | hand-set | Claude Code |
 | Model | `claude-opus-5-5` | inherited from JS1's judge (`DEFAULT_MODEL`) | JS1 |
 | Temperature and other sampling settings | not set | `claude -p` has no flag for them. Claude Code's defaults applied and are **unknown** to this project | — |
 | Context Claude Code adds to each `claude -p` call | not inspected | JS1 measured about 800 tokens of it and could not read it | — |

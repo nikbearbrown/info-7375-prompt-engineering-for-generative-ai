@@ -15,7 +15,7 @@ JS3 has five parts:
 
 Claude Code (Claude Opus 5.5) drafted this README from the commit record. [SOURCES.md](SOURCES.md) says who wrote what.
 
-## Status on 2026-11-24, 20:00 EST
+## Status on 2026-11-25, 08:30 EST
 
 | Part | State |
 | --- | --- |
@@ -23,7 +23,7 @@ Claude Code (Claude Opus 5.5) drafted this README from the commit record. [SOURC
 | Reject audit (the student's 80 verdicts) | done: [reports/REJECT-AUDIT.md](reports/REJECT-AUDIT.md) |
 | One change, measured on held-out labels | done, once: [reports/ONE-CHANGE.md](reports/ONE-CHANGE.md). v0.2 matches 24 of 26 scored held-out rows, but the student's bar is **not met** (P53) |
 | Where every number came from | [reports/NUMBERS.md](reports/NUMBERS.md) |
-| Shortlist claims | 64 claims drafted by Claude. **The student's claim labels are pending**, and so are the relevance-versus-entailment case and the abstention counterexample |
+| Shortlist claims | done: [reports/SHORTLIST.md](reports/SHORTLIST.md). The student labelled all 64 (48 supported, 16 insufficient). Claude's challenge proposed 5 changes, and the student's decisions moved 10 labels (final 40 supported, 24 insufficient, 0 contradicted). The report includes the relevance-versus-entailment case (R4-C4) and the abstention rule with two counterexamples |
 | Tool server and two evaluations | server, transcripts and both evaluations done. **The student's trust decisions are pending** ([evaluations/](evaluations/)) |
 | Frictional entries 2–4, the sign-off | **pending, the student's** |
 
@@ -34,7 +34,7 @@ Claude Code (Claude Opus 5.5) drafted this README from the commit record. [SOURC
 | Language | Python 3, standard library only (no `pip install`). Ran on Python 3.12.7 (Anaconda), macOS |
 | Tests | `unittest`, **279 tests**, offline, about 7 s. 164 came over unchanged from JS2: Claude Code wrote 160 there, and the student wrote `tests/test_review_empty_board.py` (4). Claude Code wrote the 115 new JS3 tests. The cases in `StudentsWrongVersionsTest` and the exact-quote case in `test_evidence.py` are the student's own words from FILTER.md |
 | Network | The agent's only requests were the corpus run's HTTPS GETs to the three boards in [jobwatch/boards.py](jobwatch/boards.py), JS2's allow-list. The `claude -p` calls in the next row went through Claude Code. Everything else reads the saved run |
-| Model | `claude-opus-5-5` through the student's Claude Code login (`claude -p`, no API key), in three places: the shortlist claims, the discrepancy leads, and the real tool-server session. Each call is saved with its date. The filter itself calls no model |
+| Model | `claude-opus-5-5` through the student's Claude Code login (`claude -p`, no API key), in four places: the shortlist claims, the challenge to the student's claim labels, the discrepancy leads, and the real tool-server session. Each call is saved with its date. The filter itself calls no model |
 
 Run every command from this folder (`fall-2026/suketh-p/js3-filter-tool-score/`).
 
@@ -86,7 +86,13 @@ python3 -m jobwatch.js3 dev-effect runs/2026-11-24-js3-corpus --sample labels/v0
 python3 -m jobwatch.js3 held-out runs/2026-11-24-js3-corpus --sample labels/v0.1-sample.json --labels labels/hand-labels.json --variant variants/v0.2-experience-minimum.json --out /tmp/js3-held-out-check
 ```
 
-**7. The tool server.** It speaks MCP over stdio. Under the scripted harness, with the audit hook that reports every file, socket and process event:
+**7. The shortlist's labels and evidence table** (offline). These read the student's pasted labels and apply the student's decisions on Claude's challenge:
+
+```bash
+python3 -m jobwatch.js3 claims-final shortlist/v0.1
+```
+
+**8. The tool server.** It speaks MCP over stdio. Under the scripted harness, with the audit hook that reports every file, socket and process event:
 
 ```bash
 python3 -m jobwatch.mcp_client --script transcripts/scripts/jobwatch-harness.json --log transcripts/my-harness-run.jsonl -- python3 -m jobwatch.mcp_server
@@ -94,16 +100,16 @@ python3 -m jobwatch.mcp_client --script transcripts/scripts/jobwatch-harness.jso
 
 The real Claude Code session, the harness run against the course's server, and their exact commands are in [transcripts/README.md](transcripts/README.md).
 
-**8. Live commands** (not needed to check anything; each one uses the student's Claude Code login or the network):
+**9. Live commands** (not needed to check anything; each one uses the student's Claude Code login or the network):
 - `python3 -m jobwatch run --run-id <new-id>` collects a new corpus. It never writes `state/` without an approval.
-- `python3 -m jobwatch.js3 draft-claims ...` asks Claude for claims.
+- `python3 -m jobwatch.js3 draft-claims ...` asks Claude for claims, and `python3 -m jobwatch.js3 flip ...` asks Claude to challenge the labels (it refuses a folder that already has results).
 - `python3 -m jobwatch.host_session ...` runs a new host session.
 
 The exact lines are in the evidence files below.
 
 ## What ran
 
-All times are 2026-11-24, EST, and each step is in the commit named.
+Times are EST, on 2026-11-24 unless marked, and each step is in the commit named.
 
 | When | What | Who | Record |
 | --- | --- | --- | --- |
@@ -118,6 +124,9 @@ All times are 2026-11-24, EST, and each step is in the commit named.
 | ~19:30 | After the development audit, the student chose v0.2's one change, the held-out scoring, and both false friends | the student | `4fec7d70` |
 | 19:39–19:42 | v0.2's experience rule and the held-out scoring, test-first | Claude Code | `92cecb57` (RED), `d9f5a96e` (GREEN), [evidence/test-runs/](evidence/test-runs/) 07–08 |
 | 19:43 | v0.2 on everything (27 / 1 / 1,523), then **the one held-out run** | Claude Code ran the commands | `845c8783`, `65c132b7`, [evidence/terminal/2026-11-24-held-out.txt](evidence/terminal/2026-11-24-held-out.txt) |
+| 11-25, by 08:02 | **The student's 64 claim labels**, pasted in chat: 48 supported, 16 insufficient, 0 contradicted | the student | `abca3125` |
+| 11-25, 08:06–08:08 | **8 live Claude calls**: the challenge to each claim label. 5 proposed changes | Claude, through `claude -p` | `602cfa61`, [evidence/terminal/2026-11-25-flip.txt](evidence/terminal/2026-11-25-flip.txt) |
+| 11-25, 08:09–08:20 | The student's decisions on the 5 proposals: 10 labels moved (final 40 / 24 / 0) | the student | `f4a08d28`, [EVIDENCE.md](shortlist/v0.1/EVIDENCE.md) |
 
 ## FILTER.md → code → test
 
@@ -147,14 +156,15 @@ Full report: [reports/REJECT-AUDIT.md](reports/REJECT-AUDIT.md).
 
 Full report: [reports/ONE-CHANGE.md](reports/ONE-CHANGE.md).
 
-## The shortlist (labels pending)
+## The shortlist
 
-[shortlist/v0.1/](shortlist/v0.1/) holds the top 8 by v0.1, drafted before the student's labels came in:
-- **The claims.** 64 claims written by Claude: work, location, new graduates, up to 3 qualifications, work authorization, sponsorship. Each has an exact quote, from [prompts/claims-v1.md](prompts/claims-v1.md).
-- **The quote check.** The code checked only that each quote appears word for word: 49 were found and 15 claims gave no quote.
-- **The labels.** The student labels each claim supported / contradicted / insufficient on [LABEL-CLAIMS.html](shortlist/v0.1/LABEL-CLAIMS.html).
+- **The claims.** v0.1's top 8 are all Anthropic postings. Claude wrote 64 claims with exact quotes; all 49 quotes are in their postings word for word.
+- **The labels.** The student labelled every claim. Claude was then asked for the sentence that would change each label. It named five, and the student changed R3-C3, R4-C4 and all eight location claims, and kept all eight work-authorization abstentions.
+- **Relevance is not entailment.** R4-C4 quotes the posting exactly but drops "Former technical founders are also encouraged to apply." The student labelled it insufficient.
+- **The abstention rule.** It abstains on silence. No posting is silent about sponsorship, yet sponsorship for this role stays unresolved. A phrase check would also miss "We sponsor H-1B visas for this role." (CONSTRUCTED).
+- **The hand labels.** None of the five shortlisted postings that are also hand-labelled is a Yes.
 
-After that, Claude will be asked for the sentence that would change each label, and the student decides whether it does. Until the labels are in, no claim here counts as supported.
+Full report: [reports/SHORTLIST.md](reports/SHORTLIST.md).
 
 ## The tool server
 
@@ -200,7 +210,7 @@ A draft by Claude Code, from the record, for the student to revise. The brief as
 | **The hand verdicts** | Drew the sample with a fixed seed; built a page that hides score, fate and group; read the pasted table without changing a word | Judged all 80 and wrote every reason | Whether a posting deserves Alex's time is the judgment being audited, so it can't come from the thing being audited | `1589c6ee` |
 | **The reject audit and false friends** | Compared the filter with the development labels; found the candidate false friends and the gap; drafted the report | Named both false friends | Naming a false friend says which matches the student counts as wrong | [REJECT-AUDIT.md](reports/REJECT-AUDIT.md) |
 | **The one change** | Wrote the options with their development effects; coded the chosen rule test-first; ran the held-out comparison once and reported it as it came out | Chose the change, how Can’t tell counts, and that "unmet requirement" covers both the filter and the claims | The objective and the stop rule are written first, by the person who owns the result (Ch. 9) | `4fec7d70`, `65c132b7` |
-| **The shortlist claims** | Drafted the 64 claims and quotes; checked that each quote exists; will look for the sentence that would flip each label | **Labels every claim (pending)**, and decides whether a proposed sentence flips it | A quote can be exact and still not support the claim. Only a reader who has read the passage can say | `9dd1ef76` |
+| **The shortlist claims** | Drafted the 64 claims and quotes; checked that each quote exists; looked for the sentence that would flip each label (5 found); Claude Code checked that two of those sentences are in all eight postings | Labelled all 64; decided each of the 5 proposals and applied two of them to all eight ranks; kept the eight abstentions | A quote can be exact and still not support the claim. Only a reader who has read the passage can say | `9dd1ef76` |
 | **The tool server** | Wrote and tested it; recorded a real session and the harness runs; drafted both evaluations and checked Claude's leads against the spec | **Allow / deny / pending for each server (pending)**, in their own words | Trusting a server means deciding what it may touch on the student's behalf | [evaluations/](evaluations/) |
 | **The sign-off** | Lists the facts below | **Writes it, from the record, and signs or withholds it (pending)** | Their name goes on it | below |
 
@@ -208,7 +218,7 @@ A draft by Claude Code, from the record, for the student to revise. The brief as
 
 ### The facts Claude Code listed for it
 
-- **The student's own checks so far:** the 80 verdicts, their choices in FILTER.md, and naming the false friends. As of 20:00 EST the student has not yet run any test or command themselves in JS3.
+- **The student's own checks so far:** the 80 verdicts, the 64 claim labels, the four decisions on Claude's challenge, their choices in FILTER.md, and naming the false friends. As of 2026-11-25 08:30 EST the student has not yet run any test or command themselves in JS3.
 - **Claude Code's tests and checks:**
   - 279 tests, offline.
   - 16 wrong versions swapped in and caught.
@@ -222,7 +232,8 @@ A draft by Claude Code, from the record, for the student to revise. The brief as
   - Postings on other days or boards.
   - "YOE" and other abbreviations of years.
   - Whether a Can’t tell posting should reach Alex.
-  - The claims, until labelled.
+  - A second reviewer challenging a supported claim (Chapter 7 suggests one).
+  - Repeat runs of the claims and challenge prompts.
   - A tool server under a client other than Claude Code 2.1.291 and the harness.
   - Python versions other than 3.12.7.
 - **Not claiming (candidates):**

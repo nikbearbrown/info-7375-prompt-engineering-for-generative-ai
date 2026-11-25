@@ -11,7 +11,9 @@ Claude Code (Claude Opus 5.5, in the Claude Code desktop app) drafted this file 
 | [FRICTIONAL.md](FRICTIONAL.md) entry 1 | The student ("I wrote both myself") | — | `03485318` |
 | The 80 hand verdicts and reasons, [labels/hand-labels-as-pasted.tsv](labels/hand-labels-as-pasted.tsv) | The student, pasted in chat at about 19:13 EST. Asked who chose them, the student picked "All mine" (Claude Code's wording: "I read each posting and chose every verdict and wrote every reason myself, outside the page.") | The 80-posting sample and the blind page (score, fate and group hidden). The page's own download at 18:51 held no labels | `1589c6ee` |
 | v0.2's one change, how Can’t tell counts, what "unmet requirement" covers, which false friends to name | The student: "Experience-minimum rule", "Leave out, scale to 90%", "Both", "Both" | Four questions, with the development counts in the options | `4fec7d70` |
-| Pending: the 64 claim labels, both trust decisions, Frictional entries 2–4, the sign-off | The student | The claims page; the evaluation drafts; the facts list in the README | — |
+| The 64 claim labels, [shortlist/v0.1/claim-labels-as-pasted.tsv](shortlist/v0.1/claim-labels-as-pasted.tsv) | The student, pasted in chat on 2026-11-25 (by 08:02 EST): "I reviewed all 64 against the eight saved postings." One label per claim suffix for every rank, with notes for the insufficient claims | The 64 claims Claude drafted and the claims page. The page's own download was not found | `abca3125` |
+| The decisions on Claude's challenge: R3-C3 to supported, R4-C4 to insufficient, all eight location claims to insufficient, all eight work-authorization abstentions kept | The student: "Becomes supported", "Becomes insufficient", "All eight insufficient", "All eight stay insufficient" | Four questions and their options. Claude Code also checked and said that two of the challenged sentences are in all eight postings | `f4a08d28` |
+| Pending: both trust decisions, Frictional entries 2–4, the sign-off | The student | The evaluation drafts; the facts list in the README | — |
 
 ## Claude Code's work
 
@@ -19,7 +21,7 @@ Claude Code (Claude Opus 5.5, in the Claude Code desktop app) drafted this file 
   - Everything new in `jobwatch/` for JS3: `screen`, `location`, `evidence`, `experience`, `held_out`, `hand_labels`, `sample`, `label_page`, `corpus`, `claims`, `measure`, `variants`, `js3`, and the tool server, tap, harness and host session.
   - The tests: the 115 new JS3 tests. Of the 164 carried over unchanged from JS2, Claude Code wrote 160 there, and the student wrote `tests/test_review_empty_board.py` (4). The cases in `StudentsWrongVersionsTest` and the exact-quote case in `test_evidence.py` follow the student's FILTER.md word for word. The wrong versions C1–C12 are Claude Code's.
 - **The drafts:** this file, the [README](README.md), the [reports](reports/), the [evaluations](evaluations/), the [inventory](corpus/INVENTORY.md) and the [transcripts note](transcripts/README.md).
-- **The texts sent to Claude:** the claims prompt ([prompts/claims-v1.md](prompts/claims-v1.md)), the host-session message ([transcripts/prompts/](transcripts/prompts/)), the harness scripts ([transcripts/scripts/](transcripts/scripts/)) and the leads prompt (Chapter 8's instruction, quoted in [evaluations/ask_for_discrepancies.py](evaluations/ask_for_discrepancies.py)).
+- **The texts sent to Claude:** the claims prompt ([prompts/claims-v1.md](prompts/claims-v1.md)), the challenge prompt ([prompts/flip-v1.md](prompts/flip-v1.md); its label definitions are FILTER.md's, quoted), the host-session message ([transcripts/prompts/](transcripts/prompts/)), the harness scripts ([transcripts/scripts/](transcripts/scripts/)) and the leads prompt (Chapter 8's instruction, quoted in [evaluations/ask_for_discrepancies.py](evaluations/ask_for_discrepancies.py)).
 - **The options in every question to the student.**
 - **The runs:** the live corpus run and every command in the README's "What ran" table.
 - **Three things Claude Code got wrong, and when each was caught:**
@@ -29,13 +31,14 @@ Claude Code (Claude Opus 5.5, in the Claude Code desktop app) drafted this file 
 
 ## Claude's responses, each one as received
 
-All came from `claude-opus-5-5` through `claude -p` on the student's Claude Code login, on 2026-11-24:
+All came from `claude-opus-5-5` through `claude -p` on the student's Claude Code login, on 2026-11-24 unless marked:
 
 | What | When (UTC) | Saved as |
 | --- | --- | --- |
 | 64 claims and quotes for the shortlist, 8 calls | 22:56–22:57 | [shortlist/v0.1/claude/](shortlist/v0.1/claude/) |
 | Discrepancy leads for both tool servers, 2 calls (13 and 11 leads) | before `ebb30cd9` (23:06) | [evaluations/claude-leads/](evaluations/claude-leads/) |
 | The real host session's answer | before `d3fe93e3` (23:03) | [transcripts/2026-11-24-claude-code-session-host.jsonl](transcripts/2026-11-24-claude-code-session-host.jsonl) |
+| The challenge to the student's 64 claim labels, 8 calls (2026-11-25) | 13:06:49–13:08:27 | [shortlist/v0.1/flip/](shortlist/v0.1/flip/) |
 
 Claude's leads were checked against the source and the MCP pages before use. One was confirmed and fixed test-first (server 0.1.1). One was partly wrong and one was wrong. The evaluations show each.
 
