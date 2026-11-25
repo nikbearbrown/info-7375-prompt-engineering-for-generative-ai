@@ -46,7 +46,7 @@ EXPECTED_TOOL = {
         "required": ["board", "posting_id"],
         "additionalProperties": False,
     },
-    "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+    "annotations": {"readOnlyHint": True, "destructiveHint": False, "openWorldHint": False},
 }
 
 INIT = {"jsonrpc": "2.0", "id": 1, "method": "initialize",

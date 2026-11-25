@@ -163,3 +163,5 @@ The fix follows Tushar's trust decisions in `EVALUATIONS.md`.
   - 6 client→server, 5 server→client, 2 meta: the same message sequence as the first run.
   - Its `tools/list` result equals the new declaration field for field, including the annotations.
   - Verdicts are unchanged: notion `85947779-…` keep, score 4; stripe `8144196` reject at G4 on "4+ years".
+
+- **Addendum, 2026-11-25:** `idempotentHint` was removed from the annotations at Tushar's instruction, because the spec gives it meaning only when `readOnlyHint` is false. The annotations are now `{"readOnlyHint": true, "destructiveHint": false, "openWorldHint": false}`. The two client transcripts above were recorded before this change: the second one shows `idempotentHint: true`.
