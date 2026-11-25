@@ -1,6 +1,6 @@
 # MCP_EVAL — the tool server, and one other server
 
-**Status: Claude's draft, from the code and the three transcripts below. Waiting for my review.**
+**Status: Reviewed**
 
 ## The server: `mcp_server.py`
 - **Built from scratch:** standard-library Python, JSON-RPC 2.0, one message per line over stdio. No MCP SDK.
@@ -51,7 +51,7 @@ The server logs every message it receives (`in`) and sends (`out`) to `state/mcp
 
 ## Trust decision
 - **I let Claude Code use this server, with `score_posting` as its only allowed tool** (`--strict-mcp-config --allowedTools mcp__js3-job-filter__score_posting`). The reasons:
-  - The whole server is 169 lines, short enough to read in full (**to confirm when I review this**).
+  - The whole server is 169 lines, short enough to read in full.
   - It has no network or write path during a request, and a test fails if one appears.
   - It reads only the frozen corpus.
 - **The risk I keep:** the result passes job titles through verbatim, and a title is text the employer wrote. A title with instructions in it would reach the model as tool output. The mitigation is the client's: treat tool output as data. In this server, the only other thing returned is the rule output.

@@ -240,3 +240,12 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - The claims still abstain on both held-out "yes" postings.
 - **The MCP server now serves v1.2.** A new `mcp_client.py` session shows Datadog FP&A Analyst R&D and Veeva ADP returned as "reject".
 - **Docs updated:** `SCORE.md`, `AUDIT.md`, `SOURCES.md`, `SIGNOFF.md`, `README.md`, and `MCP_EVAL.md` now show the decisions as mine and give the v1.2 numbers.
+
+## 2026-11-25 — My review of the write-ups
+- **What I reviewed:** `MCP_EVAL.md`, `SHORTLIST.md`, `SCORE.md`, `README.md`, and `SOURCES.md`. Claude listed exactly what in each was written in my voice and needed confirming.
+- **My edits:**
+  - **`MCP_EVAL.md`:** I removed the "to confirm when I review this" note on the server's 169 lines and marked the file reviewed.
+  - **`SCORE.md`:** I removed the "waiting for my review" line.
+  - **`SOURCES.md`:** I changed the two "Pending" review entries to "Reviewed".
+  - **The rest:** kept as written. `SHORTLIST.md` and `README.md` were unchanged.
+- **Claude's follow-ups:** it closed the bold on my `MCP_EVAL.md` status line, and set `SHORTLIST.md`'s status to reviewed, because I said to keep the file as it is after reviewing it.

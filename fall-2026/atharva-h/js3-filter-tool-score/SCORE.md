@@ -2,7 +2,6 @@
 
 **Status: Claude's draft from `measure.py` and `measure_changes.py` output.**
 - **The decisions in "What I changed" are mine,** made on 2026-11-25.
-- **The rest of the page** is waiting for my review.
 
 ## Where every number comes from
 Each number below is produced by a script and saved in a file, or was set by hand and says so. Nothing in this table is estimated.

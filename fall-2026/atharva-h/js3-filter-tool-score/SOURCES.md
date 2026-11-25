@@ -52,7 +52,7 @@ Public, with no login. Everything said about how they behave comes from response
 | Reject audit | Drew the seeded sample, wrote the sheet with no verdict drafted, copied my verdicts in unchanged, and ran the report | Judged all 50 rows, with a reason for each |
 | Claims | Wrote them (through `claude -p`), with the checker that labels them | Labeled all 72 claims myself, checking each quote against its claim |
 | Measurements | Ran every change, caught its own checker bug and its own R2 misreading, ran the base prompt twice to measure noise, recommended what to adopt, and implemented v1.2 with v1.0 still callable | Decided which changes to adopt: I accepted Claude's recommendations (FILTER.md v1.2) |
-| MCP | Wrote the server, the client, and the Fetch evaluation script. Ran Claude Code as the client and installed and ran Fetch. Read Fetch's source and found its `npm install` behavior before running it. | Approved installing Fetch. **Pending:** review `MCP_EVAL.md` |
-| Documents | Drafted `README.md`, `SCORE.md`, `SHORTLIST.md`, `MCP_EVAL.md`, `AUDIT.md`, this file, `SIGNOFF.md`, and the `FRICTIONAL.md` entries from my sessions and this folder's files | **Pending:** review them. The signature in `SIGNOFF.md` is mine. |
+| MCP | Wrote the server, the client, and the Fetch evaluation script. Ran Claude Code as the client and installed and ran Fetch. Read Fetch's source and found its `npm install` behavior before running it. | Approved installing Fetch. **Reviewed:** reviewed `MCP_EVAL.md` |
+| Documents | Drafted `README.md`, `SCORE.md`, `SHORTLIST.md`, `MCP_EVAL.md`, `AUDIT.md`, this file, `SIGNOFF.md`, and the `FRICTIONAL.md` entries from my sessions and this folder's files | **Reviewed:** reviewed them. The signature in `SIGNOFF.md` is mine. |
 
 I am responsible for everything submitted here and can explain any part of it.

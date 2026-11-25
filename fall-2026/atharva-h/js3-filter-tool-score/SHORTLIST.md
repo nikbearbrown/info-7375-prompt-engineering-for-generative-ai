@@ -4,7 +4,7 @@
 - **The claim labels are mine.** I checked each of the 72 quotes against its claim and filled in `my_label` on 2026-11-25, in my own copy of the sheet. My labels were copied into `state/claims/base_checked.csv` unchanged, and no other column moved.
 - **Two labels changed later, at my request:** I asked Claude to make every label follow FILTER.md's rules. Claude checked all 72 against the exact-span rule. Only two of my labels broke it: two location quotes I had labeled supported. Both were changed to insufficient, and each row's `note` says so.
 - **Claude's part:** `claude -p` wrote the claims, Claude's checker gave the first labels, and Claude drafted this write-up around my labels.
-- **Status:** the write-up is waiting for my review.
+- **Status:** reviewed by me on 2026-11-25.
 
 ## How the shortlist is made
 1. **The filter decides.** v1.0 keeps 12 of the 4,240 postings. Claude never decides keep or reject.
