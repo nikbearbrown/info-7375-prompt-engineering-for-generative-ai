@@ -210,5 +210,29 @@ class Log(unittest.TestCase):
             self.assertGreaterEqual(len(events), 5)  # initialize, reply, initialized, tools/list, reply
 
 
+class NetworkGuard(unittest.TestCase):
+    """Found by evaluating my own server: the first guard patched connect() only, and connect_ex() got past it."""
+
+    CODE = "\n".join([
+        "import socket",
+        "from earlybird import mcp_server as m",
+        "srv = socket.socket(); srv.bind(('127.0.0.1', 0)); srv.listen(1); port = srv.getsockname()[1]",
+        "m.disable_network()",
+        "out = []",
+        "for name, fn in (('connect', lambda s: s.connect(('127.0.0.1', port))),",
+        "                 ('connect_ex', lambda s: s.connect_ex(('127.0.0.1', port)) == 0),",
+        "                 ('create_connection', lambda s: socket.create_connection(('127.0.0.1', port)))):",
+        "    try:",
+        "        out.append(name + ':' + ('CONNECTED' if fn(socket.socket()) else 'refused'))",
+        "    except OSError:",
+        "        out.append(name + ':refused')",
+        "print(' '.join(out))",
+    ])
+
+    def test_every_connect_path_is_refused(self):
+        r = subprocess.run([sys.executable, "-c", self.CODE], cwd=ROOT, capture_output=True, text=True, timeout=30)
+        self.assertEqual(r.stdout.strip(), "connect:refused connect_ex:refused create_connection:refused", r.stderr)
+
+
 if __name__ == "__main__":
     unittest.main()

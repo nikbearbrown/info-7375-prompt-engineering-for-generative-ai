@@ -4,7 +4,8 @@ It offers ONE capability to Claude: score_posting - run FILTER.md v2 and the cla
 LOCAL snapshot (data/snapshot-2026-11-01). Run: python -m earlybird.mcp_server
 
 What it does NOT do (declared here, checked in review/ by tests and by the evaluation):
-- no network: the socket connect call is disabled at start-up and urllib is never imported;
+- no network: connect() and connect_ex() are disabled at start-up (a guard, not a sandbox) and no network library is
+  imported;
 - no writes except an optional message log, and only to the path in EARLYBIRD_MCP_LOG (both directions, JSON lines);
 - no tools other than score_posting; it cannot apply, email, message, log in, or change data.
 
@@ -47,6 +48,14 @@ TOOL = {
 
 def _no_network(*_a, **_k):
     raise OSError("network disabled in earlybird mcp_server")
+
+
+def disable_network():
+    """Belt and braces, not a sandbox: the real guarantee is that no module here opens a socket (scripts/eval_own_server.py
+    checks the imports). Patches connect() AND connect_ex() - the first version patched connect() only, and
+    connect_ex() got past it (found by evaluating this server, review/14-network-guard-red.txt)."""
+    socket.socket.connect = _no_network
+    socket.socket.connect_ex = _no_network
 
 
 class Server:
@@ -153,7 +162,7 @@ class Server:
 
 
 def main():
-    socket.socket.connect = _no_network  # declared: this server never touches the network
+    disable_network()  # declared: this server never touches the network
     Server(os.environ.get("EARLYBIRD_MCP_LOG")).serve(sys.stdin.buffer, sys.stdout.buffer)
 
 
