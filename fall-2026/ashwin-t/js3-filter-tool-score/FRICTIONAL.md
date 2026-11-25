@@ -1,7 +1,7 @@
 # FRICTIONAL: JS3
 
 The "What happened" and "Evidence" lines are facts Claude Code organized from the commits and outputs on
-2026-11-25. Personal reflections not supplied by Ashwin remain marked "Not supplied". Confirmed Codex-drafted descriptions
+2026-11-25. The three personal slots, first marked "Not supplied", were filled on 2026-11-25 (evening) with lines Ashwin chose from options Claude Code drafted and approved in chat. Confirmed Codex-drafted descriptions
 are attributed below; no personal thinking or feelings are inferred.
 
 ## 2026-11-25: writing FILTER.md before any code
@@ -10,14 +10,14 @@ are attributed below; no personal thinking or feelings are inferred.
   them. Claude Code pointed out that threshold 6 never binds, because every eligible posting already scored at
   least 6. Codex suggested 7, and Ashwin approved it.
 - **Evidence:** FILTER.md committed alone at `a3a7a2af`, before the filter code.
-- **(Ashwin) What I tried or expected, and what I accepted, changed or rejected:** Not supplied.
+- **What I tried or expected, and what I accepted, changed or rejected** (Ashwin; chosen from options drafted by Claude Code, approved by Ashwin in chat on 2026-11-25): "I accepted 7, but I would rather have compared 6, 7 and 8 on labeled postings before choosing."
 
 ## 2026-11-25: blind held-out labels
 
 - **What happened:** 30 postings were drawn with seed 20261125: 20 engineering-like titles and 10 others. Ashwin
   labeled them Y 7, N 19, ? 4, before seeing any filter output for them.
 - **Evidence:** `labels/heldout-sheet.csv`, committed alone at `9757ee7b`.
-- **(Ashwin) What was hard to decide:** Not supplied.
+- **What was hard to decide** (Ashwin; chosen from options drafted by Claude Code, approved by Ashwin in chat on 2026-11-25): "Clearance postings were hardest: Supriya might be willing, but nothing says she is eligible, so I marked them '?'." (All 4 of the '?' held-out labels are Defense or US Government postings.)
 
 ## 2026-11-25: the reject audit, and its provenance
 
@@ -56,7 +56,7 @@ are attributed below; no personal thinking or feelings are inferred.
 - **What remained unresolved:** no unused sample can test this change, because none of the Cloudflare snapshot's
   titles has the phrase. And on the held-out set, the filter still rejects 6 of the 7 postings labeled Y.
 - **Evidence:** `77daf2d1`, `78adf4b9`, `c9821188`; `CHANGE.md`; `changes/HELDOUT-v1.0-vs-v1.1.md`.
-- **(Ashwin) What surprised me:** Not supplied.
+- **What surprised me** (Ashwin; chosen from options drafted by Claude Code, approved by Ashwin in chat on 2026-11-25): "The random reject audit looked fine because 25 of 30 were sales or ops jobs. It could not show the misses the held-out set showed."
 - **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** "Mission Manager" names a product here. Correcting that title match is separate from establishing whether the job suits Supriya.
 
 ## 2026-11-25: the tool server

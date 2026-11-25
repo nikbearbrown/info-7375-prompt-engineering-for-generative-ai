@@ -51,7 +51,7 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
   I6 and I9; disagreed with I5 and I7, which are recorded as unresolved; accepted I8 only as a limitation.
 - **Ran the tests personally:** 55 tests at `b616bc09`, OK, exit 0 (`drafting/checks-run-by-ashwin.txt`).
 - **FRICTIONAL.md:** supplied draft lines written with Codex, and confirmed them on 2026-11-25 as descriptions of
-  the recorded events. Asked that the three personal slots be marked "Not supplied".
+  the recorded events. Asked that the three personal slots be marked "Not supplied"; later that evening chose and approved one Claude-drafted option for each.
 - **Not done by Ashwin before `7e5c3d02`:** blind audit verdicts, per-posting reasons, or human claim labels. The
   blind checks added afterwards are in `audit/BLIND-EXTRA.md`, which counts only what Ashwin actually filled in.
 
