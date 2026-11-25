@@ -12,7 +12,7 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 |---|---|---|
 | 1. FILTER.md before the build | `FILTER.md` (committed alone at `a3a7a2af`, before any filter code) | Done; approved by Ashwin |
 | 2.1 Filter and reject audit | `jobfilter/filter.py`, `filters/`, `runs/`, `labels/`, `audit/` | ⚠ **Hand-judged audit 0 of 47.** Verdicts so far are AI-assisted (`audit/EXPLORATORY-v1.0-ai-assisted.md`). False friend demonstrated from text (`audit/FALSE-FRIENDS.md`) |
-| 2.2 Source-grounded shortlist | `SHORTLIST.md`, `shortlist/` | ⚠ All 90 claims labeled, **all Codex AI-assisted** (29 excerpt-based, 61 checked against text and structured fields); no human claim labels |
+| 2.2 Source-grounded shortlist (**filter v1.0**, 18 postings) | `SHORTLIST.md`, `shortlist/` | ⚠ All 90 claims labeled, **all Codex AI-assisted** (29 excerpt-based, 61 checked against text and structured fields); no human claim labels |
 | 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. Both trust decisions approved by Ashwin (wording drafted with Codex). Server 1.1.0 discloses its transcript writes |
 | 2.4 What moves the score | `CHANGE.md`, `changes/` | One change (v1.1) measured on held-out labels; **potentially contaminated** |
 | 3. Sign-off and driver's seat | `SIGNOFF.md` | Signed by Ashwin on 2026-11-25, for the limited checks described, not full rubric completion. Driver's-seat table approved with Ashwin's changes |
@@ -138,9 +138,10 @@ The second one ran from `evaluations/own-server/claude-client-2026-11-25/`; `com
   | Version | KEEP | REVIEW | REJECT | Notes |
   |---|---:|---:|---:|---|
   | v1.0 | 18 | 7 | 750 | |
-  | v1.1 | 20 | 7 | 748 | 2 Mission Manager postings moved (`CHANGE.md`) |
+  | v1.1 | 20 | 7 | 748 | The one-change experiment: 2 Mission Manager postings moved (`CHANGE.md`). Not used for the shortlist or the tool server |
 
-- **Live Claude claims, 13:23 UTC:** 18 postings, 18 valid replies, 90 claims (`SHORTLIST.md`).
+- **Live Claude claims, 13:23 UTC:** filter v1.0's 18 shortlisted postings, 18 valid replies, 90 claims
+  (`SHORTLIST.md`). v1.1's 2 extra KEEPs have no claims.
 - **Tool server:**
   - 12:38 UTC: our client probed `claude mcp serve` (`evaluations/other-server/`).
   - 13:21 UTC: our client probed our own server (1.0.0), then Claude Code used it as a real client

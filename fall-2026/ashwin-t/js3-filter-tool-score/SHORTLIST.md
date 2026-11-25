@@ -1,4 +1,11 @@
-# Source-grounded shortlist (Step 2.2)
+# Source-grounded shortlist (Step 2.2): filter v1.0
+
+**This is filter v1.0's shortlist:** the 18 development postings v1.0 kept. Filter v1.1 is a separate one-change
+experiment (`CHANGE.md`). It keeps 20 postings, and the 2 extra ones, both "Software Engineer - Mission Manager", have
+no claims and are not part of this shortlist.
+
+The brief (Step 2.2) asks for every claim to be labeled "for each posting on your shortlist", and names no filter
+version. The submitted shortlist is v1.0's, and all 90 of its claims are labeled.
 
 Drafted by Claude Code on 2026-11-25. All 90 claims are labeled in `shortlist/claim-sheet.csv`. **Every label is a
 Codex AI-assisted label, relayed by Ashwin in chat. None is an independent human judgment.** The `label_source`
@@ -17,8 +24,8 @@ column separates two kinds:
 
 ## What ran
 
-- **The shortlist:** the 18 development postings that filter v1.0 kept. Filter v1.1 adds 2 Mission Manager
-  postings, which have no claims.
+- **The shortlist:** the 18 development postings that filter v1.0 kept (`runs/v1.0/summary.md`). v1.1's 2 extra
+  KEEPs are outside it, as above.
 - **The claims:** one live, tool-free `claude -p` call per posting on 2026-11-25, 13:23:12–13:23:53 UTC, model
   `claude-opus-5-5`, prompt `prompts/claims-v1.md` (written by Claude Code, not tuned). Raw replies are in
   `shortlist/claims-v1-2026-11-25T13-23-12Z/raw/`.
@@ -91,6 +98,6 @@ US, so "I cannot tell" stays the right answer on remote eligibility for those po
 
 - **All 90 labels are AI-assisted. No claim has a human label.** Ashwin may review any of them and override them in
   `claim-sheet.csv`. A changed row should keep the earlier label in `note`.
-- The 2 v1.1-only KEEPs have no claims.
+- The 2 v1.1-only KEEPs have no claims. That is by scope, because the shortlist is v1.0's, but it means the claim check says nothing about them.
 - One possible next change, to one object: add the structured fields to the context Claude is given. It is not
   measured.

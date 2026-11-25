@@ -26,6 +26,13 @@ The threshold of 7 was set before any label existed.
 
 ## 2. The one change, to one object
 
+v1.1 is a separate change experiment. Three things stay on filter v1.0:
+- the submitted shortlist (`SHORTLIST.md`);
+- the claims;
+- the tool server.
+
+v1.1's 2 extra KEEPs have no claims.
+
 - **Object:** the filter file. `filters/v1.0.json` became `filters/v1.1.json`, which adds only
   `"seniority_exceptions": {"manager": ["mission manager"]}`. The test `test_only_one_object_changed` checks this.
   Words, weights, sources, prompt, context, tool list and settings were held constant.
