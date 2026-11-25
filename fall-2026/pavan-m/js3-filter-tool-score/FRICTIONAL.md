@@ -75,3 +75,4 @@ Small snag: my terminal printed "command not found: #" for comment lines in a pa
 
 ## Entry 20 — November 25, 2026: Live run 3 and the what-moves-the-score report
 Ran the loop live on Nov 25 (third real day; evidence/run3_terminal_2026-11-25.txt) and scored it with FILTER v1.1. Wrote WHAT_MOVES_THE_SCORE.md: the origin of every number, the one-change-at-a-time results (C1 added, C3 rejected; C2 and C4 not tested), and why persistence across sessions is not proof of training (v1.1 lives in a config file; Claude Code's tool knowledge comes from .mcp.json). Drafted with Claude from my committed results; I checked each number against out/measure/ and heldout/.
+Correction: WHAT_MOVES_THE_SCORE.md first said "3 of 4 Palantir misses"; there are 3 (A30 confirmed, H02 and H27 not verified). Fixed.

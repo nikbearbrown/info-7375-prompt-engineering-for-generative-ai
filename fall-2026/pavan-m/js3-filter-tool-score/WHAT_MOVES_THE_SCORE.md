@@ -24,7 +24,7 @@ Development labels: my 48 blind audit verdicts (audit/). Held-out labels: 20 ran
 |---|---|---|---|---|
 | Filter rule (FILTER.md §2.5) | C1: years cutoff 8 → 5 | 37 → 40 agree | 18 → 18 agree | Added in v1.1, with the caveat that the gain appears only on the postings that suggested it |
 | Filter weight (FILTER.md §2.4) | C3: other US cities 0 → 2 | 37 → 37 | 18 → 18; of the 12 postings it adds, 3 relevant (25%; 95% interval 9–53%) | Rejected |
-| Context (what text the scorer sees) | C2: read Lever's `lists` field | not measured | not measured | Considered, not tested; 3 of 4 Palantir misses point to it |
+| Context (what text the scorer sees) | C2: read Lever's `lists` field | not measured | not measured | Considered, not tested; all 3 Palantir misses point to it (A30 confirmed; H02 and H27 not verified) |
 | Setting | C4: threshold 8 → 7 | not measured | not measured | Considered, not tested |
 | Tool list | Claude Code gained `score_posting` through .mcp.json | — | — | Shown in out/transcripts/server-2026-11-25T060303.jsonl; not scored |
 
