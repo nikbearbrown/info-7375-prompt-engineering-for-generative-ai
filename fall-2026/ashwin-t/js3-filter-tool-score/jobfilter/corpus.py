@@ -28,6 +28,32 @@ def _trace_hashes(run: Path) -> dict:
     return out
 
 
+def _attach_structured(provider: str, body: bytes, parsed: list) -> None:
+    """Structured fields JS2's parser drops but FILTER.md section 3 says to read: remote flags, country.
+
+    Recorded as found; absent fields stay absent (never filled in)."""
+    data = json.loads(body.decode("utf-8"))
+    jobs = data if provider == "lever" else data.get("jobs", [])
+    raw_by_id = {str(j.get("id")): j for j in jobs if isinstance(j, dict)}
+    for p in parsed:
+        j, extra = raw_by_id.get(p["id"], {}), {}
+        if provider == "ashby":
+            for k in ("isRemote", "workplaceType", "employmentType"):
+                if k in j:
+                    extra[k] = j[k]
+            country = ((j.get("address") or {}).get("postalAddress") or {}).get("addressCountry")
+            if country:
+                extra["addressCountry"] = country
+        elif provider == "lever":
+            for k in ("workplaceType", "country"):
+                if k in j:
+                    extra[k] = j[k]
+            commitment = (j.get("categories") or {}).get("commitment")
+            if commitment:
+                extra["commitment"] = commitment
+        p["structured"] = extra
+
+
 def build(run: Path = JS2_RUN) -> dict:
     hashes = _trace_hashes(run)
     sources, postings = [], []
@@ -46,6 +72,7 @@ def build(run: Path = JS2_RUN) -> dict:
             entry.update(status="failed", reason=f"{exc.kind}: {exc}", postings=None)
             sources.append(entry)
             continue
+        _attach_structured(provider, body, parsed)
         entry.update(status="parsed", postings=len(parsed))
         sources.append(entry)
         postings.extend(parsed)
