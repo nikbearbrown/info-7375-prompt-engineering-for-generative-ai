@@ -67,6 +67,25 @@ class JudgingAFlip(unittest.TestCase):
             X.judged({"MY_VERDICT": "maybe", "board": "b", "posting_id": "1"})
 
 
+class WhatTheLabelsSay(unittest.TestCase):
+    @staticmethod
+    def rows(*outcomes):
+        return [{"outcome": o} for o in outcomes]
+
+    def test_every_flip_labeled_is_a_count_not_an_estimate(self):
+        text = " ".join(X.what_the_labels_say({"flip_count": 4}, self.rows("improved", "regressed"),
+                                              self.rows("improved", "improved")))
+        self.assertIn("count, not an estimate", text)
+        self.assertIn("3 better and 1 worse", text)
+        self.assertNotIn("Wilson", text)
+
+    def test_a_sample_is_estimated_over_the_flips_outside_the_tuning_labels(self):
+        text = " ".join(X.what_the_labels_say({"flip_count": 44}, self.rows("improved", "regressed", "regressed"),
+                                              self.rows(*["improved"] * 9 + ["regressed"] * 6)))
+        self.assertIn("random sample of the 41 flips", text)
+        self.assertIn("do not show", text)  # 36%-80% includes 50%
+
+
 class Intervals(unittest.TestCase):
     def test_known_values(self):
         lo, hi = X.wilson(1, 30)

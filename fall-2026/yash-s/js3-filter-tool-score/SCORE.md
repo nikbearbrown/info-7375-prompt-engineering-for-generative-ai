@@ -45,11 +45,11 @@ The full method and results are in [`experiments/REPORT.md`](experiments/REPORT.
 
 | Change | Object | Flips (exact, all 2,418) | Tuning labels | Held-out labels |
 |---|---|---:|---|---|
-| X1: threshold 65 → 55 | a setting | 44, all rejected → review | 1 improved (row 39), 2 regressed (rows 4, 5) | 15 drawn of 41; **not labeled yet** |
-| X2: a related title needs 2 topics, not 1 | the filter file (Rule 1) | 8, all review → rejected | 2 improved (rows 55, 60), 1 regressed (row 59) | all 5 remaining; **not labeled yet** |
+| X1: threshold 65 → 55 | a setting | 44, all rejected → review | 1 improved (row 39), 2 regressed (rows 4, 5) | 15 of the other 41: **9 improved, 6 regressed** (60%; 95% Wilson 36%–80%). **Inconclusive**: the interval includes 50%. The review queue would grow from 63 to 107 |
+| X2: a related title needs 2 topics, not 1 | the filter file (Rule 1) | 8, all review → rejected | 2 improved (rows 55, 60), 1 regressed (row 59) | all 5 remaining: **5 improved, 0 regressed**. Every one of the 8 flips is labeled, so overall it is **a count: 7 better, 1 worse**. The review queue would shrink from 63 to 55 |
 | X3: treat "may also have" headings as preferred | the filter file (Rule 8) | 0 | none | none: it changes no decision |
 
-The held-out measurement is not done until I label the 20 postings. Until then there is no held-out result, and no change is adopted. The decision log is [`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md).
+My 20 held-out labels were committed (`810de710`) before the report was run. No change is adopted until I decide in [`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md). These results describe the saved postings only, not postings collected later.
 
 ## 3. What persistence is not proof of
 

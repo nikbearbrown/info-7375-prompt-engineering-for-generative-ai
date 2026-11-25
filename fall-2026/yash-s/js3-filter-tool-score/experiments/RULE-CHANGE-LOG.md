@@ -6,8 +6,8 @@ The **Decision** column is mine to fill.
 
 | ID | Rule change | Proposed by | Measured | Result so far | Decision |
 |---|---|---|---|---|---|
-| X1 | Threshold 65 → 55 | Claude, from my label on audit row 39 | 44 flips (exact). Tuning: 1 improved, 2 regressed | Held-out: 15 drawn, not labeled | ______ |
-| X2 | A related title needs 2 topic categories, not 1 | Claude, from my labels on audit rows 55 and 60 | 8 flips (exact). Tuning: 2 improved, 1 regressed (row 59) | Held-out: 5 drawn, not labeled | ______ |
+| X1 | Threshold 65 → 55 | Claude, from my label on audit row 39 | 44 flips (exact). Tuning: 1 improved, 2 regressed | Held-out (`810de710`): 9 improved, 6 regressed of 15. 95% Wilson 36%–80%, which is **inconclusive**. The review queue would grow from 63 to 107 | ______ |
+| X2 | A related title needs 2 topic categories, not 1 | Claude, from my labels on audit rows 55 and 60 | 8 flips (exact). Tuning: 2 improved, 1 regressed (row 59) | Held-out (`810de710`): 5 improved, 0 regressed. All 8 flips are labeled, so this is a **count: 7 better, 1 worse** | ______ |
 | X3 | Treat "may also have" headings as preferred, not required | Claude, while building the shortlist checker | **0 flips** | Changes no decision on the saved data | ______ (suggested: reject, no measurable effect) |
 
 ## Considered but not registered

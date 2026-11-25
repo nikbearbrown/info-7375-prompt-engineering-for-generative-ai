@@ -211,6 +211,39 @@ def measure(change_flips, labels):
     return rows
 
 
+def what_the_labels_say(info, tuning_rows, held_rows):
+    """Turn the labeled flips into the strongest honest statement: a count when every flip
+    has a label, otherwise a sample estimate over the flips outside the tuning labels."""
+    count = lambda rows, o: sum(r["outcome"] == o for r in rows)
+    if not held_rows:
+        return []
+    t_imp, t_reg = count(tuning_rows, "improved"), count(tuning_rows, "regressed")
+    h_imp, h_reg = count(held_rows, "improved"), count(held_rows, "regressed")
+    remaining = info["flip_count"] - len(tuning_rows)  # the flips the held-out sample was drawn from
+    L = ["### What the labels say", ""]
+    if h_imp + h_reg == remaining == len(held_rows):
+        L += [f"Every one of the {info['flip_count']} flips has my label ({len(tuning_rows)} tuning, {len(held_rows)} "
+              f"held-out), so this is a **count, not an estimate**: over all {info['flip_count']} postings this change "
+              f"affects, by my judgment, {t_imp + h_imp} better and {t_reg + h_reg} worse. On the held-out labels "
+              f"alone: {h_imp} better, {h_reg} worse. It says nothing about postings collected later.", ""]
+        return L
+    n = h_imp + h_reg
+    if n == 0:
+        return L + ["No decided held-out label yet.", ""]
+    w, e = wilson(h_imp, n), exact(h_imp, n)
+    L += [f"Held-out: {h_imp} of {n} flips improved ({h_imp / n:.0%}; 95% Wilson {pct(w)}, exact {pct(e)}). The held-out "
+          f"postings are a random sample of the {remaining} flips outside my tuning labels, so among those {remaining} roughly "
+          f"{w[0] * remaining:.0f} to {w[1] * remaining:.0f} would be improvements. That is a sample estimate. Adding the "
+          f"{len(tuning_rows)} tuning flips ({t_imp} improved, {t_reg} regressed), the estimate over all {info['flip_count']} "
+          f"flips is roughly {w[0] * remaining + t_imp:.0f} to {w[1] * remaining + t_imp:.0f} improvements, the rest regressions.", ""]
+    if w[0] <= 0.5 <= w[1]:
+        L += ["The interval includes 50%, so these labels **do not show** that the change helps more than it hurts.", ""]
+    else:
+        L += [f"The whole interval is {'above' if w[0] > 0.5 else 'below'} 50%, so on these labels the change "
+              f"{'helps' if w[0] > 0.5 else 'hurts'} more often than not.", ""]
+    return L
+
+
 def cmd_report(args):
     flips_path = EXP_DIR / f"flips-{BASE_RUN.name}.json"
     fl = json.loads(flips_path.read_text(encoding="utf-8"))
@@ -226,19 +259,24 @@ def cmd_report(args):
          f"- Tuning labels: my 60 audit labels (`{TUNING_SHEET.relative_to(HERE)}`). The changes were chosen from these.",
          f"- Held-out labels: `{(HELDOUT_DIR / 'labeling-sheet.csv').relative_to(HERE)}`, "
          f"{heldout_labeled} of {len(held)} labeled. Used only to measure, never to choose.", "",
-         "Each change alters one value, in memory. A flip count is exact over all postings. "
-         "Whether flips are improvements is a sample estimate from hand labels, never a measured rate for all postings.", ""]
+         "Each change alters one value, in memory. A flip count is exact over all postings. Whether flips are "
+         "improvements comes from my hand labels: a count when every flip is labeled, otherwise a sample estimate. "
+         "It is never a measured rate for postings nobody labeled.", ""]
+    base_review = sum(r["decision"] == "review" for r in json.loads((BASE_RUN / "results.json").read_text(encoding="utf-8")))
     for cid, info in fl["changes"].items():
         ch = cand[cid]
+        to_review = sum(f["to"] == "review" for f in info["flips"]) - sum(f["from"] == "review" for f in info["flips"])
         L += [f"## {cid}", "", f"- Object changed: {ch['object']}: `{'.'.join(ch['path'])}` {ch['from']!r} → {ch['to']!r}",
               "- Everything else unchanged: the same postings, rules files, code and persona.",
               f"- Why it was proposed: {ch['why']}",
-              f"- Postings whose decision changes (exact, all {fl['postings']}): **{info['flip_count']}**", ""]
+              f"- Postings whose decision changes (exact, all {fl['postings']}): **{info['flip_count']}**",
+              f"- Review queue: {base_review} → {base_review + to_review} postings for me to read", ""]
+        parts = {}
         for name, labels in (("Tuning labels (used to choose the change)", tuning), ("Held-out labels", held)):
             rows = measure(info["flips"], labels)
+            parts[name] = rows
             n_imp = sum(r["outcome"] == "improved" for r in rows)
             n_reg = sum(r["outcome"] == "regressed" for r in rows)
-            n_dec = n_imp + n_reg
             L += [f"### {name}", ""]
             if not rows:
                 L += ["No flipped posting has a label here.", ""]
@@ -246,19 +284,13 @@ def cmd_report(args):
             L += [f"Flipped postings with a label: {len(rows)}. Improved {n_imp}, regressed {n_reg}, "
                   f"cannot tell {sum(r['outcome'] == 'cannot tell' for r in rows)}, "
                   f"not labeled yet {sum(r['outcome'] == 'unlabeled' for r in rows)}.", ""]
-            if name.startswith("Held-out") and n_dec:
-                share = n_imp / n_dec
-                L += [f"Share of decided flips that improved: {n_imp}/{n_dec} = {share:.0%} "
-                      f"(95% Wilson {pct(wilson(n_imp, n_dec))}; exact {pct(exact(n_imp, n_dec))}). "
-                      f"As a sample estimate over all {info['flip_count']} flips, that is roughly "
-                      f"{wilson(n_imp, n_dec)[0] * info['flip_count']:.0f} to {wilson(n_imp, n_dec)[1] * info['flip_count']:.0f} "
-                      "improvements, with the rest regressions, if the labeled flips are a random sample of all flips.", ""]
             L += ["| Row | Board | ID | Title | Filter v1.1 | With change | My verdict | Outcome |",
                   "|---:|---|---|---|---|---|---|---|"]
             for r in rows:
                 L.append(f"| {r['row']} | {r['board']} | {r['id']} | {r['title']} | {r['from']} | {r['to']} | "
                          f"{r['my_verdict'] or '(blank)'} | {r['outcome']} |")
             L.append("")
+        L += what_the_labels_say(info, *parts.values())
     L += ["## What this does not show", "",
           "- Nothing here was trained or fitted. Every weight and threshold is hand-set (FILTER.md section 10).",
           "- A change that looks better on these labels may still be worse on postings nobody labeled.",

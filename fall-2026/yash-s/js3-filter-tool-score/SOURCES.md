@@ -44,7 +44,8 @@ Claude Code (Opus 5.5, in VS Code) worked with me from 2026-11-18 to 2026-11-25.
 - The FILTER.md decisions.
 - My FRICTIONAL entries.
 - The 60 audit verdicts, reasons and false-friend words (`e926b963`).
-- **Still to do:** the 20 held-out labels, both trust decisions, every rule-change decision, the sign-off and the driver's seat.
+- The 20 blind held-out verdicts and reasons (`810de710`). Claude checked their facts against the posting texts and flagged one note (row 17). I made the fix.
+- **Still to do:** both trust decisions, every rule-change decision, the sign-off and the driver's seat.
 
 **Claude's check of my labels:** after I pasted my audit labels, Claude compared every reason with the posting text and every false-friend word with what the filter matched. It found:
 - two reasons that called a preferred item "required" (rows 31 and 51);
@@ -69,6 +70,7 @@ I made the corrections myself before committing. Claude did not write or change 
 8. **2026-11-25:** the `score_posting` description said nothing was "stored", but the transcript stores every message. Claude found this while writing the evaluation, and the wording was corrected.
 9. **2026-11-25:** the first scripted transcripts recorded my home folder path. They were deleted and re-recorded with relative paths, and the client now replaces the home path with `~` in recorded stderr. No transcript was edited by hand.
 10. **2026-11-25:** the first draft of `SCORE.md` gave the wrong origin for the 30-year limit. It was corrected before hand-over.
+11. **2026-11-25:** the first version of the experiment report scaled the held-out result to all of a change's flips. The right base is the flips outside the tuning labels. It also gave X2 a sampling interval, although every X2 flip is labeled, so its result is a count. Claude fixed the code after my held-out labels were committed (`810de710`), with two new tests. No label changed.
 
 ## Tools
 

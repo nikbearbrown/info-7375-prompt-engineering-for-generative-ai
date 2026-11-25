@@ -18,8 +18,8 @@ It builds on my JS1 and JS2 work; see [`SOURCES.md`](SOURCES.md).
 | FILTER.md v1.0 → v1.1, written before code | Done (`f50b5001`, `9d78317d`) |
 | Filter, tests, first full run, audit sample | Done (`c5dd2f44`) |
 | My 60 audit labels | Done (`e926b963`) |
-| Audit results, shortlist, tool server and evaluations, experiment set-up, docs | Built 2026-11-24/25; see "What ran" |
-| **My 20 held-out labels** | **Not done.** The held-out measurement in `experiments/REPORT.md` is empty until they exist |
+| Audit results, shortlist, tool server and evaluations, experiment set-up, docs | Committed (`e3166fe0`) |
+| My 20 held-out labels, blind | Done (`810de710`), committed before the experiment report was run |
 | **Trust decisions, rule-change decisions, sign-off, driver's seat, FRICTIONAL** | **Not done.** These are mine to write ([`SIGNOFF.md`](SIGNOFF.md), [`mcp/EVALUATION.md`](mcp/EVALUATION.md), [`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md), [`FRICTIONAL.md`](FRICTIONAL.md)) |
 
 ## Language and toolchain
@@ -36,7 +36,7 @@ Run every command from this folder, with `PYTHONDONTWRITEBYTECODE=1` set (it kee
 cd fall-2026/yash-s/js3-filter-tool-score
 export PYTHONDONTWRITEBYTECODE=1
 
-python3 -m unittest discover -s tests     # 101 tests
+python3 -m unittest discover -s tests     # 103 tests
 python3 wrong_versions.py                 # plants each FILTER.md section 9 wrong version; all must be caught
 
 python3 run_filter.py                     # a NEW run folder under runs/ (create-only); the first run is committed
@@ -78,7 +78,9 @@ All times are UTC.
 | 2026-11-24 | `shortlist.py` | 120 claims: 104 on the 10 review candidates, 16 on two outside examples. Every claim labeled supported, contradicted or insufficient ([SHORTLIST](shortlist/SHORTLIST-filter-v1.1-2026-11-18T212545Z.md)) |
 | 2026-11-25 04:18 and 04:26 | Two real Claude Code sessions using only my tool server | Both completed. Claude called the tools, declined to apply or write a file, and in session 2 found an undocumented tie order ([evaluation](mcp/EVALUATION.md)) |
 | 2026-11-25 04:21 | The same robustness probe against my server and the Lesson 8 server | Both crashed on one deeply nested line. Mine was fixed and re-probed at 04:21:40 |
-| 2026-11-25 | Tests on Python 3.9.6 and 3.13.5; `wrong_versions.py` | 101 tests pass on both. Baseline passes, and 6 of 6 wrong versions are caught |
+| 2026-11-25 | I labeled the 20 held-out postings, blind | Committed as `810de710` |
+| 2026-11-25 | `experiment.py report` | X1 (threshold 55): 9 of 15 held-out flips improved; 95% Wilson 36%–80%, **inconclusive**. X2 (two topics): 5 of 5 held-out flips improved; all 8 of its flips are labeled, so it is a count, 7 better and 1 worse ([REPORT](experiments/REPORT.md)) |
+| 2026-11-25 | Tests on Python 3.9.6 and 3.13.5; `wrong_versions.py` | 103 tests pass on both. Baseline passes, and 6 of 6 wrong versions are caught |
 
 ## Where each deliverable is
 
@@ -95,7 +97,7 @@ All times are UTC.
 
 ## Tests
 
-101 tests in 8 files. Every posting built inside a test is CONSTRUCTED, and labeled as such.
+103 tests in 8 files. Every posting built inside a test is CONSTRUCTED, and labeled as such.
 
 | File | Tests | What they protect |
 |---|---:|---|
@@ -105,7 +107,7 @@ All times are UTC.
 | `test_rules_and_data.py` | 6 | The rules files match FILTER.md; the saved data is complete |
 | `test_sampler.py` | 6 | Reproducible audit and held-out draws; tuning postings never drawn again |
 | `test_shortlist.py` | 9 | The claim checker's labels; the false-friend effect in the audit report |
-| `test_experiment.py` | 9 | Exactly one value changes; flip judging; interval values |
+| `test_experiment.py` | 11 | Exactly one value changes; flip judging; count versus estimate; interval values |
 | `test_mcp_server.py` | 17 | Lifecycle, declared tools, argument checks, error codes, the deep-nesting regression, no outward imports, the only write being the transcript, a real subprocess session changing nothing else |
 
 ## Honesty labels
