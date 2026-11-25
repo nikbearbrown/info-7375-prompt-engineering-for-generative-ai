@@ -31,3 +31,31 @@ The agent abstains (no accept/reject verdict, marked "abstain: cannot tell") whe
 
 ## Changes after measurement
 (Recorded here with dates: every rule added, cut, or rejected after the reject audit.)
+
+### 2026-11-25 — decisions after the reject audit (Nishant U)
+
+Evidence: my 45 audit verdicts (`audit/audit.csv`, commit `b8b0a20`) against the v1 run (`out3/filter-run/`, commit `8e759bf`); measurements in `audit/AUDIT-REPORT.md`. "Fixes" turn a disagreement into agreement; "breaks" turn an agreement into disagreement; "unaudited" counts verdict changes among the 137 postings I did not judge. These counts come from the same 45 verdicts that suggested the changes, so they overstate the improvement; v2 has not been tested on a fresh sample.
+
+| # | Decision | Change | Reason | Fixes | Breaks | Unaudited |
+| --- | --- | --- | --- | ---: | ---: | ---: |
+| 1 | ACCEPT | Cut "lead" from F2's exclusions | "Lead" often marks a senior individual contributor, not a people manager (row 4). | 1 (row 4) | 0 | 1 |
+| 2 | ACCEPT | F4 also counts Priya's résumé practices: A/B testing (also "A/B test", "A/B tests"), experimentation, LLM evaluation, LLM-as-judge | Her skills include practices, not only tool names (rows 8, 27, 35, 44). Row 15 becomes a known miss: the filter can't see managing duties. | 4 | 1 (row 15) | 0 |
+| 4 | REJECT | F1 passes when the text says "machine learning"/"ML" at least N times | One case (row 30), and N would be a guess. | (1) | (0) | (0) |
+| 5 | REJECT | Add "insights" to F1 and cut "manager" from F2 | Would let real managers through (row 10 stays a miss). | (1) | (0) | (0) |
+| 6 | REJECT | F1 passes for a "Strategy" title whose text says "individual contributor" and names SQL | Swaps one error for another (fixes row 28, breaks row 38). | (1) | (1) | (1) |
+| 7 | ACCEPT | F3: a location part of the form "US <State> (<City>) - Office" counts as US | A parsing bug: Poshmark writes US offices this way (e.g. "US California (Redwood City) - Office"). | 0 | 0 | not measured |
+| 8 | ACCEPT | C4: "hybrid" contradicts "Remote" only in a sentence that also says office, day(s) or schedule | The "hybrid" false friend: "preload vs. tool-calling vs. hybrid" is about AI architecture (row 9). Changes a claim label, not a verdict. | 0 verdicts | 0 | — |
+
+Change 3 in the audit report was changes 1 and 2 together, not a separate decision. Counts in parentheses are for rejected changes, which are not applied.
+
+## Version 2 (2026-11-25)
+
+This file now specifies **version 2**. The v1 text above is kept unchanged for the record; v2 is v1 with accepted changes 1, 2, 7 and 8 applied:
+
+- **F2 Title exclusions (v2):** manager, director, head, intern. ("lead" removed.)
+- **F3 US location (v2):** as v1, plus a part of the form "US <State> (<City>) - Office", where <State> is the full name of a US state or the District of Columbia.
+- **F4 Skill (v2):** at least 1 of Priya's 10 shipped skills, or one of her résumé practices (A/B testing, A/B test, A/B tests, experimentation, LLM evaluation, LLM-as-judge), appears as a whole word in the posting text (HTML removed). The practice list is hand-set from her résumé bullets. C2 claims still name shipped skills only.
+- **C4 Remote (v2):** as v1, except "hybrid" counts as contradicting only when its sentence also contains office, day(s) or schedule.
+- **Known miss (accepted):** an individual-contributor-looking title whose text describes managing people (row 15) is accepted when F4 now passes; v2 does not read managing duties.
+
+Everything else (F1, the evidence rules C1–C3, the abstention rule and the four wrong versions) is unchanged from v1.
