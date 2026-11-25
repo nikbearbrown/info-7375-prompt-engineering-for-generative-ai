@@ -40,7 +40,7 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 - **The v1.1 change:** instructed it (the narrow Mission Manager exception), and kept the held-out comparison
   labeled potentially contaminated.
 - **Still to come (Ashwin's alone):**
-  - the 47 hand verdicts and the 90 claim labels;
+  - the 47 hand verdicts, and any human claim labels;
   - both trust decisions;
   - the FRICTIONAL experience lines;
   - the sign-off.
@@ -48,6 +48,10 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 ## What Codex contributed (as relayed by Ashwin)
 
 - Drafted FILTER.md from `drafting/FILTER-QUESTIONS.md`, suggested threshold 7, and drafted the approval wording.
+- Labeled all 90 claims (`shortlist/claim-sheet.csv`, `label_source` column):
+  - 29 from the excerpt-only review cards;
+  - 61 checked against the saved posting text and structured fields, including 6 corrections of the excerpt-based
+    labels.
 - Drafted `labels/audit-ai-draft.csv`: 61 proposed verdicts inferred from Ashwin's held-out labels. The 47
   AI-assisted verdicts in `labels/audit-ai-assisted.csv` match it except row 35.
 - Wrote several of the instructions Ashwin pasted into the chat, including the provenance corrections.
@@ -75,6 +79,8 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
   - First reported 59 tests when there were 46.
   - Committed AI-assisted verdicts as "Ashwin's audit verdicts" (`e5828b69` … `54cecbe8`), corrected in `b03e6b29`.
   - Committed `cf210f14` before its test passed, fixed in `036e6fae`.
+  - Recorded Codex's 29 excerpt-based claim labels as Ashwin's own (`2d01d368` … `e13682ec`, `267dfff9`); Ashwin
+    corrected that on 2026-11-25.
   - Printed the held-out labels while checking the sheet, which is one reason the held-out comparison is
     potentially contaminated.
 

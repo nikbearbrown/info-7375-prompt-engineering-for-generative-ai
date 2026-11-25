@@ -34,6 +34,18 @@ Ashwin's thinking or feelings is inferred.
 - **(Ashwin) Why I used AI-assisted verdicts, and what it cost:**
 - **(Ashwin) What I would do differently:**
 
+## 2026-11-25: claim labels
+
+- **What happened:**
+  - Claude Code showed review cards in batches. Their excerpts left out the structured fields.
+  - Labels for claims 1–40 came from Codex, working from those excerpts. They were first recorded as Ashwin's own,
+    which Ashwin corrected.
+  - Codex then labeled the rest against the saved text and structured fields, and corrected 6 of its earlier labels.
+  - Claim 42, an "I cannot tell" about remote work, turned out contradicted: the structured field says `onsite`, and
+    Claude was never shown that field.
+- **Evidence:** `shortlist/claim-sheet.csv` (`label_source`), `SHORTLIST.md`, `267dfff9`.
+- **(Ashwin) Why I used AI-assisted labels, and what I checked myself:**
+
 ## 2026-11-25: a false friend and one change
 
 - **What happened:** The seniority word "manager" fired on "Software Engineer - Mission Manager". The posting calls
@@ -59,5 +71,5 @@ Ashwin's thinking or feelings is inferred.
 
 ## Still open
 
-- **(Ashwin)** The 47 hand verdicts, the 90 claim labels, the trust decisions and the sign-off.
+- **(Ashwin)** The 47 hand verdicts, any human claim labels, the trust decisions and the sign-off.
 - **(Ashwin)** The next question I would ask:

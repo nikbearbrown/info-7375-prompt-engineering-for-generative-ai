@@ -1,17 +1,19 @@
 # Source-grounded shortlist (Step 2.2)
 
-Drafted by Claude Code on 2026-11-25. All 90 claims are labeled in `shortlist/claim-sheet.csv`, and the
-`label_source` column says who labeled each one:
+Drafted by Claude Code on 2026-11-25. All 90 claims are labeled in `shortlist/claim-sheet.csv`. **Every label is a
+Codex AI-assisted label, relayed by Ashwin in chat. None is an independent human judgment.** The `label_source`
+column separates two kinds:
 
-- **29 labels by Ashwin,** given in chat after reading the review cards: claims 1–40, apart from the 11 listed next.
-- **61 Codex AI-assisted labels,** checked against the saved posting text and the structured fields, and relayed by
-  Ashwin in chat on 2026-11-25:
+- **29 excerpt-based labels.** Codex made these from the excerpt-only review cards: claims 1–40, apart from the 11
+  listed next. They were first recorded as Ashwin's own labels (commits `2d01d368` … `e13682ec`), which was wrong;
+  Ashwin corrected that on 2026-11-25.
+- **61 labels checked against the saved posting text and structured fields:**
   - claims 41–90;
-  - the 5 claims Ashwin had left pending: 22, 26, 31, 32 and 37;
-  - 6 corrections to Ashwin's earlier labels: 2, 6, 7, 11, 12 and 17, each changed from I to S. Each corrected row
-    keeps its earlier label in `note`.
+  - the 5 claims left pending: 22, 26, 31, 32 and 37;
+  - 6 corrections of earlier excerpt-based labels: 2, 6, 7, 11, 12 and 17, each changed from I to S. Each corrected
+    row keeps its earlier label in `note`.
 
-The Codex labels are not Ashwin's own judgments, and this report counts them separately.
+**No claim has a human label.** That is a stated limitation of this step.
 
 ## What ran
 
@@ -26,7 +28,7 @@ The Codex labels are not Ashwin's own judgments, and this report counts them sep
 
 ## Labels
 
-| Label | Ashwin | Codex AI-assisted | All |
+| Label | Codex, excerpt-based | Codex, checked against text and fields | All |
 |---|---:|---:|---:|
 | S, supported | 27 | 55 | 82 |
 | C, contradicted | 0 | 1 | 1 |
@@ -37,18 +39,18 @@ The 8 claims not labeled S:
 
 | Claim | Label | Source | Why (recorded with the label) |
 |---|---|---|---|
-| 1: Klaviyo, "3+ years… above a typical new-grad level" | I | Ashwin | |
-| 16: Apollo Systems NY, "several years… well beyond new-grad level" | I | Ashwin | |
-| 42: Defense NY, "I cannot tell… does not label itself Remote or Onsite" | **C** | Codex | The structured field is `workplaceType: onsite` |
-| 46, 66, 76, 81: "N+ years… above / not new-grad level" | I | Codex | The years are stated; the new-grad comparison is interpretation |
-| 71: Query Engines, "requiring only a… degree" | I | Codex | "Only" overstates it; the posting also requires proficiency, fundamentals and coursework/projects |
+| 1: Klaviyo, "3+ years… above a typical new-grad level" | I | Codex, excerpt-based | |
+| 16: Apollo Systems NY, "several years… well beyond new-grad level" | I | Codex, excerpt-based | |
+| 42: Defense NY, "I cannot tell… does not label itself Remote or Onsite" | **C** | Codex, checked | The structured field is `workplaceType: onsite` |
+| 46, 66, 76, 81: "N+ years… above / not new-grad level" | I | Codex, checked | The years are stated; the new-grad comparison is interpretation |
+| 71: Query Engines, "requiring only a… degree" | I | Codex, checked | "Only" overstates it; the posting also requires proficiency, fundamentals and coursework/projects |
 
 **Mechanical check versus labels.** 70 claims had their quote found, and every one of them was labeled either S or
 I. Finding the quote never decided the label. The one negation-flagged claim, `6fe5515f-c3` ("…is beneficial, but
 not required"), was labeled S: its claim states the negation correctly. That is why the flag asks a person rather
 than deciding.
 
-## Relevance is not entailment (claim 1, Ashwin's label)
+## Relevance is not entailment (claim 1, Codex excerpt-based label)
 
 `greenhouse/klaviyo/8041054003`, "Software Engineer, Conversational Products & Agent Workflows", Boston, is the
 filter's top KEEP at score 8. It matches three of the résumé's topic groups, Python, Redis and Kubernetes, so the
@@ -56,10 +58,10 @@ filter's words say it is relevant.
 
 Claude's claim 1 reads "The posting asks for 3+ years of professional software engineering experience, which is above
 a typical new-grad level." The quote is real. But the posting never says the role is above new-grad level: that part
-is Claude's interpretation. Ashwin labeled it **I**.
+is Claude's interpretation. It is labeled **I** (Codex, excerpt-based).
 
 So the posting matches our words, and still does not support the claim made about it. Claims 16, 46, 66, 76 and 81
-show the same pattern; Ashwin labeled 16, and Codex labeled the rest.
+show the same pattern, with every one labeled by Codex.
 
 ## The abstention rule and a counterexample
 
@@ -80,15 +82,15 @@ Grad - Production Infrastructure" postings pass the experience claim with a real
 Security clearance, or eligibility and willingness to obtain a US Security clearance", and Supriya's eligibility is
 unknown. No claim abstains on it.
 
-**Hybrid is not remote.** 18 of the 19 abstentions were labeled S, all by Codex. Several sit next to Palantir's office
+**Hybrid is not remote.** 18 of the 19 abstentions were labeled S, all by Codex after checking the text and fields. Several sit next to Palantir's office
 policy text, "Many teams do offer hybrid options (WFH a day or two a week)" and "a few roles that allow for 'Remote'
 work on an exceptional basis". Hybrid work does not establish permission to work fully remotely from anywhere in the
 US, so "I cannot tell" stays the right answer on remote eligibility for those postings.
 
 ## Still open
 
-- 61 of 90 labels are AI-assisted. Ashwin may review any of them and override them in `claim-sheet.csv`. A changed
-  row should keep the earlier label in `note`.
+- **All 90 labels are AI-assisted. No claim has a human label.** Ashwin may review any of them and override them in
+  `claim-sheet.csv`. A changed row should keep the earlier label in `note`.
 - The 2 v1.1-only KEEPs have no claims.
 - One possible next change, to one object: add the structured fields to the context Claude is given. It is not
   measured.

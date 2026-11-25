@@ -164,6 +164,9 @@ def latest_run() -> Path:
 
 
 def write_sheet(run_dir: Path) -> None:
+    existing = OUT / "claim-sheet.csv"
+    if existing.exists() and any((r.get("label") or "").strip() for r in csv.DictReader(existing.open())):
+        raise SystemExit("shortlist/claim-sheet.csv already has labels; refusing to overwrite it")
     res = json.loads((run_dir / "results.json").read_text())["results"]
     by_key = {p["key"]: p for p in load()["postings"]}
     lines = ["# Claim-labeling sheet", "",

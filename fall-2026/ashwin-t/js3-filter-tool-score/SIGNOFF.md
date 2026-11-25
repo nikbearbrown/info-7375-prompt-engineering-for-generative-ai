@@ -27,7 +27,7 @@ Signed or withheld: ____________ (name, date)
 ## Candidate "Not checked" items, from the record
 
 - **The hand-judged reject audit: 0 of 47.** The verdicts are AI-assisted, inferred from the held-out labels.
-- **Claim labels: 0 of 90.**
+- **Human claim labels: none.** All 90 are Codex AI-assisted; 29 of them were made from excerpts only.
 - **Clean held-out performance.** The 30-posting set is potentially contaminated.
 - **The level-II and forward-deployed exclusions.** FILTER.md section 10 promised an audit; their 7 postings were
   never judged.
