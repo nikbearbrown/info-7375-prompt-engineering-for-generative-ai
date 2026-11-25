@@ -337,6 +337,74 @@ def audit_dev(audit_path, sample_path, labels_path, out_dir):
     return rows
 
 
+def claims_import(pasted_path, claims_path, out_path, note):
+    import hashlib
+
+    from jobwatch import claim_labels
+
+    pasted = Path(pasted_path).read_bytes()
+    claims_bytes = Path(claims_path).read_bytes()
+    ids = [f"R{r['rank']}-C{r['n']}" for r in map(json.loads, claims_bytes.decode("utf-8").splitlines())]
+    parsed = claim_labels.parse(pasted.decode("utf-8"), ids)
+    out = {"source": str(pasted_path), "source_sha256": hashlib.sha256(pasted).hexdigest(),
+           "claims": str(claims_path), "claims_sha256": hashlib.sha256(claims_bytes).hexdigest(), "note": note, **parsed}
+    Path(out_path).write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    counts = collections.Counter(v["label"] for v in parsed["labels"].values())
+    print(f"{len(parsed['labels'])} claim labels: " + ", ".join(f"{k} {counts[k]}" for k in ("supported", "contradicted", "insufficient")))
+
+
+def flip_run(run_dir, shortlist_dir, labels_path, out_dir, model):
+    """Chapter 7's challenge: Claude looks for the sentence that would change each of the student's
+    claim labels (live, Claude Code login). Recorded once: refuses a folder that already has results."""
+    import datetime
+    import hashlib
+
+    from jobwatch import claims, evidence, flip
+
+    out = Path(out_dir)
+    if (out / "flip.jsonl").exists():
+        raise FileExistsError(f"{out / 'flip.jsonl'} exists: the challenge is recorded once; use a new --out")
+    out.mkdir(parents=True, exist_ok=True)
+    shortlist = json.loads((Path(shortlist_dir) / "shortlist.json").read_text(encoding="utf-8"))
+    rows = [json.loads(line) for line in open(Path(shortlist_dir) / "claims.jsonl", encoding="utf-8")]
+    labels = json.loads(Path(labels_path).read_text(encoding="utf-8"))["labels"]
+    items, _ = corpus.load(run_dir)
+    by_key = {(i.board, i.key): i for i in items}
+    send = claims.claude_code_send(model)
+    results, failures = [], 0
+    for s in shortlist:
+        item = by_key[(s["board"], s["key"])]
+        mine = [(f"R{r['rank']}-C{r['n']}", r) for r in rows if r["rank"] == s["rank"]]
+        system, user = flip.build_prompt(item, mine, labels)
+        started = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+        result = send(system, user)
+        ended = datetime.datetime.now(datetime.timezone.utc).isoformat(timespec="seconds")
+        saved = {"rank": s["rank"], "board": s["board"], "key": s["key"], "started": started, "ended": ended,
+                 "prompt_file": "prompts/flip-v1.md",
+                 "prompt_sha256": hashlib.sha256(flip.PROMPT_PATH.read_bytes()).hexdigest(),
+                 "user_message": user,
+                 "command": [c if c != system else "<prompts/flip-v1.md, # System>" for c in result["command"]],
+                 "returncode": result["returncode"], "stdout": result["stdout"], "stderr": result["stderr"]}
+        (out / f"rank-{s['rank']:02d}.json").write_text(json.dumps(saved, indent=1, ensure_ascii=False) + "\n",
+                                                       encoding="utf-8")
+        try:
+            challenges = flip.parse_reply(result["stdout"], [claim_id for claim_id, _ in mine])
+        except flip.FlipError as error:
+            failures += 1
+            print(f"rank {s['rank']}: no challenges ({error})")
+            continue
+        text = " ".join([item.title, item.location or "", evidence.plain(item.description)])
+        found = flip.checked(text, challenges, {claim_id: labels[claim_id]["label"] for claim_id, _ in mine})
+        results += [{"rank": s["rank"], **row} for row in found]
+        print(f"rank {s['rank']}: {sum(r['proposes_a_change'] for r in found)} proposed changes, "
+              f"{sum(r['sentence_check'] == 'quote not found' for r in found)} sentences not found in the posting")
+    with open(out / "flip.jsonl", "w", encoding="utf-8") as fh:
+        for row in results:
+            fh.write(json.dumps(row, ensure_ascii=False, sort_keys=True) + "\n")
+    print(f"{len(results)} claims challenged, {failures} failed calls; "
+          f"{sum(r['proposes_a_change'] for r in results)} proposed changes with the sentence found in the posting")
+
+
 def dev_effect(run_dir, sample_path, labels_path, variant_paths):
     """What each variant changes on the 50 development labels (never the held-out 30), and how
     many of all postings would reach Alex."""
@@ -474,6 +542,17 @@ def main(argv=None):
     dev.add_argument("--sample", required=True)
     dev.add_argument("--labels", required=True)
     dev.add_argument("--out", required=True)
+    cim = commands.add_parser("claims-import", help="read the student's pasted claim labels into JSON")
+    cim.add_argument("pasted")
+    cim.add_argument("--claims", required=True)
+    cim.add_argument("--out", required=True)
+    cim.add_argument("--note", required=True, help="how the labels were entered, in one sentence")
+    fli = commands.add_parser("flip", help="Claude looks for the sentence that would change each claim label (live)")
+    fli.add_argument("run_dir")
+    fli.add_argument("--shortlist", required=True)
+    fli.add_argument("--labels", required=True)
+    fli.add_argument("--out", required=True)
+    fli.add_argument("--model", default="claude-opus-5-5")
     eff = commands.add_parser("dev-effect", help="what each variant changes on the development labels only")
     eff.add_argument("run_dir")
     eff.add_argument("--sample", required=True)
@@ -486,6 +565,16 @@ def main(argv=None):
     hel.add_argument("--variant", required=True)
     hel.add_argument("--out", required=True)
     args = parser.parse_args(argv)
+    if args.command == "claims-import":
+        claims_import(args.pasted, args.claims, args.out, args.note)
+        return 0
+    if args.command == "flip":
+        try:
+            flip_run(args.run_dir, args.shortlist, args.labels, args.out, args.model)
+        except FileExistsError as exc:
+            print(f"refused: {exc}", file=sys.stderr)
+            return 1
+        return 0
     if args.command == "dev-effect":
         dev_effect(args.run_dir, args.sample, args.labels, args.variants)
         return 0
