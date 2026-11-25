@@ -270,6 +270,59 @@ def claims_sheet(run_dir, shortlist_dir):
     print(f"{sum(len(p['claims']) for p in postings)} claims on {len(postings)} postings; claims.jsonl sha256 {sha}")
 
 
+def labels_import(pasted_path, sample_path, out_path, note):
+    import hashlib
+
+    from jobwatch import hand_labels
+
+    pasted = Path(pasted_path).read_bytes()
+    sheet = Path(sample_path).read_bytes()
+    ids = [m["label_id"] for m in json.loads(sheet)["members"]]
+    parsed = hand_labels.parse(pasted.decode("utf-8"), ids)
+    out = {"source": str(pasted_path), "source_sha256": hashlib.sha256(pasted).hexdigest(),
+           "sample": str(sample_path), "sample_sha256": hashlib.sha256(sheet).hexdigest(), "note": note, **parsed}
+    Path(out_path).write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    counts = collections.Counter(v["label"] for v in parsed["labels"].values())
+    print(f"{len(parsed['labels'])} labels: " + ", ".join(f"{k} {counts[k]}" for k in ("yes", "no", "cannot tell")))
+
+
+def audit_dev(audit_path, sample_path, labels_path, out_dir):
+    """The filter against the student's labels, development groups only (never the held-out 30)."""
+    from jobwatch import hand_labels
+
+    records = {(r["board"], r["key"]): r for r in map(json.loads, open(audit_path, encoding="utf-8"))}
+    members = json.loads(Path(sample_path).read_text(encoding="utf-8"))["members"]
+    labels = json.loads(Path(labels_path).read_text(encoding="utf-8"))["labels"]
+    rows = hand_labels.development_rows(members, labels, records)
+    out = Path(out_dir)
+    out.mkdir(parents=True, exist_ok=True)
+    with open(out / "dev-comparison.jsonl", "w", encoding="utf-8") as fh:
+        for row in rows:
+            fh.write(json.dumps(row, ensure_ascii=False) + "\n")
+    lines = ["# The filter against the student's hand labels: development groups only", "",
+             f"Written by `python3 -m jobwatch.js3 audit-dev --audit {audit_path} --sample {sample_path} "
+             f"--labels {labels_path} --out {out_dir}`. The two held-out groups are not in this file.", "",
+             "Outcome: *agree*; *false exclusion* (labelled yes, the filter rejected it); *false inclusion* "
+             "(labelled no, the filter kept it or held it for review); *cannot tell* (never scored).", "",
+             "| ID | Group | Board | Title | Location | Fate | Score | Matched | Filter's reasons | Label | Outcome | The student's reason |",
+             "| --- | --- | --- | --- | --- | --- | ---: | --- | --- | --- | --- | --- |"]
+    for row in rows:
+        r = records[(row["board"], row["key"])]
+        matched = "; ".join(f"{k}: {', '.join(v)}" for k, v in r["matched"].items() if v)
+        why = ", ".join(r["reasons"] + [f"review: {x}" for x in r["review_reasons"]])
+        lines.append("| " + " | ".join(_md_cell(c) for c in [
+            row["label_id"], row["stratum"].replace("audit ", ""), row["board"], r["title"], r["location"]["text"],
+            r["fate"], r["score"], matched, why, row["label"], row["outcome"], row["reason"]]) + " |")
+    (out / "DEV-COMPARISON.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    groups = collections.OrderedDict()
+    for row in rows:
+        groups.setdefault(row["stratum"], collections.Counter())[row["outcome"]] += 1
+    for stratum, counts in groups.items():
+        print(f"  {stratum:34} " + ", ".join(f"{k} {counts[k]}" for k in
+                                             ("agree", "false exclusion", "false inclusion", "cannot tell")))
+    return rows
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(prog="python3 -m jobwatch.js3")
     commands = parser.add_subparsers(dest="command", required=True)
@@ -292,7 +345,23 @@ def main(argv=None):
     cla = commands.add_parser("claims-sheet", help="write the offline page for labelling the shortlist's claims")
     cla.add_argument("run_dir")
     cla.add_argument("--shortlist", required=True)
+    imp = commands.add_parser("labels-import", help="read the student's pasted label table into labels JSON")
+    imp.add_argument("pasted")
+    imp.add_argument("--sample", required=True)
+    imp.add_argument("--out", required=True)
+    imp.add_argument("--note", required=True, help="how the labels were entered, in one sentence")
+    dev = commands.add_parser("audit-dev", help="the filter against the hand labels, development groups only")
+    dev.add_argument("--audit", required=True)
+    dev.add_argument("--sample", required=True)
+    dev.add_argument("--labels", required=True)
+    dev.add_argument("--out", required=True)
     args = parser.parse_args(argv)
+    if args.command == "labels-import":
+        labels_import(args.pasted, args.sample, args.out, args.note)
+        return 0
+    if args.command == "audit-dev":
+        audit_dev(args.audit, args.sample, args.labels, args.out)
+        return 0
     if args.command == "claims-sheet":
         claims_sheet(args.run_dir, args.shortlist)
         return 0

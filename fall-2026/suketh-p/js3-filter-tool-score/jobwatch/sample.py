@@ -15,6 +15,15 @@ SEED = 20261124
 SHUFFLE_SEED = 1125
 SIZES = {"held-out kept or review": 15, "held-out rejected": 15, "audit random reject": 30,
          "audit one point under the cutoff": 5, "audit at the cutoff": 5, "audit kept sample": 10}
+HELD_OUT = ("held-out kept or review", "held-out rejected")
+
+
+def held_out(members):
+    return [m for m in members if m["stratum"] in HELD_OUT]
+
+
+def development(members):
+    return [m for m in members if m["stratum"] not in HELD_OUT]
 
 
 def _key(record):
