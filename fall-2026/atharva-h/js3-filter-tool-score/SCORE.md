@@ -17,7 +17,7 @@ Each number below is produced by a script and saved in a file, or was set by han
 | Split | 77 tuning, 37 held-out | `labels.py`, seed 20261120, each stratum split 2:1 (`state/labels/split*.json`) |
 | Held-out precision and recall of v1.0 | 2/2 and 2/2 | `python3 measure.py` → `state/measure/v1.0_labels.txt` |
 | Every change's numbers below | as shown | `python3 measure_changes.py` → `state/measure/changes.txt` and `changes.json`. The run before F5 was added is kept as `changes_before_F5.*`. |
-| My claim labels: 43 supported, 3 contradicted, 26 insufficient; coverage from them, 4/12 | as stated | My labels in `state/claims/base_checked.csv` (`my_label`, labeled by me 2026-11-25); `python3 claims.py confirmed` → `state/claims/base_answers_my_labels.json` |
+| My claim labels: 41 supported, 3 contradicted, 28 insufficient; coverage from them, 3/12 | as stated | My labels in `state/claims/base_checked.csv` (`my_label`, labeled by me 2026-11-25; two changed to follow the exact-span rule at my request); `python3 claims.py confirmed` → `state/claims/base_answers_my_labels.json` |
 | Claim counts, quotes found, coverage | as shown | `python3 claims.py check VARIANT` → `state/claims/VARIANT_checked.csv` and `_answers.json`. The claims are written by `claude -p` (Claude Code 2.1.331; the recorded model is `claude-opus-5-5`). |
 | Audit error rates: kept 10/10 wrong, random rejects 0/30, near threshold 0/10 | as stated | My verdicts in `state/audit/audit_v1.0.csv` (judged by me, 2026-11-25); `python3 audit.py report` → `state/audit/report_v1.0.txt` |
 | Collection budget: 15 boards, 35 requests, 180 s; 5 MB write approval | as stated | FILTER.md v1.0; the 5 MB is JS2's GATE.md, carried over |

@@ -218,3 +218,11 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - Two location quotes that begin with the prompt's field name "Locations:": I labeled them supported. The checker refused them under FILTER.md's exact-span rule.
 - **What changed with my labels:** with my labels (`claims.py confirmed`), the agent answers 4 of 12 kept postings, and all 4 are "no". Veeva moves from "I cannot tell" to "keep". It still abstains on both "yes" postings.
 - **`SHORTLIST.md` was redrafted around my labels.** The relevance-vs-entailment case is now my own disagreement with the checker (FanDuel "Analyst", years), instead of Claude's first pick (Zoox's student quote, which I labeled supported).
+
+## 2026-11-25 — Claim labels brought in line with the rules
+- **What I asked for:** that every label that breaks our rules be checked and made to follow them.
+- **What Claude checked:** all 72 of my labels against FILTER.md's evidence rules. A "supported" or "contradicted" label needs a quote that is an exact span of the posting. Only two of my labels broke it: the two location quotes beginning with the prompt's field name "Locations:" (Veeva ADP and FanDuel "Analyst"), which I had labeled supported.
+- **What changed:** both are now insufficient, and the `note` column says when, why, and that I asked for it.
+  - **The counts:** 41 supported, 3 contradicted, 28 insufficient, with 2 differing from the checker.
+  - **The answers:** recomputed (`claims.py confirmed`). The agent answers 3 of 12, all "no", the same as the checker's labels. Veeva is back to "I cannot tell".
+- **Not changed:** my judgments on what quotes mean. These include labeling Zoox's "Currently enrolled…" supported for seniority, and FanDuel "Analyst"'s "2+ years … preferred" insufficient for years. They are judgments, not breaks of a mechanical rule.
