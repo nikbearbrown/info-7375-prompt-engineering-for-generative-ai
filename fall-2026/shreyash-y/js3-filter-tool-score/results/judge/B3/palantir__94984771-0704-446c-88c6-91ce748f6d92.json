@@ -1,0 +1,43 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "B3",
+ "called_at": "2026-11-25T22:38:40+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:94984771-0704-446c-88c6-91ce748f6d92",
+ "raw_text": "{\"posting_id\": \"palantir:94984771-0704-446c-88c6-91ce748f6d92\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Software Engineer, New Grad' matches target_roles, the content mentions at least two skills (Java, TypeScript, React, Python), states no minimum experience, and the title has no excluded words. However, the department 'Dev' is not in the allowed list (condition 2). The location and offices list only New York, NY, and the content does not state US-wide remote support, so condition 3 fails for an applicant in Boston, MA with remote_ok true.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:94984771-0704-446c-88c6-91ce748f6d92",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title 'Software Engineer, New Grad' matches target_roles, the content mentions at least two skills (Java, TypeScript, React, Python), states no minimum experience, and the title has no excluded words. However, the department 'Dev' is not in the allowed list (condition 2). The location and offices list only New York, NY, and the content does not state US-wide remote support, so condition 3 fails for an applicant in Boston, MA with remote_ok true."
+ },
+ "made_up_quotes": [],
+ "session_id": "9a4de2b5-9cb3-4930-b09a-01e0a7c0fe37",
+ "cost_usd": 0.0121228,
+ "duration_ms": 5335
+}
