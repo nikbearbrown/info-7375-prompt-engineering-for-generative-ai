@@ -43,24 +43,40 @@ V1_0 = {
     "close_band": 1,
 }
 
-VERSIONS = {"v1.0": V1_0}
+# v1.1 (2026-11-25): one rule added after measuring on the 50 audit labels (FILTER.md version log).
+#   added C2: punctuation may sit between a phrase's words. Audit 33 -> 34 of 50.
+#   rejected C1 (cut title-level words), C3 (streaming), C4 (orchestration): audit +0 each.
+V1_1 = {**V1_0, "version": "v1.1", "phrase_gap": "punctuation"}
+
+# v1.2 (2026-11-25): one setting changed: threshold 6 (hand-set) -> 5 (fitted on the 50 audit labels;
+#   3 and 5 tied at 37/50, tie broken toward 6). Held-out: 14/30 -> 21/30. Close-call band follows (4..6).
+V1_2 = {**V1_1, "version": "v1.2", "threshold": 5}
+
+VERSIONS = {"v1.0": V1_0, "v1.1": V1_1, "v1.2": V1_2}
+CURRENT = V1_2   # the version in force
 
 
-def term_re(term: str) -> re.Pattern:
-    """Whole-word, case-insensitive; spaces inside a phrase match any run of whitespace."""
-    body = r"\s+".join(re.escape(w) for w in term.split())
+GAPS = {"whitespace": r"\s+",                 # v1.0: only whitespace between a phrase's words
+        "punctuation": r"[^A-Za-z0-9]+"}       # "data-quality", "Data & Integration" also match
+
+
+def term_re(term: str, gap: str = "whitespace") -> re.Pattern:
+    """Whole-word, case-insensitive; between a phrase's words, what GAPS[gap] allows."""
+    body = GAPS[gap].join(re.escape(w) for w in term.split())
     return re.compile(r"(?<![A-Za-z0-9])" + body + r"(?![A-Za-z0-9])", re.IGNORECASE)
 
 
-def find(term: str, text: str):
+def find(term: str, text: str, gap: str = "whitespace"):
     """First whole-word match as (start, end, matched text), or None."""
-    m = term_re(term).search(text or "")
+    m = term_re(term, gap).search(text or "")
     return (m.start(), m.end(), m.group(0)) if m else None
 
 
 def apply(posting: dict, cfg: dict = V1_0) -> dict:
     """Score one posting. Returns verdict "keep" | "reject" | "cannot_tell" with every match cited."""
     title, text = posting.get("title") or "", posting.get("content_text") or ""
+    gap = cfg.get("phrase_gap", "whitespace")
+    find_ = lambda term, where: find(term, where, gap)   # noqa: E731
     board_key = posting.get("board") or posting["id"].rsplit(":", 1)[0]
     ats, board = board_key.split(":", 1)
     out = {"id": posting["id"], "board": board_key, "title": title, "filter_version": cfg["version"],
@@ -74,7 +90,7 @@ def apply(posting: dict, cfg: dict = V1_0) -> dict:
         return out
 
     # F2: title words
-    out["disqualified_by"] = [f"title:{w}" for w in cfg["disqualify_title"] if find(w, title)]
+    out["disqualified_by"] = [f"title:{w}" for w in cfg["disqualify_title"] if find_(w, title)]
     # F3: structured employment type; missing = unknown
     et = posting.get("employment_type")
     allowed = cfg["fulltime_values"].get(ats)
@@ -82,10 +98,10 @@ def apply(posting: dict, cfg: dict = V1_0) -> dict:
         out["disqualified_by"].append(f"employment_type:{et}")
 
     # F4, F5, F6: always computed, so a disqualified posting still shows what it matched
-    out["role_hits"] = [w for w in cfg["role_words"] if find(w, title)]
+    out["role_hits"] = [w for w in cfg["role_words"] if find_(w, title)]
     out["role"] = cfg["role_weight"] if out["role_hits"] else 0
     for group, terms in cfg["topic_groups"].items():
-        hit = next((find(t, text) for t in terms if find(t, text)), None)
+        hit = next((find_(t, text) for t in terms if find_(t, text)), None)
         if hit:
             out["topic_hits"][group] = {"matched": hit[2], "at": hit[0]}
     out["topics"] = min(len(out["topic_hits"]), cfg["topic_cap"])
@@ -94,7 +110,7 @@ def apply(posting: dict, cfg: dict = V1_0) -> dict:
         if employer and s.lower() == employer.lower():
             out["skipped_skills"].append(f"{s} (employer name on its own board, F6)")
             continue
-        hit = find(s, text)
+        hit = find_(s, text)
         if hit:
             out["skill_hits"][s] = {"matched": hit[2], "at": hit[0]}
     out["skills"] = len(out["skill_hits"])

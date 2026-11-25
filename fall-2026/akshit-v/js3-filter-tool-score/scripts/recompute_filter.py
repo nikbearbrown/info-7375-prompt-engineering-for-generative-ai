@@ -109,7 +109,9 @@ def score(ats, board, title, text, et):
 
 
 def main():
-    mine = json.loads((ROOT / "out" / "filter" / "v1.0" / "results.json").read_text(encoding="utf-8"))["results"]
+    # literal reading = FILTER.md v1.0; loose reading = v1.1 (rule C2, added 2026-11-25)
+    version = "v1.1" if LOOSE else "v1.0"
+    mine = json.loads((ROOT / "out" / "filter" / version / "results.json").read_text(encoding="utf-8"))["results"]
     ps = postings()
     diffs = []
     for pid, args in ps.items():
@@ -117,7 +119,7 @@ def main():
         r = mine.get(pid)
         if r is None or r["verdict"] != v or (s is not None and r["score"] != s):
             diffs.append((pid, args[2], v, s, r and r["verdict"], r and r["score"]))
-    print(f"reading: {'loose' if LOOSE else 'literal'}; recomputed {len(ps)} postings (code has {len(mine)}); "
+    print(f"reading: {'loose' if LOOSE else 'literal'} vs code {version}; recomputed {len(ps)} postings (code has {len(mine)}); "
           f"disagreements: {len(diffs)}")
     for d in diffs[:20]:
         print("  ", d)

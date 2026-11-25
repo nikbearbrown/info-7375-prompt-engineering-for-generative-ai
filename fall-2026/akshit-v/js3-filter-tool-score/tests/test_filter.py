@@ -70,5 +70,22 @@ class Rules(unittest.TestCase):
         self.assertEqual({res["results"][p["id"]]["id"] for p in ps}, {p["id"] for p in ps})
 
 
+class V1_1(unittest.TestCase):
+    """FILTER.md v1.1, rule C2: punctuation may sit between a phrase's words. CONSTRUCTED postings."""
+
+    def test_hyphen_and_ampersand_match_in_v1_1_not_v1_0(self):
+        p = P("Data & Integration Engineer", "data-quality checks in Python")
+        a, b = flt.apply(p, flt.V1_0), flt.apply(p, flt.V1_1)
+        self.assertEqual((a["role_hits"], list(a["topic_hits"])), ([], []))
+        self.assertEqual((b["role_hits"], list(b["topic_hits"])), (["Data Integration"], ["T7 quality"]))
+
+    def test_still_whole_word(self):
+        self.assertEqual(flt.apply(P("Engineer", "metadata-qualityx, PostgreSQL"), flt.V1_1)["skill_hits"], {})
+
+    def test_v1_1_differs_from_v1_0_only_in_phrase_gap(self):
+        diff = {k for k in set(flt.V1_0) | set(flt.V1_1) if flt.V1_0.get(k) != flt.V1_1.get(k)}
+        self.assertEqual(diff, {"version", "phrase_gap"})
+
+
 if __name__ == "__main__":
     unittest.main()

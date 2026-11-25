@@ -74,7 +74,8 @@ def validate(text: str, resume_fields, verdicts) -> tuple:
 def js3_tool_server() -> dict:
     """The tool-list condition: my MCP server, exactly as in scripts/claude_as_client.py."""
     return {"js3-filter": {"type": "stdio", "command": sys.executable,
-                           "args": ["-B", "-m", "agent3.mcp_server", "--transcript-name", "judge_tool_condition"],
+                           "args": ["-B", "-m", "agent3.mcp_server", "--filter-version", "v1.2",
+                                    "--transcript-name", "judge_tool_condition"],
                            "env": {"PYTHONPATH": str(ROOT)}}}
 
 

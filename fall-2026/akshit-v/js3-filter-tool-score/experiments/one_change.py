@@ -122,10 +122,10 @@ def run_claude(args):
     contexts = {}
     if spec["context"]:
         for p in ps:   # one context string per posting: the filter's own record for it
-            r = flt.apply(p, flt.V1_0)
+            r = flt.apply(p, flt.CURRENT)
             contexts[p["id"]] = (f"FILTER RESULT (keyword filter, FILTER.md {r['filter_version']}; a keyword count, "
                                  f"not a judgment): {r['verdict']}, score {r['score']} (keep at >= "
-                                 f"{flt.V1_0['threshold']}): {r['because']}")
+                                 f"{flt.CURRENT['threshold']}): {r['because']}")
     replies = judge.judge_all(ps, resume, template, contexts=contexts, **kw)
     rec = {"cond": args.cond, **spec, "run_at_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "replies": replies}
