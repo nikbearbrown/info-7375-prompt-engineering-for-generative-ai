@@ -1,0 +1,27 @@
+{
+  "backend": "claude-cli (JS1 judge_cli.cli_argv)",
+  "argv": [
+    "claude",
+    "-p",
+    "--output-format",
+    "json",
+    "--system-prompt",
+    "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--safe-mode",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "system": "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+  "stdin": "Labeling rule (FILTER.md section 0, quoted): a posting is relevant when all of these hold, and not_relevant otherwise:\n  - Job family: machine learning engineering, AI engineering, applied science, data science, LLM engineering, or applied ML research.\n  - Seniority: entry level through mid level. Intern, Staff, Senior Staff, Principal, Director, Lead, Head and management roles are not relevant. A Senior role is relevant only when the stated minimum experience requirement is five years or less.\n  - Location: Boston, New York or NYC, Seattle, or a remote position that explicitly allows working from the United States.\n  - Title versus text: the actual responsibilities and minimum qualifications take priority over the title. A suitable title does not rescue a posting whose minimum required experience is more than five years (the same line as rule E01).\n  - When I am unsure, the label is not_relevant.\n\nPosting context:\nTitle: Engineering Manager, Machine Learning - Fraud Detection\nText:\nAbout Stripe Stripe is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career. About the team Risk Detection is focused on providing a delightful experience for our merchants and minimizing friction, while ensuring the safety of our users in the financial ecosystem. Whenever the Risk team takes action on an account, we work to notify Merchants and provide clear status on what’s happening, enable guided workflows for resolving their issues, and redefine our overall Risk processes to make them as smooth as possible for good merchants. What you’ll do We’re looking for an engineering leader to lead and grow a strong team of engineers, build relationships with customers internally and externally, and champion our vision of making Stripe’s risk management a feature that attracts and retains merchants, and becomes a product differentiator. This is an exciting opportunity to partner with teams across Stripe to build the best merchant experience, and contribute directly to Stripe’s growth. Responsibilities Support the team in delivering a high level of technical quality and impact via APIs, user-facing experiences, services, and systems Recruit, hire, scale, and develop an amazing team of engineers Executing cross-functionally with leadership, product teams, infra teams & risk strategists Be actively involved in strategic direction and platform decisions that impact all of Stripe and Stripe customers Who you are We're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement. Minimum requirements At least 3 years of engineering management experience Prior experience as a Machine Learning Engineer or equivalent Preferred qualifications You have managed teams that can collaborate with product teams, respond rapidly to customer needs along with building technology and capabilities that are strategic and foundational in nature Enjoy designing, measuring & improving user experience You are empathetic to customer needs but visionary enough to not just deliver a faster horse You are comfortable planning in quarters, and can set a vision for several years You are comfortable working with geographically distributed teams and remote workers\n\nAnswer with JSON only, no prose and no code fence:\n{\"label\": \"relevant\"} or {\"label\": \"not_relevant\"}\n",
+  "model_requested": "claude-sonnet-5-5",
+  "cwd": "a new empty temporary directory",
+  "env_removed": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "timeout_s": 120
+}

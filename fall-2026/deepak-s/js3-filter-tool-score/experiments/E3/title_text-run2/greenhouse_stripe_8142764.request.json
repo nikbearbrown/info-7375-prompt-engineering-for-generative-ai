@@ -1,0 +1,27 @@
+{
+  "backend": "claude-cli (JS1 judge_cli.cli_argv)",
+  "argv": [
+    "claude",
+    "-p",
+    "--output-format",
+    "json",
+    "--system-prompt",
+    "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--safe-mode",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "system": "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+  "stdin": "Labeling rule (FILTER.md section 0, quoted): a posting is relevant when all of these hold, and not_relevant otherwise:\n  - Job family: machine learning engineering, AI engineering, applied science, data science, LLM engineering, or applied ML research.\n  - Seniority: entry level through mid level. Intern, Staff, Senior Staff, Principal, Director, Lead, Head and management roles are not relevant. A Senior role is relevant only when the stated minimum experience requirement is five years or less.\n  - Location: Boston, New York or NYC, Seattle, or a remote position that explicitly allows working from the United States.\n  - Title versus text: the actual responsibilities and minimum qualifications take priority over the title. A suitable title does not rescue a posting whose minimum required experience is more than five years (the same line as rule E01).\n  - When I am unsure, the label is not_relevant.\n\nPosting context:\nTitle: Full Stack Engineer, Bridge\nText:\nWho we are About Bridge Bridge is building a new payments platform powered by stablecoins to make global money movement simpler, faster, and more accessible. Through our APIs, businesses can send and receive funds across borders, give customers access to dollars through virtual accounts, and disburse USD globally. We believe stablecoin rails will become a foundational part of financial infrastructure, moving and settling trillions of dollars worldwide. Bridge is helping bring that future forward. Our team has built financial infrastructure at companies including Coinbase, Stripe, Square, Brex, Upstart, DoorDash, and Airbnb. We are united by the conviction that stablecoins can materially improve how money moves around the world. What you’ll do Build and ship end-to-end product experiences across frontend applications, backend services, APIs, and data systems. Design reliable, performant, and intuitive interfaces for developers, operations teams, and end users interacting with Bridge products. Develop and maintain the APIs and backend systems that power global payments, virtual accounts, and payouts. Own projects from technical design through launch and iteration, often operating with substantial autonomy and without dedicated product management support. Debug and resolve production issues across the stack, with a focus on reliability, performance, and customer impact. Make thoughtful tradeoffs among business priorities, user experience, speed of execution, and long-term technical quality. Who you are We’re looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement. Minimum requirements 6+ years of professional software-engineering experience. We are open to candidates across a range of seniority, from experienced individual contributors through senior technical leaders. Experience building and shipping production software across both frontend and backend systems. Strong experience with backend services, SQL databases, and API design. Experience building polished, maintainable web applications and collaborating closely on product and user-experience decisions. A strong sense of ownership, with the ability to lead technical projects and influence product direction. Ability to write modular, well-tested, maintainable code while remaining pragmatic and moving quickly. Comfort operating in a fast-paced, ambiguous environment and diving into unfamiliar problem spaces. Excellent written and verbal communication skills, including the ability to produce clear technical documentation. Curiosity, sound judgment, and a commitment to continuously improving the product for partners and end users. Preferred qualifications Experience building developer-facing API products or platforms. Experience with financial infrastructure, payments, money movement, or other regulated products. Interest in or experience with stablecoins, blockchain systems, or distributed systems. Experience designing systems that require high reliability, strong security controls, and careful operational discipline.\n\nAnswer with JSON only, no prose and no code fence:\n{\"label\": \"relevant\"} or {\"label\": \"not_relevant\"}\n",
+  "model_requested": "claude-sonnet-5-5",
+  "cwd": "a new empty temporary directory",
+  "env_removed": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "timeout_s": 120
+}
