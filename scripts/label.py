@@ -16,9 +16,34 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from jsagent import snapshot  # noqa: E402
+import re  # noqa: E402
+
+from jsagent import rule, snapshot  # noqa: E402
 
 LABELS = ROOT / "labels" / "labels.csv"
+# Quoted posting text only, never the filter's reading: EVERY years phrase (not just the first one F4 uses), and every
+# sentence that mentions sponsorship, visas or work authorization (Ethan's request, 2026-11-25, before any label).
+_VISA = re.compile(r"sponsor|\bvisas?\b|immigration|H-?1B|work authori[sz]ation|authori[sz]ed to work|work permit", re.I)
+_SENT = re.compile(r"(?<=[.!?])\s+")
+
+
+def years_mentions(content):
+    out = []
+    for m in rule.YEARS_RE.finditer(content):
+        out.append("..." + content[max(0, m.start() - 60):m.end() + 60].strip() + "...")
+    return out
+
+
+def visa_mentions(content):
+    return [s.strip() for s in _SENT.split(content) if _VISA.search(s)]
+
+
+def show_list(name, items):
+    print(f"{name}:")
+    if not items:
+        print("  (none mentioned in the posting)")
+    for x in items:
+        print(textwrap.fill(x, 78, initial_indent="  - ", subsequent_indent="    "))
 
 
 def main():
@@ -41,7 +66,10 @@ def main():
         p = ps[(row["board"], row["posting_id"])]
         print("\n" * 2 + "=" * 78)
         print(f"[{i}/{len(todo)}]  #{row['n']}  {p['board']}  id={p['id']}")
-        print(f"TITLE:    {p['title']}\nLOCATION: {p['location']['name'] or '(none)'}\nURL:      {p['absolute_url']}\n")
+        print(f"TITLE:    {p['title']}\nLOCATION: {p['location']['name'] or '(none)'}\nURL:      {p['absolute_url']}")
+        show_list("YEARS MENTIONED (every phrase, quoted)", years_mentions(p["content"]))
+        show_list("SPONSORSHIP / VISA / WORK AUTHORIZATION (quoted)", visa_mentions(p["content"]))
+        print("\nFULL DESCRIPTION:")
         print(textwrap.fill(p["content"], 78) if p["content"] else "(no description in the posting)")
         if redo:
             print(f"\nCURRENT: {row['human_label'] or '(none)'} | note: {row['label_note'] or '(none)'}")
