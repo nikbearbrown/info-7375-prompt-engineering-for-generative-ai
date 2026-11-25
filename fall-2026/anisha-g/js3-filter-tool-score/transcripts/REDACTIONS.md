@@ -10,6 +10,9 @@ Local paths only (home folder -> `~`, Claude Code scratch folder -> `<SCRATCH>`)
 | `transcripts/claude-run2-boundary-stream.jsonl` | 0 |
 | `transcripts/claude-run3-injection-stream.jsonl` | 0 |
 | `transcripts/claude-run4-unknown-id-stream.jsonl` | 0 |
+| `transcripts/claude-run5a-injection-after-desc-fix-stream.jsonl` | 4 |
+| `transcripts/claude-run5b-injection-after-desc-fix-stream.jsonl` | 4 |
+| `transcripts/claude-run5c-injection-after-desc-fix-stream.jsonl` | 4 |
 | `transcripts/client-other-filesystem-2.2.0-20261125T141705.jsonl` | 0 |
 | `transcripts/client-other-filesystem-2.2.0-copy-20261125T141735.jsonl` | 0 |
 | `transcripts/client-other-filesystem-2.2.0-resources-20261125T141718.jsonl` | 0 |
@@ -49,3 +52,6 @@ Local paths only (home folder -> `~`, Claude Code scratch folder -> `<SCRATCH>`)
 | `transcripts/server-20261125T142025-75586.jsonl` | 0 |
 | `transcripts/server-20261125T142026-75606.jsonl` | 0 |
 | `transcripts/server-20261125T142026-75626.jsonl` | 0 |
+| `transcripts/server-20261125T145516-76847.jsonl` | 0 |
+| `transcripts/server-20261125T145516-76848.jsonl` | 0 |
+| `transcripts/server-20261125T145516-76849.jsonl` | 0 |
