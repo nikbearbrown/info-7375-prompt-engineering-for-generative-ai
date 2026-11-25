@@ -4,13 +4,48 @@
   "supersedes": "the 17-id plan in commit 7dc781af, which was never run (no row had been rechecked)",
   "definition": "FILTER.md v1.1.0-a, §1: mostly roles requiring at most 4 years, sometimes 5+ or 6+, never 7+; locations as listed; no sponsorship refusal; a TPM counts only if the posting describes owning product direction",
   "reason": "First pass used a looser bar than the written definition (excerpts only, stated years not checked; A035 is outside Maya's locations). The definition itself was then corrected. These rows are rechecked under the corrected definition.",
-  "ids": ["A014", "A022", "A027", "A032", "A035", "A042", "A044", "A052"],
+  "ids": [
+    "A010",
+    "A013",
+    "A014",
+    "A022",
+    "A027",
+    "A030",
+    "A032",
+    "A035",
+    "A037",
+    "A042",
+    "A044",
+    "A047",
+    "A049",
+    "A052"
+  ],
   "groups": {
-    "random_rejects_judged_relevant": ["A032", "A035"],
-    "cannot_tell_rows_confirm_years_unstated": ["A014", "A022", "A042"],
-    "tpm_rows_apply_tpm_rule": ["A027", "A044", "A052"]
+    "random_rejects_judged_relevant": [
+      "A032",
+      "A035"
+    ],
+    "cannot_tell_rows_confirm_years_unstated": [
+      "A014",
+      "A022",
+      "A042"
+    ],
+    "tpm_rows_apply_tpm_rule": [
+      "A027",
+      "A044",
+      "A052"
+    ],
+    "rejected_closest_calls_still_rejected_under_v1.1.0-a": [
+      "A010",
+      "A013",
+      "A030",
+      "A037",
+      "A047",
+      "A049"
+    ]
   },
-  "not_rechecked_note": "The other 9 rejected closest calls keep their first-pass verdict (relevant), including A013, A030, A037, A049 (8+ years) and A047 (10+ years), which the corrected definition ('never 7+') would make not relevant.",
-  "selection_caveat": "These rows were chosen after seeing the v1.0.0 audit results, and 5 of 8 are rows where the first-pass verdict disagreed with the filter. Rows where the first pass agreed with the filter (28 random rejects judged not_relevant) are not rechecked. The second pass is therefore not blind, and its selection leans toward agreement with the filter.",
-  "first_pass_commit": "1c9ce17b"
+  "not_rechecked_note": "Of the 12 rejected closest calls, A005, A020, A025 keep their first-pass verdict (relevant); A027, A044, A052 are rechecked as TPM rows. All 6 still-rejected closest calls are rechecked.",
+  "selection_caveat": "These rows were chosen after seeing the v1.0.0 audit results; 11 of 14 are rows where the first-pass verdict disagreed with the filter. Rows where the first pass agreed with the filter (28 random rejects judged not_relevant) are not rechecked. The second pass is therefore not blind, and its selection leans toward agreement with the filter.",
+  "first_pass_commit": "1c9ce17b",
+  "amended": "2026-11-25, before the recheck was run: added A010, A013, A030, A037, A047, A049 (Aravind, in chat). Under v1.1.0-a these 6 closest calls are still rejected while their first-pass verdict is relevant; A013/A030/A037/A049 state 8+ years, A047 10+, A010 6-10+ (misread as 10+, FILTER.md §5.3)."
 }
