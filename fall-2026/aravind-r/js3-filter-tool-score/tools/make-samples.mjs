@@ -9,7 +9,7 @@ import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { loadCorpus } from '../src/corpus.mjs';
 import { mulberry32, sample, shuffle } from '../src/rng.mjs';
-import { toCsv } from '../src/csv.mjs';
+import { toCsv, parseCsv } from '../src/csv.mjs';
 import { boilerplateLines, roleText, ROLE_START } from '../src/boilerplate.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -25,7 +25,13 @@ const key = r => `${r.board}:${r.id}`;
 const corpus = loadCorpus(ROOT).postings;
 const byKey = new Map(corpus.map(p => [key(p), p]));
 const BP = boilerplateLines(corpus); // display only: excerpts skip lines shared by >= 20% of a board's postings
-for (const d of ['audit', 'labels']) if (existsSync(join(ROOT, d, d === 'audit' ? 'audit-sheet.csv' : 'label-sheet.csv')) && !values.force) throw new Error(`${d}/ sheet exists; refusing to overwrite hand verdicts (use --force only on an empty sheet)`);
+for (const [d, f, col] of [['audit', 'audit-sheet.csv', 'my_verdict'], ['labels', 'label-sheet.csv', 'my_label']]) {
+  const path = join(ROOT, d, f);
+  if (!existsSync(path)) continue;
+  if (!values.force) throw new Error(`${d}/${f} exists; refusing to overwrite (use --force only on an empty sheet)`);
+  const filled = parseCsv(readFileSync(path, 'utf8')).filter(r => (r[col] ?? '') !== '' || (r.my_note ?? '') !== '');
+  if (filled.length) throw new Error(`${d}/${f} has ${filled.length} filled row(s); refusing to overwrite hand verdicts even with --force`);
+}
 
 const oneLine = s => s.replace(/\s+/g, ' ').trim();
 // Display only: start at the role section when a common heading is present, else after boilerplate.
@@ -60,10 +66,7 @@ auditKeys.forEach((k, i) => {
   auditRows.push({ audit_id: id, board: p.board, title: p.title, location: p.location, department: p.department, excerpt: excerpt(p), posting_file: `audit/postings/${id}.md`, my_verdict: '', my_note: '' });
   auditKey[id] = { board: r.board, id: r.id, strata: [...strata.get(k)].sort(), decision: r.decision, score: r.score, lo: r.lo, hi: r.hi, veto: r.veto, components: r.components, unknown: r.unknown };
 });
-writeFileSync(join(ROOT, 'audit', 'audit-sheet.csv'), toCsv(auditRows, ['audit_id', 'board', 'title', 'location', 'department', 'excerpt', 'posting_file', 'my_verdict', 'my_note']));
-writeFileSync(join(ROOT, 'audit', 'key.json'), JSON.stringify(auditKey, null, 2) + '\n');
-const strataCounts = {}; for (const v of Object.values(auditKey)) for (const s of v.strata) strataCounts[s] = (strataCounts[s] ?? 0) + 1;
-writeFileSync(join(ROOT, 'audit', 'sample.json'), JSON.stringify({
+const auditSample = {
   drawn_at: new Date().toISOString(), from_run: values.run, spec_version: summary.spec_version, filter_sha256: summary.filter_sha256,
   seed: AUDIT_SEED, prng: 'mulberry32 (src/rng.mjs)',
   method: {
@@ -74,8 +77,7 @@ writeFileSync(join(ROOT, 'audit', 'sample.json'), JSON.stringify({
     rows: 'one row per posting; a posting in several strata appears once and counts in each; row order shuffled with the same PRNG',
   },
   population: { rejects: rejects.length, kept: kept.length, cannot_tell: results.length - rejects.length - kept.length, scored: results.length },
-  rows: auditRows.length, strata_counts: strataCounts,
-}, null, 2) + '\n');
+};
 
 // ---------- labels (separate from the audit) ----------
 const lrand = mulberry32(LABEL_SEED);
@@ -110,4 +112,26 @@ writeFileSync(join(ROOT, 'labels', 'sample.json'), JSON.stringify({
   method: `${2 * LABEL_PM_PER_HALF} drawn from PM/product-titled pool, ${2 * (LABEL_HALF - LABEL_PM_PER_HALF)} from the rest; first half of each to dev, second to held-out; rows shuffled`,
   enriched: `PM/product-titled postings are ${pmPool.length} of ${pool.length} in the pool but ${2 * LABEL_PM_PER_HALF} of ${2 * LABEL_HALF} on the sheet. Precision/recall on this sheet are NOT population rates.`,
 }, null, 2) + '\n');
+// ---------- audit stratum 3: PM-titled rejects (added 2026-11-25 at Aravind's request) ----------
+// Drawn after the label sheet so it can exclude it. Same seed family: AUDIT_SEED + 1.
+// Rows are appended after A001..A055 so their ids do not move; their order is shuffled.
+const PM_REJECT_SEED = AUDIT_SEED + 1, N_PM_REJECTS = 15;
+const labelSet = new Set(labelRows.map(r => `${r.board}:${r.posting_id}`));
+const pmRejectPool = rejects.filter(r => PM_TITLE.test(r.title ?? '') && !auditSet.has(key(r)) && !labelSet.has(key(r))).sort((a, b) => key(a).localeCompare(key(b)));
+const prand = mulberry32(PM_REJECT_SEED);
+sample(pmRejectPool, N_PM_REJECTS, prand).forEach((r, i) => {
+  const id = `A${String(auditRows.length + 1).padStart(3, '0')}`, p = byKey.get(key(r));
+  writePosting(join(ROOT, 'audit', 'postings', `${id}.md`), p, id);
+  auditRows.push({ audit_id: id, board: p.board, title: p.title, location: p.location, department: p.department, excerpt: excerpt(p), posting_file: `audit/postings/${id}.md`, my_verdict: '', my_note: '' });
+  auditKey[id] = { board: r.board, id: r.id, strata: ['pm_reject'], decision: r.decision, score: r.score, lo: r.lo, hi: r.hi, veto: r.veto, components: r.components, unknown: r.unknown };
+});
+auditSample.method.pm_reject = `${N_PM_REJECTS} drawn uniformly without replacement (seed ${PM_REJECT_SEED} = audit seed + 1) from the ${pmRejectPool.length} rejects whose title matches ${PM_TITLE}, excluding the ${auditSet.size} rows already on the audit sheet and the ${labelSet.size} label-sheet postings; appended as rows after A${String(auditKeys.length).padStart(3, '0')} in sampled order`;
+auditSample.pm_reject_seed = PM_REJECT_SEED;
+auditSample.population.pm_reject_pool = pmRejectPool.length;
+const strataCounts = {}; for (const v of Object.values(auditKey)) for (const s of v.strata) strataCounts[s] = (strataCounts[s] ?? 0) + 1;
+auditSample.rows = auditRows.length; auditSample.strata_counts = strataCounts;
+writeFileSync(join(ROOT, 'audit', 'audit-sheet.csv'), toCsv(auditRows, ['audit_id', 'board', 'title', 'location', 'department', 'excerpt', 'posting_file', 'my_verdict', 'my_note']));
+writeFileSync(join(ROOT, 'audit', 'key.json'), JSON.stringify(auditKey, null, 2) + '\n');
+writeFileSync(join(ROOT, 'audit', 'sample.json'), JSON.stringify(auditSample, null, 2) + '\n');
+
 console.log(JSON.stringify({ audit_rows: auditRows.length, strataCounts, label_rows: labelRows.length, pm_pool: pmPool.length, other_pool: otherPool.length }));

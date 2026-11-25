@@ -27,17 +27,22 @@ const pct = x => `${(100 * x).toFixed(1)}%`;
 const out = { computed_at: new Date().toISOString(), spec_version: sample.spec_version, seed: sample.seed, strata: {} };
 let md = `# Reject audit — results (spec v${sample.spec_version})\n\nComputed ${out.computed_at} from \`${values.sheet}\` (hand verdicts by Aravind) and \`audit/key.json\`. Sample drawn with seed ${sample.seed} (\`audit/sample.json\`).\n\n`;
 
-for (const s of ['random_reject', 'closest_call', 'kept', 'cannot_tell']) {
+// Each stratum is reported on its own. Strata are never pooled into one error rate: they were
+// drawn from different populations (or selected, not drawn).
+md += `Each stratum is reported separately. They are never pooled into one error rate.\n\n`;
+for (const s of ['random_reject', 'pm_reject', 'closest_call', 'kept', 'cannot_tell']) {
   const rs = joined.filter(r => r.strata.includes(s));
   const tally = Object.fromEntries(VERDICTS.map(v => [v, rs.filter(r => r.my_verdict === v).length]));
   const errors = rs.filter(isError);
   const entry = { n: rs.length, my_verdicts: tally, errors: errors.length, error_ids: errors.map(r => r.audit_id) };
   md += `## ${s} (n = ${rs.length})\n\nMy verdicts: ${VERDICTS.map(v => `${v} ${tally[v]}`).join(', ')}.\n\n`;
-  if (s === 'random_reject' && rs.length) {
+  if ((s === 'random_reject' || s === 'pm_reject') && rs.length) {
     const ci = clopperPearson(errors.length, rs.length);
+    const popN = s === 'random_reject' ? sample.population.rejects : sample.population.pm_reject_pool;
+    const popDesc = s === 'random_reject' ? `the ${popN} rejects in this snapshot` : `the ${popN} PM/product-titled rejects not already on the audit or label sheet`;
     entry.interval_95 = [ci.lower, ci.upper];
     md += `**False rejects (I judged relevant): ${errors.length} of ${rs.length}.** Estimate ${pct(ci.estimate)}, exact 95% interval ${pct(ci.lower)} to ${pct(ci.upper)}.\n\n`
-      + `What this can show: the sample is ${rs.length} of the ${sample.population.rejects} rejects in this snapshot under spec v${sample.spec_version}. It estimates the false-reject share *among those rejects* only. It is not a rate for all postings, other boards, other dates, or other filter versions. ${errors.length === 0 ? `Zero errors in ${rs.length} does not mean zero errors: the data are consistent with a false-reject share as high as ${pct(ci.upper)}.` : ''}`
+      + `What this can show: the sample is ${rs.length} of ${popDesc}, under spec v${sample.spec_version}. It estimates the false-reject share *within that population* only. It is not a rate for all postings, other boards, other dates, or other filter versions. ${errors.length === 0 ? `Zero errors in ${rs.length} does not mean zero errors: the data are consistent with a false-reject share as high as ${pct(ci.upper)}.` : ''}`
       + ` ${tally.cannot_tell ? `${tally.cannot_tell} row(s) I could not judge are counted as not-errors; with them counted as errors the interval would be ${(() => { const c = clopperPearson(errors.length + tally.cannot_tell, rs.length); return `${pct(c.lower)} to ${pct(c.upper)}`; })()}.` : ''}\n\n`;
   } else if (s === 'closest_call') {
     md += `**Disagreements: ${errors.length} of ${rs.length}** (decided rows only; cannot_tell rows are listed, not scored). These were *selected* by distance to the threshold, not sampled, so no population interval applies.\n\n`;

@@ -1,5 +1,5 @@
 {
-  "drawn_at": "2026-11-25T22:22:53.558Z",
+  "drawn_at": "2026-11-25T22:26:59.314Z",
   "from_run": "runs/filter/v1.0.0",
   "spec_version": "1.0.0",
   "filter_sha256": "f9010c42d673e8d2d3f8b08395e38475506c0005cdb6b1e9967c972f7ccf6b1c",
@@ -10,18 +10,22 @@
     "closest_call": "the 15 scored, non-vetoed postings with the smallest |score - threshold| (threshold 0.8); ties by board:id",
     "kept": "all 0 kept postings",
     "cannot_tell": "all cannot_tell postings",
-    "rows": "one row per posting; a posting in several strata appears once and counts in each; row order shuffled with the same PRNG"
+    "rows": "one row per posting; a posting in several strata appears once and counts in each; row order shuffled with the same PRNG",
+    "pm_reject": "15 drawn uniformly without replacement (seed 20261126 = audit seed + 1) from the 133 rejects whose title matches /\\bproduct\\b|\\bprogram manager\\b/i, excluding the 55 rows already on the audit sheet and the 40 label-sheet postings; appended as rows after A055 in sampled order"
   },
   "population": {
     "rejects": 1061,
     "kept": 0,
     "cannot_tell": 3,
-    "scored": 1064
+    "scored": 1064,
+    "pm_reject_pool": 133
   },
-  "rows": 55,
+  "pm_reject_seed": 20261126,
+  "rows": 70,
   "strata_counts": {
     "random_reject": 40,
     "closest_call": 15,
-    "cannot_tell": 3
+    "cannot_tell": 3,
+    "pm_reject": 15
   }
 }

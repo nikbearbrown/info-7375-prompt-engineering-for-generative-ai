@@ -117,3 +117,47 @@
 - decision **reject**, score 0.35; strata: random_reject
 - topic **payments** matched only in the intro: …rgest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our m…
 
+### A056 (gh-stripe) Security GRC Program Manager, Third Party Risk
+- decision **reject**, score 0.225; strata: pm_reject
+- topic **payments** matched only in the intro: …rgest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our m…
+
+### A057 (gh-stripe) Head of Product Sales, Payouts
+- decision **reject**, score 0.35; strata: pm_reject
+- location matched alias **sf -> San Francisco** in "SF, NYC"
+
+### A059 (gh-stripe) Product Designer, Design Systems
+- decision **reject**, score 0.35; strata: pm_reject
+- topic **payments** matched only in the intro: …rgest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our m…
+
+### A063 (gh-stripe) Backend/API Engineer, Money as a Service (Product)
+- decision **reject**, score 0.05; strata: pm_reject
+- topic **payments** matched only in the intro: …est enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our m…
+
+### A064 (gh-stripe) Product Design Intern
+- decision **reject**, score 0.425; strata: pm_reject
+- title junior override by **Intern** in "Product Design Intern"
+
+### A065 (gh-stripe) Product Manager, Sandboxes
+- decision **reject**, score 0.7; strata: pm_reject
+- topic **payments** matched only in the intro: …rgest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our m…
+
+### A066 (gh-stripe) Staff Product Manager, Agentic Commerce
+- decision **reject**, score 0.55; strata: pm_reject
+- topic **payments** matched only in the intro: …rgest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our m…
+
+### A067 (gh-stripe) Account Executive, Product Sales, Metronome
+- decision **reject**, score 0.1; strata: pm_reject
+- topic **data** matched only in the intro: …office finance automation across billing, tax, revenue reporting, and data. What you’ll do As a Metronome Account Executive at Stripe, you'll us…
+
+### A068 (gh-stripe) Account Executive, Product - Link
+- decision **reject**, score 0.3; strata: pm_reject
+- location matched alias **sf -> San Francisco** in "NYC, SF"
+
+### A069 (gh-stripe) Account Executive, Product Sales, Metronome
+- decision **reject**, score 0.1; strata: pm_reject
+- topic **data** matched only in the intro: …office finance automation across billing, tax, revenue reporting, and data. What you’ll do As a Billing Account Executive at Stripe, you'll use …
+
+### A070 (gh-stripe) Program Manager, Card Network Office (Card Networks)
+- decision **reject**, score 0.5; strata: pm_reject
+- experience E=0 from a sentence that does not mention product/program: "5+ years of experience in the payments industry, with significant expertise in working with card networks and understanding card network rules and compliance activities."
+
