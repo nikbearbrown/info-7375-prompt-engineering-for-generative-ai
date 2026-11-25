@@ -17,7 +17,7 @@ python3 -m js3.mcp_server     # from this folder; the client talks to it over st
 
 ## 2. The real transcript
 
-**Session 1, 2026-11-25 15:52 UTC.** The client was **Claude Code 2.1.283**, model `claude-opus-5-5`, started like this:
+**Session 1, 2026-11-25 15:52 UTC.** The client was **Claude Code 2.1.283**. Its usage record lists `claude-opus-5-5` and also `claude-haiku-4-5-20251001`, which Claude Code uses for small steps of its own; I did not check which model wrote which part. It was started like this:
 
 ```bash
 claude -p "<the prompt below>" --mcp-config mcp.json --strict-mcp-config --tools "" \

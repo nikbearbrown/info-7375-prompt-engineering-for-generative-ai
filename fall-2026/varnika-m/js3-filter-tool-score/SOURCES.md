@@ -28,7 +28,7 @@ Claude Code (Opus 5.5, `claude-opus-5-5`) in one Claude Code session in VS Code.
 | Labels 1, 4, 8–12, 17, 19 | **Declined** when I asked it to do the corrections. Then suggested a label for each **from my written rules**, naming the rule and the posting's words. | Confirmed all nine ("confirm all") |
 | Labels for the other 53 | Saved my lines word for word. Asked how they were made, because batch 2's wording differed from batch 1. | Typed batch 1 myself. For batch 2, answered "I decided each one myself" (wording tidied, with or without help). |
 | v1.1 | Found the "D.C." bug and the graduation-date keep in my labels; recommended A–F | Decided A–F ("ok") |
-| Claude measurements | Ran 48 fresh `claude -p` judgments (15:53:53–15:54:37 UTC), all valid | — |
+| Claude measurements | Ran 48 fresh `claude -p` judgments (15:53:53–15:54:37 UTC), all valid. Model requested `claude-opus-5-5`; each record also lists `claude-haiku-4-5-20251001` as used | — |
 | Tool-server session | Ran Claude Code 2.1.283 as the client of my server (15:52 UTC, $0.07). Claude's reply is quoted in TOOL-SERVER.md as received. | — |
 | `fetch` server evaluation | Downloaded its source at a pinned commit. Started a separate Claude reviewer, which read it and reported with line numbers. Claude Code checked six of its claims against the file. | Made the trust decision **as drafted**; I did not read the `fetch` source myself |
 | Reports | Drafted AUDIT.md, WHAT-MOVES-THE-SCORE.md, TOOL-SERVER.md, the shortlist and its notes, and this README, from the saved results | — |

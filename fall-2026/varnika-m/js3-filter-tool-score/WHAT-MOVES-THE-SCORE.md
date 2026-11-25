@@ -24,7 +24,7 @@
 | Audit sizes and seed | 30 / 8 / 8 / 16, seed `20261125` | **hand-set** in FILTER.md v1 (30 is the assignment's minimum) |
 | Claude prompt `baseline-v1` | `prompts/baseline-v1.txt` (SHA-256 `058a0742…`) | **inherited** from JS1, written by Claude Code |
 | Claude prompt `revision-v1` | `prompts/revision-v1.txt` (`187efea5…`): adds "judge only must-haves" | **inherited** from JS1. I chose the change in JS1, and Claude Code wrote it. |
-| Claude model and session | `claude-opus-5-5`, fresh `claude -p`, no tools, empty folder, no settings | **inherited** from JS1 `claude_judge.py` |
+| Claude model and session | `--model claude-opus-5-5`, fresh `claude -p`, no tools, empty folder, no settings. Every reply's record lists `claude-opus-5-5` and `claude-haiku-4-5-20251001` as used (`models_used`) | **inherited** from JS1 `claude_judge.py` |
 
 ## 2. One change at a time, on the held-out labels
 

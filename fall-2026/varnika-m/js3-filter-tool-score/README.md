@@ -59,7 +59,7 @@ claude -p "Call score_posting for posting_id lever/palantir/ab7e3425-81d5-4705-a
 | **Reject audit** | my labels against the filter | **0 of 30 random rejects fit: my pass line (at most 1) is met.** 2 of 8 close calls fit (a "D.C." bug), 7 of 8 kept fit | [AUDIT.md](AUDIT.md) |
 | Filter v1.1 | my two rule changes after the audit (A: "D.C."; B: graduation date) | keep 61 (46 jobs), close call 137, reject 816 | [FILTER.md](FILTER.md), `ac25be53` |
 | **Shortlist** | every claim on all 46 jobs labeled against the posting text | 234 supported, 0 contradicted, 99 insufficient. 34 "I cannot tell", 12 "fits" | [shortlist/SHORTLIST.md](shortlist/SHORTLIST.md), [shortlist/EVIDENCE.md](shortlist/EVIDENCE.md) |
-| **Tool server** | Claude Code 2.1.283 (`claude-opus-5-5`) used my server, 15:52 UTC | 9 messages logged in both directions | [TOOL-SERVER.md](TOOL-SERVER.md), `transcripts/` |
+| **Tool server** | Claude Code 2.1.283 (`claude-opus-5-5` requested; its record also lists `claude-haiku-4-5`) used my server, 15:52 UTC | 9 messages logged in both directions | [TOOL-SERVER.md](TOOL-SERVER.md), `transcripts/` |
 | Two evaluations | my server, and the reference `fetch` server at commit `97ed9ec` | mine: trusted for read-only scoring. `fetch`: **not** for my agent | [TOOL-SERVER.md](TOOL-SERVER.md) |
 | **What moves the score** | 48 Claude replies (16 held-out × 3 set-ups, 15:53–15:54 UTC) and 4 filter variants | M2 (keep at 4) 10/16; M3 (prompt) 14/16; others 16/16 | [WHAT-MOVES-THE-SCORE.md](WHAT-MOVES-THE-SCORE.md), `measure/` |
 
