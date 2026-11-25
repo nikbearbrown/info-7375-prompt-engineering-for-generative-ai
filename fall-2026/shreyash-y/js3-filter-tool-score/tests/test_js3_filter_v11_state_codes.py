@@ -29,6 +29,12 @@ class StateCodes(unittest.TestCase):
         for key in ("oscar:8013107", "oscar:8013108", "oscar:7573019"):
             self.assertEqual(outcome(filtering.evaluate(POSTS[key], PERSONA, V11), 3), "fail", key)
 
+    def test_reside_without_in(self):
+        """Added after the code fix above, from the 2 of the 36 still 'cannot tell': Oscar writes
+        "open to candidates who reside: Tempe, AZ." Run failing first (evidence/reside-colon-*.txt)."""
+        for key in ("oscar:8386248", "oscar:8386823"):
+            self.assertEqual(outcome(filtering.evaluate(POSTS[key], PERSONA, V11), 3), "fail", key)
+
     def test_words_that_look_like_codes_are_not_states(self):
         p = P(location="Remote", offices=["Remote"], lines=GOOD_LINES + (
             "This role is remote anywhere in the United States.", "Teams that live in OK shape ship faster."))

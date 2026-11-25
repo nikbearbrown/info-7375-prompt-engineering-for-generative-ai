@@ -175,6 +175,12 @@ who reside in: Dallas, Texas.").*
 
 > **Shreyash:** Adopt. If the company clearly says the person must live in a certain state, the agent should use that information. It should mark the location as failed instead of saying it cannot tell.
 
+*Correction by Claude Code, 2026-11-25 18:12 EST: "36" above was the number of postings with this pattern under v1, given as if it
+were the measured effect of the change. Measured: the first v1.1 code moved 12 of them, because 24 ads write the state
+as a two-letter code ("reside in: Dallas, TX.") and 2 write "reside:" without "in". After two test-first fixes to the
+code (tests/test_js3_filter_v11_state_codes.py), the change moves 35 of the 36 to "fail"; the 36th (Palantir, Warsaw) is
+not a residence line. 0 verdicts change, as stated. Shreyash's decision is unchanged.*
+
 **A5. Minimum skills 1 instead of 2, the number fitted on the audit labels (Rule 4).** *Measured: 1 beats 2
 on the audit set by one posting; they tie on the held-out set.*
 
@@ -192,7 +198,7 @@ because none of the five ads says "full-time".*
 | v1 | 2026-11-25 | First version: answers 1-13 (16:58 EST) and the follow-up reasons and decisions A-C (17:05 EST) | nothing yet; written before any JS3 code or run | Shreyash |
 | v1.1 | 2026-11-25 | **Added** the title phrase "Product Engineer" (A1) | audit: fixes 1 miss; corpus: +1 kept; held-out: no posting affected | Shreyash |
 | v1.1 | 2026-11-25 | **Added** MySQL, PostgreSQL and Postgres as SQL (A2) | audit: fixes 1 miss; corpus: +1 kept (closed); held-out: no posting affected | Shreyash |
-| v1.1 | 2026-11-25 | **Added** a residence line naming one state as a location limit (A4) | corpus: 0 verdicts; 36 location results cannot tell -> fail | Shreyash |
+| v1.1 | 2026-11-25 | **Added** a residence line naming one state as a location limit (A4) | corpus: 0 verdicts; 35 of 36 location results cannot tell -> fail (corrected 18:12 EST, see A4) | Shreyash |
 | v1.1 | 2026-11-25 | **Added** to the evidence rules: "full-time not stated" passes, marked not stated (B4) | shortlist: all 5 kept were "I cannot tell" only for this | Shreyash |
 | v1.1 | 2026-11-25 | **Rejected**: count a skill only where the ad asks for it (A3) | audit: fixes 1 false positive; held-out: creates 2 misses | Shreyash |
 | v1.1 | 2026-11-25 | **Rejected**: minimum skills 1, the fitted number (A5) | audit: +1 agreement; held-out: tie | Shreyash |

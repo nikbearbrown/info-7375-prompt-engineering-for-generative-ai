@@ -119,7 +119,12 @@ def tag_states(p):
     return states
 
 
-RESIDE_RE = re.compile(r"(?i)\b(?:reside|resides|residing|residents?\s+of|live|living)\s+(?:in|within|of)\b[:\s]*([^.]{0,160})")
+STATE_CODES = dict(zip(
+    "AL AK AZ AR CA CO CT DE FL GA HI ID IL IN IA KS KY LA ME MD MA MI MN MS MO MT NE NV NH NJ NM NY NC ND OH OK OR PA "
+    "RI SC SD TN TX UT VT VA WA WV WI WY".split(), js2.US_STATES))
+# A state code counts only in the "City, ST" form, so the word "OK" or "IN" in a sentence is not a state.
+CITY_STATE_CODE_RE = re.compile(r",\s*([A-Z]{2})\b")
+RESIDE_RE = re.compile(r"(?i)\b(?:(?:reside|resides|residing)(?:\s+(?:in|within))?\s*:|(?:reside|resides|residing|residents?\s+of|live|living)\s+(?:in|within|of)\b)[:\s]*([^.]{0,160})")
 
 
 def ad_states(content, p=None, cfg=None):
@@ -137,6 +142,7 @@ def ad_states(content, p=None, cfg=None):
         text = sections.text_outside(content, p.get("blocks") or [], {"perk", "legal"})
         for m in RESIDE_RE.finditer(text):
             found = {s for s in js2.US_STATES if js2.term_re(s).search(m.group(1))}
+            found |= {STATE_CODES[c] for c in CITY_STATE_CODE_RE.findall(m.group(1)) if c in STATE_CODES}
             if len(found) == 1 and found - found_all:
                 found_all |= found
                 quotes.append(sentence_with(content, m.start(), m.end()))

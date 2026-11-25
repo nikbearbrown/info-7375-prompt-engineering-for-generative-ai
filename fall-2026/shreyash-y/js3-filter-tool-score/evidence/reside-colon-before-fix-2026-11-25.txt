@@ -1,0 +1,21 @@
+# 2026-11-25 18:12:18 EST: before allowing 'reside:'
+test_reside_without_in (tests.test_js3_filter_v11_state_codes.StateCodes.test_reside_without_in)
+Added after the code fix above, from the 2 of the 36 still 'cannot tell': Oscar writes ... FAIL
+
+======================================================================
+FAIL: test_reside_without_in (tests.test_js3_filter_v11_state_codes.StateCodes.test_reside_without_in)
+Added after the code fix above, from the 2 of the 36 still 'cannot tell': Oscar writes
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_filter_v11_state_codes.py", line 36, in test_reside_without_in
+    self.assertEqual(outcome(filtering.evaluate(POSTS[key], PERSONA, V11), 3), "fail", key)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'cannot tell' != 'fail'
+- cannot tell
++ fail
+ : oscar:8386248
+
+----------------------------------------------------------------------
+Ran 1 test in 0.016s
+
+FAILED (failures=1)
