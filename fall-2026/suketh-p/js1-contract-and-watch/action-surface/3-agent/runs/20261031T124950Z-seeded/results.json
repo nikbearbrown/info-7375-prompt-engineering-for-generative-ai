@@ -1,0 +1,172 @@
+{
+  "run_id": "20261031T124950Z-seeded",
+  "board": "anthropic",
+  "endpoint": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+  "mode": "seeded",
+  "source": "saved earlier response runs/20261028T102612Z-live/raw_response.json.gz",
+  "retrieved_at": "2026-10-31T12:49:50Z",
+  "raw_sha256": "5f74dcc8cdb11ed84ba808a693fd63539ce8fc78bf46fbedf2dcaf91acf99ae5",
+  "baseline": false,
+  "posting_count": 681,
+  "previously_seen_count": 680,
+  "new_ids": [
+    5418610008
+  ],
+  "postings": [
+    {
+      "board": "anthropic",
+      "posting_id": 5418610008,
+      "title": "Data Engineer, GTM",
+      "location": "San Francisco, CA | New York City, NY",
+      "rule_verdict": {
+        "kind": "record",
+        "posting_id": 5418610008,
+        "verdict": "relevant",
+        "failed_conditions": [],
+        "conditions": [
+          {
+            "condition": "engineering_role",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.title_word",
+              "resume.preferences.focus_terms"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Engineer, GTM",
+            "matched": {
+              "resume.preferences.title_word": [
+                "engineer"
+              ],
+              "resume.preferences.focus_terms": [
+                "data"
+              ]
+            },
+            "explanation": "posting.title \"Data Engineer, GTM\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\"."
+          },
+          {
+            "condition": "title_seniority",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.excluded_title_words"
+            ],
+            "posting_field": "posting.title",
+            "posting_value": "Data Engineer, GTM",
+            "matched": {
+              "resume.preferences.excluded_title_words": []
+            },
+            "explanation": "posting.title \"Data Engineer, GTM\" contains none of resume.preferences.excluded_title_words."
+          },
+          {
+            "condition": "location",
+            "passed": true,
+            "resume_fields": [
+              "resume.preferences.location_terms"
+            ],
+            "posting_field": "posting.location.name",
+            "posting_value": "San Francisco, CA | New York City, NY",
+            "matched": {
+              "resume.preferences.location_terms": [
+                "new york",
+                "san francisco"
+              ]
+            },
+            "explanation": "posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\"."
+          },
+          {
+            "condition": "skills",
+            "passed": true,
+            "resume_fields": [
+              "resume.skills"
+            ],
+            "posting_field": "posting.content",
+            "posting_value": {
+              "python": "… expertise in sql and python to transform data into …",
+              "sql": "… through github expertise in sql and python to transform …"
+            },
+            "matched": {
+              "resume.skills": [
+                "python",
+                "sql"
+              ]
+            },
+            "explanation": "posting.content contains python and resume.skills \"sql\"."
+          }
+        ],
+        "justification": "relevant: all four conditions passed. posting.title \"Data Engineer, GTM\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"data\". posting.title \"Data Engineer, GTM\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content contains python and resume.skills \"sql\"."
+      },
+      "claude_verdict": {
+        "kind": "model_judgment",
+        "note": "Model judgment under a prompt contract. Not a verified fact about eligibility, qualifications, or hiring outcomes.",
+        "prompt": "judge_v1",
+        "verdict": "relevant",
+        "justification": "All four conditions pass: the title contains \"engineer\" and the focus term \"data\" with no excluded seniority words, the location matches \"san francisco\" and \"new york\", and the content mentions \"python\" plus the additional skill \"sql\".",
+        "resume_evidence": [
+          {
+            "field": "resume.preferences.title_word",
+            "quote": "engineer"
+          },
+          {
+            "field": "resume.preferences.focus_terms",
+            "quote": "data"
+          },
+          {
+            "field": "resume.preferences.location_terms",
+            "quote": "san francisco"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "python"
+          },
+          {
+            "field": "resume.skills",
+            "quote": "sql"
+          }
+        ],
+        "posting_evidence": [
+          {
+            "field": "posting.title",
+            "quote": "Data Engineer, GTM"
+          },
+          {
+            "field": "posting.location.name",
+            "quote": "San Francisco, CA"
+          },
+          {
+            "field": "posting.content",
+            "quote": "Expertise in SQL and Python"
+          }
+        ],
+        "call": {
+          "transport": "claude-code",
+          "requested_model": "claude-opus-5-5",
+          "session_id": "ba31d6dd-e352-451b-929a-36738fee61d5",
+          "usage": {
+            "input_tokens": 2,
+            "cache_creation_input_tokens": 3940,
+            "cache_read_input_tokens": 0,
+            "output_tokens": 423,
+            "output_tokens_details": {
+              "thinking_tokens": 82
+            },
+            "server_tool_use": {
+              "web_search_requests": 0,
+              "web_fetch_requests": 0
+            },
+            "service_tier": "standard",
+            "cache_creation": {
+              "ephemeral_1h_input_tokens": 3940,
+              "ephemeral_5m_input_tokens": 0
+            },
+            "inference_geo": "global",
+            "iterations": [],
+            "speed": "standard",
+            "fallback_credit": null
+          },
+          "total_cost_usd": 0.039987999999999996
+        },
+        "reply_file": "claude/5418610008.txt"
+      },
+      "verdicts_agree": true
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+# 2026-10-31 09:08:07 EDT code at 0f3b4af + uncommitted fix (mkdir before session.json)
+$ python3 experiments/sample.py --repeats 4
+  2026-10-31T09:08:11-04:00 4979585008 judge_v1 #1: not_relevant
+  2026-10-31T09:08:12-04:00 4613568008 judge_v1 #1: relevant
+  2026-10-31T09:08:12-04:00 5198108008 judge_v1 #1: not_relevant
+  2026-10-31T09:08:16-04:00 5418610008 judge_v1 #1: relevant
+  2026-10-31T09:08:17-04:00 4613568008 judge_v1 #2: relevant
+  2026-10-31T09:08:19-04:00 5399158008 judge_v1 #1: not_relevant
+  2026-10-31T09:08:20-04:00 4979585008 judge_v1 #2: not_relevant
+  2026-10-31T09:08:23-04:00 5198108008 judge_v1 #2: not_relevant
+  2026-10-31T09:08:24-04:00 5418610008 judge_v1 #2: relevant
+  2026-10-31T09:08:24-04:00 5399158008 judge_v1 #2: not_relevant
+  2026-10-31T09:08:28-04:00 4613568008 judge_v1 #3: relevant
+  2026-10-31T09:08:28-04:00 4979585008 judge_v1 #3: not_relevant
+  2026-10-31T09:08:29-04:00 5198108008 judge_v1 #3: not_relevant
+  2026-10-31T09:08:32-04:00 5418610008 judge_v1 #3: relevant
+  2026-10-31T09:08:32-04:00 5399158008 judge_v1 #3: not_relevant
+  2026-10-31T09:08:34-04:00 4613568008 judge_v1 #4: relevant
+  2026-10-31T09:08:35-04:00 4979585008 judge_v1 #4: not_relevant
+  2026-10-31T09:08:38-04:00 5198108008 judge_v1 #4: not_relevant
+  2026-10-31T09:08:39-04:00 5399158008 judge_v1 #4: not_relevant
+  2026-10-31T09:08:40-04:00 5418610008 judge_v1 #4: relevant
+20 calls, 20 valid, 20 match the hand label
+  4979585008: hand not_relevant, rule not_relevant, Claude {'relevant': 0, 'not_relevant': 4, 'rejected': 0}
+  4613568008: hand relevant, rule relevant, Claude {'relevant': 4, 'not_relevant': 0, 'rejected': 0}
+  5198108008: hand not_relevant, rule not_relevant, Claude {'relevant': 0, 'not_relevant': 4, 'rejected': 0}
+  5418610008: hand relevant, rule relevant, Claude {'relevant': 4, 'not_relevant': 0, 'rejected': 0}
+  5399158008: hand not_relevant, rule not_relevant, Claude {'relevant': 0, 'not_relevant': 4, 'rejected': 0}
+exit code: 0
+# 09:08:40 EDT

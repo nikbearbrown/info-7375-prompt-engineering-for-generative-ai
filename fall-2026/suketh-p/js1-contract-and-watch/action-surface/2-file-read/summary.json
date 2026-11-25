@@ -1,0 +1,75 @@
+{
+  "started_at": "2026-10-31T08:53:01-04:00",
+  "finished_at": "2026-10-31T08:53:09-04:00",
+  "command": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-opus-5-5",
+    "--tools",
+    "Read",
+    "--allowedTools",
+    "Read",
+    "--setting-sources",
+    "",
+    "--strict-mcp-config",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--verbose",
+    "--output-format",
+    "stream-json"
+  ],
+  "user_message": "Read prompt.md, resume.json and posting.json in the current directory. Follow the instructions in prompt.md: resume.json is the résumé and posting.json is the posting.",
+  "exit_code": 0,
+  "tools_available": [
+    "Read"
+  ],
+  "mcp_servers": [],
+  "tool_calls": [
+    {
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/jobwatch-file-read-wzfx4hmc/prompt.md"
+      }
+    },
+    {
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/jobwatch-file-read-wzfx4hmc/resume.json"
+      }
+    },
+    {
+      "name": "Read",
+      "input": {
+        "file_path": "/private/var/folders/qz/g8mnghw97m97_8yfp6lv1qc00000gn/T/jobwatch-file-read-wzfx4hmc/posting.json"
+      }
+    }
+  ],
+  "answer": "{\"posting_id\": \"5418610008\", \"verdict\": \"relevant\", \"justification\": \"All four conditions pass. The title contains \\\"engineer\\\" and the focus term \\\"data\\\" with no excluded words, the location contains \\\"san francisco\\\", and the content mentions \\\"python\\\" plus the separate skill \\\"sql\\\".\", \"resume_evidence\": [{\"field\": \"resume.preferences.title_word\", \"quote\": \"engineer\"}, {\"field\": \"resume.preferences.focus_terms\", \"quote\": \"data\"}, {\"field\": \"resume.preferences.location_terms\", \"quote\": \"san francisco\"}, {\"field\": \"resume.skills\", \"quote\": \"python\"}, {\"field\": \"resume.skills\", \"quote\": \"sql\"}], \"posting_evidence\": [{\"field\": \"posting.title\", \"quote\": \"Data Engineer, GTM\"}, {\"field\": \"posting.location.name\", \"quote\": \"San Francisco, CA\"}, {\"field\": \"posting.content\", \"quote\": \"Expertise in SQL and Python\"}]}",
+  "validation": "accepted by the agent's validator",
+  "usage": {
+    "input_tokens": 4,
+    "cache_creation_input_tokens": 6066,
+    "cache_read_input_tokens": 4788,
+    "output_tokens": 707,
+    "output_tokens_details": {
+      "thinking_tokens": 57
+    },
+    "server_tool_use": {
+      "web_search_requests": 0,
+      "web_fetch_requests": 0
+    },
+    "service_tier": "standard",
+    "cache_creation": {
+      "ephemeral_1h_input_tokens": 6066,
+      "ephemeral_5m_input_tokens": 0
+    },
+    "inference_geo": "global",
+    "iterations": [],
+    "speed": "standard",
+    "fallback_credit": null
+  },
+  "total_cost_usd": 0.06364159999999999,
+  "is_error": false,
+  "note": "Real claude -p run. Files were copied to a temporary folder outside the repo; only the Read tool was available. In stream.jsonl the home-folder path was replaced with ~ after the run (privacy); nothing else was changed."
+}
