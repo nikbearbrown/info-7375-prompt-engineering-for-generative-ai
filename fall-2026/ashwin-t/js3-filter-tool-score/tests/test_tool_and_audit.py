@@ -92,7 +92,7 @@ class MinimumSample(unittest.TestCase):
         write_cards()
         text = (LABELS / "audit-review-cards.md").read_text()
         self.assertEqual(text.count("\n### "), 47)
-        for leak in ("random_reject", "close_below", "kept_random", "KEEP", "REJECT", "REVIEW", "proposed", "suggest"):
+        for leak in ("random_reject", "close_below", "kept_random", "KEEP", "REJECT", "REVIEW", "proposed_verdict", "AI suggestion"):
             self.assertNotIn(leak, text)
 
     def test_blank_rows_are_not_judged_not_verdicts(self):
