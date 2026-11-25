@@ -12,7 +12,7 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 |---|---|---|
 | 1. FILTER.md before the build | `FILTER.md` (committed alone at `a3a7a2af`, before any filter code) | Done; approved by Ashwin |
 | 2.1 Filter and reject audit | `jobfilter/filter.py`, `filters/`, `runs/`, `labels/`, `audit/` | ⚠ **Hand-judged audit 0 of 47.** Verdicts so far are AI-assisted (`audit/EXPLORATORY-v1.0-ai-assisted.md`). False friend demonstrated from text (`audit/FALSE-FRIENDS.md`) |
-| 2.2 Source-grounded shortlist | `SHORTLIST.md`, `shortlist/` | ⚠ **0 of 90 claims labeled** by Ashwin |
+| 2.2 Source-grounded shortlist | `SHORTLIST.md`, `shortlist/` | All 90 claims labeled: 29 by Ashwin, 61 Codex AI-assisted (source recorded per claim) |
 | 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. ⚠ Both trust decisions are Ashwin's to write |
 | 2.4 What moves the score | `CHANGE.md`, `changes/` | One change (v1.1) measured on held-out labels; **potentially contaminated** |
 | 3. Sign-off and driver's seat | `SIGNOFF.md` | ⚠ Ashwin's to write and sign |

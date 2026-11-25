@@ -1,85 +1,94 @@
 # Source-grounded shortlist (Step 2.2)
 
-Drafted by Claude Code on 2026-11-25. **Ashwin has not labeled any claims yet: 0 of 90.** Every S / C / I label
-belongs to Ashwin and goes in `shortlist/claim-sheet.csv`. The cases below are candidates for Ashwin to confirm or
-reject once the claims are labeled. They are not conclusions.
+Drafted by Claude Code on 2026-11-25. All 90 claims are labeled in `shortlist/claim-sheet.csv`, and the
+`label_source` column says who labeled each one:
+
+- **29 labels by Ashwin,** given in chat after reading the review cards: claims 1–40, apart from the 11 listed next.
+- **61 Codex AI-assisted labels,** checked against the saved posting text and the structured fields, and relayed by
+  Ashwin in chat on 2026-11-25:
+  - claims 41–90;
+  - the 5 claims Ashwin had left pending: 22, 26, 31, 32 and 37;
+  - 6 corrections to Ashwin's earlier labels: 2, 6, 7, 11, 12 and 17, each changed from I to S. Each corrected row
+    keeps its earlier label in `note`.
+
+The Codex labels are not Ashwin's own judgments, and this report counts them separately.
 
 ## What ran
 
-- **The shortlist:** the 18 development postings filter v1.0 kept, ranked as in `runs/v1.0/summary.md`. Filter v1.1
-  adds 2 more, the Mission Manager postings, and **they have no claims**. The shortlist is v1.0's.
+- **The shortlist:** the 18 development postings that filter v1.0 kept. Filter v1.1 adds 2 Mission Manager
+  postings, which have no claims.
 - **The claims:** one live, tool-free `claude -p` call per posting on 2026-11-25, 13:23:12–13:23:53 UTC, model
-  `claude-opus-5-5`, prompt `prompts/claims-v1.md` (written by Claude Code, not tuned).
-- **The raw replies:** `shortlist/claims-v1-2026-11-25T13-23-12Z/raw/`.
+  `claude-opus-5-5`, prompt `prompts/claims-v1.md` (written by Claude Code, not tuned). Raw replies are in
+  `shortlist/claims-v1-2026-11-25T13-23-12Z/raw/`.
 - **Validity:** 18 of 18 replies passed the strict JSON check, giving 90 claims, 19 of them abstentions.
+- **What Claude saw:** the title, the location text and the description. It **did not see** the structured fields,
+  such as Lever's `workplaceType` (`posting_view` in `jobfilter/claims.py`).
 
-## The rules
+## Labels
 
-FILTER.md section 5 sets the evidence rules. Each claim gets one of three labels:
-- **S, supported:** the posting states it, or a faithful paraphrase of it.
-- **C, contradicted:** the posting says something incompatible with it.
-- **I, insufficient:** the posting is silent or ambiguous, or has only a related word.
+| Label | Ashwin | Codex AI-assisted | All |
+|---|---:|---:|---:|
+| S, supported | 27 | 55 | 82 |
+| C, contradicted | 0 | 1 | 1 |
+| I, insufficient | 2 | 5 | 7 |
+| **Total** | **29** | **61** | **90** |
 
-**Abstention rule.** The prompt makes the first two claims about experience level and US remote work. If the posting
-does not settle one, the claim must read "I cannot tell from this posting: …" with an empty quote.
-`jobfilter/claims.py` refuses a reply where the abstention and the empty quote disagree.
+The 8 claims not labeled S:
 
-**Mechanical check.** `mechanical()` only says one of four things: the quote was found in the named field, it was
-not found, it was found but contains a negation, or the claim abstained. It never says "supported". Wrong version W7
-treats any present quote as support, so "Java is not required" would back "Java is required"; `test_w7_negated_quote`
-catches it.
+| Claim | Label | Source | Why (recorded with the label) |
+|---|---|---|---|
+| 1: Klaviyo, "3+ years… above a typical new-grad level" | I | Ashwin | |
+| 16: Apollo Systems NY, "several years… well beyond new-grad level" | I | Ashwin | |
+| 42: Defense NY, "I cannot tell… does not label itself Remote or Onsite" | **C** | Codex | The structured field is `workplaceType: onsite` |
+| 46, 66, 76, 81: "N+ years… above / not new-grad level" | I | Codex | The years are stated; the new-grad comparison is interpretation |
+| 71: Query Engines, "requiring only a… degree" | I | Codex | "Only" overstates it; the posting also requires proficiency, fundamentals and coursework/projects |
 
-Mechanical results for the 90 claims:
+**Mechanical check versus labels.** 70 claims had their quote found, and every one of them was labeled either S or
+I. Finding the quote never decided the label. The one negation-flagged claim, `6fe5515f-c3` ("…is beneficial, but
+not required"), was labeled S: its claim states the negation correctly. That is why the flag asks a person rather
+than deciding.
 
-| Result | Count |
-|---|---:|
-| Quote found | 70 |
-| Abstained | 19 |
-| Quote found, with a negation | 1 |
-| Quote not found | 0 |
-
-## Candidate: relevance is not entailment
+## Relevance is not entailment (claim 1, Ashwin's label)
 
 `greenhouse/klaviyo/8041054003`, "Software Engineer, Conversational Products & Agent Workflows", Boston, is the
-filter's top KEEP at score 8. It matched three of the résumé's topic groups (Python, Redis, Kubernetes), so it is
-*relevant* by the filter's words.
+filter's top KEEP at score 8. It matches three of the résumé's topic groups, Python, Redis and Kubernetes, so the
+filter's words say it is relevant.
 
-Its first claim reads: "The posting asks for 3+ years of professional software engineering experience, which is
-above a typical new-gr[ad level]", quoting "3+ years of professional software engineering experience". If Ashwin
-labels that claim S, the posting matches the words but its own text works against the new-grad target. That would
-be relevance without entailment.
+Claude's claim 1 reads "The posting asks for 3+ years of professional software engineering experience, which is above
+a typical new-grad level." The quote is real. But the posting never says the role is above new-grad level: that part
+is Claude's interpretation. Ashwin labeled it **I**.
 
-Other KEEPs with the same pattern:
-- `lever/palantir/832e4652…` and `…e47d4410…`: "4+ years of professional software development experience".
-- `…cd2423c6…` and `…d5d83a8f…`: "3+ years…".
+So the posting matches our words, and still does not support the claim made about it. Claims 16, 46, 66, 76 and 81
+show the same pattern; Ashwin labeled 16, and Codex labeled the rest.
 
-## Candidate: a counterexample to the abstention rule
+## The abstention rule and a counterexample
 
-The rule covers only experience and remote work. Palantir's "New Grad - Production Infrastructure" postings,
-`…15844944…`, `…4d5a144e…` and `…e1a6c138…`, pass the experience claim with a real quote. The claim reads "The posting
-is aimed at new graduates", quoting the title.
+**The rule.** `prompts/claims-v1.md` makes the first two claims cover experience level and US-remote work. If the
+posting does not settle one, the claim must read "I cannot tell from this posting: …" with an empty quote, and
+`validate_reply` refuses a reply where the two disagree.
 
-The same postings require "Active US Security clearance, or eligibility and willingness to obtain a US Security
-clearance". Supriya's eligibility for that is unknown. No claim abstains on it, because the rule never asks.
+**Counterexample 1: an abstention that should not have abstained (claim 42, C).** Claude said it could not tell
+whether the New York Defense role is remote, because the posting "does not label itself Remote or Onsite". The saved
+posting's structured field says `workplaceType: onsite`, so the abstention is wrong.
 
-So a posting can satisfy every abstention the rule demands and still hinge on a fact nobody can tell. Ashwin's audit
-clearance rule (`drafting/EVALUATION-SETS.md`) marks these `?`, which the shortlist never surfaces.
+The validator passed it, because it checks only that an abstention has an empty quote. It cannot check whether the
+question really was open. The cause is in the context: Claude was never shown the structured fields. The review cards
+originally left them out too; they now show them (`jobfilter/claim_cards.py`).
 
-**A second limit, for Ashwin to check:** an abstention passes validation however settled the question really is.
-The sheet's instruction for abstention claims is S if the posting truly does not settle the question, and C if it
-does. A C there would show the rule letting a wrong "I cannot tell" through.
+**Counterexample 2: a question the rule never asks.** The rule covers experience and remote work only. The three "New
+Grad - Production Infrastructure" postings pass the experience claim with a real quote. Yet they require "Active US
+Security clearance, or eligibility and willingness to obtain a US Security clearance", and Supriya's eligibility is
+unknown. No claim abstains on it.
 
-## The one negation flag
+**Hybrid is not remote.** 18 of the 19 abstentions were labeled S, all by Codex. Several sit next to Palantir's office
+policy text, "Many teams do offer hybrid options (WFH a day or two a week)" and "a few roles that allow for 'Remote'
+work on an exceptional basis". Hybrid work does not establish permission to work fully remotely from anywhere in the
+US, so "I cannot tell" stays the right answer on remote eligibility for those postings.
 
-One claim's quote contains a negation word: `lever/palantir/6fe5515f…`. The claim reads "The posting says experience
-with highly-available distributed systems is not required." The quote is "Experience developing and managing
-highly-available distributed systems is beneficial, but not required."
+## Still open
 
-Here the claim states the negation itself, so the flag fires on a claim that reads correctly. That is why the flag
-asks for a human and never decides. It needs Ashwin's S / C / I, like every other claim.
-
-## Still to do (Ashwin)
-
-- Label all 90 claims in `shortlist/claim-sheet.csv`.
-- Confirm or replace the two candidate cases above.
-- Decide whether the 2 v1.1-only KEEPs need claims, which would take a new live run.
+- 61 of 90 labels are AI-assisted. Ashwin may review any of them and override them in `claim-sheet.csv`. A changed
+  row should keep the earlier label in `note`.
+- The 2 v1.1-only KEEPs have no claims.
+- One possible next change, to one object: add the structured fields to the context Claude is given. It is not
+  measured.

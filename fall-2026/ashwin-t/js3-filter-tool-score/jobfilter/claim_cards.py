@@ -52,7 +52,7 @@ def topic_excerpts(text: str, claim: str, limit: int = 3, width: int = 90) -> li
 
 
 def write_cards() -> int:
-    rows = list(csv.DictReader((OUT / "claim-sheet.csv").open()))
+    rows = list(csv.DictReader((OUT / "claim-sheet.csv").open()))  # labels are not shown on the cards
     by = {p["key"]: p for p in load()["postings"]}
     L = ["# Claim review cards (90 claims, batches of 10)", "",
          "Claims Claude wrote on 2026-11-25 for the 18 shortlisted postings, in `claim-sheet.csv` order. Write S, C "
@@ -62,8 +62,11 @@ def write_cards() -> int:
             L += [f"## Batch {(i - 1) // BATCH + 1} (claims {i}–{min(i + BATCH - 1, len(rows))})", ""]
         p = by[r["key"]]
         field = {"title": p["title"], "location": "; ".join(locations(p)), "content": plain(p["content"])}[r["field"]]
+        st = p.get("structured") or {}
         L += [f"### {i}. `{r['claim_id']}` · {p['title']} · {'; '.join(locations(p))}", "",
-              f"- **Claim:** {r['claim']}"]
+              f"- **Claim:** {r['claim']}",
+              "- **Structured fields (not shown to Claude):** "
+              + (", ".join(f"{k} {v}" for k, v in st.items()) or "none")]
         if r["claim"].startswith(ABSTAIN):
             ex = topic_excerpts(plain(p["content"]), r["claim"])
             L += ["- **Quote:** none (abstention)",
