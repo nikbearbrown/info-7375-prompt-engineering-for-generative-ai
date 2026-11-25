@@ -37,14 +37,32 @@ test('title tiers: core 1, adjacent 0.5, other 0, junior 0; prefix cut at , - ( 
 });
 
 // ---------- experience table ----------
-test('experience: <= years_pm+1 -> 1, +2 -> stretch, more -> 0, junior range -> 0, absent -> unknown', () => {
+// v1.1.0-a (2026-11-25): tiers follow persona-prefs.json preferred_max_years 4 / stretch_max_years 6.
+// (v1.0.0 tested years_pm+1 = 3 -> 1, 4 -> 0.5, 5+ -> 0.)
+test('experience: <= preferred_max -> 1, <= stretch_max -> stretch, more -> 0, junior range -> 0, absent -> unknown', () => {
   const e = t => score(mk({ text: t })).components.experience;
   assert.equal(e('3+ years of product management experience.').value, 1);
-  assert.equal(e('4+ years of experience as a PM.').value, spec.experience.stretch_value);
+  assert.equal(e('4+ years of experience as a PM.').value, 1);
+  assert.equal(e('5+ years of experience as a PM.').value, spec.experience.stretch_value);
+  assert.equal(e('7+ years of experience.').value, 0);
   assert.equal(e('8+ years of experience.').value, 0);
   assert.equal(e('0-2 years of experience.').value, 0);
   assert.equal(e('We ship things.').value, null);
   assert.ok(score(mk({ text: 'We ship things.' })).unknown.includes('experience'));
+});
+
+// KNOWN MISREAD (found 2026-11-25 while writing the v1.1.0-a tests): the inherited JS1 pattern reads
+// "6-10+ years" as "10+ years" (the "N+" alternative wins at the later position). 32 snapshot
+// postings have an N-M+ range in their experience sentence; one core-PM title among them (A010,
+// gh-stripe 8204227). Not fixed: a fix is a rule change for Aravind to decide. Reported as a TODO.
+test('KNOWN MISREAD: "6-10+ years" should give N = 6, not 10', { todo: 'regex fix not decided (FILTER.md §5.1)' }, () => {
+  const x = score(mk({ text: '6-10+ years of product management experience.' })).components.experience;
+  assert.equal(x.lower_bound, 6);
+});
+
+test('prefs without the corrected experience fields are refused, not silently defaulted', () => {
+  assert.throws(() => scorePosting(mk(), { spec, prefs: { ...PREFS, preferred_max_years: undefined } }));
+  assert.throws(() => scorePosting(mk(), { spec, prefs: { ...PREFS, preferred_max_years: 6, stretch_max_years: 4 } }));
 });
 
 test('experience: only a phrase in a sentence containing "experience" counts', () => {
@@ -160,12 +178,12 @@ test('W13: core + L1 + E0 + P1 -> reject', () => {
   assert.equal(r.decision, 'reject');
 });
 test('W13: core + L1 + E0.5 + P0 -> reject', () => {
-  const r = score(mk({ text: '4+ years of experience.' }));
+  const r = score(mk({ text: '5+ years of experience.' })); // E = 0.5 under v1.1.0-a (was 4+ under v1.0.0)
   assert.deepEqual([r.components.title.value, r.components.location.value, r.components.experience.value, r.components.topic.value], [1, 1, 0.5, 0]);
   assert.equal(r.decision, 'reject');
 });
 test('W13: core + L1 + E0.5 + P0.5 (one term) -> keep', () => {
-  const r = score(mk({ text: 'payments. 4+ years of experience.' }));
+  const r = score(mk({ text: 'payments. 5+ years of experience.' })); // E = 0.5 under v1.1.0-a
   assert.deepEqual([r.components.title.value, r.components.location.value, r.components.experience.value, r.components.topic.value], [1, 1, 0.5, 0.5]);
   assert.equal(r.decision, 'keep');
 });

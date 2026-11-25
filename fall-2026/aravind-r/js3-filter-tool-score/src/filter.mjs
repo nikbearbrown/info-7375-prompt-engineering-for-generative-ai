@@ -47,7 +47,7 @@ function experienceComponent(lower, spec, prefs) {
     const m = s.match(YEARS_PHRASE);
     if (!m) continue;
     const n = Number(m[1] ?? m[2] ?? m[3]);
-    const value = n <= prefs.years_pm + x.slack ? 1 : n === prefs.years_pm + x.stretch ? x.stretch_value : 0;
+    const value = n <= prefs.preferred_max_years ? 1 : n <= prefs.stretch_max_years ? x.stretch_value : 0;
     return { value, case: 'stated', phrase: m[0], lower_bound: n, sentence: s };
   }
   return { value: null, case: 'not stated', phrase: null, lower_bound: null };
@@ -82,6 +82,8 @@ function findVeto(text, spec, prefs) {
 }
 
 export function scorePosting(posting, { spec, prefs }) {
+  if (!Number.isInteger(prefs?.preferred_max_years) || !Number.isInteger(prefs?.stretch_max_years) || prefs.stretch_max_years < prefs.preferred_max_years)
+    throw new Error('prefs need integer preferred_max_years <= stretch_max_years (persona-prefs.json, corrected 2026-11-25)');
   const title = posting.title ?? '';
   const text = posting.text ?? '';
   const lower = text.toLowerCase();

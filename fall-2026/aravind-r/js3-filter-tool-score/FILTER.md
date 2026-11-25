@@ -1,6 +1,6 @@
 # FILTER — Job-Search Agent 3
 
-**Version 1.0.0 — 2026-11-25. Written before any filter or scorer code.**
+**Version 1.1.0-a — 2026-11-25.** v1.0.0 was written before any filter or scorer code (`bb88c420`). v1.1.0-a changes the experience definition **after** the v1.0.0 audit results were seen (§9).
 
 This is the gate. The filter is this document: the machine-readable block in §6 is what the
 code loads (`src/spec.mjs`). No weight, word, or threshold lives anywhere else. To change the
@@ -8,7 +8,7 @@ filter: edit this file, bump the version, and log the change in §9 with a befor
 measurement.
 
 Persona: Maya Sehgal, fictional (`persona/persona-prefs.json`, inherited from JS1/JS2):
-- `years_pm`: 2
+- `preferred_max_years`: 4 and `stretch_max_years`: 6 (corrected 2026-11-25, after the v1.0.0 audit results; v1.0.0 used `years_pm` 2)
 - locations: San Francisco, Los Angeles, San Jose, Remote
 - needs sponsorship
 - domains: payments, fintech, data, e-commerce, mobile
@@ -33,7 +33,9 @@ Persona: Maya Sehgal, fictional (`persona/persona-prefs.json`, inherited from JS
 
 A posting is worth Maya's time when it is:
 - a product-management role
-- that she can do at her level (2 years as a PM)
+- whose stated experience requirement fits her application policy: **mostly roles requiring at
+  most 4 years, sometimes 5+ or 6+, never 7+** (corrected 2026-11-25, after the v1.0.0 audit
+  results; v1.0.0 read this as "at her level, 2 years as a PM", a ceiling of 3)
 - in a place she can work
 - from an employer that does not rule out sponsorship
 - ideally in one of her domains.
@@ -83,11 +85,14 @@ Take the title up to the first `,`, ` - `, `(`, or `:`. Trim it and collapse whi
 Take the first `N+ years`, `N-M years`, or `N or more years` phrase in a sentence that contains
 `experience`, and use its lower bound N. This extraction is inherited from JS1 Gate 3.
 
+**v1.1.0-a tiers (2026-11-25, after the v1.0.0 audit results).** v1.0.0 used N ≤ 3 → 1.0, N = 4 →
+0.5, N ≥ 5 → 0, from `years_pm` 2 + 1 slack.
+
 | Case | E | Reasoning |
 |---|---|---|
-| N ≤ years_pm + 1 (= 3) | 1.0 | Within reach. The +1 slack is the inherited JS1 ceiling. |
-| N = years_pm + 2 (= 4) | 0.5 | A stretch, not a no. New in JS3. |
-| N ≥ years_pm + 3 | 0.0 | Out of reach. |
+| N ≤ preferred_max_years (= 4) | 1.0 | Where she mostly applies. |
+| preferred_max_years < N ≤ stretch_max_years (5 or 6) | 0.5 | She sometimes applies at 5+ or 6+: a stretch, not a no. |
+| N > stretch_max_years (≥ 7) | 0.0 | She never applies at 7+. |
 | any range with upper bound ≤ 2 (e.g. "0–2 years") | 0.0 | Junior. Inherited from JS1 Gate 2. |
 | no phrase found | **unknown** | The posting does not say. That is neither a match nor a miss (§2.3). |
 
@@ -365,6 +370,18 @@ The committed implementation re-counts in Phase 2, and any difference is recorde
     distinct matching lines were false friends (executive or financial sponsors, event
     sponsorship, Visa the card network).
 
+### 5.3 Known misread: "N–M+ years" (found 2026-11-25, not fixed)
+
+- The inherited JS1 experience pattern reads "6–10+ years" as "10+ years". At the later position
+  the `N+` alternative matches, so the upper number becomes N.
+- 32 snapshot postings have an `N–M+` range in their experience sentence. One has a core PM title:
+  **A010** (gh-stripe 8204227, "6–10+ years of product management experience"). It reads as N = 10
+  (E = 0); read correctly, it would be N = 6 (E = 0.5).
+- There is a `todo` test in `test/filter.test.mjs`. Any fix is a separate rule change, and it
+  would cite A010.
+- This is also a counterexample to the abstention rule: the rule only abstains on an *unknown*
+  value, never on a value it extracted wrongly.
+
 ---
 
 ## 6. The filter spec (the code loads this block) [DECIDED 2026-11-25, hand-set v1]
@@ -375,7 +392,7 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
 
 ```json filter-spec
 {
-  "version": "1.0.0",
+  "version": "1.1.0-a",
   "title": {
     "cut_chars": [",", " - ", "(", ":"],
     "tiers": {
@@ -385,7 +402,7 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
     "junior_terms": ["Associate", "APM", "Intern", "New Grad"]
   },
   "topic": { "terms": ["payments", "fintech", "data", "e-commerce", "ecommerce", "mobile"], "saturate_at": 2 },
-  "experience": { "slack": 1, "stretch": 2, "stretch_value": 0.5, "junior_upper_max": 2, "impute": 0.5 },
+  "experience": { "stretch_value": 0.5, "junior_upper_max": 2, "impute": 0.5 },
   "location": { "aliases": { "sf": "San Francisco", "bay area": "San Francisco", "la": "Los Angeles" }, "impute": 0.0 },
   "vetoes": {
     "sponsorship": ["unable to sponsor", "not able to sponsor", "will not sponsor", "does not sponsor", "cannot sponsor", "without sponsorship", "sponsorship is not available"],
@@ -435,3 +452,4 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
 | Version | Date | Change | Why | Measured before → after (set: dev/audit) |
 |---|---|---|---|---|
 | 1.0.0 | 2026-11-25 | First committed version. The draft had threshold 0.70; it was set to 0.80 at Checkpoint 1, before commit, and W13 was added. | §6 reason line | No labels yet. Counts only (§5.1): keep 0 / cannot_tell 3 / reject 1,061 at 0.80 |
+| 1.1.0-a | 2026-11-25 | Experience tiers follow the corrected persona: N ≤ 4 → 1.0, 5–6 → 0.5, ≥ 7 → 0 (was ≤ 3 → 1.0, 4 → 0.5, ≥ 5 → 0). `persona-prefs.json`: `years_pm` replaced by `preferred_max_years` 4, `stretch_max_years` 6 (`f3cefa22`). | **The definition changed after the first-pass audit verdicts were seen** (`1c9ce17b`, `2c29cbab`). Cited audit rows: the 12 rejected closest calls A005, A010, A013, A020, A025, A027, A030, A037, A044, A047, A049, A052. Under v1.0.0, all 12 had T = 1 and L = 1 and failed only on experience (E = 0). This is dev use of the audit sample: v1.1.0-a cannot be validated on those rows. | Snapshot counts, v1.0.0 → v1.1.0-a: keep 0 → 7, cannot_tell 3 → 3, reject 1,061 → 1,054. 7 decisions changed, all reject → keep: A005, A020, A025, A027, A044, A052, and A065 (an unjudged PM-stratum row). 6 of the 12 cited rows are still rejected: A013, A030, A037, A049 (8+ years), A047 (10+), and A010 ("6–10+ years", misread as 10+; §5.1). |

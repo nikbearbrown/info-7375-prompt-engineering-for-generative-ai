@@ -13,7 +13,7 @@ const spec = loadFilterSpec(FILTER_MD);
 test('FILTER.md has exactly one filter-spec block and it parses', () => {
   const md = readFileSync(FILTER_MD, 'utf8');
   assert.equal((md.match(/```json filter-spec/g) ?? []).length, 1);
-  assert.match(spec.version, /^\d+\.\d+\.\d+$/);
+  assert.match(spec.version, /^\d+\.\d+\.\d+(-[a-z0-9.]+)?$/);
   assert.match(md, new RegExp(`\\*\\*Version ${spec.version.replace(/\./g, '\\.')}\\b`), 'header version matches the spec block');
 });
 

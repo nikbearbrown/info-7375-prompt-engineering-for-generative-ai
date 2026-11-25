@@ -7,9 +7,10 @@ export const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 export const FILTER_MD = join(ROOT, 'FILTER.md');
 export const SNAPSHOT = join(ROOT, 'data', 'raw', '20261110T225032086Z-post-patch-2');
 
-// Same values as persona/persona-prefs.json (fictional persona Maya Sehgal).
+// Same values as persona/persona-prefs.json (fictional persona Maya Sehgal; corrected 2026-11-25).
 export const PREFS = Object.freeze({
-  years_pm: 2,
+  preferred_max_years: 4,
+  stretch_max_years: 6,
   locations: ['San Francisco', 'Los Angeles', 'San Jose', 'Remote'],
   needs_sponsorship: true,
   domains: ['payments', 'fintech', 'data', 'e-commerce', 'mobile'],

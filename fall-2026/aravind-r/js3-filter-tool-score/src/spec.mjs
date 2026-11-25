@@ -20,7 +20,7 @@ export function loadFilterSpec(path) {
 export function validateSpec(s) {
   const e = [];
   const num01 = (v, name) => { if (typeof v !== 'number' || v < 0 || v > 1) e.push(`${name} must be a number in [0,1]`); };
-  if (!/^\d+\.\d+\.\d+$/.test(s?.version ?? '')) e.push('version must be semver');
+  if (!/^\d+\.\d+\.\d+(-[a-z0-9.]+)?$/.test(s?.version ?? '')) e.push('version must be semver');
   for (const k of ['title', 'location', 'experience', 'topic']) num01(s?.weights?.[k], `weights.${k}`);
   num01(s?.threshold, 'threshold');
   num01(s?.near_band, 'near_band');
@@ -30,7 +30,7 @@ export function validateSpec(s) {
   }
   for (const k of ['cut_chars', 'junior_terms']) if (!Array.isArray(s?.title?.[k])) e.push(`title.${k} must be a list`);
   if (!Array.isArray(s?.topic?.terms) || !(s.topic.saturate_at > 0)) e.push('topic.terms list and topic.saturate_at > 0 required');
-  for (const k of ['slack', 'stretch', 'junior_upper_max']) if (!Number.isInteger(s?.experience?.[k])) e.push(`experience.${k} must be an integer`);
+  if (!Number.isInteger(s?.experience?.junior_upper_max)) e.push('experience.junior_upper_max must be an integer');
   num01(s?.experience?.stretch_value, 'experience.stretch_value');
   num01(s?.experience?.impute, 'experience.impute');
   num01(s?.location?.impute, 'location.impute');
