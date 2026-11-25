@@ -43,9 +43,9 @@
     - **Wrong versions:** `tests/wrong_versions.py` patching `W1`–`W5` into `agent/filter.py`.
 - **By recomputation:**
   - Claude wrote the recomputation scripts, and I ran or inspected their outputs:
-    - **Survey counts & Wilson interval:** `python3 -m score.recount` recomputes the duplicate-group counts (`173` / `82` / `91`), the `23` `Engineer II` titles, the `31` substring matches, and the `95%` Wilson interval (`0.0%` to `11.4%` on `0/30` rejects).
+    - **Survey counts & Wilson interval:** `python3 -m score.recount` recomputes the duplicate-group counts (`173` / `82` / `91`), the `23` titles containing `Engineer II` (22 `Software Engineer II` plus 1 `Machine Learning Engineer II`; not the same count as the client's 22-vs-23 miscount), the `31` substring matches, and the `95%` Wilson interval (`0.0%` to `11.4%` on `0/30` rejects).
     - **Precision and recall:** `python3 -m agent.evaluate` recomputes `tp` / `fp` / `fn` / `tn` directly from saved filter decisions.
-    - **Fresh-clone verification:** Claude's fresh-clone run at `2f40542` reproduced every reported figure; I read its output.
+    - **Fresh-clone verification:** Claude's fresh-clone runs at `2f40542` (Nov 24) and `9a30e25` (Nov 25, after the last code change) reproduced every reported figure; I read their output.
     - **Year-citation check:** Claude's verification script checked all experience-year citations in my label reasons against the raw posting text.
 - **With Claude's help:**
   - Claude implemented the Python modules, unit tests, and reading aids, drafted the initial markdown write-ups, ran the adversarial probe against `js3-job-filter`, and had a subagent inspect the Filesystem server's GitHub source.

@@ -18,7 +18,7 @@ This project builds on my Job-Search Agent 2 (`../js2-loop-tools-diff/`), reusin
 
 - **Runtime:** Python `3.12.7`, standard library only (zero third-party dependencies).
 - **Testing:** `unittest`.
-- **Verification:** Tested on macOS. On Nov 24, 2026, Claude cloned this branch fresh at commit `2f40542` into a scratch directory and re-ran every command below except the live `agent.loop` collector (replaying the saved run instead) and `claude mcp add`:
+- **Verification:** Tested on macOS. Claude cloned this branch fresh into a scratch directory, first on Nov 24, 2026 at commit `2f40542` and again on Nov 25, 2026 at `9a30e25` (after the last code change), and re-ran every command below except the live `agent.loop` collector (replaying the saved run instead) and `claude mcp add`:
   - All 57 unit tests passed, and all five wrong versions (`W1`–`W5`) were caught.
   - The filter, evaluation, shortlist, and survey-recount commands reproduced every number reported in this README.
   - Re-running the shortlist generator left all committed files unchanged (`git status` remained clean).
