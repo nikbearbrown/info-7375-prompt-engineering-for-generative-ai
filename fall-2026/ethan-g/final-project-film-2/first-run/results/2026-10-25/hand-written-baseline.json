@@ -1,0 +1,43 @@
+{
+ "checks": "fare_check.py",
+ "seed": 25,
+ "clean": {
+  "flagged_rows": 0,
+  "column_failures": [],
+  "crashed_checks": [],
+  "error": null
+ },
+ "types": {
+  "negative_fare": {
+   "planted": 25,
+   "caught": 25,
+   "verdict": "CAUGHT",
+   "error": null
+  },
+  "dropoff_before_pickup": {
+   "planted": 25,
+   "caught": 0,
+   "verdict": "MISSED",
+   "error": null
+  },
+  "missing_value": {
+   "planted": 25,
+   "caught": 0,
+   "verdict": "MISSED",
+   "error": null
+  },
+  "duplicate_rows": {
+   "planted": 25,
+   "caught": 0,
+   "verdict": "MISSED",
+   "error": null
+  },
+  "wrong_type": {
+   "planted": 1,
+   "caught": 1,
+   "verdict": "CAUGHT",
+   "error": null
+  }
+ },
+ "types_caught": 2
+}

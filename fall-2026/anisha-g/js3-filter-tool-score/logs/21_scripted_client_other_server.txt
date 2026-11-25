@@ -1,0 +1,21 @@
+1 initialize                                            -> {"result":{"protocolVersion":"2025-11-25","capabilities":{"tools":{"listChanged":true},"resources":{"listChanged":true}},"serverInfo":{"name":"secure-
+3 tools/list                                            -> {"result":{"tools":[{"name":"read_file","title":"Read File (Deprecated)","description":"Read the complete contents of a file as text. DEPRECATED: Use 
+4 list_allowed_directories                              -> {"result":{"content":[{"type":"text","text":"Allowed directories:\n<SCRATCH>/sc
+5 read a file inside the allowed dir                    -> {"result":{"content":[{"type":"text","text":"Nadia's notes (fake)\n"}],"structuredContent":{"content":"Nadia's notes (fake)\n"}},"jsonrpc":"2.0","id":
+6 read the sandbox decoy outside the allowed dir        -> {"result":{"content":[{"type":"text","text":"Access denied - path outside allowed directories: <SCRATCH>
+7 read the decoy via ../                                -> {"result":{"content":[{"type":"text","text":"Access denied - path outside allowed directories: <SCRATCH>
+8 read the decoy via a symlink in the allowed dir       -> {"result":{"content":[{"type":"text","text":"Access denied - symlink target outside allowed directories: <SCRATCH>
+9 write a new file inside the allowed dir               -> {"result":{"content":[{"type":"text","text":"Successfully wrote to <SCRATCH>/sc
+10 move a file inside the allowed dir                   -> {"result":{"content":[{"type":"text","text":"Successfully moved <SCRATCH>/scrat
+11 write into the sandbox outside the allowed dir       -> {"result":{"content":[{"type":"text","text":"Access denied - path outside allowed directories: <SCRATCH>
+12 undeclared tool                                      -> {"jsonrpc":"2.0","id":11,"error":{"code":-32602,"message":"Tool delete_file not found"}}
+transcript: transcripts/client-other-filesystem-2.2.0-20261125T141705.jsonl
+1 initialize                                            -> {"result":{"protocolVersion":"2025-11-25","capabilities":{"tools":{"listChanged":true},"resources":{"listChanged":true}},"serverInfo":{"name":"secure-
+3 resources/list (capability declared)                  -> {"result":{"resources":[]},"jsonrpc":"2.0","id":2}
+4 call before checking args: read_text_file with no path -> {"result":{"content":[{"type":"text","text":"Input validation error: Invalid arguments for tool read_text_file: path: Invalid input: expected string, 
+transcript: transcripts/client-other-filesystem-2.2.0-resources-20261125T141718.jsonl
+1 initialize                                            -> {"result":{"protocolVersion":"2025-11-25","capabilities":{"tools":{"listChanged":true},"resources":{"listChanged":true}},"serverInfo":{"name":"secure-
+3 copy_file (declared destructiveHint=false) onto an EXISTING file -> {"result":{"content":[{"type":"text","text":"Destination already exists: <SCRATCH>
+4 read the destination afterwards                       -> {"result":{"content":[{"type":"text","text":"Nadia's notes (fake)\n"}],"structuredContent":{"content":"Nadia's notes (fake)\n"}},"jsonrpc":"2.0","id":
+5 append_file (declared destructiveHint=false)          -> {"result":{"content":[{"type":"text","text":"Successfully appended to <SCRATCH>
+transcript: transcripts/client-other-filesystem-2.2.0-copy-20261125T141735.jsonl

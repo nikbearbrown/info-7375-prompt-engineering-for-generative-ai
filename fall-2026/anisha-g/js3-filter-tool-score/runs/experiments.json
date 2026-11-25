@@ -1,0 +1,9 @@
+{
+ "_written": "2026-11-25 ~14:20 ET, BEFORE any Claude call and BEFORE any hand verdict. Measured only on the 30 held-out postings (audit/sets.json H_heldout). One change from B per experiment.",
+ "B":  {"prompt": "prompts/js1_revised.txt", "context": "full",    "model": "sonnet", "tools": "none", "what": "baseline: inherited JS1 revised prompt, full posting text"},
+ "B2": {"prompt": "prompts/js1_revised.txt", "context": "full",    "model": "sonnet", "tools": "none", "what": "exact repeat of B: the noise floor"},
+ "E1": {"prompt": "prompts/js1_baseline.txt", "context": "full",   "model": "sonnet", "tools": "none", "what": "PROMPT changed: JS1 baseline prompt (no written rules)"},
+ "E2": {"prompt": "prompts/js1_revised.txt", "context": "short",   "model": "sonnet", "tools": "none", "what": "CONTEXT changed: title + first 600 characters of text only"},
+ "E3": {"prompt": "prompts/js1_revised.txt", "context": "full",    "model": "haiku",  "tools": "none", "what": "SETTING changed: model haiku instead of sonnet"},
+ "E4": {"prompt": "prompts/js1_revised.txt", "context": "full",    "model": "sonnet", "tools": "score_posting", "what": "TOOL LIST changed: Claude is offered my score_posting tool"}
+}

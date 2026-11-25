@@ -1,0 +1,121 @@
+{
+ "item": 24,
+ "board": "greenhouse:databricks",
+ "id": "8622413002",
+ "title": "Strategic Account Executive - Consumer Goods Industry ",
+ "utc": "2026-11-24T21:33:42Z",
+ "seconds": 3.4,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "not",
+  "score": 0,
+  "reasons": [
+   "Location is outside the US: \"London, United Kingdom\" / \"join the team in the UK\"",
+   "Sales role, not AI/ML/data engineering: \"Strategic Account Executive\" with \"usage and booking goals\"",
+   "Senior requirements: \"Proof of exceeding sales quotas in high-growth Enterprise software companies\" and \"Experience leading and running large, extended virtual teams is essential\"",
+   "Requires sector sales background: \"Experience selling to this sector is essential\""
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: greenhouse:databricks\n- Title: Strategic Account Executive - Consumer Goods Industry \n- Location: London, United Kingdom\n- Employment type field: (board does not say)\n- Text:\nSLSQ327R397 Do you want to help solve the world's toughest problems with big data and AI? This is what we do everyday at Databricks. We are looking for an Strategic Account Executive to join the team in the UK to maximise the phenomenal market opportunity that exists for Databricks within the Consumer Goods industry. Your mission will be to grow one of our most strategic CPG customers. Experience selling to this sector is essential, as is experience in running large complex multi-national accounts. Reporting to the Director, Sales, as a Strategic Account Executive at Databricks you will come with an informed and compelling point of view on the Big Data, Advanced Analytics and AI space which will guide your successful strategy and together with both our teams and partners, allow you to provide exceptional value to our customers. The impact you will have: You will co-develop a business plan, with your team and ecosystem partners, that accelerates customer success to exceed quarterly/annual usage and booking goals You will lead your team, customer and partners to identify impactful big data and AI use cases whilst proving out their value on the Databricks Data Intelligence Platform You will implement the big data and AI transformation goals of your customer through a combination of strategic partnerships, well-scoped professional services, training and targeted Executive Engagement You will develop an understanding of technical product details and roadmap to build trust with executives and business and technical champions What we look for: Experience leading and running large, extended virtual teams is essential. Experience building and running relationships, co-selling and scaling your business with Cloud Vendors (AWS, Azure and Google Cloud teams) and Global Solution Integrators (GSI). Experience developing strong relationships with large (global) Enterprise accounts and leading complex sales campaigns in major CPG accounts. This includes experience co-developing business cases, gaining support from C-level Executives, value-based selling, and driving usage and commit-based engagement models working with professional services and training teams. You will have experience working in Big Data, Cloud, or relevent SaaS industries. Proof of exceeding sales quotas in high-growth Enterprise software companies. About Databricks Databricks is the Data and AI company. More than 20,000 organizations worldwide — including adidas, AT&T, Bayer, Block, Mastercard, Rivian, Unilever, and 70% of the Fortune 500 — rely on the Databricks Data + AI Platform to build and scale data and AI apps, analytics and agents. Headquartered in San Francisco with 30+ offices around the globe, Databricks offers a unified platform that includes Genie, Lakebase, Agent Bricks, Lakeflow, Lakehouse, and Unity Catalog. To learn more, follow Databricks on LinkedIn , X , YouTube , and Instagram . Benefits At Databricks, we strive to provide comprehensive benefits and perks that meet the needs of all of our employees. For specific details on the benefits offered in your region click here . Our Commitment to Diversity and Inclusion At Databricks, we are committed to fostering a diverse and inclusive culture where everyone can excel. We take great care to ensure that our hiring practices are inclusive and meet equal employment opportunity standards. Individuals looking for employment at Databricks are considered without regard to age, color, disability, ethnicity, family or marital status, gender identity or expression, language, national origin, physical and mental ability, political affiliation, race, religion, sexual orientation, socio-economic status, veteran status, and other protected characteristics. Compliance If access to export-controlled technology or source code is required for performance of job duties, it is within Employer's discretion whether to apply for a U.S. government license for such positions, and Employer may decline to proceed with an applicant on this basis alone.\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 2425,
+  "stop_reason": "end_turn",
+  "session_id": "ab5a349e-7727-41ce-92b5-9980131e1926",
+  "total_cost_usd": 0.0358498,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 3984,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 192,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 3984,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 192,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 3984,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 3984
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 192,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 3984,
+    "webSearchRequests": 0,
+    "costUSD": 0.0358498,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 3984,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"not\", \"score\": 0, \"reasons\": [\"Location is outside the US: \\\"London, United Kingdom\\\" / \\\"join the team in the UK\\\"\", \"Sales role, not AI/ML/data engineering: \\\"Strategic Account Executive\\\" with \\\"usage and booking goals\\\"\", \"Senior requirements: \\\"Proof of exceeding sales quotas in high-growth Enterprise software companies\\\" and \\\"Experience leading and running large, extended virtual teams is essential\\\"\", \"Requires sector sales background: \\\"Experience selling to this sector is essential\\\"\"]}",
+  "ttft_ms": 2525,
+  "type": "result",
+  "duration_ms": 2554,
+  "uuid": "bb3057f8-442c-4329-be9a-0150e4519025",
+  "ttft_stream_ms": 1051,
+  "time_to_request_ms": 124,
+  "first_content_frame_ms": 1051,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

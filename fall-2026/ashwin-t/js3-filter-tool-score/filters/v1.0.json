@@ -1,0 +1,46 @@
+{
+ "version": "v1.0",
+ "document": "FILTER.md v1.0 (a3a7a2af)",
+ "role_phrases": ["software engineer", "software developer", "backend engineer", "back-end engineer",
+                  "backend developer", "back-end developer", "full stack engineer", "full-stack engineer",
+                  "full stack developer", "full-stack developer"],
+ "excluded_title_phrases": ["forward deployed"],
+ "seniority_terms": ["senior", "sr", "staff", "principal", "lead", "manager", "director", "architect",
+                     "intern", "internship"],
+ "level_suffixes": ["ii", "iii", "iv", "v", "2", "3", "4", "5"],
+ "entry_signals": ["new grad", "graduate", "junior", "early career"],
+ "topic_groups": {
+  "Python": ["python", "python3", "python 3"],
+  "Java": ["java"],
+  "PostgreSQL": ["postgresql", "postgres"],
+  "Redis": ["redis"],
+  "Docker": ["docker"],
+  "Kubernetes": ["kubernetes", "k8s"],
+  "Distributed Systems": ["distributed systems"]
+ },
+ "weights": {"title": 3, "topic": 1, "topic_cap": 4, "location_preferred": 2, "location_us_other": 1,
+             "location_unresolved": 0, "min_topic_groups": 2, "threshold": 7},
+ "location": {
+  "boston_area": ["boston", "greater boston", "cambridge ma", "somerville ma"],
+  "us_country_words": ["us", "usa", "u s", "u s a", "united states", "united states of america"],
+  "us_city_aliases": ["new york", "new york city", "san francisco", "seattle", "denver", "washington d c",
+                      "washington dc", "palo alto", "austin", "los angeles"],
+  "us_states": {
+   "al": "alabama", "ak": "alaska", "az": "arizona", "ar": "arkansas", "ca": "california", "co": "colorado",
+   "ct": "connecticut", "de": "delaware", "dc": "district of columbia", "fl": "florida", "ga": "georgia",
+   "hi": "hawaii", "id": "idaho", "il": "illinois", "in": "indiana", "ia": "iowa", "ks": "kansas",
+   "ky": "kentucky", "la": "louisiana", "me": "maine", "md": "maryland", "ma": "massachusetts",
+   "mi": "michigan", "mn": "minnesota", "ms": "mississippi", "mo": "missouri", "mt": "montana",
+   "ne": "nebraska", "nv": "nevada", "nh": "new hampshire", "nj": "new jersey", "nm": "new mexico",
+   "ny": "new york", "nc": "north carolina", "nd": "north dakota", "oh": "ohio", "ok": "oklahoma",
+   "or": "oregon", "pa": "pennsylvania", "ri": "rhode island", "sc": "south carolina", "sd": "south dakota",
+   "tn": "tennessee", "tx": "texas", "ut": "utah", "vt": "vermont", "va": "virginia", "wa": "washington",
+   "wv": "west virginia", "wi": "wisconsin", "wy": "wyoming"
+  },
+  "non_us_countries": ["australia", "au", "brazil", "bulgaria", "canada", "colombia", "france", "germany",
+                       "india", "ie", "ireland", "japan", "lithuania", "norway", "poland", "singapore",
+                       "south korea", "spain", "uk", "united kingdom", "united arab emirates"],
+  "non_us_regions": ["europe", "emea", "apac"],
+  "workplace_prefixes": ["flex", "office"]
+ }
+}

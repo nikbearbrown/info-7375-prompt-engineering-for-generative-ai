@@ -1,0 +1,460 @@
+1
+00:00:01,458 --> 00:00:03,375
+SponsorScout. A final project film by Akshit
+
+2
+00:00:03,375 --> 00:00:05,208
+Verma, in four parts.
+
+3
+00:00:05,208 --> 00:00:07,625
+International students looking for data jobs
+
+4
+00:00:07,625 --> 00:00:09,167
+have a short clock,
+
+5
+00:00:09,167 --> 00:00:12,158
+and only some employers sponsor visas.
+
+6
+00:00:12,417 --> 00:00:14,283
+So we apply to sponsors.
+
+7
+00:00:14,417 --> 00:00:16,667
+But many of them have no entry-level
+
+8
+00:00:16,667 --> 00:00:18,250
+data job open today,
+
+9
+00:00:18,250 --> 00:00:20,833
+and those applications go nowhere.
+
+10
+00:00:21,667 --> 00:00:22,667
+SponsorScout tells the student,
+
+11
+00:00:22,667 --> 00:00:23,750
+for each sponsor,
+
+12
+00:00:23,750 --> 00:00:24,917
+whether to apply,
+
+13
+00:00:24,917 --> 00:00:26,875
+network, check by hand,
+
+14
+00:00:26,875 --> 00:00:29,625
+or skip, with the public record behind
+
+15
+00:00:29,625 --> 00:00:32,833
+every answer. A strong sponsor with nothing
+
+16
+00:00:32,833 --> 00:00:34,658
+open isn't dropped.
+
+17
+00:00:34,708 --> 00:00:36,458
+It goes on a networking list.
+
+18
+00:00:36,458 --> 00:00:37,375
+It never applies,
+
+19
+00:00:37,375 --> 00:00:40,283
+emails, or contacts anyone.
+
+20
+00:00:40,458 --> 00:00:41,950
+The person decides.
+
+21
+00:00:42,167 --> 00:00:44,458
+I'm building it because I'm job hunting
+
+22
+00:00:44,458 --> 00:00:47,167
+too, and I wanted a smarter strategy
+
+23
+00:00:47,167 --> 00:00:49,708
+than a hundred-plus applications a day.
+
+24
+00:00:49,708 --> 00:00:51,242
+What already exists?
+
+25
+00:00:51,417 --> 00:00:53,625
+My Visa Jobs lists sponsors and their
+
+26
+00:00:53,625 --> 00:00:55,292
+past job counts;
+
+27
+00:00:55,292 --> 00:00:57,000
+I looked at it in October.
+
+28
+00:00:57,000 --> 00:00:59,708
+H one B Grader grades employers on
+
+29
+00:00:59,708 --> 00:01:02,117
+past approvals and denials.
+
+30
+00:01:02,250 --> 00:01:04,583
+Interstride, which universities provide,
+
+31
+00:01:04,583 --> 00:01:07,667
+shows sponsorship history and filters jobs
+
+32
+00:01:07,667 --> 00:01:08,667
+by visa.
+
+33
+00:01:08,667 --> 00:01:11,167
+The Reallocation Engine's own scorer,
+
+34
+00:01:11,167 --> 00:01:13,000
+which I had Claude Code run in
+
+35
+00:01:13,000 --> 00:01:15,708
+October, gives a sponsor with no open
+
+36
+00:01:15,708 --> 00:01:16,708
+job a zero,
+
+37
+00:01:16,708 --> 00:01:18,075
+and skips it.
+
+38
+00:01:18,125 --> 00:01:20,792
+These tools show who sponsored before,
+
+39
+00:01:20,792 --> 00:01:22,617
+or what's open now.
+
+40
+00:01:22,833 --> 00:01:24,708
+None that I found turns a proven
+
+41
+00:01:24,708 --> 00:01:27,083
+sponsor with nothing open into a networking
+
+42
+00:01:27,083 --> 00:01:29,167
+target. That's the gap.
+
+43
+00:01:29,167 --> 00:01:30,658
+The data is public.
+
+44
+00:01:30,708 --> 00:01:32,875
+Sponsorship records from the Eighty Days
+
+45
+00:01:32,875 --> 00:01:34,283
+to Stay file.
+
+46
+00:01:34,417 --> 00:01:37,458
+Recent funding from S E C Form
+
+47
+00:01:37,458 --> 00:01:39,875
+D filings. Open jobs from the public
+
+48
+00:01:39,875 --> 00:01:43,450
+Greenhouse, Lever, and Ashby job boards.
+
+49
+00:01:43,583 --> 00:01:45,417
+The job seeker is fictional.
+
+50
+00:01:45,417 --> 00:01:47,700
+Each sponsor gets three checks:
+
+51
+00:01:47,708 --> 00:01:49,667
+has it sponsored data roles,
+
+52
+00:01:49,667 --> 00:01:51,667
+has it raised money recently,
+
+53
+00:01:51,667 --> 00:01:54,083
+and is an entry-level data job open
+
+54
+00:01:54,083 --> 00:01:56,625
+today? The answers set the verdict.
+
+55
+00:01:56,625 --> 00:02:00,042
+The prototype ran on October third,
+
+56
+00:02:00,042 --> 00:02:02,292
+on one hundred twenty-three sponsors.
+
+57
+00:02:02,292 --> 00:02:03,875
+But only sixteen of them had a
+
+58
+00:02:03,875 --> 00:02:05,250
+known job board,
+
+59
+00:02:05,250 --> 00:02:07,825
+so most answers were check by hand.
+
+60
+00:02:08,000 --> 00:02:09,783
+So, with Claude Code,
+
+61
+00:02:09,792 --> 00:02:11,658
+I built a board resolver.
+
+62
+00:02:11,833 --> 00:02:14,083
+It tries names built from each company's
+
+63
+00:02:14,083 --> 00:02:16,042
+name, one request at a time,
+
+64
+00:02:16,042 --> 00:02:19,000
+saves every raw response with a fingerprint,
+
+65
+00:02:19,000 --> 00:02:20,667
+and stops when it's done,
+
+66
+00:02:20,667 --> 00:02:21,667
+out of budget,
+
+67
+00:02:21,667 --> 00:02:23,125
+or hitting errors.
+
+68
+00:02:23,125 --> 00:02:24,700
+It only proposes.
+
+69
+00:02:24,875 --> 00:02:27,458
+I approve or refuse each board,
+
+70
+00:02:27,458 --> 00:02:29,125
+and my decision is tied to the
+
+71
+00:02:29,125 --> 00:02:31,575
+fingerprint of the response I saw.
+
+72
+00:02:31,708 --> 00:02:33,583
+It can only read from those three
+
+73
+00:02:33,583 --> 00:02:35,458
+sites, and it has no way to
+
+74
+00:02:35,458 --> 00:02:36,458
+send anything.
+
+75
+00:02:36,458 --> 00:02:38,042
+I have what I need:
+
+76
+00:02:38,042 --> 00:02:40,625
+Claude Code, free public job boards,
+
+77
+00:02:40,625 --> 00:02:42,908
+no keys, and no paid compute.
+
+78
+00:02:43,042 --> 00:02:45,500
+Next, I'll re-run the verdicts on the
+
+79
+00:02:45,500 --> 00:02:47,458
+new boards, then evaluate them.
+
+80
+00:02:47,458 --> 00:02:49,242
+How will I know it worked?
+
+81
+00:02:49,375 --> 00:02:52,250
+First, coverage. On November twenty-third,
+
+82
+00:02:52,250 --> 00:02:54,542
+the resolver made six hundred twenty-nine
+
+83
+00:02:54,542 --> 00:02:57,500
+requests, all to the three allowed sites,
+
+84
+00:02:57,500 --> 00:03:00,042
+and found candidate boards for thirty-nine
+
+85
+00:03:00,042 --> 00:03:02,992
+companies. After my review,
+
+86
+00:03:03,000 --> 00:03:04,917
+coverage went from sixteen to fifty,
+
+87
+00:03:04,917 --> 00:03:05,950
+of one hundred twenty-three.
+
+88
+00:03:06,875 --> 00:03:08,167
+It also got things wrong,
+
+89
+00:03:08,167 --> 00:03:09,783
+in ways I could check.
+
+90
+00:03:10,083 --> 00:03:12,083
+Five boards belonged to other companies,
+
+91
+00:03:12,083 --> 00:03:14,033
+like a childcare center.
+
+92
+00:03:14,292 --> 00:03:15,208
+Claude flagged them,
+
+93
+00:03:15,208 --> 00:03:17,492
+and I refused all five.
+
+94
+00:03:17,750 --> 00:03:19,917
+The name check called Weight Watchers a
+
+95
+00:03:19,917 --> 00:03:22,658
+mismatch, though it's the right company.
+
+96
+00:03:22,875 --> 00:03:24,833
+Five approved boards are empty,
+
+97
+00:03:24,833 --> 00:03:27,792
+and sixty-seven companies showed no board
+
+98
+00:03:27,792 --> 00:03:29,292
+under the names it tried.
+
+99
+00:03:29,292 --> 00:03:31,783
+One bug got past every test.
+
+100
+00:03:31,833 --> 00:03:33,083
+On a Windows console,
+
+101
+00:03:33,083 --> 00:03:34,833
+the command saved my approval,
+
+102
+00:03:34,833 --> 00:03:37,917
+then crashed. A test now reproduces it,
+
+103
+00:03:37,917 --> 00:03:40,375
+and all twenty-eight tests pass.
+
+104
+00:03:40,375 --> 00:03:41,875
+Next, the verdicts.
+
+105
+00:03:41,875 --> 00:03:43,166
+Before tuning anything,
+
+106
+00:03:43,166 --> 00:03:44,958
+I'll set aside a hand-checked set of
+
+107
+00:03:44,958 --> 00:03:47,750
+sponsors. If fewer than nine in ten
+
+108
+00:03:47,750 --> 00:03:50,041
+apply verdicts are right on that set,
+
+109
+00:03:50,041 --> 00:03:51,158
+it didn't work.
+
+110
+00:03:51,333 --> 00:03:52,916
+And after fourteen days,
+
+111
+00:03:52,916 --> 00:03:54,958
+I'll re-check the networking targets for
+
+112
+00:03:54,958 --> 00:03:57,750
+new postings. This sample can show what
+
+113
+00:03:57,750 --> 00:03:58,825
+it gets wrong.
+
+114
+00:03:58,958 --> 00:04:01,416
+It can't show that anyone gets hired.
+
+115
+00:04:02,750 --> 00:04:04,541
+SponsorScout. A film by Akshit Verma.
+

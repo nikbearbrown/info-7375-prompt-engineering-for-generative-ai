@@ -1,0 +1,20 @@
+--- a/runtime/remotion/src/illustrations/pitch.tsx
++++ b/runtime/remotion/src/illustrations/pitch.tsx
+@@ -26,7 +26,7 @@
+       fontFamily: font, fontSize: size, color, opacity: o }}>{children}</div>
+   );
+ 
+-export const PitchOutro: React.FC<{ title: string; author: string; course: string }> = ({ title, author, course }) => {
++export const PitchOutro: React.FC<{ title: string; author: string; course: string; byline?: string }> = ({ title, author, course, byline = 'a pitch by' }) => {
+   const rv = useReveal();
+   const t = rv(0.04, 0.5), a = rv(0.2, 0.5), c = rv(0.34, 0.5);
+   // Sized to fill the safe area (Gate V CANVAS-FILL >= 55%): framing rules top and bottom, large type.
+@@ -40,7 +40,7 @@
+     <IlluStage spark="" sparkPos="top">
+       {rule(170, t)}
+       <Center y={250 + (1 - t) * 20} o={t} size={136} font={SERIF} color={CLAUDE.INK}>{title}</Center>
+-      <Center y={470} o={a} size={40}>a pitch by</Center>
++      <Center y={470} o={a} size={40}>{byline}</Center>
+       <Center y={525} o={a} size={88} font={SERIF} color={CLAUDE.INK}>{author}</Center>
+       <Center y={690} o={c} size={46} color={CLAUDE.INK}>{course}</Center>
+       {rule(860, c)}

@@ -1,0 +1,89 @@
+
+random_reject: 30 postings, filter disagrees with me on 3  (95% interval 3%-26%)
+  A01 lever:palantir         REJECT      score=4 me=not_relevant cats=[]
+  A02 ashby:openai           REJECT      score=0 me=not_relevant cats=[]
+  A04 ashby:openai           REJECT      score=6 me=relevant     cats=[]  <-- DISAGREE
+       title: Software Engineer, Agent Identity
+       filter: decision: REJECT (no technical category; score 6 < 8 (§2.7))
+       me: backend identity infrastructure and authorization systems
+  A05 lever:palantir         REJECT      score=0 me=not_relevant cats=[]
+  A07 ashby:openai           REJECT      score=6 me=relevant     cats=[]  <-- DISAGREE
+       title: Software Engineer, Ads Integrity
+       filter: decision: REJECT (no technical category; score 6 < 8 (§2.7))
+       me: backend risk systems and real-time pipelines
+  A08 ashby:openai           REJECT      score=2 me=not_relevant cats=[]
+  A09 ashby:openai           REJECT      score=1 me=not_relevant cats=['Programming']
+  A10 ashby:openai           REJECT      score=3 me=not_relevant cats=['Development workflow']
+  A12 ashby:openai           REJECT      score=6 me=not_relevant cats=[]
+  A13 ashby:openai           REJECT      score=2 me=not_relevant cats=[]
+  A14 ashby:openai           REJECT      score=2 me=not_relevant cats=[]
+  A19 lever:palantir         REJECT      score=0 me=not_relevant cats=[]
+  A20 ashby:openai           REJECT      score=2 me=not_relevant cats=[]
+  A23 ashby:openai           REJECT      score=0 me=not_relevant cats=[]
+  A24 ashby:openai           REJECT      score=0 me=not_relevant cats=[]
+  A26 ashby:openai           REJECT      score=1 me=not_relevant cats=['Programming']
+  A27 ashby:openai           REJECT      score=6 me=not_relevant cats=[]
+  A29 ashby:openai           REJECT      score=1 me=not_relevant cats=['Programming']
+  A30 lever:palantir         REJECT      score=4 me=relevant     cats=[]  <-- DISAGREE
+       title: Forward Deployed Software Engineer - US Government
+       filter: decision: REJECT (no technical category; score 4 < 8 (§2.7))
+       me: Java Python Postgres and AWS engineering
+  A32 ashby:openai           REJECT      score=6 me=not_relevant cats=[]
+  A34 lever:palantir         REJECT      score=4 me=not_relevant cats=[]
+  A35 ashby:openai           REJECT      score=2 me=not_relevant cats=[]
+  A36 ashby:openai           REJECT      score=1 me=not_relevant cats=['Programming']
+  A37 ashby:openai           REJECT      score=2 me=not_relevant cats=[]
+  A40 ashby:openai           REJECT      score=3 me=not_relevant cats=['Programming']
+  A41 ashby:openai           REJECT      score=3 me=not_relevant cats=['Programming']
+  A42 lever:palantir         REJECT      score=4 me=not_relevant cats=[]
+  A45 lever:palantir         REJECT      score=0 me=not_relevant cats=[]
+  A47 ashby:openai           REJECT      score=2 me=not_relevant cats=[]
+  A48 ashby:openai           REJECT      score=0 me=not_relevant cats=[]
+
+close_below_7: 5 postings, filter disagrees with me on 3  (95% interval 23%-88%)
+  A21 ashby:openai           REJECT      score=7 me=not_relevant cats=['Programming']
+  A25 ashby:openai           REJECT      score=7 me=relevant     cats=['Programming']  <-- DISAGREE
+       title: Capacity Systems Software Engineer
+       filter: decision: REJECT (score 7 < 8 (§2.7))
+       me: backend APIs and operational data platforms
+  A28 ashby:openai           REJECT      score=7 me=relevant     cats=['Programming']  <-- DISAGREE
+       title: Software Engineer, Security Observability
+       filter: decision: REJECT (score 7 < 8 (§2.7))
+       me: Python security data pipelines and observability
+  A38 greenhouse:gleanwork   REJECT      score=7 me=relevant     cats=['Programming']  <-- DISAGREE
+       title: Software Engineer, AI/ML Infrastructure
+       filter: decision: REJECT (score 7 < 8 (§2.7))
+       me: 2-6 years Java Python AI infrastructure
+  A46 ashby:openai           REJECT      score=7 me=not_relevant cats=['Programming']
+
+close_above_8: 5 postings, filter disagrees with me on 3  (95% interval 23%-88%)
+  A15 ashby:openai           KEEP        score=8 me=relevant     cats=['Programming', 'Containers']
+  A17 ashby:openai           KEEP        score=8 me=relevant     cats=['Containers', 'Development workflow']
+  A18 greenhouse:gleanwork   KEEP        score=8 me=not_relevant cats=['Programming', 'APIs']  <-- DISAGREE
+       title: Software Engineer, AI & Security
+       filter: decision: KEEP (score 8 >= 8, title >= 2, 2 technical categories, eligible US location (§2.7))
+       me: 5+ years and AI security specialization
+  A31 ashby:openai           KEEP        score=8 me=not_relevant cats=['Containers', 'Cloud']  <-- DISAGREE
+       title: Software Engineer, Cloud Infrastructure
+       filter: decision: KEEP (score 8 >= 8, title >= 2, 2 technical categories, eligible US location (§2.7))
+       me: 5+ years core infrastructure experience
+  A44 ashby:openai           KEEP        score=8 me=not_relevant cats=['Programming', 'Containers']  <-- DISAGREE
+       title: Software Engineer, Traffic Infrastructure
+       filter: decision: KEEP (score 8 >= 8, title >= 2, 2 technical categories, eligible US location (§2.7))
+       me: 5+ years networking infrastructure experience
+
+kept_sample: 8 postings, filter disagrees with me on 2  (95% interval 7%-59%)
+  A03 ashby:openai           KEEP        score=8 me=relevant     cats=['Programming', 'Development workflow']
+  A06 greenhouse:gleanwork   KEEP        score=8 me=relevant     cats=['Programming', 'APIs']
+  A11 greenhouse:gleanwork   KEEP        score=8 me=relevant     cats=['Programming', 'APIs']
+  A16 ashby:openai           KEEP        score=9 me=not_relevant cats=['Containers', 'Cloud', 'Development workflow']  <-- DISAGREE
+       title: Software Engineer, Database Systems
+       filter: decision: KEEP (score 9 >= 8, title >= 2, 3 technical categories, eligible US location (§2.7))
+       me: 4+ years and 2+ years technical leadership
+  A22 ashby:openai           KEEP        score=9 me=relevant     cats=['Programming', 'Messaging', 'Containers']
+  A33 ashby:openai           KEEP        score=9 me=relevant     cats=['Programming', 'Containers', 'Development workflow']
+  A39 ashby:openai           KEEP        score=8 me=relevant     cats=['Databases', 'Development workflow']
+  A43 ashby:openai           KEEP        score=9 me=not_relevant cats=['Programming', 'Messaging', 'Containers']  <-- DISAGREE
+       title: Software Engineer, Scaled Abuse
+       filter: decision: KEEP (score 9 >= 8, title >= 2, 3 technical categories, eligible US location (§2.7))
+       me: 5+ years and fraud domain experience

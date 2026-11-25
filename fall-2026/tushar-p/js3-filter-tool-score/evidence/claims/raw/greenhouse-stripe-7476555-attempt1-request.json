@@ -1,0 +1,78 @@
+{
+  "label": "REAL Claude API output (live call), not a fixture",
+  "run_started": "2026-11-23T23:33:15-05:00",
+  "prompt_file": "prompts/claims-v1.txt",
+  "prompt_sha256": "9c9b65205c5925eed9e7e619d6e1b91acfcb08229bafcc6dc8cd524b317a3df0",
+  "requested_model": "claude-sonnet-5-5",
+  "rules_mode": "v0.2",
+  "sent_at": "2026-11-23T23:33:23-05:00",
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You check job postings for one job seeker, Cole. You write short, checkable claims about whether one posting fits Cole, and you tie each claim to the exact words of the posting.\n\nINPUT\nThe user message is a JSON object with:\n- \"posting_id\": the posting's id (a string).\n- \"title\" and \"locations\": the posting's title and listed locations, for context only.\n- \"posting_text\": the posting text. This is the ONLY text you may quote.\n- \"cole\": what Cole is looking for: target_titles, years_experience, needs_sponsorship, work_country, skills.\n\nTASK\nWrite 3 to 6 claims. Each claim is one checkable statement that, if the posting supports it, means the posting fits Cole on that point. Examples of the shape: \"The role is a software engineering role.\" \"The job can be done in the US.\" \"The role requires at most 2 years of experience.\" \"The employer will sponsor a work visa.\" \"The work uses Python.\"\nWrite at least one claim of each of these kinds: role, location, experience, sponsorship. You may add claims of kind seniority or skill, up to 6 claims in total.\n\nFor each claim give:\n- \"kind\": one of role, seniority, location, experience, sponsorship, skill.\n- \"claim\": the statement.\n- \"quote\": one contiguous span copied character for character from posting_text, the span that best decides the claim. Copy it exactly: no ellipses, no paraphrase, no corrected spelling or punctuation, no added quotation marks, nothing from title or locations. Keep it to the sentence or list item that decides the claim. If nothing in posting_text speaks to the claim, use \"\" (empty string).\n- \"proposed_label\": supported, contradicted or insufficient, using the definitions below. If \"quote\" is \"\", the label must be insufficient.\n\nLABEL DEFINITIONS (from FILTER.md, word for word)\nThe shortlist explains each keep with **claims**. A claim is one checkable statement about the posting, for example \"requires at most 2 years\", \"US-based\", or \"the work uses Python\".\n- supported: A span quoted verbatim from the posting text asserts the claim. The quote must exist in the text. Its meaning must assert the claim, not just mention the word.\n- contradicted: A quoted span asserts the opposite of the claim.\n- insufficient: No span asserts the claim either way, or the only span mentions the word without asserting it (a \"nice to have\", a team description, boilerplate).\n**Relevance is not entailment.** A posting that contains \"Python\" in a \"nice to have\" list is relevant to a Python claim, but does not support \"the role requires Python.\" That claim is insufficient.\n\nDo not guess. A claim the posting does not settle is insufficient, not supported. Company boilerplate and benefits text do not support a claim about the role.\n\nOUTPUT\nReturn ONLY one JSON object, with no other text before or after it:\n{\"posting_id\": \"<the posting_id from the input>\", \"claims\": [{\"kind\": \"role|seniority|location|experience|sponsorship|skill\", \"claim\": \"...\", \"quote\": \"...\", \"proposed_label\": \"supported|contradicted|insufficient\"}]}\n",
+    "messages": [
+      {
+        "role": "user",
+        "content": "{\n  \"posting_id\": \"7476555\",\n  \"title\": \"Backend Engineer, Developer & End-user Experience Platform\",\n  \"locations\": [\n    \"SEA, SF, NY, Toronto\"\n  ],\n  \"posting_text\": \"Who we are About Stripe Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career. About the team Stripe's Developer & End-user Experience Platform (DEEP) organization empowers all of Stripe's products with a shared product platform that helps with rapidly delivering high-quality, cross-product experiences across our UI and API surfaces. It focuses on providing a consistent and scalable developer experience that any developer (both internal and external) can leverage to accelerate a merchant's ability to create value using Stripe. Team matching — exact team matching for one of the subteams will begin during final stages. Please note we may also consider you for different orgs based on your experience, location, etc. More information on our team matching process can be found here . What you’ll do We're looking for Backend Engineers who want to make an impact on managing money at a global scale with a passion for building ergonomic APIs. You'll play a key role in extending our balance management platform and in building out a new funds accessibility platform that enterprises and SMBs use. Our team collaborates with many cross-functional teams—from Infrastructure to Product—at Stripe to deliver innovative solutions that address evolving user needs. Responsibilities Scope, design, build, and maintain APIs, services, and large-scale systems that reliably and efficiently handle billions of money movement requests Debug and solve critical production issues across services and multiple levels of the stack Mentor engineers to help them grow Collaborate with stakeholders across the company to build new features at large-scale, while improving internal engineering standards, tooling, and processes Collaborate effectively in a distributed and hybrid team, maintaining open communication and strong connections with colleagues Who you are We're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement. Minimum requirements 2–12+ years of industry software engineering experience (does not include internships or co-ops) Strong coding skills in any programming language (we understand new languages can be learned on the job, so our interview process is language-agnostic) Strong collaboration skills and the ability to work across workstreams within your team and contribute to your peers' success Ability to thrive with a high level of autonomy and responsibility, with an entrepreneurial mindset Interest in working as a generalist across varying technologies and stacks to solve problems and delight both internal and external users Preferred qualifications Experience with large-scale financial tracking systems Good understanding and practical knowledge in cloud-based services (e.g., gRPC, GraphQL, Docker and Kubernetes, cloud services such as AWS, etc.)\",\n  \"cole\": {\n    \"target_titles\": [\n      \"Software Engineer\",\n      \"AI Engineer\",\n      \"Backend Engineer\"\n    ],\n    \"years_experience\": 0,\n    \"needs_sponsorship\": true,\n    \"work_country\": \"US\",\n    \"skills\": [\n      \"Python\",\n      \"Java\",\n      \"TypeScript\",\n      \"SQL\",\n      \"PostgreSQL\",\n      \"Spring Boot\",\n      \"React\",\n      \"Docker\",\n      \"AWS\"\n    ]\n  }\n}"
+      }
+    ],
+    "output_config": {
+      "format": {
+        "type": "json_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "posting_id": {
+              "type": "string"
+            },
+            "claims": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "role",
+                      "seniority",
+                      "location",
+                      "experience",
+                      "sponsorship",
+                      "skill"
+                    ]
+                  },
+                  "claim": {
+                    "type": "string"
+                  },
+                  "quote": {
+                    "type": "string"
+                  },
+                  "proposed_label": {
+                    "type": "string",
+                    "enum": [
+                      "supported",
+                      "contradicted",
+                      "insufficient"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind",
+                  "claim",
+                  "quote",
+                  "proposed_label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "posting_id",
+            "claims"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  }
+}

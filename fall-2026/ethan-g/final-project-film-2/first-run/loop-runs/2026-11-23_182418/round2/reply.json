@@ -1,0 +1,102 @@
+{
+ "duration_api_ms": 55257,
+ "stop_reason": "end_turn",
+ "session_id": "249fa2b8-6706-4f84-a1cd-1f50c5b1729a",
+ "total_cost_usd": 0.1710488,
+ "usage": {
+  "input_tokens": 4,
+  "cache_creation_input_tokens": 3500,
+  "cache_read_input_tokens": 3435,
+  "output_tokens": 2764,
+  "output_tokens_details": {
+   "thinking_tokens": 1050
+  },
+  "server_tool_use": {
+   "web_search_requests": 0,
+   "web_fetch_requests": 0
+  },
+  "service_tier": "standard",
+  "cache_creation": {
+   "ephemeral_1h_input_tokens": 3500,
+   "ephemeral_5m_input_tokens": 0
+  },
+  "inference_geo": "global",
+  "iterations": [
+   {
+    "input_tokens": 4,
+    "output_tokens": 2764,
+    "cache_read_input_tokens": 3435,
+    "cache_creation_input_tokens": 3500,
+    "cache_creation": {
+     "ephemeral_5m_input_tokens": 0,
+     "ephemeral_1h_input_tokens": 3500
+    },
+    "type": "message"
+   }
+  ],
+  "speed": "standard",
+  "fallback_credit": null
+ },
+ "modelUsage": {
+  "claude-opus-5-5": {
+   "inputTokens": 6,
+   "outputTokens": 5996,
+   "thinkingTokens": 2761,
+   "cacheReadInputTokens": 4084,
+   "cacheCreationInputTokens": 6286,
+   "cacheCreationEphemeral5mInputTokens": 0,
+   "cacheCreationEphemeral1hInputTokens": 6286,
+   "webSearchRequests": 0,
+   "costUSD": 0.1710488,
+   "contextWindow": 1000000,
+   "maxOutputTokens": 128000,
+   "canonicalModel": "claude-opus-5-5",
+   "provider": "firstParty",
+   "costBasis": "list"
+  }
+ },
+ "permission_denials": [],
+ "terminal_reason": "completed",
+ "fast_mode_state": "off",
+ "fast_mode_disabled_reason": "sdk_opt_in_required",
+ "subagent_stats": {
+  "spawned": 0,
+  "requested": {
+   "background": 0,
+   "foreground": 0,
+   "unset": 0
+  },
+  "started_in_background": 0,
+  "max_depth": 0,
+  "spawned_by_subagents": 0,
+  "completed": 0,
+  "failed": 0,
+  "killed": {
+   "parent": 0,
+   "user": 0,
+   "system": 0
+  },
+  "refused": {
+   "depth_limit": 0,
+   "concurrency_limit": 0,
+   "budget": 0
+  },
+  "by_type": {}
+ },
+ "safety_stops": 0,
+ "is_error": false,
+ "num_turns": 1,
+ "subtype": "success",
+ "api_error_status": null,
+ "result": "```python\nimport pandas as pd\nimport pandera.pandas as pa\n\n# Earliest date for which NYC TLC yellow taxi trip records exist (publicly documented start of the dataset)\nTLC_DATA_START = pd.Timestamp(\"2009-01-01\")\n\n# Generous physical/operational ceilings for a single yellow taxi trip\nMAX_PASSENGERS = 9\nMAX_TRIP_MILES = 200.0\nMAX_FARE_USD = 1000.0\nMAX_TRIP_HOURS = 24\nMAX_AVG_SPEED_MPH = 100.0\nMIN_HOURS_FOR_SPEED_CHECK = 10 / 60\nMIN_MILES_FOR_FARE_CHECK = 5.0\nMIN_FARE_PER_MILE = 0.25\n\n\ndef _duration_hours(df: pd.DataFrame) -> pd.Series:\n    return (df[\"tpep_dropoff_datetime\"] - df[\"tpep_pickup_datetime\"]).dt.total_seconds() / 3600.0\n\n\ndef _speed_ok(df: pd.DataFrame) -> pd.Series:\n    hours = _duration_hours(df)\n    long_enough = hours >= MIN_HOURS_FOR_SPEED_CHECK\n    speed = df[\"trip_distance\"] / hours.where(long_enough)\n    return ~long_enough | (speed <= MAX_AVG_SPEED_MPH)\n\n\ndef _fare_vs_distance_ok(df: pd.DataFrame) -> pd.Series:\n    applies = (df[\"fare_amount\"] > 0) & (df[\"trip_distance\"] >= MIN_MILES_FOR_FARE_CHECK)\n    return ~applies | (df[\"fare_amount\"] >= MIN_FARE_PER_MILE * df[\"trip_distance\"])\n\n\nschema = pa.DataFrameSchema(\n    columns={\n        \"tpep_pickup_datetime\": pa.Column(\n            \"datetime64[ns]\",\n            nullable=False,\n            checks=[\n                # Protects against corrupted or default timestamps (e.g. 1970/1900) predating TLC records\n                pa.Check.ge(TLC_DATA_START),\n                # Protects against pick-up times in the future caused by clock or parsing errors\n                pa.Check(lambda s: s <= pd.Timestamp.now(), error=\"pickup_not_in_future\"),\n            ],\n        ),\n        \"tpep_dropoff_datetime\": pa.Column(\n            \"datetime64[ns]\",\n            nullable=False,\n            checks=[\n                # Protects against corrupted or default timestamps (e.g. 1970/1900) predating TLC records\n                pa.Check.ge(TLC_DATA_START),\n                # Protects against drop-off times in the future caused by clock or parsing errors\n                pa.Check(lambda s: s <= pd.Timestamp.now(), error=\"dropoff_not_in_future\"),\n            ],\n        ),\n        \"passenger_count\": pa.Column(\n            \"int64\",\n            nullable=False,\n            checks=[\n                # Protects against negative passenger counts and counts far beyond any taxi's seating (0 = not entered by driver)\n                pa.Check.in_range(0, MAX_PASSENGERS),\n            ],\n        ),\n        \"trip_distance\": pa.Column(\n            \"float64\",\n            nullable=False,\n            checks=[\n                # Protects against negative odometer readings and absurd distances from meter/GPS faults\n                pa.Check.in_range(0.0, MAX_TRIP_MILES),\n            ],\n        ),\n        \"fare_amount\": pa.Column(\n            \"float64\",\n            nullable=False,\n            checks=[\n                # Protects against negative fares (sign errors) and absurd fare outliers\n                pa.Check.in_range(0.0, MAX_FARE_USD),\n            ],\n        ),\n    },\n    checks=[\n        # Protects against trips that end before they start (swapped or corrupted timestamps)\n        pa.Check(\n            lambda df: df[\"tpep_dropoff_datetime\"] >= df[\"tpep_pickup_datetime\"],\n            error=\"dropoff_not_before_pickup\",\n        ),\n        # Protects against implausibly long trips from meters left running or mis-parsed timestamps\n        pa.Check(\n            lambda df: _duration_hours(df) <= MAX_TRIP_HOURS,\n            error=\"trip_duration_bounded\",\n        ),\n        # Protects against physically impossible average speeds on trips long enough for timing noise to be negligible\n        pa.Check(_speed_ok, error=\"average_speed_plausible\"),\n        # Protects against long paid trips with fares far too small for the distance (wrong units or truncated fare)\n        pa.Check(_fare_vs_distance_ok, error=\"fare_consistent_with_distance\"),\n        # Protects against duplicated trip records from repeated ingestion\n        pa.Check(\n            lambda df: ~df.duplicated(keep=False),\n            error=\"no_duplicate_trips\",\n        ),\n    ],\n    strict=False,\n)\n```",
+ "ttft_ms": 12612,
+ "type": "result",
+ "duration_ms": 24116,
+ "uuid": "222f0873-0307-4ac2-aa9d-fa10459063a4",
+ "ttft_stream_ms": 1553,
+ "time_to_request_ms": 67,
+ "first_content_frame_ms": 1553,
+ "queued_turn_count": 0,
+ "result_index": 0,
+ "credential_expires_at": "2026-12-22T01:49:07.192Z"
+}

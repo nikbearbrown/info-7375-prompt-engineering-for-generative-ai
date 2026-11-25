@@ -1,0 +1,122 @@
+{
+ "item": 14,
+ "board": "greenhouse:anthropic",
+ "id": "4461444008",
+ "title": "Applied AI Architect, Industries",
+ "utc": "2026-11-24T21:34:06Z",
+ "seconds": 5.3,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "cannot_tell",
+  "score": 4,
+  "reasons": [
+   "Location is US-based: \"New York City, NY; San Francisco, CA | New York City, NY | Seattle, WA\"",
+   "The field matches her goals: the title \"Applied AI Architect, Industries\" is an AI role",
+   "\"Architect\" in the title usually means a senior, experienced role, which may not fit her roughly 1 year of experience",
+   "Employment type is not given: \"(board does not say)\"",
+   "The posting text is \"(not shown)\", so seniority and required experience cannot be checked"
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: greenhouse:anthropic\n- Title: Applied AI Architect, Industries\n- Location: New York City, NY; San Francisco, CA | New York City, NY | Seattle, WA\n- Employment type field: (board does not say)\n- Text:\n(not shown)\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 4094,
+  "stop_reason": "end_turn",
+  "session_id": "5b76330f-2206-4210-9e97-68f56feec30d",
+  "total_cost_usd": 0.0293018,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 2773,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 349,
+   "output_tokens_details": {
+    "thinking_tokens": 153
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 2773,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 349,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 2773,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 2773
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 349,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 2773,
+    "webSearchRequests": 0,
+    "costUSD": 0.0293018,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 153,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 2773,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"cannot_tell\", \"score\": 4, \"reasons\": [\"Location is US-based: \\\"New York City, NY; San Francisco, CA | New York City, NY | Seattle, WA\\\"\", \"The field matches her goals: the title \\\"Applied AI Architect, Industries\\\" is an AI role\", \"\\\"Architect\\\" in the title usually means a senior, experienced role, which may not fit her roughly 1 year of experience\", \"Employment type is not given: \\\"(board does not say)\\\"\", \"The posting text is \\\"(not shown)\\\", so seniority and required experience cannot be checked\"]}",
+  "ttft_ms": 2773,
+  "type": "result",
+  "duration_ms": 4300,
+  "uuid": "054126b2-eabe-47c7-8043-ddeedeefa928",
+  "ttft_stream_ms": 1304,
+  "time_to_request_ms": 207,
+  "first_content_frame_ms": 1304,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

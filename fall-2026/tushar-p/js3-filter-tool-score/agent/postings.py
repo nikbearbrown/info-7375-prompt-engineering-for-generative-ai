@@ -13,6 +13,11 @@ FILTER.md also lists Ashby's `isRemote` and `workplaceType` as location fields. 
 copied here: under the G3 rule (a bare "Remote" is unknown, a region is unknown) they cannot
 change a G3 result on their own, so the normalized shape stays exactly the seven keys above.
 
+With `with_blocks=True` (used by the filter for FILTER.md v0.2's C4 "sentence" and "heading"),
+two keys are added: `blocks`, the same text split at source block boundaries (Greenhouse HTML
+blocks, Ashby lines), and `block_kinds`, a parallel list of "heading" | "item" | "text". Both
+are None when there is no text. Joining the blocks with spaces gives `text`.
+
 A missing or empty field becomes None (JSON null), never "". A board that failed in the run
 contributes no postings; it is returned as a board failure, never as zero postings.
 """
@@ -20,7 +25,7 @@ contributes no postings; it is returned as a board failure, never as zero postin
 import json
 from pathlib import Path
 
-from .text import normalize, strip_html
+from .text import html_blocks_with_kinds, normalize, plain_blocks_with_kinds, strip_html
 
 FIELDS = ("board", "id", "title", "locations", "text", "date", "url")
 
@@ -42,10 +47,15 @@ def _locations(values) -> list[str] | None:
     return cleaned or None
 
 
-def normalize_greenhouse(board: str, job: dict) -> dict:
+def _add_blocks(posting: dict, blocks: list[tuple[str, str]]) -> None:
+    posting["blocks"] = [text for text, _ in blocks] or None
+    posting["block_kinds"] = [kind for _, kind in blocks] or None
+
+
+def normalize_greenhouse(board: str, job: dict, with_blocks: bool = False) -> dict:
     location = job.get("location")
     content = job.get("content")
-    return {
+    posting = {
         "board": board,
         "id": job["id"],
         "title": _clean(job.get("title")),
@@ -54,13 +64,16 @@ def normalize_greenhouse(board: str, job: dict) -> dict:
         "date": _clean(job.get("first_published")) or _clean(job.get("updated_at")),
         "url": _clean(job.get("absolute_url")),
     }
+    if with_blocks:
+        _add_blocks(posting, html_blocks_with_kinds(content) if posting["text"] is not None else [])
+    return posting
 
 
-def normalize_ashby(board: str, job: dict) -> dict:
+def normalize_ashby(board: str, job: dict, with_blocks: bool = False) -> dict:
     secondary = job.get("secondaryLocations")
     secondary = secondary if isinstance(secondary, list) else []
     plain = job.get("descriptionPlain")
-    return {
+    posting = {
         "board": board,
         "id": job["id"],
         "title": _clean(job.get("title")),
@@ -70,16 +83,19 @@ def normalize_ashby(board: str, job: dict) -> dict:
         "date": _clean(job.get("publishedAt")),
         "url": _clean(job.get("jobUrl")),
     }
+    if with_blocks:
+        _add_blocks(posting, plain_blocks_with_kinds(plain) if posting["text"] is not None else [])
+    return posting
 
 
 NORMALIZERS = {"greenhouse": normalize_greenhouse, "ashby": normalize_ashby}
 
 
-def normalize_response(provider: str, board: str, body: bytes) -> list[dict]:
+def normalize_response(provider: str, board: str, body: bytes, with_blocks: bool = False) -> list[dict]:
     if provider not in NORMALIZERS:
         raise RunError(f"unknown provider {provider!r}")
     data = json.loads(body)
-    return [NORMALIZERS[provider](board, job) for job in data["jobs"]]
+    return [NORMALIZERS[provider](board, job, with_blocks) for job in data["jobs"]]
 
 
 def _raw_file(run_dir: Path, run_id: str, raw_path: str) -> Path:
@@ -93,7 +109,7 @@ def _raw_file(run_dir: Path, run_id: str, raw_path: str) -> Path:
     return path
 
 
-def load_run(run_dir) -> tuple[list[dict], list[dict]]:
+def load_run(run_dir, with_blocks: bool = False) -> tuple[list[dict], list[dict]]:
     """(postings, board_failures) from a run folder holding summary.json and raw/.
 
     Only succeeded boards are read, from their last saved attempt.
@@ -112,5 +128,5 @@ def load_run(run_dir) -> tuple[list[dict], list[dict]]:
         if not entry.get("raw_paths"):
             raise RunError(f"board {entry.get('board')} succeeded but has no raw path")
         raw = _raw_file(run_dir, summary["run_id"], entry["raw_paths"][-1])
-        postings.extend(normalize_response(entry["provider"], entry["board"], raw.read_bytes()))
+        postings.extend(normalize_response(entry["provider"], entry["board"], raw.read_bytes(), with_blocks))
     return postings, failures

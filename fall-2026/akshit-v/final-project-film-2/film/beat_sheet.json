@@ -1,0 +1,840 @@
+{
+  "metadata": {
+    "slug": "sponsorscout-final-project-film",
+    "title": "SponsorScout",
+    "topic": "INFO 7375 · FINAL PROJECT FILM",
+    "skill": "show-tell",
+    "style_preset": "show-tell",
+    "kind": "pitch",
+    "author": "Akshit Verma",
+    "channel": "Akshit Verma",
+    "channel_title": "Akshit Verma",
+    "persona": "Akshit Verma's script, read by a synthetic voice (Kokoro am_michael); 'a film BY Akshit Verma', never 'I am'; disclosed in README.md and SOURCES.md",
+    "presenter": "synthetic voice (Kokoro am_michael), narrating Akshit Verma's script — not the instructor's persona",
+    "in_for_bear": false,
+    "voice": "am_michael",
+    "voice_kokoro": "am_michael",
+    "engine": "kokoro",
+    "clock": "narration",
+    "palette": "claude",
+    "register": "Teardown",
+    "fps": 24,
+    "aspect_ratio": "16:9",
+    "width": 1920,
+    "height": 1080,
+    "captions": true,
+    "bookend_exempt": [
+      "cold-open",
+      "bvdt",
+      "bhtf"
+    ],
+    "bookend_exempt_reason": "Project film in the assignment's four parts: opens on its own title beat (BOPEN, Manim); no verdict card; no Your Turn (no viewer task). The outro stays, credited to the author.",
+    "audience": "INFO 7375 graders; a hiring manager for Data Analyst / Data Engineer roles",
+    "source_doc": "Assignment 1 run outputs (the-reallocation-engine @ a1d321f); board-resolver/runs/live-2026-11-23; board-resolver tests; MyVisaJobs (Akshit, 2026-10-07); H1BGrader and Interstride (web search by Claude, 2026-11-23)",
+    "honesty_rule": "Past tense only for what exists and can be shown; every drawn beat tagged on screen.",
+    "playlist": "INFO 7375",
+    "cut": "review",
+    "tags": [
+      "INFO 7375",
+      "final project",
+      "H-1B",
+      "board resolver",
+      "data analyst",
+      "data engineer"
+    ],
+    "build": {
+      "at": "2026-11-23T21:43:16",
+      "cut": "master",
+      "filled": 16,
+      "of": 16,
+      "slates": [],
+      "skin_warnings": [
+        "BOPEN: palette=claude but the cold open is 'un-annotated' — COLD OPEN LAW wants ClaudeComposerAsk",
+        "BOUT: palette=claude but the outro is 'PitchOutro' — OUTRO LAW wants ClaudeTitleOutro"
+      ]
+    }
+  },
+  "beats": [
+    {
+      "beat_id": "BOPEN",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "title",
+      "part": "",
+      "honesty_tag": "",
+      "narration_text": "SponsorScout. A final project film by Akshit Verma, in four parts.",
+      "estimated_duration_s": 4.2,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "SponsorScout writes on beside its mark (a crate under a scout's lens); the byline; the four parts appear in a two-by-two grid on 'in four parts'.",
+        "motion_claim": "SponsorScout writes on beside its mark (a crate under a scout's lens); the byline; the four parts appear in a two-by-two grid on 'in four parts'.",
+        "labels": [
+          "SponsorScout",
+          "a final project film by Akshit Verma",
+          "1 · executive summary",
+          "2 · introduction",
+          "3 · methods",
+          "4 · evaluation"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: ''"
+          }
+        ],
+        "manim": {
+          "class": "BOPEN_Title"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-BOPEN.mp3",
+      "actual_duration_s": 5.18,
+      "render_duration_s": 5.208333333333333,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\BOPEN.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P1A",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "the problem",
+      "part": "1 · executive summary",
+      "honesty_tag": "constructed drawing",
+      "narration_text": "International students looking for data jobs have a short clock, and only some employers sponsor visas. So we apply to sponsors. But many of them have no entry-level data job open today, and those applications go nowhere.",
+      "estimated_duration_s": 14.2,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A clock face (a short clock); three sponsor crates; a stack of applications with an arrow to them; grey lamps above the crates (nothing open today); a cross on the arrow (go nowhere).",
+        "motion_claim": "A clock face (a short clock); three sponsor crates; a stack of applications with an arrow to them; grey lamps above the crates (nothing open today); a cross on the arrow (go nowhere).",
+        "labels": [
+          "a short clock",
+          "sponsors",
+          "applications",
+          "nothing open today",
+          "go nowhere"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing'"
+          }
+        ],
+        "manim": {
+          "class": "P1A_Problem"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P1A.mp3",
+      "actual_duration_s": 15.62,
+      "render_duration_s": 15.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P1A.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P1B",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "what it is",
+      "part": "1 · executive summary",
+      "honesty_tag": "constructed drawing · ran 2026-10-03",
+      "narration_text": "SponsorScout tells the student, for each sponsor, whether to apply, network, check by hand, or skip, with the public record behind every answer. A strong sponsor with nothing open isn't dropped. It goes on a networking list.",
+      "estimated_duration_s": 14.2,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A company crate -> the SponsorScout block -> four trays on their words (apply, network, check by hand, skip); a record sheet; a small crate drops into 'network' and a terracotta ring marks it.",
+        "motion_claim": "A company crate -> the SponsorScout block -> four trays on their words (apply, network, check by hand, skip); a record sheet; a small crate drops into 'network' and a terracotta ring marks it.",
+        "labels": [
+          "a sponsor",
+          "SponsorScout",
+          "apply",
+          "network",
+          "check by hand",
+          "skip",
+          "record"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · ran 2026-10-03'"
+          }
+        ],
+        "manim": {
+          "class": "P1B_Verdicts"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P1B.mp3",
+      "actual_duration_s": 15.62,
+      "render_duration_s": 15.625,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P1B.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P1C",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "limits + why it matters to me",
+      "part": "1 · executive summary",
+      "honesty_tag": "constructed drawing",
+      "narration_text": "It never applies, emails, or contacts anyone. The person decides. I'm building it because I'm job hunting too, and I wanted a smarter strategy than a hundred-plus applications a day.",
+      "estimated_duration_s": 11.5,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Application, email and message icons slide to a dark wall and are crossed out; a list 'you decide'. Then a pile of applications ('100+ a day') gives way to one short list.",
+        "motion_claim": "Application, email and message icons slide to a dark wall and are crossed out; a list 'you decide'. Then a pile of applications ('100+ a day') gives way to one short list.",
+        "labels": [
+          "apply",
+          "email",
+          "contact",
+          "you decide",
+          "100+ applications a day",
+          "a short list"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing'"
+          }
+        ],
+        "manim": {
+          "class": "P1C_Why"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P1C.mp3",
+      "actual_duration_s": 13.25,
+      "render_duration_s": 13.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P1C.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P2A",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "prior work",
+      "part": "2 · introduction",
+      "honesty_tag": "constructed drawing · no logos or screenshots",
+      "narration_text": "What already exists? My Visa Jobs lists sponsors and their past job counts; I looked at it in October. H one B Grader grades employers on past approvals and denials. Interstride, which universities provide, shows sponsorship history and filters jobs by visa.",
+      "estimated_duration_s": 16.2,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three plain panels, names in text only: MyVisaJobs (rows of past-count bars), H1BGrader (a letter grade), Interstride (a history bar row and filter chips).",
+        "motion_claim": "Three plain panels, names in text only: MyVisaJobs (rows of past-count bars), H1BGrader (a letter grade), Interstride (a history bar row and filter chips).",
+        "labels": [
+          "MyVisaJobs",
+          "past job counts",
+          "H1BGrader",
+          "grades past approvals",
+          "Interstride",
+          "history · visa filter"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · no logos or screenshots'"
+          }
+        ],
+        "manim": {
+          "class": "P2A_Others"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P2A.mp3",
+      "actual_duration_s": 18.94,
+      "render_duration_s": 18.958333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P2A.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P2B",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "prior work 2 + the gap",
+      "part": "2 · introduction",
+      "honesty_tag": "constructed drawing · scorer ran 2026-10-03",
+      "narration_text": "The Reallocation Engine's own scorer, which I had Claude Code run in October, gives a sponsor with no open job a zero, and skips it. These tools show who sponsored before, or what's open now. None that I found turns a proven sponsor with nothing open into a networking target. That's the gap.",
+      "estimated_duration_s": 20.4,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A sponsor crate with a dark lamp. Top path, grey and dashed: engine scorer -> 0 -> skip. Bottom path, solid: SponsorScout -> network list; the crate travels into it; 'the gap' lands beside it.",
+        "motion_claim": "A sponsor crate with a dark lamp. Top path, grey and dashed: engine scorer -> 0 -> skip. Bottom path, solid: SponsorScout -> network list; the crate travels into it; 'the gap' lands beside it.",
+        "labels": [
+          "no open job",
+          "engine scorer",
+          "0",
+          "skip",
+          "SponsorScout",
+          "network list",
+          "the gap"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · scorer ran 2026-10-03'"
+          }
+        ],
+        "manim": {
+          "class": "P2B_Gap"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P2B.mp3",
+      "actual_duration_s": 20.46,
+      "render_duration_s": 20.5,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P2B.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P3A",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "data sources",
+      "part": "3 · methods",
+      "honesty_tag": "constructed drawing · all public data",
+      "narration_text": "The data is public. Sponsorship records from the Eighty Days to Stay file. Recent funding from S E C Form D filings. Open jobs from the public Greenhouse, Lever, and Ashby job boards. The job seeker is fictional.",
+      "estimated_duration_s": 14.6,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Three sources rise on their words: a records sheet (H-1B sponsorship · 80 Days to Stay), a filings sheet (Form D · SEC), three small board pages (Greenhouse · Lever · Ashby); 'job seeker: fictional'.",
+        "motion_claim": "Three sources rise on their words: a records sheet (H-1B sponsorship · 80 Days to Stay), a filings sheet (Form D · SEC), three small board pages (Greenhouse · Lever · Ashby); 'job seeker: fictional'.",
+        "labels": [
+          "H-1B sponsorship",
+          "80 Days to Stay",
+          "Form D",
+          "SEC filings",
+          "Greenhouse",
+          "Lever",
+          "Ashby",
+          "job seeker: fictional"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · all public data'"
+          }
+        ],
+        "manim": {
+          "class": "P3A_Data"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P3A.mp3",
+      "actual_duration_s": 16.21,
+      "render_duration_s": 16.25,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P3A.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P3B",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "the three checks",
+      "part": "3 · methods",
+      "honesty_tag": "constructed drawing · ran 2026-10-03",
+      "narration_text": "Each sponsor gets three checks: has it sponsored data roles, has it raised money recently, and is an entry-level data job open today? The answers set the verdict. The prototype ran on October third, on one hundred twenty-three sponsors.",
+      "estimated_duration_s": 15.0,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A moving conveyor through three depth-correct gates; each lamp pulses on its question; '123 sponsors · Oct 3'.",
+        "motion_claim": "A moving conveyor through three depth-correct gates; each lamp pulses on its question; '123 sponsors · Oct 3'.",
+        "labels": [
+          "sponsored? (H-1B)",
+          "funded? (Form D)",
+          "open today? (job board)",
+          "123 sponsors · Oct 3"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · ran 2026-10-03'"
+          }
+        ],
+        "manim": {
+          "class": "P3B_Checks"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P3B.mp3",
+      "actual_duration_s": 16.85,
+      "render_duration_s": 16.875,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P3B.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P3C",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "the board resolver loop",
+      "part": "3 · methods",
+      "honesty_tag": "constructed drawing · ran 2026-11-23",
+      "narration_text": "But only sixteen of them had a known job board, so most answers were check by hand. So, with Claude Code, I built a board resolver. It tries names built from each company's name, one request at a time, saves every raw response with a fingerprint, and stops when it's done, out of budget, or hitting errors.",
+      "estimated_duration_s": 21.9,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "'16 / 123 known boards'; the resolver block; a three-step loop (try a name -> one request -> save + fingerprint) with a return arrow; a stop panel: done · budget · errors.",
+        "motion_claim": "'16 / 123 known boards'; the resolver block; a three-step loop (try a name -> one request -> save + fingerprint) with a return arrow; a stop panel: done · budget · errors.",
+        "labels": [
+          "16 / 123",
+          "known boards",
+          "board resolver",
+          "try a name",
+          "one request",
+          "save + fingerprint",
+          "stops: done · budget · errors"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · ran 2026-11-23'"
+          }
+        ],
+        "manim": {
+          "class": "P3C_Resolver"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P3C.mp3",
+      "actual_duration_s": 20.8,
+      "render_duration_s": 20.833333333333332,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P3C.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P3D",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "the human gate + permissions",
+      "part": "3 · methods",
+      "honesty_tag": "constructed drawing · ran 2026-11-23",
+      "narration_text": "It only proposes. I approve or refuse each board, and my decision is tied to the fingerprint of the response I saw. It can only read from those three sites, and it has no way to send anything.",
+      "estimated_duration_s": 14.6,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A proposal sheet with a real fingerprint (c50b5646d54e, Anaplan) -> a dark gate square 'my decision' -> approve / refuse trays; 'reads 3 sites only · no way to send'.",
+        "motion_claim": "A proposal sheet with a real fingerprint (c50b5646d54e, Anaplan) -> a dark gate square 'my decision' -> approve / refuse trays; 'reads 3 sites only · no way to send'.",
+        "labels": [
+          "proposal",
+          "c50b5646d54e",
+          "my decision",
+          "approve",
+          "refuse",
+          "reads 3 sites only · no way to send"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · ran 2026-11-23'"
+          }
+        ],
+        "manim": {
+          "class": "P3D_Gate"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P3D.mp3",
+      "actual_duration_s": 13.33,
+      "render_duration_s": 13.333333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P3D.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P3E",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "resources + next steps",
+      "part": "3 · methods",
+      "honesty_tag": "constructed drawing · next steps proposed",
+      "narration_text": "I have what I need: Claude Code, free public job boards, no keys, and no paid compute. Next, I'll re-run the verdicts on the new boards, then evaluate them.",
+      "estimated_duration_s": 11.2,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A checklist ticks on its words (Claude Code, free public job boards, no API keys, $0 compute); two dashed next-step boxes (re-run verdicts -> evaluate).",
+        "motion_claim": "A checklist ticks on its words (Claude Code, free public job boards, no API keys, $0 compute); two dashed next-step boxes (re-run verdicts -> evaluate).",
+        "labels": [
+          "Claude Code",
+          "free public job boards",
+          "no API keys",
+          "$0 compute",
+          "re-run verdicts",
+          "evaluate"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · next steps proposed'"
+          }
+        ],
+        "manim": {
+          "class": "P3E_Resources"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P3E.mp3",
+      "actual_duration_s": 10.99,
+      "render_duration_s": 11.0,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P3E.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P4A",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "coverage result",
+      "part": "4 · evaluation",
+      "honesty_tag": "real numbers · live run 2026-11-23",
+      "narration_text": "How will I know it worked? First, coverage. On November twenty-third, the resolver made six hundred twenty-nine requests, all to the three allowed sites, and found candidate boards for thirty-nine companies. After my review, coverage went from sixteen to fifty, of one hundred twenty-three.",
+      "estimated_duration_s": 16.9,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "'629 requests · 3 sites only'; '39 candidates'; the coverage bar fills from 16/123 to 50/123 (real, after G1); the number changes 16 -> 50.",
+        "motion_claim": "'629 requests · 3 sites only'; '39 candidates'; the coverage bar fills from 16/123 to 50/123 (real, after G1); the number changes 16 -> 50.",
+        "labels": [
+          "629 requests · 3 sites only",
+          "39 candidates",
+          "16",
+          "50 / 123",
+          "boards confirmed at my gate"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'real numbers · live run 2026-11-23'"
+          }
+        ],
+        "manim": {
+          "class": "P4A_Coverage"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P4A.mp3",
+      "actual_duration_s": 19.41,
+      "render_duration_s": 19.416666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P4A.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P4B",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "failures it made",
+      "part": "4 · evaluation",
+      "honesty_tag": "real cases · live run 2026-11-23",
+      "narration_text": "It also got things wrong, in ways I could check. Five boards belonged to other companies, like a childcare center. Claude flagged them, and I refused all five. The name check called Weight Watchers a mismatch, though it's the right company. Five approved boards are empty, and sixty-seven companies showed no board under the names it tried.",
+      "estimated_duration_s": 21.9,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "Two board sheets with their real names (Slice Talent Community; The Village Learning Center), crossed; '5 refused'. Then: 'Weight Watchers' marked mismatch but right; an empty tray '5 empty'; '67 no board found'.",
+        "motion_claim": "Two board sheets with their real names (Slice Talent Community; The Village Learning Center), crossed; '5 refused'. Then: 'Weight Watchers' marked mismatch but right; an empty tray '5 empty'; '67 no board found'.",
+        "labels": [
+          "talent -> Slice Talent Community",
+          "village -> a childcare center",
+          "5 refused",
+          "Weight Watchers: called a mismatch, but right",
+          "5 empty boards",
+          "67 no board found"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'real cases · live run 2026-11-23'"
+          }
+        ],
+        "manim": {
+          "class": "P4B_Failures"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P4B.mp3",
+      "actual_duration_s": 22.4,
+      "render_duration_s": 22.416666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P4B.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P4C",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "the bug no test caught",
+      "part": "4 · evaluation",
+      "honesty_tag": "constructed drawing · found 2026-11-23",
+      "narration_text": "One bug got past every test. On a Windows console, the command saved my approval, then crashed. A test now reproduces it, and all twenty-eight tests pass.",
+      "estimated_duration_s": 10.4,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A terminal; a decision sheet with a check 'saved'; a cross on the terminal 'then crashed'; a test pill; '28 / 28 tests pass'.",
+        "motion_claim": "A terminal; a decision sheet with a check 'saved'; a cross on the terminal 'then crashed'; a test pill; '28 / 28 tests pass'.",
+        "labels": [
+          "saved",
+          "then crashed",
+          "regression test",
+          "28 / 28 tests pass"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · found 2026-11-23'"
+          }
+        ],
+        "manim": {
+          "class": "P4C_Bug"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P4C.mp3",
+      "actual_duration_s": 11.07,
+      "render_duration_s": 11.083333333333334,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P4C.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "P4D",
+      "act": "show-tell",
+      "lane": "manim",
+      "proof_gate": "SHOW",
+      "answers": "how the verdicts will be judged",
+      "part": "4 · evaluation",
+      "honesty_tag": "constructed drawing · proposed",
+      "narration_text": "Next, the verdicts. Before tuning anything, I'll set aside a hand-checked set of sponsors. If fewer than nine in ten apply verdicts are right on that set, it didn't work. And after fourteen days, I'll re-check the networking targets for new postings. This sample can show what it gets wrong. It can't show that anyone gets hired.",
+      "estimated_duration_s": 21.9,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "visual_intent": "A sealed dashed box 'held-out set · set aside first'; a bar with a threshold tick at 9/10 'apply verdicts right'; a 14-day grid; 'can show: what it gets wrong' / 'can't show: hires'.",
+        "motion_claim": "A sealed dashed box 'held-out set · set aside first'; a bar with a threshold tick at 9/10 'apply verdicts right'; a 14-day grid; 'can show: what it gets wrong' / 'can't show: hires'.",
+        "labels": [
+          "held-out set",
+          "set aside first",
+          "pass: 9 in 10 apply verdicts right",
+          "14 days",
+          "can show: what it gets wrong",
+          "can't show: hires"
+        ],
+        "show": [
+          {
+            "at": 0.02,
+            "event": "corner tag: 'constructed drawing · proposed'"
+          }
+        ],
+        "manim": {
+          "class": "P4D_Plan"
+        }
+      },
+      "qc": {
+        "sparse_by_design": true,
+        "sparse_reason": "show-tell style: one drawn object or scene on a cream stage per beat, minimal labels, the voice carries the explanation. Only underfill and clustered are waived; edge-bleed, empty-frame and contrast still apply."
+      },
+      "audio_file": "mp3/beat-P4D.mp3",
+      "actual_duration_s": 21.03,
+      "render_duration_s": 21.041666666666668,
+      "build": {
+        "status": "MANIM",
+        "src": "manim\\P4D.mp4",
+        "filled_by": "manim",
+        "at": "2026-11-23T21:43:16"
+      }
+    },
+    {
+      "beat_id": "BOUT",
+      "act": "outro",
+      "lane": "bookend",
+      "proof_gate": "SHOW",
+      "answers": "outro",
+      "narration_text": "SponsorScout. A film by Akshit Verma.",
+      "estimated_duration_s": 5.0,
+      "voice": "am_michael",
+      "engine": "kokoro",
+      "shot": {
+        "type": "REMOTION",
+        "source": "own",
+        "show": [
+          {
+            "at": 0.0,
+            "event": "title restates; author credit; no instructor handle"
+          }
+        ],
+        "remotion": {
+          "pattern": "PitchOutro",
+          "props": {
+            "title": "SponsorScout",
+            "handle": "Akshit Verma",
+            "author": "Akshit Verma",
+            "course": "INFO 7375 · Final Project Film",
+            "byline": "a film by",
+            "durationSeconds": 3.09
+          },
+          "rendered": {
+            "out": "media/BOUT.mp4",
+            "at": "2026-11-24T00:34:51.545971+00:00"
+          }
+        }
+      },
+      "kind": "outro_voice",
+      "tail_silence_s": 1.0,
+      "audio_file": "mp3/beat-BOUT.mp3",
+      "actual_duration_s": 3.09,
+      "render_duration_s": 3.125,
+      "build": {
+        "status": "VIDEO",
+        "src": "media\\BOUT.mp4",
+        "filled_by": "remotion:PitchOutro",
+        "at": "2026-11-23T21:43:16"
+      }
+    }
+  ]
+}

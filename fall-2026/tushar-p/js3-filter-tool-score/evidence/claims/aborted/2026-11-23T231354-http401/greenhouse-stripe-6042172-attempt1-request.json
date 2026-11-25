@@ -1,0 +1,78 @@
+{
+  "label": "REAL Claude API output (live call), not a fixture",
+  "run_started": "2026-11-23T23:13:54-05:00",
+  "prompt_file": "prompts/claims-v1.txt",
+  "prompt_sha256": "9c9b65205c5925eed9e7e619d6e1b91acfcb08229bafcc6dc8cd524b317a3df0",
+  "requested_model": "claude-sonnet-5-5",
+  "rules_mode": "v0.2",
+  "sent_at": "2026-11-23T23:13:54-05:00",
+  "request": {
+    "model": "claude-sonnet-5-5",
+    "max_tokens": 16000,
+    "system": "You check job postings for one job seeker, Cole. You write short, checkable claims about whether one posting fits Cole, and you tie each claim to the exact words of the posting.\n\nINPUT\nThe user message is a JSON object with:\n- \"posting_id\": the posting's id (a string).\n- \"title\" and \"locations\": the posting's title and listed locations, for context only.\n- \"posting_text\": the posting text. This is the ONLY text you may quote.\n- \"cole\": what Cole is looking for: target_titles, years_experience, needs_sponsorship, work_country, skills.\n\nTASK\nWrite 3 to 6 claims. Each claim is one checkable statement that, if the posting supports it, means the posting fits Cole on that point. Examples of the shape: \"The role is a software engineering role.\" \"The job can be done in the US.\" \"The role requires at most 2 years of experience.\" \"The employer will sponsor a work visa.\" \"The work uses Python.\"\nWrite at least one claim of each of these kinds: role, location, experience, sponsorship. You may add claims of kind seniority or skill, up to 6 claims in total.\n\nFor each claim give:\n- \"kind\": one of role, seniority, location, experience, sponsorship, skill.\n- \"claim\": the statement.\n- \"quote\": one contiguous span copied character for character from posting_text, the span that best decides the claim. Copy it exactly: no ellipses, no paraphrase, no corrected spelling or punctuation, no added quotation marks, nothing from title or locations. Keep it to the sentence or list item that decides the claim. If nothing in posting_text speaks to the claim, use \"\" (empty string).\n- \"proposed_label\": supported, contradicted or insufficient, using the definitions below. If \"quote\" is \"\", the label must be insufficient.\n\nLABEL DEFINITIONS (from FILTER.md, word for word)\nThe shortlist explains each keep with **claims**. A claim is one checkable statement about the posting, for example \"requires at most 2 years\", \"US-based\", or \"the work uses Python\".\n- supported: A span quoted verbatim from the posting text asserts the claim. The quote must exist in the text. Its meaning must assert the claim, not just mention the word.\n- contradicted: A quoted span asserts the opposite of the claim.\n- insufficient: No span asserts the claim either way, or the only span mentions the word without asserting it (a \"nice to have\", a team description, boilerplate).\n**Relevance is not entailment.** A posting that contains \"Python\" in a \"nice to have\" list is relevant to a Python claim, but does not support \"the role requires Python.\" That claim is insufficient.\n\nDo not guess. A claim the posting does not settle is insufficient, not supported. Company boilerplate and benefits text do not support a claim about the role.\n\nOUTPUT\nReturn ONLY one JSON object, with no other text before or after it:\n{\"posting_id\": \"<the posting_id from the input>\", \"claims\": [{\"kind\": \"role|seniority|location|experience|sponsorship|skill\", \"claim\": \"...\", \"quote\": \"...\", \"proposed_label\": \"supported|contradicted|insufficient\"}]}\n",
+    "messages": [
+      {
+        "role": "user",
+        "content": "{\n  \"posting_id\": \"6042172\",\n  \"title\": \"Backend Engineer, Core Technology\",\n  \"locations\": [\n    \"US-Remote, Chicago, Seattle, San Francisco\"\n  ],\n  \"posting_text\": \"Who we are About Stripe Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world's largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career. About the team Stripe Infrastructure is responsible for the reliability, scale, performance, and cost of Stripe's systems and the productivity and sentiment of Stripe's people. You may work on a wide variety of critical business areas including: Core Infrastructure—We're the home for Stripe's critical tier0 infrastructure systems (Compute, Networking, DocumentDB, Distributed Caching and High assurance engineering). We build the foundational platform for Stripe products and services to allow them to operate at scale. We drive reliability, availability, efficiency, and scalability of these systems. Developer Infrastructure—We're responsible for the productivity of all developers at Stripe. Ensure Stripe's engineers have a reliable, fast, and easy-to-use inner dev loop to maximize productivity while building everything from low-latency microservices to large-scale data pipelines and machine learning models. Data Infrastructure—We're responsible for offering data serving infrastructure spanning across data warehouse analytics, streaming analytics, and search capabilities. The stack is supported by a collection of internally developed large-scale distributed services and several popular open-source technologies like Trino/Presto, Apache Pinot, Hive Metastore, ElasticSearch etc. The systems we own support all of the data serving needs of high-scale services and thousands of individual Stripes across the company. Admin Platform—We empower Stripes to quickly build secure and delightful internal products in service of their users. Service Platform—We enable engineering teams at Stripe to easily write and ship useful services that correctly, reliably, and efficiently leverage platform capabilities. Developer Productivity AI—We're responsible for doubling Stripe's engineering velocity through effective use of LLMs. We own Minions, Stripe's one-shot, end-to-end coding agents. Team matching—exact team matching for one of the subteams will begin during final stages. Please note we may also consider you for different orgs based on your experience, location, etc. Find more information on our team matching process here . What you'll do You'll work on projects that span technologies, systems, and processes where you'll design, build, test, and ship great code every day. Responsibilities Build a great customer experience for internal and external Stripe teams using our infrastructure Participate in roadmap planning and prioritization Deliver value through a strong collaborative approach with multiple customers and stakeholders across Stripe Debug production issues across services and several levels of the stack Who you are We're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement. Minimum requirements Strong software engineering skills and a passion for one of the areas above Ability to write high-quality code (in programming languages like Go, Java, C/C++ etc.) 2–12+ years of professional hands-on software development experience, able to write well-factored algorithms and have experience with commonly used data structures and algorithms Hands-on experience contributing to or building large-scale distributed systems Strong collaboration skills, can work across workstreams within your team and contribute to your peers' success Customer obsession, ability to articulate and represent customer experience in various forums to drive the right outcome Have the ability to thrive on a high level of autonomy and responsibility, and think of yourself as entrepreneurial Preferred qualifications Experience optimizing the end-to-end performance of distributed systems Focus on the needs of our users, both internal and external Hold yourself and others to a high bar when working with production\",\n  \"cole\": {\n    \"target_titles\": [\n      \"Software Engineer\",\n      \"AI Engineer\",\n      \"Backend Engineer\"\n    ],\n    \"years_experience\": 0,\n    \"needs_sponsorship\": true,\n    \"work_country\": \"US\",\n    \"skills\": [\n      \"Python\",\n      \"Java\",\n      \"TypeScript\",\n      \"SQL\",\n      \"PostgreSQL\",\n      \"Spring Boot\",\n      \"React\",\n      \"Docker\",\n      \"AWS\"\n    ]\n  }\n}"
+      }
+    ],
+    "output_config": {
+      "format": {
+        "type": "json_schema",
+        "schema": {
+          "type": "object",
+          "properties": {
+            "posting_id": {
+              "type": "string"
+            },
+            "claims": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "kind": {
+                    "type": "string",
+                    "enum": [
+                      "role",
+                      "seniority",
+                      "location",
+                      "experience",
+                      "sponsorship",
+                      "skill"
+                    ]
+                  },
+                  "claim": {
+                    "type": "string"
+                  },
+                  "quote": {
+                    "type": "string"
+                  },
+                  "proposed_label": {
+                    "type": "string",
+                    "enum": [
+                      "supported",
+                      "contradicted",
+                      "insufficient"
+                    ]
+                  }
+                },
+                "required": [
+                  "kind",
+                  "claim",
+                  "quote",
+                  "proposed_label"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "posting_id",
+            "claims"
+          ],
+          "additionalProperties": false
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,155 @@
+=== W1: rule 3 as substring match ===
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.4.2, pluggy-1.7.0
+rootdir: /Users/tisaac/IsaacPARA/Projects/info7375_prompt_eng_agentic_ai/job-search-agent
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collected 7 items
+
+tests/test_js3_wrong_w1_substring.py FFF....                             [100%]
+
+=================================== FAILURES ===================================
+_ test_rule_3_finds_no_skill_hidden_inside_a_word[<p>Our front end is built in JavaScript.</p>-Java] _
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+jd = '<p>Our front end is built in JavaScript.</p>', hidden = 'Java'
+
+    @pytest.mark.parametrize("jd, hidden", HIDDEN)
+    def test_rule_3_finds_no_skill_hidden_inside_a_word(criteria, jd, hidden):
+        r = _judge(criteria, jd)
+>       assert (r.verdict["verdict"], r.failed_check) == ("not_relevant", "3")
+E       AssertionError: assert ('relevant', None) == ('not_relevant', '3')
+E         
+E         At index 0 diff: 'relevant' != 'not_relevant'
+E         Use -v to get more diff
+
+tests/test_js3_wrong_w1_substring.py:31: AssertionError
+_ test_rule_3_finds_no_skill_hidden_inside_a_word[<p>We comply with all applicable laws.</p>-AWS] _
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+jd = '<p>We comply with all applicable laws.</p>', hidden = 'AWS'
+
+    @pytest.mark.parametrize("jd, hidden", HIDDEN)
+    def test_rule_3_finds_no_skill_hidden_inside_a_word(criteria, jd, hidden):
+        r = _judge(criteria, jd)
+>       assert (r.verdict["verdict"], r.failed_check) == ("not_relevant", "3")
+E       AssertionError: assert ('relevant', None) == ('not_relevant', '3')
+E         
+E         At index 0 diff: 'relevant' != 'not_relevant'
+E         Use -v to get more diff
+
+tests/test_js3_wrong_w1_substring.py:31: AssertionError
+_ test_rule_3_finds_no_skill_hidden_inside_a_word[<p>You will be a trusted partner to our users.</p>-Rust] _
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+jd = '<p>You will be a trusted partner to our users.</p>', hidden = 'Rust'
+
+    @pytest.mark.parametrize("jd, hidden", HIDDEN)
+    def test_rule_3_finds_no_skill_hidden_inside_a_word(criteria, jd, hidden):
+        r = _judge(criteria, jd)
+>       assert (r.verdict["verdict"], r.failed_check) == ("not_relevant", "3")
+E       AssertionError: assert ('relevant', None) == ('not_relevant', '3')
+E         
+E         At index 0 diff: 'relevant' != 'not_relevant'
+E         Use -v to get more diff
+
+tests/test_js3_wrong_w1_substring.py:31: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_js3_wrong_w1_substring.py::test_rule_3_finds_no_skill_hidden_inside_a_word[<p>Our front end is built in JavaScript.</p>-Java]
+FAILED tests/test_js3_wrong_w1_substring.py::test_rule_3_finds_no_skill_hidden_inside_a_word[<p>We comply with all applicable laws.</p>-AWS]
+FAILED tests/test_js3_wrong_w1_substring.py::test_rule_3_finds_no_skill_hidden_inside_a_word[<p>You will be a trusted partner to our users.</p>-Rust]
+========================= 3 failed, 4 passed in 0.03s ==========================
+=== W2: missing field = cut ===
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.4.2, pluggy-1.7.0
+rootdir: /Users/tisaac/IsaacPARA/Projects/info7375_prompt_eng_agentic_ai/job-search-agent
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collected 6 items
+
+tests/test_js3_wrong_w2_missing_field.py FFFFF.                          [100%]
+
+=================================== FAILURES ===================================
+_____________________ test_missing_location_is_not_a_cut[] _____________________
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+location = ''
+
+    @pytest.mark.parametrize("location", ["", "N/A", "na", "Remote"])
+    def test_missing_location_is_not_a_cut(criteria, location):
+        r = _judge(criteria, location)
+>       assert r.verdict["verdict"] == "relevant"
+E       AssertionError: assert 'not_relevant' == 'relevant'
+E         
+E         - relevant
+E         + not_relevant
+E         ? ++++
+
+tests/test_js3_wrong_w2_missing_field.py:25: AssertionError
+___________________ test_missing_location_is_not_a_cut[N/A] ____________________
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+location = 'N/A'
+
+    @pytest.mark.parametrize("location", ["", "N/A", "na", "Remote"])
+    def test_missing_location_is_not_a_cut(criteria, location):
+        r = _judge(criteria, location)
+>       assert r.verdict["verdict"] == "relevant"
+E       AssertionError: assert 'not_relevant' == 'relevant'
+E         
+E         - relevant
+E         + not_relevant
+E         ? ++++
+
+tests/test_js3_wrong_w2_missing_field.py:25: AssertionError
+____________________ test_missing_location_is_not_a_cut[na] ____________________
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+location = 'na'
+
+    @pytest.mark.parametrize("location", ["", "N/A", "na", "Remote"])
+    def test_missing_location_is_not_a_cut(criteria, location):
+        r = _judge(criteria, location)
+>       assert r.verdict["verdict"] == "relevant"
+E       AssertionError: assert 'not_relevant' == 'relevant'
+E         
+E         - relevant
+E         + not_relevant
+E         ? ++++
+
+tests/test_js3_wrong_w2_missing_field.py:25: AssertionError
+__________________ test_missing_location_is_not_a_cut[Remote] __________________
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+location = 'Remote'
+
+    @pytest.mark.parametrize("location", ["", "N/A", "na", "Remote"])
+    def test_missing_location_is_not_a_cut(criteria, location):
+        r = _judge(criteria, location)
+>       assert r.verdict["verdict"] == "relevant"
+E       AssertionError: assert 'not_relevant' == 'relevant'
+E         
+E         - relevant
+E         + not_relevant
+E         ? ++++
+
+tests/test_js3_wrong_w2_missing_field.py:25: AssertionError
+_________________ test_missing_years_visa_salary_are_not_cuts __________________
+
+criteria = Criteria(resume_keywords=['TypeScript', 'Python', 'Java', 'SQL', 'Node.js', 'Kafka', 'Redis', 'MSSQL', 'PostgreSQL', '...rom the Reallocation Engine example search/examples/aarav-patel/resume.example.json to the JSON Resume schema (D3).'}})
+
+    def test_missing_years_visa_salary_are_not_cuts(criteria):
+        lines = _judge(criteria, "US").verdict["justification"]
+        assert lines[4]["result"] == "skipped: no years in posting"
+>       assert lines[5]["result"] == "no phrase found"
+               ^^^^^^^^
+E       IndexError: list index out of range
+
+tests/test_js3_wrong_w2_missing_field.py:32: IndexError
+=========================== short test summary info ============================
+FAILED tests/test_js3_wrong_w2_missing_field.py::test_missing_location_is_not_a_cut[]
+FAILED tests/test_js3_wrong_w2_missing_field.py::test_missing_location_is_not_a_cut[N/A]
+FAILED tests/test_js3_wrong_w2_missing_field.py::test_missing_location_is_not_a_cut[na]
+FAILED tests/test_js3_wrong_w2_missing_field.py::test_missing_location_is_not_a_cut[Remote]
+FAILED tests/test_js3_wrong_w2_missing_field.py::test_missing_years_visa_salary_are_not_cuts
+========================= 5 failed, 1 passed in 0.02s ==========================

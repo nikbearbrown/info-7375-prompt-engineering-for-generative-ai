@@ -1,9 +1,28 @@
-# Project brief: TraceCase (working title)
+# Project brief: TraceCase
 
-**Ashwin Thankachan** · INFO 7375 · 2026-10-13 · replaces my ProvenDocs brief of 2026-10-11 (why: FRICTIONAL.md)
+**Ashwin Thankachan** · INFO 7375 · revised 2026-11-23
+Revises my brief of 2026-10-13, which itself replaced a ProvenDocs brief of 2026-10-11 (why: `FRICTIONAL.md`).
 **Target role:** backend software engineer (new grad).
 **Planned stack:** Spring Boot demo service with PostgreSQL and Redis; a Python agent (FastAPI, Pydantic, Claude
 API); OpenTelemetry traces viewed in Jaeger; Docker Compose; pytest and JUnit; GitHub Actions; a small approval page.
+
+## What changed since the October pitch, and why
+
+The project itself did not change. The **film** was rebuilt from scratch in November: the pitch's 18 beats at 3:53
+became 25 beats at 3:52.4, every picture was redrawn as objects rather than labelled boxes, and the drawings were
+re-cued to word-level narration timestamps instead of running on estimated durations. It was recut on 2026-11-23
+when I found it had grown to 4:48, past the assignment's 240-second ceiling.
+
+Two things in this brief changed on evidence, both found by a review of the finished cut and both recorded here
+rather than quietly corrected:
+
+- **The baseline was unfair as originally written** (§4 below). "Summarize the logs" gave the baseline less
+  evidence than the agent, so a win would have measured the extra evidence, not the loop.
+- **"Unsupported claims" conflated two different checks** (§4 below). The evidence checker can verify that a
+  cited log line exists; it cannot judge whether that line supports the conclusion drawn from it.
+
+Both corrections are now **spoken in the film**, not just written here: B20 states the fair baseline and B16
+separates what the checker enforces from what I score. The brief and the film agree.
 
 **1. What is it?** An agent that investigates failures in a small Spring Boot service using its logs, traces and
 deploy history, and proposes one fix that a person must approve before it runs. When it's done, it will be one
@@ -18,7 +37,7 @@ public GitHub repo that starts with one Docker Compose command. The repo will ho
 an engineer still digs through logs and traces by hand. TraceCase will do the digging, show its evidence, and leave
 the decision to a person.
 
-Alternatives I checked (read 2026-10-13):
+Alternatives I checked (read 2026-10-13, re-checked 2026-11-22):
 - **HolmesGPT** is an open-source incident agent, read-only by default; its optional remediation toolset asks
   before every change.
 - **Microsoft AIOpsLab** is a research framework for evaluating such agents, and it runs on Kubernetes.
@@ -39,9 +58,22 @@ break the service with one command, watch the agent investigate step by step, an
 - **Grounding:** a validator rejects any claim citing a log line or span that doesn't exist.
 - **Human gate:** the approval records action, target, parameters and evidence version, and it stops counting if any
   of them change.
-- **Evaluation:** about 30 failure scenarios, 10 held out before tuning, compared against a "summarize the logs"
-  baseline. It will measure correct diagnoses, honest "I don't know yet" answers, unsupported claims, blocked
-  actions, and cost.
+- **Evaluation:** about 30 failure scenarios, 10 held out before tuning. **Revised 2026-11-23, in two places:**
+
+  - **The baseline gets the same evidence.** Not "summarize the logs." The baseline is the **same model, given the
+    same logs, traces and deploy history in one prompt, with no loop, no tools and no checker.** This compares the
+    complete agent workflow against a single-prompt read of the same evidence. It does not isolate the loop on its
+    own — loop, tool use and checker all differ — and nothing here claims it does.
+  - **Three numbers, reported separately, not one.** **Citation validity** — enforced in code; the checker confirms
+    a cited log line or span exists, which catches an invented reference. **Claim support** — scored by me against
+    the held-out cases; a real line can be cited and still not justify the diagnosis ("database request timed out"
+    is a real line and does not prove a deploy changed a password), and no checker I can write decides that.
+    **Diagnosis accuracy** — against the fault I injected.
+
+  "I don't know yet" counts as correct only on cases labelled insufficient-evidence **before** tuning, not whenever
+  the agent abstains. Also measured: blocked actions and cost. With ten held-out cases one case moves accuracy by
+  ten points, so correct, incorrect and abstained are reported separately and the result is presented as what it
+  is — a small controlled evaluation.
 
 **5. In, out, first.**
 - **In:** one demo service and failures I design (stale Redis cache, backed-up queue, bad config deploy, slow query).
@@ -67,10 +99,16 @@ rather than copying it.
     code is private, so the evidence is my account).
   - Docker and CI/CD (LTIMindtree).
 
-**Exists today:** this brief, the beat sheet and the pitch film. No TraceCase code, traces or results.
+## Exists today (2026-11-23)
 
-**Will exist:**
+- this brief, `beat_sheet.json`, and the film: `tracecase-final.mp4`, 25 beats, 3:52.4, 3840×2160 (the assignment's ceiling is 240s)
+- the film's sources in `build/` and its narration with word-level alignment in `mp3/`
+- the gate reports in `gate-reports/`: type-lock, frame QC, layout audit, WCAG
+- **No TraceCase code, no traces, no evaluation results.** The film says this in its closing beat.
+
+## Will exist
+
 - the demo service, its tracing, and the failure library
 - the agent loop, tool dispatcher, permission policy, evidence validator, and approval page with invalidation
 - the recorded stale-approval failure
-- the held-out evaluation with baseline and failure analysis
+- the held-out evaluation, run against the baseline defined in §4 above, reporting the three numbers separately

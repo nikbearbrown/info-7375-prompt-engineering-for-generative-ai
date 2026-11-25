@@ -1,0 +1,121 @@
+{
+ "item": 57,
+ "board": "ashby:openai",
+ "id": "78c2a68b-cc77-4c62-8891-96afb603650a",
+ "title": "Systems Generalist, GPT Infrastructure",
+ "utc": "2026-11-24T22:46:27Z",
+ "seconds": 3.9,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "not",
+  "score": 1,
+  "reasons": [
+   "Senior role: requires \"8+ years of professional software engineering experience\" vs. her ~1 year",
+   "Explicitly senior: \"Proven ability to lead complex technical initiatives as a senior individual contributor\"",
+   "Seeks \"an experienced systems generalist\" focused on distributed systems, compilers, kernels (\"LLVM, MLIR, Triton, CUDA, or ROCm\"), outside her LLM-agent/data skill set",
+   "Location and type fit (\"Remote\", \"FullTime\", US-based) but seniority is disqualifying"
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nThe posting:\n- Board: ashby:openai\n- Title: Systems Generalist, GPT Infrastructure\n- Location: San Francisco; Seattle; Remote\n- Employment type field: FullTime\n- Text:\nAbout OpenAI OpenAI is dedicated to ensuring that artificial general intelligence (AGI) benefits all of humanity. Our mission requires building not only world-class AI models, but also the infrastructure that enables those models to be deployed reliably, efficiently, and at global scale. As demand for AI continues to grow, we are expanding the ways OpenAI can bring high-performance inference capacity online across a diverse hardware ecosystem. About the Team The GPT Infrastructure team builds software that turns advanced inference and optimization research into production products. One focus is enabling strategic infrastructure partners and accelerator vendors to qualify and onboard new compute without a bespoke porting and optimization effort for every hardware platform. We build the control planes, APIs, secure partner-side execution environments, evaluation systems, artifact pipelines, and operational tooling that make these workflows repeatable and trustworthy. The work sits at the intersection of distributed systems, AI inference, compilers and runtimes, performance engineering, security, and external partnerships. About the Role We are seeking an experienced systems generalist who can work comfortably across the stack to help build an automated inference optimization platform. Given a workload, target hardware profile, compiler and runtime context, and a trusted verifier, the system runs durable optimization campaigns that generate, compile, execute, grade, and improve candidate kernels, runtime configurations, and serving-stack changes. You will design both the OpenAI-hosted control plane and the partner-side software that evaluates candidates on real accelerator hardware. The product must keep long-running workflows reliable, make performance results reproducible, and maintain clear trust boundaries around sensitive model and hardware information. This is a deeply cross-stack role, combining strong software engineering fundamentals with systems thinking and performance intuition. You will work closely with research, inference engineering, infrastructure, security, product, and strategic partners to turn a powerful research workflow into a scalable product. Key Responsibilities Design, build, and operate durable APIs and control-plane services for multi-hour or multi-day optimization campaigns, including scheduling, retries, budgets, checkpoints, artifact lineage, and observability. Build secure partner-side runner and grader software that can compile, execute, verify, and benchmark candidate artifacts on third-party accelerator hardware. Integrate hardware profiles, ISA and toolchain context, compilers, runtimes, and inference-serving engines into a repeatable optimization workflow. Turn research prototypes into reliable product surfaces with clear contracts, debuggable failure modes, reproducible outputs, and excellent developer ergonomics. Develop correctness and performance evaluation systems spanning latency, throughput, memory use, utilization, and cost efficiency. Build artifact, provenance, and qualification workflows that make optimized kernels, binaries, configurations, and reports safe to review and deploy. Collaborate with Research, Inference Engineering, Infrastructure, Security, Product, and Strategic Partnerships to deliver production-ready solutions. Drive technical architecture and execution across ambiguous, cross-functional initiatives that connect OpenAI systems with partner environments. Basic Qualifications 8+ years of professional software engineering experience building large-scale distributed systems, infrastructure platforms, or cloud services, or equivalent depth of experience. Strong programming skills in one or more of C++, Python, Go, or Rust. Experience designing and operating highly available backend systems, APIs, job orchestration systems, or durable workflows for production workloads. Strong understanding of distributed systems, Linux, networking, storage, containers, and modern cloud architectures. Experience debugging complex systems and using measurement, profiling, and benchmarks to guide engineering decisions. Proven ability to lead complex technical initiatives as a senior individual contributor and work effectively across organizational boundaries. Preferred Skills Experience with AI infrastructure, inference-serving systems, or large-scale machine learning systems. Experience with compilers, runtimes, kernel optimization, or performance engineering; familiarity with technologies such as LLVM, MLIR, Triton, CUDA, or ROCm is a plus. Familiarity with GPUs, accelerators, hardware architecture, ISA concepts, or vendor toolchains. Experience with inference-serving frameworks or engines such as vLLM, SGLang, Triton Inference Server, or similar systems. Experience building developer platforms, external APIs, remote execution systems, or secure partner-facing infrastructure. Experience working with strategic cloud, hardware, or infrastructure partners. About OpenAI OpenAI is an AI research and deployment company dedicated to ensuring that general-purpose artificial intelligence benefits all of humanity. We push the boundaries of the capabilities of AI systems and seek to safely deploy them to the world through our products. AI is an extremely powerful tool that must be created with safety and human needs at its core, and to achieve our mission, we must encompass and value the many different perspectives, voices, and experiences that form the full spectrum of humanity. We are an equal opportunity employer, and we do not discriminate on the basis of race, religion, color, national origin, sex, sexual orientation, age, veteran status, disability, genetic information, or other applicable legally protected characteristic. For additional information, please see OpenAI’s Affirmative Action and Equal Employment Opportunity Policy Statement . Background checks for applicants will be administered in accordance with applicable law, and qualified applicants w […]\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\nUse \"cannot_tell\" when the posting does not give enough to decide.\n",
+ "cli_json": {
+  "duration_api_ms": 2764,
+  "stop_reason": "end_turn",
+  "session_id": "ceeb26c9-83ac-4a97-aa2d-f014b93caeb5",
+  "total_cost_usd": 0.041249799999999996,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 4599,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 216,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 4599,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 216,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 4599,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4599
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 216,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 4599,
+    "webSearchRequests": 0,
+    "costUSD": 0.041249799999999996,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 4599,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"not\", \"score\": 1, \"reasons\": [\"Senior role: requires \\\"8+ years of professional software engineering experience\\\" vs. her ~1 year\", \"Explicitly senior: \\\"Proven ability to lead complex technical initiatives as a senior individual contributor\\\"\", \"Seeks \\\"an experienced systems generalist\\\" focused on distributed systems, compilers, kernels (\\\"LLVM, MLIR, Triton, CUDA, or ROCm\\\"), outside her LLM-agent/data skill set\", \"Location and type fit (\\\"Remote\\\", \\\"FullTime\\\", US-based) but seniority is disqualifying\"]}",
+  "ttft_ms": 2927,
+  "type": "result",
+  "duration_ms": 2970,
+  "uuid": "f1b846e9-ad2c-4621-a2c4-e682fcb1d466",
+  "ttft_stream_ms": 1052,
+  "time_to_request_ms": 201,
+  "first_content_frame_ms": 1052,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}

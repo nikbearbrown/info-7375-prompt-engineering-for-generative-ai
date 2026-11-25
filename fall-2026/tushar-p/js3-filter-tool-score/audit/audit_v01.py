@@ -2,10 +2,16 @@
 
 CLI: python audit/audit_v01.py            (run from js3-filter-tool-score/)
 
-Reads audit/audit-sheet.csv, out/filter-v0.1/results.jsonl, the "audit" part of
-out/filter-v0.1/sheet-key.json, and the posting text from evidence/runs/live-text-1.
-Prints the numbers that audit/AUDIT-RESULTS.md reports. It never reads the held-out sheet
-or the "heldout" part of the key, and it never changes the filter. The "what-if" counts in
+Uses the BLIND labels: for a row corrected after unblinding, the original verdict and note are
+taken from the labeler's correction history in the note ("[corrected DATE: was X (labeled T),
+old note: N] ..."), so rerunning this reproduces the committed audit/AUDIT-RESULTS.md.
+
+Filter results are computed in-process with `--rules v0.1` (byte-identical to
+out/filter-v0.1/results.jsonl), and the sample groups are redrawn with agent.sheets.select
+(seed 7375), so nothing under the git-ignored out/ is needed. If out/filter-v0.1/sheet-key.json
+exists, the redrawn audit groups are checked against it. Prints the numbers that
+audit/AUDIT-RESULTS.md reports. It never reads the held-out sheet and never uses the held-out
+draw, and it never changes the filter. The "what-if" counts in
 the rule-gap section patch module constants in memory for this process only.
 """
 
@@ -21,12 +27,14 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from agent import filter as flt  # noqa: E402
+from agent import sheets  # noqa: E402
 from agent.postings import load_run  # noqa: E402
 from agent.text import word_pattern  # noqa: E402
 
 RUN = ROOT / "evidence" / "runs" / "live-text-1"
-RESULTS = ROOT / "out" / "filter-v0.1" / "results.jsonl"
-KEY = ROOT / "out" / "filter-v0.1" / "sheet-key.json"
+KEY = ROOT / "out" / "filter-v0.1" / "sheet-key.json"  # optional cross-check only
+_HISTORY = re.compile(r"^\[corrected [^:]+: was (keep|reject|cannot_tell)(?: \(labeled ([^)]*)\))?"
+                      r"(?:, old note: (.*?))?\]")
 SHEET = ROOT / "audit" / "audit-sheet.csv"
 PERSONA = flt.DEFAULT_PERSONA
 
@@ -44,14 +52,27 @@ def key(board, pid) -> tuple[str, str]:
     return board, str(pid)
 
 
+def blind_row(row: dict) -> dict:
+    """The row as it was labeled blind: the correction history restores verdict and note."""
+    m = _HISTORY.match(row["note"])
+    if not m:
+        return dict(row)
+    return {**row, "my_verdict": m.group(1), "note": m.group(3) or "", "labeled_at": m.group(2) or ""}
+
+
 def load():
     posts, failures = load_run(RUN)
     assert not failures, failures
     by_key = {key(p["board"], p["id"]): p for p in posts}
-    results = {key(r["board"], r["id"]): r for r in map(json.loads, RESULTS.open(encoding="utf-8"))}
-    audit_key = json.loads(KEY.read_text())["audit"]  # the held-out list is never read
-    strata = {key(a["board"], a["id"]): a["stratum"] for a in audit_key}
-    rows = list(csv.DictReader(SHEET.open(newline="", encoding="utf-8")))
+    persona = flt.load_persona(PERSONA)
+    ordered = [flt.evaluate(p, persona) for p in posts]          # v0.1 rules
+    results = {key(r["board"], r["id"]): r for r in ordered}
+    drawn = sheets.select(ordered)                               # only the audit draw is used
+    strata = {k: drawn["strata"][k] for k in drawn["audit"]}
+    if KEY.exists():
+        on_disk = {key(a["board"], a["id"]): a["stratum"] for a in json.loads(KEY.read_text())["audit"]}
+        assert on_disk == strata, "redrawn audit groups differ from out/filter-v0.1/sheet-key.json"
+    rows = [blind_row(r) for r in csv.DictReader(SHEET.open(newline="", encoding="utf-8"))]
     return posts, by_key, results, strata, rows
 
 

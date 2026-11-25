@@ -1,0 +1,13 @@
+Gate B (post-render layout audit) for the agent version of the film (20 beats). Each ./art run audits only the scenes it renders.
+Source: earlier-runs/art-run-agent-version-full.log (all 20 scenes) and art-run.log (the last run) (2026-11-23).
+
+full render: 20 of 20 audits CLEAN
+title-card and cue fixes (BIDEA, BSIMPLE, B03, B09): scenes: 10 snapshots → CLEAN scenes: 15 snapshots → CLEAN scenes: 13 snapshots → CLEAN scenes: 17 snapshots → CLEAN
+
+earlier-runs/art-run-trim-350.log (9 beats trimmed to 3:51): 9 of 9 CLEAN
+B03 midpoint fix: scenes: 13 snapshots → CLEAN
+
+B01 chart (last bar inside the baseline): scenes: 15 snapshots → CLEAN
+art-run.log (BEND with the end screen): scenes: 12 snapshots → CLEAN
+
+Result: every audit CLEAN (0 errors, 0 warnings). GATE-B-layout-audit.md is the report of the last audit.

@@ -1,0 +1,85 @@
+============================= test session starts ==============================
+platform darwin -- Python 3.11.10, pytest-8.4.2, pluggy-1.7.0
+rootdir: /Users/tisaac/IsaacPARA/Projects/info7375_prompt_eng_agentic_ai/job-search-agent
+configfile: pytest.ini
+plugins: anyio-4.15.1
+collected 7 items
+
+tests/test_meta_total.py FFF...F                                         [100%]
+
+=================================== FAILURES ===================================
+____ test_list_length_not_equal_to_meta_total_fails_the_board[list-shorter] ____
+
+paths = Paths(out=PosixPath('/private/var/folders/6t/vz3wfh4s37g8z0zpnyhtv78h0000gn/T/pytest-of-tisaac/pytest-264/test_list_length_not_equal_to_0'), repo=PosixPath('/Users/tisaac/IsaacPARA/Projects/info7375_prompt_eng_agentic_ai/job-search-agent'))
+n_jobs = 1, total = 2
+
+    @pytest.mark.parametrize("n_jobs, total", [(1, 2), (2, 1)], ids=["list-shorter", "list-longer"])
+    def test_list_length_not_equal_to_meta_total_fails_the_board(paths, n_jobs, total):
+        run_all(paths, four_boards(), n=0)                       # baseline: stripe has seen job 1
+        stripe_before = paths.state("stripe").read_text()
+    
+        body = greenhouse_body([job(i) for i in range(1, n_jobs + 1)], {"total": total})
+        outcome, doc = run_all(paths, four_boards(stripe=[body]), n=1)
+    
+        row = board_row(doc)
+>       assert (row["status"], row["code"], row["fetched"], row["new"]) == ("failed", "203", None, None)
+E       AssertionError: assert ('ok', None, 1, 0) == ('failed', '203', None, None)
+E         
+E         At index 0 diff: 'ok' != 'failed'
+E         Use -v to get more diff
+
+tests/test_meta_total.py:46: AssertionError
+____ test_list_length_not_equal_to_meta_total_fails_the_board[list-longer] _____
+
+paths = Paths(out=PosixPath('/private/var/folders/6t/vz3wfh4s37g8z0zpnyhtv78h0000gn/T/pytest-of-tisaac/pytest-264/test_list_length_not_equal_to_1'), repo=PosixPath('/Users/tisaac/IsaacPARA/Projects/info7375_prompt_eng_agentic_ai/job-search-agent'))
+n_jobs = 2, total = 1
+
+    @pytest.mark.parametrize("n_jobs, total", [(1, 2), (2, 1)], ids=["list-shorter", "list-longer"])
+    def test_list_length_not_equal_to_meta_total_fails_the_board(paths, n_jobs, total):
+        run_all(paths, four_boards(), n=0)                       # baseline: stripe has seen job 1
+        stripe_before = paths.state("stripe").read_text()
+    
+        body = greenhouse_body([job(i) for i in range(1, n_jobs + 1)], {"total": total})
+        outcome, doc = run_all(paths, four_boards(stripe=[body]), n=1)
+    
+        row = board_row(doc)
+>       assert (row["status"], row["code"], row["fetched"], row["new"]) == ("failed", "203", None, None)
+E       AssertionError: assert ('ok', None, 2, 1) == ('failed', '203', None, None)
+E         
+E         At index 0 diff: 'ok' != 'failed'
+E         Use -v to get more diff
+
+tests/test_meta_total.py:46: AssertionError
+________ test_code_203_is_a_board_scoped_validation_error_with_no_retry ________
+
+    def test_code_203_is_a_board_scoped_validation_error_with_no_retry():
+>       c = codes.CODES["203"]
+            ^^^^^^^^^^^^^^^^^^
+E       KeyError: '203'
+
+tests/test_meta_total.py:53: KeyError
+__________ test_step7_seeded_response_now_fails_instead_of_finishing ___________
+
+paths = Paths(out=PosixPath('/private/var/folders/6t/vz3wfh4s37g8z0zpnyhtv78h0000gn/T/pytest-of-tisaac/pytest-264/test_step7_seeded_response_now0'), repo=PosixPath('/Users/tisaac/IsaacPARA/Projects/info7375_prompt_eng_agentic_ai/job-search-agent'))
+
+    def test_step7_seeded_response_now_fails_instead_of_finishing(paths):
+        """The real Step 7 input: 680 jobs, meta.total 766. Before the patch the agent said `finished`, 0 new."""
+        body = SEEDED.read_bytes()
+        data = json.loads(body)
+        assert (len(data["jobs"]), data["meta"]["total"]) == (680, 766)   # the file is what the demo says
+    
+        outcome, doc = run_all(paths, four_boards(stripe=[body]))
+        row = board_row(doc)
+>       assert (row["status"], row["code"], row["fetched"]) == ("failed", "203", None)
+E       AssertionError: assert ('ok', None, 680) == ('failed', '203', None)
+E         
+E         At index 0 diff: 'ok' != 'failed'
+E         Use -v to get more diff
+
+tests/test_meta_total.py:77: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_meta_total.py::test_list_length_not_equal_to_meta_total_fails_the_board[list-shorter]
+FAILED tests/test_meta_total.py::test_list_length_not_equal_to_meta_total_fails_the_board[list-longer]
+FAILED tests/test_meta_total.py::test_code_203_is_a_board_scoped_validation_error_with_no_retry
+FAILED tests/test_meta_total.py::test_step7_seeded_response_now_fails_instead_of_finishing
+========================= 4 failed, 3 passed in 0.14s ==========================
