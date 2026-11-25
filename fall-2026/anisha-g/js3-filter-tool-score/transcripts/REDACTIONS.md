@@ -56,4 +56,4 @@ Local paths only (home folder -> `~`, Claude Code scratch folder -> `<SCRATCH>`)
 | `transcripts/server-20261125T145516-76848.jsonl` | 0 |
 | `transcripts/server-20261125T145516-76849.jsonl` | 0 |
 
-Not redacted on purpose: `logs/00_tests_before_any_code.txt` contains my macOS username in Python traceback paths. It is the "tests before any code" evidence committed in `340c11f`, so I left it exactly as recorded. A username is not private data under the course rules.
+Not redacted on purpose: `logs/00_tests_before_any_code.txt` contains my macOS username in Python traceback paths. It is the "tests before any code" evidence committed in `340c11f`, so I left it exactly as recorded. The username only reveals my name, which is already on this submission.
