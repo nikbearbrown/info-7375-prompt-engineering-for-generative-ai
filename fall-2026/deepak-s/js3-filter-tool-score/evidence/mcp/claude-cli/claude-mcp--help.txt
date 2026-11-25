@@ -1,0 +1,35 @@
+Usage: claude mcp [options] [command]
+
+Configure and manage MCP servers
+
+Options:
+  -h, --help                            Display help for command
+
+Commands:
+  add [options] <name> <commandOrUrl> [args...]
+      Add an MCP server
+  add-from-claude-desktop [options]     Import MCP servers from Claude Desktop
+                                        (Mac and WSL only)
+  add-json [options] <name> <json>      Add an MCP server (stdio, SSE, HTTP, or
+                                        WebSocket) with a JSON string, or - to
+                                        read it from stdin
+  get <name>                            Get details about an MCP server.
+                                        Unapproved .mcp.json servers are shown
+                                        as ⏸ Pending approval and not connected
+                                        to; approved servers are health-checked
+                                        unless disabled for this project.
+  help [command]                        display help for command
+  list                                  List configured MCP servers. Unapproved
+                                        .mcp.json servers are shown as ⏸ Pending
+                                        approval and not connected to; approved
+                                        servers are health-checked unless
+                                        disabled for this project.
+  login [options] <name>                Authenticate with an MCP server (HTTP,
+                                        SSE, or claude.ai connector)
+  logout <name>                         Clear stored OAuth credentials for an
+                                        MCP server
+  remove [options] <name>               Remove an MCP server
+  reset-project-choices                 Reset all approved and rejected
+                                        project-scoped (.mcp.json) servers
+                                        within this project
+  serve [options]                       Start the Claude Code MCP server

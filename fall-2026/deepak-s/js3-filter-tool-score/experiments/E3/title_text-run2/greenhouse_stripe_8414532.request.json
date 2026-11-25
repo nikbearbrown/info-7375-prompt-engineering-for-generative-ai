@@ -1,0 +1,27 @@
+{
+  "backend": "claude-cli (JS1 judge_cli.cli_argv)",
+  "argv": [
+    "claude",
+    "-p",
+    "--output-format",
+    "json",
+    "--system-prompt",
+    "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--safe-mode",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "system": "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+  "stdin": "Labeling rule (FILTER.md section 0, quoted): a posting is relevant when all of these hold, and not_relevant otherwise:\n  - Job family: machine learning engineering, AI engineering, applied science, data science, LLM engineering, or applied ML research.\n  - Seniority: entry level through mid level. Intern, Staff, Senior Staff, Principal, Director, Lead, Head and management roles are not relevant. A Senior role is relevant only when the stated minimum experience requirement is five years or less.\n  - Location: Boston, New York or NYC, Seattle, or a remote position that explicitly allows working from the United States.\n  - Title versus text: the actual responsibilities and minimum qualifications take priority over the title. A suitable title does not rescue a posting whose minimum required experience is more than five years (the same line as rule E01).\n  - When I am unsure, the label is not_relevant.\n\nPosting context:\nTitle: Infrastructure Engineer, Workflow Engine\nText:\nWho we are About Stripe Stripe, LLC. is a financial infrastructure platform for businesses. Millions of companies - from the world’s largest enterprises to the most ambitious startups - use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone's reach while doing the most important work of your career. What you’ll do Responsibilities Expand the service platform’s asynchronous execution capabilities and make asynchronous systems easy to build, resilient, and scalable. Improve productivity of the engineers using our systems and work towards ensuring a thoroughly considered developer experience. Work with a team of technically sophisticated engineers to solve problems for fellow Stripe engineers by understanding their needs. Use both qualitative and quantitative metrics to determine priorities and measure effectiveness. Deliver practical, useful, and reliable tools, processes, and code refactorings to Stripe engineers. Design and build client SDKs for developers all over Stripe. Improve, deploy, scale, and manage services and databases. Contribute to open source frameworks such as Temporal. Who you are Minimum requirements Must have a Bachelor's degree or foreign equivalent in Computer Science, Computer Engineering, or a related field, plus two (2) years of related work experience in Software Development. Must also have two (2) years of experience in each of the following: Software Design; Software testing and debugging; Object Oriented Design (OOD); and Python, C++, Go, Ruby, or Java. Must also have six (6) months of experience in each of the following: Distributed Systems, including Temporal or Cadence; and Infrastructure design and large scale distributed systems. Salary: $156,800 - $235,200/yr This salary range represents the base salary range for the role and any sales commissions/sales bonuses targets, if applicable, would be in addition to the base salary. 40 hrs/week 50% Telecommuting permitted. Multiple Positions Available. Additional benefits for this role may include: equity, company bonus or sales commissions/bonuses; 401(k) plan; medical, dental, and vision benefits; and wellness stipends. WA83 #LI-DNI\n\nAnswer with JSON only, no prose and no code fence:\n{\"label\": \"relevant\"} or {\"label\": \"not_relevant\"}\n",
+  "model_requested": "claude-sonnet-5-5",
+  "cwd": "a new empty temporary directory",
+  "env_removed": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "timeout_s": 120
+}

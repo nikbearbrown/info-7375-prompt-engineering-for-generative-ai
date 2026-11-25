@@ -1,0 +1,27 @@
+{
+  "backend": "claude-cli (JS1 judge_cli.cli_argv)",
+  "argv": [
+    "claude",
+    "-p",
+    "--output-format",
+    "json",
+    "--system-prompt",
+    "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--safe-mode",
+    "--disable-slash-commands",
+    "--no-session-persistence",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "system": "You label one job posting for one fictional job seeker, using only the posting context you are given and the labeling rule below. You never use knowledge outside that context.",
+  "stdin": "Labeling rule (FILTER.md section 0, quoted): a posting is relevant when all of these hold, and not_relevant otherwise:\n  - Job family: machine learning engineering, AI engineering, applied science, data science, LLM engineering, or applied ML research.\n  - Seniority: entry level through mid level. Intern, Staff, Senior Staff, Principal, Director, Lead, Head and management roles are not relevant. A Senior role is relevant only when the stated minimum experience requirement is five years or less.\n  - Location: Boston, New York or NYC, Seattle, or a remote position that explicitly allows working from the United States.\n  - Title versus text: the actual responsibilities and minimum qualifications take priority over the title. A suitable title does not rescue a posting whose minimum required experience is more than five years (the same line as rule E01).\n  - When I am unsure, the label is not_relevant.\n\nPosting context:\nTitle: ML Engineer Manager, AI Conversation Platform\nText:\nEngineering Manager, AI Conversation Platform Who we are About Stripe Stripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career. About the team The newly formed Conversation Platform team aims to build a conversation platform for all merchants who use Stripe. We are doing so by (a) automating the easy tasks, and (b) assisting our users in the difficult tasks. Some examples include customizing the Stripe landing page to suggest bespoke integrations, allowing users to command the Stripe API in natural language, and resolving user issues automatically. We are developing RAG based systems on the latest LLMs as well as fine-tuning our own models. We’re an end-to-end team going from ideas to models to shipping in production. What you’ll do Responsibilities Driving an ambitious vision for AI/ML that benefits our users Setting the technical & process direction for the team based on business goals Brainstorm and coordinate product integrations with partner teams Proposing new ideas and building prototypes Be an integral part of a larger ML community internally & externally Hire & develop a world-class team to deliver high-quality ML systems. Coach engineers to help them grow in their careers and maintain a high bar Who you are We are looking for ML Engineering Managers who are passionate about using ML to improve products and delight customers. You have experience leading teams that develop streaming feature pipelines, build ML models, and deploy them to production, even if it involves making substantial changes to backend code. You are comfortable with ambiguity, love to take initiative, and have a bias towards action. Minimum requirements Have at least 4 years of experience managing ML teams Experience working as a Machine Learning Engineer, Applied Scientist or equivalent Individual Contributor. Lead by example in high-growth, high-impact, ambiguous environments Have experience building & shipping ML systems. Hold yourself and others to a high bar when working with production systems. Thrive in a collaborative cross-functional environment Preferred qualifications Experience in shipping LLM & RAG systems\n\nAnswer with JSON only, no prose and no code fence:\n{\"label\": \"relevant\"} or {\"label\": \"not_relevant\"}\n",
+  "model_requested": "claude-sonnet-5-5",
+  "cwd": "a new empty temporary directory",
+  "env_removed": [
+    "ANTHROPIC_API_KEY"
+  ],
+  "timeout_s": 120
+}
