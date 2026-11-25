@@ -1,0 +1,18 @@
+{
+  "_comment": "The same probe for both servers: lifecycle order, version negotiation, ping, unknown tool, extra argument, malformed input, and one deeply nested JSON line. The tool steps name each server's own read tool; the other server ignores the one it does not have.",
+  "handshake": false,
+  "steps": [
+    {"request": "tools/list"},
+    {"request": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {},
+                                         "clientInfo": {"name": "yash-js3-probe-client", "version": "1.0.0"}}},
+    {"request": "tools/list"},
+    {"notify": "notifications/initialized"},
+    {"request": "tools/list"},
+    {"request": "ping"},
+    {"tool": "write_file", "arguments": {"path": "../escape.txt", "content": "x"}},
+    {"raw": "{this is not json"},
+    {"raw": "[]"},
+    {"raw_repeat": ["[", 5000]},
+    {"request": "ping"}
+  ]
+}

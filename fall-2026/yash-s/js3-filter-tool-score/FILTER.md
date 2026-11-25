@@ -1,7 +1,7 @@
 # FILTER — Job-Search Agent 3
 
-**Version:** 1.1
-**Date:** 2026-11-18  
+**Version:** 1.2
+**Date:** 2026-11-25 (Version 1.1: 2026-11-18)  
 **Project:** Job-Search Agent 3 — The Filter, the Tool, and the Score
 
 ## 1. What I Am Building
@@ -17,6 +17,8 @@ My filter will use the posting's title, location, description, experience requir
 I want the filter to be understandable, reproducible, and testable. A job containing several matching keywords should not automatically be considered a good match.
 
 I committed Version 1.0 before implementation. After reviewing preliminary evidence from my JS2 postings with Claude, I am clarifying the rules in Version 1.1 before implementing the filter.
+
+After implementing Version 1.1, auditing it by hand, and measuring candidate changes one at a time on held-out labels, I adopted one change in Version 1.2: Rule 1, Step 4 (related roles). Every other rule is unchanged from Version 1.1.
 
 ## 2. Expected Sources
 
@@ -55,7 +57,9 @@ If professional experience requirements are missing or unclear, I will mark expe
 
 I will preserve source references and excerpts so the justification for each posting can be checked against the original text.
 
-## 3. My Filter Rules — Version 1.1
+## 3. My Filter Rules — Version 1.2
+
+Only Rule 1, Step 4 changed from Version 1.1. Where Rules 2–8 below say "Version 1.1", the same rule applies unchanged in Version 1.2.
 
 ### Rule 1: Target and Related Roles
 
@@ -114,9 +118,9 @@ A title with an added specialization, such as "Data Engineer, Product," still ma
 A title that did not match Steps 1–3 is a related role only when both conditions hold:
 
 1. The title contains the whole word "Engineer" or "Scientist."
-2. The job-specific text, after removing verified boilerplate (Rule 4), matches at least one topic category from Rule 2.
+2. The job-specific text, after removing verified boilerplate (Rule 4), matches **at least two distinct topic categories** from Rule 2. *(Version 1.1 required one. Changed in Version 1.2; the evidence is below.)*
 
-This rule covers the related roles I intended, for example:
+This rule covers the related roles I intended, for example (each still needs two topic categories):
 
 - Software Engineer working on ML infrastructure, AI systems, data infrastructure, or data pipelines
 - AI Systems Engineer
@@ -124,15 +128,27 @@ This rule covers the related roles I intended, for example:
 - Research Scientist working on ML or AI systems
 - Performance Modeling Engineer when its responsibilities involve relevant engineering or ML systems
 
-AI Support Engineer and Network Operations Engineer titles are not excluded by name. They count as related only when their job-specific text matches a Rule 2 topic category. Otherwise they match no role.
+AI Support Engineer and Network Operations Engineer titles are not excluded by name. They count as related only when their job-specific text matches at least two Rule 2 topic categories. Otherwise they match no role.
 
 A related role must have a specific technical responsibility match. A generic mention of AI is not enough, because standalone "AI" is not a Rule 2 topic.
+
+**The Version 1.2 change (adopted 2026-11-25) and its evidence.** In Version 1.1, one topic phrase was enough to make an "Engineer" or "Scientist" title a related role. My reject audit found related roles kept in the review queue on a single phrase that did not describe the work:
+- "model evaluation" in Data Scientist, Real Estate & Workplace (audit row 55);
+- "agentic systems" in Security Engineer, Agent Security (audit row 60).
+
+I measured "require two categories" as change X2 (`experiments/REPORT.md`):
+
+- It changes 8 of the 2,418 saved postings, all from review to rejected. Target and special-review titles are not affected.
+- Every one of the 8 has my hand label: 3 from my tuning audit and 5 from my blind held-out sample. **By my labels, 7 decisions get better and 1 gets worse.** This is a count over every saved posting the change affects, not a sample estimate. It says nothing about postings collected later.
+- **The regression:** audit row 59, OpenAI `5dce6671-9aa8-4c49-b263-b175a2a927f8`, Applied Data Scientist, Personalization & Machine Learning. Its job text matches one topic category (machine learning). I labeled it "correctly in review". Version 1.2 rejects it with "no matching role". So my own example above, "Applied Data Scientist working on machine learning", is now covered only when the posting also matches a second category.
 
 **Step 5: No matching role — rejected**
 
 A title that matches none of Steps 1–4 gets 0 role points and is rejected with the reason "no matching role."
 
 **Reason:** A role title should indicate the main work of the job. A fixed order of checks makes every title's category reproducible, and generic AI or data terminology does not establish that the job matches Priya's target engineering roles.
+
+**Reason for the Version 1.2 change:** for a title that does not name a target role, one topic phrase was too weak a signal. Of the 8 saved postings kept in review on one phrase, I judged 7 should have been rejected. I accept the one known regression, and it stays listed here.
 
 ### Rule 2: Relevant Technical Topics
 
@@ -448,7 +464,7 @@ A posting with unknown required experience will not enter the confirmed shortlis
 
 **Reason:** I want the filter to distinguish a promising job from one whose requirements Priya actually satisfies. Missing or incomplete information should not be treated as proof of eligibility.
 
-## 4. Relevance Score — Version 1.1
+## 4. Relevance Score — Version 1.2 (unchanged from Version 1.1)
 
 I will continue using a score from 0 to 100.
 
@@ -709,6 +725,16 @@ Priya has an MS degree and approximately eight months of professional experience
 
 **Expected result:** The filter must not classify this posting as a confirmed match. Under Version 1.1, the parser should mark the degree-dependent experience requirement as `unknown`, and an otherwise relevant posting scoring at least 65 should enter the review queue.
 
+### Version 1.2 related-role rule (CONSTRUCTED)
+
+**These are CONSTRUCTED test cases, not real postings.** They live in `tests/test_versions.py`:
+
+- A "Software Engineer" title whose job text matches one topic category is no role, and is rejected, in Version 1.2. The same posting is a related role in Version 1.1.
+- With two topic categories, it is a related role.
+- A target title such as "Data Engineer" is not affected.
+- Version 1.2 differs from Version 1.1 in exactly one rule value. The Version 1.1 rules files are kept byte for byte.
+- The rejected and unadopted changes were not applied: the threshold is still 65, and "may also have" is not a preferred heading.
+
 I will record which wrong versions the tests actually catch after implementation.
 
 ## 10. What Moves the Score
@@ -722,7 +748,8 @@ I will document where the numbers and scoring rules came from.
 | Matching skill weight: 20 | Hand-set |
 | US location weight: 15 | Hand-set |
 | Experience weight: 10 | Hand-set |
-| Threshold: 65 | Hand-set |
+| Threshold: 65 | Hand-set. 55 was tested as change X1 and not adopted (inconclusive on held-out labels, and a larger review queue) |
+| Topic categories a related title needs: 2 (Version 1.2; 1 in Version 1.1) | Hand-set rule, changed after measuring: chosen from my tuning audit, checked on my held-out labels (change X2). Not fitted by any algorithm |
 | Near-threshold review range: 55–75 | Hand-set |
 | Two-year screening cutoff | Inherited from JS1 relevance decisions |
 | Priya's eight months of experience | Fictional résumé |
@@ -780,16 +807,26 @@ A change in behavior across sessions does not prove that the model was trained. 
 | 1.1 | 2026-11-18 | Treated "Software Engineer, Applied Emerging Talent (2027)" as a special program | Found by Claude's preliminary analysis outside the 139-posting group. It states "0-1 years of experience" but is a graduate-cohort program |
 | 1.1 | 2026-11-18 | Named Performance Modeling Engineer as a possible related role | Found by Claude's preliminary analysis outside the 139-posting group: "ideal for early-career engineers with 1–2 years of experience." Its title has no topic word |
 | 1.1 | 2026-11-18 | Expanded planned tests for experience and scoring edge cases | Preliminary posting analysis exposed cases not covered by the original four wrong versions |
+| 1.2 | 2026-11-25 | Rule 1, Step 4: a related title needs at least two distinct Rule 2 topic categories, not one | Change X2 (`experiments/REPORT.md`). It changes 8 of 2,418 saved postings, all from review to rejected. All 8 carry my hand label: 7 better, 1 worse. The regression is audit row 59, Applied Data Scientist, Personalization & Machine Learning. On my blind held-out labels alone: 5 better, 0 worse. The measurements were committed (`f88d1922`) before my decision (`experiments/RULE-CHANGE-LOG.md`) |
+| 1.2 | 2026-11-25 | Not adopted: X1 (threshold 55) and X3 ("may also have" treated as a preferred heading) | X1 was inconclusive: 9 of 15 held-out flips improved (95% Wilson 36%–80%), and the review queue would grow from 63 to 107. X3 changes no decision on the saved postings, so I claim no improvement; I keep it as a possible parsing improvement |
 
-The Version 1.0 content remains preserved in Git commit `f50b5001`.
+The Version 1.0 content remains preserved in Git commit `f50b5001`. The Version 1.1 content remains preserved in Git commit `9d78317d`, and its rules files are kept byte for byte in `rules/v1.1/`. The Version 1.2 wording was edited by Claude Code from my decisions in `experiments/RULE-CHANGE-LOG.md`.
 
-The measurements in this table come from Claude's preliminary, read-only analysis of my saved JS2 postings on 2026-11-18. They are not results of the JS3 filter. The final Version 1.1 wording was edited by Claude Code from decisions I approved.
+The measurements in the Version 1.1 rows come from Claude's preliminary, read-only analysis of my saved JS2 postings on 2026-11-18. They are not results of the JS3 filter. The Version 1.2 rows are results of the JS3 filter, measured on my hand labels. The final Version 1.1 wording was edited by Claude Code from decisions I approved.
 
 I will record further rules that I add, cut, or reject after measuring the filter.
 
 The Version 1.1 changes are based on preliminary observations. They do not establish that the filter has improved until it is implemented and evaluated.
 
 ## 12. What I Will Not Claim
+
+**Version 1.2 (2026-11-25):**
+- I do not claim that Version 1.2 is better on postings collected after 2026-11-10, or on any posting nobody labeled. The X2 result is a count of my own judgments over the 8 saved postings it changes.
+- Version 1.2 has one known regression (audit row 59).
+- The reject audit, the shortlist and the tool server in this folder were made with Version 1.1. The Version 1.2 run is in `runs/` under a `filter-v1.2-` folder name.
+- I still do not know the filter's precision or recall.
+
+**Written for Version 1.1 on 2026-11-18, before implementation:**
 
 At this stage, I have written and revised the filter rules but have not implemented or evaluated the JS3 filter.
 

@@ -1,6 +1,6 @@
 """Run the Claude judge experiments in runs/experiments.json on the held-out set, through the Claude Code CLI
 (`claude -p`, headless). Every raw reply is saved to runs/<exp>/<id>.json with the date; nothing is parsed by hand.
-Run:  python3 -m js3.claude_judge B B2 E1 E2 E3 E4"""
+Run:  python3 -m js3.claude_judge B B2 E1 E2 E3 E4      (second held-out set: python3 -m js3.claude_judge --h2 B B2 E1 E2 E4)"""
 import json, re, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
 from datetime import datetime
@@ -21,8 +21,9 @@ def build(exp, p):
         prompt += "\n" + (ROOT / "prompts/tool_addendum.txt").read_text().replace("{id}", p["id"])
     return prompt
 
+SETDIR = ""
 def one(exp, pid):
-    out = ROOT / "runs" / exp / (pid.replace(":", "_") + ".json")
+    out = ROOT / "runs" / SETDIR / exp / (pid.replace(":", "_") + ".json")
     if out.exists(): return json.loads(out.read_text())
     e = EXPS[exp]; p = CORPUS[pid]
     cmd = ["claude", "-p", build(exp, p), "--model", e["model"], "--output-format", "json", "--strict-mcp-config"]
@@ -42,9 +43,12 @@ def one(exp, pid):
     return rec
 
 def main(exps):
-    global CORPUS
+    global CORPUS, SETDIR
     CORPUS = {p["id"]: p for p in load_corpus(ROOT / "data/corpus.jsonl.gz")}
-    H = json.loads((ROOT / "audit/sets.json").read_text())["H_heldout"]
+    if exps and exps[0] == "--h2":                     # second held-out set (audit/sets_h2.json) -> runs/H2/<exp>/
+        SETDIR = "H2"; exps = exps[1:]; H = json.loads((ROOT / "audit/sets_h2.json").read_text())["H2_heldout"]
+    else:
+        H = json.loads((ROOT / "audit/sets.json").read_text())["H_heldout"]
     jobs = [(x, pid) for x in exps for pid in H]
     with ThreadPoolExecutor(6) as ex:
         for rec in ex.map(lambda j: one(*j), jobs):
