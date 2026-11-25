@@ -1,0 +1,303 @@
+{
+  "metadata": {
+    "slug": "job-search-agent-final-project-film",
+    "title": "A Supervised Job-Search Agent with Sponsorship Evidence",
+    "topic": "INFO 7375 · FINAL PROJECT FILM",
+    "purpose": "Explain the final project in Professor Bear's four required parts, in order: executive summary, introduction, methods, evaluation. Distinguish completed JS1–JS3 work (past tense, with commits) from planned final-project work (future tense).",
+    "author": "Swathi Baba Eswarappa",
+    "course": "INFO 7375 - Prompt Engineering and Generative AI",
+    "assignment": "Final Project Film",
+    "register": "plain, direct, first person, no hype",
+    "engine": "kokoro",
+    "voice": "am_michael",
+    "voice_kokoro": "am_michael",
+    "clock": "narration",
+    "style_preset": "brutalist",
+    "palette": "brutalist-dark",
+    "ground": "#0B0B0C",
+    "target_runtime_s": 257,
+    "runtime_ceiling_s": 300,
+    "evidence_policy": "Completed-work numbers (B05) come only from committed JS3 artifacts (commits 0f689b8, d4a3b94, beb8a26, 815064e, 7672a21; final c2e624e). Facts about existing tools and DOL data come from the references in PLAN-APPENDIX.md section 9, shown as small source footers. Everything not built is labelled PLANNED and narrated with 'will'. Evaluation thresholds are labelled PROPOSED TARGETS — NOT RESULTS. No logos, screenshots, company-branded imagery, or personal details. The persona is labelled FICTIONAL.",
+    "data_sources": [
+      "JS3 committed artifacts, branch js3-filter-tool-score-swathi-e, commit c2e624e",
+      "PLAN-APPENDIX.md"
+    ]
+  },
+  "beats": [
+    {
+      "beat_id": "B01",
+      "act": "EXEC_SUMMARY",
+      "estimated_duration_s": 21,
+      "narration_text": "My final project is a supervised job-search agent for international students. It finds early-career jobs on company job boards, sets aside the ones that don't fit, and for each job that remains, shows the evidence a student needs before applying, including whether the employer has a public record of sponsoring work visas.",
+      "new_visual_element": "Part 1 header; funnel of job cards narrowing to a few, each with an evidence tag",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B01_WhatItIs",
+        "engine": "manim",
+        "production_viz": {
+          "label": "1 · EXECUTIVE SUMMARY · WHAT I'M BUILDING (PLANNED)",
+          "mechanic": "Part header '1 · EXECUTIVE SUMMARY' types on top-left and stays. Many small blank job cards (no company names, no logos) fall into a funnel; a few come out, each gaining a small 'evidence' tag. Corner badge 'PLANNED' stays on screen. Footer: 'Plan: PLAN-APPENDIX.md §1'.",
+          "colors": [
+            "#F5F3EF",
+            "#4FC3F7",
+            "#FFB020"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B02",
+      "act": "EXEC_SUMMARY",
+      "estimated_duration_s": 22,
+      "narration_text": "It matters because students on O P T have limited time to find work, and many employers won't sponsor. A wrong \"this job fits\" wastes days. A wrong \"they sponsor\" can cost much more. So the agent shows its evidence, says when it isn't sure, and doesn't apply or send anything on its own.",
+      "new_visual_element": "Two error cards with cost scale; 'shows evidence / says unsure / no auto-apply' chips",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B02_WhyItMatters",
+        "engine": "manim",
+        "production_viz": {
+          "label": "1 · EXECUTIVE SUMMARY · WHY IT MATTERS",
+          "mechanic": "A shrinking time bar labelled 'job-search window'. Two error cards: 'wrong: this job fits' (small weight) and 'wrong: they sponsor' (large weight) tip a scale. Three chips appear: 'shows evidence', 'says when unsure', 'no auto-apply, no auto-send'. No personal details.",
+          "colors": [
+            "#F5F3EF",
+            "#FF4D3D",
+            "#3DDC84"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B03",
+      "act": "INTRODUCTION",
+      "estimated_duration_s": 26,
+      "narration_text": "Good tools already exist. U S C I S publishes an H one B Employer Data Hub with approval and denial counts by employer, back to two thousand nine. The Department of Labor publishes case-level disclosure files every quarter. Sites like My Visa Jobs and H one B Grader turn this data into employer search, and browser extensions like Interstride's flag sponsors on LinkedIn and Indeed.",
+      "new_visual_element": "Text-only cards for each existing tool with one-line 'what it does well'; source footer",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B03_ExistingTools",
+        "engine": "manim",
+        "production_viz": {
+          "label": "2 · INTRODUCTION · WHAT ALREADY EXISTS",
+          "mechanic": "Part header '2 · INTRODUCTION'. Four plain text cards (no logos, no screenshots): 'USCIS H-1B Employer Data Hub: approvals/denials by employer, FY2009+', 'DOL OFLC disclosure files: case-level, quarterly', 'MyVisaJobs, H1BGrader: employer search', 'Browser extensions (e.g. Interstride): mark sponsors on job sites'. Each gets a green 'does this well' tick. Footer, small: 'Sources: USCIS H-1B Data Hub launch notice; DOL OFLC Performance Data; product descriptions (see PLAN-APPENDIX.md §9)'.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#6B6B70"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B04",
+      "act": "INTRODUCTION",
+      "estimated_duration_s": 18,
+      "narration_text": "These tools answer an important question well: has this employer sponsored before? I'm adding a narrower one: what does this posting say, and how does that compare with the employer's record? My agent shows both, cites each, flags differences, and leaves the decision to a person.",
+      "new_visual_element": "Two-panel card: POSTING SAYS vs EMPLOYER HISTORY, with 'difference to review' flag",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B04_MyQuestion",
+        "engine": "manim",
+        "production_viz": {
+          "label": "2 · INTRODUCTION · WHAT I'M ADDING (PLANNED)",
+          "mechanic": "Top: 'Has this employer sponsored before?' (existing tools, ticked). Below: 'What does this posting say, and how does it compare?' Card splits into two panels: 'POSTING SAYS (quoted)' and 'EMPLOYER HISTORY (cited)'. An amber flag 'DIFFERENCE TO REVIEW' (not 'error'). A person icon with 'decides'. Badge 'PLANNED'.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#4FC3F7"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B05",
+      "act": "METHODS_COMPLETED",
+      "estimated_duration_s": 32,
+      "narration_text": "This builds on completed work. In Job-Search Agents one to three, I wrote filter rules before code, and collected one thousand eight hundred thirty-two public postings from Databricks, Stripe and Plaid on November seventeenth. Version one shortlisted four. I reviewed thirty random rejections and judged none relevant, though a sample that small can't rule out a miss rate up to about ten percent. Version one point one then fixed gaps the audit found, changing seven verdicts; the shortlist stayed at four.",
+      "new_visual_element": "COMPLETED timeline: rules -> collection 1,832 -> v1 shortlist 4 -> audit 0/30 (<=~10%) -> v1.1 7 changed, shortlist 4",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B05_CompletedWork",
+        "engine": "manim",
+        "production_viz": {
+          "label": "3 · METHODS · COMPLETED (JS1–JS3)",
+          "mechanic": "Part header '3 · METHODS'. Green badge 'COMPLETED · JS3' stays on screen. Timeline draws left to right: 'Rules before code (0f689b8)' -> '1,832 postings, Nov 17 (d4a3b94): Databricks 901 · Stripe 789 · Plaid 142' -> 'v1: 4 shortlisted (beb8a26)' -> 'Audit of v1: 0 of 30 random rejects relevant; sample only, could be up to ~10% (815064e)' -> 'v1.1 after audit: 7 verdicts changed, shortlist still 4 (7672a21)'. Footer, small: 'Source: committed JS3 artifacts, commit c2e624e'.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#6B6B70"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B06",
+      "act": "METHODS_PLANNED",
+      "estimated_duration_s": 32,
+      "narration_text": "The new data is the Labor Department's disclosure files. An employer must get a Labor Condition Application certified before filing an H one B petition, so these records show historical sponsorship activity, not a visa approval or a promise for this job. I'll count only certified H one B cases, list withdrawn certifications separately, and leave out H one B one and E three. If a posting says it won't sponsor, that comes first; the employer's history is context.",
+      "new_visual_element": "LCA -> petition sequence; filter H-1B only, Certified counted, Certified-Withdrawn listed separately; precedence card; source footer",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B06_DataAndLimits",
+        "engine": "manim",
+        "production_viz": {
+          "label": "3 · METHODS · NEW DATA (PLANNED)",
+          "mechanic": "Badge switches to amber 'PLANNED (NOT BUILT)' and stays. Sequence: 'LCA certified by DOL' -> 'H-1B petition to USCIS' -> 'decision' (dashed, labelled 'not in this data'). Caption: 'historical activity ≠ approval ≠ future promise'. Filter: VISA_CLASS keeps 'H-1B', strikes 'H-1B1', 'E-3'. CASE_STATUS: 'Certified → counted'; 'Certified-Withdrawn → listed separately, not counted'; 'Denied, Withdrawn → excluded'. Precedence card: '1. posting restriction (headline)  2. employer history (context)'. Footer, small: 'Sources: 20 CFR 655 Subpart H; DOL LCA record layout'.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#B388FF"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B07",
+      "act": "METHODS_PLANNED",
+      "estimated_duration_s": 24,
+      "narration_text": "The agent will run as a loop: collect, filter, match, check, record, stop. Outside sources are read-only; it writes only to its own memory, audit log, and decision records. Each run has a fixed budget, and stops when the queue is empty, the budget is spent, or an error limit is hit, not because the model says it's done.",
+      "new_visual_element": "Loop with CHECK step, READ-ONLY outside boundary, allowed internal write folders, budget meter, three stop exits",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B07_LoopAndPermissions",
+        "engine": "manim",
+        "production_viz": {
+          "label": "3 · METHODS · LOOP, TOOLS, STOP (PLANNED)",
+          "mechanic": "Dashed (not built) loop: collect -> filter -> match -> check -> record -> stop. Outside boundary box labelled 'job boards · DOL files: READ-ONLY'. Inside, three folders 'state/ (memory)', 'audit/', 'decisions/' with 'writes allowed'. A red-crossed 'send / apply' tool slot labelled 'no such tool'. Budget meter. Three exits: 'queue empty', 'budget spent', 'error limit'; a struck-out 'model says done'. Badge 'PLANNED'. Footer: 'Plan: PLAN-APPENDIX.md §5'.",
+          "colors": [
+            "#F5F3EF",
+            "#4FC3F7",
+            "#FF4D3D"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B08",
+      "act": "METHODS_PLANNED",
+      "estimated_duration_s": 23,
+      "narration_text": "I'll approve, refuse, or defer each job, and each decision is tied to the exact evidence I saw. The student in this project, Priya Nair, is fictional. Resources: my university's Claude Code seat covers model access, within usage limits; job-board APIs need no key; government data is free; my laptop is enough. Details are in my appendix.",
+      "new_visual_element": "Gate with approve/refuse/defer bound to evidence hash; FICTIONAL persona card; resources checklist; appendix card",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B08_GateAndResources",
+        "engine": "manim",
+        "production_viz": {
+          "label": "3 · METHODS · HUMAN GATE + RESOURCES (PLANNED)",
+          "mechanic": "Gate icon with three buttons 'approve / refuse / defer'; a line ties the decision to an evidence card marked '#hash' (a changed card shows 'stale: rejected'). Small persona card 'Priya Nair — FICTIONAL'. Resources checklist: 'Claude Code via university seat (model access, usage limits apply)', 'job-board APIs, no key', 'free government data', 'laptop'. Final card 'Details: PLAN-APPENDIX.md'. Badge 'PLANNED'.",
+          "colors": [
+            "#F5F3EF",
+            "#3DDC84",
+            "#FFB020"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B09",
+      "act": "EVALUATION",
+      "estimated_duration_s": 15,
+      "narration_text": "First, I'll hand-label sixty employers: twenty for development, and forty locked away as a held-out test, including employers with no qualifying records. Missed matches count only employers that truly have records; the rest are checked for false matches.",
+      "new_visual_element": "60 -> 20 dev / 40 held-out (locked); held-out split: with records / no qualifying records",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B09_LabelSets",
+        "engine": "manim",
+        "production_viz": {
+          "label": "4 · EVALUATION · TEST SETS (PLANNED)",
+          "mechanic": "Part header '4 · EVALUATION'. 60 small squares split into 20 'development' and 40 'held-out' (padlock, 'committed before code'). The 40 split into '≥25 with qualifying records → missed-match check' and '≥10 with none → false-match check'. Example output card: 'No qualifying record found in the selected datasets'. Badge 'PLANNED'. Footer: 'Plan: PLAN-APPENDIX.md §7'.",
+          "colors": [
+            "#F5F3EF",
+            "#4FC3F7",
+            "#B388FF"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B10",
+      "act": "EVALUATION",
+      "estimated_duration_s": 20,
+      "narration_text": "A separate checker will re-verify each claim against the raw files: the right employer, the right source, and whether the record supports the sentence. I'll trigger one wrong match on purpose to show it gets caught, plus at least five deliberate failure cases and tests that try forbidden actions.",
+      "new_visual_element": "Independent checker with three checks; planted wrong match blocked; failure-case list",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B10_Checker",
+        "engine": "manim",
+        "production_viz": {
+          "label": "4 · EVALUATION · INDEPENDENT CHECK (PLANNED)",
+          "mechanic": "A card passes through a separate 'CHECKER' box with three ticks: 'right employer', 'right source', 'record supports sentence'. A card marked 'SEEDED: wrong match' fails the employer check and is blocked with a red stop. Side list 'deliberate failures (≥5): no filings · suffix variant · trade name · look-alike · staffing placement · H-1B1/E-3 only'. Badge 'PLANNED'. Footer: 'Plan: PLAN-APPENDIX.md §6'.",
+          "colors": [
+            "#F5F3EF",
+            "#FF4D3D",
+            "#3DDC84"
+          ]
+        }
+      }
+    },
+    {
+      "beat_id": "B11",
+      "act": "EVALUATION",
+      "estimated_duration_s": 24,
+      "narration_text": "My proposed pass line: zero wrong matches, zero unsupported claims, zero unauthorized actions, every planted difference flagged, and at most two missed matches. After any fix, the first held-out result stays on record; a re-run is only a regression test. The employers are chosen on purpose, so this tests my rules, not a general error rate. These are targets, not results.",
+      "new_visual_element": "PROPOSED TARGETS table; protocol note first result kept / re-run = regression; limits card; sign-off",
+      "shot": {
+        "type": "GRAPHIC",
+        "source": "own",
+        "motion": "drawon"
+      },
+      "graphic": {
+        "manim": "B11_Targets",
+        "engine": "manim",
+        "production_viz": {
+          "label": "4 · EVALUATION · PROPOSED TARGETS — NOT RESULTS",
+          "mechanic": "Table titled 'PROPOSED TARGETS — NOT RESULTS' (label stays whole beat): wrong matches 0 · unsupported claims 0 · unauthorized actions 0 · planted differences flagged: all · missed matches ≤ 2 (of employers with records). Below: 'first held-out result kept; re-run after a fix = regression test'. Limits card: 'purposive sample: tests the rules, not a real-world rate'. Footer: 'Plan: PLAN-APPENDIX.md §7'. Fades to sign-off: 'Swathi Baba Eswarappa · INFO 7375 · Final Project Film'.",
+          "colors": [
+            "#F5F3EF",
+            "#FFB020",
+            "#6B6B70"
+          ]
+        }
+      }
+    }
+  ]
+}

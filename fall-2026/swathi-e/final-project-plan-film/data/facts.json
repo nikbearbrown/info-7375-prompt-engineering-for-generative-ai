@@ -1,0 +1,260 @@
+{
+  "_about": "Every number drawn on screen in scene.py is read from this file. Nothing numeric is typed into an animation. check_facts.py verifies (1) each spoken form below occurs in that beat's narration_text, and (2) scene.py contains no string literal with a digit outside this file. Numbers shown but not spoken carry an empty 'spoken' and a note.",
+  "_sources": {
+    "BEAT-SHEET": "beat_sheet.json production_viz (approved on-screen text)",
+    "JS3": "JS3 committed artifacts, branch js3-filter-tool-score-swathi-e, final commit c2e624e (PLAN-APPENDIX.md section 2)",
+    "PLAN-APPENDIX": "PLAN-APPENDIX.md"
+  },
+  "numbers": {
+    "course": {
+      "display": "INFO 7375",
+      "source": "beat_sheet.json metadata.course",
+      "spoken": {},
+      "note": "Chrome on every beat and the B11 sign-off; not spoken."
+    },
+    "h1b": {
+      "display": "H-1B",
+      "source": "BEAT-SHEET B03, B06",
+      "spoken": {
+        "B03": "H one B Employer Data Hub",
+        "B06": "certified H one B cases"
+      }
+    },
+    "h1b1": {
+      "display": "H-1B1",
+      "source": "BEAT-SHEET B06, B10",
+      "spoken": {
+        "B06": "H one B one"
+      },
+      "note": "B10 lists it on screen ('H-1B1/E-3 only') without speaking it."
+    },
+    "e3": {
+      "display": "E-3",
+      "source": "BEAT-SHEET B06, B10",
+      "spoken": {
+        "B06": "E three"
+      },
+      "note": "B10 lists it on screen without speaking it."
+    },
+    "fy_start": {
+      "display": "FY2009+",
+      "source": "BEAT-SHEET B03; PLAN-APPENDIX section 9 (USCIS H-1B Employer Data Hub)",
+      "spoken": {
+        "B03": "back to two thousand nine"
+      }
+    },
+    "grader_sites": {
+      "display": "MyVisaJobs, H1BGrader",
+      "source": "BEAT-SHEET B03",
+      "spoken": {
+        "B03": "My Visa Jobs and H one B Grader"
+      }
+    },
+    "js_range": {
+      "display": "JS1–JS3",
+      "source": "beat_sheet.json B05 label",
+      "spoken": {
+        "B05": "Job-Search Agents one to three"
+      },
+      "note": "Appears in the B05 label, which scene.py reads from beat_sheet.json."
+    },
+    "js3": {
+      "display": "JS3",
+      "source": "BEAT-SHEET B05 badge and footer",
+      "spoken": {
+        "B05": "one to three"
+      }
+    },
+    "postings_total": {
+      "display": "1,832",
+      "value": 1832,
+      "source": "JS3 commit d4a3b94; runs/filter-2026-11-17T21-47-06-167440-0500/results.json",
+      "spoken": {
+        "B05": "one thousand eight hundred thirty-two"
+      }
+    },
+    "collection_date": {
+      "display": "Nov 17",
+      "source": "JS3 commit d4a3b94 (live collection 2026-11-17 21:47 ET)",
+      "spoken": {
+        "B05": "November seventeenth"
+      }
+    },
+    "postings_databricks": {
+      "display": "901",
+      "value": 901,
+      "source": "JS3 commit d4a3b94",
+      "spoken": {},
+      "note": "Shown in the B05 timeline; narration names the companies but not the per-company counts."
+    },
+    "postings_stripe": {
+      "display": "789",
+      "value": 789,
+      "source": "JS3 commit d4a3b94",
+      "spoken": {},
+      "note": "Shown, not spoken (see postings_databricks)."
+    },
+    "postings_plaid": {
+      "display": "142",
+      "value": 142,
+      "source": "JS3 commit d4a3b94",
+      "spoken": {},
+      "note": "Shown, not spoken (see postings_databricks)."
+    },
+    "v1": {
+      "display": "v1",
+      "source": "BEAT-SHEET B05",
+      "spoken": {
+        "B05": "Version one shortlisted"
+      }
+    },
+    "v1_shortlisted": {
+      "display": "4",
+      "value": 4,
+      "source": "JS3 commit beb8a26",
+      "spoken": {
+        "B05": "shortlisted four"
+      }
+    },
+    "audit_sample": {
+      "display": "30",
+      "value": 30,
+      "source": "JS3 audit report 815064e",
+      "spoken": {
+        "B05": "thirty random rejections"
+      }
+    },
+    "audit_relevant": {
+      "display": "0",
+      "value": 0,
+      "source": "JS3 audit report 815064e",
+      "spoken": {
+        "B05": "judged none relevant"
+      }
+    },
+    "audit_bound": {
+      "display": "~10%",
+      "source": "JS3 audit report 815064e (rule of three, 3/30)",
+      "spoken": {
+        "B05": "up to about ten percent"
+      }
+    },
+    "v11": {
+      "display": "v1.1",
+      "source": "BEAT-SHEET B05",
+      "spoken": {
+        "B05": "Version one point one"
+      }
+    },
+    "v11_changed": {
+      "display": "7",
+      "value": 7,
+      "source": "JS3 commit 7672a21",
+      "spoken": {
+        "B05": "changing seven verdicts"
+      }
+    },
+    "v11_shortlisted": {
+      "display": "4",
+      "value": 4,
+      "source": "JS3 commit 7672a21",
+      "spoken": {
+        "B05": "the shortlist stayed at four"
+      }
+    },
+    "rank_1": {
+      "display": "1.",
+      "source": "BEAT-SHEET B06 precedence card",
+      "spoken": {},
+      "note": "Precedence order on the B06 card; narration says 'that comes first'."
+    },
+    "rank_2": {
+      "display": "2.",
+      "source": "BEAT-SHEET B06 precedence card",
+      "spoken": {},
+      "note": "Precedence order on the B06 card; narration says 'the employer's history is context'."
+    },
+    "label_total": {
+      "display": "60",
+      "value": 60,
+      "source": "PLAN-APPENDIX section 7.1",
+      "spoken": {
+        "B09": "hand-label sixty employers"
+      }
+    },
+    "label_dev": {
+      "display": "20",
+      "value": 20,
+      "source": "PLAN-APPENDIX section 7.1",
+      "spoken": {
+        "B09": "twenty for development"
+      }
+    },
+    "label_heldout": {
+      "display": "40",
+      "value": 40,
+      "source": "PLAN-APPENDIX section 7.1",
+      "spoken": {
+        "B09": "forty locked away"
+      }
+    },
+    "heldout_with_records": {
+      "display": "≥25",
+      "value": 25,
+      "source": "BEAT-SHEET B09; PLAN-APPENDIX section 7.1",
+      "spoken": {},
+      "note": "Shown, not spoken; narration says 'employers that truly have records'."
+    },
+    "heldout_none": {
+      "display": "≥10",
+      "value": 10,
+      "source": "BEAT-SHEET B09; PLAN-APPENDIX section 7.1",
+      "spoken": {},
+      "note": "Shown, not spoken; narration says 'employers with no qualifying records'."
+    },
+    "min_failures": {
+      "display": "≥5",
+      "value": 5,
+      "source": "BEAT-SHEET B10; PLAN-APPENDIX section 6",
+      "spoken": {
+        "B10": "at least five deliberate failure cases"
+      }
+    },
+    "target_zero": {
+      "display": "0",
+      "value": 0,
+      "source": "BEAT-SHEET B11 (proposed target, not a result)",
+      "spoken": {
+        "B11": "zero wrong matches, zero unsupported claims, zero unauthorized actions"
+      }
+    },
+    "target_missed": {
+      "display": "≤ 2",
+      "value": 2,
+      "source": "BEAT-SHEET B11 (proposed target, not a result)",
+      "spoken": {
+        "B11": "at most two missed matches"
+      }
+    }
+  },
+  "commits": {
+    "_note": "JS3 commit ids, shown on screen in B05, not spoken. Source: PLAN-APPENDIX section 2.",
+    "rules": "0f689b8",
+    "collection": "d4a3b94",
+    "v1": "beb8a26",
+    "audit": "815064e",
+    "v11": "7672a21",
+    "final": "c2e624e"
+  },
+  "footers": {
+    "_note": "Footer text copied verbatim from each beat's production_viz mechanic. B02 and B04 specify no footer.",
+    "B01": "Plan: PLAN-APPENDIX.md §1",
+    "B03": "Sources: USCIS H-1B Data Hub launch notice; DOL OFLC Performance Data; product descriptions (see PLAN-APPENDIX.md §9)",
+    "B05": "Source: committed JS3 artifacts, commit c2e624e",
+    "B06": "Sources: 20 CFR 655 Subpart H; DOL LCA record layout",
+    "B07": "Plan: PLAN-APPENDIX.md §5",
+    "B09": "Plan: PLAN-APPENDIX.md §7",
+    "B10": "Plan: PLAN-APPENDIX.md §6",
+    "B11": "Plan: PLAN-APPENDIX.md §7"
+  }
+}
