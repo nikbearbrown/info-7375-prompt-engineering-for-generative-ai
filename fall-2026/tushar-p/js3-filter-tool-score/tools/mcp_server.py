@@ -63,7 +63,9 @@ TOOL_NAME = "score_posting"
 TOOL = {
     "name": TOOL_NAME,
     "description": ("Score one saved posting against FILTER.md v0.2. Read-only; uses the committed "
-                    "corpus evidence/runs/live-text-1; no network."),
+                    "corpus evidence/runs/live-text-1; no network. "
+                    "Also reads the fictional persona file ../js1-contract-and-watch/persona/cole-palmer.example.json. "
+                    "Every call's arguments and results are logged to evidence/mcp/."),
     "inputSchema": {
         "type": "object",
         "properties": {
@@ -73,6 +75,13 @@ TOOL = {
         "required": ["board", "posting_id"],
         "additionalProperties": False,
     },
+    # Hints only (MCP schema 2025-11-25). Read as the tool's effect on the corpus and the user's files:
+    # a call changes neither. The server process does append each message to its transcript in
+    # evidence/mcp/ (said in the description); under a reading that counts that log, readOnlyHint
+    # and idempotentHint would be false. destructiveHint/idempotentHint only carry meaning when
+    # readOnlyHint is false.
+    "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True,
+                    "openWorldHint": False},
 }
 
 PARSE_ERROR, INVALID_REQUEST, METHOD_NOT_FOUND, INVALID_PARAMS, INTERNAL_ERROR = (

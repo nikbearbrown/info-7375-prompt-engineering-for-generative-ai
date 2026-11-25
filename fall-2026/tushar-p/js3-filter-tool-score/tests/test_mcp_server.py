@@ -34,7 +34,9 @@ STRIPE_REJECT = "8144196"                              # v0.2 reject at G4: "AI 
 EXPECTED_TOOL = {
     "name": "score_posting",
     "description": ("Score one saved posting against FILTER.md v0.2. Read-only; uses the committed corpus "
-                    "evidence/runs/live-text-1; no network."),
+                    "evidence/runs/live-text-1; no network. Also reads the fictional persona file "
+                    "../js1-contract-and-watch/persona/cole-palmer.example.json. Every call's arguments and "
+                    "results are logged to evidence/mcp/."),
     "inputSchema": {
         "type": "object",
         "properties": {
@@ -44,6 +46,7 @@ EXPECTED_TOOL = {
         "required": ["board", "posting_id"],
         "additionalProperties": False,
     },
+    "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
 }
 
 INIT = {"jsonrpc": "2.0", "id": 1, "method": "initialize",

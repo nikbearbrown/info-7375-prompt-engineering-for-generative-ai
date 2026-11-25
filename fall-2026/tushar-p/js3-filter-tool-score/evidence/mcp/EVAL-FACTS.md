@@ -146,3 +146,20 @@ The `tools/list` entries say only "Only works within allowed directories". They 
 - `github.com/modelcontextprotocol/servers` at `c799c8552b0f27b7a33a7b9233773da144dddcf5`, `src/filesystem/` (read locally from the `/tmp` clone).
 - MCP schema `schema/2025-11-25/schema.ts` lines 1168-1222 (ToolAnnotations), from `raw.githubusercontent.com/modelcontextprotocol/modelcontextprotocol/main/…`. `main` was at `2bbace557bbf2cb5d03d6f9b48905415cd7607b0` when it was fetched on 2026-11-25.
 - MCP spec `modelcontextprotocol.io/specification/2025-11-25/server/tools`, fetched 2026-11-25: "clients **MUST** consider tool annotations to be untrusted unless they come from trusted servers"; "there **SHOULD** always be a human in the loop with the ability to deny tool invocations."
+
+---
+
+## Addendum, 2026-11-24 23:41 EST: my server's declaration after the fix
+
+Lines 1-148 above are unchanged and describe the **pre-fix** declaration, the one the first transcript shows.
+The fix follows Tushar's trust decisions in `EVALUATIONS.md`.
+
+- **Description now:** "Score one saved posting against FILTER.md v0.2. Read-only; uses the committed corpus evidence/runs/live-text-1; no network. Also reads the fictional persona file ../js1-contract-and-watch/persona/cole-palmer.example.json. Every call's arguments and results are logged to evidence/mcp/."
+- **Annotations now:** `{"readOnlyHint": true, "destructiveHint": false, "idempotentHint": true, "openWorldHint": false}`.
+- **Effect on the mismatches above:** mismatch 1 (the persona read) and mismatch 6 (no annotations) are now declared. Mismatch 2 (the transcript write) is now stated in the description. Mismatches 3-5 are unchanged.
+- **How the annotations read the transcript.** The hints describe the tool's effect on the corpus and on the user's files: a call changes neither. The server process still appends every message to a transcript in `evidence/mcp/`. If that log counts as "its environment" (the spec's wording), `readOnlyHint` and `idempotentHint` would be false. `destructiveHint` holds either way, because the log is append-only and opened in `"x"` mode. Per the schema, `destructiveHint` and `idempotentHint` carry meaning only when `readOnlyHint` is false.
+- **Annotations are still hints.** Nothing in MCP enforces them (see line 63).
+- **Second real client run** (same command, Claude Code 2.1.332): `transcript-run-20261125T044128Z-5fd246.jsonl` and `claude-client-reply-2026-11-24-postfix.txt`.
+  - 6 client→server, 5 server→client, 2 meta: the same message sequence as the first run.
+  - Its `tools/list` result equals the new declaration field for field, including the annotations.
+  - Verdicts are unchanged: notion `85947779-…` keep, score 4; stripe `8144196` reject at G4 on "4+ years".
