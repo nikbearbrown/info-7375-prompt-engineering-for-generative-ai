@@ -29,6 +29,14 @@ class FilterDocumentTest(unittest.TestCase):
         self.assertIn(f"score at least {screen.CUTOFF}.", FILTER_MD)
         self.assertIn(screen.FILTER_VERSION, FILTER_MD)
 
+    def test_the_v0_2_threshold_appears_in_filter_md(self):
+        import json
+        v02 = json.loads((Path(__file__).resolve().parent.parent / "variants" / "v0.2-experience-minimum.json")
+                         .read_text(encoding="utf-8"))
+        years = v02["set"]["jobwatch.screen.EXPERIENCE_MINIMUM_YEARS"]
+        self.assertIn(f"a minimum of {years}+ years that is not marked preferred", FILTER_MD)
+        self.assertIn(v02["set"]["jobwatch.screen.FILTER_VERSION"], FILTER_MD)
+
     def test_the_us_country_words_are_the_ones_the_chosen_option_names(self):
         self.assertIn("United States, USA, US or U.S.", FILTER_MD)
         self.assertEqual(location.US_COUNTRY_WORDS, ("united states", "usa", "us", "u s"))

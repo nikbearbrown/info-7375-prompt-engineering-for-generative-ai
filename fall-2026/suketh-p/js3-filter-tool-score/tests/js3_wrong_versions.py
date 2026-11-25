@@ -1,10 +1,12 @@
 """FILTER.md 'Wrong versions' as code: plausible filters and rankings that must NOT pass.
 
 WV1-WV4 are the student's (FILTER.md). C1-C7 are Claude Code's additions, each built from
-a sentence of FILTER.md. tests/test_js3_wrong_versions_caught.py swaps each one in and
+a sentence of FILTER.md v0.1; C8-C12 are Claude Code's wrong versions of the v0.2 experience rule. tests/test_js3_wrong_versions_caught.py swaps each one in and
 checks that every test named for it fails, the same mechanism JS2 used."""
 
-from jobwatch import evidence, location, screen
+import re
+
+from jobwatch import evidence, experience, location, screen
 from jobwatch.normalize import contains_phrase, tokens
 
 _REAL_SCORE = screen.score
@@ -84,6 +86,32 @@ def classify_outside_first(text):
     return result
 
 
+# C8-C12 are wrong versions of FILTER.md v0.2's experience-minimum rule (Claude Code's).
+# C8: read "preferred" years as a minimum (the student's "Five years preferred" worry, in the filter).
+def nothing_is_preferred(block_tokens, heading_tokens):
+    return False
+
+
+# C9: read a range at its upper end ("2-4 years" as 4).
+def upper_end(first, second):
+    return second if second is not None else first
+
+
+# C10: count every number of years, benefits and company history included.
+def every_mention_is_a_requirement(word_before, word_after):
+    return True
+
+
+# C11: reject only above the threshold, not at it ("3+ years" passes).
+def rejects_only_above(minimum_years):
+    return (screen.EXPERIENCE_MINIMUM_YEARS is not None and minimum_years is not None
+            and minimum_years > screen.EXPERIENCE_MINIMUM_YEARS)
+
+
+# C12: let a singular "year" count ("4-year degree" as four years of experience).
+YEARS_WITH_SINGULAR = re.compile(experience.YEARS_PATTERN.replace("(?:years|yrs)", "(?:years?|yrs)"), re.I)
+
+
 ALL = {
     "WV1 old skills gate": ("jobwatch.screen.score", score_with_the_old_skills_gate),
     "WV2 topics only in titles": ("jobwatch.screen._description_topic", no_description_topics),
@@ -96,10 +124,16 @@ ALL = {
     "C5 points per term": ("jobwatch.screen._award", points_per_term),
     "C6 description point always": ("jobwatch.screen._description_points", description_point_always),
     "C7 outside first": ("jobwatch.location.classify", classify_outside_first),
+    "C8 preferred read as a minimum": ("jobwatch.experience._preferred", nothing_is_preferred),
+    "C9 range read at its upper end": ("jobwatch.experience._lower_end", upper_end),
+    "C10 every mention of years counts": ("jobwatch.experience._is_requirement", every_mention_is_a_requirement),
+    "C11 above the threshold, not at it": ("jobwatch.screen._experience_rejects", rejects_only_above),
+    "C12 a singular year counts": ("jobwatch.experience.YEARS", YEARS_WITH_SINGULAR),
 }
 
 _S = "tests.test_screen."
 _E = "tests.test_evidence."
+_X = "tests.test_experience."
 CAUGHT_BY = {
     "WV1 old skills gate": [_S + "StudentsWrongVersionsTest.test_wv1_model_serving_with_go_and_grpc_is_kept_with_score_3"],
     "WV2 topics only in titles": [_S + "StudentsWrongVersionsTest.test_wv2_generic_title_with_model_serving_in_description_is_kept_with_score_2"],
@@ -113,4 +147,11 @@ CAUGHT_BY = {
     "C5 points per term": [_S + "TopicPointsTest.test_two_different_title_topics_earn_two_points_once"],
     "C6 description point always": [_S + "TopicPointsTest.test_no_description_point_when_the_title_already_earned_topic_points"],
     "C7 outside first": [_S + "LocationTest.test_any_us_location_counts_as_us"],
+    "C8 preferred read as a minimum": [_X + "ReadingTest.test_a_preferred_heading_marks_its_items_preferred",
+                                       _X + "ReadingTest.test_five_years_preferred_in_the_item_itself",
+                                       _X + "RuleTest.test_preferred_years_do_not_reject"],
+    "C9 range read at its upper end": [_X + "ReadingTest.test_a_range_reads_its_lower_end"],
+    "C10 every mention of years counts": [_X + "ReadingTest.test_benefits_and_history_are_not_requirements"],
+    "C11 above the threshold, not at it": [_X + "RuleTest.test_three_years_is_enough_to_reject"],
+    "C12 a singular year counts": [_X + "ReadingTest.test_a_four_year_degree_is_not_experience"],
 }
