@@ -1,0 +1,20 @@
+.F..
+======================================================================
+FAIL: test_every_case (test_filter.RealFilter.test_every_case)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NEU course\PEAI\_js3-worktree\fall-2026\vrajesh-n\js3-filter-tool-score\tests\test_filter.py", line 29, in test_every_case
+    self.assertEqual(mismatches(rule.judge), [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['role: Java Engineer: got not_relevant/R1[823 chars]one'] != []
+
+First list contains 13 additional elements.
+First extra element 0:
+'role: Java Engineer: got not_relevant/R1, want relevant/None'
+
+Diff is 920 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.004s
+
+FAILED (failures=1)
