@@ -35,10 +35,10 @@ def label_skill(text, skill):
         if not nice and not NICE.search(s): return {"label": S, "quote": s, "cannot_tell": False}
     return {"label": I, "quote": hits[0][0] if hits else "", "cannot_tell": True}
 
-def label_years(text, max_years):
+def label_years(text, max_years, ignore=()):
     best = None
     for s, _ in units(text):
-        for n, m in F.years_spans(s):
+        for n, m in F.years_spans(s, ignore):
             if best is None or n > best[0]: best = (n, s)
     if best is None: return {"label": I, "quote": "", "cannot_tell": True}
     return {"label": S if best[0] <= max_years else C, "quote": best[1], "cannot_tell": False}
@@ -51,10 +51,10 @@ def justify(posting, cfg):
         j["cannot_tell"] = True; j["why_not"] = f"I cannot tell: {d['failed'][0]} (FILTER.md section 3)"; return j
     role = next((w for w in cfg["role_words"] if F.has_phrase(d["title"], w)), None)
     j["claims"].append({"kind": "title", "claim": "is an entry-level analyst role (title)", "source": "title",
-                        "label": S if role and not d["r2_reject"] else C, "quote": d["title"], "cannot_tell": False})
+                        "label": S if role and not d["r2_reject"] and not d.get("r1b_reject") else C, "quote": d["title"], "cannot_tell": False})
     for sk in d["skills"]:
         r = label_skill(text, sk); j["claims"].append(dict(r, kind="skill", claim=f"requires {sk}", source="text"))
-    y = label_years(text, cfg["max_years"])
+    y = label_years(text, cfg["max_years"], cfg.get("years_ignore_if_followed_by", ()))
     j["claims"].append(dict(y, kind="years", claim=f"asks for at most {cfg['max_years']} years", source="text"))
     for c in j["claims"]: c["say"] = _say(c["label"], c["claim"], c["quote"])
     supported = sum(1 for c in j["claims"] if c["kind"] == "skill" and c["label"] == S)

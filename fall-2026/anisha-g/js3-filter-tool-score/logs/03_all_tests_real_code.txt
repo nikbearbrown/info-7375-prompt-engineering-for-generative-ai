@@ -1,4 +1,4 @@
-$ python3 -m unittest discover -s tests -t . -v   (2026-11-25 14:11)
+$ python3 -m unittest discover -s tests -t . -v   (2026-11-25 14:21)
 test_contradicted_years_never_shortlisted (tests.test_evidence.Justify.test_contradicted_years_never_shortlisted) ... ok
 test_every_claim_is_labelled_with_a_quote_or_cannot_tell (tests.test_evidence.Justify.test_every_claim_is_labelled_with_a_quote_or_cannot_tell) ... ok
 test_missing_text_cannot_tell_everything (tests.test_evidence.Justify.test_missing_text_cannot_tell_everything) ... ok
@@ -42,6 +42,12 @@ test_penalties (tests.test_filter.Score.test_penalties) ... ok
 test_rule_failure_rejects_even_with_high_score (tests.test_filter.Score.test_rule_failure_rejects_even_with_high_score) ... ok
 test_skill_cap_is_five (tests.test_filter.Score.test_skill_cap_is_five) ... ok
 test_title_plus_two_skills_is_exactly_five_and_kept (tests.test_filter.Score.test_title_plus_two_skills_is_exactly_five_and_kept) ... ok
+test_engineer_title_rejected_in_v11 (tests.test_filter_v11.TitleExclude.test_engineer_title_rejected_in_v11) ... ok
+test_still_kept_in_v10 (tests.test_filter_v11.TitleExclude.test_still_kept_in_v10) ... ok
+test_whole_word (tests.test_filter_v11.TitleExclude.test_whole_word) ... ok
+test_education_years_ignored_in_v11 (tests.test_filter_v11.YearsEducation.test_education_years_ignored_in_v11) ... ok
+test_experience_years_still_count (tests.test_filter_v11.YearsEducation.test_experience_years_still_count) ... ok
+test_v10_unchanged (tests.test_filter_v11.YearsEducation.test_v10_unchanged) ... ok
 test_failed_board_is_failed_not_zero (tests.test_policy_collect.FailedBoard.test_failed_board_is_failed_not_zero) ... ok
 test_more_than_five_boards_refused (tests.test_policy_collect.FailedBoard.test_more_than_five_boards_refused) ... ok
 test_writes_only_inside_data_out_transcripts (tests.test_policy_collect.Files.test_writes_only_inside_data_out_transcripts) ... ok
@@ -65,6 +71,6 @@ test_server_source_has_no_network_or_outside_writes (tests.test_toolserver.NoSid
 test_both_directions_recorded (tests.test_toolserver.Transcript.test_both_directions_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 64 tests in 0.412s
+Ran 70 tests in 0.411s
 
 OK

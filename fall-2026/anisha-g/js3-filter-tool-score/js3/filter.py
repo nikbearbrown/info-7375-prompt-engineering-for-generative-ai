@@ -14,18 +14,21 @@ def has_phrase(text, phrase):
 _RANGE = re.compile(r"(?<![\d.])(\d{1,2})\s*\+?\s*(?:-|–|—|to)\s*(\d{1,2})\s*\+?\s*(?:years?|yrs?)\b", re.I)
 _SINGLE = re.compile(r"(?<![\d.])(\d{1,2})\s*\+?\s*(?:plus\s+)?(?:years?|yrs?)\b", re.I)
 
-def years_spans(text):
-    """[(top_of_range, matched_text)]. A range counts by its top (FILTER.md R4)."""
+def years_spans(text, ignore_if_followed_by=()):
+    """[(top_of_range, matched_text)]. A range counts by its top (FILTER.md R4).
+    v1.1: a match followed within 40 characters by one of ignore_if_followed_by (e.g. 'university education') is skipped."""
     if not text: return []
     out, taken = [], []
+    def skip(m): return any(has_phrase(text[m.end():m.end() + 40], w) for w in ignore_if_followed_by)
     for m in _RANGE.finditer(text):
-        out.append((int(m.group(2)), m.group(0))); taken.append(m.span())
+        taken.append(m.span())
+        if not skip(m): out.append((int(m.group(2)), m.group(0)))
     for m in _SINGLE.finditer(text):
-        if not any(a <= m.start() < b for a, b in taken): out.append((int(m.group(1)), m.group(0)))
+        if not any(a <= m.start() < b for a, b in taken) and not skip(m): out.append((int(m.group(1)), m.group(0)))
     return out
 
-def years_in(text):
-    return [n for n, _ in years_spans(text)]
+def years_in(text, ignore_if_followed_by=()):
+    return [n for n, _ in years_spans(text, ignore_if_followed_by)]
 
 def evaluate(posting, cfg):
     title = (posting.get("title") or "").strip(); text = (posting.get("text") or "").strip()
@@ -36,13 +39,14 @@ def evaluate(posting, cfg):
     w = cfg["weights"]
     d["r1"] = any(has_phrase(title, x) for x in cfg["role_words"])
     d["r2_reject"] = any(has_phrase(title, x) for x in cfg["seniority_words"])
+    d["r1b_reject"] = any(has_phrase(title, x) for x in cfg.get("title_exclude_words", []))       # v1.1
     d["skills"] = [s for s in cfg["skills"] if has_phrase(text, s)]
     d["r3"] = len(d["skills"]) >= cfg["min_skills"]
-    ys = years_in(text)
+    ys = years_in(text, cfg.get("years_ignore_if_followed_by", ()))
     if ys: d["years_max"] = max(ys); d["r4"] = d["years_max"] <= cfg["max_years"]
     d["score"] = (w["title"] if d["r1"] else 0) + min(w["skill_cap"], w["per_skill"] * len(d["skills"])) \
                  - (w["seniority_penalty"] if d["r2_reject"] else 0) - (w["years_penalty"] if d["r4"] is False else 0)
-    d["failed"] = [r for r, bad in [("R1", not d["r1"]), ("R2", d["r2_reject"]), ("R3", not d["r3"]), ("R4", d["r4"] is False)] if bad]
+    d["failed"] = [r for r, bad in [("R1", not d["r1"]), ("R1b", d.get("r1b_reject")), ("R2", d["r2_reject"]), ("R3", not d["r3"]), ("R4", d["r4"] is False)] if bad]
     d["status"] = "kept" if not d["failed"] and d["score"] >= cfg["keep_threshold"] else "rejected"
     return d
 
