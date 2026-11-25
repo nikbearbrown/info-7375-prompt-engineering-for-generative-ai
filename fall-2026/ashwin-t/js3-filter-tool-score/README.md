@@ -13,10 +13,10 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 | 1. FILTER.md before the build | `FILTER.md` (committed alone at `a3a7a2af`, before any filter code) | Done; approved by Ashwin |
 | 2.1 Filter and reject audit | `jobfilter/filter.py`, `filters/`, `runs/`, `labels/`, `audit/` | ⚠ **Hand-judged audit 0 of 47.** Verdicts so far are AI-assisted (`audit/EXPLORATORY-v1.0-ai-assisted.md`). False friend demonstrated from text (`audit/FALSE-FRIENDS.md`) |
 | 2.2 Source-grounded shortlist | `SHORTLIST.md`, `shortlist/` | ⚠ All 90 claims labeled, **all Codex AI-assisted** (29 excerpt-based, 61 checked against text and structured fields); no human claim labels |
-| 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. ⚠ Both trust decisions are Ashwin's to write |
+| 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. ⚠ Both trust decisions proposed (Ashwin's wording, drafted with Codex), pending confirmation |
 | 2.4 What moves the score | `CHANGE.md`, `changes/` | One change (v1.1) measured on held-out labels; **potentially contaminated** |
-| 3. Sign-off and driver's seat | `SIGNOFF.md` | ⚠ Ashwin's to write and sign |
-| Frictional | `FRICTIONAL.md` | ⚠ Ashwin's experience lines |
+| 3. Sign-off and driver's seat | `SIGNOFF.md` | ⚠ Lines proposed, pending confirmation; not signed; driver's seat is a draft |
+| Frictional | `FRICTIONAL.md` | ⚠ Some lines proposed (drafted with Codex, pending confirmation); subjective lines still blank |
 
 ## Sample sizes: what the brief requires and what we chose
 

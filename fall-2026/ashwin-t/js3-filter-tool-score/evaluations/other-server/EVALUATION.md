@@ -35,8 +35,11 @@ an outside effect. Only Read and Write were exercised, and Write only inside a n
 
 ## Trust decision (Ashwin)
 
-> _To be written by Ashwin. Suggested questions:_
-> - _Would you connect this server to a client that can call tools without your approval?_
-> - _If so, only in a disposable directory, or with which tools allowed?_
-> - _Which of the 28 would you refuse outright?_
-> - _Signed and dated._
+**Status: proposed, pending Ashwin's explicit confirmation.** Ashwin supplied this wording in chat on 2026-11-25; Codex helped draft it.
+
+> I would not connect claude mcp serve to an unrestricted client that executes tools without approval. For this
+> evaluation, I would allow only Read through an enforced restriction to a disposable directory. The working
+> directory alone does not enforce that restriction.
+>
+> I would disable Bash, Write, WebFetch, SendMessage and RemoteTrigger for this read-only evaluation, and leave all
+> other untested tools disabled. Tool-list changes would require another review.

@@ -57,8 +57,14 @@ outside the folder; the transcript path outside the folder is refused, and `test
 
 ## Trust decision (Ashwin)
 
-> _To be written by Ashwin. Suggested questions:_
-> - _Would you let Claude call this tool without approving each call?_
-> - _Would you fix the "write anything" wording first?_
-> - _Would you trust its held-out refusal as a boundary, or only as a convenience?_
-> - _Signed and dated._
+**Status: proposed, pending Ashwin's explicit confirmation.** Ashwin supplied this wording in chat on 2026-11-25; Codex helped draft it.
+
+> I would allow score_posting calls without individual approval for this local coursework dataset, after
+> correcting the description to disclose transcript writes. The tool must clearly identify which filter version
+> it uses; serving v1.0 is acceptable for reproducing v1.0, but not as an unlabeled substitute for v1.1.
+>
+> I treat the held-out refusal as a workflow safeguard, not a security boundary. A client with filesystem access
+> can bypass it.
+
+The condition in the first sentence is not met yet. As of this commit, the description still says the server
+"cannot… write anything".

@@ -1,15 +1,23 @@
 # Sign-off: Job-Search Agent 3
 
-**This sign-off is Ashwin's to write.** Claude Code has listed facts Ashwin can check, and candidate "Not checked"
-items drawn from the record. Ashwin decides which to keep, adds their own, and signs or withholds.
+**Status: proposed, pending Ashwin's explicit confirmation.** Ashwin supplied this wording in chat on 2026-11-25; Codex helped draft it. The driver's-seat table below is still Claude Code's draft and has **not** been approved.
 
 ```text
 Sign-off — Job-Search Agent 3
-Checked:      (Ashwin)
-How:          (Ashwin)
-Not checked:  (Ashwin, at least three real items)
-Not claiming: (Ashwin)
-Signed or withheld: ____________ (name, date)
+Checked:      I ran the supplied test suite at b616bc09: 55 tests passed, exit 0, on Python 3.9.6.
+              This verifies that the supplied tests passed, not that every requirement is complete.
+How:          I ran Claude's tests myself. I did not independently author those tests.
+              The saved output is drafting/checks-run-by-ashwin.txt.
+Not checked:  - The required hand-judged posting audit remains 0/47.
+              - None of the 90 claim labels is an independent human judgment.
+              - The original 30-posting evaluation is potentially contaminated.
+              - The level-II and forward-deployed exclusions were not independently audited.
+              - Current job availability and Supriya's clearance or work-authorization eligibility
+                were not verified.
+Not claiming: Full rubric completion, validated filter accuracy, an uncontaminated improvement from
+              v1.1, suitability of every KEEP, or model training. The Mission Manager change corrects
+              a demonstrated keyword mismatch; it does not establish better overall accuracy.
+Signed or withheld: pending Ashwin's review and explicit confirmation (no signature inserted)
 ```
 
 ## Facts Ashwin can check, with the test or file for each
@@ -36,7 +44,7 @@ Signed or withheld: ____________ (name, date)
 - **Whether any job is still open.** The snapshot is from 2026-11-09.
 - **The choices in `drafting/IMPLEMENTATION-NOTES.md`** (I1–I9), including `Munich, DE` being read as Delaware.
 
-## Driver's seat (draft for Ashwin to edit)
+## Driver's seat (Claude Code's draft; not approved by Ashwin)
 
 | Task | Claude should | Ashwin should | Why |
 |---|---|---|---|
