@@ -208,3 +208,13 @@ Known limit: rule 2 triggers only when **no** span is found. A span that is foun
     - **Held-out:** 3 keep clusters, 10 clusters of rejects scoring 3–5, and 10 other reject clusters.
     - **Dev:** 30 random rejects, 6 closest at score 5, up to 6 at the lowest kept score, and **all** keeps outside held-out (fewer than the planned 8). Every shortfall is printed in `splits/groups.json`.
     - Seeds are unchanged.
+- **Evidence-rule clarifications C1 and C2** (2026-11-25, written while building `js3/shortlist.py`, **before any label was returned**). These make the §2 LEVEL and LOCATION claims mechanical. They do not change the score.
+  - **C1, LEVEL.** The claim is "open to someone with Priya's experience (under 1 year full-time)". The §2 wording "0–2 years" was ambiguous, because a posting that requires 2 years excludes her.
+    - **contradicted** if a title level word (S) is present, or any "N years" phrase has N ≥ 2;
+    - **supported** if an early-career phrase (E) is present and nothing contradicts;
+    - **insufficient** otherwise.
+  - **C2, LOCATION.** The claim is "in Boston or remote within the US".
+    - **supported** if the location field contains `boston`, or `remote` together with `us`/`usa`/`united states`;
+    - **insufficient** if the field is missing, or is only "Remote", "United States", "US", "USA" or "North America";
+    - **contradicted** otherwise.
+    - A multi-city field without Boston is contradicted, because these fields list the hiring places.
