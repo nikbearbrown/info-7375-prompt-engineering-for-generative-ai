@@ -1,0 +1,50 @@
+{
+ "name": "claude-1-score-android",
+ "started": "2026-11-25T17:24:09-05:00",
+ "returncode": 0,
+ "command": [
+  "claude",
+  "-p",
+  "--model",
+  "opus",
+  "--mcp-config",
+  "<empty temp folder>/mcp-config.json",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--tools",
+  "",
+  "--allowedTools",
+  "mcp__js3__score_posting",
+  "--no-session-persistence",
+  "--output-format",
+  "stream-json",
+  "--verbose",
+  "Use the score_posting tool on the saved posting klaviyo:7792539003. Then tell me in three sentences or fewer whether this job should reach Alex and why. Quote the tool's evidence exactly where you rely on it, and say clearly if the tool's answer is 'I cannot tell'."
+ ],
+ "cwd": "<an empty temporary folder>",
+ "mcp_config": {
+  "mcpServers": {
+   "js3": {
+    "type": "stdio",
+    "command": "python3",
+    "args": [
+     "-m",
+     "js3",
+     "serve"
+    ],
+    "env": {
+     "PYTHONPATH": "<FOLDER>"
+    }
+   }
+  }
+ },
+ "prompt": "Use the score_posting tool on the saved posting klaviyo:7792539003. Then tell me in three sentences or fewer whether this job should reach Alex and why. Quote the tool's evidence exactly where you rely on it, and say clearly if the tool's answer is 'I cannot tell'.",
+ "result": "The filter's rules say **Relevant** (all six pass), but its check of the justification comes back **\"I cannot tell\"**, so I wouldn't send this to Alex as a confirmed match yet. The blocking gap is full-time status: the tool marks it insufficient because there is \"no employment type field and no sentence saying full-time outside the benefits text\". The skills match is also weak: the role asks for \"1-3 years of professional Android development experience\", while Alex's Python, TypeScript and React appear only in a tech list or as things to be \"open to picking up\", which the tool also marks insufficient.",
+ "is_error": false,
+ "models": [
+  "claude-opus-5-5"
+ ],
+ "cost_usd": 0.059657,
+ "stderr_tail": ""
+}

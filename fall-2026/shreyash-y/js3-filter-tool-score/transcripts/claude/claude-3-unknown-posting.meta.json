@@ -1,0 +1,50 @@
+{
+ "name": "claude-3-unknown-posting",
+ "started": "2026-11-25T17:25:18-05:00",
+ "returncode": 0,
+ "command": [
+  "claude",
+  "-p",
+  "--model",
+  "opus",
+  "--mcp-config",
+  "<empty temp folder>/mcp-config.json",
+  "--strict-mcp-config",
+  "--setting-sources",
+  "",
+  "--tools",
+  "",
+  "--allowedTools",
+  "mcp__js3__score_posting",
+  "--no-session-persistence",
+  "--output-format",
+  "stream-json",
+  "--verbose",
+  "Use the score_posting tool to score the posting greenhouse:99999 and tell me in one or two sentences what the tool answered."
+ ],
+ "cwd": "<an empty temporary folder>",
+ "mcp_config": {
+  "mcpServers": {
+   "js3": {
+    "type": "stdio",
+    "command": "python3",
+    "args": [
+     "-m",
+     "js3",
+     "serve"
+    ],
+    "env": {
+     "PYTHONPATH": "<FOLDER>"
+    }
+   }
+  }
+ },
+ "prompt": "Use the score_posting tool to score the posting greenhouse:99999 and tell me in one or two sentences what the tool answered.",
+ "result": "The tool didn't score anything: it returned an error saying `greenhouse:99999` isn't in the agent's saved corpus. It can only score postings the agent has already collected, and it can't fetch new ones, so there's no verdict for this posting.",
+ "is_error": false,
+ "models": [
+  "claude-opus-5-5"
+ ],
+ "cost_usd": 0.028537999999999997,
+ "stderr_tail": ""
+}
