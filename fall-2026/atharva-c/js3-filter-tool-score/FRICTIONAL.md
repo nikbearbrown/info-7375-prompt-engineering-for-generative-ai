@@ -1,6 +1,6 @@
 # Frictional
 
-<!-- Dated entries. All entries are in my own words; Claude checked numbers and commit hashes against the record. -->
+The Day 1 entries were written by me as we worked; the Nov 24 entries below were rewritten by me from Claude's same-day drafts and checked against the git record.
 
 ## Nov 23, 2026 — Day 1: data, FILTER.md, label sample
 
@@ -76,3 +76,10 @@
 - **What I changed:** I added `FILTER.md` v1.3 as a documentation-only correction—leaving `v1.0` untouched and changing no filter rules—and fixed the same `91` vs. `173` wording in my Nov 23 `FRICTIONAL.md` entry above. Claude also drafted `score/report.md`, `PERSISTENCE.md`, `SIGNOFF.md` (unsigned), and `README.md` for my final review and sign-off.
 - **What I learned:** Requiring a runnable command behind every summary statistic in `score/origins.md` caught a subtle off-by-unique-group phrasing error that survived multiple manual reviews.
 - **Reference commits:** `2f40542` (`FILTER.md` v1.3, `score/origins.md`, `score/recount.py`, and initial Day 3 drafts).
+
+## Nov 24, 2026 (late) — In my own words
+
+- **What I accepted from Claude:** I committed `FILTER.md` v1.0 (`0041401`) as drafted because its gates and role rules matched the survey patterns, approved trying the `N ≥ 3` rule change in `v1.2` (`6dc9c6a`) and kept it after seeing `dev` false positives drop from `6` to `0`, kept the stdlib-only MCP server architecture (`830966a`) plus its runtime schema-validation fix (`e273c8e`), and accepted Claude's choice to evaluate the Filesystem server from its source without installing or running it, so no unreviewed third-party code ran on my machine.
+- **What I modified:** I changed my held-out label for `affirm:8032173003` from `reject` to `keep` after checking that its body asks for `1.5+` years rather than `2–5+` years (`215f29a`), corrected my initial audit misclick on `affirm:7815952003` (`Quantitative Analyst II`) to `reject`, and rewrote all of Claude's draft write-ups while cutting claims that went beyond the commit record (such as calling `v1.2` "tuned" or claiming all repository files were written in my own words).
+- **What I rejected:** After looking at the `4` remaining false positives on `heldout`, I chose not to add rules excluding native iOS/Android roles or matching mid-level phrases like `"track record"`—changing mobile support would redefine Sam's persona rather than fix a parsing bug, and adding lexical rules after reading those held-out postings in the audit would overfit to seen examples.
+- **What remains unresolved:** MCP server improvements 2–5 in `mcp/EVALUATIONS.md` (whole-word matching instead of substring search, inline gate/rule explanations in `judge_posting`, snapshot notices on every tool description, and removing duplicate full-text payloads), the `2+` years mid-level backend postings that pass `v1.2`, and reviewing the three companies' site terms of use.
