@@ -16,6 +16,7 @@
 | The tool server: protocol shapes, one read-only tool, refuses extra arguments / unknown tools / writes outside `transcripts/` | `tests/test_mcp_server.py` (12 tests); real transcripts s1, s2 | by tests + real Claude Code sessions |
 | The filter's errors on real postings | 78 blind hand labels; reasons and 11 corrections in my words | **by hand**: me |
 | The years box on the label sheet missed "8 or more years" | card #41 | **by hand**: I found it |
+| Whether a sampled posting is still open | I opened one OpenAI posting from my 78 cards on OpenAI's live careers page (2026-11-24). It was **no longer listed**. I don't remember which card. | **by hand**: one posting only |
 
 **How:** by hand (all 78 labels, the reasons, the corrections, every rule and threshold decision); by tests and a
 mutation check (Claude wrote the code and the tests; the W1–W3 tests and the FILTER.md decisions existed before the
@@ -32,7 +33,8 @@ my corrections).
 4. Most claim labels in the 46-posting v1.1 shortlist. Only the examples in `SHORTLIST.md` were read by hand.
 5. Whether Claude Code would really send its working folder as a root to the filesystem server (I only probed it with
    my own client).
-6. Whether the postings are still open. The corpus is from 2026-11-10.
+6. Whether the other postings are still open. The corpus is from 2026-11-10. The one I looked up live was gone, so
+   some of the shortlist may already be closed.
 
 **Not claiming:**
 - That the filter, or Claude, is accurate on all postings. Every number is from samples of 58 and 20, with intervals.
@@ -40,7 +42,7 @@ my corrections).
 - That my corrected labels are blind. They were made after seeing the filter's verdicts.
 - That a `kept` posting is worth applying to.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed or withheld:** Signed: Riya Kapadnis, 2026-11-24
 
 ---
 

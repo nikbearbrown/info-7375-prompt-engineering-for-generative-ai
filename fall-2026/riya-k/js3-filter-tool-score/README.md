@@ -56,7 +56,7 @@ python3 tools/claude_mcp_session.py --label s1 --prompt-file prompts/mcp-session
 python3 tools/claude_score.py --label B1 --split heldout                 # see the file for E2-E5 flags
 ```
 
-## What ran (all 2026-11-24, UTC)
+## What ran (2026-11-24 UTC unless noted)
 
 | Run | When | Who ran it | Kind | Result |
 |---|---|---|---|---|
@@ -67,6 +67,7 @@ python3 tools/claude_score.py --label B1 --split heldout                 # see t
 | Claude scoring B1, B2, E3, E4, E5 (held-out) | 21:31–21:35 (before my labels were downloaded) |
 | Claude dev run and E2 (prompt v2) | 22:45–22:47 | Claude Code, in my session | **live** Claude | `runs/claude/*/` (each file has its UTC time) |
 | Filter v1.1 committed, then held-out measurement | 22:44–22:47 | Claude Code, in my session | offline | `out/heldout-*.json` |
+| Tests + wrong-version check | 2026-11-25 00:58 (Nov 24, 7:58 PM ET) | **me** (in my terminal) | offline | 35 tests OK; W1, W2, W3, W4a, W4b all CAUGHT |
 
 Nothing here is seeded or simulated except the sample draw (seed 7375, recorded). Every Claude response shown is one
 actually received, saved with its date.
