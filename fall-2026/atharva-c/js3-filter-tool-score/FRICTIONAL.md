@@ -1,6 +1,6 @@
 # Frictional
 
-The Day 1 entries were written by me as we worked; the Nov 24 entries below were rewritten by me from Claude's same-day drafts and checked against the git record.
+The Day 1 entries were written by me as we worked; the Nov 24 entries below were rewritten by me from Claude's same-day drafts and checked against the git record; the Nov 25 entry was drafted by Claude from the session record and reviewed by me.
 
 ## Nov 23, 2026 — Day 1: data, FILTER.md, label sample
 
@@ -83,3 +83,29 @@ The Day 1 entries were written by me as we worked; the Nov 24 entries below were
 - **What I modified:** I changed my held-out label for `affirm:8032173003` from `reject` to `keep` after checking that its body asks for `1.5+` years rather than `2–5+` years (`215f29a`), corrected my initial audit misclick on `affirm:7815952003` (`Quantitative Analyst II`) to `reject`, and rewrote all of Claude's draft write-ups while cutting claims that went beyond the commit record (such as calling `v1.2` "tuned" or claiming all repository files were written in my own words).
 - **What I rejected:** After looking at the `4` remaining false positives on `heldout`, I chose not to add rules excluding native iOS/Android roles or matching mid-level phrases like `"track record"`—changing mobile support would redefine Sam's persona rather than fix a parsing bug, and adding lexical rules after reading those held-out postings in the audit would overfit to seen examples.
 - **What remains unresolved:** MCP server improvements 2–5 in `mcp/EVALUATIONS.md` (whole-word matching instead of substring search, inline gate/rule explanations in `judge_posting`, snapshot notices on every tool description, and removing duplicate full-text payloads), the `2+` years mid-level backend postings that pass `v1.2`, and reviewing the three companies' site terms of use.
+
+## Nov 25, 2026 — Checking against the assignment and my past TA reviews
+
+- **What happened:** Before submitting, I had Claude check the repository line by line against the JS3 assignment text, then again against the TA feedback I received on earlier assignments. The first pass found three real gaps:
+  - `mcp/EVALUATIONS.md` had no section on what a compatible client is not entitled to, and no trust decision.
+  - `SIGNOFF.md` did not sort its checks into the four "How" categories or name the tests.
+  - The two rules I rejected after measuring (mobile-only and `"track record"`) were recorded only here, not in `FILTER.md`.
+- **What the TA cross-check added:**
+  - This log had no line saying who wrote which entries, and no accepted / modified / rejected reflection.
+  - The `0–11.4%` Wilson interval was stated, but no command reproduced it.
+  - `evidence/mcp/client-config.json` contained a local absolute path from my machine.
+- **What I changed:**
+  - I wrote the provenance line at the top of this file and the "In my own words" reflection (`4387c98`).
+  - Claude added the Wilson interval to `score/recount.py`, a "rejected, no new version" row to the `FILTER.md` changelog, and replaced the local paths in the client config with a note saying so (`0fcd674`).
+  - I wrote `mcp/EVALUATIONS.md` section 4 with my trust decisions for both servers (`51b9e41`), and the `SIGNOFF.md` "How each item was checked" section, then re-signed it (`9a30e25`).
+- **What I learned:** Writing the "How" section made me be exact about one thing. Claude wrote all 57 unit tests, so I could not honestly list any test under "a test I wrote before reading Claude's code". The closest thing I wrote myself is my hand-labeled answer key (`215f29a`), committed before the filter existed. Claude's fact-check of my own rewrites also caught places where I had given myself credit for Claude's work:
+  - a Claude subagent read the Filesystem server's source, not me;
+  - Claude ran the fresh clone, not me;
+  - I "approved trying" `v1.2`; I did not design it.
+- **Final start-to-end check:**
+  - Claude cloned the branch fresh at `9a30e25` and re-ran every README command; all numbers reproduced and the tree stayed clean.
+  - That check found that `SOURCES.md` still said I "will sign" the sign-off, that the README cited only the older `2f40542` fresh-clone run, and that `SIGNOFF.md`'s "23 `Engineer II` titles" (22 `Software Engineer II` plus 1 `Machine Learning Engineer II`) could be mistaken for the client's 22-vs-23 miscount. All three were fixed in `0ec6c64`.
+- **What is unresolved:**
+  - My local repository has no GitHub remote. When I wrote this entry, the commits had not yet been copied to my fork.
+  - Copying them with `git cherry-pick -x` gives every commit a new hash, so the hashes cited in these documents need a `COMMIT_MAP.md` to be traceable on GitHub, as in JS2.
+- **Reference commits:** `4387c98`, `0fcd674`, `51b9e41`, `9a30e25`, `0ec6c64`.
