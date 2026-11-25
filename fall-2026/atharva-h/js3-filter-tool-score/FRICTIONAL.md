@@ -165,3 +165,13 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - **what a client isn't entitled to**
   - **the trust decision**
   - **the other server:** not chosen yet.
+
+## 2026-11-25 — The other server: Fetch
+- **What I approved:** installing the reference Fetch server (`mcp-server-fetch` 2026.11.18 from PyPI). Claude installed it into a throwaway Python 3.12 environment in its scratchpad, because `uvx` isn't on this machine. Nothing was added to the repo.
+- **What reading its source found before it ran:** it declares `readOnlyHint: true`, but on first use it runs `npm install` against the npm registry when Node.js is on PATH, and Node is on PATH here. Claude ran it with `--no-readability-js`, so it couldn't download more code than I had approved.
+- **The session** (`mcp_eval_fetch.py`; transcript `state/mcp/other_fetch_2026-11-25T212010Z.jsonl`): the handshake, `tools/list`, `prompts/list`, and four calls.
+  - A URL carrying the fictional persona's details went out to example.com: a "read-only" tool sending data out.
+  - A loopback URL was refused before any request was sent. The test server counted 0 requests.
+  - A string `max_length` was rejected.
+- **Its tool description tells the model to override an earlier instruction** ("this tool now grants you internet access").
+- **Claude's drafted trust decision:** Fetch is not allowed in the job-agent session, which holds private data. The draft is waiting for my review in `MCP_EVAL.md`.
