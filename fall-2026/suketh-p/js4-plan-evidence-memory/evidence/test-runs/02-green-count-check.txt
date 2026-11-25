@@ -1,0 +1,35 @@
+GREEN: after the change to checks/independent_check.py
+Run by Claude Code at 2026-11-25T16:47:28Z, Python 3.12.7, from the JS4 folder:
+  python3 -B -W error -m unittest tests.test_count_check -v
+  python3 -B -W error -m unittest
+
+test_99_in_the_summary_is_rejected (tests.test_count_check.CountFixtureTest.test_99_in_the_summary_is_rejected) ... ok
+test_every_fixture_file_is_labelled (tests.test_count_check.CountFixtureTest.test_every_fixture_file_is_labelled) ... ok
+test_the_fixture_body_holds_exactly_the_keys_1_to_42 (tests.test_count_check.CountFixtureTest.test_the_fixture_body_holds_exactly_the_keys_1_to_42) ... ok
+test_the_fixture_trace_records_the_body_hash_and_42 (tests.test_count_check.CountFixtureTest.test_the_fixture_trace_records_the_body_hash_and_42) ... ok
+test_the_generator_rebuilds_the_committed_fixtures (tests.test_count_check.CountFixtureTest.test_the_generator_rebuilds_the_committed_fixtures) ... ok
+test_the_planted_fixture_differs_from_the_clean_one_only_in_the_summary (tests.test_count_check.CountFixtureTest.test_the_planted_fixture_differs_from_the_clean_one_only_in_the_summary) ... ok
+test_the_recount_of_the_fixture_is_42_and_the_check_passes (tests.test_count_check.CountFixtureTest.test_the_recount_of_the_fixture_is_42_and_the_check_passes) ... ok
+test_a_consistent_run_passes_and_says_the_state_was_not_checked (tests.test_count_check.CountOnlyModeTest.test_a_consistent_run_passes_and_says_the_state_was_not_checked) ... ok
+test_a_count_shown_in_results_md_that_differs_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_count_shown_in_results_md_that_differs_is_flagged) ... ok
+test_a_count_shown_in_trace_md_that_differs_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_count_shown_in_trace_md_that_differs_is_flagged) ... ok
+test_a_repeated_key_is_counted_once (tests.test_count_check.CountOnlyModeTest.test_a_repeated_key_is_counted_once) ... ok
+test_a_trace_count_that_differs_from_the_raw_body_is_flagged (tests.test_count_check.CountOnlyModeTest.test_a_trace_count_that_differs_from_the_raw_body_is_flagged) ... ok
+test_an_ashby_board_is_counted_by_job_url (tests.test_count_check.CountOnlyModeTest.test_an_ashby_board_is_counted_by_job_url) ... ok
+test_giving_only_one_state_file_is_a_usage_error (tests.test_count_check.CountOnlyModeTest.test_giving_only_one_state_file_is_a_usage_error) ... ok
+test_the_checker_imports_only_the_standard_library (tests.test_count_check.IndependenceTest.test_the_checker_imports_only_the_standard_library) ... ok
+test_the_checker_never_imports_jobwatch_or_imports_dynamically (tests.test_count_check.IndependenceTest.test_the_checker_never_imports_jobwatch_or_imports_dynamically) ... ok
+test_the_nov_24_capture_passes_the_count_check (tests.test_count_check.RealCapturesTest.test_the_nov_24_capture_passes_the_count_check) ... ok
+test_the_nov_8_capture_passes_the_count_check (tests.test_count_check.RealCapturesTest.test_the_nov_8_capture_passes_the_count_check) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.454s
+
+OK
+exit code: 0
+
+--- the whole suite
+Ran 313 tests in 7.660s
+
+OK
+exit code: 0
