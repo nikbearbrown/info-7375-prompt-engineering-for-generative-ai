@@ -1,0 +1,30 @@
+# Run 2026-11-10-2
+
+- Exit (controller status): **finished**
+- Mode: live; profile: demo; started (UTC): 2026-11-10T17:46:28+00:00
+- Used: 4/10 requests, 4/5 boards, 0.672/60 s
+- `finished` only means every planned board returned a parsed response within budget. It is not the outcome check: run `python -m agent2.check out/runs/2026-11-10-2`.
+
+## Boards
+
+- `greenhouse:faire` — parsed, HTTP 200, 68 postings, 0 new
+- `greenhouse:instacart` — parsed, HTTP 200, 88 postings, 0 new
+- `ashby:poshmark` — parsed, HTTP 200, 22 postings, 0 new
+- `greenhouse:poshmark` — parsed, HTTP 200, 0 postings, 0 new
+
+## New postings, rule verdicts [record]
+
+None.
+
+## Claude judge [judgment]
+
+Status: not requested.
+
+## Trace
+
+| step | action | board | HTTP | bytes | decision | requests | seconds |
+|---:|---|---|---:|---:|---|---:|---:|
+| 1 | fetch | greenhouse:faire | 200 | 877374 | parsed: 68 postings | 1 | 0.219 |
+| 2 | fetch | greenhouse:instacart | 200 | 1055852 | parsed: 88 postings | 2 | 0.438 |
+| 3 | fetch | ashby:poshmark | 200 | 275869 | parsed: 22 postings | 3 | 0.578 |
+| 4 | fetch | greenhouse:poshmark | 200 | 30 | parsed: 0 postings | 4 | 0.672 |

@@ -1,0 +1,306 @@
+{
+  "run": "2026-10-30-1",
+  "raw": {
+    "mode": "seeded",
+    "source": "runs\\2026-10-30-1\\raw.json",
+    "replayed_at": "2026-10-30T15:43:25+00:00",
+    "sha256": "4494c56bdf5f033e213461d1bcff798e6cc46f4cd0130a9ca2551551f2af5a0f",
+    "bytes": 891347
+  },
+  "total_postings": 67,
+  "baseline": false,
+  "new_ids": [
+    8747498002,
+    8828560002,
+    8911749002
+  ],
+  "prompt": {
+    "name": "revision-1",
+    "file": "prompts/revision-1.md",
+    "schema": "revision-1",
+    "sha256": "16ecb4366aaf1d07f52f33ac5f9bb0bc9e442616954bdab6795e96968c453206"
+  },
+  "rule_verdicts": [
+    {
+      "posting_id": 8747498002,
+      "title": "Staff Applied AI/ML Scientist",
+      "verdict": "not_relevant",
+      "label": "record",
+      "failed_check": "R4",
+      "justification": "R4 failed: content names fewer than 1 skill(s) from the shipped skill lists.",
+      "citations": [
+        {
+          "check": "R1",
+          "resume_field": null,
+          "posting_field": "title",
+          "quote": "Scientist",
+          "support": "supported"
+        },
+        {
+          "check": "R2",
+          "resume_field": null,
+          "posting_field": "title",
+          "quote": null,
+          "absent_terms": [
+            "manager",
+            "director",
+            "head",
+            "lead",
+            "intern"
+          ],
+          "support": "supported"
+        },
+        {
+          "check": "R3",
+          "resume_field": null,
+          "posting_field": "location.name",
+          "quote": "San Francisco, CA",
+          "support": "supported"
+        },
+        {
+          "check": "R4",
+          "resume_field": "skills.languages",
+          "posting_field": "content",
+          "quote": null,
+          "absent_terms": [
+            "Python",
+            "SQL"
+          ],
+          "support": "supported"
+        },
+        {
+          "check": "R4",
+          "resume_field": "skills.data_bi",
+          "posting_field": "content",
+          "quote": null,
+          "absent_terms": [
+            "Databricks",
+            "Unity Catalog",
+            "Power BI"
+          ],
+          "support": "supported"
+        },
+        {
+          "check": "R4",
+          "resume_field": "skills.backend_automation",
+          "posting_field": "content",
+          "quote": null,
+          "absent_terms": [
+            "LangGraph",
+            "MLflow",
+            "Mem0"
+          ],
+          "support": "supported"
+        },
+        {
+          "check": "R4",
+          "resume_field": "skills.database_cloud",
+          "posting_field": "content",
+          "quote": null,
+          "absent_terms": [
+            "Delta Lake",
+            "AWS"
+          ],
+          "support": "supported"
+        }
+      ]
+    },
+    {
+      "posting_id": 8828560002,
+      "title": "Senior Finance Analytics Engineer",
+      "verdict": "relevant",
+      "label": "record",
+      "failed_check": null,
+      "justification": "All four checks passed: title term 'Analytics', no excluded term, US location 'New York City, NY', skills in content: Python, SQL.",
+      "citations": [
+        {
+          "check": "R1",
+          "resume_field": null,
+          "posting_field": "title",
+          "quote": "Analytics",
+          "support": "supported"
+        },
+        {
+          "check": "R2",
+          "resume_field": null,
+          "posting_field": "title",
+          "quote": null,
+          "absent_terms": [
+            "manager",
+            "director",
+            "head",
+            "lead",
+            "intern"
+          ],
+          "support": "supported"
+        },
+        {
+          "check": "R3",
+          "resume_field": null,
+          "posting_field": "location.name",
+          "quote": "New York City, NY",
+          "support": "supported"
+        },
+        {
+          "check": "R4",
+          "resume_field": "skills.languages",
+          "posting_field": "content",
+          "quote": "Python",
+          "support": "supported"
+        },
+        {
+          "check": "R4",
+          "resume_field": "skills.languages",
+          "posting_field": "content",
+          "quote": "SQL",
+          "support": "supported"
+        }
+      ]
+    },
+    {
+      "posting_id": 8911749002,
+      "title": "Staff Product Manager, Incentives",
+      "verdict": "not_relevant",
+      "label": "record",
+      "failed_check": "R1",
+      "justification": "R1 failed: title 'Staff Product Manager, Incentives' contains none of the title terms.",
+      "citations": [
+        {
+          "check": "R1",
+          "resume_field": null,
+          "posting_field": "title",
+          "quote": null,
+          "absent_terms": [
+            "data",
+            "analytics",
+            "analyst",
+            "scientist",
+            "machine learning",
+            "ML"
+          ],
+          "support": "supported"
+        }
+      ]
+    }
+  ],
+  "claude": {
+    "status": "ran",
+    "judgments": [
+      {
+        "posting_id": 8747498002,
+        "label": "judgment",
+        "status": "ran",
+        "meta": {
+          "date": "2026-10-30T15:43:25+00:00",
+          "session_id": "43742031-c3ca-4820-88dd-9123c34a4e0f",
+          "model": "claude-opus-5-5",
+          "returncode": 0,
+          "is_error": false,
+          "prompt_sha256": "1ba4c2e85d670e5e995f9ca04e19cbcbe613a8b9ae46c21a759cffe4e795186c",
+          "stderr": ""
+        },
+        "raw_result": "{\"posting_id\": 8747498002, \"verdict\": \"not_relevant\", \"failed_check\": \"R4\", \"citations\": [{\"resume_field\": \"skills.languages\", \"posting_field\": \"title\", \"quote\": \"Staff Applied AI/ML Scientist\"}, {\"resume_field\": \"personal.location\", \"posting_field\": \"location.name\", \"quote\": \"San Francisco, CA\"}, {\"resume_field\": \"skills.languages\", \"posting_field\": \"content\", \"quote\": \"Strong programming skills.\"}, {\"resume_field\": \"skills.backend_automation\", \"posting_field\": \"content\", \"quote\": \"An excitement and willingness to learn new tools and techniques.\"}], \"label\": \"judgment\"}",
+        "validator_errors": [],
+        "verdict": "not_relevant",
+        "failed_check": "R4",
+        "citations": [
+          {
+            "resume_field": "skills.languages",
+            "posting_field": "title",
+            "quote": "Staff Applied AI/ML Scientist",
+            "support": "supported"
+          },
+          {
+            "resume_field": "personal.location",
+            "posting_field": "location.name",
+            "quote": "San Francisco, CA",
+            "support": "supported"
+          },
+          {
+            "resume_field": "skills.languages",
+            "posting_field": "content",
+            "quote": "Strong programming skills.",
+            "support": "supported"
+          },
+          {
+            "resume_field": "skills.backend_automation",
+            "posting_field": "content",
+            "quote": "An excitement and willingness to learn new tools and techniques.",
+            "support": "supported"
+          }
+        ]
+      },
+      {
+        "posting_id": 8828560002,
+        "label": "judgment",
+        "status": "ran",
+        "meta": {
+          "date": "2026-10-30T15:43:35+00:00",
+          "session_id": "d3bf444f-16b8-43e1-834c-dd90cbacb543",
+          "model": "claude-opus-5-5",
+          "returncode": 0,
+          "is_error": false,
+          "prompt_sha256": "7be476c0c6224b186e7e91193d37e8fae31844410ffb11d4060fcf03fc73de1e",
+          "stderr": ""
+        },
+        "raw_result": "{\"posting_id\": 8828560002, \"verdict\": \"relevant\", \"failed_check\": null, \"citations\": [{\"resume_field\": \"skills.languages\", \"posting_field\": \"content\", \"quote\": \"Expert in SQL\"}, {\"resume_field\": \"skills.languages\", \"posting_field\": \"content\", \"quote\": \"Working proficiency in Python\"}, {\"resume_field\": \"personal.location\", \"posting_field\": \"location.name\", \"quote\": \"New York City, NY\"}, {\"resume_field\": \"education\", \"posting_field\": \"title\", \"quote\": \"Senior Finance Analytics Engineer\"}], \"label\": \"judgment\"}",
+        "validator_errors": [],
+        "verdict": "relevant",
+        "failed_check": null,
+        "citations": [
+          {
+            "resume_field": "skills.languages",
+            "posting_field": "content",
+            "quote": "Expert in SQL",
+            "support": "supported"
+          },
+          {
+            "resume_field": "skills.languages",
+            "posting_field": "content",
+            "quote": "Working proficiency in Python",
+            "support": "supported"
+          },
+          {
+            "resume_field": "personal.location",
+            "posting_field": "location.name",
+            "quote": "New York City, NY",
+            "support": "supported"
+          },
+          {
+            "resume_field": "education",
+            "posting_field": "title",
+            "quote": "Senior Finance Analytics Engineer",
+            "support": "supported"
+          }
+        ]
+      },
+      {
+        "posting_id": 8911749002,
+        "label": "judgment",
+        "status": "ran",
+        "meta": {
+          "date": "2026-10-30T15:43:44+00:00",
+          "session_id": "ac75df04-1695-4915-ac20-99ad319bea99",
+          "model": "claude-opus-5-5",
+          "returncode": 0,
+          "is_error": false,
+          "prompt_sha256": "8330ead220986021b8ffe5ba740c8b46f4f75dfd01d63230dd44fd8ffe8b74d6",
+          "stderr": ""
+        },
+        "raw_result": "{\"posting_id\": 8911749002, \"verdict\": \"not_relevant\", \"failed_check\": \"R1\", \"citations\": [{\"resume_field\": \"skills.languages\", \"posting_field\": \"title\", \"quote\": \"Staff Product Manager, Incentives\"}], \"label\": \"judgment\"}",
+        "validator_errors": [],
+        "verdict": "not_relevant",
+        "failed_check": "R1",
+        "citations": [
+          {
+            "resume_field": "skills.languages",
+            "posting_field": "title",
+            "quote": "Staff Product Manager, Incentives",
+            "support": "supported"
+          }
+        ]
+      }
+    ]
+  },
+  "unsupported_citations": 0
+}
