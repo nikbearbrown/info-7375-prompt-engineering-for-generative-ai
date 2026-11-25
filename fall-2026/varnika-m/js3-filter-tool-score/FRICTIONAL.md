@@ -1,6 +1,6 @@
 # FRICTIONAL — Job-Search Agent 3
 
-My log of what I tried, what happened, what I checked or changed, and what I accepted, changed or rejected from Claude. Claude Code drafted the factual lines from the session, the commits and the saved files. **The "What I learned" lines are mine to write.**
+My log of what I tried, what happened, what I checked or changed, and what I accepted, changed or rejected from Claude. Claude Code drafted the factual lines from the session, the commits and the saved files. **The "What I learned" lines are mine.** I wrote them from the angles Claude Code listed for each entry (it listed angles, not sentences), and it pasted them in word for word.
 
 ### 2026-11-25 — Due today, and the filter written first
 - **What I tried:** JS3 was due the same day. I asked Claude Code which recommendation to take for each FILTER.md decision.
@@ -10,7 +10,7 @@ My log of what I tried, what happened, what I checked or changed, and what I acc
   - It recommended D2 ("I cannot tell" when there is no evidence) and D3 (keep my "at most 1 of 30" pass line).
   - I replied "ok as you say" and then "ok" to the draft, which was committed before any code (`48488ab3`).
 - **What I checked, changed, or learned:**
-  - **What I learned:** *(to write)*
+  - **What I learned:** When I wrote the filter rules before looking at the results, I learned that setting the rules first makes it harder to change them just to get a better result.
   - **Still unresolved:** The decisions are mine, but all three were Claude's recommendations, which I accepted without changing them.
 - **From Claude, accepted / changed / rejected:** Accepted D1–D3 and the draft unchanged.
 - **Trace:** `48488ab3`; FILTER.md header and Versions.
@@ -24,7 +24,7 @@ My log of what I tried, what happened, what I checked or changed, and what I acc
   - In batch 1, I wrote "Y/N not sure" for five items because no years were given, and "needs an active clearance" for four items whose postings say "or willing to obtain". Claude Code suggested a label for each of the nine from my written rules, and I confirmed all of them.
   - For items 21–62, Claude Code asked how my second batch was made, because its wording was different. I answered that I decided each one myself.
 - **What I checked, changed, or learned:**
-  - **What I learned:** *(to write)*
+  - **What I learned:** When I was unsure about the clearance requirements, I learned that missing information does not mean someone is ineligible. I should use "status unknown" instead of making assumptions about a person.
   - **Still unresolved:** 9 of my 62 labels are confirmed suggestions, not labels I wrote first. My reason for item 17 ("Requires 3+ years (Aarav has 29 months)") contradicts my own "3+ years" decision. The label stands on the other must-have I cited.
 - **From Claude, accepted / changed / rejected:** Accepted the two labeling decisions and the nine suggestions. I changed my first idea about his status.
 - **Trace:** `c1dd36e5`, `c7007363`; `audit/labels-raw.md`; `audit/LABELING-DECISIONS.md`.
@@ -37,7 +37,7 @@ My log of what I tried, what happened, what I checked or changed, and what I acc
   - 1 of 8 kept postings did not fit: "must be graduating in December 2026", and he finished in May 2026.
   - I decided v1.1: add "D.C." and the graduation-date rule; record "Platform Engineer" as a false friend without a rule; reject must-haves-only years (no measured effect), keep-at-4 (6 wrong keeps) and grouping by title.
 - **What I checked, changed, or learned:**
-  - **What I learned:** *(to write)*
+  - **What I learned:** When the audit passed but still found the Washington, D.C. formatting bug, I learned that passing the main test does not mean the filter is completely correct. Small formatting issues can silently reject good jobs.
   - **Still unresolved:** 0 of 30 still allows up to about 9.5% of the rejects to fit. A and B were found on my audit labels, and the held-out set has no posting that could test them.
 - **From Claude, accepted / changed / rejected:** Accepted all six recommendations.
 - **Trace:** AUDIT.md; FILTER.md v1.1; `ac25be53`.
@@ -49,7 +49,7 @@ My log of what I tried, what happened, what I checked or changed, and what I acc
   - In its reply, Claude said my tool's output contradicts itself: `outcome: keep` next to `answer: I cannot tell`. Both are by design, but the output does not explain them.
   - The reference `fetch` server's description tells the model it "now" has internet access, and does not mention any of its refusals.
 - **What I checked, changed, or learned:**
-  - **What I learned:** *(to write)*
+  - **What I learned:** When Claude's tool output looked contradictory, I learned that a tool's response can be technically correct but still confusing. I need to check what the tool actually does instead of trusting how it describes itself.
   - **Still unresolved:** The description fix for my tool is not made. The `fetch` server was only read, not run, and six of its helper modules were not read at all. I did not read its source myself.
 - **From Claude, accepted / changed / rejected:** Accepted both trust decisions as drafted.
 - **Trace:** TOOL-SERVER.md; `transcripts/claude-code-session-1.server.jsonl`.
@@ -61,7 +61,7 @@ My log of what I tried, what happened, what I checked or changed, and what I acc
   - The "must-haves only" prompt changed two verdicts, both away from my labels: one more lenient (Mixed Reality Developer) and one stricter. On the stricter one, it read "or eligibility and willingness to obtain" as requiring an active clearance.
   - Everything else agreed 16/16. With only 2 fits among the 16, that agreement says little.
 - **What I checked, changed, or learned:**
-  - **What I learned:** *(to write)*
+  - **What I learned:** When one extra sentence in the prompt changed Claude's decisions in opposite directions, I learned that even a small prompt change can affect results unpredictably. Next time, I will change one thing at a time and compare the results carefully.
   - **Still unresolved:** Each set-up was asked once, so run-to-run variation is unknown.
 - **From Claude, accepted / changed / rejected:** Accepted the decisions not to adopt M2 or M3.
 - **Trace:** WHAT-MOVES-THE-SCORE.md; `measure/scores.json`; `measure/replies/`.

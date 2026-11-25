@@ -32,7 +32,7 @@ Claude Code (Opus 5.5, `claude-opus-5-5`) in one Claude Code session in VS Code.
 | Tool-server session | Ran Claude Code 2.1.283 as the client of my server (15:52 UTC, $0.07). Claude's reply is quoted in TOOL-SERVER.md as received. | — |
 | `fetch` server evaluation | Downloaded its source at a pinned commit. Started a separate Claude reviewer, which read it and reported with line numbers. Claude Code checked six of its claims against the file. | Made the trust decision **as drafted**; I did not read the `fetch` source myself |
 | Reports | Drafted AUDIT.md, WHAT-MOVES-THE-SCORE.md, TOOL-SERVER.md, the shortlist and its notes, and this README, from the saved results | — |
-| Sign-off, driver's seat, FRICTIONAL facts | Drafted them | Check, change, and sign; write the "What I learned" lines |
+| Sign-off, driver's seat, FRICTIONAL facts | Drafted them; for the "What I learned" lines, explained what one is and listed angles per entry, and declined to write a prompt that would generate them | Check, change, and sign; wrote the five "What I learned" lines |
 
 **Claude responses shown in this folder:**
 - Claude Code's reply in the tool-server session (2026-11-25, 15:52 UTC), quoted in full in TOOL-SERVER.md.
@@ -49,5 +49,5 @@ Claude Code (Opus 5.5, `claude-opus-5-5`) in one Claude Code session in VS Code.
 | Labeling decisions | "3+ years" counts as 3 or fewer; clearance/visa *status* the résumé does not record is "status unknown", while an *active* clearance required is N |
 | 62 hand labels | 53 mine and 9 confirmed suggestions, as above. The raw lines are in `audit/labels-raw.md`. |
 | v1.1 decisions A–F | add "D.C." and the graduation-date rule; record "Platform Engineer" as a false friend without a rule; reject M1, M2 and title grouping |
-| FRICTIONAL "What I learned" lines | *(to write)* |
+| FRICTIONAL "What I learned" lines | Wrote all five, choosing from angles Claude Code listed per entry (no sentences given). Claude Code pasted them in unchanged. |
 | Sign-off | *(to sign or withhold)* |
