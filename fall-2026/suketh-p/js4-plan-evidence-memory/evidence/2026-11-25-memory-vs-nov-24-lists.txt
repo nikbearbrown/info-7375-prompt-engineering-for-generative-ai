@@ -1,0 +1,27 @@
+Memory (state/state.json) versus the Nov 24 board lists
+Computed by Claude Code on 2026-11-25T14:49:03Z, offline: no request was sent and the agent did not run.
+Inputs, from the JS3 final commit ae850602 (fall-2026/suketh-p/js3-filter-tool-score/):
+  state/state.json  (last advanced by run 2026-11-08-normal-1)
+  runs/2026-11-24-js3-corpus/raw/{greenhouse-anthropic,greenhouse-databricks,ashby-linear}.body.gz
+Keys: Greenhouse jobs[].id, Ashby jobs[].jobUrl (as in the JS2 GATE.md repeat rule).
+
+Output:
+greenhouse/anthropic     memory(Nov 8)  675  list(Nov 24)  631  in memory but not on Nov 24 list  137  new  93
+greenhouse/databricks    memory(Nov 8)  922  list(Nov 24)  890  in memory but not on Nov 24 list  131  new  99
+ashby/linear             memory(Nov 8)   32  list(Nov 24)   30  in memory but not on Nov 24 list    3  new   1
+
+Cross-check: the 'new' column matches the run's own results.md (93 / 99 / 1).
+Not on a board's list is not the same as the posting being gone. This file does not check any posting page.
+
+The script (gone.py):
+import gzip, json, sys, pathlib
+d = pathlib.Path(sys.argv[1])
+state = json.load(open(d / "state.json"))
+for name, fname, field in [("greenhouse/anthropic", "greenhouse-anthropic", "id"),
+                           ("greenhouse/databricks", "greenhouse-databricks", "id"),
+                           ("ashby/linear", "ashby-linear", "jobUrl")]:
+    body = json.loads(gzip.decompress((d / f"{fname}.body.gz").read_bytes()))
+    keys = {str(j[field]) for j in body["jobs"]}
+    seen = set(state["boards"][name]["seen"])
+    print(f"{name:24} memory(Nov 8) {len(seen):4}  list(Nov 24) {len(keys):4}  "
+          f"in memory but not on Nov 24 list {len(seen - keys):4}  new {len(keys - seen):3}")
