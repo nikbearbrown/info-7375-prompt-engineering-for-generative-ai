@@ -11,9 +11,9 @@ The table maps each rubric component to its artifacts and verification evidence.
 | Brief step | Where | State |
 |---|---|---|
 | 1. FILTER.md before the build | `FILTER.md` (committed alone at `a3a7a2af`, before any filter code) | Done; approved by Ashwin |
-| 2.1 Filter and reject audit | `jobfilter/filter.py`, `labels/`, `audit/` | All 47 required sample rows personally reviewed and confirmed by Ashwin on 2026-11-25: 30 random rejects, 11 closest calls and 6 kept postings. Review followed AI suggestions and disclosure of results; see `audit/REPORT-v1.0.md`. Original AI analysis retained separately. |
-| 2.2 Source-grounded shortlist (**filter v1.0**, 18 postings) | `SHORTLIST.md`, `shortlist/` | 90 claims labeled with source attribution: 29 excerpt-based and 61 checked against text and structured fields, all assisted by Codex. Includes relevance-versus-entailment and abstention cases. |
-| 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. Both trust decisions approved by Ashwin (wording drafted with Codex). Server 1.1.0 discloses its transcript writes |
+| 2.1 Filter and reject audit | `jobfilter/filter.py`, `labels/`, `audit/` | 47 required sample rows (30 random rejects, 11 closest calls, 6 kept) confirmed by Ashwin on 2026-11-25 **after** seeing Codex's suggestions and the filter results, without per-posting reasons: a confirmation, not a blind audit (`audit/REPORT-v1.0.md`). 25 of the 30 random rejects failed the role gate, so a further blind draw of 20 engineering-titled rejects was added (`audit/BLIND-EXTRA.md`) |
+| 2.2 Source-grounded shortlist (**filter v1.0**, 18 postings) | `SHORTLIST.md`, `shortlist/` | 90 claims labeled with source attribution, all by Codex (29 excerpt-based, 61 checked against text and fields). A blind 15-claim human sample with agreement is in `audit/BLIND-EXTRA.md`. Relevance-versus-entailment is measured in `shortlist/RELEVANCE-EXAMPLE-LISTS.md`: 7 of 18 KEEPs rest on topic words found only in "such as…" lists |
+| 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. Both trust decisions approved by Ashwin (wording drafted with Codex). Server 1.1.0 discloses its transcript writes. Later probe: both servers answer `tools/list` before `initialize` (`evaluations/*/preinit-probe-2026-11-25.jsonl`) |
 | 2.4 What moves the score | `CHANGE.md`, `changes/` | One controlled v1.1 change with before/after results and disclosed prior label exposure in `CHANGE.md` |
 | 3. Sign-off and driver's seat | `SIGNOFF.md` | Signed by Ashwin on 2026-11-25, for the limited checks described, not full rubric completion. Driver's-seat table approved with Ashwin's changes |
 | Frictional | `FRICTIONAL.md` | Lines drafted with Codex, confirmed by Ashwin as descriptions of the recorded events; three personal slots marked "Not supplied" |
@@ -109,7 +109,7 @@ python3 serve.py
 
 What each one does:
 
-- `python3 -m unittest`: all 56 tests.
+- `python3 -m unittest`: all 72 tests.
 - `python3 -m tests.test_wrong_versions`: the wrong-version matrix.
 - `python3 -m jobfilter.corpus --build`: rebuilds `corpus/postings.json` from the JS2 raw files, checking their
   sha256.
@@ -179,7 +179,7 @@ Each wrong version fails at least one test written to catch it.
 | `SIGNOFF.md` | Step 3 |
 | `SOURCES.md`, `FRICTIONAL.md` | Sources and contributions; the Frictional log |
 | `jobfilter/` | The code |
-| `tests/` | 56 tests |
+| `tests/` | 72 tests |
 | `filters/` | v1.0 and v1.1 |
 | `runs/` | Decisions; held-out ones are sealed |
 | `labels/` | Held-out labels, the audit sheet (hand), AI-assisted verdicts, blind review cards |
@@ -188,3 +188,5 @@ Each wrong version fails at least one test written to catch it.
 | `shortlist/` | Claims run and labeling sheet |
 | `evaluations/`, `transcripts/` | Tool-server probes and evaluations |
 | `drafting/` | Claude Code's notes: filter interpretations, evaluation sets |
+| `audit/BLIND-EXTRA.md` | Blind human checks added after review: 20 new engineering rejects, 15 claims, 2 hand-computed scores (`python3 -m jobfilter.blind_extra report`) |
+| `shortlist/RELEVANCE-EXAMPLE-LISTS.md` | KEEPs whose topic matches come only from "such as…" lists (`python3 -m jobfilter.such_as v1.0`) |

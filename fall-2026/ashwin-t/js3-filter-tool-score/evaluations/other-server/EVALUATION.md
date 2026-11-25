@@ -17,6 +17,7 @@ and called exactly two tools: `Read` and `Write`.
 | Extra keys | 17 kinds of non-spec keys, e.g. `searchHint`, `backgrounding`, `maxResultSizeChars`, `shouldDefer`, `enablesCodeExecution` | Outside the MCP spec; a generic client would ignore them |
 | `Read` (no scope declared) | Returned the first 3 lines of a file **outside the server's working directory**, with no prompt, about 7 ms after the request | Reads beyond its cwd |
 | `Write` (no scope declared) | **Created a 62-byte file** in the throwaway directory, with no prompt; it was read back from disk | Changes the file system with no approval step |
+| Lifecycle (MCP spec: `initialize` comes first) | Sent as the very first message with no `initialize`, `tools/list` got all 28 tools after about 1.5 s (`preinit-probe-2026-11-25.jsonl`, 22:25:32 UTC, run by Claude Code after the trust decision; only `tools/list` was sent, no tool was called). | **Not enforced.** A client cannot rely on the handshake as a gate |
 | Shutdown (not declared) | It had not exited 10 s after stdin closed, so our client killed it (exit `-9`) | A client must handle cleanup itself |
 
 **Deliberately not called:** Bash, WebFetch, RemoteTrigger, Artifact, PushNotification, and every other tool with

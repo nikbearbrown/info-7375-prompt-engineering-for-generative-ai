@@ -13,6 +13,7 @@ MCP over stdio as newline-delimited JSON-RPC 2.0. It was written from scratch wi
 | `client-probe-2026-11-25.jsonl` | Our own client, `jobfilter/mcp_client.py`, at 13:21:09 UTC | `probe-calls.json` |
 | `client-probe-2026-11-25-server-1.1.0.jsonl` | Our own client, re-run on the corrected server 1.1.0 at 20:32:11 UTC | `probe-calls.json` (same calls; same results) |
 | `../../transcripts/own-probe-server-side-2026-11-25.jsonl` | The same run, written by the server | same |
+| `preinit-probe-2026-11-25.jsonl` | `jobfilter/preinit_probe.py`, **no `initialize`**, at 22:25:27 UTC (added after the trust decision) | `tools/list`, then `preinit-calls.json` |
 | `../../transcripts/claude-client-2026-11-25.jsonl` | **Claude Code 2.1.285 as the client**, at 13:21:23 UTC | `claude-client-2026-11-25/` (`prompt.txt`, `command.txt`, `mcp-config.json`), with Claude's reply in `claude-reply.json` |
 
 ## Declared versus actual
@@ -27,6 +28,7 @@ MCP over stdio as newline-delimited JSON-RPC 2.0. It was written from scratch wi
 | "Read-only … cannot … write anything" (server 1.0.0 description and `instructions`, in the 13:21 UTC transcripts) | **Was not literally true.** When started with `--transcript`, the server appends every message to a JSONL file; paths outside this folder are refused (`Transcript`). **Fixed in server 1.1.0:** both texts now say the tool changes nothing and that the server writes only its own transcript, inside the JS3 folder, when started with `--transcript`. `test_declarations_disclose_transcript_and_filter_version` checks this | Mismatch in 1.0.0; corrected in 1.1.0 |
 | `readOnlyHint: true`, `destructiveHint: false`, `openWorldHint: false` | No network or subprocess code in `mcp_server.py` or `serve_tool.py` (checked by reading the imports, and by `test_server_modules_import_no_network_or_process_code`). It reads only the committed corpus | Matches, apart from the transcript write above |
 | `capabilities.tools.listChanged: false` | The tool list is fixed at start-up | Matches |
+| Lifecycle: the MCP spec says a client sends `initialize` first, and the server should not answer other requests (ping aside) before it | **Not enforced.** Sent as the very first message, `tools/list` got the full tool list and `tools/call score_posting` got a normal score (`preinit-probe-2026-11-25.jsonl`). `_dispatch` sets `initialized` but never checks it. `test_own_server_answers_tools_list_before_initialize` records this | **Mismatch, not fixed.** Server 1.1.0 is left as evaluated |
 | Protocol versions | Our client asked for `2025-06-18` and got it. Claude Code asked for `2025-11-25` and got it | Matches |
 
 **Not in the declaration:**

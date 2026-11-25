@@ -37,7 +37,9 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 - **Clearance rule for labeling:** "keep clearance cases uncertain where Supriya's eligibility is unknown. Don't
   treat willingness as eligibility."
 - **Audit verdicts:** supplied the 47 AI-assisted verdicts. Ashwin then stated they were Codex suggestions inferred
-  from the held-out labels, not independent hand judgments (corrected in `b03e6b29`).
+  from the held-out labels, not independent hand judgments (corrected in `b03e6b29`). Later on 2026-11-25 Ashwin
+  confirmed all 47 unchanged (`7e5c3d02`). That confirmation came after seeing the suggestions and the filter
+  results, and no per-posting reason was recorded, so it is a confirmation, not a blind judgment.
 - **The v1.1 change:** instructed it (the narrow Mission Manager exception), and kept the held-out comparison
   labeled potentially contaminated.
 - **Trust decisions and sign-off:** approved both trust decisions and the sign-off wording on 2026-11-25. Codex
@@ -50,7 +52,13 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 - **Ran the tests personally:** 55 tests at `b616bc09`, OK, exit 0 (`drafting/checks-run-by-ashwin.txt`).
 - **FRICTIONAL.md:** supplied draft lines written with Codex, and confirmed them on 2026-11-25 as descriptions of
   the recorded events. Asked that the three personal slots be marked "Not supplied".
-- **Not done by Ashwin:** any of the 47 hand verdicts or any human claim labels.
+- **Not done by Ashwin before `7e5c3d02`:** blind audit verdicts, per-posting reasons, or human claim labels. The
+  blind checks added afterwards are in `audit/BLIND-EXTRA.md`, which counts only what Ashwin actually filled in.
+
+- **After a strict TA-style review (2026-11-25, evening; review text pasted by Ashwin):** Claude Code wrote
+  `jobfilter/such_as.py`, `jobfilter/preinit_probe.py` and `jobfilter/blind_extra.py` with their tests, ran the
+  before-`initialize` probes on both servers (22:25 UTC), and drew the blind worksheets. Any verdicts, labels or
+  hand scores in `audit/BLIND-EXTRA.md` are Ashwin's, typed into the sheets named there.
 
 ## What Codex contributed (as relayed by Ashwin)
 
@@ -101,7 +109,11 @@ Each is a real, dated `claude -p` response, saved unchanged. No fixture is prese
 
 ## Post-package Codex review and corrections (2026-11-25)
 
-Codex compared every ZIP file to commit `744630b1` and ran the 56 tests on Python 3.9.6 and 3.12.15.
+Codex compared every file of the **first** ZIP to commit `744630b1` and ran the 56 tests then present on Python
+3.9.6 and 3.12.15. That check covers only the first package: the folder changed after `744630b1`. Every later ZIP
+is built with `git archive` from the exact pushed commit named in that submission's Canvas comment, and its
+extracted copy is re-tested (README, "From the submitted ZIP"). A file cannot name the commit that contains it, so
+the final hash is in the Canvas comment, not here.
 An initial concurrent run collided on shared test temporary paths; separate runs passed. The ZIP contains
 103 files and 22 directory entries, not 125 files. Codex corrected stale approval/status wording, documented
 the repository-only corpus rebuild dependency, and narrowed audit uncertainty statements to resolved labels
