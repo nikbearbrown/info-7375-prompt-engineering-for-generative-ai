@@ -1,0 +1,17 @@
+filter v1.0, threshold 4, 114 reviewed labels
+set                                n  tp  fp  fn  tn  precision        recall
+tuning / v1.0                     62   0   4   0  58  0/4 = 0.00       0/0 (undefined)
+tuning / v1.1 supplement          15   0   3   0  12  0/3 = 0.00       0/0 (undefined)
+tuning / both                     77   0   7   0  70  0/7 = 0.00       0/0 (undefined)
+held-out / v1.0                   30   0   0   0  30  0/0 (undefined)  0/0 (undefined)
+held-out / v1.1 supplement         7   2   0   0   5  2/2 = 1.00       2/2 = 1.00
+held-out / both                   37   2   0   0  35  2/2 = 1.00       2/2 = 1.00
+
+errors:
+  tuning   false keep greenhouse/axios/8164656  Salesforce Business Analyst
+  tuning   false keep greenhouse/fanduel/8325673  Product Analyst
+  tuning   false keep greenhouse/fanduel/8337243  Product Analyst
+  tuning   false keep greenhouse/stripe/8189909  Data Analyst, SF
+  tuning   false keep greenhouse/stripe/8194291  Data Analyst, Intern
+  tuning   false keep lever/veeva/28c47d34-3ad6-4485-85a9-686b4239b9ea  Marketing Analytics - Data Analyst - July 2027 Start Date - ADP
+  tuning   false keep lever/zoox/5e03b357-0cc1-4194-9488-14f85044f4f9  Contract  Student Worker - Data Analyst (Part-time)

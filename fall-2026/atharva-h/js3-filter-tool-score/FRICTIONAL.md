@@ -129,3 +129,25 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
 - **Supplement labels:** 22 postings (2 candidates, 10 bare-"analyst", 10 others), 15 tuning and 7 held-out. Claude drafted them (`labels_v1_1_claude_draft.csv`) for my review in `labels_v1_1.csv`. Two are drafted "yes": FanDuel's "Campaign Analytics, Data Analyst" and FanDuel's "Analyst". Both landed in held-out by the seeded split.
 - **Tests:** 64, all passing (2 new: supplement runs join the corpus tagged by part, and the supplement config is exactly the probe's pick).
 - **Unresolved:** if my review keeps both "yes" labels, held-out has 2 positives and tuning has none, so the threshold can't be tuned on a "yes".
+
+## 2026-11-25 — Filter v1.0 built, measured on the labels, audit sheet drawn
+- **What I did:** reviewed the 22 supplement labels and kept every draft, including the two "yes" labels (FanDuel's "Campaign Analytics, Data Analyst" and "Analyst"). The `reviewed` column records it.
+- **What Claude built** (`filter.py`), exactly as FILTER.md v1.0 describes it: R1–R4, the score, and threshold 4. Every rule records the words that fired it.
+  - **Locations:** Claude listed every distinct location in the corpus by how it was classified before trusting the US check. It added "SF", a "San Francsico" typo, and unknown regions ("AMER", "NAMER", "Remote - Americas"), which no longer count as US.
+  - **Still a false friend, not fixed in v1.0:** "Toronto, CA" counts as US, because "CA" is also California's code. It is one posting.
+  - **The two wrong versions** are kept as test-only functions, so the tests can show the real filter isn't either of them.
+- **Tests: 82, all passing.** 15 are for the filter, including both wrong versions; 5 are for the measurement and the audit draw.
+- **The v1.0 run:** 4,240 postings, 12 kept.
+- **Measured on my labels** (`measure.py`, saved in `state/measure/v1.0_labels.txt`):
+  - held-out: 2 kept, both "yes"; precision 2/2, recall 2/2. A sample this small says little.
+  - tuning: 7 kept, all "no".
+- **Each tuning false keep, and why:**
+  - **Veeva ADP data analyst:** its line "does not provide sponsorship" is not one of R4's phrases.
+  - **Stripe Data Analyst, SF; two FanDuel Product Analyst postings:** they require 2 years, which R2 passes and my label doesn't.
+  - **Stripe Data Analyst Intern:** a graduation date the filter doesn't read.
+  - **Zoox student worker:** part-time, which the filter doesn't read.
+  - **Axios Salesforce Business Analyst:** Salesforce admin experience, which the filter doesn't read.
+- **The audit sheet** (`audit.py draw`, seed 20261125, from the 4,203 postings outside held-out):
+  - 10 kept (all of them, since only 10 are kept outside held-out), 30 random rejects, and the 10 rule-free rejects closest to the threshold
+  - files: `state/audit/audit_v1.0.csv` and `audit_postings_v1.0.md`
+  - **The verdicts are mine to make. Claude has not drafted any.**
