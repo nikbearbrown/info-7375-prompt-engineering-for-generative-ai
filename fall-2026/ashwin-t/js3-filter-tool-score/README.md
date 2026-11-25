@@ -92,7 +92,7 @@ python3 serve.py
 
 What each one does:
 
-- `python3 -m unittest`: all 55 tests.
+- `python3 -m unittest`: all 56 tests.
 - `python3 -m tests.test_wrong_versions`: the wrong-version matrix.
 - `python3 -m jobfilter.corpus --build`: rebuilds `corpus/postings.json` from the JS2 raw files, checking their
   sha256.
@@ -160,7 +160,7 @@ Each wrong version fails at least one test written to catch it.
 | `SIGNOFF.md` | Step 3 |
 | `SOURCES.md`, `FRICTIONAL.md` | Sources and contributions; the Frictional log |
 | `jobfilter/` | The code |
-| `tests/` | 55 tests |
+| `tests/` | 56 tests |
 | `filters/` | v1.0 and v1.1 |
 | `runs/` | Decisions; held-out ones are sealed |
 | `labels/` | Held-out labels, the audit sheet (hand), AI-assisted verdicts, blind review cards |

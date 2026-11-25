@@ -30,7 +30,7 @@ Signed or withheld: pending Ashwin's review and explicit confirmation (no signat
 | The server has no network or process code, and no transcript outside the folder | `tests/test_mcp_server.py` |
 | v1.1 changes one object, and only 2 development decisions | `tests/test_v11_mission_manager.py` |
 | The audit selection is reproducible and excludes held-out keys | `tests/test_tool_and_audit.py::Audit` |
-| 55 tests pass on Python 3.9.6 and 3.12.15 | `python3 -m unittest`, and the same with `/opt/homebrew/bin/python3.12` |
+| 56 tests pass on Python 3.9.6 and 3.12.15 (55 at `b616bc09`; the 56th, added in `bf491431`, checks the server disclosure) | `python3 -m unittest`, and the same with `/opt/homebrew/bin/python3.12` |
 | Ashwin ran the 55 tests personally on 3.9.6 at `b616bc09`: OK, exit 0 | `drafting/checks-run-by-ashwin.txt` |
 
 ## Candidate "Not checked" items, from the record
