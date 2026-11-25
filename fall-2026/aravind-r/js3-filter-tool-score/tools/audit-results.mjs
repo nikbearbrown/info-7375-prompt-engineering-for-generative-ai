@@ -4,13 +4,13 @@
 //
 // Views, reported side by side:
 //   A   v1.0.0 decisions (audit/key.json, the run the sample was drawn from) vs FIRST-pass verdicts
-//   B   a later run's decisions (--run, default runs/filter/v1.1.0-a) vs FINAL verdicts
+//   B   a later run's decisions (--run, default runs/filter/v1.1.0-e, the final filter) vs FINAL verdicts
 //   A'  v1.0.0 decisions vs FINAL verdicts (summary only: isolates the verdict change)
 // first pass = first_pass_verdict where the row was rechecked, else my_verdict (commit 1c9ce17b).
 // final      = my_verdict (after the recheck in audit/recheck-plan.json).
 // Only rows declared in audit/judging-plan.json are counted. Strata come from the v1.0.0 draw.
 //
-// Usage: node tools/audit-results.mjs [--sheet audit/audit-sheet.csv] [--run runs/filter/v1.1.0-a] [--out audit]
+// Usage: node tools/audit-results.mjs [--sheet audit/audit-sheet.csv] [--run runs/filter/v1.1.0-e] [--out audit]
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -19,7 +19,7 @@ import { parseCsv } from '../src/csv.mjs';
 import { clopperPearson } from '../src/stats.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const { values } = parseArgs({ options: { sheet: { type: 'string', default: 'audit/audit-sheet.csv' }, run: { type: 'string', default: 'runs/filter/v1.1.0-a' }, out: { type: 'string', default: 'audit' } } });
+const { values } = parseArgs({ options: { sheet: { type: 'string', default: 'audit/audit-sheet.csv' }, run: { type: 'string', default: 'runs/filter/v1.1.0-e' }, out: { type: 'string', default: 'audit' } } });
 const VERDICTS = ['relevant', 'not_relevant', 'cannot_tell'];
 const STRATA = ['random_reject', 'closest_call', 'kept', 'cannot_tell'];
 const readJson = p => JSON.parse(readFileSync(join(ROOT, p), 'utf8'));
@@ -121,8 +121,9 @@ for (const v of VIEWS.filter(v => !v.summaryOnly)) {
 }
 
 if (named.length) {
+  const ROLE = { primary: 'Primary false friend', secondary: 'Secondary note', known_limit: 'Known limit' };
   md += `## Named false friends (Aravind's call, from postings judged by hand)\n\n`
-    + named.map(f => `- **"${f.term}"**, named by ${f.named_by} on ${f.date}. Rows: ${f.rows.join(', ')}. ${f.why}\n  - Line (verbatim, from both rows): "${f.line}"`).join('\n') + '\n\n';
+    + named.map(f => `- **${ROLE[f.role] ?? 'False friend'}: "${f.term}"**, named by ${f.named_by} on ${f.date}.${f.rows.length ? ` Rows: ${f.rows.join(', ')}.` : ''} ${f.why}\n  - Text: ${f.line}`).join('\n') + '\n\n';
   out.named_false_friends = named;
 }
 

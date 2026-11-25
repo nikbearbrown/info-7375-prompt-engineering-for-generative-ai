@@ -1,6 +1,6 @@
 # Reject audit — results
 
-Computed 2026-11-25T23:13:43.844Z from `audit/audit-sheet.csv` (hand verdicts by Aravind), `audit/key.json` (v1.0.0 decisions) and `runs/filter/v1.1.0-a` (v1.1.0-a decisions). Sample drawn from the v1.0.0 run with seed 20261125 (`audit/sample.json`).
+Computed 2026-11-25T23:26:16.682Z from `audit/audit-sheet.csv` (hand verdicts by Aravind), `audit/key.json` (v1.0.0 decisions) and `runs/filter/v1.1.0-e` (v1.1.0-e decisions). Sample drawn from the v1.0.0 run with seed 20261125 (`audit/sample.json`).
 
 ## Judging plan (declared 2026-11-25, before any verdict)
 
@@ -17,7 +17,7 @@ Computed 2026-11-25T23:13:43.844Z from `audit/audit-sheet.csv` (hand verdicts by
 - Reason: First pass used a looser bar than the written definition (excerpts only, stated years not checked; A035 is outside Maya's locations). The definition itself was then corrected. These rows are rechecked under the corrected definition.
 - **Rechecked 14; revised 11; unchanged 3.**
 - **Selection caveat:** These rows were chosen after seeing the v1.0.0 audit results; 11 of 14 are rows where the first-pass verdict disagreed with the filter. Rows where the first pass agreed with the filter (28 random rejects judged not_relevant) are not rechecked. The second pass is therefore not blind, and its selection leans toward agreement with the filter.
-- **Definition caveat:** the relevance definition changed between the passes (persona corrected after the first-pass results, `f3cefa22`). View B measures v1.1.0-a on rows whose results motivated it (dev use), so it is not an independent test; the held-out labels are.
+- **Definition caveat:** the relevance definition changed between the passes (persona corrected after the first-pass results, `f3cefa22`). View B measures v1.1.0-e on rows whose results motivated it (dev use), so it is not an independent test; the held-out labels are.
 
 | audit_id | title | first pass | final | reason (Aravind's note) |
 |---|---|---|---|---|
@@ -43,12 +43,12 @@ Each stratum is reported separately; strata are never pooled into one error rate
 | stratum | judged | view A errors | view B errors | view A' errors |
 |---|---|---|---|---|
 | random_reject | 30 of 40 | 2 of 30 (estimate 6.7%, exact 95% interval 0.8% to 22.1%) | 0 of 30 (estimate 0.0%, exact 95% interval 0.0% to 11.6%) | 0 of 30 (estimate 0.0%, exact 95% interval 0.0% to 11.6%) |
-| closest_call | 15 of 15 | 12 | 4 | 4 |
+| closest_call | 15 of 15 | 12 | 0 | 4 |
 | kept | 0 of 0 | 0 | 0 | 0 |
 | cannot_tell | 3 of 3 | 0 | 0 | 0 |
 
 - **View A:** v1.0.0 decisions vs first-pass verdicts.
-- **View B:** v1.1.0-a decisions vs final verdicts.
+- **View B:** v1.1.0-e decisions vs final verdicts.
 - **View A':** v1.0.0 decisions vs final verdicts (summary only: isolates the verdict change from the rule change).
 - The random_reject rows are a uniform sample of **v1.0.0's** 1061 rejects. Under a later version they measure how that version does on those same postings; they are not a sample of the later version's rejects.
 
@@ -105,7 +105,7 @@ Verdicts: relevant 3, not_relevant 0, cannot_tell 0. Decisions: keep 0, cannot_t
 | A022 | Product Manager, Connect Growth & Monetization | cannot_tell | relevant | 1 | 1 | null (—) | 1 (payments, ecommerce) | recheck 2026-11-25: "more than three years" in MINIMUM reqs → r |
 | A042 | Product Manager - Issuance, Bridge | cannot_tell | relevant | 1 | 1 | null (—) | 1 (payments, fintech, data) | recheck 2026-11-25: 5+ yrs PREFERRED only, min reqs no years; SF/NY → r |
 
-## View B: v1.1.0-a decisions vs final verdicts
+## View B: v1.1.0-e decisions vs final verdicts
 
 ### random_reject (judged 30 of 40)
 
@@ -115,22 +115,19 @@ Verdicts: relevant 0, not_relevant 30, cannot_tell 0. Decisions: keep 0, cannot_
 
 ### closest_call (judged 15 of 15)
 
-Verdicts: relevant 6, not_relevant 8, cannot_tell 1. Decisions: keep 6, cannot_tell 3, reject 6.
+Verdicts: relevant 6, not_relevant 8, cannot_tell 1. Decisions: keep 4, cannot_tell 3, reject 8.
 
-**Errors: 4 of 15.** Selected by distance to the v1.0.0 threshold, not sampled: no population interval applies.
+**Errors: 0 of 15.** Selected by distance to the v1.0.0 threshold, not sampled: no population interval applies.
 
 | audit_id | title | decision | verdict | T | L | E (phrase) | P (terms) | note |
 |---|---|---|---|---|---|---|---|---|
 | A005 | Product Manager, Connected Account Onboarding Experiences | keep | relevant | 1 | 1 | 0.5 (6+ years) | 1 (payments, data) |  |
-| A010 | Product Manager - Developer Experience, Bridge | reject | relevant **(error)** | 1 | 1 | 0 (10+ years) | 1 (payments, fintech, data) | recheck 2026-11-25: 6-10+ yrs is PREFERRED, min reqs state no years; SF/NY works |
+| A010 | Product Manager - Developer Experience, Bridge | keep | relevant | 1 | 1 | 0.5 (6–10+ years) | 1 (payments, fintech, data) | recheck 2026-11-25: 6-10+ yrs is PREFERRED, min reqs state no years; SF/NY works |
 | A014 | Product Manager, Trips | cannot_tell | cannot_tell | 1 | 1 | null (—) | 0 (—) | recheck 2026-11-25: no role desc or years in text; body appears missing → c |
 | A020 | Product Manager, Terminal Developer Experiences | keep | relevant | 1 | 1 | 0.5 (5+ years) | 1 (payments, data, mobile) |  |
 | A022 | Product Manager, Connect Growth & Monetization | cannot_tell | relevant | 1 | 1 | null (—) | 1 (payments, ecommerce) | recheck 2026-11-25: "more than three years" in MINIMUM reqs → r |
 | A025 | Product Manager, Treasury for Platforms | keep | relevant | 1 | 1 | 0.5 (6+ years) | 1 (payments, data) |  |
-| A027 | Technical Program Manager, Extensibility | keep | not_relevant **(error)** | 1 | 1 | 0.5 (5+ years) | 1 (payments, data) | recheck 2026-11-25: TPM owns program, only influences roadmaps; min reqs 5+ yrs TPM-specific → n |
 | A042 | Product Manager - Issuance, Bridge | cannot_tell | relevant | 1 | 1 | null (—) | 1 (payments, fintech, data) | recheck 2026-11-25: 5+ yrs PREFERRED only, min reqs no years; SF/NY → r |
-| A044 | Technical Program Manager, Extensibility Platform | keep | not_relevant **(error)** | 1 | 1 | 0.5 (5+ years) | 1 (payments, data) | recheck 2026-11-25: identical text to A027 → same verdict (n) |
-| A052 | Technical Program Manager, Money-as-a-Service | keep | not_relevant **(error)** | 1 | 1 | 0.5 (6+ years) | 1 (payments, fintech, data) | recheck 2026-11-25: TPM, delivery only, partners with PMs; min 6+ yrs eng/TPM → n |
 
 ### kept (judged 0 of 0)
 
@@ -150,8 +147,12 @@ Verdicts: relevant 2, not_relevant 0, cannot_tell 1. Decisions: keep 0, cannot_t
 
 ## Named false friends (Aravind's call, from postings judged by hand)
 
-- **"training"**, named by Aravind on 2026-11-25. Rows: A014, A047. In both rows it appears only in Airbnb's pay boilerplate, not in anything about the role. (Corpus count: 172 of 203 Airbnb postings contain it.) Note: "training" is not one of the filter's topic terms in v1.0.0 or v1.1.0-a, so it changed no filter decision here; it is a false friend for any keyword filter that would count it, and the same boilerplate sentence also carries "work experience", which the experience rule scans (no years phrase, so no effect).
-  - Line (verbatim, from both rows): "Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands."
+- **Primary false friend: "program manager (title rule)"**, named by Aravind on 2026-11-25. Rows: A027, A044, A052. The title rule's core tier listed "Technical Program Manager" (v1.0.0 to v1.1.0-d), so these titles matched as PM roles. Aravind's hand verdict on all three: not relevant, program delivery only, partnering with or influencing PMs rather than owning product direction (FILTER.md §1 TPM rule). Under v1.1.0-a to v1.1.0-d this match changed 3 decisions against the hand verdicts (kept instead of rejected). Fixed in v1.1.0-e: TPM titles moved to the adjacent tier.
+  - Text: Technical Program Manager, Extensibility / Technical Program Manager, Extensibility Platform / Technical Program Manager, Money-as-a-Service (the titles)
+- **Secondary note: "training"**, named by Aravind on 2026-11-25. Rows: A014, A047. In both rows it appears only in Airbnb's pay boilerplate (corpus count: 172 of 203 Airbnb postings). It is not a filter word in any version, so it changed no decision. It would be a false friend if it were added to the topic terms.
+  - Text: Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands.
+- **Known limit: "payments (boilerplate)"**, named by Aravind on 2026-11-25. v1.1.0-b drops topic words that appear only in lines shared by at least 20% of a board's postings, but it matches exact lines only. 159 Stripe postings still count "payments" that appears only in a reworded company intro (FILTER.md §9, v1.1.0-b). No judged audit row's outcome depended on it.
+  - Text: Stripe's company intro, e.g. "... use Stripe to accept payments, grow their revenue, and accelerate new business opportunities."
 
 ## Not checked
 

@@ -1,6 +1,6 @@
 # Reject audit — results
 
-Computed 2026-11-25T23:17:45.352Z from `audit/audit-sheet.csv` (hand verdicts by Aravind), `audit/key.json` (v1.0.0 decisions) and `runs/filter/v1.1.0-d` (v1.1.0-d decisions). Sample drawn from the v1.0.0 run with seed 20261125 (`audit/sample.json`).
+Computed 2026-11-25T23:26:16.648Z from `audit/audit-sheet.csv` (hand verdicts by Aravind), `audit/key.json` (v1.0.0 decisions) and `runs/filter/v1.1.0-d` (v1.1.0-d decisions). Sample drawn from the v1.0.0 run with seed 20261125 (`audit/sample.json`).
 
 ## Judging plan (declared 2026-11-25, before any verdict)
 
@@ -150,8 +150,12 @@ Verdicts: relevant 2, not_relevant 0, cannot_tell 1. Decisions: keep 0, cannot_t
 
 ## Named false friends (Aravind's call, from postings judged by hand)
 
-- **"training"**, named by Aravind on 2026-11-25. Rows: A014, A047. In both rows it appears only in Airbnb's pay boilerplate, not in anything about the role. (Corpus count: 172 of 203 Airbnb postings contain it.) Note: "training" is not one of the filter's topic terms in v1.0.0 or v1.1.0-a, so it changed no filter decision here; it is a false friend for any keyword filter that would count it, and the same boilerplate sentence also carries "work experience", which the experience rule scans (no years phrase, so no effect).
-  - Line (verbatim, from both rows): "Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands."
+- **Primary false friend: "program manager (title rule)"**, named by Aravind on 2026-11-25. Rows: A027, A044, A052. The title rule's core tier listed "Technical Program Manager" (v1.0.0 to v1.1.0-d), so these titles matched as PM roles. Aravind's hand verdict on all three: not relevant, program delivery only, partnering with or influencing PMs rather than owning product direction (FILTER.md §1 TPM rule). Under v1.1.0-a to v1.1.0-d this match changed 3 decisions against the hand verdicts (kept instead of rejected). Fixed in v1.1.0-e: TPM titles moved to the adjacent tier.
+  - Text: Technical Program Manager, Extensibility / Technical Program Manager, Extensibility Platform / Technical Program Manager, Money-as-a-Service (the titles)
+- **Secondary note: "training"**, named by Aravind on 2026-11-25. Rows: A014, A047. In both rows it appears only in Airbnb's pay boilerplate (corpus count: 172 of 203 Airbnb postings). It is not a filter word in any version, so it changed no decision. It would be a false friend if it were added to the topic terms.
+  - Text: Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands.
+- **Known limit: "payments (boilerplate)"**, named by Aravind on 2026-11-25. v1.1.0-b drops topic words that appear only in lines shared by at least 20% of a board's postings, but it matches exact lines only. 159 Stripe postings still count "payments" that appears only in a reworded company intro (FILTER.md §9, v1.1.0-b). No judged audit row's outcome depended on it.
+  - Text: Stripe's company intro, e.g. "... use Stripe to accept payments, grow their revenue, and accelerate new business opportunities."
 
 ## Not checked
 
