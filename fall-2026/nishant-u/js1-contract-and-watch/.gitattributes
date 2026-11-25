@@ -1,0 +1,9 @@
+# Saved responses are evidence: keep their bytes exactly so the recorded sha256 still matches.
+runs/**/raw.json -text
+runs/**/claude/** -text
+# The sealed split: keep its bytes exactly so the recorded sha256 still matches.
+experiment/dev_ids.json -text
+experiment/heldout_ids.json -text
+# Saved Claude replies from the dev experiments: evidence, kept byte for byte.
+experiment/sampling/** -text
+experiment/runs/** -text
