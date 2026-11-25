@@ -32,3 +32,15 @@ Labels the accepted definition contradicts, **by Claude Code's reading** of each
 #40, #50, #65, #66 were labeled `not_relevant` for experience ("requires lots of experience"). Their own text was not compared with the 9 above, so whether one experience line separates them is **not established**.
 
 **Total contradicted: 15 of 80 (19%).**
+
+## Addendum, 2026-11-25, found **after** the held-out `prompt_v3_definition` run (so it is not independent of that result)
+
+Under `judge_v3_definition.md`, Claude flipped three of my `not_relevant` labels' postings to `relevant`. Reading them again: each is a technical solution- or account-engineering role, and the definition I accepted says solution or sales engineering **does not count against** a posting. My note on all three was "not data engineer role". So these three labels also contradict the definition, and the list above (made before that run) missed them.
+
+| # | title | my label | my note |
+|---|---|---|---|
+| 10 | Senior Solution Engineer - Expansion | not_relevant | not data engineer role |
+| 18 | Commercial Solutions Engineer - Acquisition | not_relevant | not data engineer role |
+| 59 | Account Engineer | not_relevant | no data engineer role |
+
+**Revised total: at least 18 of 80 (23%).** This list was made by reading, not by a rule, so there may be more.

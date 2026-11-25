@@ -55,9 +55,10 @@ Of the 30 held-out labels, **5 are in the known-noise list** (#9, #30, #38, #44,
 | 3 | **the prompt** | `judge_v1.md` → `judge_v2_abstain.md` (may answer `cannot_tell`) | 12/30 → **12/30** | **0**; `cannot_tell` used 0 times |
 | 4 | **the context** | + one line: the filter's own score and matched words for that posting | 12/30 → **12/30** | **0**; 0 of 30 reasons mention the filter, score or keywords |
 | 5 | **the tool list** | + `score_posting` (my MCP server, v1.2) | 12/30 → **12/30** | **0**; Claude made **0 tool calls** |
+| 6 | **the prompt, definition only** | `judge_v1.md` → `judge_v3_definition.md`: the four-criterion paragraph replaced by my 2026-11-25 definition, nothing else (`diff`) | 12/30 → **20/30** (47–83%) | **14 flipped**: 11 toward my label, 3 away |
 | A–A | nothing (baseline asked again) | | 12/30 → 12/30 | **0 verdicts**, but **0 of 30 reasons** had identical text |
 
-All 150 Claude replies were valid. Every condition used the same call shape (`agent3/claude.py` `ask_claude_isolated`): no setting sources, no skills, no built-in tools, the prompt as the whole system prompt, and an explicit MCP list (empty except in row 5).
+All 180 Claude replies were valid (150, then 30 for row 6, which I approved after seeing rows 3–5; the prompt was committed before its run). Every condition used the same call shape (`agent3/claude.py` `ask_claude_isolated`): no setting sources, no skills, no built-in tools, the prompt as the whole system prompt, and an explicit MCP list (empty except in row 5).
 
 ### What the numbers say, and what they don't
 
@@ -67,7 +68,12 @@ All 150 Claude replies were valid. Every condition used the same call shape (`ag
 - **0 flips does not mean the prompt, context and tool list "don't matter".** It means that for these 30 postings, under a prompt whose criterion already settles each case, they did not cross a verdict. With all 30 verdicts `not_relevant`, a change could only show up as a flip to `relevant` or `cannot_tell`, and none happened.
 - **The A–A control is the yardstick.** Re-asking changed no verdict and every reason's wording. So a reworded reason is never evidence that a change worked. Only verdict flips beyond what re-asking produces count, and with 0 flips from re-asking, even one flip would have been notable.
 - **Thirty postings.** 12/30 is consistent with a true agreement anywhere from 23% to 59%.
-- **Not run:** the change most likely to matter, rewriting the prompt's definition to the new one. See "Not checked" in the sign-off.
+- **Row 6 is the change that moved Claude:** the definition paragraph. 14 verdicts flipped, against 0 from re-asking (A–A).
+  - **11 flips went toward my label.**
+  - **The 3 flips away from it** (#10, #18, #59) are technical Solution/Account Engineer roles I labeled `not_relevant` ("not data engineer role"). The definition I accepted says solution or sales engineering does not count against a posting, so those **labels** contradict the definition. They were added to `labels/label_noise.md` *after* this run, and marked so.
+  - **Of the 10 disagreements left, 8 are labels in the noise list** (#9, #10, #18, #30, #38, #44, #59, #71).
+- **Two instruments, one definition.** Under `judge_v3_definition.md`, Claude and filter v1.2 agree on **27 of 30**, though neither saw the other's output: v1.2's threshold was fitted to my labels, and Claude was only given the definition. Where they still disagree with me, it is mostly where my labels disagree with my own definition.
+- **What moved the score, in one line:** the objects that encode the **criterion** (the definition in the prompt, the threshold fitted to labels that carry it). Instructions about *how* to answer (abstain), extra *evidence* (the score), and extra *capability* (a tool) moved nothing.
 
 > **My view:** ____________
 

@@ -15,5 +15,6 @@
 | baseline | (none: reference) | 30/30 | 30 | 12/30 = 40% (95% CI 23%–59%) | 0 | 0 | - |
 | baseline_repeat | (none: A-A control) | 30/30 | 30 | 12/30 = 40% (95% CI 23%–59%) | 0 | 0 | 0 |
 | prompt_v2 | the prompt | 30/30 | 30 | 12/30 = 40% (95% CI 23%–59%) | 0 | 0 | 0 |
+| prompt_v3_definition | the prompt (definition paragraph only) | 30/30 | 30 | 20/30 = 67% (95% CI 47%–83%) | 0 | 0 | 14 |
 | context_score | the context | 30/30 | 30 | 12/30 = 40% (95% CI 23%–59%) | 0 | 0 | 0 |
 | tools_score | the tool list | 30/30 | 30 | 12/30 = 40% (95% CI 23%–59%) | 0 | 0 | 0 |
