@@ -52,12 +52,35 @@ def _go(text):
     return None
 
 
-def _skills(resume):
+# stack_fit v2 (Vrajesh's hand labels, claim-check items 5, 18, 24): only technologies in the persona's documented
+# shipped project count. Option lists ('or', slashes) still count, by Vrajesh's decision.
+EXTRA_TECH = ["GraphQL", "DigitalOcean"]  # named in project bullets but not in the skills lists
+
+
+def _matches(name, text, strict_go=True):
+    """All mentions of a technology. 'Go' is strict in posting text ('go-to-market' is not the language)."""
+    if name == "Go":
+        if not strict_go:
+            return list(re.finditer(r"\bGo\b", text))
+        out = list(re.finditer(r"\bGolang\b", text, re.I))
+        for m in re.finditer(r"(?<![\w-])Go(?![\w-])", text):
+            before = text[:m.start()].rstrip()[-1:]
+            after = text[m.end():].lstrip()[:1]
+            if before in ",/(" or after in ",/)":
+                out.append(m)
+        return sorted(out, key=lambda m: m.start())
+    pat = SPECIAL.get(name, r"\b" + re.escape(name) + r"\b")
+    return list(re.finditer(pat, text, 0 if name in CASE_SENSITIVE else re.I))
+
+
+def shipped_skills(resume):
+    """Skills (and extra tech) that appear in the persona's project bullets."""
     sk = resume.get("skills", {})
     names = []
     for group in ("languages", "frontend", "database_cloud", "devops_cicd"):
         names += sk.get(group, [])
-    return names
+    bullets = " ".join(b for p in resume.get("projects", []) for b in p.get("bullets", []))
+    return [n for n in names + EXTRA_TECH if _matches(n, bullets, strict_go=False)]
 
 
 def label_claims(posting, resume):
@@ -111,20 +134,17 @@ def label_claims(posting, resume):
                           why="the text does not mention a clearance"))
 
     hits = []
-    for name in _skills(resume):
-        if name == "Go":
-            m = _go(text)
-        else:
-            pat = SPECIAL.get(name, r"\b" + re.escape(name) + r"\b")
-            m = re.search(pat, text, 0 if name in CASE_SENSITIVE else re.I)
-        if m:
-            hits.append((name, m))
+    for name in shipped_skills(resume):
+        found = _matches(name, text)
+        if found:
+            hits.append((name, found[0]))
+    stmt = "The posting names a technology from Rohan's documented shipped project, (option lists count)."
     if hits:
-        out.append(_claim("stack_fit", "The posting names technologies the persona has shipped.", "supported",
+        out.append(_claim("stack_fit", stmt, "supported",
                           " | ".join(_snip(text, m, 25) for _, m in hits[:3])) | {"skills": [n for n, _ in hits]})
     else:
-        out.append(_claim("stack_fit", "The posting names technologies the persona has shipped.", "insufficient",
-                          why="no listed skill appears in the text"))
+        out.append(_claim("stack_fit", stmt, "insufficient",
+                          why="no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count)"))
 
     if re.search(r"\bai\b|\bllm\b", title, re.I):
         a = AI_TEXT.search(text)

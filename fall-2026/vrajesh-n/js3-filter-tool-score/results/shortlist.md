@@ -8,7 +8,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming languages such as Python, Javascript, React, and... | ...anguages such as Python, Javascript, React, and SQL. - Exp... | ..., Javascript, React, and SQL. - Experience building...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, AI Integrations - ashby_commure
 - Mountain View, CA  |  https://jobs.ashbyhq.com/commure/39e07152-a3d2-47c0-8c5b-36e8b3a6cdf5
@@ -17,7 +17,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...n backend languages like Python, Go, or C++. - Experie... | ...d languages like Python, Go, or C++. - Experience... | ...frontend languages like Javascript, HTML, CSS - Proficien...
+- **stack_fit**: supported - ...d languages like Python, Go, or C++. - Experience...
 - **ai_focus**: supported - ...ty, and scalability. - Utilize the latest developments in LLM technology to automate the reverse-engineering of electroni...
 
 ## Fullstack Engineer, Ambient AI - ashby_commure
@@ -27,7 +27,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rn web applications with JavaScript or TypeScript. - Exper... | ...tions with JavaScript or TypeScript. - Experience integrat...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 - **ai_focus**: supported - ...Multimodal inputs and intelligent recommendations - Agentic actions that help clinicians complete work - Collabo...
 
 ## Software Engineer, Scribe AI - ashby_commure
@@ -37,7 +37,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...- Strong experience in Python, JavaScript/TypeScript,... | ...ng experience in Python, JavaScript/TypeScript, and modern f... | ..., and modern frameworks (React, Next.js, Node.js/Expres...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 - **ai_focus**: supported - ...cale features for our AI medical scribe, using cutting-edge LLM models to create accurate, structured clinical notes. - B...
 
 ## AI Engineer – Forward Deployed Engineering (AI FDE) - greenhouse_databricks
@@ -47,7 +47,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "United States"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...learning deployments on AWS, Azure, or GCP Graduate... | ...yments on AWS, Azure, or GCP Graduate degree in a qua...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 - **ai_focus**: supported - ...mmates, and fueling your curiosity for the latest trends in GenAI, LLMOps, and ML more broadly. Open to remote locations. Thi...
 
 ## Software Engineering Intern (2027) - greenhouse_databricks
@@ -57,7 +57,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Bellevue, Washington; Mountain View, California; San Francisco, California; Vancouver, Canada"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rogram language, such as Python, Java, or C++ You have g... | ...anguage, such as Python, Java, or C++ You have good kn...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - New Grad (2027 Start) - greenhouse_databricks
 - Bellevue, Washington; Mountain View, California; San Francisco, California; Vancouver, Canada  |  https://databricks.com/company/careers/open-positions/job?gh_jid=6865698002
@@ -66,7 +66,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Bellevue, Washington; Mountain View, California; San Francisco, California; Vancouver, Canada"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rogram language, such as Python, Java, or C++ You have k... | ...anguage, such as Python, Java, or C++ You have knowled...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - New Grad, Distributed Data Systems (2027 Start) - greenhouse_databricks
 - Bellevue, Washington; Mountain View, California  |  https://databricks.com/company/careers/open-positions/job?gh_jid=6865704002
@@ -75,7 +75,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Bellevue, Washington; Mountain View, California"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rogram language, such as Java, or C++ You have knowled...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Solutions Architect - greenhouse_databricks
 - Arizona; California; Utah  |  https://databricks.com/company/careers/open-positions/job?gh_jid=8605160002
@@ -84,7 +84,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Arizona; California; Utah"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rogramming experience in Python, R, Scala or Java Nice t... | ...e in Python, R, Scala or Java Nice to have: Databricks...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Solutions Architect - Healthcare/Life Sciences Team (HLS) - greenhouse_databricks
 - Remote - Illinois  |  https://databricks.com/company/careers/open-positions/job?gh_jid=8085877002
@@ -93,7 +93,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Remote - Illinois"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rogramming experience in Python, SQL or Scala Can travel... | ...ng experience in Python, SQL or Scala Can travel up t...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Solutions Architect - Healthcare/Life Sciences Team (HLS) - greenhouse_databricks
 - Remote - California  |  https://databricks.com/company/careers/open-positions/job?gh_jid=8231231002
@@ -102,7 +102,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Remote - California"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rogramming experience in Python, SQL or Scala Can travel... | ...ng experience in Python, SQL or Scala Can travel up t...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Solutions Architect - Manufacturing - greenhouse_databricks
 - Chicago, Illinois  |  https://databricks.com/company/careers/open-positions/job?gh_jid=6545547002
@@ -111,7 +111,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Chicago, Illinois"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rogramming experience in Python, R, Scala or Java Nice t... | ...e in Python, R, Scala or Java Nice to have: Databricks...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Solutions Architect - Manufacturing - greenhouse_databricks
 - Remote - Illinois; Remote - Michigan; Remote - New York  |  https://databricks.com/company/careers/open-positions/job?gh_jid=8661758002
@@ -120,7 +120,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Remote - Illinois; Remote - Michigan; Remote - New York"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...programming expertise in Python, R, Scala, or Java Exper... | ...in Python, R, Scala, or Java Experience practicing li...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Systems PhD - Software Engineer - greenhouse_databricks
 - Mountain View, California; San Francisco, California  |  https://databricks.com/company/careers/open-positions/job?gh_jid=8482037002
@@ -129,7 +129,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, California; San Francisco, California"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Systems PhD - Software Engineer - greenhouse_databricks
 - Bellevue, Washington; Seattle, Washington  |  https://databricks.com/company/careers/open-positions/job?gh_jid=8482086002
@@ -138,7 +138,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Bellevue, Washington; Seattle, Washington"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Backend (All Teams) - greenhouse_doordashusa
 - San Francisco, CA; New York City, NY;  Sunnyvale, CA; Seattle, WA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8138486
@@ -147,7 +147,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; New York City, NY;  Sunnyvale, CA; Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...P, REST) Experience with SQL and NoSQL databases and... | ...other technologies (e.g. Postgres, Redis, Elasticsearch, R... | ...nologies (e.g. Postgres, Redis, Elasticsearch, RabbitMQ...
+- **stack_fit**: supported - ...other technologies (e.g. Postgres, Redis, Elasticsearch, R...
 
 ## Software Engineer, Code Quality - greenhouse_doordashusa
 - San Francisco, CA; Seattle, WA; New York, NY; Los Angeles, CA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8202736
@@ -156,7 +156,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; Seattle, WA; New York, NY; Los Angeles, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Data Platform - greenhouse_doordashusa
 - San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York City, NY  |  https://job-boards.greenhouse.io/doordashusa/jobs/8191886
@@ -165,7 +165,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York City, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Full Stack - Developer Insights - greenhouse_doordashusa
 - San Francisco, CA; New York, NY; Los Angeles, CA; Seattle, WA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8207877
@@ -174,7 +174,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; New York, NY; Los Angeles, CA; Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...ntend with Java, Kotlin, Python or Go backend experience... | ...act on the frontend with Java, Kotlin, Python or Go ba... | ...es using Typescript with React on the frontend with Jav...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Full Stack - Experimentation Platform - greenhouse_doordashusa
 - San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York, NY; Los Angeles, CA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8236946
@@ -183,7 +183,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York, NY; Los Angeles, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...ience with Java, Kotlin, Python, or Go. Experience with... | ...Backend experience with Java, Kotlin, Python, or Go.... | ...s and data models to the React UI in our Decision Porta...
+- **stack_fit**: supported - ...ata” technologies (e.g., Postgres, Redis, Elasticsearch, S...
 
 ## Software Engineer I, Entry-Level (Graduation Date: Fall 2026-Summer 2027) - US - greenhouse_doordashusa
 - Los Angeles, CA; New York, NY; San Francisco, CA; Sunnyvale, CA; Seattle, WA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8163709
@@ -192,7 +192,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Los Angeles, CA; New York, NY; San Francisco, CA; Sunnyvale, CA; Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming language, such as Python, Java, or Kotlin A solid... | ...anguage, such as Python, Java, or Kotlin A solid under... | ...and technologies such as SQL Experience writing clean...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineering, Android (All Teams) - greenhouse_doordashusa
 - San Francisco, CA; New York City, NY;  Sunnyvale, CA; Seattle, WA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8161616
@@ -201,7 +201,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; New York City, NY;  Sunnyvale, CA; Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Intern - Labs (Summer 2027) - greenhouse_doordashusa
 -  San Francisco, CA; Sunnyvale, CA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8263774
@@ -210,7 +210,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; Sunnyvale, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...gramming language (e.g., Python, Java, Kotlin, etc.) You... | ...language (e.g., Python, Java, Kotlin, etc.) You have... | ...th databases (e.g., AWS, SQL, etc.) You have a solid...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Intern (Summer 2027) - US - greenhouse_doordashusa
 - New York, NY; San Francisco, CA; Sunnyvale, CA; Los Angeles, CA; Seattle, WA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8171041
@@ -219,7 +219,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY; San Francisco, CA; Sunnyvale, CA; Los Angeles, CA; Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...gramming language (e.g., Python, Java, Kotlin, etc.) You... | ...language (e.g., Python, Java, Kotlin, etc.) You have... | ...th databases (e.g., AWS, SQL, etc.) You have a solid...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Planning & Controls - Autonomy & Robotics, DoorDash Air - greenhouse_doordashusa
 - San Francisco, CA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8046982
@@ -228,7 +228,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Reliability Platform - greenhouse_doordashusa
 - San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York City, NY  |  https://job-boards.greenhouse.io/doordashusa/jobs/8304878
@@ -237,7 +237,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York City, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...You’re comfortable with AWS primitives, security bes... | ...cture as Code tools like Terraform or Pulumi. SRE Experienc...
+- **stack_fit**: supported - ...cture as Code tools like Terraform or Pulumi. SRE Experienc...
 
 ## Software Engineer, Robotics Infrastructure - Autonomy & Robotics, DoorDash Air - greenhouse_doordashusa
 - San Francisco, CA  |  https://job-boards.greenhouse.io/doordashusa/jobs/8046909
@@ -246,7 +246,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...n the build system (C++, Python) and middleware layer (R...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Spark Platform - greenhouse_doordashusa
 - San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York City, NY  |  https://job-boards.greenhouse.io/doordashusa/jobs/8192190
@@ -255,7 +255,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; Sunnyvale, CA; Seattle, WA; New York City, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...essional experience with Python, Go, Scala, or Java; SQL... | ...experience with Python, Go, Scala, or Java; SQL flu... | ...th Python, Go, Scala, or Java; SQL fluency. A bias tow...
+- **stack_fit**: supported - ...experience with Python, Go, Scala, or Java; SQL flu...
 
 ## Software Engineer, Storage - greenhouse_doordashusa
 - San Francisco, CA; Seattle, WA; New York, NY  |  https://job-boards.greenhouse.io/doordashusa/jobs/8024644
@@ -264,7 +264,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA; Seattle, WA; New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...proficient in GoLang, or Java with a deeper expertise... | ...DB, Cassandra, Kafka and Redis as well as data abstract...
+- **stack_fit**: supported - ...e. You are proficient in GoLang, or Java with a deeper e...
 
 ## PhD Intern, Software Engineer - Graphics (2027) - greenhouse_figma
 - San Francisco, CA • New York, NY  |  https://boards.greenhouse.io/figma/jobs/6219995004?gh_jid=6219995004
@@ -273,7 +273,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA • New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - Full Stack - greenhouse_figma
 - San Francisco, CA • New York, NY • United States  |  https://boards.greenhouse.io/figma/jobs/5691911004?gh_jid=5691911004
@@ -282,7 +282,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA • New York, NY • United States"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...echnologies (e.g., Ruby, Python, Go, C++, PostgreSQL) A... | ...ies (e.g., Ruby, Python, Go, C++, PostgreSQL) A prod... | ...nt-end frameworks (e.g., React/TypeScript) and back-end...
+- **stack_fit**: supported - ...ies (e.g., Ruby, Python, Go, C++, PostgreSQL) A prod... | ..., Ruby, Python, Go, C++, PostgreSQL) A product mindset, with...
 
 ## Software Engineer Intern (Summer 2027) - greenhouse_figma
 - San Francisco, CA • New York, NY  |  https://boards.greenhouse.io/figma/jobs/6143238004?gh_jid=6143238004
@@ -291,7 +291,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA • New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...e (e.g. C++, JavaScript, Python, Java, etc.), with a sol... | ...C++, JavaScript, Python, Java, etc.), with a solid gra... | ...pose language (e.g. C++, JavaScript, Python, Java, etc.), wi...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - greenhouse_gleanwork
 - Mountain View, CA  |  https://job-boards.greenhouse.io/gleanwork/jobs/4746918005
@@ -300,7 +300,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...systems and services in Java and C++. Perform data an... | ...res using TypeScript and React. Develop server-side ser... | ...er-facing features using TypeScript and React. Develop serve...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - greenhouse_gleanwork
 - Mountain View, CA  |  https://job-boards.greenhouse.io/gleanwork/jobs/4746910005
@@ -309,7 +309,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...that data using C++/Java/Python/Go. Design and implement... | ...ta using C++/Java/Python/Go. Design and implement us... | ...l of that data using C++/Java/Python/Go. Design and im...
+- **stack_fit**: supported - ...ta using C++/Java/Python/Go. Design and implement us...
 
 ## Software Engineer - greenhouse_gleanwork
 - Mountain View, CA  |  https://job-boards.greenhouse.io/gleanwork/jobs/4746919005
@@ -318,7 +318,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...that data using C++/Java/Python/Go. Design and implement... | ...ta using C++/Java/Python/Go. Design and implement us... | ...l of that data using C++/Java/Python/Go. Design and im...
+- **stack_fit**: supported - ...ta using C++/Java/Python/Go. Design and implement us...
 
 ## Software Engineer, Developer Productivity - greenhouse_gleanwork
 - Mountain View, CA  |  https://job-boards.greenhouse.io/gleanwork/jobs/4614706005
@@ -327,7 +327,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...background in Java, Go, Python, or a similar language.... | ...ring background in Java, Go, Python, or a similar la... | ...ngineering background in Java, Go, Python, or a simila...
+- **stack_fit**: supported - ...ring background in Java, Go, Python, or a similar la...
 
 ## Software Engineer, Frontend - greenhouse_gleanwork
 - Mountain View, CA  |  https://job-boards.greenhouse.io/gleanwork/jobs/4006733005
@@ -336,7 +336,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...rtable in TypeScript, or JavaScript and type-curious Experie... | ...res from within a modern React and TypeScript codebase.... | ...ithin a modern React and TypeScript codebase. In a rapidly g...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Fullstack - greenhouse_gleanwork
 - Mountain View, CA  |  https://job-boards.greenhouse.io/gleanwork/jobs/4006734005
@@ -345,7 +345,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...e in or desire to master Golang, Java and TypeScript Loc... | ...desire to master Golang, Java and TypeScript Location:... | ...ctionality, ideally both SQL and NoSQL Comfortable in...
+- **stack_fit**: supported - ...e in or desire to master Golang, Java and TypeScript Loc...
 
 ## Software Engineer, Product Backend - greenhouse_gleanwork
 - Mountain View, CA  |  https://job-boards.greenhouse.io/gleanwork/jobs/4428090005
@@ -354,7 +354,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Mountain View, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...e in or desire to master Golang and Java Compensation &... | ...ire to master Golang and Java Compensation & Benefits:... | ...ctionality, ideally both SQL and NoSQL Comfortable in...
+- **stack_fit**: supported - ...e in or desire to master Golang and Java Compensation &...
 
 ## Backend/API Engineer, Money as a Service - greenhouse_stripe
 - US  |  https://stripe.com/jobs/search?gh_jid=6176758
@@ -363,7 +363,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "US"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ..., cloud services such as AWS, etc.)... | ...es (e.g., gRPC, GraphQL, Docker and Kubernetes, cloud se... | ...RPC, GraphQL, Docker and Kubernetes, cloud services such as...
+- **stack_fit**: supported - ...ed services (e.g., gRPC, GraphQL, Docker and Kubernetes,...
 
 ## Backend / API Engineer, Radar - greenhouse_stripe
 - San Francisco, Seattle, New York  |  https://stripe.com/jobs/search?gh_jid=8301253
@@ -372,7 +372,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, Seattle, New York"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Backend Engineer, Core Technology - greenhouse_stripe
 - US-Remote, Chicago, Seattle, San Francisco  |  https://stripe.com/jobs/search?gh_jid=6042172
@@ -381,7 +381,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "US-Remote, Chicago, Seattle, San Francisco"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...ogramming languages like Go, Java, C/C++ etc.) 2–12+... | ...mming languages like Go, Java, C/C++ etc.) 2–12+ years...
+- **stack_fit**: supported - ...ogramming languages like Go, Java, C/C++ etc.) 2–12+...
 
 ## Backend Engineer, Developer & End-user Experience Platform - greenhouse_stripe
 - Toronto Canada, San Francisco, Remote in US, Remote in Canada  |  https://stripe.com/jobs/search?gh_jid=7292520
@@ -390,7 +390,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Toronto Canada, San Francisco, Remote in US, Remote in Canada"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ..., cloud services such as AWS, etc.)... | ...es (e.g., gRPC, GraphQL, Docker and Kubernetes, cloud se... | ...RPC, GraphQL, Docker and Kubernetes, cloud services such as...
+- **stack_fit**: supported - ...ed services (e.g., gRPC, GraphQL, Docker and Kubernetes,...
 
 ## Backend Engineer, Developer & End-user Experience Platform - greenhouse_stripe
 - SEA, SF, NY, Toronto  |  https://stripe.com/jobs/search?gh_jid=7476555
@@ -399,7 +399,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "SEA, SF, NY, Toronto"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ..., cloud services such as AWS, etc.)... | ...es (e.g., gRPC, GraphQL, Docker and Kubernetes, cloud se... | ...RPC, GraphQL, Docker and Kubernetes, cloud services such as...
+- **stack_fit**: supported - ...ed services (e.g., gRPC, GraphQL, Docker and Kubernetes,...
 
 ## Backend Engineer, Link - greenhouse_stripe
 - NYC, Sea, SF, Tor  |  https://stripe.com/jobs/search?gh_jid=8131144
@@ -408,7 +408,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "NYC, Sea, SF, Tor"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Backend Engineer, Privy - greenhouse_stripe
 - NYC-Privy  |  https://stripe.com/jobs/search?gh_jid=7235875
@@ -417,7 +417,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "NYC-Privy"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...ng technology like Node, React, and AWS so we can focus... | ...gy like Node, React, and AWS so we can focus our engi...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## High School Internship, Software Engineering (Summer 2027) - greenhouse_stripe
 - Seattle, San Francisco  |  https://stripe.com/jobs/search?gh_jid=8241260
@@ -426,7 +426,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, San Francisco"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...Ruby, Java, JavaScript, Go, and Scala. We believe n... | ...We work mostly in Ruby, Java, JavaScript, Go, and Sca... | ...rk mostly in Ruby, Java, JavaScript, Go, and Scala. We belie...
+- **stack_fit**: supported - ...Ruby, Java, JavaScript, Go, and Scala. We believe n...
 
 ## Software Engineer - greenhouse_stripe
 - South San Francisco, CA  |  https://stripe.com/jobs/search?gh_jid=8314283
@@ -435,7 +435,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "South San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...ents, specifically using AWS, Azure, or GCP; Cloud-na... | ...lly using AWS, Azure, or GCP; Cloud-native networking... | ...croservice architecture; Kubernetes and containerization tec...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - greenhouse_stripe
 - Seattle, WA  |  https://stripe.com/jobs/search?gh_jid=8249901
@@ -444,7 +444,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...uding AWS and Azure; Go, Python or Java; Developing, mai... | ...including AWS and Azure; Go, Python or Java; Develop... | ...and Azure; Go, Python or Java; Developing, maintaining...
+- **stack_fit**: supported - ...including AWS and Azure; Go, Python or Java; Develop...
 
 ## Software Engineer - greenhouse_stripe
 - Seattle, WA  |  https://stripe.com/jobs/search?gh_jid=8267736
@@ -453,7 +453,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...1 year of experience in Python programming language; 1... | ...years of experience with AWS cloud infrastructure and... | ...cloud infrastructure and Terraform infrastructure automatio...
+- **stack_fit**: supported - ...cloud infrastructure and Terraform infrastructure automatio...
 
 ## Software Engineer, Backend - greenhouse_stripe
 - Seattle, WA  |  https://stripe.com/jobs/search?gh_jid=8198280
@@ -462,7 +462,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...solutions in Java, C++, Python, or Ruby; Designing, bui... | ...ng software solutions in Java, C++, Python, or Ruby; D...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Early Career — Immediate Start - greenhouse_stripe
 - San Francisco, Seattle, New York  |  https://stripe.com/jobs/search?gh_jid=8212508
@@ -471,7 +471,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, Seattle, New York"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...swork. We work mostly in Java, Ruby, JavaScript, Scala... | ...rk mostly in Java, Ruby, JavaScript, Scala, and Go. We belie...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Fraud System Interventions - greenhouse_stripe
 - South San Francisco, CA  |  https://stripe.com/jobs/search?gh_jid=8332718
@@ -480,7 +480,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "South San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...g languages: Java, Ruby, Python or Go; Performing data-d... | ...g programming languages: Java, Ruby, Python or Go; Per... | ...rm decision-making using SQL and visualization softwa...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - Full stack - greenhouse_stripe
 - Seattle, WA  |  https://stripe.com/jobs/search?gh_jid=8332676
@@ -489,7 +489,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...ct, Typescript, Java and Golang; Using SQL to perform da... | ...Ruby, React, Typescript, Java and Golang; Using SQL to... | ..., Java and Golang; Using SQL to perform data analysis...
+- **stack_fit**: supported - ...ct, Typescript, Java and Golang; Using SQL to perform da...
 
 ## Software Engineer, High Availability and Disaster Recovery - greenhouse_stripe
 - Seattle, WA  |  https://stripe.com/jobs/search?gh_jid=8197135
@@ -498,7 +498,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...n each of the following: Go, Ruby, or Java programmi... | ...logies, including: Ruby, Java, Mongo, Postgres, and ot... | ...l workflows; Using Trino SQL for data analysis and vi...
+- **stack_fit**: supported - ...n each of the following: Go, Ruby, or Java programmi... | ...ding: Ruby, Java, Mongo, Postgres, and other necessary too...
 
 ## Software Engineer, Intern (Summer or Winter) - greenhouse_stripe
 - San Francisco, Seattle, New York City  |  https://stripe.com/jobs/search?gh_jid=8128745
@@ -507,7 +507,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, Seattle, New York City"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...Ruby, Java, Javascript, Go, and Scala. We believe n... | ...We work mostly in Ruby, Java, Javascript, Go, and Sca... | ...rk mostly in Ruby, Java, Javascript, Go, and Scala. We belie...
+- **stack_fit**: supported - ...Ruby, Java, Javascript, Go, and Scala. We believe n...
 
 ## Software Engineer, New Grad - greenhouse_stripe
 - San Francisco, Seattle, New York  |  https://stripe.com/jobs/search?gh_jid=8128744
@@ -516,7 +516,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, Seattle, New York"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...swork. We work mostly in Java, Ruby, JavaScript, Scala... | ...rk mostly in Java, Ruby, JavaScript, Scala, and Go. We belie...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Payins Card Networks - greenhouse_stripe
 - Seattle, WA  |  https://stripe.com/jobs/search?gh_jid=8198207
@@ -525,7 +525,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...s; Java, Ruby, Scala, or Python; and API, REST, Soap, Ag... | ...and serve HTTP requests; Java, Ruby, Scala, or Python;...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, Resource Automation - greenhouse_stripe
 - South San Francisco, CA  |  https://stripe.com/jobs/search?gh_jid=8314235
@@ -534,7 +534,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "South San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...: Backend development in Go, including building prod... | ...d environments including AWS, Azure, GCP, or OCI; Con... | ...ts including AWS, Azure, GCP, or OCI; Containers and...
+- **stack_fit**: supported - ...: Backend development in Go, including building prod...
 
 ## Software Engineer, Vulnerability Management - greenhouse_stripe
 - US - Remote  |  https://stripe.com/jobs/search?gh_jid=8089353
@@ -543,7 +543,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "US - Remote"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Solutions Architect, Metronome (Startups) - greenhouse_stripe
 - US-NYC, US-SF, US-Chicago  |  https://stripe.com/jobs/search?gh_jid=8072257
@@ -552,7 +552,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "US-NYC, US-SF, US-Chicago"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...e Dropbox, Palantir, and MongoDB. You'll be joining Strip...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer I - greenhouse_twitch
 - Seattle, WA  |  https://job-boards.greenhouse.io/twitch/jobs/8906750002
@@ -561,7 +561,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...Proficiency in Go, Java, Python or another Object-orient... | ...of our software Backend (Go), Frontend (React) Colla... | ...tals. Proficiency in Go, Java, Python or another Objec...
+- **stack_fit**: supported - ...of our software Backend (Go), Frontend (React) Colla...
 
 ## Software Engineer I - greenhouse_twitch
 - San Francisco, CA  |  https://job-boards.greenhouse.io/twitch/jobs/8917377002
@@ -570,7 +570,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...itch: React, Typescript, Golang Experience building soft... | ...d frameworks such as Go, React, Kotlin, Swift, Objectiv... | ...we use at Twitch: React, Typescript, Golang Experience build...
+- **stack_fit**: supported - ...s and frameworks such as Go, React, Kotlin, Swift, O...
 
 ## Software Engineer I - greenhouse_twitch
 - San Francisco, CA  |  https://job-boards.greenhouse.io/twitch/jobs/8879673002
@@ -579,7 +579,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...React Native experience Go, or other backend langua... | ...le frontend development (React heavy for both Web & Mob... | ...nguages we use at Twitch AWS experience (ECS, DynamoD...
+- **stack_fit**: supported - ...React Native experience Go, or other backend langua...
 
 ## Software Engineer I, Payments - greenhouse_twitch
 - San Francisco, CA  |  https://job-boards.greenhouse.io/twitch/jobs/8700578002
@@ -588,7 +588,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...the following language: Go, Ruby, Java, C++ Familia... | ...wing language: Go, Ruby, Java, C++ Familiar with AWS e... | ...Java, C++ Familiar with AWS ecosystem Bonus Points E...
+- **stack_fit**: supported - ...the following language: Go, Ruby, Java, C++ Familia...
 
 ## Undergrad Software Engineering Intern (Grad Year: Spring 2028) - greenhouse_twitch
 - San Francisco, CA  |  https://job-boards.greenhouse.io/twitch/jobs/8886748002
@@ -597,7 +597,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Undergrad Software Engineering Intern (Grad Year: Winter 2027) - greenhouse_twitch
 - San Francisco, CA  |  https://job-boards.greenhouse.io/twitch/jobs/8886605002
@@ -606,7 +606,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "San Francisco, CA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: I cannot tell (no listed skill appears in the text)
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed AI Engineer - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/636fc05c-d348-4a06-be51-597cb9e07488
@@ -615,7 +615,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming languages such as Python, Java, C++, TypeScript/J... | ...anguages such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Ability and...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 - **ai_focus**: supported - ...es projects with clients. A day’s work may include building LLM workflows on a large scale, interacting with customers to u...
 
 ## Forward Deployed Software Engineer - lever_palantir
@@ -625,7 +625,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Chicago, IL"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming languages such as Python, Java, C++, TypeScript/J... | ...anguages such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Ability and...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/dab396d4-2f14-4796-aac0-0d82883dccf0
@@ -634,7 +634,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming languages such as Python, Java, C++, TypeScript/J... | ...anguages such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Ability and...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer - Warp Speed - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/13f99633-43b5-4459-8e84-25073f257c18
@@ -643,7 +643,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming languages such as Python, Java, C++, TypeScript/J... | ...anguages such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar Ability and...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, Internship - Commercial - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/4d29249a-d7e8-4c39-880d-3b35d7b2f6f6
@@ -652,7 +652,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Must be gra...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, Internship - Commercial - lever_palantir
 - Chicago, IL  |  https://jobs.lever.co/palantir/d5486403-c050-4920-b2e0-91b69b61ebb2
@@ -661,7 +661,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Chicago, IL"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Must be gra...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, Internship - France - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/ac0dc094-2480-43c2-8495-26ade227ff4f
@@ -670,7 +670,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar Salary The...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, Internship - US Government - lever_palantir
 - Honolulu, HI  |  https://jobs.lever.co/palantir/315f695d-04d1-4a9a-848e-cb2bec7a997e
@@ -679,7 +679,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Honolulu, HI"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Must be pla...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, Internship - US Government - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/e0010393-c300-446f-bf67-fa2ef067f16f
@@ -688,7 +688,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Must be pla...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, Internship - US Government - lever_palantir
 - Washington, D.C.  |  https://jobs.lever.co/palantir/e6ff8bf2-135e-474d-ad37-24f490ae1dd2
@@ -697,7 +697,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Washington, D.C."
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Must be pla...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, Internship - Warp Speed - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/b3d81928-6c26-432f-8a0a-36602c2eefcb
@@ -706,7 +706,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming languages such as Python, Java, C++, TypeScript/J... | ...anguages such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar Ability and...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, New Grad - Commercial - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/2e6b0ac8-83e9-4be5-a3aa-cf319f751728
@@ -715,7 +715,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Must be gra...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, New Grad - Commercial - lever_palantir
 - Chicago, IL  |  https://jobs.lever.co/palantir/e500bcf3-19d8-4d3c-b340-4d76e4a55b40
@@ -724,7 +724,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Chicago, IL"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...mming languages, such as Python, Java, C++, TypeScript/J... | ...nguages, such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar. Must be gra...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Forward Deployed Software Engineer, New Grad - Warp Speed - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/66b495eb-aaf9-4bf9-a759-41854534add7
@@ -733,7 +733,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...amming languages such as Python, Java, C++, TypeScript/J... | ...anguages such as Python, Java, C++, TypeScript/JavaScr... | ...n, Java, C++, TypeScript/JavaScript, or similar Ability and...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer - Apollo Platform - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/8f308f3e-43d2-49c9-accd-cc7af0f1565c
@@ -742,7 +742,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...languages, such as Java, Golang, C++, or equivalent Demo... | ...mming languages, such as Java, Golang, C++, or equival... | ...liarity with containers (Docker) and orchestration (Kube...
+- **stack_fit**: supported - ...languages, such as Java, Golang, C++, or equivalent Demo...
 
 ## Software Engineer - Apollo Platform - lever_palantir
 - Seattle, WA  |  https://jobs.lever.co/palantir/afea07a8-2721-45e6-a9ca-6580f3f9783c
@@ -751,7 +751,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "Seattle, WA"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...languages, such as Java, Golang, C++, or equivalent Demo... | ...mming languages, such as Java, Golang, C++, or equival... | ...liarity with containers (Docker) and orchestration (Kube...
+- **stack_fit**: supported - ...languages, such as Java, Golang, C++, or equivalent Demo...
 
 ## Software Engineer - Frontend Developer Productivity - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/71ed917e-850a-484b-9454-fa66bdf24540
@@ -760,7 +760,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...t/TypeScript, Java, C++, Python, or another similar prog... | ...ng TypeScript, SCSS, and Java. Open-source libraries a... | ...onstrated proficiency in JavaScript/TypeScript, Java, C++, P...
+- **stack_fit**: supported - ...and commit previews. • A GraphQL API for declarative data...
 
 ## Software Engineer, Internship - Query Engines - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/da774f81-c98c-4dcf-9b9c-949fd7d90a13
@@ -769,7 +769,7 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...e Java, Scala, Rust, and Python Apache Spark, Apache Dat... | ...ms. Technologies We Use Java, Scala, Rust, and Python...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))
 
 ## Software Engineer, New Grad - Query Engines - lever_palantir
 - New York, NY  |  https://jobs.lever.co/palantir/90329118-d9b7-4b96-acdf-13377e3196ac
@@ -778,4 +778,4 @@ Every claim is labelled against the posting's own text. `insufficient` is printe
 - **us_location**: supported - location: "New York, NY"
 - **sponsorship**: I cannot tell (the text says nothing about sponsoring visas)
 - **no_clearance**: I cannot tell (the text does not mention a clearance)
-- **stack_fit**: supported - ...e Java, Scala, Rust, and Python Apache Spark, Apache Dat... | ...ms. Technologies We Use Java, Scala, Rust, and Python...
+- **stack_fit**: I cannot tell (no shipped technology appears as a stated need (skills listed on the resume but not shipped do not count))

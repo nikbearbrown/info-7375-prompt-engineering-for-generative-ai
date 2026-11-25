@@ -91,18 +91,39 @@ class Location(unittest.TestCase):
 
 
 class StackFit(unittest.TestCase):
-    def test_supported_quotes_the_matched_skills(self):
-        c = label(posting("Software Engineer", desc="You will use Python, React and PostgreSQL."), "stack_fit")
+    """v2 of stack_fit (Vrajesh's hand labels on claim-check items 5, 18, 24): supported only for technologies in the
+    persona's documented shipped project (ledgerline: Go, Postgres, GraphQL, Terraform, DigitalOcean). Technologies in
+    'or' or slash lists still count (Vrajesh's decision after items 22-24 conflicted)."""
+
+    def test_supported_quotes_a_shipped_technology(self):
+        c = label(posting("Software Engineer", desc="Our stack: Go, PostgreSQL and Terraform."), "stack_fit")
         self.assertEqual(c["label"], "supported")
-        self.assertIn("Python", c["quote"])
+        self.assertIn("Terraform", c["quote"])
+
+    def test_listed_skill_that_was_not_shipped_is_insufficient(self):  # claim-check item 5 pattern
+        c = label(posting("Software Engineer", desc="Any language (e.g., Python, Java, Kotlin, etc.) is fine."),
+                  "stack_fit")
+        self.assertEqual(c["label"], "insufficient")
+
+    def test_python_alone_is_insufficient(self):
+        self.assertEqual(label(posting("Software Engineer", desc="You write Python daily."), "stack_fit")["label"],
+                         "insufficient")
+
+    def test_or_list_still_counts(self):  # Vrajesh, 2026-11-25: option lists count (claim-check items 22, 23)
+        c = label(posting("Software Engineer", desc="You are proficient in GoLang, or Java with depth."), "stack_fit")
+        self.assertEqual(c["label"], "supported")
+
+    def test_slash_list_still_counts(self):  # items 22 vs 24 conflict; Vrajesh chose "they count"
+        c = label(posting("Software Engineer", desc="Process that data using C++/Java/Python/Go."), "stack_fit")
+        self.assertEqual(c["label"], "supported")
+
+    def test_golang_any_capitalisation(self):  # claim-check item 23 wrote "GoLang"
+        c = label(posting("Software Engineer", desc="You are proficient in GoLang and build services."), "stack_fit")
+        self.assertEqual(c["label"], "supported")
 
     def test_go_to_market_is_a_false_friend(self):
         c = label(posting("Software Engineer", desc="Own the go-to-market plan. Go to market fast."), "stack_fit")
         self.assertEqual(c["label"], "insufficient")
-
-    def test_java_is_not_javascript(self):
-        c = label(posting("Software Engineer", desc="You write JavaScript daily."), "stack_fit")
-        self.assertNotIn("Java,", c["quote"] + ",")
 
     def test_no_skills_named_is_insufficient(self):
         self.assertEqual(label(posting("Software Engineer"), "stack_fit")["label"], "insufficient")
