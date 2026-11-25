@@ -9,6 +9,11 @@ Ethan's second choice, 2026-11-25, before any label: drop postings located outsi
 (including "Remote - Canada" and "Remote - Mexico"). The non-US locations are listed by hand below, read from the 141 location
 strings; this does not use the filter's F3 code.
 
+Ethan's third choice, 2026-11-25, before any label: drop postings that ask for 6 or more years. A posting is dropped if ANY
+"N years" phrase with "experience" within 60 characters has N >= 6 (JS1's years pattern, but every phrase, not just the first).
+Ethan reviewed all 25 drops with their quoted phrases. One of them (Zoox "Engineering Manager, Robot Data Visualization": "3+
+years ... managing" then "7+ years ... software development") is a case the first-phrase rule F4 would read as 3.
+
     python3 scripts/make_label_sheet.py
 """
 import csv
@@ -20,7 +25,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
-from jsagent import snapshot  # noqa: E402
+from jsagent import rule, snapshot  # noqa: E402
 
 LABELS = ROOT / "labels" / "labels.csv"
 POOL = re.compile(r"\b(data|analytics?|analyst|BI|business intelligence|ETL|warehouse|pipeline)\b", re.I)
@@ -33,9 +38,21 @@ NON_US = {
 SEED = 7375
 
 
+def max_years(content):
+    """Largest N over every 'N years' phrase with 'experience' within rule.WINDOW characters, or None."""
+    found = []
+    for m in rule.YEARS_RE.finditer(content):
+        around = (content[max(0, m.start() - rule.WINDOW):m.start()] + " " + content[m.end():m.end() + rule.WINDOW]).lower()
+        if "experience" in around:
+            found.append(int(m.group(1)))
+    return max(found) if found else None
+
+
 def in_pool(p):
     loc = p["location"]["name"]
-    return bool(POOL.search(p["title"])) and ("remote" in loc.lower() or loc not in NON_US)
+    years = max_years(p["content"])
+    return (bool(POOL.search(p["title"])) and ("remote" in loc.lower() or loc not in NON_US)
+            and (years is None or years < 6))
 FIELDS = ["n", "split", "board", "posting_id", "title", "location", "url", "human_label", "label_note"]
 
 
