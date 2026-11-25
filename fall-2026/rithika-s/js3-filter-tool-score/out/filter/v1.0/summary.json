@@ -1,0 +1,88 @@
+{
+  "config_version": "1.0",
+  "config_path": "config/filter-v1.0.json",
+  "config_sha256": "710eb075d25a104d29be1906e3863b3da12e0e77d87c59a9a4a6408746c9fcdc",
+  "corpus_hashes": {
+    "out/raw/20261110T183029Z_databricks_a1.json": "ca430d94c51c2dabe844e684b89be5346e5765982de13848d74ab5f2fcdaff05",
+    "out/raw/20261110T183029Z_openai_a1.json": "2b305420d6cb7459d7add9e1f1816575b2a7d81b45143823d4d120f0645f46bd",
+    "out/raw/20261110T183029Z_scaleai_a1.json": "a49147b0e804d42df771b8d5ba243c20b05afef06ef21d57bd2f558b4c088ac1"
+  },
+  "boards": {
+    "databricks": {
+      "status": "evaluated",
+      "file": "out/raw/20261110T183029Z_databricks_a1.json",
+      "sha256": "ca430d94c51c2dabe844e684b89be5346e5765982de13848d74ab5f2fcdaff05",
+      "postings": 915,
+      "kept": 11,
+      "rejected": 904,
+      "abstain": 0,
+      "score_histogram": {
+        "0": 215,
+        "1": 408,
+        "2": 147,
+        "3": 133,
+        "5": 3,
+        "6": 9
+      }
+    },
+    "openai": {
+      "status": "evaluated",
+      "file": "out/raw/20261110T183029Z_openai_a1.json",
+      "sha256": "2b305420d6cb7459d7add9e1f1816575b2a7d81b45143823d4d120f0645f46bd",
+      "postings": 830,
+      "kept": 47,
+      "rejected": 783,
+      "abstain": 0,
+      "score_histogram": {
+        "0": 246,
+        "1": 354,
+        "2": 114,
+        "3": 68,
+        "4": 15,
+        "5": 22,
+        "6": 11
+      }
+    },
+    "scaleai": {
+      "status": "evaluated",
+      "file": "out/raw/20261110T183029Z_scaleai_a1.json",
+      "sha256": "a49147b0e804d42df771b8d5ba243c20b05afef06ef21d57bd2f558b4c088ac1",
+      "postings": 169,
+      "kept": 12,
+      "rejected": 157,
+      "abstain": 0,
+      "score_histogram": {
+        "0": 8,
+        "1": 74,
+        "2": 40,
+        "3": 30,
+        "4": 1,
+        "5": 2,
+        "6": 14
+      }
+    },
+    "rithika-js2-no-such-board": {
+      "status": "not evaluated",
+      "file": null,
+      "sha256": null,
+      "reason": "not in CORPUS.sha256"
+    }
+  },
+  "totals": {
+    "kept": 70,
+    "rejected": 1844,
+    "abstain": 0,
+    "postings": 1914
+  },
+  "score_histogram": {
+    "0": 469,
+    "1": 836,
+    "2": 301,
+    "3": 231,
+    "4": 16,
+    "5": 27,
+    "6": 34
+  },
+  "close_calls": 247,
+  "note": "Filter decisions only. No posting has been labeled; these counts say nothing yet about relevance."
+}
