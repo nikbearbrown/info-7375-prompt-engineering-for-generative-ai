@@ -1,0 +1,29 @@
+rows 2964624
+nulls per col:
+passenger_count         140162
+RatecodeID              140162
+store_and_fwd_flag      140162
+congestion_surcharge    140162
+Airport_fee             140162
+rows where all 5 of those are null together   140162 (4.73%) | of those, payment_type==0: 140162
+dropoff < pickup       56 (0.00%)
+dropoff == pickup      814 (0.03%)
+pickup outside Jan 2024       18 (0.00%)
+trip > 24h       16 (0.00%)
+fare_amount < 0    37448 (1.26%)
+total_amount < 0    35504 (1.20%)
+tip_amount < 0      102 (0.00%)
+trip_distance < 0        0 (0.00%)
+extra < 0    17548 (0.59%)
+tolls_amount < 0     2035 (0.07%)
+trip_distance == 0    60371 (2.04%)
+trip_distance > 100       59 (0.00%)
+passenger_count == 0    31465 (1.06%)
+passenger_count > 6       60 (0.00%)
+VendorID values [1, 2, 6]
+RatecodeID values {1.0: 2663350, nan: 140162, 2.0: 98713, 99.0: 28663, 5.0: 19410, 3.0: 7954, 4.0: 6365, 6.0: 7}
+payment_type values {1: 2319046, 2: 439191, 0: 140162, 4: 46628, 3: 19597}
+PULocationID range 1 265 | DOLocationID range 1 265
+total_amount != sum of these parts (>0.01)   761838 (25.70%)
+exact duplicate rows        0 (0.00%)
+duplicates on trip key        0 (0.00%)

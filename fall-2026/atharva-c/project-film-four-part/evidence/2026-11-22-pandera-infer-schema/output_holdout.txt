@@ -1,0 +1,8 @@
+full rows 2964624
+sample == first 2000 parquet rows (passenger_count, fare): True True
+complete rows available 2822462
+seed 0: FAIL, 14 of 2000 rows flagged; {'extra': 6, 'fare_amount': 2, 'tolls_amount': 6, 'total_amount': 2, 'trip_distance': 4}
+seed 1: FAIL, 17 of 2000 rows flagged; {'PULocationID': 1, 'extra': 4, 'passenger_count': 2, 'tolls_amount': 2, 'total_amount': 1, 'trip_distance': 10}
+seed 2: FAIL, 16 of 2000 rows flagged; {'PULocationID': 1, 'extra': 8, 'tolls_amount': 5, 'trip_distance': 3}
+seed 3: FAIL, 13 of 2000 rows flagged; {'extra': 3, 'tolls_amount': 4, 'trip_distance': 7}
+seed 4: FAIL, 25 of 2000 rows flagged; {'extra': 10, 'tolls_amount': 9, 'total_amount': 3, 'trip_distance': 8}
