@@ -57,7 +57,15 @@ The 5 "yes" answers on experience are all **internships**: #5, #6, #8, #9 and #1
 
 ## 4. My hand check of Claude's labels
 
-SPOTCHECK_PLACEHOLDER
+On 2026-11-24 I checked 3 of Claude's 113 labels by hand. Claude chose which 3 to show me, to cover each label type.
+
+| Posting | Claim | Claude's label | My answer |
+|---|---|---|---|
+| #3 Specialist Solutions Architect – AI/ML | The role uses MLflow. | supported ("…guardrails, using MLflow") | **agree** |
+| #2 AI Engineer – Forward Deployed Engineering (AI FDE) | Open to someone with less than one year of experience. | contradicted ("It is not intended for internship, new graduate, or entry-level applicants.") | **agree**. My first answer was "disagree". I changed it after Claude restated what each label means. Both answers are recorded here. |
+| #1 Data Science Intern (2027 Start) | The role uses Unity Catalog. | insufficient (the words are only in the company footer) | **disagree**: a Databricks job will use Unity Catalog, so I'd call it supported |
+
+**On the disagreement:** Claude's label follows my own evidence rule. FILTER.md §2 says a quote must say the claim, and E4 says no support from outside the posting. My answer rests on what I expect of a Databricks job, not on the posting's text. So my judgement and my written rule disagree here. I haven't resolved it. I also didn't check the other 110 labels by hand.
 
 ## 5. Every claim and its label
 

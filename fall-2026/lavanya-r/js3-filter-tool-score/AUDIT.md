@@ -64,7 +64,9 @@
 | X3 R5 uses the largest years asked | 6 | 109 | **rejected**: no measured gain on audit labels |
 | X4 ", CA" after a Canadian place is not California | 6 | 115 | **adopted** → FILTER.md v1.1 (fixes the false friend's wrong reason) |
 
-Decisions: Claude proposed X1–X4 and recommended these four decisions; I chose to follow them. No variant was measured on group H before this table was fixed.
+Decisions: Claude proposed X1–X4 and recommended these four decisions; I chose to follow them. No variant was measured on group H before these decisions.
+
+**Disclosure.** Claude's first comparison script (not committed) printed v1.0's mistakes in **all four groups, including the held-out group H**, before X1–X4 were proposed. So Claude had seen which held-out postings v1.0 got wrong, including items 39 and 54, which X3 would fix, when it recommended rejecting X3. The decisions were measured on groups A–C only, and the one variant that H later favoured (X3) was rejected. Still, the held-out labels were not perfectly unseen during rule-making. I wasn't shown those H results, but Claude was.
 
 ## 5. Every hand verdict, groups A–C
 
