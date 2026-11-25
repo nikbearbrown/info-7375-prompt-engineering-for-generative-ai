@@ -1,0 +1,94 @@
+{
+  "run_id": "20261110T200439Z-SEEDED",
+  "mode": "SEEDED",
+  "exit": "incomplete",
+  "exit_code": 1,
+  "note": "This is the agent's own report, not an independent check.",
+  "budget_limit_hit": null,
+  "budgets": {
+    "max_boards": 4,
+    "max_requests": 8,
+    "max_run_seconds": 90,
+    "max_request_seconds": 20,
+    "max_claude_calls": 0
+  },
+  "usage": {
+    "requests": 3,
+    "boards_started": 3,
+    "elapsed_seconds": 0.062,
+    "claude_calls": 0
+  },
+  "boards_file": "config/boards_demo_3.json",
+  "state_dir": "out/state/seeded",
+  "replay_dir": "data/seeded_demo/day2",
+  "boards_succeeded": [
+    "databricks",
+    "openai"
+  ],
+  "boards_failed": [
+    "scaleai"
+  ],
+  "boards_not_tried": [],
+  "boards": [
+    {
+      "name": "scaleai",
+      "ats": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/scaleai/jobs?content=true",
+      "status": "failed",
+      "http_status": 200,
+      "reason": "empty_after_nonempty",
+      "attempts": 1,
+      "postings_seen": null,
+      "duplicates": [],
+      "new": null,
+      "new_ids": null,
+      "new_postings": [],
+      "baseline": null,
+      "previously_seen": null,
+      "raw_files": [
+        "out/raw/20261110T200439Z-SEEDED_scaleai_a1.json"
+      ],
+      "state_updated": false
+    },
+    {
+      "name": "databricks",
+      "ats": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 915,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": false,
+      "previously_seen": 915,
+      "raw_files": [
+        "out/raw/20261110T200439Z-SEEDED_databricks_a1.json"
+      ],
+      "state_updated": true
+    },
+    {
+      "name": "openai",
+      "ats": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 830,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": false,
+      "previously_seen": 830,
+      "raw_files": [
+        "out/raw/20261110T200439Z-SEEDED_openai_a1.json"
+      ],
+      "state_updated": true
+    }
+  ]
+}

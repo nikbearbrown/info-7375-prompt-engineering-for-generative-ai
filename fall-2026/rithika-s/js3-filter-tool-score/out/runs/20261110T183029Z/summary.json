@@ -1,0 +1,114 @@
+{
+  "run_id": "20261110T183029Z",
+  "mode": "LIVE",
+  "exit": "incomplete",
+  "exit_code": 1,
+  "note": "This is the agent's own report, not an independent check.",
+  "budget_limit_hit": null,
+  "budgets": {
+    "max_boards": 4,
+    "max_requests": 8,
+    "max_run_seconds": 90,
+    "max_request_seconds": 20,
+    "max_claude_calls": 0
+  },
+  "usage": {
+    "requests": 4,
+    "boards_started": 4,
+    "elapsed_seconds": 2.603,
+    "claude_calls": 0
+  },
+  "state_dir": "out/state",
+  "replay_dir": null,
+  "boards_succeeded": [
+    "scaleai",
+    "databricks",
+    "openai"
+  ],
+  "boards_failed": [
+    "rithika-js2-no-such-board"
+  ],
+  "boards_not_tried": [],
+  "boards": [
+    {
+      "name": "scaleai",
+      "ats": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/scaleai/jobs?content=true",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 169,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": true,
+      "previously_seen": 0,
+      "raw_files": [
+        "out/raw/20261110T183029Z_scaleai_a1.json"
+      ],
+      "state_updated": true
+    },
+    {
+      "name": "databricks",
+      "ats": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 915,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": true,
+      "previously_seen": 0,
+      "raw_files": [
+        "out/raw/20261110T183029Z_databricks_a1.json"
+      ],
+      "state_updated": true
+    },
+    {
+      "name": "openai",
+      "ats": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 830,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": true,
+      "previously_seen": 0,
+      "raw_files": [
+        "out/raw/20261110T183029Z_openai_a1.json"
+      ],
+      "state_updated": true
+    },
+    {
+      "name": "rithika-js2-no-such-board",
+      "ats": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/rithika-js2-no-such-board/jobs",
+      "status": "failed",
+      "http_status": 404,
+      "reason": "http_404",
+      "attempts": 1,
+      "postings_seen": null,
+      "duplicates": [],
+      "new": null,
+      "new_ids": null,
+      "new_postings": [],
+      "baseline": null,
+      "previously_seen": null,
+      "raw_files": [
+        "out/raw/20261110T183029Z_rithika-js2-no-such-board_a1.json"
+      ],
+      "state_updated": false
+    }
+  ]
+}

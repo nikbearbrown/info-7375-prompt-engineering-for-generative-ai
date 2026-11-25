@@ -1,0 +1,93 @@
+{
+  "run_id": "20261110T193514Z-SEEDED",
+  "mode": "SEEDED",
+  "exit": "finished",
+  "exit_code": 0,
+  "note": "This is the agent's own report, not an independent check.",
+  "budget_limit_hit": null,
+  "budgets": {
+    "max_boards": 4,
+    "max_requests": 8,
+    "max_run_seconds": 90,
+    "max_request_seconds": 20,
+    "max_claude_calls": 0
+  },
+  "usage": {
+    "requests": 3,
+    "boards_started": 3,
+    "elapsed_seconds": 0.077,
+    "claude_calls": 0
+  },
+  "boards_file": "config/boards_demo_3.json",
+  "state_dir": "out/state/seeded",
+  "replay_dir": "out/runs/20261110T183029Z",
+  "boards_succeeded": [
+    "scaleai",
+    "databricks",
+    "openai"
+  ],
+  "boards_failed": [],
+  "boards_not_tried": [],
+  "boards": [
+    {
+      "name": "scaleai",
+      "ats": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/scaleai/jobs?content=true",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 169,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": true,
+      "previously_seen": 0,
+      "raw_files": [
+        "out/raw/20261110T193514Z-SEEDED_scaleai_a1.json"
+      ],
+      "state_updated": true
+    },
+    {
+      "name": "databricks",
+      "ats": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 915,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": true,
+      "previously_seen": 0,
+      "raw_files": [
+        "out/raw/20261110T193514Z-SEEDED_databricks_a1.json"
+      ],
+      "state_updated": true
+    },
+    {
+      "name": "openai",
+      "ats": "ashby",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/openai",
+      "status": "ok",
+      "http_status": 200,
+      "reason": null,
+      "attempts": 1,
+      "postings_seen": 830,
+      "duplicates": [],
+      "new": 0,
+      "new_ids": [],
+      "new_postings": [],
+      "baseline": true,
+      "previously_seen": 0,
+      "raw_files": [
+        "out/raw/20261110T193514Z-SEEDED_openai_a1.json"
+      ],
+      "state_updated": true
+    }
+  ]
+}
