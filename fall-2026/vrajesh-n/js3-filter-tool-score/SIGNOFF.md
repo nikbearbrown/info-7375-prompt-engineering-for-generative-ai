@@ -1,14 +1,14 @@
 # Sign-off - Job-Search Agent 3
 
 ## Checked: which properties, by which of my own tests (named)
-Everything runs with `python -m unittest discover -s tests` (51 tests: 4 + 27 + 20).
+Everything runs with `python -m unittest discover -s tests` (55 tests: 4 + 27 + 24).
 
 | Property | Test or evidence |
 |---|---|
 | The filter does what FILTER.md v2 says on 27 constructed postings (role words, ML excluded, Senior/Staff, 3+ years, clearance, sponsorship, non-US, `cannot_tell`) | `tests/test_filter.py` `RealFilter.test_every_case`, cases in `tests/cases.py` |
 | Each plausible-but-wrong filter fails the tests: W1 no seniority rule, W2 "training" as a topic word, W3 clearance ignored | `WrongFiltersAreCaught` (two tests), `tests/wrong_filters.py` |
 | Claims are labelled supported / contradicted / insufficient with a quote, silence is never support, false friends do not match ("go-to-market", "executive sponsorship", "JavaScript" is not Java) | `tests/test_claims.py`: `EarlyCareer`, `Sponsorship`, `Clearance`, `Location`, `StackFit`, `AiFocus`, `EveryClaimHasEvidenceOrAReason` |
-| The MCP server answers the handshake, lists exactly one read-only tool, refuses bad input, path traversal and extra arguments, returns the same verdicts as the filter run, logs both directions, and refuses `connect`, `connect_ex` and `create_connection` | `tests/test_mcp.py`: `Handshake`, `ToolList`, `CallTool`, `Protocol`, `Log`, `NetworkGuard`, `ResultVariant` |
+| The MCP server answers the handshake, lists exactly one read-only tool, refuses bad input, path traversal and extra arguments, returns the same verdicts as the filter run, logs both directions, and refuses `connect`, `connect_ex` and `create_connection`, and refuses any message over 1 MiB without running out of memory or stopping | `tests/test_mcp.py`: `Handshake`, `ToolList`, `CallTool`, `Protocol`, `Log`, `NetworkGuard`, `ResultVariant`, `InputLimit` |
 | The reject audit numbers (0 of 35 random rejects wrong; 1 of 12 close calls; 3 of 15 kept wrong, 2 unsure) | `python scripts/audit_summary.py` against my labels (`review/audit-labels.csv`); `review/AUDIT.md` |
 | The claim labeler agrees with my labels on 21 of 24 items, 23 of 24 after one fix | `review/claim-check-labels.csv`, `review/claim-check-key.json` |
 | Adding the claim statement to the tool result: 3 misleading of 20 without, 0 of 20 with (p = 0.25) | `REPORT-one-change.md`, `review/onechange-labels.csv` |
@@ -31,7 +31,7 @@ Everything runs with `python -m unittest discover -s tests` (51 tests: 4 + 27 + 
 6. The claim labeler still counts "At least 1 year of university education" as support for "fewer than 3 years of experience".
 7. "U.S. Person Required" (3 Palantir postings) is not handled by R4 or R5; "clearance is a plus" is still rejected.
 8. JS2's loop, policy and fetch code is in the folder but untested in JS3; no live board and no real resume were used.
-9. A valid but very large request to my MCP server, and many requests in a row: the server has no input-size limit or rate limit, and only a malformed 5 MB line was tried (`evaluations/EVAL-earlybird-score.md`, defect 3).
+9. My MCP server has no rate limit; it was not tested with many requests in a row, many clients at once, or one message sent very slowly. (A single message over 1 MiB is now refused: `InputLimit` tests, `review/20-` and `21-`.)
 
 ## Not claiming
 "This does not demonstrate reliable job eligibility, guaranteed sponsorship, accurate labels for every posting, secure handling of real resumes, or a general improvement from B. It also does not demonstrate model training or learning: the experiment changed the tool-result text."
@@ -42,6 +42,8 @@ Everything runs with `python -m unittest discover -s tests` (51 tests: 4 + 27 + 
 "I would not sign without reviewing the final diff, the 51-test run, and the documented limitations, with approval explicitly limited to the fictional persona and local snapshot.
 
 The “Not checked” item that worries me most is a valid, very large request. The server has no input-size limit, so a client could exhaust memory. Passing ordinary requests and malformed-input tests does not establish that it handles this case safely."
+
+> [Claude's note, not Vrajesh's words: after the paragraph above was written, an input-size limit of 1 MiB per message was added, with four failing-then-passing tests (`review/20-input-limit-red.txt`, `review/21-input-limit-green.txt`), and the suite is now 55 tests, not 51. Vrajesh's paragraph describes the state before this fix; he should re-read it and keep, change or restate it.]
 
 ## Driver's seat (draft table, for Vrajesh to edit)
 | Claude should | I should | Why the judgment that a posting is worth my time stays mine |

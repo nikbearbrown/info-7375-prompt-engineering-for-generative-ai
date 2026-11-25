@@ -7,6 +7,7 @@ What it does NOT do (declared here, checked in review/ by tests and by the evalu
 - no network: connect() and connect_ex() are disabled at start-up (a guard, not a sandbox) and no network library is
   imported;
 - no writes except an optional message log, and only to the path in EARLYBIRD_MCP_LOG (both directions, JSON lines);
+- messages over 1 MiB are refused unread (error -32600) and the server keeps running;
 - no tools other than score_posting; it cannot apply, email, message, log in, or change data.
 
 Implements: initialize (version negotiation), notifications/initialized, ping, tools/list, tools/call.
@@ -24,6 +25,8 @@ from .resume import load_resume
 ROOT = Path(__file__).resolve().parent.parent
 SNAPSHOT = ROOT / "data" / "snapshot-2026-11-01"
 SUPPORTED = ["2025-06-18", "2025-03-26", "2024-11-05"]
+MAX_LINE = 1024 * 1024  # bytes per message; larger lines are discarded unread (SIGNOFF.md "Not checked" item 9)
+TOO_LARGE = object()
 ID_OK = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
 BOARD_OK = re.compile(r"^(?:ashby|greenhouse|lever)_[A-Za-z0-9-]{1,40}$")
 
@@ -146,8 +149,35 @@ class Server:
             return ok({"content": [{"type": "text", "text": text}], "isError": is_error})
         return err(-32601, f"Method not found: {method}")
 
+    def read_line(self, stdin):
+        """Next message line as bytes, None at end of input, or TOO_LARGE when a line exceeds MAX_LINE bytes.
+        Reads at most MAX_LINE + 1 bytes at a time and discards the rest of an oversized line in small chunks,
+        so a client cannot make the server hold a huge message in memory."""
+        raw = stdin.readline(MAX_LINE + 1)
+        if not raw:
+            return None
+        if len(raw) == MAX_LINE + 1 and not raw.endswith(b"\n"):
+            while True:
+                chunk = stdin.readline(65536)
+                if not chunk or chunk.endswith(b"\n"):
+                    break
+            return TOO_LARGE
+        return raw
+
     def serve(self, stdin, stdout):
-        for raw in stdin:
+        while True:
+            raw = self.read_line(stdin)
+            if raw is None:
+                break
+            if raw is TOO_LARGE:
+                self.record("client->server", f"<message over {MAX_LINE} bytes, discarded unread>")
+                reply = {"jsonrpc": "2.0", "id": None,
+                         "error": {"code": -32600, "message": f"Request too large (limit {MAX_LINE} bytes per message)"}}
+                out = json.dumps(reply, ensure_ascii=True)
+                self.record("server->client", out)
+                stdout.write(out.encode("ascii") + b"\n")
+                stdout.flush()
+                continue
             line = raw.decode("utf-8", errors="replace").strip()
             if not line:
                 continue

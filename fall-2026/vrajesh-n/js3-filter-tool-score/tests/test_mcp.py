@@ -261,5 +261,42 @@ class ResultVariant(unittest.TestCase):
             self.assertEqual({k: v for k, v in cb.items() if k != "statement"}, ca)
 
 
+class InputLimit(unittest.TestCase):
+    """Found by evaluating my own server and named as the worst "Not checked" item in SIGNOFF.md: a line of any size was read
+    whole, so a client could exhaust memory. Limit: 1 MiB (1,048,576 bytes) per message."""
+
+    def setUp(self):
+        self.s = Server()
+        self.s.handshake()
+
+    def tearDown(self):
+        self.s.close()
+
+    def test_oversized_garbage_line_is_refused_and_the_server_survives(self):
+        self.s.send_raw("x" * (2 * 1024 * 1024))
+        r = self.s.read()
+        self.assertEqual(r["error"]["code"], -32600)
+        self.assertIn("too large", r["error"]["message"])
+        self.assertEqual(self.s.request("ping")["result"], {})
+
+    def test_oversized_but_valid_json_is_refused_without_being_processed(self):
+        big = json.dumps({"jsonrpc": "2.0", "id": 99, "method": "tools/call", "params": {
+            "name": "score_posting", "arguments": {"posting_id": "a" * (2 * 1024 * 1024)}}})
+        self.s.send_raw(big)
+        r = self.s.read()
+        self.assertEqual(r["error"]["code"], -32600)
+        self.assertEqual(self.s.request("ping")["result"], {})
+
+    def test_a_large_request_under_the_limit_still_works(self):
+        r = self.s.request("ping", {"padding": "y" * (500 * 1024)})
+        self.assertEqual(r["result"], {})
+
+    def test_two_oversized_lines_in_a_row(self):
+        for _ in range(2):
+            self.s.send_raw("z" * (1100 * 1024))
+            self.assertEqual(self.s.read()["error"]["code"], -32600)
+        self.assertEqual(self.s.request("ping")["result"], {})
+
+
 if __name__ == "__main__":
     unittest.main()

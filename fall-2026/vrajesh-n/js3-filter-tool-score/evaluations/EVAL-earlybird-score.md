@@ -20,8 +20,10 @@ one tool, `score_posting`), tests written before the code. Evidence: `earlybird-
    listener. Fixed with a failing test first (`review/14-network-guard-red.txt`, then `review/15-...`). It is a guard, not a
    sandbox: the real guarantee is the import check above.
 2. **Protocol lifecycle is not enforced.** A `tools/call` before `initialize` is answered normally.
-3. **No input size limit.** A 5 MB line was read whole (answered with -32700, server stayed up); a valid huge request is
-   not tested. A local client could use memory.
+3. **No input size limit.** A line of any size was read whole, so a client could make the server hold a huge message in memory.
+   **Fixed 2026-11-25** with failing tests first (`review/20-input-limit-red.txt`, then `review/21-...`): messages over 1 MiB are discarded
+   unread and answered with error -32600, and the server keeps running (4 tests in `InputLimit`). Not tested: many requests in parallel, or a
+   slow client sending one message very slowly.
 4. **Newer protocol not supported.** Claude Code first sent `server/discover` for protocol revision 2026-07-28; my server
    answered -32601 and Claude Code fell back to `initialize`. It worked, but only because the client fell back. The official
    fetch server does support the newer revision.
@@ -41,7 +43,7 @@ one tool, `score_posting`), tests written before the code. Evidence: `earlybird-
   message in both directions.
 
 ## Not checked
-- A valid but very large request (memory use), many requests in a row (no rate limit tested).
+- Many requests in a row (no rate limit), many clients at once, and a client that sends one message very slowly. (A single very large message is now refused: defect 3.)
 - Behaviour with a client other than my scripted client and Claude Code 2.1.332.
 - Running it with a real resume (the whole project is built on the fictional persona).
 - That the labels in the results are right for every posting; only the 24 claim-check items and the 62-item audit sample were compared with Vrajesh's labels.

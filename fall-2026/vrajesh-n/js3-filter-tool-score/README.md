@@ -10,7 +10,7 @@ throwaway virtual environment outside this folder, only for its evaluation.
 
 ## Exact commands (run from this folder)
 ```
-python -m unittest discover -s tests                       # 51 tests, ~10 s
+python -m unittest discover -s tests                       # 55 tests, ~10 s
 python scripts/run_filter.py data/snapshot-2026-11-01 results/filter-v2.json   # filter on all 3,068 postings
 python scripts/make_shortlist.py                           # claim labels for the relevant postings -> results/shortlist.*
 python scripts/audit_summary.py                            # every number in review/AUDIT.md
