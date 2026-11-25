@@ -196,3 +196,15 @@ Known limit: rule 2 triggers only when **no** span is found. A span that is foun
 ## Change log
 
 - **v1.0** (2026-11-25): first version, above.
+- **Plan amendments A1 and A2** (2026-11-25). These change only the §5 sampling plan. The §1 score is not changed.
+  - **When they were made:** after the v1.0 run, and **before any sample was drawn or any label existed.**
+  - **What had been seen:** the verdict counts (11 keep, 1,282 reject, 1 cannot_tell), the score histogram, the 11 kept titles, and the near-duplicate cluster structure.
+  - **A1 — the split unit is the near-duplicate cluster, not the exact duplicate group.**
+    - Databricks lists one job once per city ("Software Engineer - New Grad (2027 Start)" in London, Berlin, Aarhus and Amsterdam). The descriptions differ only by place, so the §4 exact-match groups treat them as different postings. They would leak across dev and held-out.
+    - **Cluster rule:** same board, word 5-shingle Jaccard ≥ 0.8 on the normalized description, single-link. This gives 757 clusters from 1,294 postings, and the largest has 69.
+    - Held-out and dev are disjoint **by cluster**. One posting per cluster is labeled.
+    - The 30 random rejects are drawn uniformly over postings, and a draw is skipped if its cluster has already been drawn. This slightly under-weights large clusters, and the report says so.
+  - **A2 — sizes, because only 11 keeps (7 clusters) exist.** Taking 8 keeps for held-out would leave 3 for dev.
+    - **Held-out:** 3 keep clusters, 10 clusters of rejects scoring 3–5, and 10 other reject clusters.
+    - **Dev:** 30 random rejects, 6 closest at score 5, up to 6 at the lowest kept score, and **all** keeps outside held-out (fewer than the planned 8). Every shortfall is printed in `splits/groups.json`.
+    - Seeds are unchanged.
