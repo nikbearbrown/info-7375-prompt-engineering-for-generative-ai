@@ -115,3 +115,17 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - **Stripe, Data Analyst, SF:** requires an MS plus 2 years of full-time experience, excluding internships.
   - **Zoox, part-time student worker (data analyst):** a part-time contract, not an entry-level job.
 - **Unresolved:** if my review keeps every label "no", there are no positive labels. Recall can't be measured at all, and precision can only count false keeps. The filter's job on this corpus becomes rejecting everything correctly.
+
+## 2026-11-25 — Reviewed the labels; added two supplement boards (FILTER.md v1.1)
+- **My review:** I checked all 92 drafted labels against Riley's profile and kept every one as "no". The `reviewed` column in `labels.csv` records that. Nothing differs from Claude's draft.
+- **The problem it left:** with no "yes" label, recall can't be measured. Claude then searched the other 4,010 postings for any US, non-senior data job with an early-career signal. It found five, and every one was ruled out: four Veeva entry-level roles say "Veeva does not provide sponsorship", and one Xsolla analyst role wants investment-banking experience.
+- **The options Claude gave:** add boards by a new fixed rule, drop Riley's sponsorship need, or report the zero honestly. I rejected dropping sponsorship: changing the persona after labeling would manufacture positives. I chose adding boards.
+- **FILTER.md v1.1** (commit `6a3ea0f`, before the probe ran):
+  - a full-text probe rule for candidate postings, over 196 boards none of which were in the 11-18 probe
+  - no filter rule, weight, or threshold changed
+  - **A fix before the run:** Claude's first rule took any "analyst" title. As a code check on the v1.0 corpus, it flagged 16 postings, all finance, tax, compliance, or trading analysts, so a data-word test was added to the title rule before the new boards were read.
+- **The probe** (`probe/2026-11-25_board_probe_v1_1.json`): 196 boards, 86 answered, 110 returned 404. 6,041 postings read. **Only 2 boards had a candidate**, one posting each: Axios ("Salesforce Business Analyst") and FanDuel ("Campaign Analytics, Data Analyst").
+- **The supplement run** (`runs/2026-11-25T175647Z_supplement_v1_1`): 4 requests, 0.7 s, 138 postings. `config/corpus.json` now names both runs. The v1.0 run and its 92 labels are unchanged, and redrawing the v1.0 sample gives the identical split.
+- **Supplement labels:** 22 postings (2 candidates, 10 bare-"analyst", 10 others), 15 tuning and 7 held-out. Claude drafted them (`labels_v1_1_claude_draft.csv`) for my review in `labels_v1_1.csv`. Two are drafted "yes": FanDuel's "Campaign Analytics, Data Analyst" and FanDuel's "Analyst". Both landed in held-out by the seeded split.
+- **Tests:** 64, all passing (2 new: supplement runs join the corpus tagged by part, and the supplement config is exactly the probe's pick).
+- **Unresolved:** if my review keeps both "yes" labels, held-out has 2 positives and tuning has none, so the threshold can't be tuned on a "yes".

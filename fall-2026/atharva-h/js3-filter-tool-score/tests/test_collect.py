@@ -101,6 +101,14 @@ class FrozenCorpus(unittest.TestCase):
                          ["ashby/valon/a1", "greenhouse/abacusinsights/11", "lever/xsolla/l1"])
         self.assertNotIn("ashby/valonn", {p["board"] for p in postings})
 
+    def test_supplement_runs_join_the_corpus_and_are_tagged(self):
+        root, tools, run_dir, _ = self.collect()
+        with open(os.path.join(root, "config", "corpus.json"), "w") as f:
+            json.dump({"run": run_dir, "supplement": [run_dir]}, f)
+        run, postings = corpus.load(tools)
+        self.assertEqual(run, run_dir)
+        self.assertEqual([p["corpus"] for p in postings], ["v1.0"] * 3 + ["v1.1 supplement"] * 3)
+
     def test_run_json_keeps_no_posting_text(self):
         root, tools, _, _ = self.collect()
         tools.script = {GH_NAME.format("abacusinsights"): [(200, gh_name("X"))],
@@ -136,6 +144,13 @@ class FilterNumbers(unittest.TestCase):
         table = set(re.findall(r"\| (Greenhouse|Ashby|Lever) \| `([a-z0-9-]+)` \|", FILTER))
         self.assertEqual(configured, {f"{s.lower()}/{t}" for s, t in table})
         self.assertEqual(len(configured), 12)
+
+    def test_supplement_config_is_exactly_the_v11_probe_pick(self):
+        with open(os.path.join(ROOT, "config", "boards_v1_1.json")) as f:
+            configured = [f"{b['system']}/{b['token']}" for b in json.load(f)["boards"]]
+        with open(os.path.join(ROOT, "probe", "2026-11-25_board_probe_v1_1.json")) as f:
+            self.assertEqual(configured, json.load(f)["picked"])
+        self.assertLessEqual(len(configured), loop.BUDGETS["boards"])
 
 
 if __name__ == "__main__":

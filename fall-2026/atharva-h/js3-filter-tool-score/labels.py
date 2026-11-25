@@ -1,6 +1,8 @@
 """Draw the hand-label sample from the frozen corpus, before any filter verdict exists.
 
     python3 labels.py draw      write state/labels/labels.csv (to fill in), postings.md, and split.json
+    python3 labels.py draw-v1.1 the same for the v1.1 supplement boards: labels_v1_1.csv, postings_v1_1.md,
+                                split_v1_1.json
 
 The permission policy allows writes only in runs/ and state/, so the label files live in state/labels/.
 
@@ -8,12 +10,16 @@ The sample (FILTER.md v1.0, "How the filter will be measured"):
 - every posting whose title has a role phrase, at any seniority;
 - 30 random postings whose title has a bare "analyst" (no role phrase);
 - 40 random other postings.
+FILTER.md v1.1 adds a supplement sample, drawn only from the supplement boards: every posting the v1.1 probe
+rule flags as a candidate, every role-phrase title, 10 random bare-"analyst", and 10 random others.
 Each stratum is then split 2:1 into tuning and held-out. One seed drives every random choice, so
 the draw can be repeated exactly. The role phrases are frozen here at v1.0 on purpose: a later
 filter version may change its phrases, but the labeled sample must not move.
 """
 import csv
+import importlib.util
 import io
+import os
 import json
 import random
 import re
@@ -28,23 +34,36 @@ ROLE_V1 = re.compile(r"\b(data analyst|bi analyst|business intelligence analyst|
                      r"analytics analyst)\b", re.I)
 ANALYST = re.compile(r"\banalyst\b", re.I)
 SIZES = {"bare-analyst": 30, "other": 40}
+SIZES_V11 = {"bare-analyst": 10, "other": 10}
+
+
+def _probe_rule():
+    path = os.path.join(os.path.dirname(os.path.abspath(__file__)), "probe", "probe_v1_1.py")
+    spec = importlib.util.spec_from_file_location("probe_v1_1", path)
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    return module.candidate
 COLUMNS = ["n", "key", "title", "location", "url", "label", "reason"]
 
 
-def stratum(p):
+def stratum(p, candidate=None):
     title = p["title"] or ""
+    if candidate and candidate(p):
+        return "probe-candidate"
     if ROLE_V1.search(title):
         return "role-phrase"
     return "bare-analyst" if ANALYST.search(title) else "other"
 
 
-def draw(postings, seed=SEED):
+def draw(postings, seed=SEED, sizes=SIZES, candidate=None):
     rng = random.Random(seed)
-    groups = {"role-phrase": [], "bare-analyst": [], "other": []}
+    groups = {"probe-candidate": [], "role-phrase": [], "bare-analyst": [], "other": []}
     for p in sorted(postings, key=lambda p: p["key"]):
-        groups[stratum(p)].append(p)
-    sample = {"role-phrase": groups["role-phrase"]}
-    for name, size in SIZES.items():
+        groups[stratum(p, candidate)].append(p)
+    if not candidate:
+        del groups["probe-candidate"]
+    sample = {name: groups[name] for name in groups if name not in sizes}
+    for name, size in sizes.items():
         sample[name] = rng.sample(groups[name], min(size, len(groups[name])))
     split = {}
     for name, items in sample.items():
@@ -59,12 +78,18 @@ def draw(postings, seed=SEED):
 
 
 def main(argv):
-    if argv[1:] != ["draw"]:
+    if argv[1:] not in (["draw"], ["draw-v1.1"]):
         print(__doc__)
         return 2
+    v11 = argv[1] == "draw-v1.1"
     tools = Tools(Policy())
     run, postings = corpus.load(tools)
-    chosen, split, population, sizes = draw(postings)
+    if v11:
+        postings = [p for p in postings if p["corpus"] == "v1.1 supplement"]
+        chosen, split, population, sizes = draw(postings, sizes=SIZES_V11, candidate=_probe_rule())
+    else:
+        chosen, split, population, sizes = draw([p for p in postings if p["corpus"] == "v1.0"])
+    suffix = "_v1_1" if v11 else ""
     out = io.StringIO()
     writer = csv.DictWriter(out, fieldnames=COLUMNS, lineterminator="\n")
     writer.writeheader()
@@ -83,12 +108,15 @@ def main(argv):
                    if len(set(p["locations"])) > 1 else ""),
                f"- **Department:** {p['department'] or 'not given'}",
                f"- **Link:** {p['url']}", "", p["text"] or "_No description text in the response._", ""]
-    meta = {"corpus": run, "seed": SEED, "rule": "FILTER.md v1.0: every role-phrase title, 30 random bare-analyst, "
-            "40 random other; each stratum split 2:1 tuning/held-out", "population": population, "sample": sizes,
+    rule = ("FILTER.md v1.1: on the supplement boards, every probe-rule candidate, every role-phrase title, 10 random "
+            "bare-analyst, 10 random other" if v11 else
+            "FILTER.md v1.0: every role-phrase title, 30 random bare-analyst, 40 random other")
+    meta = {"corpus": sorted({p["corpus"] for p in chosen}), "run": run, "seed": SEED,
+            "rule": rule + "; each stratum split 2:1 tuning/held-out", "population": population, "sample": sizes,
             "split": split}
-    tools.write_text("state/labels/labels.csv", out.getvalue())
-    tools.write_text("state/labels/postings.md", "\n".join(md) + "\n")
-    tools.write_text("state/labels/split.json", json.dumps(meta, indent=1) + "\n")
+    tools.write_text(f"state/labels/labels{suffix}.csv", out.getvalue())
+    tools.write_text(f"state/labels/postings{suffix}.md", "\n".join(md) + "\n")
+    tools.write_text(f"state/labels/split{suffix}.json", json.dumps(meta, indent=1) + "\n")
     print(f"drew {len(chosen)} from {run}: population {population}, sample {sizes}")
     print(f"held-out: {sum(v == 'held-out' for v in split.values())}, tuning: {sum(v == 'tuning' for v in split.values())}")
     return 0
