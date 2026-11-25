@@ -24,8 +24,11 @@ def norm(s):
 
 
 def posting_text(p):
-    return norm("\n".join([p.get("title") or "",
-                           "; ".join(p.get("locations") or []),
+    # Exactly as the labelling prompt shows the posting, "Title:" and
+    # "Location:" included (fix 2026-11-24: the first check rejected 8 quotes
+    # that copied those prefixes; logs/js3-06-shortlist-check-before-fix.md).
+    return norm("\n".join(["Title: " + (p.get("title") or "").strip(),
+                           "Location: " + "; ".join(p.get("locations") or []),
                            p.get("text") or ""]))
 
 

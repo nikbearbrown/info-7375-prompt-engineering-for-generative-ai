@@ -59,6 +59,16 @@ class TestQuoteRule(unittest.TestCase):
         self.assertEqual(check(p, "It is in the US.", "supported",
                                "San Francisco, CA")["final"], "supported")
 
+    def test_quote_may_include_the_prompts_field_labels(self):
+        # Added after the first real check: Claude quoted "Title: ..." as the
+        # labelling prompt showed it.
+        p = post("We build things.")
+        self.assertEqual(check(p, "It is an AI role.", "supported",
+                               "Title: Software Engineer, Applied AI")["final"],
+                         "supported")
+        self.assertEqual(check(p, "It is an AI role.", "supported",
+                               "Title: Data Scientist")["final"], "insufficient")
+
     def test_unknown_label_rejected(self):
         with self.assertRaises(ValueError):
             check(post("x"), "c", "probably", "x")
