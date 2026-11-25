@@ -1,0 +1,208 @@
+{
+  "computed_at": "2026-11-25T23:14:31.664Z",
+  "snapshot": "data/MANIFEST.json",
+  "postings": 1064,
+  "pm_titled": 170,
+  "pm_title_rule": "/\\bproduct\\b|\\bprogram manager\\b/i",
+  "preferred_only_years": {
+    "heuristic": "PM-titled; every line with a years phrase sits after a short heading line matching /^(preferred|nice to have|bonus|it'?s a plus|pluses)/i",
+    "count": 2,
+    "ids": [
+      "gh-stripe:8204227",
+      "gh-stripe:8223723"
+    ]
+  },
+  "spelled_out_years": {
+    "heuristic": "a line containing \"experience\" and /\\b(one|two|three|four|five|six|seven|eight|nine|ten|eleven|twelve|fifteen)\\s*(\\(\\d+\\)\\s*)?(\\+|plus)?\\s*(or more\\s*)?years?\\b/i",
+    "count_all": 18,
+    "count_pm_titled": 2,
+    "ids_pm_titled": [
+      "gh-stripe:8195440",
+      "gh-stripe:8177860"
+    ]
+  },
+  "years_without_experience_word": {
+    "heuristic": "PM-titled; has a years phrase, but no line has both a years phrase and the word \"experience\" (so the filter reads experience as unknown)",
+    "count": 5,
+    "ids": [
+      "gh-airbnb:8282322",
+      "gh-stripe:8053517",
+      "gh-stripe:8094087",
+      "gh-stripe:7984866",
+      "gh-stripe:8223723"
+    ]
+  },
+  "airbnb_no_role_body": {
+    "heuristic": "Airbnb postings whose text, after removing lines shared by >= 20% of Airbnb postings, is under 300 characters",
+    "count": 1,
+    "of": 203,
+    "ids": [
+      "gh-airbnb:8303742"
+    ]
+  },
+  "identical_text_different_ids": {
+    "groups": 34,
+    "postings_in_groups": 84,
+    "groups_detail": [
+      [
+        "gh-stripe:8215824 Account Executive - Bridge",
+        "gh-stripe:8077887 Account Executive, Bridge"
+      ],
+      [
+        "gh-stripe:7961609 Account Executive, Enterprise Platforms, Hunter",
+        "gh-stripe:8077971 Account Executive, Platforms - Hunter"
+      ],
+      [
+        "gh-stripe:8190044 Account Executive, Product - Issuing & Treasury (Grower)",
+        "gh-stripe:8238098 Account Executive, Product - Issuing & Treasury (Hunter)"
+      ],
+      [
+        "gh-stripe:8190050 Account Executive, Product Sales - Billing",
+        "gh-stripe:8190042 Account Executive, Product Sales, Metronome"
+      ],
+      [
+        "gh-stripe:8267839 Account Executive, Velocity Platforms (Hunter)",
+        "gh-stripe:8267841 Account Executive, Velocity Platforms (Hunter)",
+        "gh-stripe:8304836 Account Executive, Velocity Platforms (Hunter)",
+        "gh-stripe:8304841 Account Executive, Velocity Platforms (Hunter)"
+      ],
+      [
+        "gh-stripe:8301379 Backend / API Engineer, Radar",
+        "gh-stripe:8301253 Backend / API Engineer, Radar"
+      ],
+      [
+        "gh-stripe:7476555 Backend Engineer, Developer & End-user Experience Platform",
+        "gh-stripe:7292520 Backend Engineer, Developer & End-user Experience Platform"
+      ],
+      [
+        "gh-stripe:7895287 Backend Engineer, Payments Experiences",
+        "gh-stripe:8260982 Software Engineer, Payments"
+      ],
+      [
+        "gh-stripe:8336819 Blockchain Security Engineer, Bridge",
+        "gh-stripe:7776179 Security Engineer, Bridge",
+        "gh-stripe:8209307 Security Engineer, Bridge"
+      ],
+      [
+        "gh-stripe:8194287 Data Analyst, Intern",
+        "gh-stripe:8194291 Data Analyst, Intern"
+      ],
+      [
+        "gh-stripe:7943804 Engineering Manager, AI Conversation Platform",
+        "gh-stripe:8022713 ML Engineer Manager, AI Conversation Platform"
+      ],
+      [
+        "gh-stripe:7597613 Finance and Strategy Specialist",
+        "gh-stripe:8222642 Payments F&S Specialist"
+      ],
+      [
+        "gh-stripe:8237533 Implementation Consultant",
+        "gh-stripe:8203969 Implementation Consultant"
+      ],
+      [
+        "gh-stripe:8248207 Integrated Campaigns Manager",
+        "gh-stripe:8067276 Integrated Campaigns Manager - Stablecoins, Crypto, and Bridge"
+      ],
+      [
+        "gh-stripe:8203966 Integration Engineer",
+        "gh-stripe:7819426 Integration Engineer (Chicago)"
+      ],
+      [
+        "gh-stripe:8209647 Large User Sales Managers, Platform Partnerships",
+        "gh-stripe:8368638 Large User Sales Managers, Platform Partnerships"
+      ],
+      [
+        "gh-stripe:8175633 Manager, Solutions Architecture - Enterprise (West)",
+        "gh-stripe:8163542 Manager, Solutions Architecture- T1 Platforms"
+      ],
+      [
+        "gh-stripe:8333074 Master's Machine Learning Engineer, Intern",
+        "gh-stripe:8333122 Master's Machine Learning Engineer, Intern"
+      ],
+      [
+        "gh-stripe:8262027 People Consultant",
+        "gh-stripe:7866374 People Consultant"
+      ],
+      [
+        "gh-stripe:8194285 PhD Data Scientist, Intern",
+        "gh-stripe:8194283 PhD Data Scientist, Intern"
+      ],
+      [
+        "gh-stripe:8328664 PhD Machine Learning Engineer, Intern",
+        "gh-stripe:8328662 PhD Machine Learning Engineer, Intern"
+      ],
+      [
+        "gh-stripe:8332683 Product Design Intern",
+        "gh-stripe:8332681 Product Design Intern"
+      ],
+      [
+        "gh-stripe:8158082 Program Manager, Risk Operations",
+        "gh-stripe:8209641 Program Manager, Risk Operations GTM Enablement"
+      ],
+      [
+        "gh-stripe:8337362 Recruiting Scheduler",
+        "gh-stripe:8351504 Recruiting Scheduler"
+      ],
+      [
+        "gh-stripe:8191706 Sales Manager, Startups - Hunter",
+        "gh-stripe:8267829 Sales Manager, Startups - Hunter"
+      ],
+      [
+        "gh-stripe:8174965 Security Engineer",
+        "gh-stripe:8174984 Security Engineer, ACE"
+      ],
+      [
+        "gh-stripe:8264005 Senior Staff Product Manager, Risk",
+        "gh-stripe:8273741 Senior Staff Product Manager, Risk"
+      ],
+      [
+        "gh-stripe:8212517 Software Engineer, Early Career — Immediate Start",
+        "gh-stripe:8212508 Software Engineer, Early Career — Immediate Start"
+      ],
+      [
+        "gh-stripe:8130867 Software Engineer, Intern",
+        "gh-stripe:8031833 Software Engineer, Intern",
+        "gh-stripe:8130807 Software Engineer, Intern",
+        "gh-stripe:8130805 Software Engineer, Intern (Summer or Winter)",
+        "gh-stripe:8128745 Software Engineer, Intern (Summer or Winter)",
+        "gh-stripe:8097801 Software Engineer, Intern (Summer or Winter)"
+      ],
+      [
+        "gh-stripe:8130922 Software Engineer, New Grad",
+        "gh-stripe:8130876 Software Engineer, New Grad",
+        "gh-stripe:8160776 Software Engineer, New Grad",
+        "gh-stripe:8130881 Software Engineer, New Grad",
+        "gh-stripe:8157838 Software Engineer, New Grad",
+        "gh-stripe:8130930 Software Engineer, New Grad",
+        "gh-stripe:8128744 Software Engineer, New Grad",
+        "gh-stripe:8130927 Software Engineer, New Grad - Frontend"
+      ],
+      [
+        "gh-stripe:8336703 Solutions Architect, Enterprise (German-Speaking)",
+        "gh-stripe:8336719 Solutions Architect, Platforms (German-Speaking)"
+      ],
+      [
+        "gh-stripe:8211180 Staff Security Engineer, Abuse Control",
+        "gh-stripe:8174963 Staff Security Engineer, Abuse Control",
+        "gh-stripe:8356917 Staff Security Engineer, Abuse Control",
+        "gh-stripe:8356916 Staff Security Engineer, Abuse Control",
+        "gh-stripe:8356912 Staff Security Engineer, Abuse Control"
+      ],
+      [
+        "gh-stripe:8114397 Technical Program Manager, Extensibility",
+        "gh-stripe:8282859 Technical Program Manager, Extensibility Platform"
+      ],
+      [
+        "gh-stripe:7737248 Technical Support Engineer (EMEA), Metronome",
+        "gh-stripe:8171220 Technical Support Engineer, Metronome"
+      ]
+    ]
+  },
+  "title_vs_body_level": {
+    "heuristic": "title starts with /^(product manager|technical program manager|technical product manager)\\b/i; body matches /\\b(looking for|seeking|hiring) an? (senior staff|staff|principal|group|lead) (product|program) manager/i",
+    "count": 1,
+    "ids": [
+      "gh-stripe:8122188 Product Manager, Strategic Apps"
+    ]
+  }
+}

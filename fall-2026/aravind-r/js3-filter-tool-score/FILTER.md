@@ -382,6 +382,24 @@ The committed implementation re-counts in Phase 2, and any difference is recorde
 - This is also a counterexample to the abstention rule: the rule only abstains on an *unknown*
   value, never on a value it extracted wrongly.
 
+### 5.4 Known limits from the audit recheck (2026-11-25; logged, no rule change)
+
+Raised by Aravind from the recheck notes. The counts come from `tools/known-limits.mjs`, written to
+`audit/known-limits.json`, over all 1,064 postings in the snapshot. "PM-titled" uses the label-sheet
+title rule (170 postings).
+- The heuristics were written while looking at the rows that prompted them. Each one catches its
+  prompting row, but none was validated beyond that, so treat each count as approximate, not a
+  measured rate.
+
+| Limit | Audit rows | Count (heuristic in `known-limits.json`) |
+|---|---|---|
+| **Years under a "Preferred" heading are read as required.** The rule takes the first years phrase wherever it appears, so a preferred qualification acts like a minimum. | A010 ("Preferred Qualifications: 6–10+ years…"), A042 ("Preferred Qualifications: 5+ years…") | 2 PM-titled postings whose *only* years lines sit under a preferred heading: exactly A010 and A042. |
+| **Spelled-out numbers are not parsed.** "More than three years of product management experience" leaves experience unknown. | A022 | 18 postings overall, 2 PM-titled (A022 and gh-stripe:8177860). |
+| **Why A042 reads as cannot_tell despite "5+ years in product management".** The rule only reads a years phrase in a sentence containing the word "experience", and A042's line doesn't contain it. So E is unknown, lo < 0.80 ≤ hi, and the result is cannot_tell. (If E had been read, 5 → 0.5 gives core + L1 + P1 = 0.875: keep.) | A042 | 5 PM-titled postings have a years phrase but none in an "experience" sentence. |
+| **Airbnb postings with no role body in the text.** The normalized text is company intro plus pay boilerplate, with no description of the role and no years. The rule can only answer cannot_tell, and so could a human (Aravind's recheck: cannot_tell). | A014 | 1 of 203 Airbnb postings has under 300 characters left after removing lines shared by ≥ 20% of the board: A014 only. |
+| **Near-duplicate postings:** identical normalized text, different ids. Each one is scored, sampled, and audited as if it were independent. | A027 / A044 (identical text; Aravind gave both the same verdict) | 34 groups covering 84 postings. A sample that draws two from one group counts one judgment twice. |
+| **Title tier vs body level.** The tier is read from the title alone. A037's title says "Product Manager", but its body says "We're looking for a Staff Product Manager" and asks for 8+ years. | A037 | 1 plain-PM title whose body explicitly asks for a Staff/Principal/Group/Lead PM: A037 only. |
+
 ---
 
 ## 6. The filter spec (the code loads this block) [DECIDED 2026-11-25, hand-set v1]
