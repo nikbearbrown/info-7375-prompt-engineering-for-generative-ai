@@ -59,8 +59,6 @@ test site's own request log (what the server really sent) is in `fetch-server/re
 - The 47 dependencies.
 
 ## Trust decision
-**To be written by Vrajesh in his own words.**
+Vrajesh's decision, in his words (2026-11-25):
 
-Claude's suggestion, not the decision: use it only with `--no-readability-js` and `--allowed-hosts` set to the job-board hosts
-you already allow-list, never with `--allow-private-ips` or `--ignore-robots-txt`, and do not auto-approve its tool calls.
-Treat every returned page as untrusted text.
+> "I would use it with --no-readability-js and --allowed-hosts restricted to the intended job-board hosts. I would keep private-IP access and robots.txt bypass disabled, review calls, and treat returned content as untrusted. That limits access and avoids the default npm installation path."

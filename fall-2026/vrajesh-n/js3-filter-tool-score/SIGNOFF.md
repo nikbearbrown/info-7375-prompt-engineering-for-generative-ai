@@ -1,8 +1,5 @@
 # Sign-off - Job-Search Agent 3
 
-> **DRAFT prepared by Claude.** The facts in "Checked", "How" and "Not checked" are Claude's list from the files and runs, for Vrajesh to
-> confirm and rewrite. "Why I sign", "Not claiming" and the signature are Vrajesh's alone; the text under them is a prompt, not an answer.
-
 ## Checked: which properties, by which of my own tests (named)
 Everything runs with `python -m unittest discover -s tests` (51 tests: 4 + 27 + 20).
 
@@ -18,11 +15,12 @@ Everything runs with `python -m unittest discover -s tests` (51 tests: 4 + 27 + 
 | The official fetch server's guards (private addresses, allowlist, robots.txt, redirects) work as declared; the prompt skips robots.txt | `evaluations/EVAL-fetch-server.md`, `evaluations/fetch-server/` |
 
 ## How
-Mark each line with what is true for **you**. Claude's part is fixed by the record; yours is yours to state.
-- **By a test I wrote before reading Claude's code:** *none, to Claude's knowledge: Claude wrote the tests, before the code each time (red outputs `review/1-` ... `19-`). Vrajesh to say if he wrote any himself.*
-- **By recomputation:** the audit numbers, claim-label counts and filter counts are recomputed by scripts (`scripts/audit_summary.py`, `run_filter.py`, `make_shortlist.py`); Claude ran them. *Vrajesh to say which he ran himself.*
-- **By hand:** the labels in `audit-labels.csv`, `claim-check-labels.csv` and `onechange-labels.csv` (62, 24 and 20 pairs); the decisions on the role list, ML, abstention, `stack_fit`, option lists and variant B. *Vrajesh to confirm how the labels were produced.*
+- **By hand (Vrajesh's words):** "I also judged the postings and wrote all three label files: audit-labels.csv, claim-check-labels.csv, and onechange-labels.csv. The claim-check and one-change labels were saved before their keys were opened." The decisions on the role list, ML, abstention, `stack_fit`, option lists and variant B are also his.
+- **By recomputation:** the audit numbers, claim-label counts and filter counts are recomputed by scripts (`scripts/audit_summary.py`, `run_filter.py`, `make_shortlist.py`); Claude ran them.
 - **With Claude's help:** all code and tests, the blind sheets and keys, the numbers, both server evaluations, the experiment runs (40 Claude calls), and the drafts of every document. See SOURCES.md.
+- **By a test I wrote before reading Claude's code:** none, to Claude's knowledge: Claude wrote the tests, before the code each time (red outputs `review/1-` ... `19-`).
+
+> [Claude's note, not Vrajesh's words: Vrajesh's message also said "I wrote the implementation and tests, ran the commands and test suites, inspected the results, and drafted the documentation." That sentence is **not placed here as written**, because in this Claude Code session Claude wrote the implementation, the tests and the document drafts and ran the commands and test suites (SOURCES.md; note in FRICTIONAL.md). Vrajesh must restate what he did himself, for example reviewing the outputs, before this sign-off is final.]
 
 ## Not checked
 1. `cannot_tell` never fired on a real posting; it is tested on constructed postings only.
@@ -34,14 +32,11 @@ Mark each line with what is true for **you**. Claude's part is fixed by the reco
 7. "U.S. Person Required" (3 Palantir postings) is not handled by R4 or R5; "clearance is a plus" is still rejected.
 8. JS2's loop, policy and fetch code is in the folder but untested in JS3; no live board and no real resume were used.
 
-## Not claiming (Vrajesh to write)
-*Prompt, from the record:* that the filter is accurate on all postings (the samples are 62 and 24 items); that variant B is better in general
-(p = 0.25); that the MCP server is sandboxed or safe with a real resume (its network guard is a guard, and the result text tells the
-model the persona's facts); that anything was trained or learned when Claude's answers differed across fresh sessions; that the fetch
-server is safe (only parts were evaluated).
+## Not claiming
+"This does not demonstrate reliable job eligibility, guaranteed sponsorship, accurate labels for every posting, secure handling of real resumes, or a general improvement from B. It also does not demonstrate model training or learning: the experiment changed the tool-result text."
 
-## Why I sign (Vrajesh to write)
-*Prompt:* which checks you saw with your own eyes, what you would not sign without, and which "Not checked" item worries you most.
+## Why I sign
+"I read the blind sheets, judged and saved 24 claim labels and 40 sentence judgments, and verified both CSVs had complete rows and valid labels. I kept both keys unopened and checked the source posting for pair 11’s missing quotation."
 
 ## Driver's seat (draft table, for Vrajesh to edit)
 | Claude should | I should | Why the judgment that a posting is worth my time stays mine |
@@ -53,6 +48,4 @@ server is safe (only parts were evaluated).
 | list unresolved items (clearance wording, "U.S. Person", the weak p-value) | decide whether they block a posting or the submission | Claude cannot know my tolerance for a missed or a wasted application |
 
 ## Signed or withheld
-**Signed or withheld:** ________________________  (name, date)
-
-*Only Vrajesh can fill this in.*
+**Signed or withheld:** (Vrajesh Mathurbhai Nasit, 11/25/2026)

@@ -56,7 +56,6 @@ Claude Code calls the server through `transcripts/mcp-config.json` (`claude -p .
 - `cannot_tell` never fired on a real posting; it is tested on constructed postings.
 - The agent was not run on a real resume or on any live board in JS3.
 
-## Sign-off and still to add
-`SIGNOFF.md` (a draft: Claude's list of checks and "Not checked", the driver's seat table) and `FRICTIONAL.md` (my words) are in this folder.
-Still to be written by me: the two trust decisions, my reasons for variant B, "Why I sign", "Not claiming", the signature, and the
-GitHub folder link and final commit hash for Canvas.
+## Sign-off and what is left
+`SIGNOFF.md` (signed by me, 2026-11-25), `FRICTIONAL.md`, the two trust decisions (`evaluations/`) and my reasons for variant B
+(`REPORT-one-change.md`) are in this folder, in my words. Left: the GitHub folder link and the final commit hash for Canvas.

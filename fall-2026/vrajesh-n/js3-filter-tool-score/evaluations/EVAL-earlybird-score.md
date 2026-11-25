@@ -47,8 +47,6 @@ one tool, `score_posting`), tests written before the code. Evidence: `earlybird-
 - That the labels in the results are right for every posting; only the 24 claim-check items and the 62-item audit sample were compared with Vrajesh's labels.
 
 ## Trust decision
-**To be written by Vrajesh in his own words.**
+Vrajesh's decision, in his words (2026-11-25):
 
-Claude's suggestion, not the decision: trust it for the fictional persona on this laptop with no auto-approve needed, because
-it is read-only, local, and has one tool. Do not point it at a real resume until defect 6 is fixed, and do not describe its
-network guard as a sandbox.
+> "I would trust it provisionally for the fictional persona and local snapshot. I would withhold approval for a real resume because its justifications can expose persona information to the model. The network guard is useful, but it is not a sandbox."

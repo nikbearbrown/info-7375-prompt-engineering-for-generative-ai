@@ -70,4 +70,4 @@ a behaviour that does *not* persist is not evidence that nothing is stored anywh
 ## 6. Decision on the change
 **Decision (Vrajesh, 2026-11-25): make variant B the default.** The server now includes each claim's statement unless
 `EARLYBIRD_INCLUDE_STATEMENT=0` (variant A). The evidence for B is weak (3 differences against 0, p = 0.25, section 3); the switch
-is kept so the measurement can be repeated. Vrajesh's own reasons: **to be added in his words.**
+is kept so the measurement can be repeated. Vrajesh's reasons, in his words: "I chose B because including the claim statement makes the label easier to interpret. All three observed differences favored B, but the small sample and p = 0.25 make this a provisional choice based on clearer wording, not proof of better performance."
