@@ -63,6 +63,7 @@ Every change below came from **audit items** (groups A, B and C; AUDIT.md), neve
 | Add `specialist` as a role word | **REJECTED after measuring** | — | B: *Compensation Specialist* was rejected (R1); my verdict was "y" | On the whole corpus it would add 1 keep from 52 "specialist" titles. One posting doesn't justify widening R1. |
 | Case-sensitive `Excel` (so "you **excel** at" stops counting) | **REJECTED for now** | — | *Credit Risk Operations Analyst* ("You excel in…") is a **held-out** item | A clear false friend, but I found it on a held-out item. Changing the filter because of it would contaminate the held-out measurement. Candidate for v1.3. |
 | Read "two (2) years" | **REJECTED for now** | — | *Operations Insights…* is a **held-out** item | Same reason as Excel. |
+| R4 counts the **bottom** of a range ("3–5 years" → 3), candidate **v1.3** | **NOT ADOPTED after measuring** | (1.3 candidate) | H2: all 3 postings I marked y were rejected by R4 on the top of a range; my reasons accept "3–5 years" | It catches 2/3 on H2, but that's circular (the rule came from H2). On the clean set H it changes nothing. No clean evidence yet, so v1.2 stays current; it needs a third labelled set. |
 | **Cut** any v1.0 rule | none | — | Random rejects: 0 of 30 wrong (AUDIT.md) | No v1.0 rule was shown to reject good postings in the random sample. |
 
 **Who decided:** Claude measured each candidate on the corpus and proposed it. I chose: accept both v1.1 rules (already coded at 14:21, before my verdicts), add R5, reject FP&A and specialist (2026-11-25, ~2:55 pm). Note: `tests/test_filter_v11.py` and `filters/filter_v1.1.json` say "after the audit's kept sample"; that means after Claude read group C, not after my verdicts. Both files are frozen by hash, so I corrected the wording here instead.
@@ -73,3 +74,4 @@ Every change below came from **audit items** (groups A, B and C; AUDIT.md), neve
 | 1.0 | 2026-11-25 | First version, before any code | — |
 | 1.1 | 2026-11-25 | + R1b (no `engineer` titles); R4 ignores education years | Two false friends in the audit's kept sample (§5) |
 | 1.2 | 2026-11-25 | + R5 US-only location | My audit reasons (§5) |
+| 1.3 (candidate) | 2026-11-25 | R4 reads the bottom of a range: **not adopted** | H2 finding; no clean evidence (§5) |

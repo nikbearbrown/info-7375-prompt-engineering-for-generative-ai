@@ -85,6 +85,21 @@ I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A
 
 **3:39–3:41 pm: The re-judge.** All 5 verdicts were the same as before (5 × n), with reasons now written for the right posting. No number changed. (Item 7's reason was left blank.)
 
+**~3:55 pm: A strict review.** An independent Claude reviewer, which saw only the assignment and this folder, found 11 problems. They're fixed in `58c30b8`; the main ones:
+- v1.1 had been coded at 14:21, **before** my verdicts, but the documents said "after the audit";
+- reasons with a lost first letter, and placeholder text, not disclosed;
+- the evidence bug credited to me instead of Claude;
+- the tests described as "written before the code" without saying Claude wrote both.
+
+**~3:58–4:07 pm: A second held-out set.** H had only one "y", so nothing could be shown. Claude drew H2 (24 analyst-title postings, seed committed first, `e7bff47`), and I judged it blind myself, deciding and typing every verdict (3 y, `bf4c812`). I re-judged item 12 (16:07).
+
+**~4:08–4:14 pm: What H2 showed.**
+- All 3 of my yeses were rejected by **my own R4**, which reads "3–5 years" by its top; I read it by its bottom. My gate encoded a rule I don't hold, and I only saw it on boundary postings.
+- Candidate v1.3 fixes that on H2, but that's circular. On the clean set H it changes nothing, so it's **not adopted**.
+- A repeat Claude run flipped 1 of 24.
+- With my tool, Claude copied my filter's R4 mistake (`runs/H2/E4`).
+- **Unresolved:** v1.3 needs a third labelled set.
+
 ## What I accepted, modified or rejected from Claude
 | Claude's suggestion | What I did |
 |---|---|
@@ -95,6 +110,7 @@ I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A
 | Adding "specialist" | **Rejected**: 1 keep from 52 titles |
 | Fixing case-sensitive Excel and "(2) years" now | **Rejected for now**: found on held-out items, so fixing them would contaminate H |
 | (I asked Claude to judge the 76 for me) | Claude declined, because the assignment requires my own judgment; I judged all 76 myself |
+| Candidate v1.3 (R4 reads the bottom of a range) | **Not adopted**: no clean evidence; recorded in FILTER.md §5 |
 | Copy-paste slips in 5 reasons | **Modified**: re-judged in a separate file; originals kept |
 
 ## (my own words)

@@ -1,4 +1,4 @@
-$ python3 -m unittest discover -s tests -t . -v   (2026-11-25 14:59)
+$ python3 -m unittest discover -s tests -t . -v   (2026-11-25 16:10)
 test_contradicted_years_never_shortlisted (tests.test_evidence.Justify.test_contradicted_years_never_shortlisted) ... ok
 test_every_claim_is_labelled_with_a_quote_or_cannot_tell (tests.test_evidence.Justify.test_every_claim_is_labelled_with_a_quote_or_cannot_tell) ... ok
 test_missing_text_cannot_tell_everything (tests.test_evidence.Justify.test_missing_text_cannot_tell_everything) ... ok
@@ -56,6 +56,10 @@ test_missing_or_vague_kept (tests.test_filter_v12.USOnly.test_missing_or_vague_k
 test_mixed_us_and_non_us_kept (tests.test_filter_v12.USOnly.test_mixed_us_and_non_us_kept) ... ok
 test_us_kept (tests.test_filter_v12.USOnly.test_us_kept) ... ok
 test_v11_ignores_location (tests.test_filter_v12.USOnly.test_v11_ignores_location) ... ok
+test_bottom_above_limit_still_rejected (tests.test_filter_v13.RangeBottom.test_bottom_above_limit_still_rejected) ... ok
+test_plus_and_single_unchanged (tests.test_filter_v13.RangeBottom.test_plus_and_single_unchanged) ... ok
+test_range_counts_bottom_in_v13 (tests.test_filter_v13.RangeBottom.test_range_counts_bottom_in_v13) ... ok
+test_range_still_top_in_v12 (tests.test_filter_v13.RangeBottom.test_range_still_top_in_v12) ... ok
 test_failed_board_is_failed_not_zero (tests.test_policy_collect.FailedBoard.test_failed_board_is_failed_not_zero) ... ok
 test_more_than_five_boards_refused (tests.test_policy_collect.FailedBoard.test_more_than_five_boards_refused) ... ok
 test_writes_only_inside_data_out_transcripts (tests.test_policy_collect.Files.test_writes_only_inside_data_out_transcripts) ... ok
@@ -79,6 +83,6 @@ test_server_source_has_no_network_or_outside_writes (tests.test_toolserver.NoSid
 test_both_directions_recorded (tests.test_toolserver.Transcript.test_both_directions_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 78 tests in 0.429s
+Ran 82 tests in 0.427s
 
 OK

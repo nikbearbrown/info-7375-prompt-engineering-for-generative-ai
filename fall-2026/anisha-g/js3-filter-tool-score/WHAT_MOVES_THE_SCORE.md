@@ -14,6 +14,7 @@
 | Weights: title 3, per skill 1, skill cap 5, seniority −3, years −3 | | **hand-set**: Claude's proposal to reproduce my rule exactly (title + 2 skills = 5); I accepted it in FILTER.md §1.4 | same |
 | `keep_threshold` | 5 | **hand-set** (= title + 2 skills) | same |
 | Close-call band | score 4–6, or exactly one failed rule | **hand-set** (FILTER.md §1.4) | `js3/filter.py:is_close_call` |
+| R4 range reading in candidate v1.3 | bottom of a range | **hand-set** from my H2 reasons; **not adopted** | `filters/filter_v1.3.json` |
 | `engineer` exclusion (R1b) | 1 word | **hand-set** by Claude at 14:21 from reading group C, **before** my verdicts; I accepted it after judging (v1.1) | `filters/filter_v1.1.json` |
 | Education window | 40 characters after "N years" | **hand-set** by Claude, not tuned | `js3/filter.py:years_spans` |
 | US / non-US marker lists (R5) | 69 / 73 place names | **hand-set** by Claude from the 406 distinct location strings in the **whole** corpus (which includes H's locations: a possible leak, see §4) | `filters/filter_v1.2.json` |
@@ -54,7 +55,7 @@
 - **E4 dropped *Analytics Lead*** (the tool reports R2: "lead"), but kept *Data Analyst, Intern*.
 
 ### What these numbers can and can't show
-1. **The held-out set has only one positive.** With 1 "y" in 30, "always say no" scores 96.7%, tied with the best scorer. Every accuracy interval overlaps every other. **No change here can be called an improvement in accuracy; the sample is too small for that.** Recall is 0% or 100% on one posting. My lesson: H should have been stratified to contain more likely positives (I drew it before knowing how rare "y" would be).
+1. **H has only one positive** (H2, §2b, has three). With 1 "y" in 30, "always say no" scores 96.7%, tied with the best scorer. Every accuracy interval overlaps every other. **No change here can be called an improvement in accuracy; the sample is too small for that.** Recall is 0% or 100% on one posting. My lesson: H should have been stratified to contain more likely positives (I drew it before knowing how rare "y" would be).
 2. **What I can say is item-level and descriptive.** On these 30 postings:
    - v1.2's location rule turned 3 false keeps into correct rejects and lost nothing;
    - the prompt and context changes each turned the single true keep into a miss;
@@ -70,6 +71,43 @@ After my server evaluation (TOOLSERVER.md), I added what R1–R5 mean to the `sc
 - **after it:** **correctly** in 3 of 3 runs (`claude-run5a–c`).
 
 That's 1 run before and 3 after, so it's **an anecdote, not a measurement**.
+
+## 2b. A second held-out set (H2), because H had only one "y"
+- **Why and how:** after H turned out to hold a single "y", I drew **H2**: 24 postings, seed 7376 (`tools/draw_h2.py`). They came from the 34 **unjudged** postings whose title passes R1 with no seniority word, the pool most likely to hold postings worth Nadia's time.
+- **Order:** the draw and the plan (`runs/experiments.json` → `_h2`) were committed **before** any H2 verdict or Claude call (`e7bff47`). I judged H2 blind myself, 15:59–16:06 (`labels/hand_verdicts_h2.jsonl`, frozen in `bf4c812`). The Claude runs came after (`runs/H2/`, 120 calls, $1.85).
+- **What was run:** E3 (haiku) was left out to save calls.
+
+**H2 result: 24 labelled, 3 "y".**
+
+| Object changed | From → to | TP | FP | FN | TN | Accuracy | Wilson 95% |
+|---|---|---|---|---|---|---|---|
+| — | always "not relevant" | 0 | 0 | 3 | 21 | 87.5% | 69.0–95.7% |
+| filter file | v1.0 = v1.1 = v1.2 (identical on H2) | 0 | 0 | **3** | 21 | 87.5% | 69.0–95.7% |
+| (evidence gate) | shortlist v1.0 | 0 | 0 | 3 | 21 | 87.5% | 69.0–95.7% |
+| — | Claude **B** | 1 | 1 | 2 | 20 | 87.5% | 69.0–95.7% |
+| — (noise floor) | Claude **B2**, an exact repeat of B | 0 | 1 | 3 | 20 | 83.3% | 64.1–93.3% |
+| prompt | B → **E1** (baseline prompt) | 1 | 0 | 2 | 21 | 91.7% | 74.2–97.7% |
+| context | B → **E2** (600 characters) | 0 | 0 | 3 | 21 | 87.5% | 69.0–95.7% |
+| tool list | B → **E4** (offered my tool) | 0 | 1 | 3 | 20 | 83.3% | 64.1–93.3% |
+
+**What H2 shows (counts on 24 postings, not rates):**
+1. **My filter catches none of my 3 "y" postings, and the reason is one rule.**
+   - The three: *Renewals Analyst*, *AMER Data Analyst – Sales Strategy and Operations* and *Customer Success Operations Analyst*.
+   - **R4** rejected all three: it counts the **top** of a range ("3–5 years" → 5). My own reasons accept them, e.g. "accepts 3–5 yrs analytics (3 ≤ limit)": I read a range by its **bottom**.
+   - So FILTER.md R4 says something I don't actually believe. I only found that by judging postings near the boundary, which H didn't contain.
+2. **The noise floor is real here.** B and B2, identical settings, disagreed on **1 of 24**: *AMER Data Analyst* was y in B and n in B2.
+   - Every Claude change on H2 moved results by 0–1 postings, which is **no larger than the noise**.
+   - So on H2 I can't attribute any difference to the prompt, the context or the tool list.
+3. **Offering my tool pulled Claude toward my filter's blind spot.**
+   - **On H2:** E4 found 0 of 3, where B found 1 of 3. With the tool, Claude followed `score_posting`'s R4 rejection. On *AMER Data Analyst* (both replies from 2026-11-25, in `runs/H2/`):
+     - **B, without the tool:** "its minimum of 3 years does not exceed the candidate's max of 3" → relevant.
+     - **E4, with the tool:** "the posting asks for 3–5 years…, which score_posting marks CONTRADICTED" → not relevant.
+   - **On H:** the same anchoring removed a false positive (*Analytics Lead*: R2 "lead").
+   - Adding the tool makes Claude **inherit the filter's judgment**, good and bad. That's within noise on these samples, but it's the mechanism visible in the item tables.
+4. **A candidate filter v1.3 (R4 counts the bottom of a range)** was built from this finding, tests first (`logs/14` → `logs/15`):
+   - **On H2** it catches 2 of 3 with no false keeps, but that is **circular**: the rule came from H2.
+   - **On H**, where it can be tested cleanly, it is **identical to v1.2** (1 TP, 1 FP).
+   - **So there's no clean evidence for v1.3, and it is not adopted** (FILTER.md §5). Testing it needs a third labelled set.
 
 ## 3. What persistence is not proof of
 - **Every Claude call here was a fresh, separate session** (`claude -p`, one process per posting), with the same model flag.
