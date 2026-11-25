@@ -1,7 +1,7 @@
 """The reject audit (FILTER.md section 8). Draw a blind sample, then score Ashwin's verdicts against the filter.
 
     python3 -m jobfilter.audit --draw      # writes labels/audit-sheet.{md,csv} and labels/audit-selection.json
-    python3 -m jobfilter.audit --report    # needs every verdict filled; writes audit/REPORT-v1.0.md
+    python3 -m jobfilter.audit --report    # needs every minimum-sample verdict; writes audit/REPORT-v1.0.md
 
 Strata (all from the 775 development postings; held-out keys never enter):
   random_reject    30 random rejects, without replacement            -> estimates the false-negative share
@@ -103,12 +103,12 @@ def wilson(k: int, n: int, z: float = 1.96) -> tuple:
 def tally(selection: dict, verdicts: dict, decisions: dict) -> dict:
     out = {}
     for name, v in selection["strata"].items():
-        rows = [(k, decisions[k]["decision"], verdicts[k]["verdict"]) for k in v["selected"]]
+        rows = [(k, decisions[k]["decision"], verdicts[k]["verdict"]) for k in v["selected"] if k in verdicts]
         y = sum(1 for _, _, h in rows if h == "Y")
         n = sum(1 for _, _, h in rows if h == "N")
         q = sum(1 for _, _, h in rows if h == "?")
-        out[name] = {"rows": rows, "Y": y, "N": n, "?": q, "selected": len(rows),
-                     "population_size": v["population_size"]}
+        out[name] = {"rows": rows, "Y": y, "N": n, "?": q, "selected": len(v["selected"]),
+                     "not_judged": len(v["selected"]) - len(rows), "population_size": v["population_size"]}
     return out
 
 

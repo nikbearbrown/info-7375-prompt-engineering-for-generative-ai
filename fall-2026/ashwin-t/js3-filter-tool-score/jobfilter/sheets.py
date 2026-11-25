@@ -40,12 +40,15 @@ def write_sheet(path: Path, title: str, intro: str, postings: list) -> None:
             w.writerow([i, p["key"], p["title"], "", ""])
 
 
-def read_verdicts(csv_path: Path) -> dict:
-    """key -> {"verdict": Y|N|?, "note": str}. Raises if any verdict is blank or invalid."""
+def read_verdicts(csv_path: Path, allow_blank: bool = False) -> dict:
+    """key -> {"verdict": Y|N|?, "note": str}. Raises on an invalid verdict, and on a blank one unless
+    allow_blank (then the row is left out: not judged, never treated as a verdict)."""
     out = {}
     with Path(csv_path).open(newline="") as fh:
         for row in csv.DictReader(fh):
             v = (row.get("verdict") or "").strip().upper()
+            if allow_blank and not v:
+                continue
             if v not in {"Y", "N", "?"}:
                 raise ValueError(f"{csv_path}: row {row.get('n')} ({row.get('key')}) has verdict {v!r}")
             out[row["key"]] = {"verdict": v, "note": (row.get("note") or "").strip()}
