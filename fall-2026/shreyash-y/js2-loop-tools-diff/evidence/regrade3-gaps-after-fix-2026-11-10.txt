@@ -1,0 +1,25 @@
+# Regrade 3 gaps, test run AFTER the fix, 2026-11-10 21:02 EST.
+$ python3 -m unittest tests.test_regrade3_gaps -v
+test_a_board_with_no_token_fails_that_board_only (tests.test_regrade3_gaps.BadBoardEntries.test_a_board_with_no_token_fails_that_board_only) ... ok
+test_a_token_with_a_space_fails_that_board_only (tests.test_regrade3_gaps.BadBoardEntries.test_a_token_with_a_space_fails_that_board_only) ... ok
+test_a_raw_file_rewritten_with_its_summary_is_flagged (tests.test_regrade3_gaps.CheckComparesRawHashes.test_a_raw_file_rewritten_with_its_summary_is_flagged) ... ok
+test_a_corrupt_state_file_ends_the_run_as_error_with_an_exit_line (tests.test_regrade3_gaps.CorruptState.test_a_corrupt_state_file_ends_the_run_as_error_with_an_exit_line) ... ok
+test_incomplete_read_is_a_network_error (tests.test_regrade3_gaps.CutOffBodies.test_incomplete_read_is_a_network_error) ... ok
+test_ssl_error_is_a_network_error (tests.test_regrade3_gaps.CutOffBodies.test_ssl_error_is_a_network_error) ... ok
+Ran 6 tests in 0.009s
+OK
+
+# full suite
+Ran 121 tests in 0.222s
+OK (expected failures=1)
+
+# the check on the saved runs (now also comparing each raw file with the sha256 in its trace)
+$ python3 jsagent/check.py runs/20261110T002501Z
+no findings
+$ python3 jsagent/check.py runs/20261110T011708Z
+no findings
+$ python3 jsagent/check.py runs/20261110T204749Z
+no findings
+$ python3 jsagent/check.py runs/seeded-finished-wrong/finished-wrong-SEEDED
+oscar: the response lists 20 jobs but its own meta.total says 199
+oscar: 179 of 199 postings disappeared since the previous run (more than half in one run is not believable without a second look)

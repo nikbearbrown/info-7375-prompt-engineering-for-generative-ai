@@ -1,0 +1,133 @@
+# Regrade 3 gaps, test run BEFORE the fix, 2026-11-10 21:01 EST. Command: python3 -m unittest tests.test_regrade3_gaps -v
+# No test uses the network: the Live tests replace the HTTP opener; the loop tests use the constructed fake transport.
+test_a_board_with_no_token_fails_that_board_only (tests.test_regrade3_gaps.BadBoardEntries.test_a_board_with_no_token_fails_that_board_only) ... ERROR
+test_a_token_with_a_space_fails_that_board_only (tests.test_regrade3_gaps.BadBoardEntries.test_a_token_with_a_space_fails_that_board_only) ... ERROR
+test_a_raw_file_rewritten_with_its_summary_is_flagged (tests.test_regrade3_gaps.CheckComparesRawHashes.test_a_raw_file_rewritten_with_its_summary_is_flagged) ... FAIL
+test_a_corrupt_state_file_ends_the_run_as_error_with_an_exit_line (tests.test_regrade3_gaps.CorruptState.test_a_corrupt_state_file_ends_the_run_as_error_with_an_exit_line) ... ERROR
+test_incomplete_read_is_a_network_error (tests.test_regrade3_gaps.CutOffBodies.test_incomplete_read_is_a_network_error) ... ERROR
+test_ssl_error_is_a_network_error (tests.test_regrade3_gaps.CutOffBodies.test_ssl_error_is_a_network_error) ... ERROR
+
+======================================================================
+ERROR: test_a_board_with_no_token_fails_that_board_only (tests.test_regrade3_gaps.BadBoardEntries.test_a_board_with_no_token_fails_that_board_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<folder>/tests/test_regrade3_gaps.py", line 59, in test_a_board_with_no_token_fails_that_board_only
+    self.check_bad({"name": "no-token", "ats": "lever"})
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<folder>/tests/test_regrade3_gaps.py", line 48, in check_bad
+    rep = self.run_loop([{"name": "oscar", "ats": "greenhouse", "token": "oscar"}, bad], {GH: [fakes.gh(1, 2)]})
+  File "<folder>/tests/test_regrade3_gaps.py", line 39, in run_loop
+    return loop.run(boards, BUDGETS, fakes.FakeTransport(routes), policy.Files(self.project, self.runs),
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    run_id=run_id, resume=self.view, clock=fakes.FakeClock())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<folder>/jsagent/loop.py", line 62, in run
+    r = {"name": b["name"], "ats": b["ats"], "token": b["token"], "status": None, "fetched": None, "new": None,
+                                                      ~^^^^^^^^^
+KeyError: 'token'
+
+======================================================================
+ERROR: test_a_token_with_a_space_fails_that_board_only (tests.test_regrade3_gaps.BadBoardEntries.test_a_token_with_a_space_fails_that_board_only)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<folder>/tests/test_regrade3_gaps.py", line 56, in test_a_token_with_a_space_fails_that_board_only
+    self.check_bad({"name": "bad name", "ats": "lever", "token": "bad name"})
+    ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<folder>/tests/test_regrade3_gaps.py", line 48, in check_bad
+    rep = self.run_loop([{"name": "oscar", "ats": "greenhouse", "token": "oscar"}, bad], {GH: [fakes.gh(1, 2)]})
+  File "<folder>/tests/test_regrade3_gaps.py", line 39, in run_loop
+    return loop.run(boards, BUDGETS, fakes.FakeTransport(routes), policy.Files(self.project, self.runs),
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    run_id=run_id, resume=self.view, clock=fakes.FakeClock())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<folder>/jsagent/loop.py", line 74, in run
+    url = providers.board_url(b["ats"], b["token"])
+  File "<folder>/jsagent/providers.py", line 24, in board_url
+    raise ValueError(f"bad board token {token!r}")
+ValueError: bad board token 'bad name'
+
+======================================================================
+ERROR: test_a_corrupt_state_file_ends_the_run_as_error_with_an_exit_line (tests.test_regrade3_gaps.CorruptState.test_a_corrupt_state_file_ends_the_run_as_error_with_an_exit_line)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<folder>/tests/test_regrade3_gaps.py", line 88, in test_a_corrupt_state_file_ends_the_run_as_error_with_an_exit_line
+    rep = self.run_loop([{"name": "oscar", "ats": "greenhouse", "token": "oscar"}], {GH: [fakes.gh(1)]})
+  File "<folder>/tests/test_regrade3_gaps.py", line 39, in run_loop
+    return loop.run(boards, BUDGETS, fakes.FakeTransport(routes), policy.Files(self.project, self.runs),
+           ~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                    run_id=run_id, resume=self.view, clock=fakes.FakeClock())
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<folder>/jsagent/loop.py", line 47, in run
+    prev = latest_state(files.runs)
+  File "<folder>/jsagent/loop.py", line 33, in latest_state
+    s = json.loads(f.read_text())
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/__init__.py", line 352, in loads
+    return _default_decoder.decode(s)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 345, in decode
+    obj, end = self.raw_decode(s, idx=_w(s, 0).end())
+               ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/json/decoder.py", line 361, in raw_decode
+    obj, end = self.scan_once(s, idx)
+               ~~~~~~~~~~~~~~^^^^^^^^
+json.decoder.JSONDecodeError: Expecting property name enclosed in double quotes: line 1 column 2 (char 1)
+
+======================================================================
+ERROR: test_incomplete_read_is_a_network_error (tests.test_regrade3_gaps.CutOffBodies.test_incomplete_read_is_a_network_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<folder>/tests/test_regrade3_gaps.py", line 77, in test_incomplete_read_is_a_network_error
+    self.live_get_raising(http.client.IncompleteRead(b"{\"jobs\": [", 5000))
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<folder>/tests/test_regrade3_gaps.py", line 73, in live_get_raising
+    return transport.Live().get(GH, timeout=5)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<folder>/jsagent/transport.py", line 28, in get
+    return resp.status, resp.read()
+                        ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1241, in _execute_mock_call
+    raise effect
+http.client.IncompleteRead: IncompleteRead(10 bytes read, 5000 more expected)
+
+======================================================================
+ERROR: test_ssl_error_is_a_network_error (tests.test_regrade3_gaps.CutOffBodies.test_ssl_error_is_a_network_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<folder>/tests/test_regrade3_gaps.py", line 81, in test_ssl_error_is_a_network_error
+    self.live_get_raising(ssl.SSLError("constructed"))
+    ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "<folder>/tests/test_regrade3_gaps.py", line 73, in live_get_raising
+    return transport.Live().get(GH, timeout=5)
+           ~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^
+  File "<folder>/jsagent/transport.py", line 28, in get
+    return resp.status, resp.read()
+                        ~~~~~~~~~^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1176, in __call__
+    return self._mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1180, in _mock_call
+    return self._execute_mock_call(*args, **kwargs)
+           ~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/mock.py", line 1241, in _execute_mock_call
+    raise effect
+ssl.SSLError: ('constructed',)
+
+======================================================================
+FAIL: test_a_raw_file_rewritten_with_its_summary_is_flagged (tests.test_regrade3_gaps.CheckComparesRawHashes.test_a_raw_file_rewritten_with_its_summary_is_flagged)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "<folder>/tests/test_regrade3_gaps.py", line 106, in test_a_raw_file_rewritten_with_its_summary_is_flagged
+    self.assertTrue(any("sha256" in f for f in findings), findings)
+    ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: False is not true : []
+
+----------------------------------------------------------------------
+Ran 6 tests in 0.013s
+
+FAILED (failures=1, errors=5)

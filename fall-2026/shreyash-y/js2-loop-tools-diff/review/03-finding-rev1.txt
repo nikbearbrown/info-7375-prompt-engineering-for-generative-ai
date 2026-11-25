@@ -1,0 +1,22 @@
+# Finding on patch revision 1, by Claude Code, 2026-11-09, from review/02-behavior-diff.txt.
+#
+# 16 Linear (Ashby) postings newly fail condition 5 with "posting.content requires 4 years
+# ('4 years & every 2 years thereafter ...')". That is a perk ("Paid month off after 4 years &
+# every 2 years thereafter"), not a requirement. Cause: mandatory_text() treats the word
+# "requirements" in "Health coverage (based on country requirements)", inside the benefits list,
+# as a requirements heading, so the perks after it are read as mandatory qualifications.
+# A first guess (drop benefits sections when no heading exists) changed 0 postings, so that was
+# not the cause.
+#
+# Proposed revision (not applied; Shreyash decides accept / revise / reject): a requirements-type
+# word counts as a heading only if it reads like one (capitalized, or followed by ':') and is not
+# inside parentheses.
+#
+# Everything else in the diff, by reading the sampled lines:
+# - No verdict changed on 685 real postings.
+# - The other C5 changes quote real requirements v1 missed ("10+ years in enterprise software
+#   sales", "8+ years of enterprise selling", "5+ years of responsibility operating...").
+# - The C3 changes follow Shreyash's 2026-10-31 decision (Remote limited to Georgia / New York /
+#   Florida, ads saying "commutable distance", Linear jobs whose workplace type is Hybrid).
+# - Against Shreyash's experiment-2 hand labels, the failed-condition sets went from 18/20 (v1) to
+#   19/20 (rev 1). The one remaining miss is 7809608003, the likely hand-label slip on skills.
