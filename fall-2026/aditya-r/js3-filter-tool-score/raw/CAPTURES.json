@@ -1,0 +1,25 @@
+{
+ "_note": "Every board capture the JS1/JS2 collector actually made. Files are the exact response bodies, gzip-wrapped. body_sha256 is the hash of the uncompressed body as recorded AT CAPTURE TIME by the collector (JS1 raw_response.meta.json; JS2 trace.jsonl http_result). js3/corpus.py refuses to load a file whose body hash differs.",
+ "captures": [
+  {"file": "raw/js1_20261030T213823Z_greenhouse_databricks.json.gz", "provider": "greenhouse", "board": "databricks",
+   "captured_utc": "2026-10-30T21:38:24Z", "collector": "JS1 agent.watch, LIVE run 20261030T213823Z_live",
+   "source": "../js1-contract-and-watch/evidence/runs/20261030T213823Z_live/raw_response.json (gzip -n -9 here)",
+   "status": 200, "body_sha256": "3dd47988e78a3736aae1e425fd8ab8817e5322aca9068a259fa262a3c4582e3f"},
+  {"file": "raw/js2_20261110T232115022Z_01_greenhouse_databricks_a1.json.gz", "provider": "greenhouse", "board": "databricks",
+   "captured_utc": "2026-11-10T23:21:15Z", "collector": "JS2 agent.loop, LIVE run 20261110T232115022Z_live",
+   "source": "../js2-loop-tools-diff/out/runs/20261110T232115022Z_live/raw/01_greenhouse_databricks_a1.json.gz (copied unchanged)",
+   "status": 200, "body_sha256": "b01c61a6e47ed60e48244cd3ed747b3a8454405010943398b0eaa5158d7f711e"},
+  {"file": "raw/js2_20261110T232115022Z_02_greenhouse_figma_a1.json.gz", "provider": "greenhouse", "board": "figma",
+   "captured_utc": "2026-11-10T23:21:15Z", "collector": "JS2 agent.loop, LIVE run 20261110T232115022Z_live",
+   "source": "../js2-loop-tools-diff/out/runs/20261110T232115022Z_live/raw/02_greenhouse_figma_a1.json.gz (copied unchanged)",
+   "status": 200, "body_sha256": "1bad06bb14cd51e69f8ebd090027f86ee8dd771514a6ca32bce29e74a9545769"},
+  {"file": "raw/js2_20261110T232115022Z_03_ashby_notion_a1.json.gz", "provider": "ashby", "board": "notion",
+   "captured_utc": "2026-11-10T23:21:15Z", "collector": "JS2 agent.loop, LIVE run 20261110T232115022Z_live",
+   "source": "../js2-loop-tools-diff/out/runs/20261110T232115022Z_live/raw/03_ashby_notion_a1.json.gz (copied unchanged)",
+   "status": 200, "body_sha256": "7bdc96e50572b7852061c4568b08fe404d7495b85e2bc29c426f14ecd3facac1"},
+  {"file": "raw/js2_20261110T232115022Z_04_greenhouse_js2-no-such-board-zzz_a1.json.gz", "provider": "greenhouse", "board": "js2-no-such-board-zzz",
+   "captured_utc": "2026-11-10T23:21:15Z", "collector": "JS2 agent.loop, LIVE run 20261110T232115022Z_live",
+   "source": "../js2-loop-tools-diff/out/runs/20261110T232115022Z_live/raw/04_greenhouse_js2-no-such-board-zzz_a1.json.gz (copied unchanged)",
+   "status": 404, "body_sha256": "76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe"}
+ ]
+}
