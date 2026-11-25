@@ -1,0 +1,208 @@
+{
+  "run": "filter-v1.1-2026-11-18T212545Z",
+  "run_at": "2026-11-18T21:25:45+00:00",
+  "filter_version": "1.1",
+  "python": "3.9.6",
+  "inputs": {
+    "js2_folder": "js2-loop-tools-diff",
+    "saved_responses": [
+      {
+        "run": "run-2026-11-10T025118Z",
+        "board": "Databricks",
+        "file": "runs/run-2026-11-10T025118Z/raw-greenhouse-databricks-attempt1-http200.json",
+        "sha256": "4c287ecf6ec1de8ed54c7d00801ff55fcfb4d2ec5cc3bd280e669eb554ce832d",
+        "postings_in_file": 915
+      },
+      {
+        "run": "run-2026-11-10T025118Z",
+        "board": "Anthropic",
+        "file": "runs/run-2026-11-10T025118Z/raw-greenhouse-anthropic-attempt1-http200.json",
+        "sha256": "ae257084a5b2efb1d89115e06cd04405886ed0066b05e62a3c06169170433706",
+        "postings_in_file": 675
+      },
+      {
+        "run": "run-2026-11-10T025118Z",
+        "board": "OpenAI",
+        "file": "runs/run-2026-11-10T025118Z/raw-ashby-openai-attempt1-http200.json",
+        "sha256": "faf9491cab0106cbbddecd891edd191673534b82f08696189183cd2ac928e3f8",
+        "postings_in_file": 825
+      },
+      {
+        "run": "run-2026-11-10T043813Z",
+        "board": "Databricks",
+        "file": "runs/run-2026-11-10T043813Z/raw-greenhouse-databricks-attempt1-http200.json",
+        "sha256": "1250ad4bdb442cc2cd42ffd3dabb04665656c46de0221bde3cadda1c5ad568d2",
+        "postings_in_file": 915
+      },
+      {
+        "run": "run-2026-11-10T043813Z",
+        "board": "Anthropic",
+        "file": "runs/run-2026-11-10T043813Z/raw-greenhouse-anthropic-attempt1-http200.json",
+        "sha256": "9c705a6bd2889b36ecd08e1f7ca96cf4c385ca7a04a4804ed897aa3457a4670a",
+        "postings_in_file": 677
+      },
+      {
+        "run": "run-2026-11-10T043813Z",
+        "board": "OpenAI",
+        "file": "runs/run-2026-11-10T043813Z/raw-ashby-openai-attempt1-http200.json",
+        "sha256": "faf9491cab0106cbbddecd891edd191673534b82f08696189183cd2ac928e3f8",
+        "postings_in_file": 825
+      }
+    ],
+    "persona": {
+      "file": "persona/priya-nair.resume.example.json",
+      "sha256": "a4fdbc960457ba911b9d3b8593400d17ea77f35a33ce2a508128c1694c4493c1"
+    }
+  },
+  "rules_files": {
+    "boilerplate.json": "8327bfe3e91a3ac43c82b5cff0319975ee0508d330ed9937e12644d050329916",
+    "filter_rules.json": "080f6c90ed5e2c7353edaf8f9876437f2fca5d06d814de65e838abc0794490c9",
+    "us_locations.json": "8fbadc763851074be5198e1a74b378364f068ff40743033e2131f38447543d7d"
+  },
+  "filter_md_sha256": "e8105b67b3cde3827f369b3f25bd57763e6913c50574c5a59419a4c66a7bfaeb",
+  "code_sha256": {
+    "job_filter.py": "93dd8d7a3dc5b9258bd9a013d5cd4be4499473bcb5e913b299d38cabbad32b75",
+    "postings.py": "7c57f44a54023de0245b66e0fe75711997131bf315fb00177334cf0dd33aabc5",
+    "run_filter.py": "a3831a8ed946a38eda5119d6d18ef9957b304f1c3e10a854b4280953e8663c2f"
+  },
+  "approved_boilerplate_sentences": 0,
+  "counted_skills": [
+    "Python",
+    "SQL",
+    "Power BI",
+    "LangGraph",
+    "MLflow",
+    "Mem0",
+    "Delta Lake",
+    "AWS"
+  ],
+  "postings": {
+    "total": 2418,
+    "by_board": {
+      "Anthropic": 677,
+      "Databricks": 916,
+      "OpenAI": 825
+    }
+  },
+  "decisions": {
+    "review": 63,
+    "rejected": 2355
+  },
+  "decisions_by_board": {
+    "Anthropic": {
+      "review": 32,
+      "rejected": 645
+    },
+    "Databricks": {
+      "rejected": 911,
+      "review": 5
+    },
+    "OpenAI": {
+      "rejected": 799,
+      "review": 26
+    }
+  },
+  "rejected_by_step": {
+    "1": 2273,
+    "2": 82
+  },
+  "hard_exclusion_reasons": {
+    "experience above the 2-year cutoff": 1482,
+    "seniority word in title": 1297,
+    "no matching role": 1102,
+    "outside the US": 756,
+    "excluded title": 409,
+    "seniority statement in description": 252,
+    "special program": 29
+  },
+  "review_reasons": {
+    "experience unknown": 63,
+    "special review role": 12,
+    "no résumé skill": 5
+  },
+  "role_categories": {
+    "related": 405,
+    "excluded": 409,
+    "special_review": 411,
+    "none": 1102,
+    "target": 91
+  },
+  "experience_status": {
+    "unknown": 907,
+    "above_cutoff": 1482,
+    "within_cutoff": 28,
+    "compatible": 1
+  },
+  "location_status": {
+    "us": 1650,
+    "non_us": 756,
+    "unknown": 12
+  },
+  "score_bins": {
+    "0-9": 245,
+    "10-19": 688,
+    "20-29": 332,
+    "30-39": 242,
+    "40-49": 277,
+    "50-59": 264,
+    "60-69": 222,
+    "70-79": 124,
+    "80-89": 20,
+    "90-99": 4
+  },
+  "near_threshold_count": 512,
+  "rejected_with_score_at_least_threshold": 224,
+  "confirmed_shortlist": [],
+  "review_candidate_shortlist": [
+    [
+      "Anthropic",
+      "5464234008",
+      90
+    ],
+    [
+      "Anthropic",
+      "4613568008",
+      80
+    ],
+    [
+      "Anthropic",
+      "4952051008",
+      80
+    ],
+    [
+      "Anthropic",
+      "5364804008",
+      80
+    ],
+    [
+      "Anthropic",
+      "5424111008",
+      80
+    ],
+    [
+      "Anthropic",
+      "5438030008",
+      80
+    ],
+    [
+      "Anthropic",
+      "5450099008",
+      80
+    ],
+    [
+      "Anthropic",
+      "5458420008",
+      80
+    ],
+    [
+      "OpenAI",
+      "087aa4f5-1192-413a-ba34-3ae324cf90e5",
+      80
+    ],
+    [
+      "OpenAI",
+      "577e6673-0a4a-491b-9a0d-facbdd3bdf3c",
+      80
+    ]
+  ]
+}
