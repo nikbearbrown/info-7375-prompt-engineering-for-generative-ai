@@ -40,6 +40,29 @@ def _state_codes():
 
 STATE_ENDINGS = _state_codes()
 
+# FILTER.md v2 (2026-11-25), accepted changes 1, 2 and 7. Change 8 lives in shortlist.py.
+# Practices are hand-set from Priya's résumé bullets (A/B framework, LLM evaluation).
+PRACTICES = ("A/B testing", "A/B test", "A/B tests", "experimentation", "LLM evaluation", "LLM-as-judge")
+US_STATE_NAMES = (
+    "Alabama", "Alaska", "Arizona", "Arkansas", "California", "Colorado", "Connecticut", "Delaware",
+    "District of Columbia", "Florida", "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", "Iowa", "Kansas",
+    "Kentucky", "Louisiana", "Maine", "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+    "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire", "New Jersey", "New Mexico", "New York",
+    "North Carolina", "North Dakota", "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+    "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah", "Vermont", "Virginia", "Washington",
+    "West Virginia", "Wisconsin", "Wyoming")
+US_OFFICE = re.compile(r"^US (" + "|".join(map(re.escape, US_STATE_NAMES)) + r") \([^()]+\) - Office$")
+VERSIONS = {
+    1: {"exclude": EXCLUDE_WORDS, "practices": (), "us_office_form": False},
+    2: {"exclude": ("manager", "director", "head", "intern"), "practices": PRACTICES, "us_office_form": True},
+}
+
+
+def rules(version):
+    if version not in VERSIONS:
+        raise ValueError(f"unknown FILTER.md version: {version!r}")
+    return VERSIONS[version]
+
 
 def strip_html(content):
     """Greenhouse sends escaped HTML: unescape, drop tags, unescape what was inside, collapse space."""
@@ -108,24 +131,28 @@ def location_parts(location):
     return [p.strip() for p in (location or "").split(";") if p.strip()]
 
 
-def is_us_part(part):
+def is_us_part(part, version=1):
     if any(part.endswith(code) for code in STATE_ENDINGS):
+        return True
+    if rules(version)["us_office_form"] and US_OFFICE.match(part):
         return True
     return bool(REMOTE.search(part) and US_MARKER.search(part))
 
 
-def us_part(location):
-    return next((p for p in location_parts(location) if is_us_part(p)), None)
+def us_part(location, version=1):
+    return next((p for p in location_parts(location) if is_us_part(p, version)), None)
 
 
 def skills_in(text, skills):
     return [s for s in skills if find_term(text, s)]
 
 
-def evaluate(posting, skills):
+def evaluate(posting, skills, version=1):
+    r = rules(version)
     text = posting["text"]
     result = {"posting_id": posting["posting_id"], "verdict": None, "abstain": False, "rule": None,
-              "field": None, "reason": None, "skills_found": [], "text_chars": len(text or "")}
+              "field": None, "reason": None, "skills_found": [], "practices_found": [],
+              "text_chars": len(text or ""), "filter_version": version}
 
     def done(verdict, rule=None, field=None, reason=None):
         result.update(verdict=verdict, rule=rule, field=field, reason=reason, abstain=verdict == "abstain")
@@ -144,23 +171,27 @@ def evaluate(posting, skills):
     role = next((hit for hit in (find_term(title, w) for w in ROLE_WORDS) if hit), None)
     if not role:
         return done("reject", "F1", tf, f"F1 [{tf}]: no role word in {title!r}")
-    excluded = next((hit for hit in (find_term(title, w) for w in EXCLUDE_WORDS) if hit), None)
+    excluded = next((hit for hit in (find_term(title, w) for w in r["exclude"]) if hit), None)
     if excluded:
         return done("reject", "F2", tf, f"F2 [{tf}]: excluded word {excluded!r} in {title!r}")
 
     lf, location = posting["location_field"], posting["location"]
     if location is None:
         return done("reject", "F3", lf, f"F3 [{lf}]: missing: {lf}")
-    if not us_part(location):
+    part = us_part(location, version)
+    if not part:
         return done("reject", "F3", lf, f"F3 [{lf}]: no US part in {location!r}")
 
     xf = posting["text_field"]
     if text is None:
         return done("reject", "F4", xf, f"F4 [{xf}]: missing: {xf}")
     found = skills_in(text, skills)
-    result["skills_found"] = found
-    if len(found) < MIN_SKILLS:
-        return done("reject", "F4", xf, f"F4 [{xf}]: none of the {len(skills)} shipped skills named")
+    practices = skills_in(text, r["practices"])
+    result["skills_found"], result["practices_found"] = found, practices
+    if len(found) + len(practices) < MIN_SKILLS:
+        named = f"the {len(skills)} shipped skills" + (" or résumé practices" if r["practices"] else "")
+        return done("reject", "F4", xf, f"F4 [{xf}]: none of {named} named")
+    named = ", ".join(found + practices)
     return done("accept", None, None,
-                f"accept: role word {role!r}, no excluded word, US part {us_part(location)!r}, "
-                f"skills {', '.join(found)}")
+                f"accept: role word {role!r}, no excluded word, US part {part!r}, "
+                f"{'skills/practices' if r['practices'] else 'skills'} {named}")
