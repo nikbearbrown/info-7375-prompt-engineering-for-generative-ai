@@ -128,6 +128,6 @@ Both watchers finish together. If both can publish to `notes.json`, one contribu
 
 ## Approval
 
-**Pending · Suketh Reddy Produtoor · v0.2.** I’ll date the approval when I accept the revised plan. Each state write also requires approval for the exact run ID, target path, starting revision, and starting hash.
+I approve PLAN.md v0.2 (ac451bf5) for the JS4 build and the two planned offline replays. Start by copying JS3 at ae850602 unchanged in its own commit. Each state write requires my separate approval for the run ID, target path, starting revision, and SHA-256. Any live collection requires separate dated approval. Suketh Reddy Produtoor · 2026-11-25
 
 ## Changes after the run started
