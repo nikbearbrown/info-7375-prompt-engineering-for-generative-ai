@@ -32,6 +32,17 @@ class Tool(unittest.TestCase):
             self.assertTrue(r["isError"], key)
             self.assertIn("sealed", r["content"][0]["text"])
 
+    def test_declarations_disclose_transcript_and_filter_version(self):
+        init = json.loads(self.s.handle_line(json.dumps({"jsonrpc": "2.0", "id": 0, "method": "initialize",
+                                                         "params": {"protocolVersion": "2025-06-18"}})))
+        listed = json.loads(self.s.handle_line(json.dumps({"jsonrpc": "2.0", "id": 9, "method": "tools/list"})))
+        desc = listed["result"]["tools"][0]["description"]
+        for text in (init["result"]["instructions"], desc):
+            self.assertIn("transcript", text)
+            self.assertNotIn("write anything", text)
+            self.assertIn("v1.0", text)
+        self.assertIn("not filter v1.1", desc)
+
     def test_unknown_key_is_a_tool_error(self):
         self.assertTrue(call(self.s, {"key": "../../etc/passwd"})["result"]["isError"])
 

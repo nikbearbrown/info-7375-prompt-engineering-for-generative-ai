@@ -21,9 +21,12 @@ SCHEMA = {"type": "object",
           "required": ["key"], "additionalProperties": False}
 DESCRIPTION = ("Score one job posting from a frozen snapshot (collected 2026-11-09, 805 postings from 5 public job "
                "boards) with filter " + VERSION + " (FILTER.md). Returns KEEP / REJECT / REVIEW, the score and its "
-               "components, matched topic words with snippets, and the location reading. Read-only: it cannot "
-               "fetch new postings, apply, email, message, log in, or write anything. A REVIEW means the filter "
-               "cannot tell. A KEEP means worth reading, not qualified or likely to be hired. Held-out postings are refused.")
+               "components, matched topic words with snippets, and the location reading. This is filter " + VERSION +
+               ", kept to reproduce the " + VERSION + " results; it is not filter v1.1, which adds one seniority "
+               "exception (filters/v1.1.json). The tool changes nothing: it cannot fetch new postings, apply, "
+               "email, message or log in. The server may append its own message transcript to a file inside the "
+               "JS3 folder when started with --transcript. A REVIEW means the filter cannot tell. A KEEP means "
+               "worth reading, not qualified or likely to be hired. Held-out postings are refused.")
 
 
 def make_handler():
@@ -55,7 +58,11 @@ def make_handler():
 
 
 def build_server(transcript_path=None) -> Server:
-    return Server([Tool("score_posting", DESCRIPTION, SCHEMA, make_handler())], Transcript(transcript_path))
+    instructions = ("Scores one posting from a frozen 2026-11-09 corpus with filter " + VERSION + " (not v1.1). "
+                    "The tool changes nothing: it cannot fetch, apply, email, message or log in. The only thing the "
+                    "server writes is its own transcript of these messages, appended to a JSONL file inside the JS3 "
+                    "folder, and only when it was started with --transcript.")
+    return Server([Tool("score_posting", DESCRIPTION, SCHEMA, make_handler())], Transcript(transcript_path), instructions)
 
 
 def main(argv=None) -> int:

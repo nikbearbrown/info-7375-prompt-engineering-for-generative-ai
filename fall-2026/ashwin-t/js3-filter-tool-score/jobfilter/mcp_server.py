@@ -16,7 +16,10 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Callable, Optional
 
-SERVER_INFO = {"name": "js3-posting-scorer", "version": "1.0.0"}
+SERVER_INFO = {"name": "js3-posting-scorer", "version": "1.1.0"}
+INSTRUCTIONS = ("Scores one posting from a frozen 2026-11-09 corpus. The tool changes nothing: it cannot fetch, apply, "
+                "email, message or log in. The only thing the server writes is its own transcript of these messages, "
+                "appended to a JSONL file inside the JS3 folder, and only when it was started with --transcript.")
 SUPPORTED_VERSIONS = ["2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05"]
 FOLDER = Path(__file__).resolve().parent.parent
 
@@ -74,8 +77,9 @@ def _validate(args, schema: dict) -> Optional[str]:
 
 
 class Server:
-    def __init__(self, tools: list, transcript: Transcript = None):
+    def __init__(self, tools: list, transcript: Transcript = None, instructions: str = INSTRUCTIONS):
         self.tools = {t.name: t for t in tools}
+        self.instructions = instructions
         self.transcript = transcript or Transcript(None)
         self.initialized = False
 
@@ -119,8 +123,7 @@ class Server:
         return {"protocolVersion": version,
                 "capabilities": {"tools": {"listChanged": False}},
                 "serverInfo": SERVER_INFO,
-                "instructions": "Read-only. Scores one posting from a frozen 2026-11-09 corpus. "
-                                "It cannot fetch, apply, email, message, log in, or write anything."}
+                "instructions": self.instructions}
 
     def _call(self, mid, params: dict) -> dict:
         if not isinstance(params, dict) or not isinstance(params.get("name"), str):
