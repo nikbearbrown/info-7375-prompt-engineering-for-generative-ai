@@ -1,0 +1,683 @@
+{
+  "kind": "sample",
+  "created_at": "2026-10-30T19:41:41Z",
+  "run_dir": "evidence/runs/20261030T025837Z_stripe",
+  "run_id": "20261030T025837Z_stripe",
+  "raw_path": "evidence/raw/20261030T025837Z_stripe.raw",
+  "raw_sha256": "81de5fbf8e97a28e6b275be1289762e4ca4e3334dd82d3b669f9bdbb7a4722ce",
+  "resume_path": "examples/persona_resume.json",
+  "resume_sha256": "32813f6702aeba1bd3f3298b7c50b64d1e1db2ada86473bf7aadde30d9086e45",
+  "prompt_path": "prompts/v1.md",
+  "prompt_sha256": "24ea452231862100fccd53b72cfe30867dd0f26afaa8b7d7928353110582eed0",
+  "model": "claude-sonnet-5-5",
+  "judge_backend": "claude-cli",
+  "n": 4,
+  "complete": true,
+  "stopped": null,
+  "posting_ids": [
+    "7983456",
+    "8144196",
+    "8174963",
+    "8175828",
+    "8191708"
+  ],
+  "per_posting": {
+    "7983456": {
+      "status": {
+        "accepted": 4
+      },
+      "verdict": {
+        "not_relevant": 4
+      }
+    },
+    "8144196": {
+      "status": {
+        "accepted": 4
+      },
+      "verdict": {
+        "not_relevant": 4
+      }
+    },
+    "8174963": {
+      "status": {
+        "accepted": 4
+      },
+      "verdict": {
+        "not_relevant": 4
+      }
+    },
+    "8175828": {
+      "status": {
+        "accepted": 4
+      },
+      "verdict": {
+        "not_relevant": 4
+      }
+    },
+    "8191708": {
+      "status": {
+        "accepted": 4
+      },
+      "verdict": {
+        "not_relevant": 4
+      }
+    }
+  },
+  "calls": [
+    {
+      "posting_id": "7983456",
+      "k": 1,
+      "status": "accepted",
+      "reason": "The role is an ML engineer position in Seattle, which matches the persona's target role and location. However, it requires 5+ years of production ML and leading projects with mentoring, while Riley has about 3 years, so the level is too senior.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "5+ years of experience developing, evaluating, and deploying machine learning models in a production environment"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Machine Learning Engineer, Radar"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:41:41Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/7983456.1.response.txt"
+    },
+    {
+      "posting_id": "7983456",
+      "k": 2,
+      "status": "accepted",
+      "reason": "The role matches Riley's ML Engineer target and Seattle is an acceptable location, but it requires 5+ years of production ML experience, plus technical leadership and mentoring. Riley has only 3 years, so the level does not fit.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "5+ years of experience developing, evaluating, and deploying machine learning models in a production environment."
+        },
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:41:44Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/7983456.2.response.txt"
+    },
+    {
+      "posting_id": "7983456",
+      "k": 3,
+      "status": "accepted",
+      "reason": "The role is an ML engineer position matching Riley's target and Seattle is an acceptable location, but it requires 5+ years of production ML plus technical leadership and mentoring. Riley has about 3 years, so the level is too senior.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "5+ years of experience developing, evaluating, and deploying machine learning models in a production environment."
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Machine Learning Engineer, Radar"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:41:47Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/7983456.3.response.txt"
+    },
+    {
+      "posting_id": "7983456",
+      "k": 4,
+      "status": "accepted",
+      "reason": "The role title and location (Seattle) match, but it requires 5+ years of production ML plus technical leadership and mentoring; Riley has about 3 years, so the level is too senior.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "5+ years of experience developing, evaluating, and deploying machine learning models in a production environment."
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Machine Learning Engineer, Radar"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:41:50Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/7983456.4.response.txt"
+    },
+    {
+      "posting_id": "8144196",
+      "k": 1,
+      "status": "accepted",
+      "reason": "The role is in Chicago, which is not among the persona's target locations (Boston, New York, Seattle, Remote), and no remote option is listed. It also requires 4+ years of engineering experience versus about 3.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/locations/0",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Chicago"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "4+ years of experience as an engineer shipping production systems"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:41:52Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8144196.1.response.txt"
+    },
+    {
+      "posting_id": "8144196",
+      "k": 2,
+      "status": "accepted",
+      "reason": "The AI Engineer role is in Chicago, which is not among the persona's target locations (Boston, New York, Seattle, Remote). It also asks for 4+ years of engineering experience, and the persona has about 3.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Chicago"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/locations/0",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "AI Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:41:55Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8144196.2.response.txt"
+    },
+    {
+      "posting_id": "8144196",
+      "k": 3,
+      "status": "accepted",
+      "reason": "The AI Engineer role is in Chicago, which is not among the persona's target locations (Boston, New York, Seattle, Remote). It also requires 4+ years of production engineering, while the persona has about 3 years.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Chicago"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/locations/0",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "4+ years of experience as an engineer shipping production systems"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:41:57Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8144196.3.response.txt"
+    },
+    {
+      "posting_id": "8144196",
+      "k": 4,
+      "status": "accepted",
+      "reason": "The role is located in Chicago, which is not among Riley's target locations (Boston, New York, Seattle, Remote). It also requires 4+ years of production engineering experience, and Riley has about 3.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Chicago"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/locations/0",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "4+ years of experience as an engineer shipping production systems"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:00Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8144196.4.response.txt"
+    },
+    {
+      "posting_id": "8174963",
+      "k": 1,
+      "status": "accepted",
+      "reason": "The role is a Staff-level security/anti-abuse engineering position requiring 10+ years, while Riley has 3 years and excludes Staff titles. Dublin is also not among Riley's target locations, and the work is not ML engineering.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/exclude_title_terms/5",
+          "value": "Staff"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Staff Security Engineer, Abuse Control"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Dublin"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:02Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8174963.1.response.txt"
+    },
+    {
+      "posting_id": "8174963",
+      "k": 2,
+      "status": "accepted",
+      "reason": "The role is a Staff-level security/anti-abuse engineering job requiring 10+ years, while Riley has 3 years in ML and excludes Staff titles. It is also based in Dublin, outside Riley's target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/exclude_title_terms/5",
+          "value": "Staff"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Staff Security Engineer, Abuse Control"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Dublin"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:06Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8174963.2.response.txt"
+    },
+    {
+      "posting_id": "8174963",
+      "k": 3,
+      "status": "accepted",
+      "reason": "The role is a Staff-level security engineering position requiring 10+ years of experience, while Riley has 3 years and is an ML engineer who excludes Staff titles. The location is Dublin, which is not among the target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/exclude_title_terms/5",
+          "value": "Staff"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Staff Security Engineer, Abuse Control"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Dublin"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:08Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8174963.3.response.txt"
+    },
+    {
+      "posting_id": "8174963",
+      "k": 4,
+      "status": "accepted",
+      "reason": "The role is a Staff-level security engineering job in Dublin requiring 10+ years of experience. The persona has 3 years in ML engineering, excludes Staff titles, and does not target Dublin.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/exclude_title_terms/5",
+          "value": "Staff"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Staff Security Engineer, Abuse Control"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Dublin"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:11Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8174963.4.response.txt"
+    },
+    {
+      "posting_id": "8175828",
+      "k": 1,
+      "status": "accepted",
+      "reason": "This is a quota-carrying B2B sales role requiring 5+ years in payments sales, while Riley is an ML engineer with 3 years of experience. The role is also based in Singapore, which is not among Riley's target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/location/city",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Currency Management"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Singapore"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:13Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8175828.1.response.txt"
+    },
+    {
+      "posting_id": "8175828",
+      "k": 2,
+      "status": "accepted",
+      "reason": "This is a quota-carrying B2B sales role requiring 5+ years in payments sales, unrelated to the persona's machine learning engineering work. It is also based in Singapore, which is not among the persona's target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/location/city",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Currency Management"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Singapore"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:16Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8175828.2.response.txt"
+    },
+    {
+      "posting_id": "8175828",
+      "k": 3,
+      "status": "accepted",
+      "reason": "The role is a quota-carrying B2B sales position requiring 5+ years in payments sales, while Riley is an ML engineer with 3 years of experience. The location is Singapore, which is not among Riley's target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/location/city",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Currency Management"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Singapore"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:19Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8175828.3.response.txt"
+    },
+    {
+      "posting_id": "8175828",
+      "k": 4,
+      "status": "accepted",
+      "reason": "This is a quota-carrying sales role requiring 5+ years of B2B payments sales and FX expertise, while Riley is a machine learning engineer with 3 years of experience. The location is Singapore, which is not among Riley's target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Currency Management"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Singapore"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:23Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8175828.4.response.txt"
+    },
+    {
+      "posting_id": "8191708",
+      "k": 1,
+      "status": "accepted",
+      "reason": "This is an enterprise sales role requiring 10+ years of sales experience and Polish or Czech fluency, while the persona is an ML engineer with 3 years of experience and no sales background.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "10+ years of sales experience"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:25Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8191708.1.response.txt"
+    },
+    {
+      "posting_id": "8191708",
+      "k": 2,
+      "status": "accepted",
+      "reason": "The role is an enterprise sales Account Executive requiring 10+ years of sales experience and Polish or Czech fluency. The persona is an ML engineer with 3 years of engineering experience, so the core work and level do not match.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/work/0/highlights/0",
+          "value": "Built retrieval pipelines for internal search"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "10+ years of sales experience"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:28Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8191708.2.response.txt"
+    },
+    {
+      "posting_id": "8191708",
+      "k": 3,
+      "status": "accepted",
+      "reason": "This is an enterprise sales role requiring 10+ years of sales experience and Polish or Czech fluency. The persona is an ML engineer with 3 years of experience targeting engineering and data science roles, so neither the work nor the level fits.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Open Issuance"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "10+ years of sales experience"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:30Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8191708.3.response.txt"
+    },
+    {
+      "posting_id": "8191708",
+      "k": 4,
+      "status": "accepted",
+      "reason": "The role is an enterprise sales Account Executive position requiring 10+ years of sales experience and Polish or Czech fluency. The persona is an ML engineer with 3 years of experience, so the core work and level do not match.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Product Sales - Open Issuance"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "10+ years of sales experience"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:42:33Z",
+      "raw_path": "evidence/sampling/20261030T194141Z/claude/8191708.4.response.txt"
+    }
+  ]
+}

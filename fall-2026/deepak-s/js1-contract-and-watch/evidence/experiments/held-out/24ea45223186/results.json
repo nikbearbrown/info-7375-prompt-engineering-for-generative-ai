@@ -1,0 +1,448 @@
+{
+  "kind": "experiment",
+  "set": "held-out",
+  "created_at": "2026-10-30T19:48:50Z",
+  "run_dir": "evidence/runs/20261030T025837Z_stripe",
+  "run_id": "20261030T025837Z_stripe",
+  "raw_path": "evidence/raw/20261030T025837Z_stripe.raw",
+  "raw_sha256": "81de5fbf8e97a28e6b275be1289762e4ca4e3334dd82d3b669f9bdbb7a4722ce",
+  "resume_path": "examples/persona_resume.json",
+  "resume_sha256": "32813f6702aeba1bd3f3298b7c50b64d1e1db2ada86473bf7aadde30d9086e45",
+  "model": "claude-sonnet-5-5",
+  "judge_backend": "claude-cli",
+  "posting_ids": [
+    "5601879",
+    "7747640",
+    "7962437",
+    "8022713",
+    "8148653",
+    "8175661",
+    "8212314",
+    "8224915",
+    "8237540",
+    "8243617"
+  ],
+  "prompt_path": "prompts/v1.md",
+  "prompt_sha256": "24ea452231862100fccd53b72cfe30867dd0f26afaa8b7d7928353110582eed0",
+  "prompt_shas": [
+    "24ea452231862100fccd53b72cfe30867dd0f26afaa8b7d7928353110582eed0",
+    "9a4f0cb64ddb036ae84291dcbc302b949c2499fc4e0c2a3351c05ec77e11e9c4"
+  ],
+  "complete": true,
+  "stopped": null,
+  "n": 10,
+  "counts": {
+    "accepted_correct": 4,
+    "accepted_wrong": 6,
+    "rejected": 0,
+    "error": 0
+  },
+  "pass_rate": 0.4,
+  "wilson_95": [
+    0.16818032970623614,
+    0.6873262302663417
+  ],
+  "postings": [
+    {
+      "posting_id": "5601879",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The Data Scientist role matches a target title, but the minimum requires an MS with 6 years of data science experience; Riley has about 3 years. The posting also gives no location, so a workable location can't be confirmed.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/education/0/studyType",
+          "value": "M.S."
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "MS or MA with 6 years"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "N/A"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:48:50Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/5601879.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "7747640",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is an AI enablement and coaching job embedded with marketing teams, not ML engineering. It requires 5+ years of experience and a coaching track record, while Riley has about 3 years of ML engineering.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Forward Deployed AI Accelerator, Marketing"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "5+ years of professional experience"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:48:52Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/7747640.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "7962437",
+      "hand_label": "not_relevant",
+      "status": "accepted",
+      "reason": "The role is social media customer support, while Riley is a machine learning engineer targeting ML and data roles. It is also based in Bengaluru, outside Riley's target locations of Boston, New York, Seattle or Remote, and it requires in-office work.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/location/city",
+          "value": "Boston"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Social Media, Customer Support Associate"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Bengaluru"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:48:55Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/7962437.response.txt",
+      "outcome": "accepted_correct"
+    },
+    {
+      "posting_id": "8022713",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is an engineering management position requiring 4+ years managing ML teams, while Riley has 3 years as an individual contributor and excludes Manager titles. Toronto is also not among the target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/exclude_title_terms/4",
+          "value": "Manager"
+        },
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "ML Engineer Manager"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Toronto, Canada"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:48:58Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/8022713.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8148653",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is a Staff-level title, which the persona explicitly excludes, and it requires 10+ years of ML experience versus the persona's 3. The ML focus and New York location fit, but the level is far too senior.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/exclude_title_terms/5",
+          "value": "Staff"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Staff Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "10+ years of industry experience building and shipping ML systems in production"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:49:01Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/8148653.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8175661",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is partner event marketing and program management, unrelated to the persona's machine learning engineering work. It also requires 7+ years of marketing experience versus 3 years, and is a Manager title.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Partner Marketing Manager, Online & Regional Events"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "7+ years of relevant experience in B2B event marketing, partner marketing, field marketing, or marketing program management"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:49:04Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/8175661.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8212314",
+      "hand_label": "not_relevant",
+      "status": "accepted",
+      "reason": "The role is a web front-end design engineer (HTML/CSS, animation, design systems), not ML work. It also requires 6+ years of front-end experience, while the persona has about 3 years in ML and backend.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/skills/0",
+          "value": "Python"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Design Engineer, Expansion"
+        },
+        {
+          "source": "posting",
+          "path": "/content_text",
+          "value": "6+ years of relevant web front-end development or creative technology experience"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:49:07Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/8212314.response.txt",
+      "outcome": "accepted_correct"
+    },
+    {
+      "posting_id": "8224915",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The role is a strong match for a Machine Learning Engineer with 3 years of experience, but it is located only in San Francisco. The persona's target locations are Boston, New York, Seattle and Remote, and the posting lists no remote option.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/locations/0",
+          "value": "Boston"
+        },
+        {
+          "source": "resume",
+          "path": "/basics/label",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "San Francisco"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Machine Learning Engineer, Growth Platform"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:49:14Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/8224915.response.txt",
+      "outcome": "accepted_wrong"
+    },
+    {
+      "posting_id": "8237540",
+      "hand_label": "not_relevant",
+      "status": "accepted",
+      "reason": "This is a sales Account Executive role requiring 3+ years of sales experience and C-level relationship management, while Riley's background is ML engineering. The Chicago location is also outside the target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Account Executive, Startup Platforms (Grower)"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Chicago, IL"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:49:16Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/8237540.response.txt",
+      "outcome": "accepted_correct"
+    },
+    {
+      "posting_id": "8243617",
+      "hand_label": "relevant",
+      "status": "accepted",
+      "reason": "The title and core work match Riley's target role as a Machine Learning Engineer, and 3 years of experience meets the 2+ year minimum. Seattle is one of Riley's target locations, and the title has no excluded terms.",
+      "verdict": "relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/targets/locations/3",
+          "value": "Seattle"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Machine Learning Engineer, Radar"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Seattle"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T19:49:19Z",
+      "raw_path": "evidence/experiments/held-out/24ea45223186/claude/8243617.response.txt",
+      "outcome": "accepted_correct"
+    }
+  ],
+  "baseline_rule": {
+    "n": 10,
+    "counts": {
+      "accepted_correct": 4,
+      "accepted_wrong": 6,
+      "rejected": 0,
+      "error": 0
+    },
+    "pass_rate": 0.4,
+    "wilson_95": [
+      0.16818032970623614,
+      0.6873262302663417
+    ],
+    "postings": [
+      {
+        "posting_id": "5601879",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "7747640",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "7962437",
+        "hand_label": "not_relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8022713",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8148653",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8175661",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8212314",
+        "hand_label": "not_relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8224915",
+        "hand_label": "relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_wrong"
+      },
+      {
+        "posting_id": "8237540",
+        "hand_label": "not_relevant",
+        "verdict": "not_relevant",
+        "outcome": "accepted_correct"
+      },
+      {
+        "posting_id": "8243617",
+        "hand_label": "relevant",
+        "verdict": "relevant",
+        "outcome": "accepted_correct"
+      }
+    ]
+  }
+}

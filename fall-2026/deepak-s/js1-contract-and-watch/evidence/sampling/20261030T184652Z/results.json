@@ -1,0 +1,64 @@
+{
+  "kind": "sample",
+  "created_at": "2026-10-30T18:46:52Z",
+  "run_dir": "evidence/runs/20261030T025837Z_stripe",
+  "run_id": "20261030T025837Z_stripe",
+  "raw_path": "evidence/raw/20261030T025837Z_stripe.raw",
+  "raw_sha256": "81de5fbf8e97a28e6b275be1289762e4ca4e3334dd82d3b669f9bdbb7a4722ce",
+  "resume_path": "examples/persona_resume.json",
+  "resume_sha256": "32813f6702aeba1bd3f3298b7c50b64d1e1db2ada86473bf7aadde30d9086e45",
+  "prompt_path": "prompts/v1.md",
+  "prompt_sha256": "24ea452231862100fccd53b72cfe30867dd0f26afaa8b7d7928353110582eed0",
+  "model": "claude-sonnet-5-5",
+  "judge_backend": "claude-cli",
+  "n": 1,
+  "complete": true,
+  "stopped": null,
+  "posting_ids": [
+    "8172487"
+  ],
+  "per_posting": {
+    "8172487": {
+      "status": {
+        "accepted": 1
+      },
+      "verdict": {
+        "not_relevant": 1
+      }
+    }
+  },
+  "calls": [
+    {
+      "posting_id": "8172487",
+      "k": 1,
+      "status": "accepted",
+      "reason": "The role is fraud and abuse incident response, not ML engineering, and requires 5+ years in security incident response versus the persona's 3 years. It is also based in Dublin, which is not among the persona's target locations.",
+      "verdict": "not_relevant",
+      "citations": [
+        {
+          "source": "resume",
+          "path": "/targets/roles/0",
+          "value": "Machine Learning Engineer"
+        },
+        {
+          "source": "resume",
+          "path": "/years_experience",
+          "value": "3"
+        },
+        {
+          "source": "posting",
+          "path": "/title",
+          "value": "Abuse Investigator"
+        },
+        {
+          "source": "posting",
+          "path": "/location/name",
+          "value": "Dublin"
+        }
+      ],
+      "model": "claude-sonnet-5-5",
+      "called_at": "2026-10-30T18:46:52Z",
+      "raw_path": "evidence/sampling/20261030T184652Z/claude/8172487.1.response.txt"
+    }
+  ]
+}
