@@ -8,8 +8,10 @@ from js3 import filter as F
 S, C, I = "SUPPORTED", "CONTRADICTED", "INSUFFICIENT"
 NICE = re.compile(r"nice[- ]to[- ]haves?|\b(is|are|would be)? ?an? (big |huge |strong )?plus\b|\bpreferred\b|\bbonus\b|"
                   r"\bdesirable\b|\bnot required\b|\bideally\b|\bpreferably\b", re.I)
-HEADING_HINT = re.compile(r"qualifications|requirements|responsibilit|nice|preferred|bonus|about|what you|who you|you will|"
-                          r"you'll|role|skills|experience|benefits|plus", re.I)
+# A heading must START with a heading word (fix 2026-11-25: 'experience'/'skills' anywhere in a short bullet such as
+# "Experience with Oracle Suite" used to count as a heading and ended the Preferred section; tests/test_evidence_regression.py)
+HEADING_HINT = re.compile(r"^(preferred|minimum|basic|required|desired|additional|nice|bonus|what|who|about|responsibilities|"
+                          r"qualifications|requirements|key|your|you'll|you will|in this role|the role|benefits|plus)\b", re.I)
 
 def units(text):
     """[(sentence, in_nice_section)]: lines, then sentences; a short heading line sets the section for the lines below it."""

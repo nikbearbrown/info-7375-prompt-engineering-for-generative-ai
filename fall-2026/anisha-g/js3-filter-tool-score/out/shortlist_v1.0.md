@@ -1,15 +1,15 @@
 ## Filter v1.0: 11 kept, ranked by score
 
-### ✅ SHORTLISTED: Processing Cost Analyst · `greenhouse:stripe:8324207` · score 8
-[posting](https://stripe.com/jobs/search?gh_jid=8324207) · Every claim needed for the shortlist is SUPPORTED by the text.
+### ⛔ NOT shortlisted: Processing Cost Analyst · `greenhouse:stripe:8324207` · score 8
+[posting](https://stripe.com/jobs/search?gh_jid=8324207) · **Why not:** filter kept it on word matches, but only 1 skill claim(s) are SUPPORTED by the text; shortlisting it would be a guess
 
 | Claim | Label | Quote from the posting (or why I cannot tell) |
 |---|---|---|
 | is an entry-level analyst role (title) | **SUPPORTED** | Supported: "Processing Cost Analyst" |
-| requires SQL | **SUPPORTED** | Supported: "Experience with data-querying and analysis tools, including SQL" |
-| requires Python | **SUPPORTED** | Supported: "Experience with data-analysis tools, such as Power BI, Tableau, KNIME, Python, or Alteryx" |
-| requires Tableau | **SUPPORTED** | Supported: "Experience with data-analysis tools, such as Power BI, Tableau, KNIME, Python, or Alteryx" |
-| requires Power BI | **SUPPORTED** | Supported: "Experience with data-analysis tools, such as Power BI, Tableau, KNIME, Python, or Alteryx" |
+| requires SQL | **INSUFFICIENT** | I cannot tell whether the posting requires SQL: it appears only as "Experience with data-querying and analysis tools, including SQL" |
+| requires Python | **INSUFFICIENT** | I cannot tell whether the posting requires Python: it appears only as "Experience with data-analysis tools, such as Power BI, Tableau, KNIME, Python, or Alteryx" |
+| requires Tableau | **INSUFFICIENT** | I cannot tell whether the posting requires Tableau: it appears only as "Experience with data-analysis tools, such as Power BI, Tableau, KNIME, Python, or Alteryx" |
+| requires Power BI | **INSUFFICIENT** | I cannot tell whether the posting requires Power BI: it appears only as "Experience with data-analysis tools, such as Power BI, Tableau, KNIME, Python, or Alteryx" |
 | requires Excel | **SUPPORTED** | Supported: "Ability to structure ambiguous work, solve problems using Excel, build systems and automation, collaborate across functions and cultures, and adapt to changing requirements" |
 | asks for at most 3 years | **SUPPORTED** | Supported: "Professional accountancy qualification, such as CA, CPA, ACA, ACCA, or CIMA, and 2–3 years of relevant accounting experience" |
 
