@@ -7,52 +7,82 @@ state exactly which labels touched which decision.
 
 | File | Who made it | Use |
 |---|---|---|
-| `labels/heldout-sheet.csv` | Ashwin, blind (committed alone at `9757ee7b`: Y 7, N 19, ? 4) | Held-out measurement of one frozen change |
-| `labels/audit-sheet.csv` | Ashwin, blind (filling now) | Reject audit; the only verdicts `--report` reads |
-| `labels/audit-ai-draft.csv` | Codex, inferred from Ashwin's 30 held-out labels | Proposals only; never copied into `audit-sheet.csv`, never read by code |
-| `labels/audit-ai-assisted.csv` | Codex's suggestions for batch 1 (10 rows, same as the draft), adopted by Ashwin on 2026-11-25 **without reviewing the postings** | AI-assisted verdicts; not hand judgments, not in `audit-sheet.csv`, not counted toward the hand-judged audit |
+| `labels/heldout-sheet.csv` | Ashwin, blind (committed alone at `9757ee7b`: Y 7, N 19, ? 4) | Held-out measurement of one frozen change; **potentially contaminated** (see below) |
+| `labels/audit-sheet.csv` | Blank: no hand verdicts yet | The only verdicts `--report` reads |
+| `labels/audit-ai-draft.csv` | Codex, inferred from Ashwin's 30 held-out labels | Proposals only; not read by code |
+| `labels/audit-ai-assisted.csv` | 47 Codex suggestions inferred from Ashwin's held-out labels, supplied by Ashwin in chat in batches 1–5 on 2026-11-25. Ashwin states they are not independent hand judgments. 46 match the draft; row 35 differs (draft Y, supplied ?) | Exploratory only: `python3 -m jobfilter.audit --exploratory` writes `audit/EXPLORATORY-v1.0-ai-assisted.md` |
 
-## Minimum audit sample
+## Correction of earlier commits
 
-The brief asks for at least 30 random rejects judged by hand, plus the closest calls near the threshold and a
-sample of what was kept. `jobfilter/audit_batches.py` takes those four strata unchanged from the saved selection
-(seed 20261126): random_reject 30, close_below 6, close_at 5 and kept_random 6. That makes 47 distinct postings,
-in 5 blind batches in `labels/audit-minimum-batches.md`. Nothing was redrawn.
+Commits `e5828b69`, `78fcdc42`, `f6e68c43`, `683e8cf0` and `7eb48860` wrote these 47 verdicts into
+`labels/audit-sheet.csv`. Their subjects say "Ashwin's audit verdicts", and their notes say "Ashwin in chat … after the
+review cards". `54cecbe8` then generated `audit/REPORT-v1.0.md` from them as hand verdicts.
 
-The other two strata, `exclusion_check` (8) and `review` (7), add 14 more distinct postings. They are optional. If
-they stay unjudged, the FILTER.md section 10 row "level-II and forward-deployed exclusions kept" stays **not
-measured**, and the sign-off must list it under Not checked.
+Both are wrong. On 2026-11-25 Ashwin said in chat that all 47 were Codex suggestions based on the held-out labels.
+The correcting commit moves the verdicts to `labels/audit-ai-assisted.csv`, blanks `audit-sheet.csv` again, and
+replaces the report with the exploratory one. The earlier commits stay in history; this note is the correction.
+
+## The human-audit requirement that is still unmet
+
+The brief (Step 2.1, graded 12 points) asks for these to be judged by hand:
+
+- at least 30 random rejects;
+- the closest calls near the threshold;
+- a sample of what was kept.
+
+`jobfilter/audit_batches.py` takes those four strata unchanged from the saved selection (seed 20261126):
+random_reject 30, close_below 6, close_at 5 and kept_random 6. That is 47 distinct postings, with blind review cards in
+`labels/audit-review-cards.md`.
+
+**0 of 47 have an independent hand verdict.** Until they do, the error counts, the honest statement of what the
+sample can say, and any named false friend rest on AI-assisted verdicts, and must be reported that way.
+
+The other two strata, `exclusion_check` (8) and `review` (7), are optional. If they stay unjudged, the FILTER.md
+section 10 row "level-II and forward-deployed exclusions kept" stays **not measured**.
 
 Ashwin's clearance rule: if a posting needs a clearance and Supriya's eligibility is unknown, the verdict is `?`.
 Willingness to get a clearance is not eligibility. `data/supriya-sharma.resume.json` says nothing about citizenship
 or clearance.
 
-## If Codex's proposals influence a rule change
+## Why the original 30-posting held-out comparison is potentially contaminated
 
-Codex's draft was inferred from the 30 held-out labels. If any proposal in it shapes a rule change, for example as
-a reason, a tie-breaker or a confirmation, then:
+- Codex's audit suggestions were inferred from the 30 held-out labels. Any rule change chosen from this audit
+  therefore rests partly on held-out labels.
+- Claude Code printed the 30 held-out labels in this session while validating the sheet (2026-11-25, before commit
+  `9757ee7b`), so it has seen them. The held-out titles include a "Software Engineer - Mission Manager" posting.
+  The title-rule fix under discussion would therefore be chosen by a session that knows a held-out label it would
+  change.
 
-- CHANGE.md must say that the original held-out labels informed the proposals behind the change.
-- The 30-posting comparison must not be called untouched or held out.
-- Further tuning needs an evaluation set that nothing has touched.
+If we tune from this audit, CHANGE.md must:
 
-## Candidate unused evaluation set
+- call the 30-posting comparison **potentially contaminated**, not held out or untouched;
+- say that the original held-out labels informed the AI-assisted verdicts behind the change;
+- report it as a development-style check only.
 
-`../js1-contract-and-watch/snapshots/cloudflare-2026-10-29T23-55-50Z.json` is a JS1 snapshot of the Cloudflare
-board, with 463 postings.
+## A genuinely unused evaluation sample
 
-- No key overlaps the 805-posting JS3 corpus (checked 2026-11-25).
-- JS1's README lists it as unused.
-- None of the five JS1 sampling postings come from it.
-- Neither filter v1.0, the Codex draft nor any label sheet has read it.
+**Candidate:** `../js1-contract-and-watch/snapshots/cloudflare-2026-10-29T23-55-50Z.json`, a JS1 snapshot of the
+Cloudflare board with 463 postings, plus its `.headers.txt` saved for provenance.
 
-**Caveats:**
-- It is a different employer, so it measures how the filter transfers, not how it does on the same mix of boards.
-- Ashwin saw the board during JS1, before switching boards.
-- It is not yet loaded or labeled. Using it would mean drawing a sealed sample with a recorded seed, having Ashwin
-  label it blind, and only then running the frozen filter on it.
+What has touched it so far:
 
-The other option is a fresh fetch of the same five boards today, keeping only keys outside the 805. That would
-match the development mix, but it needs a live fetch and the same blind labeling.
+- **The JS3 corpus:** no key overlaps the 805 postings (checked 2026-11-25).
+- **JS1:** its README lists the snapshot as unused, and none of the five JS1 sampling postings come from it.
+- **Claude Code, this session:** opened it only to count postings and compare IDs. It printed no titles, text or
+  labels.
+- **Filter v1.0, the Codex draft and every label sheet:** none has read it.
+- **Ashwin and Codex:** Ashwin saw the board during JS1, before switching boards. Whether Codex has read it is not
+  known; Ashwin should confirm that before calling it unused.
 
-Not chosen yet; this is Ashwin's decision.
+What would make it a clean evaluation:
+
+1. Freeze the one change first, as `filters/v1.1.json` with a commit.
+2. Draw a random sample of the snapshot with a seed recorded before the draw, and seal the keys.
+3. Ashwin labels it blind, by hand. AI-suggested labels would not give a clean human-labeled measurement.
+4. Only then run v1.0 and the frozen v1.1 on it, once.
+
+**Caveat:** it is a different employer, so it measures how the filter transfers, not how it does on the
+development boards.
+
+The other option is a fresh fetch of the same five boards, keeping only keys outside the 805. It would match the
+development mix, but it needs a live fetch and the same blind hand labeling. The choice is Ashwin's.

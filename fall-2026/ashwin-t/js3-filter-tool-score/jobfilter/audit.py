@@ -1,7 +1,8 @@
 """The reject audit (FILTER.md section 8). Draw a blind sample, then score Ashwin's verdicts against the filter.
 
     python3 -m jobfilter.audit --draw      # writes labels/audit-sheet.{md,csv} and labels/audit-selection.json
-    python3 -m jobfilter.audit --report    # needs every minimum-sample verdict; writes audit/REPORT-v1.0.md
+    python3 -m jobfilter.audit --report    # needs every minimum-sample hand verdict; writes audit/REPORT-v1.0.md
+    python3 -m jobfilter.audit --exploratory   # AI-assisted verdicts; writes audit/EXPLORATORY-v1.0-ai-assisted.md
 
 Strata (all from the 775 development postings; held-out keys never enter):
   random_reject    30 random rejects, without replacement            -> estimates the false-negative share
@@ -120,6 +121,10 @@ def main(argv=None) -> int:
     if argv == ["--report"]:
         from .audit_report import write_report
         write_report()
+        return 0
+    if argv == ["--exploratory"]:
+        from .audit_report import write_report
+        write_report("ai-assisted")
         return 0
     print(__doc__, file=sys.stderr)
     return 2
