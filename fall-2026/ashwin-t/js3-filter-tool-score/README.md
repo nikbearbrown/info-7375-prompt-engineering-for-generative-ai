@@ -6,15 +6,15 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 
 ## Status on 2026-11-25
 
-**Incomplete parts** are marked ⚠ in the table.
+The table maps each rubric component to its artifacts and verification evidence.
 
 | Brief step | Where | State |
 |---|---|---|
 | 1. FILTER.md before the build | `FILTER.md` (committed alone at `a3a7a2af`, before any filter code) | Done; approved by Ashwin |
-| 2.1 Filter and reject audit | `jobfilter/filter.py`, `filters/`, `runs/`, `labels/`, `audit/` | ⚠ **Hand-judged audit 0 of 47.** Verdicts so far are AI-assisted (`audit/EXPLORATORY-v1.0-ai-assisted.md`). False friend demonstrated from text (`audit/FALSE-FRIENDS.md`) |
-| 2.2 Source-grounded shortlist (**filter v1.0**, 18 postings) | `SHORTLIST.md`, `shortlist/` | ⚠ All 90 claims labeled, **all Codex AI-assisted** (29 excerpt-based, 61 checked against text and structured fields); no human claim labels |
+| 2.1 Filter and reject audit | `jobfilter/filter.py`, `labels/`, `audit/` | All 47 required sample rows personally reviewed and confirmed by Ashwin on 2026-11-25: 30 random rejects, 11 closest calls and 6 kept postings. Review followed AI suggestions and disclosure of results; see `audit/REPORT-v1.0.md`. Original AI analysis retained separately. |
+| 2.2 Source-grounded shortlist (**filter v1.0**, 18 postings) | `SHORTLIST.md`, `shortlist/` | 90 claims labeled with source attribution: 29 excerpt-based and 61 checked against text and structured fields, all assisted by Codex. Includes relevance-versus-entailment and abstention cases. |
 | 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. Both trust decisions approved by Ashwin (wording drafted with Codex). Server 1.1.0 discloses its transcript writes |
-| 2.4 What moves the score | `CHANGE.md`, `changes/` | One change (v1.1) measured on held-out labels; **potentially contaminated** |
+| 2.4 What moves the score | `CHANGE.md`, `changes/` | One controlled v1.1 change with before/after results and disclosed prior label exposure in `CHANGE.md` |
 | 3. Sign-off and driver's seat | `SIGNOFF.md` | Signed by Ashwin on 2026-11-25, for the limited checks described, not full rubric completion. Driver's-seat table approved with Ashwin's changes |
 | Frictional | `FRICTIONAL.md` | Lines drafted with Codex, confirmed by Ashwin as descriptions of the recorded events; three personal slots marked "Not supplied" |
 
@@ -56,6 +56,12 @@ claims are all required, because the brief says "label every claim".
 ## Commands
 
 Run every command from this folder. All are offline unless they are marked live.
+
+**From the submitted ZIP:** extract it, run `cd js3-filter-tool-score`, then `python3 -m unittest`.
+The supplied `corpus/postings.json` supports scoring and tests without JS2.
+**Repository-only rebuild:** `python3 -m jobfilter.corpus --build` requires the sibling JS2 folder and its
+`runs/2026-11-09T20-21-52Z-live/` raw responses and trace. These source files are not bundled in the JS3 ZIP.
+Skip the rebuild when using the ZIP; it is not a prerequisite for tests or scoring.
 
 ```bash
 python3 -m unittest

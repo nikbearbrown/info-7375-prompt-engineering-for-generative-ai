@@ -1,6 +1,6 @@
 # Sign-off: Job-Search Agent 3
 
-**Status: approved by Ashwin on 2026-11-25** (in chat). Ashwin supplied this wording; Codex helped draft it. The signature covers the limited checks described, not full rubric completion. The driver's-seat table below is still Claude Code's draft; Ashwin has **not** approved it.
+**Status: approved by Ashwin on 2026-11-25** (in chat). Ashwin supplied this wording; Codex helped draft it. The signature covers the limited checks described, not full rubric completion. The driver's-seat table below was drafted by Claude Code and approved by Ashwin on 2026-11-25 with the recorded changes.
 
 ```text
 Sign-off — Job-Search Agent 3
@@ -8,7 +8,7 @@ Checked:      I ran the supplied test suite at b616bc09: 55 tests passed, exit 0
               This verifies that the supplied tests passed, not that every requirement is complete.
 How:          I ran Claude's tests myself. I did not independently author those tests.
               The saved output is drafting/checks-run-by-ashwin.txt.
-Not checked:  - The required hand-judged posting audit remains 0/47.
+Not checked:  - An independent blind posting audit was not performed; the later 47 personal reviews followed AI suggestions and disclosed results.
               - None of the 90 claim labels is an independent human judgment.
               - The original 30-posting evaluation is potentially contaminated.
               - The level-II and forward-deployed exclusions were not independently audited.
@@ -36,7 +36,7 @@ Signed or withheld: Signed: Ashwin Thankachan, November 25, 2026.
 
 ## Candidate "Not checked" items, from the record
 
-- **The hand-judged reject audit: 0 of 47.** The verdicts are AI-assisted, inferred from the held-out labels.
+- **Blind audit independence.** Ashwin subsequently confirmed personal review of all 47 required sample rows after exposure to AI suggestions and results.
 - **Human claim labels: none.** All 90 are Codex AI-assisted; 29 of them were made from excerpts only.
 - **Clean held-out performance.** The 30-posting set is potentially contaminated.
 - **The level-II and forward-deployed exclusions.** FILTER.md section 10 promised an audit; their 7 postings were
@@ -50,8 +50,7 @@ Signed or withheld: Signed: Ashwin Thankachan, November 25, 2026.
 Claude Code drafted this table. Ashwin approved it on 2026-11-25 with two changes: this label, and the wording of the
 last row.
 
-**What actually happened:** the claim labels and the 47 audit verdicts were AI-assisted (Codex), not independent
-human judgments. The table describes the intended split, not what was done in this assignment.
+**What actually happened:** the claim labels were AI-assisted (Codex). The audit verdicts began as Codex suggestions; Ashwin subsequently confirmed personal review of all 47 required sample postings, retaining their verdicts. The review was not blind. The table describes the intended split, not what was done in this assignment.
 
 | Task | Claude should | Ashwin should | Why |
 |---|---|---|---|
@@ -60,3 +59,9 @@ human judgments. The table describes the intended split, not what was done in th
 | Judge whether a posting is worth Supriya's time | Show the evidence: duties, years, location, clearance | **Make the judgment** | Fit, eligibility and willingness are the job seeker's facts and decisions, not the posting's |
 | Run and evaluate tools | Probe them, record transcripts, compare declared and actual | Decide what to trust and with what access | Trust is an authorization, and only the person can grant it |
 | Report results | Draft, recompute, and flag contamination | Sign or withhold | The signature identifies exactly what the person checked and what remains unverified |
+
+## Post-signature review confirmation (2026-11-25)
+
+Ashwin explicitly confirmed the 30 random-reject verdicts and then all 17 closest-call/kept verdicts in chat.
+The hand sheet records those personal judgments with prior AI exposure and review timing. The earlier signature
+continues to cover its stated test run; these later confirmations do not claim a new personal test run.

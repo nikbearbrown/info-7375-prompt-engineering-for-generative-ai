@@ -1,8 +1,8 @@
 # FRICTIONAL: JS3
 
 The "What happened" and "Evidence" lines are facts Claude Code organized from the commits and outputs on
-2026-11-25. Lines marked **(Ashwin)** are blank on purpose: only Ashwin can supply the experience. Nothing about
-Ashwin's thinking or feelings is inferred.
+2026-11-25. Personal reflections not supplied by Ashwin remain marked "Not supplied". Confirmed Codex-drafted descriptions
+are attributed below; no personal thinking or feelings are inferred.
 
 ## 2026-11-25: writing FILTER.md before any code
 
@@ -26,7 +26,7 @@ Ashwin's thinking or feelings is inferred.
   - Claude Code built blind review cards for the brief's minimum of 47 postings.
   - The 47 verdicts entered in batches were first recorded as hand verdicts. Ashwin then stated they were Codex
     suggestions, not independent judgments, and the record was corrected.
-  - The hand-judged audit stands at 0 of 47.
+  - At that stage the hand sheet was empty. On 2026-11-25 Ashwin later confirmed personal review of all 47 sample postings, retaining the suggested verdicts; the later review was not blind.
 - **Clearance rule:** a posting that needs a clearance, where Supriya's eligibility is unknown, is `?`. Willingness
   to get one is not eligibility.
 - **Evidence:** `12cb35b4`, `036e6fae` (cards); `e5828b69` … `7eb48860` (verdicts first mislabeled); `b03e6b29`
@@ -66,11 +66,11 @@ Ashwin's thinking or feelings is inferred.
     directory, and Write created a file, both with no prompt.
   - Claude Code used our server as a client. It first tried `server/discover`, which we don't implement, then scored
     one posting and passed on our held-out refusal word for word.
-  - Our server's description says it cannot "write anything", but it writes its transcript.
+  - Server 1.0.0 said it could not "write anything", but wrote its transcript. Server 1.1.0 corrects the disclosure and identifies filter v1.0; see `bf491431`.
 - **Evidence:** `evaluations/`, `transcripts/`.
 - **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** Approved in evaluations/*/EVALUATION.md on 2026-11-25.
 
-## Still open
+## Follow-up verification
 
-- **(Ashwin)** The 47 hand verdicts, any human claim labels, confirmation of the trust decisions and sign-off, and the signature.
+- **(Ashwin)** All 47 required audit rows now have Ashwin's confirmed personal verdicts, with prior AI exposure disclosed. Claim labels remain AI-assisted. The trust decisions, sign-off and signature were already confirmed on 2026-11-25.
 - **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** Unresolved question: how many suitable early-career postings does the filter miss on a fresh, independently judged sample?

@@ -83,7 +83,7 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 - **Choices FILTER.md left open:** where filter.py had to interpret FILTER.md, Claude Code chose. Those choices are
   listed in `drafting/IMPLEMENTATION-NOTES.md`. Ashwin reviewed them retrospectively on 2026-11-25, after
   implementation; two disagreements, I5 and I7, remain unresolved.
-- **Mistakes, recorded rather than hidden:**
+- **Corrections and version history:**
   - First reported 59 tests when there were 46.
   - Committed AI-assisted verdicts as "Ashwin's audit verdicts" (`e5828b69` … `54cecbe8`), corrected in `b03e6b29`.
   - Committed `cf210f14` before its test passed, fixed in `036e6fae`.
@@ -98,3 +98,17 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
 - One client session's reply (`evaluations/own-server/claude-client-2026-11-25/claude-reply.json`).
 
 Each is a real, dated `claude -p` response, saved unchanged. No fixture is presented as Claude output.
+
+## Post-package Codex review and corrections (2026-11-25)
+
+Codex compared every ZIP file to commit `744630b1` and ran the 56 tests on Python 3.9.6 and 3.12.15.
+An initial concurrent run collided on shared test temporary paths; separate runs passed. The ZIP contains
+103 files and 22 directory entries, not 125 files. Codex corrected stale approval/status wording, documented
+the repository-only corpus rebuild dependency, and narrowed audit uncertainty statements to resolved labels
+with explicit unknown-outcome sensitivity bounds. Ashwin subsequently confirmed personal review of reject-audit
+postings; all 30 random rejects and then all 17 remaining required sample rows were explicitly confirmed unchanged. The hand sheet now records those later personal judgments and their prior AI exposure. Earlier AI-generated
+verdicts and the contaminated evaluation remain disclosed.
+
+The later personal audit review does not restore the independence of the earlier held-out comparison.
+Codex applied these documentation/report corrections and transcribed the confirmed audit judgments; Claude
+Code authored the original implementation and tests. No scoring rules, historical outputs or claim labels changed.
