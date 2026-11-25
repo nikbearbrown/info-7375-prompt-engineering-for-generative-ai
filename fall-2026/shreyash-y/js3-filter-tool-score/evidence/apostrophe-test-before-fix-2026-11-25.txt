@@ -1,0 +1,62 @@
+# 2026-11-25 17:57:28 EST: python3 -m unittest tests.test_js3_sections_apostrophe -v  (before the fix)
+test_benefits_headings_with_curly_apostrophes (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_benefits_headings_with_curly_apostrophes) ... FAIL
+test_requirements_heading_with_a_curly_apostrophe (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_requirements_heading_with_a_curly_apostrophe) ... FAIL
+test_responsibilities_heading_with_a_curly_apostrophe (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_responsibilities_heading_with_a_curly_apostrophe) ... FAIL
+test_the_real_posting_8_requirements_are_a_requirements_section (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_the_real_posting_8_requirements_are_a_requirements_section) ... FAIL
+
+======================================================================
+FAIL: test_benefits_headings_with_curly_apostrophes (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_benefits_headings_with_curly_apostrophes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_sections_apostrophe.py", line 17, in test_benefits_headings_with_curly_apostrophes
+    self.assertEqual(sections.kind_of("What’s in it for you"), "perk")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'other' != 'perk'
+- other
++ perk
+
+
+======================================================================
+FAIL: test_requirements_heading_with_a_curly_apostrophe (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_requirements_heading_with_a_curly_apostrophe)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_sections_apostrophe.py", line 13, in test_requirements_heading_with_a_curly_apostrophe
+    self.assertEqual(sections.kind_of("What We’re Looking For:"), "req")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'other' != 'req'
+- other
++ req
+
+
+======================================================================
+FAIL: test_responsibilities_heading_with_a_curly_apostrophe (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_responsibilities_heading_with_a_curly_apostrophe)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_sections_apostrophe.py", line 21, in test_responsibilities_heading_with_a_curly_apostrophe
+    self.assertEqual(sections.kind_of("What You’ll Do"), "resp")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'other' != 'resp'
+- other
++ resp
+
+
+======================================================================
+FAIL: test_the_real_posting_8_requirements_are_a_requirements_section (tests.test_js3_sections_apostrophe.CurlyApostrophes.test_the_real_posting_8_requirements_are_a_requirements_section)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/shreyashyadav/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_sections_apostrophe.py", line 29, in test_the_real_posting_8_requirements_are_a_requirements_section
+    self.assertEqual(stored, ["req"], "the corpus stores the section as requirements")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['other'] != ['req']
+
+First differing element 0:
+'other'
+'req'
+
+- ['other']
++ ['req'] : the corpus stores the section as requirements
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.035s
+
+FAILED (failures=4)

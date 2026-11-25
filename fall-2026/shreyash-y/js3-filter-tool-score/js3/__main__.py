@@ -82,7 +82,7 @@ def main(argv=None):
             print(f"  {name}: {b}")
         return 1 if bad else 0
     from js3 import cli_more
-    return cli_more.dispatch(args.cmd, list(args.rest) + unknown)
+    return cli_more.dispatch(args.cmd, unknown + list(args.rest))
 
 
 if __name__ == "__main__":

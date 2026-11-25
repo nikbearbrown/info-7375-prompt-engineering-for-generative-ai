@@ -73,10 +73,29 @@ def save(key, n, verdict, note):
         f.write(json.dumps(rec, ensure_ascii=False) + "\n")
 
 
+def compact(p, n, total):
+    """The same facts as view(), shorter, for answering in the chat instead of this tool."""
+    content = p["content"]
+    req = " ".join(content[s:e] for s, e, k, h in p["blocks"] if k in ("req", "pref") and not h)
+    lines = [f"**{n}.** {p['title']}  ({p['board']})",
+             f"   Location: {p['location'] or '(not given)'} | Offices: {', '.join(p['offices']) or '(not given)'} | "
+             f"Department: {', '.join(p['departments']) or '(not given)'} | Employment: {p.get('employment_type') or '(not given)'}"
+             + ("" if p["open_in_latest_run"] else " | closed since " + str(p["last_seen"])),
+             f"   Ad opens: {content[:260].strip()}…"]
+    if req:
+        lines.append(f"   Under its requirements headings: {req[:380].strip()}…")
+    return "\n".join(lines)
+
+
 def main(argv):
     sample = json.loads(SAMPLE.read_text())
     order = sample["label_order"]
     done = answers()
+    if argv and argv[0] == "--print":
+        by_key = {p["key"]: p for p in corpus.load()}
+        a, b = int(argv[1]), int(argv[2])
+        print("\n\n".join(compact(by_key[order[i - 1]], i, len(order)) for i in range(a, b + 1)))
+        return 0
     if argv and argv[0] == "--status":
         print(f"{sum(k in done for k in order)} of {len(order)} labeled ({OUT.relative_to(HERE)})")
         return 0
