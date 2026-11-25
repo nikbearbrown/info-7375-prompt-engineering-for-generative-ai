@@ -25,7 +25,9 @@ TOOL = {
                     "with the rules in FILTER.md v1.0. Give either `id` (a posting id from the local corpus, e.g. "
                     "'greenhouse:stripe:123') or `title` + `text`. Returns the filter verdict (kept / rejected / cannot_tell), "
                     "the score, the failed rules, and every justification claim labelled SUPPORTED / CONTRADICTED / "
-                    "INSUFFICIENT with a quote from the posting. Read-only: it does not fetch, apply, email or store anything."),
+                    "INSUFFICIENT with a quote from the posting. Read-only: it does not fetch, apply or email; it appends every message "
+                    "to its own transcript file. Rules: R1 analyst title word, R1b no engineer title (v1.1), R2 no seniority word, "
+                    "R3 at least 2 of the persona's skills, R4 at most 3 years stated."),
     "inputSchema": {"type": "object", "additionalProperties": False,
                     "properties": {"id": {"type": "string", "description": "posting id from the local corpus"},
                                    "title": {"type": "string", "description": "posting title (use with text)"},

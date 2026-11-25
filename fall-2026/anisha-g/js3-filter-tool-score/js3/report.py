@@ -9,7 +9,7 @@ from js3 import filter as F, evidence as E
 def wilson(k, n, z=1.96):
     if n == 0: return (None, None)
     p = k / n; d = 1 + z * z / n; c = p + z * z / (2 * n); h = z * math.sqrt(p * (1 - p) / n + z * z / (4 * n * n))
-    return ((c - h) / d, (c + h) / d)
+    return (max(0.0, (c - h) / d), min(1.0, (c + h) / d))
 
 def pct(x): return "–" if x is None else f"{100 * x:.1f}%"
 
