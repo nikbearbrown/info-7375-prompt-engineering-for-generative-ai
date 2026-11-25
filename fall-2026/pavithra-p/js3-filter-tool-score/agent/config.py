@@ -9,9 +9,9 @@ RUNS_DIR = ROOT / "runs"
 STATE = RUNS_DIR / "state" / "seen_ids.json"
 RAW_DIR = ROOT / "evidence" / "raw"
 
-# Permission policy (GATE.md): the only folders the agent may write, and the paths that need my approval.
-WRITE_DIRS = ("runs", "evidence")
-APPROVAL_PATHS = ("config", "agent/rule.py", "CONTRACT-JS1.md")
+# Permission policy (JS2 GATE.md; JS3 adds transcripts/ for the tool server, audit/ for the sample and the labelling page, and filters/ plus FILTER.md as approval paths): the only folders the agent may write, and the paths that need my approval.
+WRITE_DIRS = ("runs", "evidence", "transcripts", "audit")
+APPROVAL_PATHS = ("config", "agent/rule.py", "CONTRACT-JS1.md", "filters", "FILTER.md")
 
 
 def load(name):
