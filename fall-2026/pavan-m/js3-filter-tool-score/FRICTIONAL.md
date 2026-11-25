@@ -60,3 +60,7 @@ My first save of the labels didn't reach the CSV (TextEdit); the count check cau
 
 ## Entry 16 — November 24, 2026: MCP server tests written before implementation
 Wrote 8 tests in tests/test_mcp_server.py before agent/mcp_server.py exists: initialize declares tools, the initialized notification gets no reply, tools/list offers exactly score_posting with required title/location/content, tools/call uses FILTER v1.1 (5+ years rejected), a missing argument is a tool error not a crash, an unknown tool such as apply_to_job is a protocol error (-32602), and an unknown method is -32601.
+
+## Entry 17 — November 25, 2026: MCP server and my own client
+Claude Code wrote agent/mcp_server.py (JSON-RPC 2.0 over stdio, from scratch, no SDK), agent/mcp_client.py and a project .mcp.json. Verified myself: 69 tests pass; `git diff tests/ FILTER.md` empty. Ran my client on S04 and S01: initialize (protocol 2025-06-18), tools/list (only score_posting), two tools/call (KEEP 9, KEEP 11, matching the v1.1 decisions file), and apply_to_job refused with -32602. Client- and server-side transcripts saved in out/transcripts/.
+Things to evaluate later (declared vs actual): the tool declares readOnlyHint true, but the server writes a transcript file; serverInfo says version 1.1 while each score result says filter_version "1.0" with a years_cutoff override; the server answers tools/call even without a prior initialize; it supports protocol versions only up to 2025-06-18.
