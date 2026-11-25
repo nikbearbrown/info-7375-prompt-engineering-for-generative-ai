@@ -86,7 +86,8 @@ class Server:
             version = requested if requested in SUPPORTED_VERSIONS else SUPPORTED_VERSIONS[0]
             return _ok(mid, {"protocolVersion": version, "capabilities": {"tools": {"listChanged": False}},
                              "serverInfo": SERVER_INFO,
-                             "instructions": "One read-only tool over a saved corpus; no network, no writes."})
+                             "instructions": ("One read-only tool over a saved corpus; no network. Tools write "
+                                              "nothing; the operator may enable a local wire log (--log).")})
         if method == "ping":
             return _ok(mid, {})
         if method == "tools/list":

@@ -45,8 +45,17 @@ def render_md(lines, header):
     return "\n".join(out) + "\n"
 
 
-def publish(src, name, client, date):
+def publish(src, name, client, date, redact=None):
+    """redact: {exact string: label}. Each replacement is counted and declared in the .md header."""
     lines = [json.loads(l) for l in Path(src).read_text(encoding="utf-8").splitlines() if l.strip()]
+    counts = {}
+    for old, label in (redact or {}).items():
+        variants = {old, json.dumps(old)[1:-1]}  # raw and JSON-escaped spellings
+        for r in lines:
+            for v in variants:
+                if v in r["line"]:
+                    counts[label] = counts.get(label, 0) + r["line"].count(v)
+                    r["line"] = r["line"].replace(v, label)
     hits = check(lines)
     if hits:
         raise SystemExit(f"REFUSED: private-looking strings in {len(hits)} line(s): {hits[:3]}")
@@ -54,7 +63,7 @@ def publish(src, name, client, date):
     (OUT / f"{name}.jsonl").write_text("".join(json.dumps(r, ensure_ascii=False) + "\n" for r in lines), encoding="utf-8")
     (OUT / f"{name}.md").write_text(render_md(lines, f"# Transcript `{name}`\n\n- client: **{client}**\n- date: {date}\n"
                                               f"- lines: {len(lines)} (both directions, as logged by the server or client)\n"
-                                              f"- sanitization: forbidden-pattern check found 0 matches; no line was altered"),
+                                              f"- sanitization: " + ("; ".join(f"replaced the local sandbox path with `{k}` ({n} occurrences)" for k, n in counts.items()) + "; otherwise " if counts else "") + "no line was altered; forbidden-pattern check found 0 matches after that"),
                                     encoding="utf-8")
     print(f"published transcripts/{name}.jsonl ({len(lines)} lines)")
 

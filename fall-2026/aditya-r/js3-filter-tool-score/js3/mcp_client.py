@@ -13,10 +13,11 @@ import sys
 
 
 class StdioClient:
-    def __init__(self, argv, log_path=None, cwd=None, env=None):
+    def __init__(self, argv, log_path=None, cwd=None, env=None, on_request=None):
         self.proc = subprocess.Popen(argv, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                      text=True, cwd=cwd, env=env, bufsize=1)
         self.log_path, self.next_id, self.lines = log_path, 1, []
+        self.on_request = on_request  # answers server->client requests (e.g. roots/list); None -> -32601
 
     def _log(self, direction, line):
         rec = {"t": dt.datetime.now(dt.timezone.utc).isoformat(timespec="milliseconds"), "dir": direction, "line": line}
@@ -39,7 +40,16 @@ class StdioClient:
             self._log("server->client", out)
             msg = json.loads(out)
             if "id" in msg and ("result" in msg or "error" in msg):
-                return msg  # (server-initiated requests/notifications are logged and skipped)
+                return msg
+            if "id" in msg and "method" in msg:  # a server->client request: answer it, keep waiting
+                result = self.on_request(msg) if self.on_request else None
+                reply = ({"jsonrpc": "2.0", "id": msg["id"], "result": result} if result is not None else
+                         {"jsonrpc": "2.0", "id": msg["id"], "error": {"code": -32601, "message": "Method not found"}})
+                line = json.dumps(reply)
+                self._log("client->server", line)
+                self.proc.stdin.write(line + "\n")
+                self.proc.stdin.flush()
+            # notifications from the server are logged and skipped
 
     def request(self, method, params=None):
         msg = {"jsonrpc": "2.0", "id": self.next_id, "method": method}
@@ -54,8 +64,8 @@ class StdioClient:
             msg["params"] = params
         self.send_raw(json.dumps(msg), expect_reply=False)
 
-    def initialize(self, version="2025-11-25"):
-        r = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+    def initialize(self, version="2025-11-25", capabilities=None):
+        r = self.request("initialize", {"protocolVersion": version, "capabilities": capabilities or {},
                                         "clientInfo": {"name": "js3-test-client", "version": "1.0.0"}})
         self.notify("notifications/initialized")
         return r
