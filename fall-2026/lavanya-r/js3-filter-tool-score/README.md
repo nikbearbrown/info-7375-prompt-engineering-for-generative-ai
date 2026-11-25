@@ -168,7 +168,7 @@ python3 -B -m agent.loop
 - That my tool server is safe against a hostile client, or against a client that ignores its read-only hint. It is read-only by construction, and the hint is only a hint.
 - That anything here was trained. No weights changed.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed** Lavanya R, 2026-11-24
 
 ## Driver's seat
 
