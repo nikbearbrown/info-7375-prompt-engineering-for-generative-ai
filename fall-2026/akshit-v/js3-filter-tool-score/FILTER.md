@@ -7,7 +7,7 @@
 
 - **Started from:** my own Job-Search Agent 1 rule (`agent/rule.py`, CONTRACT.md "The rule") and my Job-Search Agent 2 loop, providers, and permission policy (`agent2/`). I did not use the Reallocation Engine or Lectern.
 - **Persona:** unchanged, the fictional **Jack Spencer** (data engineer, 5 years, master's completed, full-time only).
-- **What "relevant" means:** unchanged from `experiments/LABELING_RULE.md` in JS1. A posting is relevant if I would tell Jack it is worth a day of his time to apply: (1) the work is data engineering at its core; (2) the level fits a 5-year individual contributor; (3) it is full-time; (4) he could plausibly be shortlisted. **My hand labels are the answer key. This filter is a cheap, readable stand-in for them, and it is judged against them.**
+- **What "relevant" means** (v1.0, superseded for the JS3 labels on 2026-11-25; see the version log and `labels/LABELING_RULE.md`): unchanged from `experiments/LABELING_RULE.md` in JS1. A posting is relevant if I would tell Jack it is worth a day of his time to apply: (1) the work is data engineering at its core; (2) the level fits a 5-year individual contributor; (3) it is full-time; (4) he could plausibly be shortlisted. **My hand labels are the answer key. This filter is a cheap, readable stand-in for them, and it is judged against them.**
 - **One measurement before v1.0.** Claude ran the inherited JS1 rule over the 603 postings my JS2 agent saved on 2026-11-10 (figma 144, spotify 86, snowflake 373). It kept 51. **45 of them were on the Snowflake board**, mostly Solution Engineer, Support, Architect and Auditor roles. The skill "Snowflake" matched the employer's own name, which appears in 382 of the 603 postings. That is the first false friend, and rule F6 below exists because of it.
 
 ## 1. The filter rules
@@ -92,3 +92,4 @@ A rule is **added, cut, or rejected** only after a measurement on my hand labels
 | Version | Date | Change | Measured on | Before → after |
 |---|---|---|---|---|
 | v1.0 | 2026-11-24 | first version, written before any JS3 code | — (section 0 measures the JS1 rule, not v1.0) | — |
+| v1.0 (definition) | 2026-11-25 | **What "relevant" means changed; no filter rule changed.** After labeling, I replaced the four-criterion definition with: the posting's technical skills overlap Jack's skills, fully or in part; job family and title level don't count against it; not relevant if the work isn't technical, it's an internship or not full-time, or it requires clearly more experience than 5 years. Wording drafted by Claude from my notes, accepted by me (`labels/LABELING_RULE.md`, dated entry). Consequence: rules F2 (title-level disqualifiers) and F4 (role words) now encode a stricter standard than my labels. | my 80 labels, as labeled | — |

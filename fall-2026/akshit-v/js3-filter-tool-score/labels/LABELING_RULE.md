@@ -34,3 +34,11 @@ Location, visa sponsorship, salary, and the company itself. This matches the con
 
 ## Record
 Every label gets a one-line `note` naming what in the posting decided it.
+
+## Dated entry: 2026-11-25, the JS3 labels use a different definition
+
+**Written after I labeled all 80 JS3 postings** (labels committed in `30eddc9`, 03:04–03:46 UTC) **and after Claude Code flagged** that 44 of my 48 `relevant` labels conflict with the rule above (`labels/label_flags.md`). Claude offered three options: re-read and revise the flagged labels; keep them and report the looser standard; or change the rule to fit them. I chose to change the rule. Claude drafted the wording below from my labels' notes, and I accepted it as is. **My 80 labels are unchanged.** For the JS3 labels, this definition replaces the four criteria above:
+
+> **relevant** means: the technical skills the posting asks for overlap with Jack's skills (Python, SQL, Spark, Airflow, Kafka, dbt, Snowflake, AWS), fully or in part. The job family (data engineering, software engineering, solution or sales engineering, analytics) and the title level (Senior, Staff, Principal, Manager) don't count against it. A posting is **not relevant** if its work isn't technical, if it's an internship or not full-time, or if it requires clearly more experience than Jack's 5 years.
+
+**Labels this definition still contradicts** (Claude's reading of titles, notes and posting text; see `labels/label_noise.md`): about 6 on the "not technical" clause and about 9 on the "clearly more experience" clause. They stay as labeled and are reported as known label noise.
