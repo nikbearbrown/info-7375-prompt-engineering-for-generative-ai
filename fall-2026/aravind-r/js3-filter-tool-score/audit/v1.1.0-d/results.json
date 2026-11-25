@@ -1,0 +1,208 @@
+{
+  "computed_at": "2026-11-25T23:17:45.352Z",
+  "sampled_from": "v1.0.0",
+  "compared_run": "runs/filter/v1.1.0-d",
+  "plan_sha256": "6de3072e176a5b16c083b282c25a15b52757c6cb132764460f9df00bc8851f38",
+  "views": {
+    "A": {
+      "label": "v1.0.0 decisions vs first-pass verdicts",
+      "strata": {
+        "random_reject": {
+          "n": 30,
+          "verdicts": {
+            "relevant": 2,
+            "not_relevant": 28,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 30
+          },
+          "errors": 2,
+          "error_ids": [
+            "A032",
+            "A035"
+          ],
+          "interval_95": [
+            0.008178134460656301,
+            0.22073540152296184
+          ]
+        },
+        "closest_call": {
+          "n": 15,
+          "verdicts": {
+            "relevant": 15,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 3,
+            "reject": 12
+          },
+          "errors": 12,
+          "error_ids": [
+            "A005",
+            "A010",
+            "A013",
+            "A020",
+            "A025",
+            "A027",
+            "A030",
+            "A037",
+            "A044",
+            "A047",
+            "A049",
+            "A052"
+          ]
+        },
+        "kept": {
+          "n": 0,
+          "verdicts": {
+            "relevant": 0,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        },
+        "cannot_tell": {
+          "n": 3,
+          "verdicts": {
+            "relevant": 3,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 3,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        }
+      }
+    },
+    "B": {
+      "label": "v1.1.0-d decisions vs final verdicts",
+      "strata": {
+        "random_reject": {
+          "n": 30,
+          "verdicts": {
+            "relevant": 0,
+            "not_relevant": 30,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 30
+          },
+          "errors": 0,
+          "error_ids": [],
+          "interval_95": [
+            0,
+            0.11570330822202776
+          ]
+        },
+        "closest_call": {
+          "n": 15,
+          "verdicts": {
+            "relevant": 6,
+            "not_relevant": 8,
+            "cannot_tell": 1
+          },
+          "decisions": {
+            "keep": 7,
+            "cannot_tell": 3,
+            "reject": 5
+          },
+          "errors": 3,
+          "error_ids": [
+            "A027",
+            "A044",
+            "A052"
+          ]
+        },
+        "kept": {
+          "n": 0,
+          "verdicts": {
+            "relevant": 0,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        },
+        "cannot_tell": {
+          "n": 3,
+          "verdicts": {
+            "relevant": 2,
+            "not_relevant": 0,
+            "cannot_tell": 1
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 3,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        }
+      }
+    }
+  },
+  "recheck": {
+    "declared": 14,
+    "rechecked": 14,
+    "revised": 11,
+    "revised_ids": [
+      "A013",
+      "A014",
+      "A027",
+      "A030",
+      "A032",
+      "A035",
+      "A037",
+      "A044",
+      "A047",
+      "A049",
+      "A052"
+    ],
+    "open": [],
+    "undeclared": []
+  },
+  "named_false_friends": [
+    {
+      "term": "training",
+      "named_by": "Aravind",
+      "date": "2026-11-25",
+      "rows": [
+        "A014",
+        "A047"
+      ],
+      "line": "Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands.",
+      "why": "In both rows it appears only in Airbnb's pay boilerplate, not in anything about the role. (Corpus count: 172 of 203 Airbnb postings contain it.) Note: \"training\" is not one of the filter's topic terms in v1.0.0 or v1.1.0-a, so it changed no filter decision here; it is a false friend for any keyword filter that would count it, and the same boilerplate sentence also carries \"work experience\", which the experience rule scans (no years phrase, so no effect)."
+    }
+  ],
+  "not_checked": {
+    "pm_reject": {
+      "drawn": 15,
+      "population": 133,
+      "judged": 0
+    },
+    "random_reject_unjudged": 10
+  },
+  "off_plan_verdicts": []
+}
