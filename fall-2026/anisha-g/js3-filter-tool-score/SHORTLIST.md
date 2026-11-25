@@ -44,7 +44,7 @@ The real tool-server run on 2026-11-25 shows the same thing from the client's si
 
 ## My check of every label (49 claims)
 - **Who checked:** Claude re-read every label against the posting text on 2026-11-25.
-- ✍️ **ANISHA: the labels I checked myself:** ____ (for example: "I opened the 3 relevance≠entailment postings and confirmed the quotes").
+- **The labels I checked myself (Anisha):** I opened the 3 relevance≠entailment postings (gh_jid 8189909, 7456167, 8324207) on 11/25/2026 and confirmed each quote sits under "Preferred qualifications.".
 - **Finding:** **4 labels are wrong, 2 are borderline, and 1 is right but misleading.** The labeller is a rule, not a reader.
 
 | Posting | Claim | Label given | Should be | Why | Fixed? |

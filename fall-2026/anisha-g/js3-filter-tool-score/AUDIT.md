@@ -15,7 +15,7 @@
 - **The sheet:** all **76** were shuffled into one **blind sheet** (`audit/sheet_order.json`). `python3 -m js3.judge` showed each posting (title, company, location, the requirements part of the text, full text on request) **without** the filter's verdict or the group.
 - **The judging:**
   - I judged all 76 myself, 14:27–14:51, against my rule in `audit/AUDIT_RULE.md`, written before judging: "is this posting worth Nadia's time?", answered y / n / ?.
-  - Every answer has a reason. My verdicts were frozen by hash (`labels/hand_verdicts.sha256`, commit `474e2d5`) **before** I compared them with anything.
+  - Every answer has a reason. Every y/n decision is mine; another Claude chat helped me **word** most of the reasons (SOURCES.md). My verdicts were frozen by hash (`labels/hand_verdicts.sha256`, commit `474e2d5`) **before** I compared them with anything.
 - **Copy slips:** 5 reasons were copy-paste slips. Items 7, 8, 22 and 23 carry the reason of a neighbouring posting, and item 65 is a placeholder. I re-judged those 5 in a separate file (`labels/hand_corrections.jsonl`, `python3 -m js3.judge --redo 7,8,22,23,65`). Both versions are reported. The originals were never edited.
 - **Result of the re-judge (15:39–15:41):** all 5 verdicts came out the same as the originals (5 × n). Only the reasons changed, now written for the right posting. Every number in this folder is the same under the original and the corrected verdicts (`out/report_original.md` = `out/report_corrected.md` in every table).
 

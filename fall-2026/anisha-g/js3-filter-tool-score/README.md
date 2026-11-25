@@ -82,9 +82,9 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
   - **The audit:** by hand, 76 blind verdicts.
 - **How:**
   - **By a test written before the code:** all of `tests/` was written from FILTER.md before the implementation (commits `340c11f`, `2c8683c`, `017f3ca`, `7c66429`) and frozen by hash.
-  - **By hand:** the 76 verdicts, and re-judging the 5 slips.
+  - **By hand:** the 76 verdicts (reasons worded with help from another Claude chat), re-judging the 5 slips, and checking 3 shortlist postings against their quotes.
   - **By recomputation:** `tools/check.py`.
-  - **With Claude's help:** Claude wrote all the code, the tests (from my FILTER.md), the experiment plan and the drafts of these documents. Claude also re-read the 49 shortlist labels; ✍️ the labels I checked myself are listed in SHORTLIST.md.
+  - **With Claude's help:** Claude wrote all the code, the tests (from my FILTER.md), the experiment plan and the drafts of these documents. Claude also re-read the 49 shortlist labels; the 3 relevance≠entailment postings I checked myself are listed in SHORTLIST.md. Another Claude chat helped me word most of my audit reasons; the verdicts are mine.
 - **Not checked:**
   1. **Accuracy on more than one positive.** The held-out set has one "y", so I couldn't measure whether any change improves accuracy.
   2. **Other days and boards.** One collection (14:11, 2026-11-25) from 5 boards; postings change daily, and other boards may format text differently (headings, "(2) years").
@@ -97,7 +97,7 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
   - that any Claude configuration is better than another beyond these 30 postings;
   - that anything was trained;
   - that the tool server is safe to expose beyond my own machine.
-- **Signed or withheld:** ✍️ ____________ (Anisha Gaikar, 2026-11-25)
+- **Signed or withheld:** Anisha Balshiram Gaikar(Anisha Gaikar, 2026-11-25)
 
 ## Driver's seat
 | Task | Claude should | I should | Why |
@@ -106,7 +106,7 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
 | Label evidence | quote the sentence and label each claim; say "I cannot tell" when the text doesn't say | spot-check the labels against the posting | the labeller had a bug I only found by re-reading (SHORTLIST.md) |
 | Measure | compute counts, intervals and repeat runs; propose candidate rules with their effect | decide which rule to adopt or reject, and keep the held-out set untouched | a measured number doesn't decide what matters; I chose R5 and rejected FP&A |
 | Tool server | answer only what it declares; refuse to apply or email | decide whom to trust and what to expose | annotations are claims; trust is my decision |
-| **Is this posting worth my time?** | give the verdict of my written rules, with quotes | **make the call** | ✍️ *(in my own words)*: ____. Evidence from this assignment: the filter and Claude both kept postings I said no to, for reasons only I knew to apply (my graduation date against internship windows, where I can live, which fields I want). Of the 11 postings the filter kept, I wanted 1. |
+| **Is this posting worth my time?** | give the verdict of my written rules, with quotes | **make the call** | *: ____. Evidence from this assignment: the filter and Claude both kept postings I said no to, for reasons only I knew to apply (my graduation date against internship windows, where I can live, which fields I want). Of the 11 postings the filter kept, I wanted 1. |
 
 ## Privacy and boundaries
 - **Persona:** fictional (Nadia Okafor, @example.com, 555 number). No real résumé, contacts, tracker or conversation transcripts are in this folder.

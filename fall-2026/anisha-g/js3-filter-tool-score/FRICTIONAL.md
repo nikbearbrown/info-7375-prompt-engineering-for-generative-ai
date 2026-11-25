@@ -98,6 +98,6 @@ I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A
 | Copy-paste slips in 5 reasons | **Modified**: re-judged in a separate file; originals kept |
 
 ## (my own words)
-✍️ *What I learned, what surprised me, what's still unresolved for me:*
+*What I learned, what surprised me, what's still unresolved for me:*
 
-____
+I learned that a filter can match the words in a posting without knowing whether the job fits the person: 10 of the 11 postings my filter kept were "no" for Nadia, mostly because of things it doesn't check, like graduation windows, location, and "excluding internships." What surprised me was how many "Analyst" titles turned out to be tax, credit, or accounting roles, and how often the requirement that decided a job was hidden until I opened the full text. What's still unresolved is whether my labels are a truly independent answer key, since another Claude chat helped me word the reasons for most of them (every y/n decision was mine), and whether any filter change really helped when the held-out set had only one "yes."
