@@ -80,7 +80,7 @@ def compact(p, n, total):
     lines = [f"**{n}.** {p['title']}  ({p['board']})",
              f"   Location: {p['location'] or '(not given)'} | Offices: {', '.join(p['offices']) or '(not given)'} | "
              f"Department: {', '.join(p['departments']) or '(not given)'} | Employment: {p.get('employment_type') or '(not given)'}"
-             + ("" if p["open_in_latest_run"] else " | closed since " + str(p["last_seen"])),
+             + ("" if p["open_in_latest_run"] else " | closed since " + str(p["last_seen"])[:8] + " (judge it as if it were open)"),
              f"   Ad opens: {content[:250].strip()}…"]
     if req:
         # 1400 characters, not 380: the first chat batch cut posting 8's requirements short (FRICTIONAL.md)
