@@ -1,0 +1,175 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:55:29+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8083703,
+    "tag": "sample3",
+    "raw_text": "{\"posting_id\": 8083703, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Data Scientist' contains none of the required title phrases, and the posting department 'Data' is not an allowed department. The posting location and offices are New York, NY, with a required hybrid in-office schedule and no US-remote option, so it does not match the résumé location of Boston, MA or its remote_ok preference. The content mentions the résumé skills Python and SQL (Condition 4 passes) and nothing in the title or content hits the résumé exclusions (Condition 6 passes), but the content requires 4+ years of experience, which exceeds the 3-year limit tied to the résumé's experience_years.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8083703,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        5
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title 'Senior Data Scientist' contains none of the required title phrases, and the posting department 'Data' is not an allowed department. The posting location and offices are New York, NY, with a required hybrid in-office schedule and no US-remote option, so it does not match the résumé location of Boston, MA or its remote_ok preference. The content mentions the résumé skills Python and SQL (Condition 4 passes) and nothing in the title or content hits the résumé exclusions (Condition 6 passes), but the content requires 4+ years of experience, which exceeds the 3-year limit tied to the résumé's experience_years."
+    },
+    "session_id": "c3b883dd-3b20-4790-b5f3-3478b56208ee",
+    "cost_usd": 0.0157704
+  },
+  "cli_output": {
+    "duration_api_ms": 4514,
+    "stop_reason": "end_turn",
+    "session_id": "c3b883dd-3b20-4790-b5f3-3478b56208ee",
+    "total_cost_usd": 0.0157704,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 628,
+      "cache_read_input_tokens": 3292,
+      "output_tokens": 504,
+      "output_tokens_details": {
+        "thinking_tokens": 179
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 628,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 504,
+          "cache_read_input_tokens": 3292,
+          "cache_creation_input_tokens": 628,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 628
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 504,
+        "cacheReadInputTokens": 3292,
+        "cacheCreationInputTokens": 628,
+        "webSearchRequests": 0,
+        "costUSD": 0.0157704,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 179,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 628,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8083703, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Data Scientist' contains none of the required title phrases, and the posting department 'Data' is not an allowed department. The posting location and offices are New York, NY, with a required hybrid in-office schedule and no US-remote option, so it does not match the résumé location of Boston, MA or its remote_ok preference. The content mentions the résumé skills Python and SQL (Condition 4 passes) and nothing in the title or content hits the résumé exclusions (Condition 6 passes), but the content requires 4+ years of experience, which exceeds the 3-year limit tied to the résumé's experience_years.\"}",
+    "ttft_ms": 2026,
+    "type": "result",
+    "duration_ms": 7910,
+    "uuid": "5f3683fc-c8a0-4de6-a162-23c39ce60f14",
+    "ttft_stream_ms": 751,
+    "time_to_request_ms": 74,
+    "time_to_request_phases_ms": {
+      "other": 6,
+      "system_prompt": 0,
+      "resume_other": 1,
+      "process_user_input": 1,
+      "input_attachments": 5,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 3,
+      "engine_pickup": 1,
+      "message_prep": 0,
+      "model_config_wait": 0,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 49,
+      "tool_schema_build": 1,
+      "message_normalization": 1,
+      "client_creation": 1,
+      "request_build": 2
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 1,
+    "time_to_request_cpu_ms": 104,
+    "time_to_request_major_faults": 2,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 4,
+      "cpu_ms": 9,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 751,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

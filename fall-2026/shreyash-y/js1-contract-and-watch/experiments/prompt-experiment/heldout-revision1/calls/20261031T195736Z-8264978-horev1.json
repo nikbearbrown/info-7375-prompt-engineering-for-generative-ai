@@ -1,0 +1,177 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:57:36+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/revision-1-quote-evidence.md",
+    "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+    "posting_id": 8264978,
+    "tag": "horev1",
+    "raw_text": "{\"posting_id\": 8264978, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Against target_roles and exclusions, the title \\\"Technical Program Manager\\\" contains none of the required role phrases (1) and has the excluded whole word \\\"Manager\\\" (6), and the departments value \\\"Product & Design\\\" is not an allowed department (2). Against location and remote_ok, the location \\\"New York, New York, United States\\\" requires \\\"a hybrid work schedule with 3 days of in-office work per week\\\", and remote work in the US is not stated (3). Against skills, the content names only one of the applicant's ten skills, \\\"SQL\\\" (4). Against experience_years, the content requires \\\"5+ years of technical program or project management/process-oriented operations work experience\\\" (5).\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8264978,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "Against target_roles and exclusions, the title \"Technical Program Manager\" contains none of the required role phrases (1) and has the excluded whole word \"Manager\" (6), and the departments value \"Product & Design\" is not an allowed department (2). Against location and remote_ok, the location \"New York, New York, United States\" requires \"a hybrid work schedule with 3 days of in-office work per week\", and remote work in the US is not stated (3). Against skills, the content names only one of the applicant's ten skills, \"SQL\" (4). Against experience_years, the content requires \"5+ years of technical program or project management/process-oriented operations work experience\" (5)."
+    },
+    "session_id": "4674403b-32b0-44c7-8398-4645a738b22a",
+    "cost_usd": 0.036275
+  },
+  "cli_output": {
+    "duration_api_ms": 5066,
+    "stop_reason": "end_turn",
+    "session_id": "4674403b-32b0-44c7-8398-4645a738b22a",
+    "total_cost_usd": 0.036275,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3236,
+      "cache_read_input_tokens": 995,
+      "output_tokens": 509,
+      "output_tokens_details": {
+        "thinking_tokens": 161
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3236,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 509,
+          "cache_read_input_tokens": 995,
+          "cache_creation_input_tokens": 3236,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3236
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 509,
+        "cacheReadInputTokens": 995,
+        "cacheCreationInputTokens": 3236,
+        "webSearchRequests": 0,
+        "costUSD": 0.036275,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 161,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3236,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8264978, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Against target_roles and exclusions, the title \\\"Technical Program Manager\\\" contains none of the required role phrases (1) and has the excluded whole word \\\"Manager\\\" (6), and the departments value \\\"Product & Design\\\" is not an allowed department (2). Against location and remote_ok, the location \\\"New York, New York, United States\\\" requires \\\"a hybrid work schedule with 3 days of in-office work per week\\\", and remote work in the US is not stated (3). Against skills, the content names only one of the applicant's ten skills, \\\"SQL\\\" (4). Against experience_years, the content requires \\\"5+ years of technical program or project management/process-oriented operations work experience\\\" (5).\"}",
+    "ttft_ms": 2609,
+    "type": "result",
+    "duration_ms": 6949,
+    "uuid": "84edcc24-751b-4d06-8625-08906bf3591f",
+    "ttft_stream_ms": 1093,
+    "time_to_request_ms": 68,
+    "time_to_request_phases_ms": {
+      "other": 7,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 11,
+      "input_hooks": 1,
+      "tool_pool_refresh": 0,
+      "init_message": 3,
+      "engine_pickup": 1,
+      "message_prep": 0,
+      "model_config_wait": 1,
+      "autocompact": 0,
+      "query_setup": 1,
+      "model_gates": 37,
+      "tool_schema_build": 0,
+      "message_normalization": 1,
+      "client_creation": 1,
+      "request_build": 2
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 1,
+    "time_to_request_cpu_ms": 108,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 9,
+      "cpu_ms": 18,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 1093,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

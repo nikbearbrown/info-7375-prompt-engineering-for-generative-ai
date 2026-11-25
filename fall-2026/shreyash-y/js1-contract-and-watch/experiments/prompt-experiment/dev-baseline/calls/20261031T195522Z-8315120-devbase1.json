@@ -1,0 +1,177 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:55:22+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8315120,
+    "tag": "devbase1",
+    "raw_text": "{\"posting_id\": 8315120, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Group Product Manager, Lucie Platform' matches none of the allowed engineering phrases and contains the excluded whole word 'Manager', and its department 'Product & Design' is not an allowed department. The location and offices are New York, NY, hybrid with 3 in-office days, which matches neither the résumé's Boston, MA location nor its remote_ok preference. The content mentions none of the résumé skills as complete terms and requires 7+ years of experience, above the résumé's 3 experience_years.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8315120,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The posting title 'Group Product Manager, Lucie Platform' matches none of the allowed engineering phrases and contains the excluded whole word 'Manager', and its department 'Product & Design' is not an allowed department. The location and offices are New York, NY, hybrid with 3 in-office days, which matches neither the résumé's Boston, MA location nor its remote_ok preference. The content mentions none of the résumé skills as complete terms and requires 7+ years of experience, above the résumé's 3 experience_years."
+    },
+    "session_id": "efefcb68-7e13-4427-83cf-fb7462240d4a",
+    "cost_usd": 0.029293399999999997
+  },
+  "cli_output": {
+    "duration_api_ms": 5536,
+    "stop_reason": "end_turn",
+    "session_id": "efefcb68-7e13-4427-83cf-fb7462240d4a",
+    "total_cost_usd": 0.029293399999999997,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 2562,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 430,
+      "output_tokens_details": {
+        "thinking_tokens": 133
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 2562,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 430,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 2562,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 2562
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 430,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 2562,
+        "webSearchRequests": 0,
+        "costUSD": 0.029293399999999997,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 133,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 2562,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8315120, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Group Product Manager, Lucie Platform' matches none of the allowed engineering phrases and contains the excluded whole word 'Manager', and its department 'Product & Design' is not an allowed department. The location and offices are New York, NY, hybrid with 3 in-office days, which matches neither the résumé's Boston, MA location nor its remote_ok preference. The content mentions none of the résumé skills as complete terms and requires 7+ years of experience, above the résumé's 3 experience_years.\"}",
+    "ttft_ms": 3296,
+    "type": "result",
+    "duration_ms": 7475,
+    "uuid": "efe41c1f-778b-46d6-864c-be951d969ca9",
+    "ttft_stream_ms": 1987,
+    "time_to_request_ms": 81,
+    "time_to_request_phases_ms": {
+      "other": 10,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 13,
+      "input_hooks": 2,
+      "tool_pool_refresh": 1,
+      "init_message": 5,
+      "engine_pickup": 0,
+      "message_prep": 1,
+      "model_config_wait": 0,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 40,
+      "tool_schema_build": 0,
+      "message_normalization": 1,
+      "client_creation": 2,
+      "request_build": 3
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 4,
+    "time_to_request_cpu_ms": 120,
+    "time_to_request_major_faults": 2,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 11,
+      "cpu_ms": 23,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 1988,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

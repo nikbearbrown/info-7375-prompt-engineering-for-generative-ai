@@ -1,0 +1,172 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T21:07:14+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/baseline-v1.md",
+    "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+    "posting_id": 8012938003,
+    "tag": "e2hobase1",
+    "raw_text": "{\"posting_id\": 8012938003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [4, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains 'Software Engineer' and has no excluded words, the department is Engineering, and the location is Boston, MA, so conditions 1, 2, 3, and 6 pass. Condition 4 fails because the posting content matches only one of the résumé skills, Python, as a complete term. 'MySQL' does not count as a complete-term match for SQL, and Docker, Java, and the other skills do not appear. Condition 5 fails because the content requires '7+ years of experience', which exceeds the 3-year maximum.\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8012938003,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        4,
+        5
+      ],
+      "resume_fields": [
+        "target_roles",
+        "experience_years",
+        "skills",
+        "location",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "id",
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "The title contains 'Software Engineer' and has no excluded words, the department is Engineering, and the location is Boston, MA, so conditions 1, 2, 3, and 6 pass. Condition 4 fails because the posting content matches only one of the résumé skills, Python, as a complete term. 'MySQL' does not count as a complete-term match for SQL, and Docker, Java, and the other skills do not appear. Condition 5 fails because the content requires '7+ years of experience', which exceeds the 3-year maximum."
+    },
+    "session_id": "a49cae22-ca04-4232-81bf-90cdaec1018e",
+    "cost_usd": 0.0344094
+  },
+  "cli_output": {
+    "duration_api_ms": 4482,
+    "stop_reason": "end_turn",
+    "session_id": "a49cae22-ca04-4232-81bf-90cdaec1018e",
+    "total_cost_usd": 0.0344094,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3159,
+      "cache_read_input_tokens": 947,
+      "output_tokens": 447,
+      "output_tokens_details": {
+        "thinking_tokens": 166
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3159,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 447,
+          "cache_read_input_tokens": 947,
+          "cache_creation_input_tokens": 3159,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3159
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 447,
+        "cacheReadInputTokens": 947,
+        "cacheCreationInputTokens": 3159,
+        "webSearchRequests": 0,
+        "costUSD": 0.0344094,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 166,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3159,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8012938003, \"verdict\": \"Not Relevant\", \"failed_conditions\": [4, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains 'Software Engineer' and has no excluded words, the department is Engineering, and the location is Boston, MA, so conditions 1, 2, 3, and 6 pass. Condition 4 fails because the posting content matches only one of the résumé skills, Python, as a complete term. 'MySQL' does not count as a complete-term match for SQL, and Docker, Java, and the other skills do not appear. Condition 5 fails because the content requires '7+ years of experience', which exceeds the 3-year maximum.\"}",
+    "ttft_ms": 2454,
+    "type": "result",
+    "duration_ms": 7118,
+    "uuid": "32d81d9f-779f-466f-b5d7-444873955078",
+    "ttft_stream_ms": 826,
+    "time_to_request_ms": 41,
+    "time_to_request_phases_ms": {
+      "other": 8,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 11,
+      "input_hooks": 1,
+      "tool_pool_refresh": 1,
+      "init_message": 3,
+      "engine_pickup": 1,
+      "message_prep": 0,
+      "model_config_wait": 1,
+      "autocompact": 0,
+      "query_setup": 1,
+      "model_gates": 0,
+      "tool_schema_build": 1,
+      "message_normalization": 0,
+      "client_creation": 9,
+      "request_build": 2
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 0,
+    "time_to_request_cpu_ms": 66,
+    "time_to_request_major_faults": 1,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 9,
+      "cpu_ms": 19,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 826,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

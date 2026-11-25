@@ -1,0 +1,176 @@
+{
+  "record": {
+    "judge": "Claude (judgment, not a fact)",
+    "called_at": "2026-10-31T19:56:31+00:00",
+    "model": "claude-opus-5-5",
+    "prompt_file": "prompts/revision-1-quote-evidence.md",
+    "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+    "posting_id": 8188906,
+    "tag": "devrev1",
+    "raw_text": "{\"posting_id\": 8188906, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Against the résumé target_roles and exclusions, the posting title \\\"Manager, Data Mining - Payment Integrity\\\" contains none of the required role phrases (1) and contains the excluded whole word \\\"Manager\\\" (6). The posting departments value \\\"Insurance Operations\\\" is not an allowed department (2). Against the résumé location and remote_ok, the posting location and offices say \\\"New York, New York, United States\\\" with \\\"3 days of in-office work per week\\\" and no US-remote option (3). In the posting content, only one résumé skill appears (\\\"Experience with SQL\\\"), short of the two required (4), and the posting requires \\\"4+ years experience in healthcare operations\\\", which exceeds the résumé experience_years of 3 (5).\"}",
+    "valid": true,
+    "errors": [],
+    "parsed": {
+      "posting_id": 8188906,
+      "verdict": "Not Relevant",
+      "failed_conditions": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "resume_fields": [
+        "target_roles",
+        "skills",
+        "experience_years",
+        "location",
+        "remote_ok",
+        "exclusions"
+      ],
+      "posting_fields": [
+        "title",
+        "departments",
+        "location",
+        "offices",
+        "content"
+      ],
+      "justification": "Against the résumé target_roles and exclusions, the posting title \"Manager, Data Mining - Payment Integrity\" contains none of the required role phrases (1) and contains the excluded whole word \"Manager\" (6). The posting departments value \"Insurance Operations\" is not an allowed department (2). Against the résumé location and remote_ok, the posting location and offices say \"New York, New York, United States\" with \"3 days of in-office work per week\" and no US-remote option (3). In the posting content, only one résumé skill appears (\"Experience with SQL\"), short of the two required (4), and the posting requires \"4+ years experience in healthcare operations\", which exceeds the résumé experience_years of 3 (5)."
+    },
+    "session_id": "b2af1d4d-c793-4dc5-9726-55070e8aaf85",
+    "cost_usd": 0.038028
+  },
+  "cli_output": {
+    "duration_api_ms": 5246,
+    "stop_reason": "end_turn",
+    "session_id": "b2af1d4d-c793-4dc5-9726-55070e8aaf85",
+    "total_cost_usd": 0.038028,
+    "usage": {
+      "input_tokens": 2,
+      "cache_creation_input_tokens": 3405,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 539,
+      "output_tokens_details": {
+        "thinking_tokens": 173
+      },
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 3405,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "global",
+      "iterations": [
+        {
+          "input_tokens": 2,
+          "output_tokens": 539,
+          "cache_read_input_tokens": 0,
+          "cache_creation_input_tokens": 3405,
+          "cache_creation": {
+            "ephemeral_5m_input_tokens": 0,
+            "ephemeral_1h_input_tokens": 3405
+          },
+          "type": "message"
+        }
+      ],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {
+      "claude-opus-5-5": {
+        "inputTokens": 2,
+        "outputTokens": 539,
+        "cacheReadInputTokens": 0,
+        "cacheCreationInputTokens": 3405,
+        "webSearchRequests": 0,
+        "costUSD": 0.038028,
+        "contextWindow": 1000000,
+        "maxOutputTokens": 128000,
+        "thinkingTokens": 173,
+        "cacheCreationEphemeral5mInputTokens": 0,
+        "cacheCreationEphemeral1hInputTokens": 3405,
+        "canonicalModel": "claude-opus-5-5",
+        "provider": "firstParty",
+        "costBasis": "list"
+      }
+    },
+    "permission_denials": [],
+    "terminal_reason": "completed",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": false,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": null,
+    "result": "{\"posting_id\": 8188906, \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Against the résumé target_roles and exclusions, the posting title \\\"Manager, Data Mining - Payment Integrity\\\" contains none of the required role phrases (1) and contains the excluded whole word \\\"Manager\\\" (6). The posting departments value \\\"Insurance Operations\\\" is not an allowed department (2). Against the résumé location and remote_ok, the posting location and offices say \\\"New York, New York, United States\\\" with \\\"3 days of in-office work per week\\\" and no US-remote option (3). In the posting content, only one résumé skill appears (\\\"Experience with SQL\\\"), short of the two required (4), and the posting requires \\\"4+ years experience in healthcare operations\\\", which exceeds the résumé experience_years of 3 (5).\"}",
+    "ttft_ms": 2433,
+    "type": "result",
+    "duration_ms": 8116,
+    "uuid": "d47fea66-5c92-4eea-925f-ef2cb76ff262",
+    "ttft_stream_ms": 856,
+    "time_to_request_ms": 95,
+    "time_to_request_phases_ms": {
+      "other": 14,
+      "system_prompt": 1,
+      "resume_other": 0,
+      "process_user_input": 1,
+      "input_attachments": 18,
+      "input_hooks": 4,
+      "tool_pool_refresh": 1,
+      "init_message": 3,
+      "engine_pickup": 1,
+      "message_prep": 0,
+      "model_config_wait": 1,
+      "autocompact": 1,
+      "query_setup": 0,
+      "model_gates": 33,
+      "tool_schema_build": 1,
+      "message_normalization": 0,
+      "client_creation": 7,
+      "request_build": 9
+    },
+    "turn_start_resume_kind": "none",
+    "process_turn_index": 0,
+    "time_to_request_loop_lag_ms": 34,
+    "time_to_request_cpu_ms": 133,
+    "time_to_request_major_faults": 2,
+    "input_attachments_detail": {
+      "slowest_producer": "session_settings",
+      "slowest_producer_ms": 16,
+      "cpu_ms": 31,
+      "major_faults": 0
+    },
+    "first_content_frame_ms": 856,
+    "queued_turn_count": 0,
+    "result_index": 0
+  }
+}

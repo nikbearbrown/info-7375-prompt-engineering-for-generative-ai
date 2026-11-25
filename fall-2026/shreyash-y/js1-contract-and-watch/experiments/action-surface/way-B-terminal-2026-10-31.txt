@@ -1,0 +1,9 @@
+TOOL_USE Read {"file_path": "/private/var/folders/r0/9dx27nmx021b7_yd_5cmc1pm0000gn/T/js1-surface-B-xa6ugltu/rule.md"}
+TOOL_RESULT 1	You are one judge in a job-search agent. You decide whether ONE job posting is relevant to ONE fictional applicant, using only the rule below. Your answer is 
+TOOL_USE Read {"file_path": "/private/var/folders/r0/9dx27nmx021b7_yd_5cmc1pm0000gn/T/js1-surface-B-xa6ugltu/resume.json"}
+TOOL_RESULT 1	{ 2	 "target_roles": [ 3	  "AI/ML Engineer", 4	  "Software Engineer", 5	  "Backend Engineer", 6	  "Full Stack Engineer", 7	  "LLM Engineer" 8	 ], 9	 "experien
+TOOL_USE Read {"file_path": "/private/var/folders/r0/9dx27nmx021b7_yd_5cmc1pm0000gn/T/js1-surface-B-xa6ugltu/posting.json"}
+TOOL_RESULT 1	{ 2	 "id": 6555819, 3	 "title": "Staff Software Engineer, Backend", 4	 "departments": [ 5	  "Engineering" 6	 ], 7	 "location": "New York, New York, United Sta
+RESULT success turns 4 cost 0.0630538
+{"posting_id": 6555819, "verdict": "Not Relevant", "failed_conditions": [3, 4, 5, 6], "resume_fields": ["target_roles", "experience_years", "skills", "location", "remote_ok", "exclusions"], "posting_fields": ["id", "title", "departments", "location", "offices", "content"], "justification": "The title contains 'Software Engineer' (in target_roles) and the department is Engineering, so conditions 1 and 2 pass. The location is New York, and although offices lists 'Remote', the content says the role is hybrid and requires living near the NYC, Tempe or LA office, so it fails the Boston/remote_ok location rule and the relocation exclusion. The content mentions none of the résumé skills (it names n
+files after: ['posting.json', 'resume.json', 'rule.md']

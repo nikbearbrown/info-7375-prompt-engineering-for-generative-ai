@@ -1,0 +1,42 @@
+experiments/experiment-2/dev-baseline/e2devbase-summary.jsonl  (prompt sha256 60bc794a6b2e, claude-opus-5-5)
+  answers 10; passed validator 10/10
+  PASS MARK, verdict = hand label: 10/10
+  failed-condition set = rule record (not a hand label): 8/10; disagreements by condition: {1: 0, 2: 0, 3: 1, 4: 0, 5: 1, 6: 0}
+  evidence quotes: answers with a double-quoted posting span 0/10; spans found word for word in the posting 0/0
+  8041054003  hand Relevant     Claude Relevant     Claude failed []  rule failed []  same  | Software Engineer, Conversational Products & Agent Workflows
+  7801047003  hand Not Relevant Claude Not Relevant Claude failed [5, 6]  rule failed [5, 6]  same  | Sr. Lead Software Engineer
+  7783904003  hand Not Relevant Claude Not Relevant Claude failed [4, 5]  rule failed [4]  differ on [5]  | Senior Software Engineer, Platform Engineering
+  7696724003  hand Relevant     Claude Relevant     Claude failed []  rule failed []  same  | Senior Software Engineer - Growth
+  8006729003  hand Not Relevant Claude Not Relevant Claude failed [3]  rule failed [3]  same  | Software Engineer II - SMS International
+  7597868003  hand Not Relevant Claude Not Relevant Claude failed [5]  rule failed [5]  same  | Senior Software Engineer - Profiles, Lists and Segments
+  7855798003  hand Not Relevant Claude Not Relevant Claude failed [4]  rule failed [4]  same  | Software Engineer II - Recommendations
+  7822352003  hand Not Relevant Claude Not Relevant Claude failed [2, 5]  rule failed [2, 3, 5]  differ on [3]  | Full Stack Software Engineer - People Systems
+  7986459003  hand Not Relevant Claude Not Relevant Claude failed [5]  rule failed [5]  same  | Senior Software Engineer - Identity and Access Management
+  7855802003  hand Not Relevant Claude Not Relevant Claude failed [3, 4, 5]  rule failed [3, 4, 5]  same  | Senior Machine Learning Engineer
+experiments/experiment-2/dev-revision1/e2devrev-summary.jsonl  (prompt sha256 827c5127d914, claude-opus-5-5)
+  answers 10; passed validator 10/10
+  PASS MARK, verdict = hand label: 10/10
+  failed-condition set = rule record (not a hand label): 8/10; disagreements by condition: {1: 0, 2: 0, 3: 1, 4: 0, 5: 1, 6: 0}
+  evidence quotes: answers with a double-quoted posting span 10/10; spans found word for word in the posting 38/39
+  8041054003  hand Relevant     Claude Relevant     Claude failed []  rule failed []  same  | Software Engineer, Conversational Products & Agent Workflows
+  7801047003  hand Not Relevant Claude Not Relevant Claude failed [5, 6]  rule failed [5, 6]  same  | Sr. Lead Software Engineer
+  7783904003  hand Not Relevant Claude Not Relevant Claude failed [4, 5]  rule failed [4]  differ on [5]  | Senior Software Engineer, Platform Engineering
+  7696724003  hand Relevant     Claude Relevant     Claude failed []  rule failed []  same  | Senior Software Engineer - Growth
+  8006729003  hand Not Relevant Claude Not Relevant Claude failed [3]  rule failed [3]  same  | Software Engineer II - SMS International
+  7597868003  hand Not Relevant Claude Not Relevant Claude failed [5]  rule failed [5]  same  | Senior Software Engineer - Profiles, Lists and Segments
+  7855798003  hand Not Relevant Claude Not Relevant Claude failed [4]  rule failed [4]  same  | Software Engineer II - Recommendations
+  7822352003  hand Not Relevant Claude Not Relevant Claude failed [2, 5]  rule failed [2, 3, 5]  differ on [3]  | Full Stack Software Engineer - People Systems
+  7986459003  hand Not Relevant Claude Not Relevant Claude failed [5]  rule failed [5]  same  | Senior Software Engineer - Identity and Access Management
+  7855802003  hand Not Relevant Claude Not Relevant Claude failed [3, 4, 5]  rule failed [3, 4, 5]  same  | Senior Machine Learning Engineer
+
+experiments/experiment-2/dev-baseline/e2devbase-summary.jsonl: scored against Shreyash's per-condition hand labels
+  Claude          verdict = hand 10/10; failed set = hand 9/10; Relevant: TP 2 FP 0 FN 0; condition disagreements {1: 0, 2: 0, 3: 1, 4: 0, 5: 0, 6: 0}
+      7822352003 Full Stack Software Engineer - People Systems      hand Not Relevant [2, 3, 5]  Claude Not Relevant [2, 5]
+  rule v1 record  verdict = hand 10/10; failed set = hand 9/10; Relevant: TP 2 FP 0 FN 0; condition disagreements {1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 0}
+      7783904003 Senior Software Engineer, Platform Engineering     hand Not Relevant [4, 5]  rule v1 record Not Relevant [4]
+
+experiments/experiment-2/dev-revision1/e2devrev-summary.jsonl: scored against Shreyash's per-condition hand labels
+  Claude          verdict = hand 10/10; failed set = hand 9/10; Relevant: TP 2 FP 0 FN 0; condition disagreements {1: 0, 2: 0, 3: 1, 4: 0, 5: 0, 6: 0}
+      7822352003 Full Stack Software Engineer - People Systems      hand Not Relevant [2, 3, 5]  Claude Not Relevant [2, 5]
+  rule v1 record  verdict = hand 10/10; failed set = hand 9/10; Relevant: TP 2 FP 0 FN 0; condition disagreements {1: 0, 2: 0, 3: 0, 4: 0, 5: 1, 6: 0}
+      7783904003 Senior Software Engineer, Platform Engineering     hand Not Relevant [4, 5]  rule v1 record Not Relevant [4]
