@@ -1,6 +1,6 @@
 # FILTER — Job-Search Agent 3
 
-**Version 1.1.0-a — 2026-11-25.** v1.0.0 was written before any filter or scorer code (`bb88c420`). v1.1.0-a changes the experience definition **after** the v1.0.0 audit results were seen (§9).
+**Version 1.1.0-b — 2026-11-25.** v1.0.0 was written before any filter or scorer code (`bb88c420`). v1.1.0-a changes the experience definition **after** the v1.0.0 audit results were seen (§9).
 
 This is the gate. The filter is this document: the machine-readable block in §6 is what the
 code loads (`src/spec.mjs`). No weight, word, or threshold lives anywhere else. To change the
@@ -410,7 +410,7 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
 
 ```json filter-spec
 {
-  "version": "1.1.0-a",
+  "version": "1.1.0-b",
   "title": {
     "cut_chars": [",", " - ", "(", ":"],
     "tiers": {
@@ -419,7 +419,7 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
     },
     "junior_terms": ["Associate", "APM", "Intern", "New Grad"]
   },
-  "topic": { "terms": ["payments", "fintech", "data", "e-commerce", "ecommerce", "mobile"], "saturate_at": 2 },
+  "topic": { "terms": ["payments", "fintech", "data", "e-commerce", "ecommerce", "mobile"], "saturate_at": 2, "exclude_shared_lines_min_share": 0.2 },
   "experience": { "stretch_value": 0.5, "junior_upper_max": 2, "impute": 0.5 },
   "location": { "aliases": { "sf": "San Francisco", "bay area": "San Francisco", "la": "Los Angeles" }, "impute": 0.0 },
   "vetoes": {
@@ -471,3 +471,4 @@ gates (Aravind, Checkpoint 1). Origin: hand-set v1.
 |---|---|---|---|---|
 | 1.0.0 | 2026-11-25 | First committed version. The draft had threshold 0.70; it was set to 0.80 at Checkpoint 1, before commit, and W13 was added. | §6 reason line | No labels yet. Counts only (§5.1): keep 0 / cannot_tell 3 / reject 1,061 at 0.80 |
 | 1.1.0-a | 2026-11-25 | Experience tiers follow the corrected persona: N ≤ 4 → 1.0, 5–6 → 0.5, ≥ 7 → 0 (was ≤ 3 → 1.0, 4 → 0.5, ≥ 5 → 0). `persona-prefs.json`: `years_pm` replaced by `preferred_max_years` 4, `stretch_max_years` 6 (`f3cefa22`). | **The definition changed after the first-pass audit verdicts were seen** (`1c9ce17b`, `2c29cbab`). Cited audit rows: the 12 rejected closest calls A005, A010, A013, A020, A025, A027, A030, A037, A044, A047, A049, A052. Under v1.0.0, all 12 had T = 1 and L = 1 and failed only on experience (E = 0). This is dev use of the audit sample: v1.1.0-a cannot be validated on those rows. | Snapshot counts, v1.0.0 → v1.1.0-a: keep 0 → 7, cannot_tell 3 → 3, reject 1,061 → 1,054. 7 decisions changed, all reject → keep: A005, A020, A025, A027, A044, A052, and A065 (an unjudged PM-stratum row). 6 of the 12 cited rows are still rejected: A013, A030, A037, A049 (8+ years), A047 (10+), and A010 ("6–10+ years", misread as 10+; §5.1). |
+| 1.1.0-b | 2026-11-25 | Topic words count only in the title, the department, and text lines **not** shared by ≥ 20% of the board's postings (`topic.exclude_shared_lines_min_share` 0.2; the same exact-line rule as the sheet excerpts, `src/boilerplate.mjs`). Shared lines found: Airbnb 16, Stripe 6, Spotify 3. | Boilerplate topic words carry no signal about the role (§1.2 note; corpus check `e0d80ff0` and `audit/false-friend-candidates.md`). This change can only lower P, so it can only remove postings (§5.2 amendment). Cited audit rows whose P fell because "payments" was only in a shared line: A001, A003, A006, A009, A016, A017, A027, A028, A032, A044, A059, A063, A065. | v1.1.0-a → v1.1.0-b: keep 7 → 6, cannot_tell 3 → 3, reject 1,054 → 1,055. P changed for 165 postings, and the only term lost was `payments` (190 postings). **1 decision changed: A065** (Product Manager, Sandboxes; unjudged PM-stratum row), keep → reject, score 0.825 → 0.775. Its only topic word was boilerplate "payments". **No judged audit row's keep/reject outcome depended on boilerplate "payments" or "data"**: A027 and A044 dropped from P = 1 to 0.5 but stayed keep (0.825). Residual: the rule matches only exact copies of a line, so 159 Stripe postings still count "payments" that appears only in a reworded company intro, and boilerplate "data" was not removed anywhere. |
