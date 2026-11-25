@@ -14,6 +14,11 @@ Ethan's third choice, 2026-11-25, before any label: drop postings that ask for 6
 Ethan reviewed all 25 drops with their quoted phrases. One of them (Zoox "Engineering Manager, Robot Data Visualization": "3+
 years ... managing" then "7+ years ... software development") is a case the first-phrase rule F4 would read as 3.
 
+Ethan's fourth choice, 2026-11-25, after 13 labels: 10 more postings asked for 6+ years but slipped past the rule above,
+because "experience" was more than 60 characters away or absent ("6+ years in solutions architecture"). They were deleted
+from labels/labels.csv IN PLACE (no reshuffle, no re-split; one, n=7, had been labeled not_relevant): n = 7, 11, 20, 23, 32,
+43, 44, 49, 61, 71. This script alone therefore no longer reproduces the sheet; it reproduces the 82 before that deletion.
+
     python3 scripts/make_label_sheet.py
 """
 import csv
