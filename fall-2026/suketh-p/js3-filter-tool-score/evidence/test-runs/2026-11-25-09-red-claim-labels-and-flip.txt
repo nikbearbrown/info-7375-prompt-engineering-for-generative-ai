@@ -1,0 +1,21 @@
+$ python3 -m unittest tests.test_claim_labels
+# 2026-11-25T13:04:30Z, tests for reading the student's pasted claim labels and the flip challenge's reply; jobwatch/claim_labels.py and jobwatch/flip.py do not exist yet
+E
+======================================================================
+ERROR: test_claim_labels (unittest.loader._FailedTest.test_claim_labels)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_claim_labels
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_claim_labels.py", line 10, in <module>
+    from jobwatch import claim_labels, flip
+ImportError: cannot import name 'claim_labels' from 'jobwatch' (~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/jobwatch/__init__.py)
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (errors=1)
+# exit code 1

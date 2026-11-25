@@ -1,0 +1,81 @@
+# The student's own run of the three checks, pasted from their own Terminal in chat on 2026-11-25 (arrived by about 08:51 EST).
+# Run from this folder on the committed code. Transcribed by Claude Code from the paste: the shell prompt (user and
+# machine name) is shown as the folder and "$", and the home folder is shown as ~. Nothing else is changed.
+~ $ cd "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score"
+js3-filter-tool-score $ python3 -B -W error -m unittest -v tests.test_filter_doc tests.test_experience tests.test_evidence tests.test_claim_labels tests.test_mcp_server
+test_numbers_appear_in_filter_md (tests.test_filter_doc.FilterDocumentTest.test_numbers_appear_in_filter_md) ... ok
+test_the_us_country_words_are_the_ones_the_chosen_option_names (tests.test_filter_doc.FilterDocumentTest.test_the_us_country_words_are_the_ones_the_chosen_option_names) ... ok
+test_the_v0_2_threshold_appears_in_filter_md (tests.test_filter_doc.FilterDocumentTest.test_the_v0_2_threshold_appears_in_filter_md) ... ok
+test_word_lists_appear_in_filter_md (tests.test_filter_doc.FilterDocumentTest.test_word_lists_appear_in_filter_md) ... ok
+test_a_blank_description_sets_no_minimum (tests.test_experience.ReadingTest.test_a_blank_description_sets_no_minimum) ... ok
+test_a_bold_paragraph_is_a_heading (tests.test_experience.ReadingTest.test_a_bold_paragraph_is_a_heading) ... ok
+test_a_bold_prefix_is_not_a_heading (tests.test_experience.ReadingTest.test_a_bold_prefix_is_not_a_heading) ... ok
+test_a_four_year_degree_is_not_experience (tests.test_experience.ReadingTest.test_a_four_year_degree_is_not_experience) ... ok
+test_a_preferred_heading_marks_its_items_preferred (tests.test_experience.ReadingTest.test_a_preferred_heading_marks_its_items_preferred) ... ok
+test_a_range_reads_its_lower_end (tests.test_experience.ReadingTest.test_a_range_reads_its_lower_end) ... ok
+test_a_requirement_list_item_sets_the_minimum (tests.test_experience.ReadingTest.test_a_requirement_list_item_sets_the_minimum) ... ok
+test_benefits_and_history_are_not_requirements (tests.test_experience.ReadingTest.test_benefits_and_history_are_not_requirements) ... ok
+test_escaped_html_is_decoded_first (tests.test_experience.ReadingTest.test_escaped_html_is_decoded_first) ... ok
+test_five_years_preferred_in_the_item_itself (tests.test_experience.ReadingTest.test_five_years_preferred_in_the_item_itself) ... ok
+test_statements_are_recorded_with_their_heading (tests.test_experience.ReadingTest.test_statements_are_recorded_with_their_heading) ... ok
+test_the_largest_stated_minimum_counts (tests.test_experience.ReadingTest.test_the_largest_stated_minimum_counts) ... ok
+test_the_word_experience_is_not_needed (tests.test_experience.ReadingTest.test_the_word_experience_is_not_needed) ... ok
+test_words_and_other_forms (tests.test_experience.ReadingTest.test_words_and_other_forms) ... ok
+test_preferred_years_do_not_reject (tests.test_experience.RuleTest.test_preferred_years_do_not_reject) ... ok
+test_the_record_shows_what_the_rule_read (tests.test_experience.RuleTest.test_the_record_shows_what_the_rule_read) ... ok
+test_the_rule_is_off_in_v0_1 (tests.test_experience.RuleTest.test_the_rule_is_off_in_v0_1) ... ok
+test_the_rule_reads_only_the_description (tests.test_experience.RuleTest.test_the_rule_reads_only_the_description) ... ok
+test_the_v0_2_variant_changes_one_object (tests.test_experience.RuleTest.test_the_v0_2_variant_changes_one_object) ... ok
+test_three_years_is_enough_to_reject (tests.test_experience.RuleTest.test_three_years_is_enough_to_reject) ... ok
+test_two_years_does_not_reject (tests.test_experience.RuleTest.test_two_years_does_not_reject) ... ok
+test_every_committed_v0_1_record_is_reproduced (tests.test_experience.V01UnchangedTest.test_every_committed_v0_1_record_is_reproduced) ... ok
+test_an_unlabelled_claim_stays_not_reviewed_even_with_a_found_quote (tests.test_evidence.LabelTest.test_an_unlabelled_claim_stays_not_reviewed_even_with_a_found_quote) ... ok
+test_only_the_four_labels_are_accepted (tests.test_evidence.LabelTest.test_only_the_four_labels_are_accepted) ... ok
+test_silence_on_sponsorship_is_said_in_the_students_words (tests.test_evidence.LabelTest.test_silence_on_sponsorship_is_said_in_the_students_words) ... ok
+test_wv4_an_exact_quote_is_not_sufficient_evidence (tests.test_evidence.LabelTest.test_wv4_an_exact_quote_is_not_sufficient_evidence) ... ok
+test_a_quote_is_found_only_word_for_word_in_the_saved_text (tests.test_evidence.QuoteCheckTest.test_a_quote_is_found_only_word_for_word_in_the_saved_text) ... ok
+test_the_quote_check_names_what_it_checked (tests.test_evidence.QuoteCheckTest.test_the_quote_check_names_what_it_checked) ... ok
+test_a_claim_is_changed_at_most_once (tests.test_claim_labels.ApplyDecisionsTest.test_a_claim_is_changed_at_most_once) ... ok
+test_a_decision_changes_the_label_and_keeps_the_first_one (tests.test_claim_labels.ApplyDecisionsTest.test_a_decision_changes_the_label_and_keeps_the_first_one) ... ok
+test_a_decision_must_start_from_the_label_the_student_gave (tests.test_claim_labels.ApplyDecisionsTest.test_a_decision_must_start_from_the_label_the_student_gave) ... ok
+test_the_final_labels_are_the_first_labels_with_the_recorded_decisions (tests.test_claim_labels.CommittedClaimLabelsTest.test_the_final_labels_are_the_first_labels_with_the_recorded_decisions) ... ok
+test_the_json_matches_the_paste_and_the_claims (tests.test_claim_labels.CommittedClaimLabelsTest.test_the_json_matches_the_paste_and_the_claims) ... ok
+test_argues_for_must_be_a_label_or_null (tests.test_claim_labels.FlipReplyTest.test_argues_for_must_be_a_label_or_null) ... ok
+test_each_sentence_is_checked_against_the_posting (tests.test_claim_labels.FlipReplyTest.test_each_sentence_is_checked_against_the_posting) ... ok
+test_every_claim_must_be_challenged_once (tests.test_claim_labels.FlipReplyTest.test_every_claim_must_be_challenged_once) ... ok
+test_a_note_under_the_wrong_label_is_refused (tests.test_claim_labels.ParseTest.test_a_note_under_the_wrong_label_is_refused) ... ok
+test_a_suffix_label_applies_to_every_rank (tests.test_claim_labels.ParseTest.test_a_suffix_label_applies_to_every_rank) ... ok
+test_an_insufficient_claim_needs_a_note (tests.test_claim_labels.ParseTest.test_an_insufficient_claim_needs_a_note) ... ok
+test_an_unknown_label_is_refused (tests.test_claim_labels.ParseTest.test_an_unknown_label_is_refused) ... ok
+test_every_claim_gets_exactly_one_label (tests.test_claim_labels.ParseTest.test_every_claim_gets_exactly_one_label) ... ok
+test_notes_attach_by_id_and_by_suffix_at_all_ranks (tests.test_claim_labels.ParseTest.test_notes_attach_by_id_and_by_suffix_at_all_ranks) ... ok
+test_the_rank_count_in_words_must_match (tests.test_claim_labels.ParseTest.test_the_rank_count_in_words_must_match) ... ok
+test_the_text_around_the_tables_is_kept_as_written (tests.test_claim_labels.ParseTest.test_the_text_around_the_tables_is_kept_as_written) ... ok
+test_a_supported_version_is_echoed_and_an_unsupported_one_gets_the_latest (tests.test_mcp_server.InitializeTest.test_a_supported_version_is_echoed_and_an_unsupported_one_gets_the_latest) ... ok
+test_initialize_without_its_required_fields_is_refused_and_changes_nothing (tests.test_mcp_server.InitializeTest.test_initialize_without_its_required_fields_is_refused_and_changes_nothing) ... ok
+test_a_notification_never_gets_a_response_even_when_ready (tests.test_mcp_server.LifecycleTableTest.test_a_notification_never_gets_a_response_even_when_ready) ... ok
+test_ping_is_answered_in_any_state (tests.test_mcp_server.LifecycleTableTest.test_ping_is_answered_in_any_state) ... ok
+test_rows (tests.test_mcp_server.LifecycleTableTest.test_rows) ... ok
+test_every_response_carries_the_id_of_its_request (tests.test_mcp_server.MessageShapeTest.test_every_response_carries_the_id_of_its_request) ... ok
+test_parse_error_batch_and_bad_ids (tests.test_mcp_server.MessageShapeTest.test_parse_error_batch_and_bad_ids) ... ok
+test_unknown_method_once_ready (tests.test_mcp_server.MessageShapeTest.test_unknown_method_once_ready) ... ok
+test_a_missing_posting_is_a_tool_error_not_a_protocol_error (tests.test_mcp_server.ToolTest.test_a_missing_posting_is_a_tool_error_not_a_protocol_error) ... ok
+test_the_call_enforces_what_the_schema_declares (tests.test_mcp_server.ToolTest.test_the_call_enforces_what_the_schema_declares) ... ok
+test_the_listing_declares_one_read_only_tool_and_its_schema (tests.test_mcp_server.ToolTest.test_the_listing_declares_one_read_only_tool_and_its_schema) ... ok
+test_the_value_matches_the_declared_source (tests.test_mcp_server.ToolTest.test_the_value_matches_the_declared_source) ... ok
+----------------------------------------------------------------------
+Ran 60 tests in 2.336s
+
+OK
+js3-filter-tool-score $ python3 -B -m jobwatch verify runs/2026-11-24-js3-corpus
+OK       raw/greenhouse-anthropic.body.gz  9545028 bytes  sha256 25ab0e62b65a964709dcd994f93a1ca6c51ed42450a97c4a199c39066a480292
+OK       raw/greenhouse-databricks.body.gz  9748826 bytes  sha256 438008f8ae9c53a9e1b5cea9f15b5a97771ad3d7742d12dd8985930036336e89
+OK       raw/ashby-linear.body.gz  418959 bytes  sha256 ffbe5745fc0c4a3e1e3105ffba661f7739590d711034b53907e94832bd03851b
+js3-filter-tool-score $ python3 -I -B checks/independent_check.py runs/2026-11-24-js3-corpus --state-before evidence/state/before-2026-11-24-js3-corpus.json --state-after evidence/state/after-2026-11-24-js3-corpus.json
+  report: status incomplete, state_advanced False
+  greenhouse/anthropic: saved body is HTTP 200, 9545028 bytes, 631 jobs
+  greenhouse/databricks: saved body is HTTP 200, 9748826 bytes, 890 jobs
+  ashby/linear: saved body is HTTP 200, 418959 bytes, 30 jobs
+  state file unchanged between the two copies
+PASS: no contradiction found between the report, the saved bodies and the state files
+js3-filter-tool-score $

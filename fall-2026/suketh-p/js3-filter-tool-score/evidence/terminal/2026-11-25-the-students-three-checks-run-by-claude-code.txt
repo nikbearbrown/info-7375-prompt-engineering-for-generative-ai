@@ -1,0 +1,22 @@
+# Claude Code's run of the three commands the student named in chat (2026-11-25), to check the results the student reported.
+# This is NOT the student's own run. Folder: fall-2026/suketh-p/js3-filter-tool-score, commit 7e4ae241, started 2026-11-25T13:43:07Z
+$ python3 -B -W error -m unittest -v tests.test_filter_doc tests.test_experience tests.test_evidence tests.test_claim_labels tests.test_mcp_server
+----------------------------------------------------------------------
+Ran 60 tests in 2.223s
+
+OK
+# exit code 0
+$ python3 -B -m jobwatch verify runs/2026-11-24-js3-corpus
+OK       raw/greenhouse-anthropic.body.gz  9545028 bytes  sha256 25ab0e62b65a964709dcd994f93a1ca6c51ed42450a97c4a199c39066a480292
+OK       raw/greenhouse-databricks.body.gz  9748826 bytes  sha256 438008f8ae9c53a9e1b5cea9f15b5a97771ad3d7742d12dd8985930036336e89
+OK       raw/ashby-linear.body.gz  418959 bytes  sha256 ffbe5745fc0c4a3e1e3105ffba661f7739590d711034b53907e94832bd03851b
+# exit code 0
+$ python3 -I -B checks/independent_check.py runs/2026-11-24-js3-corpus --state-before evidence/state/before-2026-11-24-js3-corpus.json --state-after evidence/state/after-2026-11-24-js3-corpus.json
+  report: status incomplete, state_advanced False
+  greenhouse/anthropic: saved body is HTTP 200, 9545028 bytes, 631 jobs
+  greenhouse/databricks: saved body is HTTP 200, 9748826 bytes, 890 jobs
+  ashby/linear: saved body is HTTP 200, 418959 bytes, 30 jobs
+  state file unchanged between the two copies
+PASS: no contradiction found between the report, the saved bodies and the state files
+# exit code 0
+# ended 2026-11-25T13:43:10Z

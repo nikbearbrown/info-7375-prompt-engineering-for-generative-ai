@@ -1,0 +1,50 @@
+$ python3 -m unittest tests.test_claim_labels
+# 2026-11-25T13:19:31Z, tests for applying the student's flip decisions written; flip.apply_decisions, flip-decisions.json and claim-labels-final.json do not exist yet
+EEEE............
+======================================================================
+ERROR: test_a_claim_is_changed_at_most_once (tests.test_claim_labels.ApplyDecisionsTest.test_a_claim_is_changed_at_most_once)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_claim_labels.py", line 114, in test_a_claim_is_changed_at_most_once
+    flip.apply_decisions(self.LABELS, [{"ids": ["R1-C1"], "from": "supported", "to": "insufficient", "note": "x",
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'jobwatch.flip' has no attribute 'apply_decisions'
+
+======================================================================
+ERROR: test_a_decision_changes_the_label_and_keeps_the_first_one (tests.test_claim_labels.ApplyDecisionsTest.test_a_decision_changes_the_label_and_keeps_the_first_one)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_claim_labels.py", line 99, in test_a_decision_changes_the_label_and_keeps_the_first_one
+    final = flip.apply_decisions(self.LABELS, [{"ids": ["R1-C1"], "from": "supported", "to": "insufficient",
+            ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'jobwatch.flip' has no attribute 'apply_decisions'
+
+======================================================================
+ERROR: test_a_decision_must_start_from_the_label_the_student_gave (tests.test_claim_labels.ApplyDecisionsTest.test_a_decision_must_start_from_the_label_the_student_gave)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_claim_labels.py", line 109, in test_a_decision_must_start_from_the_label_the_student_gave
+    flip.apply_decisions(self.LABELS, [{"ids": ["R1-C2"], "from": "supported", "to": "contradicted",
+    ^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'jobwatch.flip' has no attribute 'apply_decisions'
+
+======================================================================
+ERROR: test_the_final_labels_are_the_first_labels_with_the_recorded_decisions (tests.test_claim_labels.CommittedClaimLabelsTest.test_the_final_labels_are_the_first_labels_with_the_recorded_decisions)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/tests/test_claim_labels.py", line 134, in test_the_final_labels_are_the_first_labels_with_the_recorded_decisions
+    decisions = json.loads((ROOT / "shortlist" / "v0.1" / "flip-decisions.json").read_text(encoding="utf-8"))
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: '~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/shortlist/v0.1/flip-decisions.json'
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.002s
+
+FAILED (errors=4)
+# exit code 1

@@ -1,0 +1,52 @@
+{
+ "command": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--mcp-config",
+  "<temporary folder>/mcp-config.json",
+  "--strict-mcp-config",
+  "--allowedTools",
+  "mcp__jobwatch__score_posting",
+  "--tools",
+  "",
+  "--setting-sources",
+  "",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "stream-json",
+  "--verbose"
+ ],
+ "cwd": "<an empty temporary folder>",
+ "stdin": "transcripts/prompts/2026-11-24-claude-code-session.txt",
+ "env_added": {
+  "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1"
+ },
+ "mcp_config": {
+  "mcpServers": {
+   "jobwatch": {
+    "type": "stdio",
+    "command": "python3",
+    "args": [
+     "-B",
+     "-m",
+     "jobwatch.mcp_tap",
+     "--log",
+     "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score/transcripts/2026-11-24-claude-code-session.jsonl",
+     "--",
+     "python3",
+     "-B",
+     "-m",
+     "jobwatch.mcp_server"
+    ],
+    "env": {
+     "PYTHONPATH": "~/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js3-filter-tool-score"
+    }
+   }
+  }
+ },
+ "returncode": 0,
+ "stderr": ""
+}

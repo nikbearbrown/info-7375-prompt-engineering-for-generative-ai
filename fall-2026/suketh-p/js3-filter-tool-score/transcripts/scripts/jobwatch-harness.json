@@ -1,0 +1,122 @@
+[
+ {
+  "note": "a line that is not JSON",
+  "raw": "{"
+ },
+ {
+  "note": "tools/list before initialize",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 1,
+   "method": "tools/list"
+  }
+ },
+ {
+  "note": "the notification before initialize",
+  "message": {
+   "jsonrpc": "2.0",
+   "method": "notifications/initialized"
+  },
+  "expect_response": false
+ },
+ {
+  "note": "initialize, asking for a version the server does not support",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 2,
+   "method": "initialize",
+   "params": {
+    "protocolVersion": "unsupported-fixture",
+    "capabilities": {},
+    "clientInfo": {
+     "name": "jobwatch-harness",
+     "version": "0.1.0"
+    }
+   }
+  }
+ },
+ {
+  "note": "tools/list after initialize, before the notification",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 3,
+   "method": "tools/list"
+  }
+ },
+ {
+  "note": "the notification",
+  "message": {
+   "jsonrpc": "2.0",
+   "method": "notifications/initialized"
+  },
+  "expect_response": false
+ },
+ {
+  "note": "tools/list when ready",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 4,
+   "method": "tools/list"
+  }
+ },
+ {
+  "note": "a saved posting that FILTER.md v0.1 keeps (not in the label sample or the shortlist)",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 5,
+   "method": "tools/call",
+   "params": {
+    "name": "score_posting",
+    "arguments": {
+     "board": "greenhouse/anthropic",
+     "posting_key": "4020350008"
+    }
+   }
+  }
+ },
+ {
+  "note": "a key that is not in the corpus",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 6,
+   "method": "tools/call",
+   "params": {
+    "name": "score_posting",
+    "arguments": {
+     "board": "ashby/linear",
+     "posting_key": "does-not-exist"
+    }
+   }
+  }
+ },
+ {
+  "note": "arguments as a list",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 7,
+   "method": "tools/call",
+   "params": {
+    "name": "score_posting",
+    "arguments": [
+     "greenhouse/anthropic"
+    ]
+   }
+  }
+ },
+ {
+  "note": "a method the server does not have",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 8,
+   "method": "bad"
+  }
+ },
+ {
+  "note": "ping",
+  "message": {
+   "jsonrpc": "2.0",
+   "id": 9,
+   "method": "ping"
+  }
+ }
+]

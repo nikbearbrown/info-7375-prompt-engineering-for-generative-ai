@@ -1,0 +1,108 @@
+{
+ "asked": "2026-11-25, between 08:09 and 08:20 EST, after the flip run (ended 13:08:27Z) and before any label was changed",
+ "asked_by": "Claude Code, in one question dialog. Every question and option is Claude Code's wording; the answers are the student's choices.",
+ "answers": [
+  {
+   "header": "R3-C3",
+   "question": "R3-C3 claims the role “does not appear open to new graduates because it asks for 5+ years of experience outside of internships.” You labeled it insufficient. Claude cites “Years of experience required will correlate with the internal job level requirements for the position” and says the posting names the level as Staff, so the 5+ years may be a requirement. Does that change your label?",
+   "options": {
+    "Stays insufficient": "The sentence does not change the label. Add a note under Other if you want to give the deciding sentence.",
+    "Becomes supported": "The sentence, with the Staff level, settles that the role is not open to new graduates."
+   },
+   "answer": "Becomes supported"
+  },
+  {
+   "header": "R4-C4",
+   "question": "R4-C4 claims “A good fit has 4+ years of experience in technical roles such as Forward Deployed Engineer, Product Engineer, Software Engineer, or Technical Product Manager.” You labeled it supported. Claude cites “Former technical founders are also encouraged to apply.” as an alternative the claim leaves out. Does that change your label?",
+   "options": {
+    "Stays supported": "The sentence does not change the label.",
+    "Becomes insufficient": "The claim drops an alternative, so it does not preserve the posting's alternatives."
+   },
+   "answer": "Becomes insufficient"
+  },
+  {
+   "header": "Location C2",
+   "question": "Against R5-C2 and R7-C2 (location claims you labeled supported), Claude cites “Currently, we expect all staff to be in one of our offices at least 25% of the time.” as a condition the claims leave out. The sentence is in all eight postings. What happens to the eight location claims (C2)?",
+   "options": {
+    "All eight stay supported": "The hybrid sentence does not change any location label.",
+    "R5-C2 only changes": "R5-C2 becomes insufficient because its claim says remote-friendly; the other seven stay supported.",
+    "All eight insufficient": "Every location claim leaves out the hybrid condition, so all eight become insufficient."
+   },
+   "answer": "All eight insufficient"
+  },
+  {
+   "header": "C7",
+   "question": "Every C7 is the abstention “I cannot tell what this posting says about authorization to work.” You labeled all eight insufficient. Against R7-C7, Claude cites “But if we make you an offer, we will make every reasonable effort to get you a visa, and we retain an immigration lawyer to help with this.” and argues contradicted. The sentence is in all eight postings. What happens to the eight C7 labels?",
+   "options": {
+    "All eight stay insufficient": "The sentence describes visa help, not this role's work-authorization requirement, so the abstention stands.",
+    "All eight contradicted": "The posting does say something about work authorization, so “I cannot tell” is contradicted at every rank."
+   },
+   "answer": "All eight stay insufficient"
+  }
+ ],
+ "changes": [
+  {
+   "ids": [
+    "R3-C3"
+   ],
+   "from": "insufficient",
+   "to": "supported",
+   "note": "The sentence, with the Staff level, settles that the role is not open to new graduates.",
+   "note_by": "Claude Code's option wording, chosen by the student",
+   "question": "R3-C3",
+   "answer": "Becomes supported",
+   "challenge": "proposed by Claude for R3-C3"
+  },
+  {
+   "ids": [
+    "R4-C4"
+   ],
+   "from": "supported",
+   "to": "insufficient",
+   "note": "The claim drops an alternative, so it does not preserve the posting's alternatives.",
+   "note_by": "Claude Code's option wording, chosen by the student",
+   "question": "R4-C4",
+   "answer": "Becomes insufficient",
+   "challenge": "proposed by Claude for R4-C4"
+  },
+  {
+   "ids": [
+    "R1-C2",
+    "R2-C2",
+    "R3-C2",
+    "R4-C2",
+    "R5-C2",
+    "R6-C2",
+    "R7-C2",
+    "R8-C2"
+   ],
+   "from": "supported",
+   "to": "insufficient",
+   "note": "Every location claim leaves out the hybrid condition, so all eight become insufficient.",
+   "note_by": "Claude Code's option wording, chosen by the student",
+   "question": "Location C2",
+   "answer": "All eight insufficient",
+   "challenge": "proposed by Claude for R5-C2 and R7-C2 only; the student applied it to all eight, since the sentence is in all eight postings"
+  }
+ ],
+ "kept": [
+  {
+   "ids": [
+    "R1-C7",
+    "R2-C7",
+    "R3-C7",
+    "R4-C7",
+    "R5-C7",
+    "R6-C7",
+    "R7-C7",
+    "R8-C7"
+   ],
+   "label": "insufficient",
+   "question": "C7",
+   "answer": "All eight stay insufficient",
+   "reason": "The sentence describes visa help, not this role's work-authorization requirement, so the abstention stands.",
+   "reason_by": "Claude Code's option wording, chosen by the student",
+   "challenge": "proposed by Claude for R7-C7 only (contradicted)"
+  }
+ ]
+}

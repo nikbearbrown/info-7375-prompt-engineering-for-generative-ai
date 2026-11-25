@@ -1,0 +1,75 @@
+# The student's first attempt, pasted from their own Terminal in chat on 2026-11-25 (arrived by about 08:51 EST).
+# Run from the home folder, so Python found none of the modules. Transcribed by Claude Code from the paste: the
+# "Last login" line is removed, the shell prompt (user and machine name) is shown as the folder and "$", and the
+# home folder is shown as ~. Nothing else is changed.
+~ $ python3 -B -W error -m unittest -v tests.test_filter_doc tests.test_experience tests.test_evidence tests.test_claim_labels tests.test_mcp_server
+test_filter_doc (unittest.loader._FailedTest.test_filter_doc) ... ERROR
+test_experience (unittest.loader._FailedTest.test_experience) ... ERROR
+test_evidence (unittest.loader._FailedTest.test_evidence) ... ERROR
+test_claim_labels (unittest.loader._FailedTest.test_claim_labels) ... ERROR
+test_mcp_server (unittest.loader._FailedTest.test_mcp_server) ... ERROR
+
+======================================================================
+ERROR: test_filter_doc (unittest.loader._FailedTest.test_filter_doc)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_filter_doc
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_filter_doc'
+
+
+======================================================================
+ERROR: test_experience (unittest.loader._FailedTest.test_experience)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_experience
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_experience'
+
+
+======================================================================
+ERROR: test_evidence (unittest.loader._FailedTest.test_evidence)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_evidence
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_evidence'
+
+
+======================================================================
+ERROR: test_claim_labels (unittest.loader._FailedTest.test_claim_labels)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_claim_labels
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_claim_labels'
+
+
+======================================================================
+ERROR: test_mcp_server (unittest.loader._FailedTest.test_mcp_server)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_mcp_server
+Traceback (most recent call last):
+  File "/opt/anaconda3/lib/python3.12/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+             ^^^^^^^^^^^^^^^^^^^^^^^
+ModuleNotFoundError: No module named 'tests.test_mcp_server'
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.000s
+
+FAILED (errors=5)
+~ $ python3 -B -m jobwatch verify runs/2026-11-24-js3-corpus
+/opt/anaconda3/bin/python3: No module named jobwatch
+~ $ python3 -I -B checks/independent_check.py runs/2026-11-24-js3-corpus --state-before evidence/state/before-2026-11-24-js3-corpus.json --state-after evidence/state/after-2026-11-24-js3-corpus.json 
+python3: can't open file '~/checks/independent_check.py': [Errno 2] No such file or directory
+~ $
