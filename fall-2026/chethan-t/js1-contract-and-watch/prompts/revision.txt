@@ -1,0 +1,29 @@
+You are judging whether a job posting is relevant for a job seeker.
+Use only the résumé and posting below.
+
+Judge with these checks:
+1. Role: is it a software, frontend, or full stack engineer/developer role?
+2. Seniority: if it is Staff, Principal, Manager, or Director level,
+   it is not relevant.
+3. Experience: for Senior or Lead titles, does it ask for more than
+   3 years of experience?
+4. Location: is at least one location in the US?
+5. Work authorization: if it says no visa sponsorship, requires U.S.
+   citizenship, or requires a security clearance, it is not relevant.
+6. Skills: do the main skills the posting asks for overlap with the
+   résumé's skills?
+
+If the posting is unclear on any check, lean toward relevant.
+
+Return only a JSON object, with no other text, with exactly these keys:
+- "verdict": "relevant" or "not_relevant"
+- "resume_fields": list of résumé fields you used (e.g. "skills.frontend")
+- "posting_fields": list of posting fields you used (e.g. "title", "content")
+- "reason": one or two sentences connecting those fields
+Do not use markdown or code fences. Start your reply with { and end with }.
+
+Résumé:
+{resume_without_personal_info}
+
+Posting:
+{posting}
