@@ -1,0 +1,44 @@
+{
+  "run_id": "run-20261110-025634Z",
+  "mode": "live",
+  "exit": "budget-exhausted",
+  "reason": "request budget of 2 used",
+  "budget": {
+    "limits": {
+      "max_boards": 5,
+      "max_requests": 2,
+      "max_seconds": 60
+    },
+    "used": {
+      "boards": 3,
+      "requests": 2,
+      "seconds": 0.4
+    }
+  },
+  "boards": [
+    {
+      "board": "robinhood",
+      "status": "ok",
+      "jobs": 153,
+      "new": 0,
+      "new_titles": []
+    },
+    {
+      "board": "affirm",
+      "status": "ok",
+      "jobs": 221,
+      "new": 0,
+      "new_titles": []
+    },
+    {
+      "board": "wealthfront",
+      "status": "skipped",
+      "reason": "stopped mid-board: request budget of 2 used"
+    },
+    {
+      "board": "nonexistent-co-xyz",
+      "status": "skipped",
+      "reason": "not reached: request budget of 2 used"
+    }
+  ]
+}
