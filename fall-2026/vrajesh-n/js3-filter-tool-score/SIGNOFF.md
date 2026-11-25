@@ -39,11 +39,11 @@ Everything runs with `python -m unittest discover -s tests` (55 tests: 4 + 27 + 
 ## Why I sign
 "I read the blind sheets, judged and saved 24 claim labels and 40 sentence judgments, and verified all three label files had complete rows and valid labels. I kept both keys unopened and checked the source posting for pair 11’s missing quotation."
 
-"I would not sign without reviewing the final diff, the 51-test run, and the documented limitations, with approval explicitly limited to the fictional persona and local snapshot.
+"I would not sign without reviewing the final diff, the 55-test run, and the documented limitations, with approval explicitly limited to the fictional persona and local snapshot.
 
 The “Not checked” item that worries me most is a valid, very large request. The server has no input-size limit, so a client could exhaust memory. Passing ordinary requests and malformed-input tests does not establish that it handles this case safely."
 
-> [Claude's note, not Vrajesh's words: after the paragraph above was written, an input-size limit of 1 MiB per message was added, with four failing-then-passing tests (`review/20-input-limit-red.txt`, `review/21-input-limit-green.txt`), and the suite is now 55 tests, not 51. Vrajesh's paragraph describes the state before this fix; he should re-read it and keep, change or restate it.]
+> [Claude's note, not Vrajesh's words: after the paragraph above was first written, an input-size limit of 1 MiB per message was added, with four failing-then-passing tests (`review/20-input-limit-red.txt`, `review/21-input-limit-green.txt`), so the suite is 55 tests; Vrajesh has updated "51-test" to "55-test". The sentence "The server has no input-size limit" describes the state before that fix and is kept as he wrote it; it is no longer true of the server as submitted.]
 
 ## Driver's seat (draft table, for Vrajesh to edit)
 | Claude should | I should | Why the judgment that a posting is worth my time stays mine |
