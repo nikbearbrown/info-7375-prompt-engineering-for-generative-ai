@@ -106,7 +106,7 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
 | Label evidence | quote the sentence and label each claim; say "I cannot tell" when the text doesn't say | spot-check the labels against the posting | the labeller had a bug I only found by re-reading (SHORTLIST.md) |
 | Measure | compute counts, intervals and repeat runs; propose candidate rules with their effect | decide which rule to adopt or reject, and keep the held-out set untouched | a measured number doesn't decide what matters; I chose R5 and rejected FP&A |
 | Tool server | answer only what it declares; refuse to apply or email | decide whom to trust and what to expose | annotations are claims; trust is my decision |
-| **Is this posting worth my time?** | give the verdict of my written rules, with quotes | **make the call** | *: ____. Evidence from this assignment: the filter and Claude both kept postings I said no to, for reasons only I knew to apply (my graduation date against internship windows, where I can live, which fields I want). Of the 11 postings the filter kept, I wanted 1. |
+| **Is this posting worth my time?** | give the verdict of my written rules, with quotes | **make the call** | *(my own words)* Deciding whether a posting is worth my time stays mine because the filter only sees words, not my situation: it kept 11 postings, but I wanted only 1, and I rejected the rest for things like my graduation date, a location outside the US, or a requirement that excluded internships. |
 
 ## Privacy and boundaries
 - **Persona:** fictional (Nadia Okafor, @example.com, 555 number). No real résumé, contacts, tracker or conversation transcripts are in this folder.
