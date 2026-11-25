@@ -23,7 +23,10 @@ It builds on my JS1 and JS2 work; see [`SOURCES.md`](SOURCES.md).
 | Experiment report on held-out labels | Done (`f88d1922`), committed before my decisions |
 | My rule-change decisions: X1 rejected, X2 adopted, X3 not adopted | Done 2026-11-25 ([`experiments/RULE-CHANGE-LOG.md`](experiments/RULE-CHANGE-LOG.md)) |
 | FILTER.md v1.2 (X2), the v1.2 run, v1.1 rules archived in `rules/v1.1/` | Done 2026-11-25 |
-| **Trust decisions, sign-off, driver's seat, FRICTIONAL** | **Not done.** These are mine to write ([`mcp/EVALUATION.md`](mcp/EVALUATION.md), [`SIGNOFF.md`](SIGNOFF.md), [`FRICTIONAL.md`](FRICTIONAL.md)) |
+| My check of all 120 shortlist claims (`MY_LABEL`, `MY_EXPLANATION`) | Done 2026-11-25. I agree with the checker on 115 claims and differ on 5 ([SHORTLIST](shortlist/SHORTLIST-filter-v1.1-2026-11-18T212545Z.md)) |
+| My trust decisions for both tool servers | Done 2026-11-25 ([`mcp/EVALUATION.md`](mcp/EVALUATION.md)) |
+| My sign-off and driver's seat | Done 2026-11-25 ([`SIGNOFF.md`](SIGNOFF.md)) |
+| My final FRICTIONAL reflection | Done 2026-11-25 ([`FRICTIONAL.md`](FRICTIONAL.md)) |
 
 **Which version made what.** The audit, the shortlist, the experiment baseline and the tool server all use FILTER.md **v1.1**, the version they were labeled, measured or recorded with. Each loads the v1.1 rules from `rules/v1.1/` explicitly. `run_filter.py` uses the current rules, **v1.2**.
 
@@ -89,6 +92,7 @@ All times are UTC.
 | 2026-11-25 | I decided: X1 rejected, X2 adopted, X3 not adopted | [`RULE-CHANGE-LOG`](experiments/RULE-CHANGE-LOG.md) |
 | 2026-11-25 20:33 | `run_filter.py` with FILTER.md **v1.2** | 0 confirmed, 55 review, 2,363 rejected ([report](runs/filter-v1.2-2026-11-25T203343Z/report.md)). Exactly 8 decisions differ from v1.1, the same 8 that X2 predicted. 231 other postings changed role from related to none but were already rejected. The top 10 review candidates are identical in every field, so the shortlist's claims hold for v1.2 |
 | 2026-11-25 | Tests on Python 3.9.6 and 3.13.5; `wrong_versions.py`, after v1.2 | 112 tests pass on both. Baseline passes, and 6 of 6 wrong versions are caught. `experiment.py flips` reproduced every field of the v1.1 run from `rules/v1.1/` |
+| 2026-11-25 | I checked all 120 shortlist claims against the posting text | 115 agree with the checker. 5 differ: two "work" claims I labeled insufficient (the checker said supported), one I labeled supported (the checker said insufficient), and two "requires" claims I labeled contradicted, because the posting offers alternatives (Python *or* a systems language; Azure, AWS *or* GCP) |
 
 ## Where each deliverable is
 

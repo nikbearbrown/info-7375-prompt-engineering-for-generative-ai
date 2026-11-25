@@ -69,7 +69,7 @@ Every claim below points to a transcript, a test, or a line of source. All trans
 
 ### Trust decision (mine to make)
 
-**Trust decision:** ______________________ (Yash)
+**Trust decision:** I would trust my MCP server for local, read-only job screening. Tests showed that it only exposes scoring and searching tools, and the real Claude sessions respected those limits. I would not use it to make final application decisions. The server records submitted posting text in transcripts, so I would avoid sending private information and retest it after any tool changes.
 
 *Claude's recommendation, for me to accept, change or reject:* trust it for local use with Claude Code on this machine, with these limits:
 - Launch it myself, with the default results file.
@@ -106,7 +106,7 @@ Every claim below points to a transcript, a test, or a line of source. All trans
 
 ### Trust decision (mine to make)
 
-**Trust decision:** ______________________ (Yash)
+**Trust decision:** I would trust the Lesson 8 server only for controlled classroom demonstrations, not for production use. It is read-only and limited to a public fixture, but the tests showed that it does not negotiate protocol versions, does not support ping, and crashes on deeply nested JSON. These limitations make it unsuitable as a reliable dependency.
 
 *Claude's recommendation, for me to accept, change or reject:* safe to connect for teaching, because it can do nothing outside its own process. But don't rely on it as a dependency: it doesn't answer `ping`, doesn't negotiate a version, and can be stopped by one malformed line.
 

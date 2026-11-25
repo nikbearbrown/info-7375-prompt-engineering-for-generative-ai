@@ -4,7 +4,7 @@ The sample from the first filter run is in [`sample-filter-v1.1-2026-11-18T21254
 
 | File | What it is |
 |---|---|
-| `labeling-sheet.csv` | One row per posting. The four `MY_` columns are blank and are mine to fill. |
+| `labeling-sheet.csv` | One row per posting. The four `MY_` columns were blank when `sample_audit.py` generated the sample. I filled them later, and committed my labels in `e926b963`. |
 | `source-text.md` | The full cleaned text of each posting, by row number. The filter's decision is at the end of each entry, so I can decide before reading it. |
 | `sample.json` | Seed, method, population sizes and the posting IDs in each group, so the sample can be redrawn exactly. |
 

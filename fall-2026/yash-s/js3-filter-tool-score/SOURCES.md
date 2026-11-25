@@ -40,6 +40,7 @@ Claude Code (Opus 5.5, in VS Code) worked with me from 2026-11-18 to 2026-11-25.
 - The final wording of FILTER.md v1.1, edited from decisions I approved (FILTER.md section 11 says so).
 - The FILTER.md v1.2 wording and the v1.2 rules file, edited on 2026-11-25 from my decisions in `experiments/RULE-CHANGE-LOG.md`. Claude also made the byte-for-byte v1.1 archive in `rules/v1.1/`.
 - The preliminary read-only analysis of 139 postings on 2026-11-18.
+- On 2026-11-25, at my request and with my approval: in `SIGNOFF.md`, Claude rewrote the **Checked** and **How** fields to name the tests and say which work Claude did. In `FRICTIONAL.md`, it fixed one phrase ("the test posting" became "that posting (audit row 60)"). It added two sections, each labeled as Claude's: "What I Accepted, Modified, and Rejected From Claude", restating my documented decisions and label corrections, and "Evidence references". It made no other change to either file. My judgments, decisions and signature are not Claude's.
 
 **Mine:**
 - The FILTER.md decisions.
@@ -47,7 +48,10 @@ Claude Code (Opus 5.5, in VS Code) worked with me from 2026-11-18 to 2026-11-25.
 - The 60 audit verdicts, reasons and false-friend words (`e926b963`).
 - The 20 blind held-out verdicts and reasons (`810de710`). Claude checked their facts against the posting texts and flagged one note (row 17). I made the fix.
 - The rule-change decisions on 2026-11-25: X1 rejected for now, X2 adopted, X3 kept as a possible parsing improvement but not adopted.
-- **Still to do:** both trust decisions, the sign-off, the driver's seat and my FRICTIONAL entry.
+- My check of all 120 shortlist claims (`MY_LABEL` and `MY_EXPLANATION` in `shortlist/claims-…csv`), 2026-11-25. I agree with the checker on 115 claims and differ on 5. The checker's labels are Claude's code; every `MY_` cell is mine.
+- Both trust decisions in `mcp/EVALUATION.md`, for my server and the Lesson 8 server. Claude's recommendations stay beside them, labeled as Claude's.
+- The sign-off, the driver's seat table and the paragraph on why the judgment stays mine (`SIGNOFF.md`), and the signature.
+- My final FRICTIONAL reflection (the 2026-11-25 entry). My 2026-11-18 entry and its predictions are unchanged.
 
 **Claude's check of my labels:** after I pasted my audit labels, Claude compared every reason with the posting text and every false-friend word with what the filter matched. It found:
 - two reasons that called a preferred item "required" (rows 31 and 51);
