@@ -31,6 +31,8 @@ CONDS = {
     "baseline":        {"template": "judge_v1.md", "context": False, "tools": False, "object": "(none: reference)"},
     "baseline_repeat": {"template": "judge_v1.md", "context": False, "tools": False, "object": "(none: A-A control)"},
     "prompt_v2":       {"template": "judge_v2_abstain.md", "context": False, "tools": False, "object": "the prompt"},
+    "prompt_v3_definition": {"template": "judge_v3_definition.md", "context": False, "tools": False,
+                             "object": "the prompt (definition paragraph only)"},
     "context_score":   {"template": "judge_v1.md", "context": True, "tools": False, "object": "the context"},
     "tools_score":     {"template": "judge_v1.md", "context": False, "tools": True, "object": "the tool list"},
 }
