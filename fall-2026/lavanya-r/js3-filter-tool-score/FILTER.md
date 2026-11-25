@@ -1,6 +1,6 @@
 # FILTER.md — what reaches me, and why
 
-**Version:** v1.0 · written 2026-11-24, before any JS3 filter or scorer code · Lavanya R
+**Version:** v1.1 · v1.0 written 2026-11-24 before any JS3 filter or scorer code; v1.1 the same day after the audit (see Changes) · Lavanya R
 **Persona:** Priya Nair (fictional; `persona/priya-nair.resume.json`): MS Information Systems (Dec 2025), one AI Engineer co-op; Python, SQL, Databricks, MLflow, LangGraph; needs visa sponsorship.
 **Started from:** my own JS1 rule (`agent/rule.py`, five checks), which JS2 carried over unchanged. I did not use the Reallocation Engine's scorer or Lectern's filter.
 
@@ -119,3 +119,7 @@ A shortlist justification with any **contradicted** claim is shown with that cla
 | Version | Date | Change | Measured? | Decision |
 |---|---|---|---|---|
 | v1.0 | 2026-11-24 | first version, before any filter code. Sections 2–4 accepted as Claude drafted them; W6 added | counts shown while choosing (Corpus facts and the counts quoted in R2, R3, R5) — not yet measured against my hand verdicts | — |
+| v1.1 | 2026-11-24 | **Added X4:** ", CA" after a Canadian place (Ontario, British Columbia, …) is not California. The audit's false friend: R3 read "Ontario, CA" as California. | yes, on my 49 audit verdicts (`audit/measure.py`): 6 wrong before and after; 0 verdicts changed in the whole corpus (115 kept either way) | **adopted**: it fixes a wrong reason before a Canada-only job slips through |
+| — | 2026-11-24 | **Rejected X1:** threshold 5 → 4 | 6 wrong → 5 wrong of 49; kept list 115 → 237 | **rejected**: one fewer mistake in 49 is too small to trust, and it doubles the reading |
+| — | 2026-11-24 | **Rejected X2:** add "Forward Deployed" to S1 | 6 → 6 wrong; kept 115 → 124 | **rejected**: no measured gain |
+| — | 2026-11-24 | **Rejected X3:** R5 uses the largest years asked, not the smallest | 6 → 6 wrong; kept 115 → 109 | **rejected**: no measured gain on my audit verdicts (the two postings it would fix are in the held-out set, which I may not use to choose) |

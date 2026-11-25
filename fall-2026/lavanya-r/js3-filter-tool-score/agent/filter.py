@@ -49,9 +49,10 @@ def location_parts(locations):
 def us_parts(parts, cfg):
     codes = "|".join(cfg["us_state_codes"])
     state_code = re.compile(r",\s*(?:%s)(?![A-Za-z])" % codes)
+    canada = cfg.get("canadian_places", [])  # v1.1: "Ontario, CA" is Canada
     return [p for p in parts
             if find_terms(p, US_MARKERS + cfg["us_cities"])
-            or state_code.search(p)]
+            or (state_code.search(p) and not find_terms(p, canada))]
 
 
 def years_asked(text, cfg):

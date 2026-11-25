@@ -52,6 +52,7 @@ class TestConfigMatchesFilterMd(unittest.TestCase):
         self.assertEqual(CFG["max_years_asked"], 2)
         self.assertIn("under 200 characters", self.md)
         self.assertEqual(CFG["min_text_chars"], 200)
+        self.assertIn(f"**Version:** v{CFG['version']}", self.md)
 
 
 class TestHardRejects(unittest.TestCase):
@@ -77,6 +78,13 @@ class TestHardRejects(unittest.TestCase):
                     "Austin, Texas", "Remote-Friendly, United States"]:
             r = run(posting(locations=[loc]))
             self.assertNotIn("R3", r["rejected_by"], loc)
+
+    def test_r3_canada_ca_is_not_california(self):
+        # FILTER.md v1.1 (X4): the false friend found in the audit
+        r = run(posting(locations=["Ontario, CA"]))
+        self.assertIn("R3", r["rejected_by"])
+        r = run(posting(locations=["Ontario, CA", "San Francisco, CA"]))
+        self.assertNotIn("R3", r["rejected_by"])
 
     def test_r3_any_part_counts(self):
         r = run(posting(locations=["London, UK", "Seattle, WA"]))
