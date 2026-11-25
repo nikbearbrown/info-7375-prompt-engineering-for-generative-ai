@@ -1,0 +1,75 @@
+# (The home folder in paths below is shown as ~.)
+# 2026-11-25 18:48:52 EST: before the fix
+test_arguments_that_are_not_an_object_are_a_tool_error (tests.test_js3_mcp_server_review.MalformedParams.test_arguments_that_are_not_an_object_are_a_tool_error) ... ERROR
+test_params_that_are_not_an_object_get_invalid_params (tests.test_js3_mcp_server_review.MalformedParams.test_params_that_are_not_an_object_get_invalid_params) ... ERROR
+test_the_server_keeps_running_after_a_bad_message (tests.test_js3_mcp_server_review.MalformedParams.test_the_server_keeps_running_after_a_bad_message) ... FAIL
+test_a_sibling_folder_that_starts_with_transcripts_is_refused (tests.test_js3_mcp_server_review.TranscriptFolder.test_a_sibling_folder_that_starts_with_transcripts_is_refused) ... ~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server_review.py:51: ResourceWarning: unclosed file <_io.TextIOWrapper name='~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/transcripts-evil/server-20261125T234852Z-15464.jsonl' mode='a' encoding='utf-8'>
+  mcp_server.Server(log_dir=evil)
+ResourceWarning: Enable tracemalloc to get the object allocation traceback
+FAIL
+
+======================================================================
+ERROR: test_arguments_that_are_not_an_object_are_a_tool_error (tests.test_js3_mcp_server_review.MalformedParams.test_arguments_that_are_not_an_object_are_a_tool_error)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server_review.py", line 35, in test_arguments_that_are_not_an_object_are_a_tool_error
+    (r,) = talk(s, '{"jsonrpc":"2.0","id":2,"method":"tools/call","params":{"name":"score_posting","arguments":%s}}' % args)
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server_review.py", line 22, in talk
+    server.serve(io.StringIO("".join(l + "\n" for l in lines)), out)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/mcp_server.py", line 131, in serve
+    reply = self.handle(msg)
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/mcp_server.py", line 91, in handle
+    return result(mid, self.call(params.get("arguments") or {}))
+                       ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/mcp_server.py", line 95, in call
+    if set(args) != {"posting_key"} or not isinstance(args.get("posting_key"), str):
+       ~~~^^^^^^
+TypeError: 'int' object is not iterable
+
+======================================================================
+ERROR: test_params_that_are_not_an_object_get_invalid_params (tests.test_js3_mcp_server_review.MalformedParams.test_params_that_are_not_an_object_get_invalid_params)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server_review.py", line 29, in test_params_that_are_not_an_object_get_invalid_params
+    (r,) = talk(s, '{"jsonrpc":"2.0","id":1,"method":"initialize","params":[1]}')
+           ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server_review.py", line 22, in talk
+    server.serve(io.StringIO("".join(l + "\n" for l in lines)), out)
+    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/mcp_server.py", line 131, in serve
+    reply = self.handle(msg)
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/mcp_server.py", line 78, in handle
+    asked = params.get("protocolVersion")
+            ^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+
+======================================================================
+FAIL: test_the_server_keeps_running_after_a_bad_message (tests.test_js3_mcp_server_review.MalformedParams.test_the_server_keeps_running_after_a_bad_message)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server_review.py", line 42, in test_the_server_keeps_running_after_a_bad_message
+    self.assertEqual(out.returncode, 0, out.stderr[-300:])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 1 != 0 : n serve
+    reply = self.handle(msg)
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/mcp_server.py", line 78, in handle
+    asked = params.get("protocolVersion")
+            ^^^^^^^^^^
+AttributeError: 'list' object has no attribute 'get'
+
+
+======================================================================
+FAIL: test_a_sibling_folder_that_starts_with_transcripts_is_refused (tests.test_js3_mcp_server_review.TranscriptFolder.test_a_sibling_folder_that_starts_with_transcripts_is_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server_review.py", line 50, in test_a_sibling_folder_that_starts_with_transcripts_is_refused
+    with self.assertRaises(SystemExit):
+         ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^
+AssertionError: SystemExit not raised
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.206s
+
+FAILED (failures=2, errors=2)
