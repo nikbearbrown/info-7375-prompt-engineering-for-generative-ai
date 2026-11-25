@@ -83,7 +83,7 @@ def justify(p, rec, persona, cfg):
     for s in sentences(p, js2.HYBRID_RE):
         if not js2.term_re(cfg["rule3_home_city"]).search(s):
             contra.append(q("content", s))
-    listed, list_quotes = filtering.ad_states(content)
+    listed, list_quotes = filtering.ad_states(content, p, cfg)
     if listed and cfg["rule3_home_state"] not in listed:
         contra += [q("content", s) for s in list_quotes]
     support = r[3]["evidence"] if r[3]["outcome"] == filtering.PASS else []
@@ -137,7 +137,10 @@ def justify(p, rec, persona, cfg):
     out.append(claim("full_time", "It is a full-time, permanent job (not an internship, part-time, temporary or "
                                   "contract).", True, ft,
                      why="the board's employment type or a sentence outside the benefits and legal text"
-                         if ft else "no employment type field and no sentence saying full-time outside the benefits text"))
+                         if ft else "no employment type field and no sentence saying full-time outside the benefits text",
+                     exception=None if ft or not cfg.get("evidence_full_time_not_stated_exception")
+                     else "B4: employment type not stated; passes, as Rule 6 found no part-time, temporary, internship, "
+                          "unpaid or contract-only wording (FILTER.md v1.1)"))
     pay = [q("content", s) for s in sentences(p, PAY_RE, skip_kinds=("legal",))][:1]
     out.append(claim("paid", "It is a paid job.", True, pay, why="a stated pay range" if pay else "no pay stated"))
     reloc = [q("content", s) for s in sentences(p, js2.RELOCATION_RE)]

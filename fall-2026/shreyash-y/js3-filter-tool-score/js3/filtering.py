@@ -119,15 +119,27 @@ def tag_states(p):
     return states
 
 
-def ad_states(content):
-    """States a 'reside in / located in ...' list in the ad limits the job to (JS2's reading: a list
-    counts when it names at least two states)."""
+RESIDE_RE = re.compile(r"(?i)\b(?:reside|resides|residing|residents?\s+of|live|living)\s+(?:in|within|of)\b[:\s]*([^.]{0,160})")
+
+
+def ad_states(content, p=None, cfg=None):
+    """States a 'reside in / located in ...' list in the ad limits the job to. JS2's reading: a list
+    counts when it names at least two states. FILTER.md v1.1 (A4, when the filter file sets
+    rule3_single_state_residence): a residence line ("reside in", "live in", "residents of") that names
+    ONE state also counts, outside the benefits and legal text."""
     found_all, quotes = set(), []
     for m in js2.STATE_LIST_RE.finditer(content):
         found = {s for s in js2.US_STATES if js2.term_re(s).search(m.group(1))}
         if len(found) >= 2:
             found_all |= found
             quotes.append(sentence_with(content, m.start(), m.end()))
+    if cfg and cfg.get("rule3_single_state_residence") and p is not None:
+        text = sections.text_outside(content, p.get("blocks") or [], {"perk", "legal"})
+        for m in RESIDE_RE.finditer(text):
+            found = {s for s in js2.US_STATES if js2.term_re(s).search(m.group(1))}
+            if len(found) == 1 and found - found_all:
+                found_all |= found
+                quotes.append(sentence_with(content, m.start(), m.end()))
     return found_all, quotes
 
 
@@ -191,7 +203,7 @@ def r3_location(p, persona, cfg):
             return line(3, FAIL, f"posting has a Remote tag but the ad says hybrid or on-site and the job is not in "
                                  f"{city}; the description wins (FILTER.md follow-up A)", ev_places + why)
         tagged = tag_states(p)
-        listed, list_quotes = ad_states(content)
+        listed, list_quotes = ad_states(content, p, cfg)
         us_wide = first(US_WIDE_RE, content)
         us_q = [quote("content", sentence_with(content, us_wide.start(), us_wide.end()))] if us_wide else []
         lq = [quote("content", s) for s in list_quotes]
@@ -218,6 +230,11 @@ def r3_location(p, persona, cfg):
         return line(3, FAIL, "the posting says Remote but does not name the United States", ev_places)
 
     says_remote = first(REMOTE_AD_RE, content)
+    if says_remote and cfg.get("rule3_single_state_residence"):
+        listed, list_quotes = ad_states(content, p, cfg)
+        if listed and state not in listed:
+            return line(3, FAIL, f"the ad says remote, but only for residents of {sorted(listed)}; {state} is not one of "
+                                 "them (FILTER.md v1.1, A4)", ev_places + [quote("content", s) for s in list_quotes])
     if says_remote:
         return line(3, UNSURE, f"posting.location {loc!r} is not {city} and not remote, but the ad says remote work is "
                                "possible; the tag and the ad disagree (FILTER.md 6a)",
@@ -232,8 +249,13 @@ def r4_skills(p, persona, cfg):
         return line(4, FAIL, "posting.content is missing")
     text = sections.text_outside(p["content"], p.get("blocks") or [], set(cfg["rule4_ignore_sections"]))
     hits, ev = [], []
+    aliases = cfg.get("rule4_skill_aliases", {})
     for skill in persona["skills"]:
         m = js2.term_re(skill).search(text)
+        for alias in ([] if m else aliases.get(skill, [])):  # FILTER.md v1.1, A2: a skill counts once
+            m = js2.term_re(alias).search(text)
+            if m:
+                break
         if m:
             hits.append(skill)
             ev.append(quote("content", around(p["content"], m.start(), m.end())))
