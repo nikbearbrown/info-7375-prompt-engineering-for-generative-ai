@@ -92,6 +92,31 @@ class FlipReplyTest(unittest.TestCase):
                          [("quote found", True), ("quote not found", False), ("no quote", False)])
 
 
+class ApplyDecisionsTest(unittest.TestCase):
+    LABELS = {"R1-C1": {"label": "supported", "note": None}, "R1-C2": {"label": "insufficient", "note": "first note"}}
+
+    def test_a_decision_changes_the_label_and_keeps_the_first_one(self):
+        final = flip.apply_decisions(self.LABELS, [{"ids": ["R1-C1"], "from": "supported", "to": "insufficient",
+                                                     "note": "why", "question": "q", "answer": "a"}])
+        self.assertEqual(final["R1-C1"]["label"], "insufficient")
+        self.assertEqual(final["R1-C1"]["label_before_challenge"], "supported")
+        self.assertEqual(final["R1-C1"]["note"], "why")
+        self.assertEqual(final["R1-C2"], {**self.LABELS["R1-C2"], "label_before_challenge": "insufficient", "changed_by": None})
+        self.assertEqual(self.LABELS["R1-C1"]["label"], "supported")   # the student's first labels are not touched
+
+    def test_a_decision_must_start_from_the_label_the_student_gave(self):
+        with self.assertRaises(ValueError):
+            flip.apply_decisions(self.LABELS, [{"ids": ["R1-C2"], "from": "supported", "to": "contradicted",
+                                                "note": "x", "question": "q", "answer": "a"}])
+
+    def test_a_claim_is_changed_at_most_once(self):
+        with self.assertRaises(ValueError):
+            flip.apply_decisions(self.LABELS, [{"ids": ["R1-C1"], "from": "supported", "to": "insufficient", "note": "x",
+                                                "question": "q", "answer": "a"},
+                                               {"ids": ["R1-C1"], "from": "supported", "to": "contradicted", "note": "y",
+                                                "question": "q", "answer": "a"}])
+
+
 class CommittedClaimLabelsTest(unittest.TestCase):
     def test_the_json_matches_the_paste_and_the_claims(self):
         pasted = ROOT / "shortlist" / "v0.1" / "claim-labels-as-pasted.tsv"
@@ -103,6 +128,14 @@ class CommittedClaimLabelsTest(unittest.TestCase):
         self.assertEqual(converted, {**converted, **claim_labels.parse(pasted.read_text(encoding="utf-8"), ids)})
         counts = [v["label"] for v in converted["labels"].values()]
         self.assertEqual((counts.count("supported"), counts.count("insufficient"), counts.count("contradicted")), (48, 16, 0))
+
+    def test_the_final_labels_are_the_first_labels_with_the_recorded_decisions(self):
+        first = json.loads((ROOT / "shortlist" / "v0.1" / "claim-labels.json").read_text(encoding="utf-8"))["labels"]
+        decisions = json.loads((ROOT / "shortlist" / "v0.1" / "flip-decisions.json").read_text(encoding="utf-8"))
+        final = json.loads((ROOT / "shortlist" / "v0.1" / "claim-labels-final.json").read_text(encoding="utf-8"))
+        self.assertEqual(final["labels"], flip.apply_decisions(first, decisions["changes"]))
+        counts = [v["label"] for v in final["labels"].values()]
+        self.assertEqual((counts.count("supported"), counts.count("insufficient"), counts.count("contradicted")), (40, 24, 0))
 
 
 if __name__ == "__main__":
