@@ -1,13 +1,18 @@
 """FILTER.md v1.0, sections 2.2-2.8, as code.
 
-score_posting(posting) takes the common shape agent/adapters.py produces
+score_posting(posting, config=None) takes the common shape agent/adapters.py produces
 ({"title", "location", "content"}) and returns a decision with points, matched
-categories, flags and human-readable reasons naming the rules that fired.
+categories, flags, human-readable reasons naming the rules that fired, and the config used.
 
 All weights and cutoffs below are hand-set (FILTER.md section 7).
+
+config=None is exactly FILTER.md v1.0. A config dict overrides only the keys it names
+(see DEFAULT_CONFIG); an unknown key raises ValueError. A config with overrides is an
+experiment on v1.0, not a new FILTER.md version.
 """
 
 import html
+import json
 import re
 
 FILTER_VERSION = "1.0"
@@ -20,6 +25,32 @@ THRESHOLD = 8
 MIN_TITLE_POINTS_FOR_KEEP = 2
 YEARS_REJECT_CUTOFF = 8
 MIN_DESCRIPTION_WORDS = 50
+OTHER_US_CITY_POINTS = 0  # FILTER.md 2.4: "Other US locations: 0"
+
+# The values a config may override. Every other weight above stays fixed at v1.0.
+DEFAULT_CONFIG = {
+    "threshold": THRESHOLD,                          # FILTER.md 2.1, 2.7
+    "years_cutoff": YEARS_REJECT_CUTOFF,             # FILTER.md 2.5
+    "other_us_city_points": OTHER_US_CITY_POINTS,    # FILTER.md 2.4
+}
+
+
+def resolve_config(config=None):
+    """DEFAULT_CONFIG with the named keys overridden. Unknown keys or non-integer values raise."""
+    if config is None:
+        config = {}
+    if not isinstance(config, dict):
+        raise ValueError(f"filter config must be a dict, got {type(config).__name__}")
+    unknown = sorted(set(config) - set(DEFAULT_CONFIG))
+    if unknown:
+        raise ValueError(f"unknown filter config key(s): {', '.join(unknown)}; "
+                         f"allowed: {', '.join(DEFAULT_CONFIG)}")
+    for key, value in config.items():
+        if isinstance(value, bool) or not isinstance(value, int):
+            raise ValueError(f"filter config {key!r} must be an integer, got {value!r}")
+        if value < 0:
+            raise ValueError(f"filter config {key!r} must be >= 0, got {value}")
+    return DEFAULT_CONFIG | config
 
 # ---------- Titles (FILTER.md 2.2, 2.5) ----------
 
@@ -152,7 +183,7 @@ def _categories(norm_text):
     return found
 
 
-def _years_minimum(text):
+def _years_minimum(text, cutoff=YEARS_REJECT_CUTOFF):
     """The first explicit mandatory minimum >= cutoff, as (years, phrase), or None."""
     lowered = text.lower()
     sentences = re.split(r"(?<=[.!?;])\s+", lowered)
@@ -160,7 +191,7 @@ def _years_minimum(text):
         for pattern in YEARS_PATTERNS:
             for m in pattern.finditer(sentence):
                 n = int(m.group(1))
-                if n >= YEARS_REJECT_CUTOFF and not PREFERRED_MARKERS.search(sentence):
+                if n >= cutoff and not PREFERRED_MARKERS.search(sentence):
                     return n, m.group(0)
     return None
 
@@ -184,8 +215,10 @@ def _classify_location_part(part):
     return UNKNOWN
 
 
-def classify_location(location):
-    """Return (class, points, per-part classes). Best eligible part wins (FILTER.md 2.4)."""
+def classify_location(location, other_us_city_points=OTHER_US_CITY_POINTS):
+    """Return (class, points, per-part classes). Best eligible part wins (FILTER.md 2.4).
+
+    other_us_city_points applies only to US_OTHER, never to NON_US or UNKNOWN."""
     if not _present(location):
         return UNKNOWN, 0, []
     parts = [p.strip() for p in LOCATION_SPLIT.split(location) if p.strip()]
@@ -194,7 +227,7 @@ def classify_location(location):
     if TARGET in kinds:
         return TARGET, TARGET_LOCATION_POINTS, classes
     if US_OTHER in kinds:
-        return US_OTHER, 0, classes
+        return US_OTHER, other_us_city_points, classes
     if kinds == {NON_US}:
         return NON_US, 0, classes
     return UNKNOWN, 0, classes  # ambiguous or missing is never treated as non-US
@@ -202,15 +235,22 @@ def classify_location(location):
 
 # ---------- Decision (FILTER.md 2.7) ----------
 
-def score_posting(posting):
+def score_posting(posting, config=None):
+    cfg = resolve_config(config)
+    threshold, years_cutoff = cfg["threshold"], cfg["years_cutoff"]
     title, location, content = posting.get("title"), posting.get("location"), posting.get("content")
     reasons, flags = [], []
     result = {
         "decision": None, "score": None, "title_points": None, "location_points": None,
         "categories": [], "flags": flags, "reasons": reasons, "location_class": None,
+        "config": {"filter_version": FILTER_VERSION, "values": dict(cfg),
+                   "overrides": dict(config or {})},
     }
 
     def done(decision, why):
+        if config:
+            reasons.append(f"config: FILTER.md v{FILTER_VERSION} with overrides "
+                           f"{json.dumps(config, sort_keys=True)}")
         reasons.append(f"decision: {decision} ({why})")
         result["decision"] = decision
         return result
@@ -232,7 +272,7 @@ def score_posting(posting):
         reasons.append(f"title contains '{review[0]}': flagged for review, not rejected (§2.5)")
 
     # Location (2.4) ----------------------------------------------------
-    loc_class, loc_pts, parts = classify_location(location)
+    loc_class, loc_pts, parts = classify_location(location, cfg["other_us_city_points"])
     result["location_class"] = loc_class
     if _present(location):
         detail = "; ".join(f"'{p}' = {c}" for p, c in parts)
@@ -274,22 +314,25 @@ def score_posting(posting):
         return done("CANNOT TELL", "I cannot tell from the available posting text")
 
     # Years of experience (2.5) -----------------------------------------
-    years = _years_minimum(text)
+    years = _years_minimum(text, years_cutoff)
     if years:
-        reasons.append(f"explicit minimum '{years[1]}' >= {YEARS_REJECT_CUTOFF} years (§2.5)")
-        return done("REJECT", f"mandatory negative rule: {YEARS_REJECT_CUTOFF}+ years required")
+        reasons.append(f"explicit minimum '{years[1]}' >= {years_cutoff} years (§2.5)")
+        return done("REJECT", f"mandatory negative rule: {years_cutoff}+ years required")
 
     # Score conditions (2.7) --------------------------------------------
     score = result["score"]
-    best_case = score + (TARGET_LOCATION_POINTS if loc_class == UNKNOWN else 0)
+    # An unknown location might turn out to be a target, so give it the best location points.
+    unknown_bonus = max(TARGET_LOCATION_POINTS, cfg["other_us_city_points"])
+    best_case = score + (unknown_bonus if loc_class == UNKNOWN else 0)
     failures = []
     if title_pts < MIN_TITLE_POINTS_FOR_KEEP:
         failures.append(f"title points {title_pts} < {MIN_TITLE_POINTS_FOR_KEEP}")
     if not cats:
         failures.append("no technical category")
-    if best_case < THRESHOLD:
-        failures.append(f"score {score} < {THRESHOLD}"
-                        + (" even with +2 for the unknown location" if loc_class == UNKNOWN else ""))
+    if best_case < threshold:
+        failures.append(f"score {score} < {threshold}"
+                        + (f" even with +{unknown_bonus} for the unknown location"
+                           if loc_class == UNKNOWN else ""))
     if failures:
         return done("REJECT", "; ".join(failures) + " (§2.7)")
 
@@ -297,6 +340,6 @@ def score_posting(posting):
         why = "location missing" if not _present(location) else "geographic eligibility unknown"
         return done("CANNOT TELL", f"would otherwise qualify, but {why} (§2.7)")
 
-    return done("KEEP", f"score {score} >= {THRESHOLD}, title >= {MIN_TITLE_POINTS_FOR_KEEP}, "
+    return done("KEEP", f"score {score} >= {threshold}, title >= {MIN_TITLE_POINTS_FOR_KEEP}, "
                         f"{len(cats)} technical categor{'y' if len(cats) == 1 else 'ies'}, "
                         f"eligible US location (§2.7)")

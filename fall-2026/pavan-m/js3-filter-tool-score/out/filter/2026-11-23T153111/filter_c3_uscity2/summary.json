@@ -1,0 +1,45 @@
+{
+  "filter_version": "1.0",
+  "run": "2026-11-23T153111",
+  "postings_scored": 1290,
+  "decisions": {
+    "KEEP": 43,
+    "REJECT": 1240,
+    "CANNOT TELL": 7
+  },
+  "per_board": {
+    "greenhouse:gleanwork": {
+      "KEEP": 6,
+      "REJECT": 123,
+      "CANNOT TELL": 0,
+      "total": 129
+    },
+    "lever:palantir": {
+      "KEEP": 11,
+      "REJECT": 288,
+      "CANNOT TELL": 7,
+      "total": 306
+    },
+    "ashby:openai": {
+      "KEEP": 26,
+      "REJECT": 829,
+      "CANNOT TELL": 0,
+      "total": 855
+    }
+  },
+  "boards_skipped": {
+    "greenhouse:pavan-js2-no-such-board": "board status 'failed' (bad_board)"
+  },
+  "filter_config": {
+    "file": "config/filter_c3_uscity2.json",
+    "name": "filter_c3_uscity2",
+    "overrides": {
+      "other_us_city_points": 2
+    },
+    "values": {
+      "threshold": 8,
+      "years_cutoff": 8,
+      "other_us_city_points": 2
+    }
+  }
+}

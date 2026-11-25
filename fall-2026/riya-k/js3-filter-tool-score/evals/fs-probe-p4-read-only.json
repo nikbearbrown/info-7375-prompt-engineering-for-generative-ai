@@ -1,0 +1,51 @@
+{
+ "about": "P4: --read-only: which tools are served; try write_file anyway.",
+ "steps": [
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 1,
+    "method": "initialize",
+    "params": {
+     "protocolVersion": "2025-11-25",
+     "capabilities": {},
+     "clientInfo": {
+      "name": "riya-js3-eval-client",
+      "version": "1"
+     }
+    }
+   },
+   "wait": 2
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "method": "notifications/initialized"
+   },
+   "wait": 2
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 2,
+    "method": "tools/list"
+   },
+   "wait": 1.5
+  },
+  {
+   "send": {
+    "jsonrpc": "2.0",
+    "id": 8,
+    "method": "tools/call",
+    "params": {
+     "name": "write_file",
+     "arguments": {
+      "path": "<SB>/allowed/new.txt",
+      "content": "x"
+     }
+    }
+   },
+   "wait": 1.5
+  }
+ ]
+}

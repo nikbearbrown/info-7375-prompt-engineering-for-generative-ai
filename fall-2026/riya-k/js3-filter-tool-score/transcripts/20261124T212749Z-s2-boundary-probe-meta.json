@@ -1,0 +1,24 @@
+{
+  "label": "s2-boundary-probe",
+  "utc": "20261124T212749Z",
+  "claude_cli": "2.1.331 (Claude Code)",
+  "prompt_file": "prompts/mcp-session-s2.md",
+  "command": [
+    "claude",
+    "-p",
+    "--output-format",
+    "stream-json",
+    "--verbose",
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--mcp-config",
+    "/var/folders/1p/7w5125fs48n4wcwcfpgjs9w00000gn/T/tmp9492xpm_/mcp.json",
+    "--allowedTools",
+    "mcp__js3__score_posting"
+  ],
+  "returncode": 0,
+  "seconds": 13.1,
+  "stderr_tail": "",
+  "note": "mcp.json was a temp file: {\"mcpServers\": {\"js3\": {\"command\": \"/Library/Frameworks/Python.framework/Versions/3.13/bin/python3\", \"args\": [\"-m\", \"js3.mcp_server\"], \"env\": {\"PYTHONPATH\": \"<js3-folder>\", \"JS3_MCP_TRANSCRIPT\": \"<js3-folder>/transcripts/20261124T212749Z-s2-boundary-probe-server.jsonl\"}}}}"
+}

@@ -1,0 +1,120 @@
+{
+ "item": 28,
+ "board": "ashby:openai",
+ "id": "6d1d835d-5882-4191-b78e-fd04a4c05f11",
+ "title": "AI Support Engineer, Government - Washington, D.C.",
+ "utc": "2026-11-24T22:47:01Z",
+ "seconds": 3.1,
+ "returncode": 0,
+ "parsed": {
+  "verdict": "not",
+  "score": 1,
+  "reasons": [
+   "Rule 1 passes: location is \"Washington, DC; Remote\", which is in the US",
+   "Rule 2 fails: posting asks for \"8+ years of experience in User Operations, Engineering, Support Engineering or similar technical roles\", which is more than 3 years",
+   "Also noted: role is on the \"User Operations team\" doing \"support tickets and live calls\", and requires \"U.S. citizens with the ability to obtain and maintain a Tier 4 (High Risk Public Trust) background investigation\""
+  ]
+ },
+ "prompt_sent": "You are screening one job posting for a job seeker. Decide whether she should see it.\n\nThe job seeker (fictional): Arya Sahni, Boston MA. MS Information Systems (Northeastern, Dec 2025). About 1 year of experience: AI Engineer Co-op at Staples (Jan-Aug 2025): an LLM agent with LangGraph used by 120+ analysts, an inference pipeline with MLflow tracing, an A/B framework for LLM evaluation. Skills: Python, SQL, Power BI, LangGraph, MLflow, Mem0, Delta Lake, AWS.\n\nShe wants: a US-based (or US-remote), full-time, non-senior role in AI, machine learning or data.\n\nRules (apply in order; quote the posting for each one you use):\n1. If the location is only outside the US, the answer is \"not\".\n2. If the smallest number of years of experience the posting asks for is more than 3, the answer is \"not\". \"Preferred\" years count the same as required years.\n3. If the role is mainly selling, account management, recruiting, finance, legal or operations, the answer is \"not\", even if the title says AI.\n4. If the posting does not say enough to apply rules 1-3, the answer is \"cannot_tell\".\n\nThe posting:\n- Board: ashby:openai\n- Title: AI Support Engineer, Government - Washington, D.C.\n- Location: Washington, DC; Remote\n- Employment type field: FullTime\n- Text:\nAbout the Team OpenAI’s User Operations team shepherds our customers’ adoption of AI and ensures that our customers' product experience is nothing short of exceptional. We are building the very first post-AGI support team. We resolve complex issues, provide technical guidance, and support customers in maximizing value and adoption from deploying our products. We work closely with Sales, Technical Success, Product, Engineering and others, to deliver the best possible experience to our customers at scale. OpenAI's customers represent a range of diverse backgrounds and maturity, from early-stage startups to established global enterprises. About the Role We’re looking for dedicated, experienced, and deeply curious individuals to help solve some of the most complex challenges faced by our customers while building the future of post-AGI support alongside us. In this role, you’ll work directly with customers through support tickets and live calls, troubleshooting high-impact issues and resolving novel, often ambiguous technical problems in one of the fastest-moving environments in technology. As AI adoption rapidly accelerates, the work you do will directly support mission-critical systems being built on OpenAI’s platform, serving as a critical line of defense for customers operating at massive scale. Beyond resolving technical issues, you’ll help define what world-class support looks like in an AGI-driven future. You’ll partner closely with Engineering, Product, and Operations to improve systems, reduce bugs, and elevate the customer experience, while leveraging automation, agents, and our own AI technology to transform how support operates at scale. We use a hybrid work model of 3 days in the office per week and offer relocation assistance to new employees. As employees in this role with work with many customers based on the East Coast, regularly weekday hours will commence at 6am Pacific. To comply with a U.S. government contract, applicants for this position must be U.S. citizens with the ability to obtain and maintain a Tier 4 (High Risk Public Trust) background investigation. In this role, you will: Support public sector customers, including U.S. Government agencies and teams operating under FedRAMP requirements, by troubleshooting complex issues and translating security and compliance needs into clear next steps. Becoming a trusted expert on OpenAI’s products and platform, serving as a go-to resource for complex technical issues. Serving as a critical escalation point and line of defense for complex technical issues, partnering closely with customers and Engineering teams to troubleshoot, resolve, and proactively prevent recurring problems while leveraging scripting and emerging AI capabilities to improve internal tooling and automate operational workflows Taking learnings from resolving customer issues and creating our approach to scaling these solutions, partnering with Product and Go-To-Market teams. Driving operational excellence by identifying opportunities for automation and AI-powered workflows, implementing scalable improvements that increase team efficiency, reducing manual effort, and elevating the overall support experience. Providing occasional holiday and weekend support on call coverage, as needed, to support business and customer needs. You might thrive in this role if you have: Have 8+ years of experience in User Operations, Engineering, Support Engineering or similar technical roles, ideally within high-growth tech startups or other fast-paced environments. Are comfortable using emerging technologies (ie. Codex, ChatGPT, OpenAI API, etc.) to script or engineer code (e.g., Python) for automating repetitive tasks and integrating tools. Have expert-level SaaS troubleshooting skills with the ability to rapidly understand new technologies and complex concepts. Polished enterprise communication and are calm with high-stakes customers during live incident calls Proven experience building strong relationships with customers and cross-functional partners to drive resolution to complex issues. Exceptional critical thinker and problem solver with the ability to clearly communicate complex technical issues to both customers and internal teams. Thrive in ambiguity, adapt rapidly to change, continuously learn, and proactively seek opportunities for growth. Bring a humble, team first mindset, a genuine eagerness to help others, and the curiosity to quickly learn whatever knowledge is needed to help both your teammates and our customers succeed. Bachelor’s degree in Computer Science, Computer Engineering, another relevant technical field, or equivalent practical experience. About OpenAI OpenAI is an AI research and deployment company dedicated to ensuring that general-purpose artificial intelligence benefits all of humanity. We push the boundaries of the capabilities of AI systems and seek to safely deploy them to the world through our products. AI is an extremely powerful tool that must be created with safety and human needs at its core, and to achieve our mission, we must encompass and value the many different perspectives, voices, and experiences that form the full spectrum of humanity. We are an equal opportunity employer, and we do not discriminate on the basis of race, religion, color, national origin, sex, sexual orientation, age, veteran status, disability, genetic information, or other applicable legally protected characteristic. For additional information, please see OpenAI’s Affirmative Action and Equal Employment Opportunity Policy Statement . Background checks for applicants will be administered in accordance with applicable law, and qualified applicants with arrest or conviction records will be considered for employment consistent with those laws, including the San Francisco Fair Chance Ordinance, the Los Angeles County Fair Chance Ordinance for Employers, and the California Fair Chance Act, for US-based candidates. For unincorporated Los Angeles County workers: we reasona […]\n\nAnswer with ONLY a JSON object, no other text:\n{\"verdict\": \"show\" | \"not\" | \"cannot_tell\", \"score\": <integer 0-10>, \"reasons\": [\"<short reason quoting the posting>\", ...]}\n",
+ "cli_json": {
+  "duration_api_ms": 2095,
+  "stop_reason": "end_turn",
+  "session_id": "93f85bd3-b46a-4f07-936e-2a0c6596fd8d",
+  "total_cost_usd": 0.0417898,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 4714,
+   "cache_read_input_tokens": 649,
+   "output_tokens": 197,
+   "output_tokens_details": {
+    "thinking_tokens": 0
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 4714,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 197,
+     "cache_read_input_tokens": 649,
+     "cache_creation_input_tokens": 4714,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 4714
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-opus-5-5": {
+    "inputTokens": 2,
+    "outputTokens": 197,
+    "cacheReadInputTokens": 649,
+    "cacheCreationInputTokens": 4714,
+    "webSearchRequests": 0,
+    "costUSD": 0.0417898,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 0,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 4714,
+    "canonicalModel": "claude-opus-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "sdk_opt_in_required",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 1,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"verdict\": \"not\", \"score\": 1, \"reasons\": [\"Rule 1 passes: location is \\\"Washington, DC; Remote\\\", which is in the US\", \"Rule 2 fails: posting asks for \\\"8+ years of experience in User Operations, Engineering, Support Engineering or similar technical roles\\\", which is more than 3 years\", \"Also noted: role is on the \\\"User Operations team\\\" doing \\\"support tickets and live calls\\\", and requires \\\"U.S. citizens with the ability to obtain and maintain a Tier 4 (High Risk Public Trust) background investigation\\\"\"]}",
+  "ttft_ms": 2225,
+  "type": "result",
+  "duration_ms": 2240,
+  "uuid": "7c0b9eb0-e3d0-406b-b538-c2f7404a8652",
+  "ttft_stream_ms": 770,
+  "time_to_request_ms": 144,
+  "first_content_frame_ms": 770,
+  "queued_turn_count": 0,
+  "result_index": 0
+ }
+}
