@@ -62,7 +62,7 @@ What the transcripts show (observed, not assumed):
 - It may not take `readOnlyHint` as proof. An annotation is the server's claim about itself. My tests back mine; a
   client talking to a server it didn't test has only the word of that server.
 
-**Trust decision, my server (draft by Claude, for me to confirm):** trust it to score saved postings read-only, because
+**Trust decision, my server** (Claude drafted the wording; I agreed in chat on 2026-11-24 after it was explained in plain terms: "agree"): trust it to score saved postings read-only, because
 the tests and the source agree. Don't trust its `kept` as a recommendation, and don't trust a C4 `insufficient` until
 v1.1 fixes the years pattern.
 
@@ -92,7 +92,7 @@ speaks Roots. The client decides. Claude Code is such a client: its `initialize`
 **What a compatible client is not entitled to:** with default flags, nothing the operator typed stops a Roots-capable
 client from moving the allow-list. That is entitlement by protocol, not by the operator's choice.
 
-**Trust decision, filesystem server (draft by Claude, for me to confirm):** I would run it only with `--read-only`
+**Trust decision, filesystem server** (Claude drafted the wording; I agreed in chat on 2026-11-24: "agree"): I would run it only with `--read-only`
 **and** `--confine-roots`, on a folder with nothing private in it. Never with default flags under a client that
 declares Roots.
 
