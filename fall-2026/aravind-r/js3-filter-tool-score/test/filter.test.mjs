@@ -51,13 +51,17 @@ test('experience: <= preferred_max -> 1, <= stretch_max -> stretch, more -> 0, j
   assert.ok(score(mk({ text: 'We ship things.' })).unknown.includes('experience'));
 });
 
-// KNOWN MISREAD (found 2026-11-25 while writing the v1.1.0-a tests): the inherited JS1 pattern reads
-// "6-10+ years" as "10+ years" (the "N+" alternative wins at the later position). 32 snapshot
-// postings have an N-M+ range in their experience sentence; one core-PM title among them (A010,
-// gh-stripe 8204227). Not fixed: a fix is a rule change for Aravind to decide. Reported as a TODO.
-test('KNOWN MISREAD: "6-10+ years" should give N = 6, not 10', { todo: 'regex fix not decided (FILTER.md §5.1)' }, () => {
-  const x = score(mk({ text: '6-10+ years of product management experience.' })).components.experience;
-  assert.equal(x.lower_bound, 6);
+// v1.1.0-d (cites A010): the "N-M+ years" misread found 2026-11-25 is fixed; this was a TODO test.
+test('v1.1.0-d: ranges read the lower bound; a lone N+ is unchanged', () => {
+  const lb = t => score(mk({ text: t })).components.experience.lower_bound;
+  assert.equal(lb('6-10 years of product management experience.'), 6);
+  assert.equal(lb('6–10+ years of product management experience.'), 6);
+  assert.equal(lb('6-10+ years of product management experience.'), 6);
+  assert.equal(lb('5 to 7 years of product management experience.'), 5);
+  assert.equal(lb('10+ years of product management experience.'), 10);
+  assert.equal(lb('3 or more years of experience.'), 3);
+  assert.equal(score(mk({ text: '6–10+ years of product management experience.' })).components.experience.value, spec.experience.stretch_value);
+  assert.equal(score(mk({ text: '0 to 2 years of experience.' })).components.experience.case, 'junior range');
 });
 
 test('prefs without the corrected experience fields are refused, not silently defaulted', () => {

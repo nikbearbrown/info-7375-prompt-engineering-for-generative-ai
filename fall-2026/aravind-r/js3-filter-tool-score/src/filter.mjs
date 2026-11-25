@@ -6,8 +6,12 @@ const esc = s => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const wholeWord = term => new RegExp(`(?<![a-z0-9])${esc(term.toLowerCase())}(?![a-z0-9])`);
 const r6 = x => Number(x.toFixed(6));
 const DASH = '[-–—]';
-const RANGE = new RegExp(`(\\d+)\\s*${DASH}\\s*(\\d+)\\s*\\+?\\s*years?`, 'g');
-const YEARS_PHRASE = new RegExp(`(\\d+)\\s*\\+\\s*years?|(\\d+)\\s*${DASH}\\s*\\d+\\s*years?|(\\d+)\\s+or more years?`);
+// v1.1.0-d: a range reads its LOWER bound, with or without a trailing "+" on the upper number
+// ("6-10+ years" -> 6; before, the lone "10+" alternative won at the later position), and
+// "N to M years" is a range too. A lone "N+ years" is unchanged.
+const SEP = `(?:\\s*${DASH}\\s*|\\s+to\\s+)`;
+const RANGE = new RegExp(`(\\d+)${SEP}(\\d+)\\s*\\+?\\s*years?`, 'g');
+const YEARS_PHRASE = new RegExp(`(\\d+)${SEP}\\d+\\s*\\+?\\s*years?|(\\d+)\\s*\\+\\s*years?|(\\d+)\\s+or more years?`);
 
 export function titlePrefix(title, cutChars) {
   const cuts = cutChars.map(c => title.indexOf(c)).filter(i => i >= 0);
