@@ -405,6 +405,57 @@ def flip_run(run_dir, shortlist_dir, labels_path, out_dir, model):
           f"{sum(r['proposes_a_change'] for r in results)} proposed changes with the sentence found in the posting")
 
 
+def claims_final(shortlist_dir):
+    """The student's first claim labels, the challenge, the student's decisions, and the final labels,
+    in one table (EVIDENCE.md) and one file (claim-labels-final.json)."""
+    import hashlib
+
+    from jobwatch import flip
+
+    out = Path(shortlist_dir)
+    first_doc = json.loads((out / "claim-labels.json").read_text(encoding="utf-8"))
+    decisions = json.loads((out / "flip-decisions.json").read_text(encoding="utf-8"))
+    final = flip.apply_decisions(first_doc["labels"], decisions["changes"])
+    challenges = {r["id"]: r for r in map(json.loads, open(out / "flip" / "flip.jsonl", encoding="utf-8"))}
+    rows = [json.loads(line) for line in open(out / "claims.jsonl", encoding="utf-8")]
+    shortlist = {s["rank"]: s for s in json.loads((out / "shortlist.json").read_text(encoding="utf-8"))}
+    doc = {"first_labels": "claim-labels.json", "first_labels_sha256": hashlib.sha256((out / "claim-labels.json").read_bytes()).hexdigest(),
+           "decisions": "flip-decisions.json", "decisions_sha256": hashlib.sha256((out / "flip-decisions.json").read_bytes()).hexdigest(),
+           "labels": final}
+    (out / "claim-labels-final.json").write_text(json.dumps(doc, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+    titles = {}
+    for r in map(json.loads, open(PROJECT_ROOT / "audit" / "v0.1" / "audit.jsonl", encoding="utf-8")):
+        titles[(r["board"], r["key"])] = r["title"].strip()
+    counts = lambda labels: collections.Counter(v["label"] for v in labels.values())
+    before, after = counts(first_doc["labels"]), counts(final)
+    lines = ["# The shortlist's evidence table", "",
+             "Written by `python3 -m jobwatch.js3 claims-final shortlist/v0.1` from the claims Claude drafted "
+             "(`claims.jsonl`), the student's first labels (`claim-labels.json`), Claude's challenge (`flip/flip.jsonl`) "
+             "and the student's decisions on it (`flip-decisions.json`). The label in the last column is the student's.", "",
+             f"First labels: supported {before['supported']}, contradicted {before['contradicted']}, insufficient {before['insufficient']}. "
+             f"Final: supported {after['supported']}, contradicted {after['contradicted']}, insufficient {after['insufficient']}.", "",
+             "The student's note on every C8, as written: " + " ".join(first_doc["text_after"]), ""]
+    for rank in sorted(shortlist):
+        s = shortlist[rank]
+        lines += [f"## R{rank} · {titles[(s['board'], s['key'])]} ({s['board']} {s['key']})", "",
+                  "| ID | Kind | Claim | Quote (field; check) | First label (note) | Claude's challenge | Final label (note) |",
+                  "| --- | --- | --- | --- | --- | --- | --- |"]
+        for r in [r for r in rows if r["rank"] == rank]:
+            claim_id = f"R{rank}-C{r['n']}"
+            first, last, c = first_doc["labels"][claim_id], final[claim_id], challenges[claim_id]
+            quote = f"\u201c{r['quote']}\u201d ({r['source_field']}; {r['quote_check']})" if r["quote"] else "none (no quote)"
+            challenge = (f"\u201c{c['sentence']}\u201d → {c['argues_for']} ({c['sentence_check']})" if c.get("sentence") else "no sentence named")
+            first_cell = first["label"] + (f" ({first['note']})" if first["note"] else "")
+            if last["changed_by"] is not None:
+                last_cell = f"**{last['label']}**, changed after the challenge ({last['note']})"
+            else:
+                last_cell = last["label"] + (" (unchanged)" if c.get("sentence") else "")
+            lines.append("| " + " | ".join(_md_cell(x) for x in [claim_id, r["kind"], r["claim"], quote, first_cell, challenge, last_cell]) + " |")
+        lines.append("")
+    (out / "EVIDENCE.md").write_text("\n".join(lines), encoding="utf-8")
+    print(f"first {dict(before)}; final {dict(after)}; changed {sum(v['changed_by'] is not None for v in final.values())}")
+
+
 def dev_effect(run_dir, sample_path, labels_path, variant_paths):
     """What each variant changes on the 50 development labels (never the held-out 30), and how
     many of all postings would reach Alex."""
@@ -553,6 +604,8 @@ def main(argv=None):
     fli.add_argument("--labels", required=True)
     fli.add_argument("--out", required=True)
     fli.add_argument("--model", default="claude-opus-5-5")
+    fin = commands.add_parser("claims-final", help="apply the student's flip decisions; write EVIDENCE.md")
+    fin.add_argument("shortlist")
     eff = commands.add_parser("dev-effect", help="what each variant changes on the development labels only")
     eff.add_argument("run_dir")
     eff.add_argument("--sample", required=True)
@@ -574,6 +627,9 @@ def main(argv=None):
         except FileExistsError as exc:
             print(f"refused: {exc}", file=sys.stderr)
             return 1
+        return 0
+    if args.command == "claims-final":
+        claims_final(args.shortlist)
         return 0
     if args.command == "dev-effect":
         dev_effect(args.run_dir, args.sample, args.labels, args.variants)

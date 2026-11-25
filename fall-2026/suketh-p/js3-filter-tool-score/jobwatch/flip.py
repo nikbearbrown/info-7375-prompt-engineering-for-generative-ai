@@ -80,3 +80,24 @@ def checked(text, challenges, labels):
         proposes = check == "quote found" and c.get("argues_for") is not None and c["argues_for"] != labels[c["id"]]
         rows.append({**c, "label": labels[c["id"]], "sentence_check": check, "proposes_a_change": proposes})
     return rows
+
+
+def apply_decisions(labels, changes):
+    """The student's decisions on the challenge, applied to their first labels (which are not touched).
+    Each change names claim IDs, the label they start from and the label they end at, and a note; a
+    change that does not start from the student's label is refused, and a claim changes at most once."""
+    final = {claim_id: {**entry, "label_before_challenge": entry["label"], "changed_by": None}
+             for claim_id, entry in labels.items()}
+    for n, change in enumerate(changes):
+        if change["to"] not in ARGUES_FOR:
+            raise ValueError(f"unknown label {change['to']!r}")
+        for claim_id in change["ids"]:
+            if claim_id not in final:
+                raise ValueError(f"{claim_id} is not one of the claims")
+            if final[claim_id]["changed_by"] is not None:
+                raise ValueError(f"{claim_id} is changed twice")
+            if final[claim_id]["label"] != change["from"]:
+                raise ValueError(f"{claim_id} is {final[claim_id]['label']}, not {change['from']}")
+            final[claim_id] = {**final[claim_id], "label": change["to"], "note": change["note"],
+                               "note_before_challenge": final[claim_id]["note"], "changed_by": n}
+    return final
