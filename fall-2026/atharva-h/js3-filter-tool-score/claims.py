@@ -2,6 +2,7 @@
 
     python3 claims.py run VARIANT      ask `claude -p` for claims on every posting the v1.0 filter keeps
     python3 claims.py check VARIANT    check every quote against the posting; write the label sheet and answers
+    python3 claims.py confirmed        the agent's answers from MY labels (my_label in base_checked.csv)
 
 VARIANT is one of:
 - base         the prompt below, with the full posting
@@ -126,7 +127,27 @@ def safe(key):
     return key.replace("/", "__")
 
 
+def confirmed(tools):
+    """Answers from my_label, the labels I confirmed, instead of the checker's."""
+    rows = list(csv.DictReader(tools.read_text("state/claims/base_checked.csv").splitlines()))
+    if any(not r["my_label"] for r in rows):
+        raise SystemExit("base_checked.csv: my_label is not filled in on every row")
+    _, postings = corpus.load(tools)
+    by_key = {p["key"]: p for p in postings}
+    labels = {}
+    for r in rows:
+        labels.setdefault(r["key"], {})[r["property"]] = r["my_label"]
+    return {k: {"title": by_key[k]["title"], "answer": answer(v, by_key[k]), "labels": v} for k, v in labels.items()}
+
+
 def main(argv):
+    if argv[1:] == ["confirmed"]:
+        tools = Tools(Policy())
+        answers = confirmed(tools)
+        tools.write_text("state/claims/base_answers_my_labels.json", json.dumps(answers, indent=1) + "\n")
+        for key, a in answers.items():
+            print(f"  {a['answer']:14} {key}  {a['title']}")
+        return 0
     if len(argv) != 3 or argv[1] not in ("run", "check") or argv[2] not in VARIANTS:
         print(__doc__)
         return 2

@@ -11,7 +11,7 @@
 | The labels are mine | `state/labels/labels.csv` and `labels_v1_1.csv`, `reviewed` column | I reviewed all 114 of Claude's drafts against Riley's profile on 2026-11-24 and 11-25 and kept every one. Claude's drafts are kept unchanged beside them. |
 | Held-out labels were never used to choose | `split.json` and `split_v1_1.json` were drawn before any filter existed. The audit is drawn only from outside held-out (`audit.py`). The `SCORE.md` decisions cite held-out only. | With Claude's help; the commit order shows the labels before `filter.py` |
 | The reject-audit verdicts are mine | `state/audit/audit_v1.0.csv`, `your_call` and `reason` columns | I judged all 50 rows myself on 2026-11-25, in my own copy of the sheet. They were copied in unchanged. Claude drafted none. |
-| The claim labels are mine | `state/claims/base_checked.csv`, `my_label` column | **Pending:** I confirm all 72 |
+| The claim labels are mine | `state/claims/base_checked.csv`, `my_label` column | I labeled all 72 myself on 2026-11-25 by checking each quote against its claim, in my own copy of the sheet. My labels were copied in unchanged: 43 supported, 3 contradicted, 26 insufficient, with 4 differing from the checker. |
 | The tool server is read-only during a request | `test_a_request_never_writes_fetches_or_connects` | With Claude's help |
 | The tool server works with a real client | `state/mcp/transcript_2026-11-25T190356Z.jsonl` (Claude Code 2.1.331) | Run with AI help on 2026-11-25 |
 | Every number has an origin | `SCORE.md`, "Where every number comes from" | With Claude's help. Each row names the script and file that produced it. |
@@ -29,7 +29,7 @@ All 98 tests passed when `python3 -m unittest discover -s tests` was run with AI
 ## Not claiming
 - **That a kept posting is worth applying to.** The filter keeps 12 postings, and I labeled only 2 of them "yes".
 - **That "I cannot tell" is a correct answer.** It is reported as coverage, never as accuracy.
-- **That a quote the checker found proves its claim.** `SHORTLIST.md` shows one that doesn't.
+- **That a quote the checker found proves its claim.** I labeled two found quotes insufficient (`SHORTLIST.md`).
 - **That anything was learned.** Saving labels, verdicts, and claims changed no model (`SCORE.md`, "Persistence is not training").
 - **That the agent applies, emails, or contacts anyone.** No tool here does. The tool server has one read-only tool.
 

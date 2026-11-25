@@ -1,66 +1,85 @@
 # SHORTLIST — source-grounded claims for kept postings
 
-**Status: Claude's draft from `claims.py` (base prompt).**
-- **Claim labels:** waiting for me to confirm each one in `state/claims/base_checked.csv` (the `my_label` column, 72 rows).
-- **Choices of case:** the relevance-vs-entailment case and the counterexamples below are Claude's picks, for my review.
+**Who did what.**
+- **The claim labels are mine.** I checked each of the 72 quotes against its claim and filled in `my_label` on 2026-11-25, in my own copy of the sheet. My labels were copied into `state/claims/base_checked.csv` unchanged, and no other column moved.
+- **Claude's part:** `claude -p` wrote the claims, Claude's checker gave the first labels, and Claude drafted this write-up around my labels.
+- **Status:** the write-up is waiting for my review.
 
 ## How the shortlist is made
 1. **The filter decides.** v1.0 keeps 12 of the 4,240 postings. Claude never decides keep or reject.
 2. **Claude writes claims.** For each kept posting, `claude -p` gives six fixed claims a status and a quote. The claims are role, seniority, years, location, sponsorship, and skills, worded in `claims.py`. A status is supported, contradicted, or insufficient.
-3. **The substring checker labels each claim** (`claims.py check`):
-   - If the quote is found in the posting's title, locations, or description (after whitespace is collapsed), Claude's status stands.
+3. **The substring checker labels each claim first:**
+   - If the quote is found in the posting (after whitespace is collapsed), Claude's status stands.
    - If it isn't found, the claim is "insufficient".
-4. **I confirm every label.** The checker can show that a quote is *there*. It can't show that the quote *says what the claim says*.
-5. **The abstention rule:** the agent answers "I cannot tell" when the role, seniority, or location claim is insufficient, or when the description is missing. Years and sponsorship never force it (FILTER.md "Evidence rules").
+4. **I confirm every label.** The checker can show that a quote is *there*. Only reading it shows whether it *says what the claim says*.
+5. **The abstention rule:** the agent answers "I cannot tell" when the role, seniority, or location claim is insufficient, or the description is missing. Years and sponsorship never force it (FILTER.md "Evidence rules").
 
-## The shortlist (base prompt)
+## My labels against the checker's
+- **My labels:** 43 supported, 3 contradicted, 26 insufficient.
+- **The checker's labels:** 42 supported, 4 contradicted, 26 insufficient.
+- **We differ on 4 of the 72:**
 
-| Posting | Filter score | Agent's answer | Which claim made it abstain | My label (side) |
+| Posting | Claim | Claude's quote | Checker | Mine |
+|---|---|---|---|---|
+| FanDuel, Analyst | years: "The job requires 2 years of experience or fewer." | "2+ years' experience in an analytics/technical role preferred." | supported (quote found) | **insufficient** |
+| FanDuel, Analyst | seniority: "The job is entry level or junior." | "Opportunity to mentor junior analysts on day-to-day requests as well as team best practices" | contradicted (quote found) | **insufficient** |
+| Veeva, Marketing Analytics Data Analyst, ADP | location: "The job can be done from the US." | "Locations: New York - New York City" | insufficient (quote not found) | **supported** |
+| FanDuel, Analyst | location | "Locations: New York City; New York Office" | insufficient (quote not found) | **supported** |
+
+## Relevance is not entailment
+**The case:** FanDuel, "Analyst", the years claim.
+- **The claim:** "The job requires 2 years of experience or fewer."
+- **What Claude said:** **supported**, quoting "2+ years' experience in an analytics/technical role preferred."
+- **What the checker said:** the quote is in the posting, so the label is supported.
+- **My label:** **insufficient**.
+- **Why:** the quote is relevant, since it is about years of experience. But it states a *preferred* minimum of 2 years. It doesn't say the job requires 2 years or fewer, and it doesn't say what is required at all.
+
+**The same posting, the seniority claim:**
+- **What Claude said:** **contradicted**, quoting "Opportunity to mentor junior analysts…".
+- **My label:** **insufficient**.
+- **Why:** mentoring junior analysts is about the team, not a statement of this job's level.
+- **Note:** on the second run of the same prompt (C0' in `SCORE.md`), Claude itself called this claim insufficient.
+
+**What it means:** a quote the checker found is a necessary condition for "supported", not a sufficient one. That is why FILTER.md has me confirm every label, and why `SCORE.md` reports "quotes found", never "claims verified".
+
+**The other direction: my label is "supported" although the quote is not posting text.**
+- **Where:** two location quotes begin with "Locations:", which is the prompt's own field name, not part of the posting.
+- **What the checker did:** it refused them, as FILTER.md's evidence rule says ("insufficient … if the quoted span is not in the text").
+- **What I did:** labeled both supported, because the location after the field name is in the posting.
+- **Why it matters:** my label judges what the quote says, while the checker applies the exact-span rule. The difference is recorded here as it is. The prompt fix C3 (`SCORE.md`) stops Claude from copying field names, so the disagreement doesn't arise.
+
+## The shortlist
+Answers computed from **my** labels with `python3 claims.py confirmed`, saved in `state/claims/base_answers_my_labels.json`.
+
+| Posting | Filter score | Agent's answer (my labels) | What made it abstain | My posting label (side) |
 |---|---|---|---|---|
 | FanDuel, Campaign Analytics, Data Analyst | 9 | I cannot tell | seniority | **yes** (held-out) |
 | Stripe, Data Analyst, SF | 8 | I cannot tell | seniority | no (tuning) |
-| Veeva, Marketing Analytics Data Analyst, ADP | 7 | I cannot tell | location (the quote began with "Locations:") | no (tuning) |
+| Veeva, Marketing Analytics Data Analyst, ADP | 7 | **keep** | — | no (tuning) |
 | Zoox, Student Worker, Data Analyst (part-time) | 7 | **keep** | — | no (tuning) |
-| Zoox, Financial Analyst, Marketing and Commercial | 7 | I cannot tell | role | not labeled |
+| Zoox, Financial Analyst, Marketing and Commercial | 7 | I cannot tell | role | not labeled (audit: wrong keep) |
 | Stripe, Data Analyst, Intern | 6 | **keep** | — | no (tuning) |
 | Axios, Salesforce Business Analyst | 6 | **keep** | — | no (tuning) |
-| FanDuel, Analyst | 6 | I cannot tell | location (the quote began with "Locations:") | **yes** (held-out) |
-| Datadog, FP&A Analyst, Cloud Finance | 5 | I cannot tell | role, seniority | not labeled |
-| Datadog, FP&A Analyst R&D | 4 | I cannot tell | role, seniority | not labeled |
+| FanDuel, Analyst | 6 | I cannot tell | seniority | **yes** (held-out) |
+| Datadog, FP&A Analyst, Cloud Finance | 5 | I cannot tell | role, seniority | not labeled (audit: wrong keep) |
+| Datadog, FP&A Analyst R&D | 4 | I cannot tell | role, seniority | not labeled (audit: wrong keep) |
 | FanDuel, Product Analyst (NYC) | 4 | I cannot tell | seniority | no (tuning) |
 | FanDuel, Product Analyst (Atlanta) | 4 | I cannot tell | seniority | no (tuning) |
 
-**Coverage:** 3 of 12 answered, and all 3 answers are labeled "no". The agent abstained on both "yes" postings.
+**Coverage, from my labels:** 4 of 12 answered, and all 4 answers are labeled "no". The agent abstains on both "yes" postings.
 
-**Claims, all 12 postings:** 72 claims in all.
-- Claude gave 48 as supported or contradicted, with a quote.
-- The checker found 46 of those 48 quotes.
-- The other 2 began with the prompt's own field name, "Locations:", so they aren't posting text. The checker was right to refuse them. A prompt sentence fixes it (C3 in SCORE.md: 46/46).
-
-## Relevance is not entailment
-**The case:** Zoox, "Contract Student Worker - Data Analyst (Part-time)".
-- **The claim:** seniority, "The job is entry level or junior."
-- **What Claude said:** **supported**, quoting "Currently enrolled in a B.S. or M.S. program in Computer Science, Data Science, Engineering, or a related quan[titative field]".
-- **What the checker said:** the quote is found, so the label is supported.
-- **Why the quote doesn't prove the claim:** it is *relevant*, since it is about who the job is for. But it says the applicant must currently be a student, not that the job is entry level. It describes a part-time student contract, which Riley, graduating in December 2026, isn't looking for. The text is there. What the claim says isn't.
-- **The consequence:** this posting is one of the three the agent answered "keep", and my label for it is "no".
-
-**A second case, in the other direction:** FanDuel, "Analyst".
-- **What Claude said:** seniority **contradicted**, quoting "Opportunity to mentor junior analysts on day-to-day requests as well as team best practices".
-- **Why it doesn't prove the claim:** the quote is found, and mentoring juniors suggests a role above junior. But it doesn't say the job isn't open to someone early in their career, and the same posting gives "2+ years ... preferred". On the C0' run, the same prompt called this claim insufficient.
-
-**What it means:** quote-found is a necessary condition for "supported", not a sufficient one. That is why FILTER.md has me confirm every label, and why the checker's numbers in SCORE.md are "quotes found", never "claims verified".
+**Compared with the checker's labels:** one answer changes. Veeva moves from "I cannot tell" to "keep", because I labeled its location supported. That makes it a confident wrong answer. Its sponsorship claim is "contradicted" by "Veeva does not provide sponsorship…", but under FILTER.md sponsorship never forces an abstention. Only R4 can reject on it, and R4's phrases miss this wording (F1 in `SCORE.md`).
 
 ## The abstention rule, and its counterexamples
 **The rule:** abstain when the role, seniority, or location claim is insufficient, or the description is missing.
 
 **Counterexample 1, a confident wrong answer:** Zoox's part-time student worker.
-- Role, seniority, and location are all supported, with quotes the checker finds, so the agent answers **keep**.
-- Riley wouldn't apply: it's a part-time student contract.
-- The rule abstains on missing evidence. It doesn't abstain on evidence about the wrong thing, or on a property it doesn't track, like employment type or graduation date. Stripe's intern posting (which requires graduating December 2027 or later) fails the same way.
+- I labeled its role, seniority, and location claims all **supported**, so the agent answers **keep**.
+- Riley wouldn't apply: it's a part-time student contract (my audit, row #34).
+- The rule abstains on missing evidence. It doesn't abstain on a property it doesn't track, like employment type. Stripe's intern posting (graduation date) and Veeva (sponsorship, see above) fail the same way.
 
 **Counterexample 2, abstaining on a match:** FanDuel, "Campaign Analytics, Data Analyst", labeled "yes".
-- The posting never says "entry level" or "junior", so the seniority claim is insufficient and the agent answers **I cannot tell**.
-- Yet "Minimum of 1+ years of previous experience in a similar role" is clear enough for Riley, and I labeled it "yes".
+- The posting never says "entry level" or "junior", so the seniority claim is insufficient (my label agrees) and the agent answers **I cannot tell**.
+- Yet "Minimum of 1+ years of previous experience in a similar role" is clear enough for Riley, and I labeled the posting "yes".
 
-**What I did about it:** dropping the seniority clause (A1 in SCORE.md) fixes counterexample 2, but answers 6 of 7 tuning postings, all wrong. Recommendation: keep the rule as it is, and report coverage next to accuracy, so an abstention is never counted as a correct answer.
+**What was measured:** dropping the seniority clause (A1 in `SCORE.md`) fixes counterexample 2, but answers 6 of 7 tuning postings, all wrong. Claude recommends keeping the rule and reporting coverage next to accuracy, so an abstention is never counted as a correct answer. The decision is mine.

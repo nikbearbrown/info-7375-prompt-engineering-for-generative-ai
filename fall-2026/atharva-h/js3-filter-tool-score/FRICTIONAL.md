@@ -209,3 +209,12 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
 - **The false friend:** in my row #27, Datadog FP&A Analyst R&D, "Reporting to the Senior Manager" earned the "reporting" skill point and lifted the score to exactly 4. FILTER.md v1.0 had predicted "reporting to" as a false friend. Claude measured a narrow fix on held-out as F5: no held-out change, 1 posting flips.
 - **`AUDIT.md`:** Claude drafted it around my verdicts. It holds the sample statement, the results, the false friends, and the changelog of every rule added, cut, or rejected. It's waiting for my review.
 - **Still mine to do:** the decisions on F1–F5, C1–C3, and A1, the claim labels, and the sign-off.
+
+## 2026-11-25 — My claim labels
+- **What I did:** labeled all 72 claims myself, checking each quote against its claim, in my own copy of the sheet. I gave it to Claude and told it to copy my labels into `state/claims/base_checked.csv` as my work, not its own. Claude checked that the other eight columns matched exactly, and copied my `my_label` column in unchanged.
+- **My results:** 43 supported, 3 contradicted, 26 insufficient. Four differ from the checker:
+  - FanDuel "Analyst", years: I labeled it insufficient, because "2+ years … preferred" doesn't say the job requires 2 or fewer.
+  - FanDuel "Analyst", seniority: I labeled it insufficient, not contradicted.
+  - Two location quotes that begin with the prompt's field name "Locations:": I labeled them supported. The checker refused them under FILTER.md's exact-span rule.
+- **What changed with my labels:** with my labels (`claims.py confirmed`), the agent answers 4 of 12 kept postings, and all 4 are "no". Veeva moves from "I cannot tell" to "keep". It still abstains on both "yes" postings.
+- **`SHORTLIST.md` was redrafted around my labels.** The relevance-vs-entailment case is now my own disagreement with the checker (FanDuel "Analyst", years), instead of Claude's first pick (Zoox's student quote, which I labeled supported).
