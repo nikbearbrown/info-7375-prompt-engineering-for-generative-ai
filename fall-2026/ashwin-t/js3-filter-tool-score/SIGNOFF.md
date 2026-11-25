@@ -1,6 +1,6 @@
 # Sign-off: Job-Search Agent 3
 
-**Status: proposed, pending Ashwin's explicit confirmation.** Ashwin supplied this wording in chat on 2026-11-25; Codex helped draft it. The driver's-seat table below is still Claude Code's draft and has **not** been approved.
+**Status: approved by Ashwin on 2026-11-25** (in chat). Ashwin supplied this wording; Codex helped draft it. The signature covers the limited checks described, not full rubric completion. The driver's-seat table below is still Claude Code's draft; Ashwin has **not** approved it.
 
 ```text
 Sign-off — Job-Search Agent 3
@@ -17,7 +17,8 @@ Not checked:  - The required hand-judged posting audit remains 0/47.
 Not claiming: Full rubric completion, validated filter accuracy, an uncontaminated improvement from
               v1.1, suitability of every KEEP, or model training. The Mission Manager change corrects
               a demonstrated keyword mismatch; it does not establish better overall accuracy.
-Signed or withheld: pending Ashwin's review and explicit confirmation (no signature inserted)
+Signed or withheld: Signed: Ashwin Thankachan, November 25, 2026.
+                    This signs the limited checks described, not full rubric completion.
 ```
 
 ## Facts Ashwin can check, with the test or file for each
@@ -30,7 +31,7 @@ Signed or withheld: pending Ashwin's review and explicit confirmation (no signat
 | The server has no network or process code, and no transcript outside the folder | `tests/test_mcp_server.py` |
 | v1.1 changes one object, and only 2 development decisions | `tests/test_v11_mission_manager.py` |
 | The audit selection is reproducible and excludes held-out keys | `tests/test_tool_and_audit.py::Audit` |
-| 56 tests pass on Python 3.9.6 and 3.12.15 (55 at `b616bc09`; the 56th, added in `bf491431`, checks the server disclosure) | `python3 -m unittest`, and the same with `/opt/homebrew/bin/python3.12` |
+| Claude Code's later run: 56 tests pass on Python 3.9.6 and 3.12.15 at `4943de33` (the 56th, added in `bf491431`, checks the server disclosure). Ashwin did not run the 56th | `python3 -m unittest`, and the same with `/opt/homebrew/bin/python3.12` |
 | Ashwin ran the 55 tests personally on 3.9.6 at `b616bc09`: OK, exit 0 | `drafting/checks-run-by-ashwin.txt` |
 
 ## Candidate "Not checked" items, from the record

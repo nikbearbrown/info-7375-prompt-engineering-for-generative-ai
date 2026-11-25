@@ -35,7 +35,7 @@ an outside effect. Only Read and Write were exercised, and Write only inside a n
 
 ## Trust decision (Ashwin)
 
-**Status: proposed, pending Ashwin's explicit confirmation.** Ashwin supplied this wording in chat on 2026-11-25; Codex helped draft it.
+**Status: approved by Ashwin on 2026-11-25** (in chat). Ashwin supplied this wording; Codex helped draft it.
 
 > I would not connect claude mcp serve to an unrestricted client that executes tools without approval. For this
 > evaluation, I would allow only Read through an enforced restriction to a disposable directory. The working

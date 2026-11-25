@@ -39,11 +39,13 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
   from the held-out labels, not independent hand judgments (corrected in `b03e6b29`).
 - **The v1.1 change:** instructed it (the narrow Mission Manager exception), and kept the held-out comparison
   labeled potentially contaminated.
-- **Still to come (Ashwin's alone):**
-  - the 47 hand verdicts, and any human claim labels;
-  - both trust decisions;
-  - the FRICTIONAL experience lines;
-  - the sign-off.
+- **Trust decisions and sign-off:** approved both trust decisions and the sign-off wording on 2026-11-25. Codex
+  helped draft the wording. Signed: "Ashwin Thankachan, November 25, 2026", for the limited checks described, not
+  full rubric completion.
+- **Ran the tests personally:** 55 tests at `b616bc09`, OK, exit 0 (`drafting/checks-run-by-ashwin.txt`).
+- **FRICTIONAL.md:** supplied draft lines written with Codex, not yet confirmed. Asked that the three personal slots
+  be marked "Not supplied".
+- **Not done by Ashwin:** any of the 47 hand verdicts or any human claim labels.
 
 ## What Codex contributed (as relayed by Ashwin)
 

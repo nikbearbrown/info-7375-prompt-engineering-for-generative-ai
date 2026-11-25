@@ -10,14 +10,14 @@ Ashwin's thinking or feelings is inferred.
   them. Claude Code pointed out that threshold 6 never binds, because every eligible posting already scored at
   least 6. Codex suggested 7, and Ashwin approved it.
 - **Evidence:** FILTER.md committed alone at `a3a7a2af`, before the filter code.
-- **(Ashwin) What I tried or expected, and what I accepted, changed or rejected:**
+- **(Ashwin) What I tried or expected, and what I accepted, changed or rejected:** Not supplied.
 
 ## 2026-11-25: blind held-out labels
 
 - **What happened:** 30 postings were drawn with seed 20261125: 20 engineering-like titles and 10 others. Ashwin
   labeled them Y 7, N 19, ? 4, before seeing any filter output for them.
 - **Evidence:** `labels/heldout-sheet.csv`, committed alone at `9757ee7b`.
-- **(Ashwin) What was hard to decide:**
+- **(Ashwin) What was hard to decide:** Not supplied.
 
 ## 2026-11-25: the reject audit, and its provenance
 
@@ -56,7 +56,7 @@ Ashwin's thinking or feelings is inferred.
 - **What remained unresolved:** no unused sample can test this change, because none of the Cloudflare snapshot's
   titles has the phrase. And on the held-out set, the filter still rejects 6 of the 7 postings labeled Y.
 - **Evidence:** `77daf2d1`, `78adf4b9`, `c9821188`; `CHANGE.md`; `changes/HELDOUT-v1.0-vs-v1.1.md`.
-- **(Ashwin) What surprised me:**
+- **(Ashwin) What surprised me:** Not supplied.
 - **(Ashwin, proposed; drafted with Codex, pending confirmation)** "Mission Manager" names a product here. Correcting that title match is separate from establishing whether the job suits Supriya.
 
 ## 2026-11-25: the tool server

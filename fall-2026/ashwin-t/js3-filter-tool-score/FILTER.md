@@ -1,6 +1,6 @@
 # JS3 filter and evidence rules
 
-Version: v1.0
+Version: v1.0 (the rules below). Current filter file: v1.1, which adds one change recorded in section 10.
 Date: 2026-11-25
 Status: Approved 2026-11-25 by Ashwin Thankachan, before any filter code, with the threshold revision in section 10. The approval wording was drafted by Codex and sent by Ashwin in chat.
 Provenance: Codex draft from FILTER-QUESTIONS.md (which Claude Code drafted). Claude Code then noted that threshold 6 never binds, and Codex suggested threshold 7. Ashwin approved the result. Claude Code edited section 4 and this header, and added section 10, as instructed.
@@ -120,5 +120,5 @@ Every rule added, cut, or rejected after this point is recorded here with its re
 | Version | Date | Change | Reason | Measured on | Decision |
 | --- | --- | --- | --- | --- | --- |
 | v1.0 (before first commit) | 2026-11-25 | Threshold 6 → 7 | Threshold 6 never bound (Claude Code). 7 makes non-preferred US locations need 3 topic groups (Codex suggestion). | Nothing measured; decided before any code | Approved by Ashwin |
-| v1.0 | 2026-11-25 | Level-II and forward-deployed exclusions kept | Preference choices for a conservative baseline. The reject audit examines their false negatives, without using held-out results to tune them. | Reject audit (dev pool only), pending | Kept for v1.0 |
+| v1.0 | 2026-11-25 | Level-II and forward-deployed exclusions kept | Preference choices for a conservative baseline. The reject audit examines their false negatives, without using held-out results to tune them. | Not measured: the 8 exclusion-check postings were never hand-judged, and 7 of them have no verdict of any kind | Kept for v1.0 and v1.1 |
 | v1.1 | 2026-11-25 | Seniority term `manager` ignored inside the product name "Mission Manager" in titles with a role phrase (`filters/v1.1.json`: `"seniority_exceptions": {"manager": ["mission manager"]}`) | Demonstrated false keyword match: the postings call Mission Manager "Palantir’s PaaS" (`audit/FALSE-FRIENDS.md`). Corrects the reason; does not establish accuracy or suitability | Development set: 2 postings REJECT → KEEP, nothing else changed (`changes/v1.1-mission-manager.md`). The original 30-posting held-out set is potentially contaminated; Cloudflare cannot test it (0 affected titles) | Implemented on Ashwin's instruction in chat |

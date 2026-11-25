@@ -58,7 +58,7 @@ outside the folder; the transcript path outside the folder is refused, and `test
 
 ## Trust decision (Ashwin)
 
-**Status: proposed, pending Ashwin's explicit confirmation.** Ashwin supplied this wording in chat on 2026-11-25; Codex helped draft it.
+**Status: approved by Ashwin on 2026-11-25** (in chat). Ashwin supplied this wording; Codex helped draft it.
 
 > I would allow score_posting calls without individual approval for this local coursework dataset, after
 > correcting the description to disclose transcript writes. The tool must clearly identify which filter version
@@ -68,4 +68,4 @@ outside the folder; the transcript path outside the folder is refused, and `test
 > can bypass it.
 
 The condition in the first sentence was met on 2026-11-25. Server 1.1.0 discloses its transcript writes and labels
-itself filter v1.0, not v1.1 (re-probed at 20:32 UTC). The decision itself is still pending Ashwin's confirmation.
+itself filter v1.0, not v1.1 (re-probed at 20:32 UTC). Ashwin approved the decision afterwards, on 2026-11-25.

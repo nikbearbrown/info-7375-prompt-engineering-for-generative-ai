@@ -13,10 +13,10 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 | 1. FILTER.md before the build | `FILTER.md` (committed alone at `a3a7a2af`, before any filter code) | Done; approved by Ashwin |
 | 2.1 Filter and reject audit | `jobfilter/filter.py`, `filters/`, `runs/`, `labels/`, `audit/` | ⚠ **Hand-judged audit 0 of 47.** Verdicts so far are AI-assisted (`audit/EXPLORATORY-v1.0-ai-assisted.md`). False friend demonstrated from text (`audit/FALSE-FRIENDS.md`) |
 | 2.2 Source-grounded shortlist | `SHORTLIST.md`, `shortlist/` | ⚠ All 90 claims labeled, **all Codex AI-assisted** (29 excerpt-based, 61 checked against text and structured fields); no human claim labels |
-| 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. ⚠ Both trust decisions proposed (Ashwin's wording, drafted with Codex), pending confirmation |
+| 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. Both trust decisions approved by Ashwin (wording drafted with Codex). Server 1.1.0 discloses its transcript writes |
 | 2.4 What moves the score | `CHANGE.md`, `changes/` | One change (v1.1) measured on held-out labels; **potentially contaminated** |
-| 3. Sign-off and driver's seat | `SIGNOFF.md` | ⚠ Lines proposed, pending confirmation; not signed; driver's seat is a draft |
-| Frictional | `FRICTIONAL.md` | ⚠ Some lines proposed (drafted with Codex, pending confirmation); subjective lines still blank |
+| 3. Sign-off and driver's seat | `SIGNOFF.md` | Signed by Ashwin on 2026-11-25, for the limited checks described, not full rubric completion. ⚠ The driver's-seat table is Claude Code's draft and not approved |
+| Frictional | `FRICTIONAL.md` | ⚠ Some lines drafted with Codex and not yet confirmed by Ashwin; three personal slots marked "Not supplied" |
 
 ## Sample sizes: what the brief requires and what we chose
 
@@ -132,8 +132,9 @@ The second one ran from `evaluations/own-server/claude-client-2026-11-25/`; `com
 - **Live Claude claims, 13:23 UTC:** 18 postings, 18 valid replies, 90 claims (`SHORTLIST.md`).
 - **Tool server:**
   - 12:38 UTC: our client probed `claude mcp serve` (`evaluations/other-server/`).
-  - 13:21 UTC: our client probed our own server, then Claude Code used it as a real client
+  - 13:21 UTC: our client probed our own server (1.0.0), then Claude Code used it as a real client
     (`evaluations/own-server/`, `transcripts/`).
+  - 20:32 UTC: our client re-probed the corrected server 1.1.0 (`evaluations/own-server/`).
 
 ## Wrong versions (FILTER.md section 7)
 
