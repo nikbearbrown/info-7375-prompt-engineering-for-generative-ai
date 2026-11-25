@@ -1,0 +1,35 @@
+Board probe by Claude Code, before GATE.md existed (research only; no agent code involved).
+Read-only GET requests with curl, timeout 30 s, header Accept: application/json,
+User-Agent "jobwatch-probe/0.2 (INFO 7375 course project; read-only)".
+Greenhouse URLs were requested WITHOUT ?content=true, so sizes are smaller than the agent's real requests.
+Bodies were saved to Claude Code's session scratchpad, not to this folder.
+
+probed at 2026-11-08T09:20:27Z
+
+name|HTTP status, time, bytes|URL
+ash-nosuch|404 0.123607s 9B|https://api.ashbyhq.com/posting-api/job-board/jobwatch-no-such-board-js2
+gh-miro|200 0.128727s 12769B|https://boards-api.greenhouse.io/v1/boards/realtimeboardglobal/jobs
+gh-hubspot|404 0.131252s 38B|https://boards-api.greenhouse.io/v1/boards/hubspot/jobs
+gh-figma|200 0.154127s 91874B|https://boards-api.greenhouse.io/v1/boards/figma/jobs
+ash-linear|200 0.159194s 452742B|https://api.ashbyhq.com/posting-api/job-board/linear
+gh-nosuch|404 0.162830s 38B|https://boards-api.greenhouse.io/v1/boards/jobwatch-no-such-board-js2/jobs
+gh-hubspotjobs|200 0.190051s 188198B|https://boards-api.greenhouse.io/v1/boards/hubspotjobs/jobs
+gh-anthropic|200 0.318228s 483484B|https://boards-api.greenhouse.io/v1/boards/anthropic/jobs
+ash-notion|200 0.329022s 2848095B|https://api.ashbyhq.com/posting-api/job-board/notion
+gh-stripe|200 0.354387s 477856B|https://boards-api.greenhouse.io/v1/boards/stripe/jobs
+gh-databricks|200 0.387578s 793332B|https://boards-api.greenhouse.io/v1/boards/databricks/jobs
+ash-openai|200 0.807355s 13677746B|https://api.ashbyhq.com/posting-api/job-board/openai
+
+Job counts (len of the "jobs" array):
+ash-linear.body: jobs=32 keys=['apiVersion', 'jobs']
+ash-nosuch.body: not JSON, first bytes b'Not Found'
+ash-notion.body: jobs=154 keys=['apiVersion', 'jobs']
+ash-openai.body: jobs=818 keys=['apiVersion', 'jobs']
+gh-anthropic.body: jobs=675 keys=['jobs', 'meta']
+gh-databricks.body: jobs=922 keys=['jobs', 'meta']
+gh-figma.body: jobs=145 keys=['jobs', 'meta']
+gh-hubspot.body: no jobs array; {'status': 404, 'error': 'Job not found'}
+gh-hubspotjobs.body: jobs=122 keys=['jobs', 'meta']
+gh-miro.body: jobs=21 keys=['jobs', 'meta']
+gh-nosuch.body: no jobs array; {'status': 404, 'error': 'Job not found'}
+gh-stripe.body: jobs=766 keys=['jobs', 'meta']

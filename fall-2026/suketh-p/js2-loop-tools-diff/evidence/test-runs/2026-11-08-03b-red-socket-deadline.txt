@@ -1,0 +1,29 @@
+$ date
+Sun Nov  8 05:44:15 EST 2026
+$ python3 -m unittest -v tests.test_net_socket   (RED, second try: stall test strengthened, before the net.py fix)
+test_a_prompt_response_is_read_whole (tests.test_net_socket.RealSocketDeadlineTest.test_a_prompt_response_is_read_whole) ... ok
+test_a_real_redirect_is_returned_on_one_connection (tests.test_net_socket.RealSocketDeadlineTest.test_a_real_redirect_is_returned_on_one_connection) ... ok
+test_a_stalled_body_is_abandoned_at_the_deadline (tests.test_net_socket.RealSocketDeadlineTest.test_a_stalled_body_is_abandoned_at_the_deadline) ... FAIL
+test_a_trickling_body_is_abandoned_at_the_deadline (tests.test_net_socket.RealSocketDeadlineTest.test_a_trickling_body_is_abandoned_at_the_deadline) ... FAIL
+
+======================================================================
+FAIL: test_a_stalled_body_is_abandoned_at_the_deadline (tests.test_net_socket.RealSocketDeadlineTest.test_a_stalled_body_is_abandoned_at_the_deadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_net_socket.py", line 108, in test_a_stalled_body_is_abandoned_at_the_deadline
+    self.assertLess(time.monotonic() - started, 2.2)
+AssertionError: 2.3165545830270275 not less than 2.2
+
+======================================================================
+FAIL: test_a_trickling_body_is_abandoned_at_the_deadline (tests.test_net_socket.RealSocketDeadlineTest.test_a_trickling_body_is_abandoned_at_the_deadline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_net_socket.py", line 101, in test_a_trickling_body_is_abandoned_at_the_deadline
+    self.assertLess(time.monotonic() - started, 2.2)
+AssertionError: 6.01181966700824 not less than 2.2
+
+----------------------------------------------------------------------
+Ran 4 tests in 8.940s
+
+FAILED (failures=2)
+exit status: 1

@@ -1,0 +1,72 @@
+{
+  "run_id": "seeded-2",
+  "status": "incomplete",
+  "reason": "not every board could be verified: ['ashby/linear']; results are provisional",
+  "state_advanced": false,
+  "started_at": "2026-11-09T05:41:05Z",
+  "ended_at": "2026-11-09T05:41:05Z",
+  "requested": [
+    "greenhouse/anthropic",
+    "greenhouse/databricks",
+    "ashby/linear"
+  ],
+  "plan": [
+    "greenhouse/anthropic",
+    "greenhouse/databricks",
+    "ashby/linear"
+  ],
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 4,
+    "max_seconds": 30.0,
+    "max_request_seconds": 5.0
+  },
+  "used": {
+    "boards": 3,
+    "requests": 3,
+    "seconds": 0.322
+  },
+  "approval": {
+    "given": "seeded-2:state/state.json",
+    "problem": null
+  },
+  "boards": [
+    {
+      "board": "greenhouse/anthropic",
+      "role": "normal",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "outcome": "usable",
+      "jobs": 675,
+      "baseline": false,
+      "new_keys": [],
+      "new_postings": [],
+      "reason": null,
+      "provisional": true
+    },
+    {
+      "board": "greenhouse/databricks",
+      "role": "normal",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "outcome": "usable",
+      "jobs": 922,
+      "baseline": false,
+      "new_keys": [],
+      "new_postings": [],
+      "reason": null,
+      "provisional": true
+    },
+    {
+      "board": "ashby/linear",
+      "role": "normal",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "outcome": "unverified",
+      "jobs": null,
+      "baseline": null,
+      "new_keys": null,
+      "new_postings": null,
+      "reason": "empty jobs list: the board answered 200 with no postings, so it could not be verified",
+      "provisional": true
+    }
+  ],
+  "trace": "trace.json"
+}

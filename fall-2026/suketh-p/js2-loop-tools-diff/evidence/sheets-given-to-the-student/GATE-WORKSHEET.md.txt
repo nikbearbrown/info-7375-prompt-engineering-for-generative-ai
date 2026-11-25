@@ -1,0 +1,83 @@
+# JS2 gate worksheet
+
+Claude Code made this sheet on 2026-11-08 to help you write `GATE.md`. **It is not your gate.** The brief says you write GATE.md yourself, before Claude Code touches any code. Chapters 4 and 5 say the same thing: Claude can sharpen a gate, but it can't write one for you.
+
+Write your answers in your own words in [GATE.md](GATE.md), next to this file. That file has only the brief's six headings in it.
+
+---
+
+## 1. Pick your boards
+
+The agent has to watch **at least 3 boards on at least 2 systems**, plus **1 board that fails on purpose**.
+
+These boards answered when Claude Code checked them on 2026-11-08 at 09:20 UTC (one request each; log in [evidence/2026-11-08-board-probe.txt](evidence/2026-11-08-board-probe.txt)):
+
+| Company | System | Board name | Jobs today |
+|---|---|---|---:|
+| Anthropic | Greenhouse | `anthropic` | 675 |
+| Databricks | Greenhouse | `databricks` | 922 |
+| Stripe | Greenhouse | `stripe` | 766 |
+| Figma | Greenhouse | `figma` | 145 |
+| HubSpot | Greenhouse | `hubspotjobs` | 122 |
+| Miro | Greenhouse | `realtimeboardglobal` | 21 |
+| OpenAI | Ashby | `openai` | 818 (a 13.7 MB response) |
+| Notion | Ashby | `notion` | 154 |
+| Linear | Ashby | `linear` | 32 |
+
+Here is what failure looked like that day:
+
+- A board name that doesn't exist got **HTTP 404** on both systems. Greenhouse sent back a short JSON error; Ashby sent the text `Not Found`.
+- Lectern's notes say Greenhouse `hubspot` returned an *empty* board on 2026-09-26. On 2026-11-08 it returned 404. Boards change.
+
+The brief gives three ways for a board to fail on purpose: a bad name, an empty response, or a timeout. Pick one.
+
+---
+
+## 2. The six things GATE.md must say
+
+Each heading below has the brief's question, plus facts that may help. The decisions are yours.
+
+### Exits
+The brief: every way your loop can end, and what each one reports: finished, incomplete, budget-exhausted, error. "A loop that stops is not a loop that succeeded."
+- Chapter 4 ("The gate: write the exits…") lays this out as a table: *the run ends because… / status / what it reports*.
+- A case to decide: some boards worked and one failed. Which exit is that?
+
+### Budgets
+The brief: the maximum boards, requests, and seconds per run, and who may change them. A budget changes only by a new written decision.
+- Each Greenhouse or Ashby board takes one request for its whole job list. On 2026-11-08 each took 0.1–0.8 seconds.
+- A retry is one more request.
+- JS1 waited up to 60 seconds for a response before giving up.
+
+### Repeat rule
+The brief: what counts as "the same" action, and what the loop does about it.
+- Chapter 4, "Repetition detectors have false positives too".
+- Cases to decide: the same board listed twice; asking for the same URL again after it failed.
+
+### Error policy
+The brief: what the loop does on a failed board: stop, retry (how many times, and why a retry is sound there), or escalate to you.
+- On 2026-11-08 a wrong board name got 404. A timeout or a dropped connection is a different kind of failure.
+
+### Permission policy
+The brief: which hosts the agent may call, which folders it may write, and what it may never do (apply, email, message, log in).
+- Hosts: `boards-api.greenhouse.io` (Greenhouse) and `api.ashbyhq.com` (Ashby). JS1 also allowed `api.anthropic.com` and the `claude` command, for its Claude judgment.
+- JS1 wrote to `runs/` (one folder per run) and `state/state.json`.
+- Your boundary tests will need at least 10 cases, among them: a host off the list; a path that escapes your output folder (`..`, a look-alike folder such as `jobs-evil` next to `jobs`, a symlink); a read versus a write; and a write that needs your approval. **So the policy has to say which writes need your approval.**
+- A decision only you can make: does JS2 still ask Claude about each new posting, as JS1 did?
+
+### Wrong versions
+The brief: plausible-but-wrong implementations your tests must catch.
+- The brief's example: an empty board reported as "no new jobs".
+- The "The gate" sections of Chapter 4 and Chapter 5 each list wrong versions for their small examples. Yours should fit this agent.
+
+### Optional (the chapters ask for it)
+Write one sentence, dated, before anything runs: what would you see if a run ended cleanly but was wrong?
+
+---
+
+## 3. Your first Frictional entry
+
+Write two to four sentences in your own words, dated, before building. What do you expect to be hard, or what are you unsure about? Paste it in the chat. It goes into FRICTIONAL.md word for word.
+
+## When you're done
+
+Tell Claude Code "GATE ready". GATE.md gets copied unchanged into the JS2 folder and committed **before any code**.

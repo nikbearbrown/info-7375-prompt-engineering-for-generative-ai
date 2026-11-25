@@ -1,0 +1,23 @@
+Timing probe by Claude Code after the student supplied GATE.md, before any agent code.
+Purpose: check the gate's budget (5 s per request for the full response; 30 s per run) against the real responses.
+Read-only GET with curl, timeout 30 s, header Accept: application/json, sequential, two rounds.
+Bodies were saved to Claude Code's session scratchpad, not to this folder.
+
+probed at 2026-11-08T09:51:07Z (sequential, two rounds)
+r1-gh-anthropic|200|connect 0.043213s|first byte 0.198906s|total 0.496841s|10279433 bytes
+r1-gh-databricks|200|connect 0.023552s|first byte 0.213015s|total 0.558888s|10058900 bytes
+r1-ash-linear|200|connect 0.042916s|first byte 0.182943s|total 0.241562s|452742 bytes
+r2-gh-anthropic|200|connect 0.027969s|first byte 0.179622s|total 0.549757s|10279433 bytes
+r2-gh-databricks|200|connect 0.024555s|first byte 0.184502s|total 0.587839s|10058900 bytes
+r2-ash-linear|200|connect 0.021111s|first byte 0.070565s|total 0.128280s|452742 bytes
+
+URLs: https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true
+      https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true
+      https://api.ashbyhq.com/posting-api/job-board/linear
+
+Ashby field check on the 2026-11-08T09:20:27Z Linear body (32 jobs):
+every job has id (str), jobUrl (str), title (str), location (str), descriptionHtml (str),
+descriptionPlain (str), isListed (bool, all true), secondaryLocations (list), and more.
+jobUrl unique: True | missing jobUrl: 0 | id unique: True | missing id: 0
+jobUrl ends with the job's id: 32 of 32
+example: https://jobs.ashbyhq.com/linear/d3bc1ced-3ce4-4086-a050-555055dbb1ff, location 'Europe'

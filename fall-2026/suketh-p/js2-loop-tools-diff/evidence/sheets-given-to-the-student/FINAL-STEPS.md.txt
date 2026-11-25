@@ -1,0 +1,30 @@
+# What's left for you (JS2), in order
+
+Claude Code made this sheet on 2026-11-09. Each step is yours; the answers are yours.
+
+## 1. Your last Frictional entry: a retrospective, in your own words
+
+The Frictional grade (10 points) is: specific, honest accounts (3); what you checked, changed, or learned, including what is unresolved (3); what you accepted, modified, or rejected from Claude (2); traceability to commits, prompts, and tests (2). Your two entries so far are short. A retrospective can cover what they don't. Questions to answer (no model answers given):
+
+- What did you expect to be hard (your first entry), and how did it turn out?
+- Which of Claude Code's proposals did you accept, change, or reject, and why? Name the commit or file.
+- What did you check yourself, with which command or test? What did it show?
+- What is still unresolved? (For example, the audit's timing, or the partial-board case.)
+
+Paste it in the chat, dated. It goes into FRICTIONAL.md word for word.
+
+## 2. Your sign-off
+
+The README's "Sign-off" section lists the facts Claude Code can state, and the brief's template. Write the five lines in your own words, then sign or withhold it with your name and the date. Withholding is an honest result if the record doesn't support signing.
+
+## 3. Permission to push
+
+Then Claude Code pushes the branch `js2-loop-tools-diff` to your fork (`sukethrp/...`) and builds the Canvas zip from the pushed commit. You open the pull request yourself (last time, auto mode refused Claude's `gh pr create`) and upload the zip.
+
+## Optional, before step 2: a second approved run later today
+
+All live runs so far found 0 new postings, because they were within three hours of the baseline. A normal run later today, with your own approval, would show the loop finding new postings on real data:
+
+```bash
+cd "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff" && python3 -m jobwatch run --run-id 2026-11-09-normal-2 --approve-state 2026-11-09-normal-2:state/state.json
+```

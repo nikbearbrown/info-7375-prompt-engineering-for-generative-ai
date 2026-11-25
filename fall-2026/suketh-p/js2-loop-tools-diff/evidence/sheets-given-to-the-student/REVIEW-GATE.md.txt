@@ -1,0 +1,40 @@
+# Review gate — the review packet (JS2)
+
+Claude Code made this sheet on 2026-11-08. **The answers are yours**, written before any patch exists. Chapter 6 calls this "the gate: reproduction, test, and scope, before the patch".
+
+## 0. Which change?
+
+The brief asks for "one non-trivial change you asked Claude Code to make". One candidate is already set up. Choose it, or name a different change.
+
+**Candidate: an empty jobs list must leave the board unverified, not count as "checked, 0 new".**
+- Your GATE.md error policy says an empty jobs list "means the board could not be verified". The code does not do that yet.
+- Your first Frictional entry named this as the hard part: "a board with no new jobs and a board I couldn't check".
+- JS1 pins the old behavior with a test: `tests/test_inputs.py`, `test_accepts_an_empty_jobs_array`.
+- The SEEDED demonstration at commit `8020acb` reproduced it. With Linear's body emptied, the agent ended `finished` and reported Linear "usable, 0 jobs, no new postings". The independent check flagged it. See `fork/fall-2026/suketh-p/js2-loop-tools-diff/demos/finished-wrong-answer/at-8020acb-before-fix/SUMMARY.md`.
+
+Facts for deciding the scope (where the behavior lives today):
+
+| File | What it does now |
+|---|---|
+| `jobwatch/board.py` | JS1's Greenhouse parser: accepts `{"jobs": []}` and returns no postings |
+| `jobwatch/ats.py` | Ashby parser written for JS2: same contract, accepts an empty list too |
+| `jobwatch/loop.py` | `classify_response`: a board that parses is "usable", even with 0 postings |
+| `tests/test_inputs.py` | JS1's test asserting that an empty jobs array is accepted |
+
+## 1. The rule (your words)
+
+What should the agent do when a board answers 200 with an empty jobs list?
+
+## 2. The reproduction (your words)
+
+Which inputs show the defect, and what do you expect for each? At least two, so a patch that handles only one case can't pass. For example, an empty Greenhouse board and an empty Ashby board, or a first run and a later run.
+
+## 3. Allowed files (your decision)
+
+Which files may Claude change for this fix? Any file outside your list is out of scope unless you widen the list, with the change on the record.
+
+## 4. What a wrong patch would look like (one sentence, dated, before any patch)
+
+---
+
+Next, you write the test, before any patch exists, in a new file such as `tests/test_review_empty_board.py`. Claude Code will point you to the helpers and an existing test you can model it on. You'll run it yourself to see it fail.

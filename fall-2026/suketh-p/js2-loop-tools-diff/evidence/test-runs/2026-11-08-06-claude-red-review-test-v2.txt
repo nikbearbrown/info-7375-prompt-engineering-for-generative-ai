@@ -1,0 +1,52 @@
+Run by Claude Code after copying the student's test version 2 into tests/ (cmp identical; sha256 14224849...515c6d),
+at commit 2eb4a5f (no patch). The student wrote that they 'verified it on a local copy' before sending it; that run's output was not shared.
+$ date
+Sun Nov  8 07:29:51 EST 2026
+$ python3 -m unittest -v tests.test_review_empty_board
+test_all_empty_boards_end_in_error_without_creating_state (tests.test_review_empty_board.EmptyBoardReviewTest.test_all_empty_boards_end_in_error_without_creating_state) ... FAIL
+test_empty_ashby_board_leaves_saved_state_byte_identical (tests.test_review_empty_board.EmptyBoardReviewTest.test_empty_ashby_board_leaves_saved_state_byte_identical) ... FAIL
+test_empty_greenhouse_board_does_not_create_a_baseline (tests.test_review_empty_board.EmptyBoardReviewTest.test_empty_greenhouse_board_does_not_create_a_baseline) ... FAIL
+test_nonempty_boards_with_no_new_postings_still_finish (tests.test_review_empty_board.EmptyBoardReviewTest.test_nonempty_boards_with_no_new_postings_still_finish) ... ok
+
+======================================================================
+FAIL: test_all_empty_boards_end_in_error_without_creating_state (tests.test_review_empty_board.EmptyBoardReviewTest.test_all_empty_boards_end_in_error_without_creating_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_review_empty_board.py", line 83, in test_all_empty_boards_end_in_error_without_creating_state
+    self.assertEqual(result["status"], "error")
+AssertionError: 'finished' != 'error'
+- finished
++ error
+
+
+======================================================================
+FAIL: test_empty_ashby_board_leaves_saved_state_byte_identical (tests.test_review_empty_board.EmptyBoardReviewTest.test_empty_ashby_board_leaves_saved_state_byte_identical)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_review_empty_board.py", line 63, in test_empty_ashby_board_leaves_saved_state_byte_identical
+    self.assert_empty_board_unverified(result, "ashby/linear", body)
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_review_empty_board.py", line 30, in assert_empty_board_unverified
+    self.assertEqual(board["outcome"], "unverified")
+AssertionError: 'usable' != 'unverified'
+- usable
++ unverified
+
+
+======================================================================
+FAIL: test_empty_greenhouse_board_does_not_create_a_baseline (tests.test_review_empty_board.EmptyBoardReviewTest.test_empty_greenhouse_board_does_not_create_a_baseline)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_review_empty_board.py", line 43, in test_empty_greenhouse_board_does_not_create_a_baseline
+    self.assert_empty_board_unverified(
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js2-loop-tools-diff/tests/test_review_empty_board.py", line 30, in assert_empty_board_unverified
+    self.assertEqual(board["outcome"], "unverified")
+AssertionError: 'usable' != 'unverified'
+- usable
++ unverified
+
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.026s
+
+FAILED (failures=3)
+exit status: 1

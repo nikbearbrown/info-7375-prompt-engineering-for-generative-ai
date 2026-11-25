@@ -1,0 +1,30 @@
+$ date
+Sun Nov  8 05:45:43 EST 2026
+$ ls state/ 2>&1
+ls: state/: No such file or directory
+$ python3 -m jobwatch run --run-id 2026-11-08-failure-1 --failure-control
+run 2026-11-08-failure-1: incomplete — not every board could be verified: ['greenhouse/jobwatch-no-such-board-js2']; results are provisional
+  greenhouse/anthropic                     usable                 jobs=675 baseline
+  greenhouse/databricks                    usable                 jobs=922 baseline
+  ashby/linear                             usable                 jobs=32 baseline
+  greenhouse/jobwatch-no-such-board-js2    failed-as-expected     jobs=unknown (HTTP 404, as expected for the failure control)
+  used 4 boards, 4 requests, 2.246 s; state advanced: False
+  evidence: runs/2026-11-08-failure-1/ (results.md, trace.md, raw/)
+exit status: 3
+$ ls state/ 2>&1
+ls: state/: No such file or directory
+$ python3 -m jobwatch verify runs/2026-11-08-failure-1
+OK       raw/greenhouse-anthropic.body.gz  10279433 bytes  sha256 6a1d493b13490291f176e8e542aeed73b79cf5ab52c41f47495f7df6f30e2ff1
+OK       raw/greenhouse-databricks.body.gz  10058900 bytes  sha256 ab3d917572c221fecb38674c47b6879f6011893db4785d216c8abbfeb8a97d5e
+OK       raw/ashby-linear.body.gz  452742 bytes  sha256 13cfd35e4bc8d16a9a709f3c655e3c14a6297d19a1a9b998ca0be385dedd8105
+OK       raw/greenhouse-jobwatch-no-such-board-js2.body.gz  38 bytes  sha256 76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe
+exit status: 0
+$ python3 -I checks/independent_check.py runs/2026-11-08-failure-1 --state-before none --state-after none
+  report: status incomplete, state_advanced False
+  greenhouse/anthropic: saved body is HTTP 200, 10279433 bytes, 675 jobs
+  greenhouse/databricks: saved body is HTTP 200, 10058900 bytes, 922 jobs
+  ashby/linear: saved body is HTTP 200, 452742 bytes, 32 jobs
+  greenhouse/jobwatch-no-such-board-js2: saved body is HTTP 404, 38 bytes, no jobs list
+  state file unchanged between the two copies
+PASS: no contradiction found between the report, the saved bodies and the state files
+exit status: 0

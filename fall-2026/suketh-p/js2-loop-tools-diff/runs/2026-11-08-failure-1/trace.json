@@ -1,0 +1,90 @@
+{
+  "run_id": "2026-11-08-failure-1",
+  "status": "incomplete",
+  "reason": "not every board could be verified: ['greenhouse/jobwatch-no-such-board-js2']; results are provisional",
+  "state_advanced": false,
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 4,
+    "max_seconds": 30.0,
+    "max_request_seconds": 5.0
+  },
+  "used": {
+    "boards": 4,
+    "requests": 4,
+    "seconds": 2.246
+  },
+  "events": [
+    {
+      "seq": 1,
+      "at": "2026-11-08T10:45:43Z",
+      "event": "request",
+      "board": "greenhouse/anthropic",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "elapsed_s": 0.643,
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 10279433,
+      "sha256": "6a1d493b13490291f176e8e542aeed73b79cf5ab52c41f47495f7df6f30e2ff1",
+      "raw": "raw/greenhouse-anthropic.body.gz",
+      "outcome": "usable",
+      "jobs": 675,
+      "reason": null
+    },
+    {
+      "seq": 2,
+      "at": "2026-11-08T10:45:44Z",
+      "event": "request",
+      "board": "greenhouse/databricks",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "elapsed_s": 0.851,
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 10058900,
+      "sha256": "ab3d917572c221fecb38674c47b6879f6011893db4785d216c8abbfeb8a97d5e",
+      "raw": "raw/greenhouse-databricks.body.gz",
+      "outcome": "usable",
+      "jobs": 922,
+      "reason": null
+    },
+    {
+      "seq": 3,
+      "at": "2026-11-08T10:45:45Z",
+      "event": "request",
+      "board": "ashby/linear",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "elapsed_s": 0.229,
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 452742,
+      "sha256": "13cfd35e4bc8d16a9a709f3c655e3c14a6297d19a1a9b998ca0be385dedd8105",
+      "raw": "raw/ashby-linear.body.gz",
+      "outcome": "usable",
+      "jobs": 32,
+      "reason": null
+    },
+    {
+      "seq": 4,
+      "at": "2026-11-08T10:45:45Z",
+      "event": "request",
+      "board": "greenhouse/jobwatch-no-such-board-js2",
+      "url": "https://boards-api.greenhouse.io/v1/boards/jobwatch-no-such-board-js2/jobs?content=true",
+      "elapsed_s": 0.12,
+      "status": 404,
+      "content_type": "application/json",
+      "bytes": 38,
+      "sha256": "76fe0d64c21edde1aa258ae01c07a04323d95ab31b21822348d9e3f1f400dffe",
+      "raw": "raw/greenhouse-jobwatch-no-such-board-js2.body.gz",
+      "outcome": "failed-as-expected",
+      "jobs": null,
+      "reason": "HTTP 404, as expected for the failure control"
+    },
+    {
+      "seq": 5,
+      "at": "2026-11-08T10:45:45Z",
+      "event": "exit",
+      "status": "incomplete",
+      "reason": "not every board could be verified: ['greenhouse/jobwatch-no-such-board-js2']; results are provisional"
+    }
+  ]
+}
