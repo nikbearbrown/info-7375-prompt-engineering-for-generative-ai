@@ -1,5 +1,5 @@
 # FILTER.md: Job-Search Agent 3
-**Anisha Gaikar · version 1.0 · 2026-11-25 ~2:05 pm, written before any JS3 code** (commit `7ee4178`). **Current version: 1.2** (see the change log at the end; sections 1–4 below are v1.0 exactly as gated, with the later rules in §5).
+**Anisha Gaikar · version 1.0 · 2026-11-25 ~2:02 pm, written before any JS3 code** (commit `7ee4178`). **Current version: 1.2** (see the change log at the end; sections 1–4 below are v1.0 exactly as gated, with the later rules in §5).
 
 **Who chose what.**
 - **Mine:** I made every decision in this file. Claude offered options and I chose: title words, seniority, the text rule, boards, evidence rules, abstention, missing fields and wrong versions.
@@ -52,11 +52,11 @@
 2. **Rank by word count:** score = the number of skill words found, with no cap and no rules. A long posting that lists every tool would always rank first, even a Senior one.
 
 ## 5. Rules after measuring (v1.1 and v1.2)
-Every change below came from the **audit** (groups A, B and C; AUDIT.md), never from the held-out set H. Each was measured on H afterwards (WHAT_MOVES_THE_SCORE.md). Each is in its own filter file (`filters/filter_v1.1.json`, `filters/filter_v1.2.json`), with tests written before the code.
+Every change below came from **audit items** (groups A, B and C; AUDIT.md), never from the held-out set H. **Timing, exactly:** the two v1.1 rules were proposed and coded by Claude at 14:21, from reading the kept sample (group C) **before** I had judged anything; my blind verdicts (14:27–14:51) later marked both postings "n", and I accepted the rules at ~2:55 pm. R5 (v1.2) and the rejected rules came **after** my verdicts, from my reasons. Each was measured on H afterwards (WHAT_MOVES_THE_SCORE.md). Each is in its own filter file (`filters/filter_v1.1.json`, `filters/filter_v1.2.json`), with tests written before the code.
 
 | Rule | Status | Version | Evidence that led to it | Reason (one line) |
 |---|---|---|---|---|
-| **R1b** reject a title containing `engineer` (whole word) | **ADDED** | 1.1 | C: *Software Engineer, Data Warehouse Analytics* was kept; my verdict was "n" | "Analytics" in an engineering title is a **false friend** for R1. |
+| **R1b** reject a title containing `engineer` (whole word) | **ADDED** | 1.1 | C: *Software Engineer, Data Warehouse Analytics* was kept (noticed by Claude at 14:21; my later blind verdict: "n") | "Analytics" in an engineering title is a **false friend** for R1. |
 | **R4 fix:** ignore an "N years" followed within 40 characters by `education / university / college / degree / school` | **ADDED** | 1.1 | C: *Financial Data Analyst Intern* had "At least 2 years of **university education**" counted as experience | Years of study are not years of experience (**false friend**). |
 | **R5** reject a location that names a non-US place and no US place; missing or vague locations pass | **ADDED** | 1.2 | C: both kept **intern** postings were "n" in my verdicts, with **Toronto** and **Singapore** in my reasons; many A reasons name non-US cities | Nadia is in Boston. Location was the most frequent reason in my "n" verdicts that the filter couldn't see. |
 | Exclude `FP&A` titles | **REJECTED after measuring** | — | C: 2 FP&A Analysts kept, both "n" ("finance role, wants finance degree") | It would fix 2 audit items, but it's a domain judgment about one family of titles. I'd rather keep a readable rule set than add a word rule for each domain I dislike. Recorded as a known source of wrong keeps. |
@@ -65,7 +65,7 @@ Every change below came from the **audit** (groups A, B and C; AUDIT.md), never 
 | Read "two (2) years" | **REJECTED for now** | — | *Operations Insights…* is a **held-out** item | Same reason as Excel. |
 | **Cut** any v1.0 rule | none | — | Random rejects: 0 of 30 wrong (AUDIT.md) | No v1.0 rule was shown to reject good postings in the random sample. |
 
-**Who decided:** Claude measured each candidate on the corpus and proposed it. I chose: accept both v1.1 rules, add R5, reject FP&A and specialist (2026-11-25, ~2:55 pm).
+**Who decided:** Claude measured each candidate on the corpus and proposed it. I chose: accept both v1.1 rules (already coded at 14:21, before my verdicts), add R5, reject FP&A and specialist (2026-11-25, ~2:55 pm). Note: `tests/test_filter_v11.py` and `filters/filter_v1.1.json` say "after the audit's kept sample"; that means after Claude read group C, not after my verdicts. Both files are frozen by hash, so I corrected the wording here instead.
 
 ## Change log
 | Version | Date | Change | Why |

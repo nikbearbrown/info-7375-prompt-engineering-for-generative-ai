@@ -2,7 +2,7 @@
 **Anisha Gaikar · JS3 · 2026-11-25.** Numbers regenerate with `python3 -m js3.report` (`out/report_original.md`, `out/report_corrected.md`). The Claude runs were real `claude -p` calls made on 2026-11-25 between 14:18 and 14:21 ET; every raw reply is in `runs/<experiment>/`.
 
 ## 1. Where every number came from
-**Fitted on my labels: nothing.** No weight, threshold or word list was tuned to my verdicts. The v1.1/v1.2 rules were *chosen* after reading audit items (FILTER.md §5), but no number in them was fitted.
+**Fitted on my labels: nothing.** No weight, threshold or word list was tuned to my verdicts. The v1.1/v1.2 rules were *chosen* from audit items (v1.1 by Claude before my verdicts, v1.2 by me after them; FILTER.md §5), but no number in them was fitted.
 
 | Number / object | Value | Origin | Where |
 |---|---|---|---|
@@ -14,7 +14,7 @@
 | Weights: title 3, per skill 1, skill cap 5, seniority −3, years −3 | | **hand-set**: Claude's proposal to reproduce my rule exactly (title + 2 skills = 5); I accepted it in FILTER.md §1.4 | same |
 | `keep_threshold` | 5 | **hand-set** (= title + 2 skills) | same |
 | Close-call band | score 4–6, or exactly one failed rule | **hand-set** (FILTER.md §1.4) | `js3/filter.py:is_close_call` |
-| `engineer` exclusion (R1b) | 1 word | **hand-set** after the audit (v1.1) | `filters/filter_v1.1.json` |
+| `engineer` exclusion (R1b) | 1 word | **hand-set** by Claude at 14:21 from reading group C, **before** my verdicts; I accepted it after judging (v1.1) | `filters/filter_v1.1.json` |
 | Education window | 40 characters after "N years" | **hand-set** by Claude, not tuned | `js3/filter.py:years_spans` |
 | US / non-US marker lists (R5) | 69 / 73 place names | **hand-set** by Claude from the 406 distinct location strings in the **whole** corpus (which includes H's locations: a possible leak, see §4) | `filters/filter_v1.2.json` |
 | Evidence cue words ("a plus", "preferred", "bonus", …) and heading words | | **hand-set** by Claude from FILTER.md §2's examples; the heading list was changed once, after a bug (SHORTLIST.md) | `js3/evidence.py` |

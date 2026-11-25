@@ -36,7 +36,7 @@ Claude wrote the wording. I committed FILTER.md **alone, first**: `7ee4178`, 14:
 - 180 `claude -p` calls (B, a B2 repeat, E1 prompt, E2 context, E3 model, E4 tool), $2.51. The plan was committed first (`f30af68`); the runs are in `4b4dffd`.
 - Running them before I judged meant my labels couldn't steer how they were run.
 
-**~2:21 pm: Filter v1.1.** Two false friends in the kept sample (C):
+**~2:21 pm: Filter v1.1 (before my verdicts).** Claude read the kept sample (C) and proposed and coded two rules for false friends, **before I had judged anything**; my blind verdicts later marked both postings "n", and I accepted the rules at ~2:55 pm:
 - "Analytics" in *Software Engineer, Data Warehouse Analytics*;
 - "2 years of **university education**" read as experience.
 
@@ -57,8 +57,6 @@ The shortlist went from 9 to 8. **Unresolved:** tool transcripts and the E4 runs
 
 Claude asked me how the verdicts were made. My answer: they're mine, and the mismatches are copy-paste slips. I re-judged those 5 in a separate file (`labels/hand_corrections.jsonl`); the originals stay frozen, and both are reported.
 
-**3:39–3:41 pm: The re-judge.** All 5 verdicts were the same as before (5 × n), with reasons now written for the right posting. No number changed.
-
 **~2:53 pm: What the audit showed.**
 - 0 of 30 random rejects wrong (Wilson 0–11.4%), but the random sample is mostly sales and engineering jobs.
 - **10 of the 11 keeps were "n" for me**, for reasons the filter can't see: location, internship graduation windows, FP&A finance roles, "exclusive of internships".
@@ -75,7 +73,7 @@ Claude asked me how the verdicts were made. My answer: they're mine, and the mis
 - an FP&A exclusion drops 2;
 - "specialist" adds 1 keep out of 52 such titles.
 
-I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A and "specialist" (FILTER.md §5). Tests came first (`7c66429`), then code (`7658ac6`), 78/78.
+I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A and "specialist" (FILTER.md §5). Tests came first (`7c66429`, `logs/08`: the new-rule test fails), then code (`7658ac6`), 78/78.
 
 **~3:00 pm: The held-out result I can't use as proof.**
 - H has **one** "y" in 30, so "always say no" scores 96.7% and ties the best scorer.
@@ -84,6 +82,8 @@ I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A
 - **Unresolved:** H should have been stratified for more likely positives. I drew it before I knew how rare "y" would be.
 
 **~3:02 pm: Independent check.** `tools/check.py` doesn't import my code. It recounted the corpus, boards and R1/R2, and checked the sets and the verdict hash: 9/9 PASS (`logs/41`).
+
+**3:39–3:41 pm: The re-judge.** All 5 verdicts were the same as before (5 × n), with reasons now written for the right posting. No number changed. (Item 7's reason was left blank.)
 
 ## What I accepted, modified or rejected from Claude
 | Claude's suggestion | What I did |

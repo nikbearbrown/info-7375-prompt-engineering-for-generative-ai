@@ -17,7 +17,10 @@
   - I judged all 76 myself, 14:27–14:51, against my rule in `audit/AUDIT_RULE.md`, written before judging: "is this posting worth Nadia's time?", answered y / n / ?.
   - Every answer has a reason. Every y/n decision is mine; another Claude chat helped me **word** most of the reasons (SOURCES.md). My verdicts were frozen by hash (`labels/hand_verdicts.sha256`, commit `474e2d5`) **before** I compared them with anything.
 - **Copy slips:** 5 reasons were copy-paste slips. Items 7, 8, 22 and 23 carry the reason of a neighbouring posting, and item 65 is a placeholder. I re-judged those 5 in a separate file (`labels/hand_corrections.jsonl`, `python3 -m js3.judge --redo 7,8,22,23,65`). Both versions are reported. The originals were never edited.
-- **Result of the re-judge (15:39–15:41):** all 5 verdicts came out the same as the originals (5 × n). Only the reasons changed, now written for the right posting. Every number in this folder is the same under the original and the corrected verdicts (`out/report_original.md` = `out/report_corrected.md` in every table).
+- **Other problems in my reasons, disclosed:** five reasons (items 3, 9, 29, 31, 74) and the corrected item 65 lost their **first letter** ("nalyst", "ales", "raud", "taff", "olutions", "pplied"): a keystroke at the reason prompt didn't register. Item 12 says "needs X+ yrs" (a placeholder). In the re-judge I left item 7's reason **empty**. None of these changes a verdict.
+- **Speed:** 76 verdicts in 24 minutes (median 15 s per posting, shortest gap 3 s). Most were non-analyst titles decided from the title alone.
+- **My judging rule didn't mention location.** `audit/AUDIT_RULE.md` asks "worth Nadia's time" and lists role, tools and years, but **not location**. While judging I also rejected postings for being outside the US and for internship graduation windows. That's a criterion I applied that I hadn't written down beforehand, and it's the basis for R5 (FILTER.md §5). The rule would have been better if it had named location up front.
+- **Result of the re-judge (15:39–15:41):** all 5 verdicts came out the same as the originals (5 × n). Only the reasons changed, now written for the right posting (except item 7, left blank). Every number in this folder is the same under the original and the corrected verdicts (`out/report_original.md` = `out/report_corrected.md` in every table).
 
 ## 3. Results: how many the filter got wrong
 "Wrong" means my verdict disagrees with the filter: a **reject I marked y**, or a **keep I marked n**. Intervals are **Wilson 95% on this sample**.
@@ -41,12 +44,12 @@
   - The filter answers "does this look like an analyst job that names her skills?", not "is this worth her time?"
 - **Why the 10 keeps were wrong, from my own reasons:**
 
-| Reason | Postings |
+| Reason (a posting can have more than one; 10 postings, 14 reasons) | Postings |
 |---|---|
-| Location outside the US | Toronto ×2, Singapore, Mexico City, Bengaluru |
-| Finance-domain role (FP&A) | 2 |
-| Internship eligibility (graduation window) | 2 |
-| Experience "exclusive of internships" | 1 |
+| Location outside the US | 5: Toronto ×2, Singapore, Mexico City, Bengaluru |
+| Finance / accounting / credit role, not data analysis | 4: FP&A ×2, Credit Risk Operations, Processing Cost |
+| Internship eligibility (graduation May 2027 vs. the internship window) | 3: all three intern keeps |
+| Experience "exclusive of internships" | 1: Data Analyst, SF |
 | Software engineering role | 1 |
 
 **None of these is something v1.0 looks at.**

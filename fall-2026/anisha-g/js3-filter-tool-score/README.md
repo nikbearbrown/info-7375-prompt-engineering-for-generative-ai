@@ -41,7 +41,7 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
 | `0810190` | 14:12 | **Live collection**, 5/5 boards, 1,734 postings (`logs/10`); filter v1.0 keeps 11 (`logs/11`); the audit seed, the draw and the blind sheet, **before any judging** |
 | `f30af68` | 14:18 | Tool server transcripts: 4 real Claude Code sessions, my scripted client, the other server; the Chapter 9 experiment plan **before any Claude call** |
 | `4b4dffd` | 14:20 | 180 real Claude judge calls on the held-out set (before my verdicts existed) |
-| `2c8683c` → `4eddf21` | 14:21 | Filter v1.1: tests first (`logs/04` fail), then code (`logs/05`) |
+| `2c8683c` → `4eddf21` | 14:21 | Filter v1.1: tests first (`logs/04`: 2 of 6 fail; the other 4 check that v1.0 is unchanged), then code (`logs/05`) |
 | `017f3ca` → `6551bd8` | 14:23 | Evidence bug found by re-reading labels: regression test first (`logs/06` fails), then the fix (`logs/07`, 73/73) |
 | `474e2d5` | 14:51 | **My 76 hand verdicts** (judged 14:27–14:51), frozen by hash before any comparison |
 | `d6a5279`, `df3d67f` | 14:55 | Server description fixed after my own evaluation; run 5 (3 sessions) |
@@ -74,14 +74,14 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
 - **Checked** (each by a named test or check that I ran on my Mac; logs in `logs/`):
   - **Filter rules R1–R4, the score and ranking:** `tests/test_filter.py` (28 tests).
   - **Both FILTER.md wrong versions are caught:** substring match fails 4 tests and word-count ranking fails 8 (`logs/02_*`).
-  - **v1.1 and v1.2 rules:** `tests/test_filter_v11.py`, `tests/test_filter_v12.py`. Each failed before its code (`logs/04`, `logs/08`) and passed after (`logs/05`, `logs/09`).
+  - **v1.1 and v1.2 rules:** `tests/test_filter_v11.py`, `tests/test_filter_v12.py`. Their new-rule tests failed before the code (`logs/04`: 2 of 6; `logs/08`: 1 of 5; the rest check unchanged behaviour) and passed after (`logs/05`, `logs/09`).
   - **Evidence labels and "I cannot tell":** `tests/test_evidence.py`, `tests/test_evidence_regression.py` (failed before the fix, `logs/06`).
   - **Allow-list policy, parsers, and a failed board reported as failed, not 0:** `tests/test_policy_collect.py`.
   - **Tool server:** handshake, one declared tool, errors and two-way transcript (`tests/test_toolserver.py`); 4 + 3 real Claude Code sessions.
   - **The saved data:** recounted independently by `tools/check.py` (9/9 PASS, `logs/41`).
   - **The audit:** by hand, 76 blind verdicts.
 - **How:**
-  - **By a test written before the code:** all of `tests/` was written from FILTER.md before the implementation (commits `340c11f`, `2c8683c`, `017f3ca`, `7c66429`) and frozen by hash.
+  - **By tests frozen before the code:** Claude wrote all of `tests/` from my FILTER.md (and later rule decisions) **before** writing the implementation, and each set was frozen by hash and shown failing first (commits `340c11f`, `2c8683c`, `017f3ca`, `7c66429`). Claude wrote both the tests and the code, so these are **not** tests I wrote myself before reading Claude's code. What I own is the specification they test (FILTER.md) and the wrong versions they must catch.
   - **By hand:** the 76 verdicts (reasons worded with help from another Claude chat), re-judging the 5 slips, and checking 3 shortlist postings against their quotes.
   - **By recomputation:** `tools/check.py`.
   - **With Claude's help:** Claude wrote all the code, the tests (from my FILTER.md), the experiment plan and the drafts of these documents. Claude also re-read the 49 shortlist labels; the 3 relevance≠entailment postings I checked myself are listed in SHORTLIST.md. Another Claude chat helped me word most of my audit reasons; the verdicts are mine.
@@ -103,7 +103,7 @@ python3 -m js3.claude_judge B B2 E1 E2 E3 E4       # the Chapter 9 Claude runs (
 | Task | Claude should | I should | Why |
 |---|---|---|---|
 | Collect and filter | fetch allowed boards, run the written rules, report failed boards as failed | choose the rules and the boards, and change them only by a written decision (FILTER.md §5) | the rules encode what *I* want; Claude can apply them, not choose them |
-| Label evidence | quote the sentence and label each claim; say "I cannot tell" when the text doesn't say | spot-check the labels against the posting | the labeller had a bug I only found by re-reading (SHORTLIST.md) |
+| Label evidence | quote the sentence and label each claim; say "I cannot tell" when the text doesn't say | spot-check the labels against the posting | the labeller had a bug that only showed up when the labels were re-read against the text (Claude found it; SHORTLIST.md) |
 | Measure | compute counts, intervals and repeat runs; propose candidate rules with their effect | decide which rule to adopt or reject, and keep the held-out set untouched | a measured number doesn't decide what matters; I chose R5 and rejected FP&A |
 | Tool server | answer only what it declares; refuse to apply or email | decide whom to trust and what to expose | annotations are claims; trust is my decision |
 | **Is this posting worth my time?** | give the verdict of my written rules, with quotes | **make the call** | *(my own words)* Deciding whether a posting is worth my time stays mine because the filter only sees words, not my situation: it kept 11 postings, but I wanted only 1, and I rejected the rest for things like my graduation date, a location outside the US, or a requirement that excluded internships. |

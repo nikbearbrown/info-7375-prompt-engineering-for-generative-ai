@@ -56,7 +56,7 @@ The real tool-server run on 2026-11-25 shows the same thing from the client's si
 | FP&A Analyst R&D / FP&A Cloud Finance | requires Tableau / Snowflake | SUPPORTED | borderline | "**Become proficient** with… Tableau": a duty to *learn* it, not a requirement to *have* it | No: FILTER.md counts duties |
 | Data Analyst, SF | at most 3 years | SUPPORTED | right but misleading | "exclusive of internships" (counterexample 1 above) | No |
 
-**Before this check**, a bug in the labeller (a short bullet like "Experience with Oracle Suite" was taken for a heading and ended the "Preferred" section) had marked Processing Cost Analyst's preferred skills SUPPORTED and **shortlisted** it. I found it while re-reading. The order of the fix:
+**Before this check**, a bug in the labeller (a short bullet like "Experience with Oracle Suite" was taken for a heading and ended the "Preferred" section) had marked Processing Cost Analyst's preferred skills SUPPORTED and **shortlisted** it. Claude found it while re-reading the labels for this check. The order of the fix:
 1. a regression test, written first and failing (`logs/06`, commit `017f3ca`);
 2. then the fix, with 73/73 tests passing (`logs/07`, commit `6551bd8`).
 

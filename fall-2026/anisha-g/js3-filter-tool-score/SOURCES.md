@@ -4,7 +4,7 @@
 ## What Claude contributed
 | Part | Claude's contribution | Mine |
 |---|---|---|
-| FILTER.md v1.0 | In a claude.ai chat (2026-11-25, ~1:58–2:05 pm), Claude offered options and wrote the wording, the one-line reasons and the score numbers (§1.4, to reproduce my rule) | I made all 8 choices: title words, seniority, the text rule, the boards, the evidence rule, abstention, missing fields, the wrong versions |
+| FILTER.md v1.0 | In a claude.ai chat (2026-11-25, ~1:58–2:02 pm), Claude offered options and wrote the wording, the one-line reasons and the score numbers (§1.4, to reproduce my rule) | I made all 8 choices: title words, seniority, the text rule, the boards, the evidence rule, abstention, missing fields, the wrong versions |
 | FILTER.md §5 (v1.1, v1.2) | Claude (Claude Code) measured each candidate rule on the corpus and proposed it | I decided: accept both v1.1 rules, add R5 US-only, reject FP&A and "specialist" |
 | All code and tests | Claude Code (Opus 5.5) wrote `js3/`, `toolserver/`, `tools/`, `tests/` and `wrong_versions/`; the tests were written from FILTER.md before the code | I ran them on my Mac |
 | Hand verdicts (76 + 5 re-judged) | Claude Code did not see the sheet and gave no verdicts. I used **another Claude chat to help word the reasons** for most postings | **every y/n decision is mine** |
