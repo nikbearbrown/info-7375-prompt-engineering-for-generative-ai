@@ -3,7 +3,7 @@
 Drafted by Claude Code from Ashwin's instructions in chat on 2026-11-25. Kept here so the README and CHANGE.md can
 state exactly which labels touched which decision.
 
-## The three kinds of labels
+## The label files
 
 | File | Who made it | Use |
 |---|---|---|
