@@ -1,0 +1,714 @@
+# python3 -c "import runpy, sys; sys.argv = ['tool/tests/test_server.py', '-v']; runpy.run_path(sys.argv[0], run_name='__main__')"   (run 2026-11-20 11:11:52 EST from js3-filter-tool-score/, before tool/server.py exists; Python 3.12.2)
+ls: tool/server.py: No such file or directory
+test_A1_missing_and_extra_arguments (__main__.A_ArgumentErrors.test_A1_missing_and_extra_arguments) ... FAIL
+test_A2_wrong_types (__main__.A_ArgumentErrors.test_A2_wrong_types) ... FAIL
+test_A3_unknown_boards (__main__.A_ArgumentErrors.test_A3_unknown_boards) ... FAIL
+test_A4_id_format_per_board (__main__.A_ArgumentErrors.test_A4_id_format_per_board) ... FAIL
+test_A5_unknown_posting (__main__.A_ArgumentErrors.test_A5_unknown_posting) ... FAIL
+test_B1_imports_exclude_network_and_process_modules (__main__.B_Boundaries.test_B1_imports_exclude_network_and_process_modules) ... ERROR
+test_B2_runtime_audit_events_only_expected (__main__.B_Boundaries.test_B2_runtime_audit_events_only_expected) ... FAIL
+test_B3_transcript_records_every_line_both_ways (__main__.B_Boundaries.test_B3_transcript_records_every_line_both_ways) ... FAIL
+test_B4_oversized_line_recorded_truncated (__main__.B_Boundaries.test_B4_oversized_line_recorded_truncated) ... FAIL
+test_B5_each_session_new_transcript (__main__.B_Boundaries.test_B5_each_session_new_transcript) ... FAIL
+test_B6_refuses_to_start_if_results_file_changed (__main__.B_Boundaries.test_B6_refuses_to_start_if_results_file_changed) ... ERROR
+test_E1_malformed_json (__main__.E_ProtocolErrors.test_E1_malformed_json) ... FAIL
+test_E2_batch_array (__main__.E_ProtocolErrors.test_E2_batch_array) ... FAIL
+test_E3_null_id (__main__.E_ProtocolErrors.test_E3_null_id) ... FAIL
+test_E4_missing_or_wrong_jsonrpc (__main__.E_ProtocolErrors.test_E4_missing_or_wrong_jsonrpc) ... FAIL
+test_E5_unknown_methods (__main__.E_ProtocolErrors.test_E5_unknown_methods) ... FAIL
+test_E6_unknown_tool (__main__.E_ProtocolErrors.test_E6_unknown_tool) ... FAIL
+test_E7_malformed_call_params (__main__.E_ProtocolErrors.test_E7_malformed_call_params) ... FAIL
+test_E8_oversized_line_refused_and_server_continues (__main__.E_ProtocolErrors.test_E8_oversized_line_refused_and_server_continues) ... FAIL
+test_E9_stdout_only_jsonrpc (__main__.E_ProtocolErrors.test_E9_stdout_only_jsonrpc) ... FAIL
+test_N1_shortlisted (__main__.N_Normal.test_N1_shortlisted) ... FAIL
+test_N2_rejected (__main__.N_Normal.test_N2_rejected) ... FAIL
+test_N3_cannot_tell (__main__.N_Normal.test_N3_cannot_tell) ... FAIL
+test_N4_not_shortlisted_and_plaid (__main__.N_Normal.test_N4_not_shortlisted_and_plaid) ... FAIL
+test_N5_every_posting_matches_results_json (__main__.N_Normal.test_N5_every_posting_matches_results_json) ... FAIL
+test_P10_second_initialize_refused (__main__.P_Protocol.test_P10_second_initialize_refused) ... FAIL
+test_P11_served_before_initialized_notification (__main__.P_Protocol.test_P11_served_before_initialized_notification) ... FAIL
+test_P1_initialize_same_version (__main__.P_Protocol.test_P1_initialize_same_version) ... FAIL
+test_P2_initialize_other_version_gets_2025_11_25 (__main__.P_Protocol.test_P2_initialize_other_version_gets_2025_11_25) ... FAIL
+test_P3_initialized_notification_gets_no_response (__main__.P_Protocol.test_P3_initialized_notification_gets_no_response) ... FAIL
+test_P4_tools_before_initialize_refused (__main__.P_Protocol.test_P4_tools_before_initialize_refused) ... FAIL
+test_P5_ping_before_initialize (__main__.P_Protocol.test_P5_ping_before_initialize) ... FAIL
+test_P6_tools_list_one_tool (__main__.P_Protocol.test_P6_tools_list_one_tool) ... FAIL
+test_P7_string_ids_echoed (__main__.P_Protocol.test_P7_string_ids_echoed) ... FAIL
+test_P8_unknown_notification_ignored (__main__.P_Protocol.test_P8_unknown_notification_ignored) ... FAIL
+test_P9_end_of_input_exits_cleanly (__main__.P_Protocol.test_P9_end_of_input_exits_cleanly) ... FAIL
+test_R1_limit_enforced (__main__.R_RateLimit.test_R1_limit_enforced) ... FAIL
+test_R2_recovers_after_window (__main__.R_RateLimit.test_R2_recovers_after_window) ... FAIL
+test_R3_limit_is_per_session (__main__.R_RateLimit.test_R3_limit_is_per_session) ... FAIL
+test_X1_path_like_posting_ids_rejected (__main__.X_PathTricks.test_X1_path_like_posting_ids_rejected) ... FAIL
+test_X2_path_like_boards_rejected (__main__.X_PathTricks.test_X2_path_like_boards_rejected) ... FAIL
+test_X3_path_like_tool_names_are_unknown_tools (__main__.X_PathTricks.test_X3_path_like_tool_names_are_unknown_tools) ... FAIL
+
+======================================================================
+ERROR: test_B1_imports_exclude_network_and_process_modules (__main__.B_Boundaries.test_B1_imports_exclude_network_and_process_modules)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 530, in test_B1_imports_exclude_network_and_process_modules
+    tree = ast.parse(SERVER.read_text(encoding="utf-8"))
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/pathlib.py", line 1027, in read_text
+    with self.open(mode='r', encoding=encoding, errors=errors) as f:
+         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/opt/anaconda3/lib/python3.12/pathlib.py", line 1013, in open
+    return io.open(self, mode, buffering, encoding, errors, newline)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'tool/server.py'
+
+======================================================================
+ERROR: test_B6_refuses_to_start_if_results_file_changed (__main__.B_Boundaries.test_B6_refuses_to_start_if_results_file_changed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 630, in test_B6_refuses_to_start_if_results_file_changed
+    shutil.copy2(SERVER, root / "tool" / "server.py")
+  File "/opt/anaconda3/lib/python3.12/shutil.py", line 475, in copy2
+    copyfile(src, dst, follow_symlinks=follow_symlinks)
+  File "/opt/anaconda3/lib/python3.12/shutil.py", line 260, in copyfile
+    with open(src, 'rb') as fsrc:
+         ^^^^^^^^^^^^^^^
+FileNotFoundError: [Errno 2] No such file or directory: 'tool/server.py'
+
+======================================================================
+FAIL: test_A1_missing_and_extra_arguments (__main__.A_ArgumentErrors.test_A1_missing_and_extra_arguments)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 411, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A2_wrong_types (__main__.A_ArgumentErrors.test_A2_wrong_types)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 411, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A3_unknown_boards (__main__.A_ArgumentErrors.test_A3_unknown_boards)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 411, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A4_id_format_per_board (__main__.A_ArgumentErrors.test_A4_id_format_per_board)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 411, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_A5_unknown_posting (__main__.A_ArgumentErrors.test_A5_unknown_posting)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 411, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B2_runtime_audit_events_only_expected (__main__.B_Boundaries.test_B2_runtime_audit_events_only_expected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 549, in test_B2_runtime_audit_events_only_expected
+    s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B3_transcript_records_every_line_both_ways (__main__.B_Boundaries.test_B3_transcript_records_every_line_both_ways)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 588, in test_B3_transcript_records_every_line_both_ways
+    s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B4_oversized_line_recorded_truncated (__main__.B_Boundaries.test_B4_oversized_line_recorded_truncated)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 604, in test_B4_oversized_line_recorded_truncated
+    s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_B5_each_session_new_transcript (__main__.B_Boundaries.test_B5_each_session_new_transcript)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 619, in test_B5_each_session_new_transcript
+    a.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E1_malformed_json (__main__.E_ProtocolErrors.test_E1_malformed_json)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E2_batch_array (__main__.E_ProtocolErrors.test_E2_batch_array)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E3_null_id (__main__.E_ProtocolErrors.test_E3_null_id)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E4_missing_or_wrong_jsonrpc (__main__.E_ProtocolErrors.test_E4_missing_or_wrong_jsonrpc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E5_unknown_methods (__main__.E_ProtocolErrors.test_E5_unknown_methods)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E6_unknown_tool (__main__.E_ProtocolErrors.test_E6_unknown_tool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E7_malformed_call_params (__main__.E_ProtocolErrors.test_E7_malformed_call_params)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E8_oversized_line_refused_and_server_continues (__main__.E_ProtocolErrors.test_E8_oversized_line_refused_and_server_continues)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_E9_stdout_only_jsonrpc (__main__.E_ProtocolErrors.test_E9_stdout_only_jsonrpc)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 351, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N1_shortlisted (__main__.N_Normal.test_N1_shortlisted)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 315, in test_N1_shortlisted
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N2_rejected (__main__.N_Normal.test_N2_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 319, in test_N2_rejected
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N3_cannot_tell (__main__.N_Normal.test_N3_cannot_tell)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 323, in test_N3_cannot_tell
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N4_not_shortlisted_and_plaid (__main__.N_Normal.test_N4_not_shortlisted_and_plaid)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 327, in test_N4_not_shortlisted_and_plaid
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_N5_every_posting_matches_results_json (__main__.N_Normal.test_N5_every_posting_matches_results_json)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 338, in test_N5_every_posting_matches_results_json
+    s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P10_second_initialize_refused (__main__.P_Protocol.test_P10_second_initialize_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 283, in test_P10_second_initialize_refused
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P11_served_before_initialized_notification (__main__.P_Protocol.test_P11_served_before_initialized_notification)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 290, in test_P11_served_before_initialized_notification
+    r = self.s.request("initialize", {"protocolVersion": PROTOCOL, "capabilities": {},
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P1_initialize_same_version (__main__.P_Protocol.test_P1_initialize_same_version)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 224, in test_P1_initialize_same_version
+    r = self.s.initialize()
+        ^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P2_initialize_other_version_gets_2025_11_25 (__main__.P_Protocol.test_P2_initialize_other_version_gets_2025_11_25)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 232, in test_P2_initialize_other_version_gets_2025_11_25
+    r = self.s.initialize(version="2024-11-05")
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P3_initialized_notification_gets_no_response (__main__.P_Protocol.test_P3_initialized_notification_gets_no_response)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 236, in test_P3_initialized_notification_gets_no_response
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P4_tools_before_initialize_refused (__main__.P_Protocol.test_P4_tools_before_initialize_refused)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 242, in test_P4_tools_before_initialize_refused
+    self.assertError(self.s.request("tools/list", id_=1), -32600, 1)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P5_ping_before_initialize (__main__.P_Protocol.test_P5_ping_before_initialize)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 248, in test_P5_ping_before_initialize
+    self.assertEqual(self.s.request("ping", id_="p"), {"jsonrpc": "2.0", "id": "p", "result": {}})
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P6_tools_list_one_tool (__main__.P_Protocol.test_P6_tools_list_one_tool)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 251, in test_P6_tools_list_one_tool
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P7_string_ids_echoed (__main__.P_Protocol.test_P7_string_ids_echoed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 269, in test_P7_string_ids_echoed
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P8_unknown_notification_ignored (__main__.P_Protocol.test_P8_unknown_notification_ignored)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 274, in test_P8_unknown_notification_ignored
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_P9_end_of_input_exits_cleanly (__main__.P_Protocol.test_P9_end_of_input_exits_cleanly)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 279, in test_P9_end_of_input_exits_cleanly
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_R1_limit_enforced (__main__.R_RateLimit.test_R1_limit_enforced)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 471, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_R2_recovers_after_window (__main__.R_RateLimit.test_R2_recovers_after_window)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 471, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_R3_limit_is_per_session (__main__.R_RateLimit.test_R3_limit_is_per_session)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 471, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_X1_path_like_posting_ids_rejected (__main__.X_PathTricks.test_X1_path_like_posting_ids_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 451, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_X2_path_like_boards_rejected (__main__.X_PathTricks.test_X2_path_like_boards_rejected)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 451, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+======================================================================
+FAIL: test_X3_path_like_tool_names_are_unknown_tools (__main__.X_PathTricks.test_X3_path_like_tool_names_are_unknown_tools)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tool/tests/test_server.py", line 451, in setUp
+    self.s.initialize()
+  File "tool/tests/test_server.py", line 154, in initialize
+    res = self.request("initialize", {"protocolVersion": version, "capabilities": {},
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 151, in request
+    return self.recv()
+           ^^^^^^^^^^^
+  File "tool/tests/test_server.py", line 137, in recv
+    raise AssertionError("the server closed stdout (it may not exist or may have crashed)")
+AssertionError: the server closed stdout (it may not exist or may have crashed)
+
+----------------------------------------------------------------------
+Ran 42 tests in 0.530s
+
+FAILED (failures=40, errors=2)
+# exit code: 1

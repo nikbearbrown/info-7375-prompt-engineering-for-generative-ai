@@ -1,0 +1,226 @@
+{
+  "note": "NOT blind: groups reveal the filter's verdicts. Open only after filling in AUDIT.csv.",
+  "source_results": {
+    "path": "runs/filter-2026-11-17T21-47-06-167440-0500/results.json",
+    "commit": "beb8a26",
+    "sha256": "a836225bf06495917d38b48abc41d405f4c1149ee612cae25a7c9b0bd3303ff0"
+  },
+  "seed": 20261117,
+  "shuffle_seed": 20261118,
+  "method": "Each pool sorted by (board, posting_id); random.Random(seed).sample in this order: 4 of 'fails R4' only, 4 of 'fails R5' only, 4 of 'I cannot tell'; all 'not shortlisted' and all 'shortlisted' taken whole; then 30 from rejected postings not already chosen. AUDIT.csv rows shuffled with random.Random(shuffle_seed). Script: make_audit_sample.py.",
+  "pool_sizes": {
+    "not shortlisted": 2,
+    "rejected only by R4": 132,
+    "rejected only by R5": 256,
+    "I cannot tell": 26,
+    "shortlisted": 4,
+    "rejected": 1800
+  },
+  "groups": {
+    "close: not shortlisted (all)": [
+      {
+        "board": "databricks",
+        "posting_id": "8843577002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "6570253"
+      }
+    ],
+    "close: rejected only by R4": [
+      {
+        "board": "databricks",
+        "posting_id": "8771702002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8206138002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8903091002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8883465002"
+      }
+    ],
+    "close: rejected only by R5": [
+      {
+        "board": "plaid",
+        "posting_id": "7b3df21a-1475-4d00-abe1-acf5d5b8844c"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8089353"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "7576967"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8090244"
+      }
+    ],
+    "I cannot tell": [
+      {
+        "board": "plaid",
+        "posting_id": "4c51247f-8da5-4fa3-b331-7da94b76bdac"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8085877002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "6545547002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8248088"
+      }
+    ],
+    "shortlisted (all)": [
+      {
+        "board": "databricks",
+        "posting_id": "6865698002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "6865704002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8128744"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8212508"
+      }
+    ],
+    "rejected, random (after close calls)": [
+      {
+        "board": "databricks",
+        "posting_id": "8880406002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8785049002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8762362002"
+      },
+      {
+        "board": "plaid",
+        "posting_id": "cf3f2740-a2ef-4512-8607-2895930680a3"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8224607"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8440922002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "7392697"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8244505"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8922572002"
+      },
+      {
+        "board": "plaid",
+        "posting_id": "a53bfb4f-ae6a-4d3f-8267-32978ccfc5c6"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8568025002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8461258002"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8798198002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8188088"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8191706"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "7923653"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8120185"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "7955056"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8476582002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8147491"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8661245002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8336819"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8031782"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8559315002"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8112448"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8162185"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8209626"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8221776"
+      },
+      {
+        "board": "stripe",
+        "posting_id": "8189020"
+      },
+      {
+        "board": "databricks",
+        "posting_id": "8588516002"
+      }
+    ]
+  },
+  "total": 48
+}

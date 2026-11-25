@@ -1,0 +1,637 @@
+{
+  "label": "record: filter v1.1 applied offline to the 20 held-out postings; threshold 6 applied in analysis",
+  "plan": "HELDOUT-PLAN.md (commit 4cbb88c)",
+  "labels": {
+    "file": "heldout/HELDOUT.csv",
+    "commit": "b09f9ce",
+    "sha256": "e17643ac505668e8b78eae656987c6676d4457b99d3e9438871a0f5dc0633a0a"
+  },
+  "source_run": {
+    "run": "runs/2026-11-19T17-31-47-142253-0500",
+    "trace_sha256": "98b3091e4aecaa80c741a112096dee193b6b78d73fc6714b60815e6994770d92"
+  },
+  "code": {
+    "FILTER.md": "6af9911f8f28e0345ab7fbbc46dc32404f0563b4c006961b23f65649a33e3dac",
+    "job_filter.py": "df91822fcb1e73854764f6507515d8f315bc8a5538e825e62b5eb64811f7e4b2",
+    "descriptions.py": "f36c9a488884f330889bc01d3cfc5cd66530ff837a7788f6e73d6b740fc2f380",
+    "parsers.py": "bc922b06ac39d0a8182c7a2ccb1562fc9dfe408cff3ac9a47a981223e85471d3",
+    "measure_heldout.py": "c28ad35691aa6eb30e522a6cebd01faeacf73c282c54459d87d95b3ccaa702ec"
+  },
+  "filter": {
+    "version": "v1.1",
+    "weights": {
+      "role": 3,
+      "early": 2,
+      "topic": 1
+    },
+    "topic_max": 3,
+    "committed_threshold": 5
+  },
+  "thresholds": [
+    5,
+    6
+  ],
+  "per_group": {
+    "A": {
+      "threshold 5": {
+        "shortlisted and relevant": 0,
+        "shortlisted and not relevant": 0,
+        "relevant but not shortlisted": 0,
+        "filter verdicts": {
+          "rejected": 10
+        }
+      },
+      "threshold 6": {
+        "shortlisted and relevant": 0,
+        "shortlisted and not relevant": 0,
+        "relevant but not shortlisted": 0,
+        "filter verdicts": {
+          "rejected": 10
+        }
+      }
+    },
+    "B": {
+      "threshold 5": {
+        "shortlisted and relevant": 0,
+        "shortlisted and not relevant": 0,
+        "relevant but not shortlisted": 0,
+        "filter verdicts": {
+          "rejected": 10
+        }
+      },
+      "threshold 6": {
+        "shortlisted and relevant": 0,
+        "shortlisted and not relevant": 0,
+        "relevant but not shortlisted": 0,
+        "filter verdicts": {
+          "rejected": 10
+        }
+      }
+    }
+  },
+  "changed_only_by_threshold": [],
+  "my_cant_tell": [],
+  "filter_cannot_tell": [],
+  "rows": [
+    {
+      "row": 3,
+      "board": "databricks",
+      "posting_id": "8930378002",
+      "title": "AI Forward Deployed Engineer - Netherlands",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 3
+      },
+      "reason": "fails R4, R5",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 4,
+      "board": "databricks",
+      "posting_id": "8930374002",
+      "title": " AI Forward Deployed Engineer - Germany",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 3
+      },
+      "reason": "fails R4, R5",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 5,
+      "board": "databricks",
+      "posting_id": "8952028002",
+      "title": "Specialist Solutions Architect - Azure Infrastructure & AI Platform",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 3
+      },
+      "reason": "fails R5",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "pass",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 6,
+      "board": "databricks",
+      "posting_id": "8793863002",
+      "title": "Senior Manager, AI Forward Deployed Engineering - London",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 1
+      },
+      "reason": "fails R3, R4",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "fail",
+        "R4": "fail",
+        "R5": "cannot tell",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 9,
+      "board": "stripe",
+      "posting_id": "8130876",
+      "title": "Software Engineer, New Grad",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 2,
+        "topics": 0
+      },
+      "reason": "fails R4",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "fail",
+        "R5": "pass",
+        "R6": "pass",
+        "R7": "fail"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/003-stripe-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 13,
+      "board": "databricks",
+      "posting_id": "8948868002",
+      "title": "Senior Manager, AI Forward Deployed Engineering",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 1
+      },
+      "reason": "fails R3, R4",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "fail",
+        "R4": "fail",
+        "R5": "cannot tell",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 14,
+      "board": "databricks",
+      "posting_id": "8948870002",
+      "title": "Senior Manager, AI Forward Deployed Engineering",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 1
+      },
+      "reason": "fails R3, R4",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "fail",
+        "R4": "fail",
+        "R5": "cannot tell",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 16,
+      "board": "databricks",
+      "posting_id": "8948900002",
+      "title": "Senior Manager, AI Forward Deployed Engineering",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 1
+      },
+      "reason": "fails R3, R4",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "fail",
+        "R4": "fail",
+        "R5": "cannot tell",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 18,
+      "board": "databricks",
+      "posting_id": "8937360002",
+      "title": "Senior Manager, AI Forward Deployed Engineering",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 1
+      },
+      "reason": "fails R3, R4",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "fail",
+        "R4": "fail",
+        "R5": "cannot tell",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 19,
+      "board": "databricks",
+      "posting_id": "8929894002",
+      "title": "AI Forward Deployed Engineer - France",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 3
+      },
+      "reason": "fails R4, R5",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "A"
+    },
+    {
+      "row": 1,
+      "board": "stripe",
+      "posting_id": "8172495",
+      "title": "Marketing Operations Manager, EMEA Events",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 0
+      },
+      "reason": "fails R3, R4, R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "fail",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "fail"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/003-stripe-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 2,
+      "board": "stripe",
+      "posting_id": "7370967",
+      "title": "Pre-Sales Solutions Architect, Money Management",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 0
+      },
+      "reason": "fails R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "cannot tell",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "fail"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/003-stripe-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 7,
+      "board": "plaid",
+      "posting_id": "2602117d-bfcc-407a-ae28-ea3a7c7aa216",
+      "title": "Fraud Intelligence Analyst",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 2
+      },
+      "reason": "fails R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "pass",
+        "R3": "pass",
+        "R4": "pass",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/005-plaid-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 8,
+      "board": "stripe",
+      "posting_id": "7917880",
+      "title": "Technical Solutions Engineer",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 2
+      },
+      "reason": "fails R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "pass",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/003-stripe-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 10,
+      "board": "databricks",
+      "posting_id": "8949593002",
+      "title": "Business Development Representative",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 0
+      },
+      "reason": "fails R4, R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "fail"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 11,
+      "board": "stripe",
+      "posting_id": "7901987",
+      "title": "Product Manager, Startup Products",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 0
+      },
+      "reason": "fails R3, R4, R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "fail",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "fail"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/003-stripe-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 12,
+      "board": "databricks",
+      "posting_id": "8930381002",
+      "title": "AI Forward Deployed Engineer - Sweden",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 3,
+        "early": 0,
+        "topics": 3
+      },
+      "reason": "fails R4, R5",
+      "rules": {
+        "R1": "pass",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 15,
+      "board": "databricks",
+      "posting_id": "8893767002",
+      "title": "Solutions Architect - Public Sector (Manufacturing / Supply Chain)",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 2
+      },
+      "reason": "fails R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "pass",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 17,
+      "board": "stripe",
+      "posting_id": "8350917",
+      "title": "Activations Specialist, Bridge ",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 0
+      },
+      "reason": "fails R4, R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "fail",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "fail"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/003-stripe-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    },
+    {
+      "row": 20,
+      "board": "databricks",
+      "posting_id": "8893778002",
+      "title": "Solutions Architect - Public Sector (Federal Civilian)",
+      "my_verdict": "not relevant",
+      "verdict_v1.1": "rejected",
+      "score": null,
+      "points": {
+        "role": 0,
+        "early": 0,
+        "topics": 2
+      },
+      "reason": "fails R5",
+      "rules": {
+        "R1": "fail",
+        "R2": "not applied",
+        "R3": "pass",
+        "R4": "pass",
+        "R5": "fail",
+        "R6": "pass",
+        "R7": "pass"
+      },
+      "raw_file": "runs/2026-11-19T17-31-47-142253-0500/001-databricks-request.json",
+      "t5": "rejected",
+      "t6": "rejected",
+      "group": "B"
+    }
+  ]
+}
