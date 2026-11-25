@@ -71,8 +71,10 @@ What has touched it so far:
 - **Claude Code, this session:** opened it only to count postings and compare IDs. It printed no titles, text or
   labels.
 - **Filter v1.0, the Codex draft and every label sheet:** none has read it.
-- **Ashwin and Codex:** Ashwin saw the board during JS1, before switching boards. Whether Codex has read it is not
-  known; Ashwin should confirm that before calling it unused.
+- **Ashwin and Codex:** Ashwin saw the board during JS1, before switching boards. On 2026-11-25 Ashwin relayed that
+  Codex did not read the snapshot during this chat's work. Whether other chats read it is unverified.
+- **Claude Code, for the Mission Manager question:** counted titles containing "mission manager" (0) and "manager"
+  (70). It printed no titles. See `audit/FALSE-FRIENDS.md`.
 
 What would make it a clean evaluation:
 
@@ -86,3 +88,6 @@ development boards.
 
 The other option is a fresh fetch of the same five boards, keeping only keys outside the 805. It would match the
 development mix, but it needs a live fetch and the same blind hand labeling. The choice is Ashwin's.
+
+**For the narrow Mission Manager fix specifically:** the Cloudflare sample cannot evaluate it. No Cloudflare title
+contains the phrase, so both versions would make the same decision on every posting there.
