@@ -151,3 +151,17 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - 10 kept (all of them, since only 10 are kept outside held-out), 30 random rejects, and the 10 rule-free rejects closest to the threshold
   - files: `state/audit/audit_v1.0.csv` and `audit_postings_v1.0.md`
   - **The verdicts are mine to make. Claude has not drafted any.**
+
+## 2026-11-25 — MCP tool server, from scratch
+- **What I asked for:** build the tool server while I judge the audit.
+- **What Claude built:** `mcp_server.py`, standard library only, JSON-RPC over stdio. It has one read-only tool, `score_posting`, and logs every message in both directions to `state/mcp/`. `mcp_client.py` is a minimal client for recording a session. `.mcp.json` connects Claude Code.
+- **Tests: 91, all passing** (9 new). One replaces `open`, `urlopen`, `socket`, and `os.remove` with a function that fails if called, then runs a full session.
+- **Transcripts:**
+  - **`mcp_client.py`:** three calls plus one call to a tool that doesn't exist.
+  - **Claude Code 2.1.331 as the client** (`claude -p`, only `score_posting` allowed): it made two tool calls and reported both verdicts without judging the postings.
+- **What only the real client showed:** before `initialize`, Claude Code sent a `server/discover` probe at protocol version `2026-07-28`. The server answered "method not found", and Claude Code fell back to `initialize` at `2025-11-25`. No test written from the spec would have sent that method.
+- **`MCP_EVAL.md`** is Claude's draft, waiting for my review. It covers:
+  - **declared vs actual.** The tool is read-only, but the server process writes its own log, and a client can't see that.
+  - **what a client isn't entitled to**
+  - **the trust decision**
+  - **the other server:** not chosen yet.

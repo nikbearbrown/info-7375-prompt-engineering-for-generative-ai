@@ -1,0 +1,12 @@
+{
+ "type": "result",
+ "subtype": "success",
+ "is_error": false,
+ "num_turns": 4,
+ "duration_ms": 12974,
+ "result": "The filter kept both postings. These are rule outputs from FILTER.md v1.0, not advice.\n\n**greenhouse/fanduel/8055746: \"Campaign Analytics, Data Analyst\"** (New York City)\n- **Verdict:** keep\n- **Score:** 9 (threshold 4)\n- **Reject rules fired:** none\n- **Title words matched:** \"Data Analyst\"\n- **Skill words found:** \"SQL\", \"Tableau\", \"Excel\", \"Python\", \"reporting\"\n- This posting comes from the **v1.1 supplement** boards, not the original v1.0 corpus.\n\n**greenhouse/datadog/8204554: \"FP&A Analyst R&D\"** (New York, NY)\n- **Verdict:** keep\n- **Score:** 4 (threshold 4). It scored exactly the minimum, so it passed with no margin.\n- **Reject rules fired:** none\n- **Title words matched:** \"analyst\" (lowercase, as the tool returned it)\n- **Skill words found:** \"Tableau\", \"Excel\", \"Reporting\"\n\nNo reject rule fired on either posting, so there are no reject words to quote. The words above are what produced each score. The tool reports the total score but not how many points each word added, so I can't give that breakdown.",
+ "prompt": "Use the score_posting tool to score these two postings: greenhouse/fanduel/8055746 and greenhouse/datadog/8204554. For each, report the verdict, the score, and the exact words behind it. Do not judge whether anyone should apply; that is not the tool's job or yours here.",
+ "command": "claude -p \"<prompt>\" --mcp-config .mcp.json --strict-mcp-config --allowedTools \"mcp__js3-job-filter__score_posting\" --max-turns 6 --output-format json",
+ "client_version": "Claude Code 2.1.331",
+ "server_transcript": "state/mcp/transcript_2026-11-25T190356Z.jsonl"
+}
