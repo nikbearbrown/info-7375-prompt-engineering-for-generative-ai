@@ -31,8 +31,8 @@ Ashwin's thinking or feelings is inferred.
   to get one is not eligibility.
 - **Evidence:** `12cb35b4`, `036e6fae` (cards); `e5828b69` … `7eb48860` (verdicts first mislabeled); `b03e6b29`
   (correction); `audit/EXPLORATORY-v1.0-ai-assisted.md`.
-- **(Ashwin, proposed; drafted with Codex, pending confirmation)** I asked for AI-assisted verdicts to save time. They did not satisfy the hand-judged audit, and inferring them from my earlier labels compromised the independence of later evaluation.
-- **(Ashwin, proposed; drafted with Codex, pending confirmation)** Next time, I would keep development judgments separate from the held-out labels and record the source of each judgment when it is entered.
+- **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** I asked for AI-assisted verdicts to save time. They did not satisfy the hand-judged audit, and inferring them from my earlier labels compromised the independence of later evaluation.
+- **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** Next time, I would keep development judgments separate from the held-out labels and record the source of each judgment when it is entered.
 
 ## 2026-11-25: claim labels
 
@@ -44,7 +44,7 @@ Ashwin's thinking or feelings is inferred.
   - Claim 42, an "I cannot tell" about remote work, turned out contradicted: the structured field says `onsite`, and
     Claude was never shown that field.
 - **Evidence:** `shortlist/claim-sheet.csv` (`label_source`), `SHORTLIST.md`, `267dfff9`.
-- **(Ashwin, proposed; drafted with Codex, pending confirmation)** I used Codex's labels to move through the claims faster. I did not independently verify all 90. The excerpt cards omitted structured information needed to evaluate claim 42.
+- **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** I used Codex's labels to move through the claims faster. I did not independently verify all 90. The excerpt cards omitted structured information needed to evaluate claim 42.
 
 ## 2026-11-25: a false friend and one change
 
@@ -57,7 +57,7 @@ Ashwin's thinking or feelings is inferred.
   titles has the phrase. And on the held-out set, the filter still rejects 6 of the 7 postings labeled Y.
 - **Evidence:** `77daf2d1`, `78adf4b9`, `c9821188`; `CHANGE.md`; `changes/HELDOUT-v1.0-vs-v1.1.md`.
 - **(Ashwin) What surprised me:** Not supplied.
-- **(Ashwin, proposed; drafted with Codex, pending confirmation)** "Mission Manager" names a product here. Correcting that title match is separate from establishing whether the job suits Supriya.
+- **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** "Mission Manager" names a product here. Correcting that title match is separate from establishing whether the job suits Supriya.
 
 ## 2026-11-25: the tool server
 
@@ -68,9 +68,9 @@ Ashwin's thinking or feelings is inferred.
     one posting and passed on our held-out refusal word for word.
   - Our server's description says it cannot "write anything", but it writes its transcript.
 - **Evidence:** `evaluations/`, `transcripts/`.
-- **(Ashwin, proposed; drafted with Codex, pending confirmation)** Use the proposed decisions in `evaluations/*/EVALUATION.md` after I confirm them.
+- **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** Approved in evaluations/*/EVALUATION.md on 2026-11-25.
 
 ## Still open
 
 - **(Ashwin)** The 47 hand verdicts, any human claim labels, confirmation of the trust decisions and sign-off, and the signature.
-- **(Ashwin, proposed; drafted with Codex, pending confirmation)** Unresolved question: how many suitable early-career postings does the filter miss on a fresh, independently judged sample?
+- **(Ashwin; drafted with Codex, confirmed by Ashwin on 2026-11-25 as a description of the recorded events)** Unresolved question: how many suitable early-career postings does the filter miss on a fresh, independently judged sample?

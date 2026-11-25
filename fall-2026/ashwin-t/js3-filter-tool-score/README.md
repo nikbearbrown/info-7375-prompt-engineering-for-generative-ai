@@ -16,7 +16,7 @@ The persona, Supriya Sharma, is invented (`data/supriya-sharma.resume.json`). No
 | 2.3 Tool server and two evaluations | `serve.py`, `jobfilter/mcp_server.py`, `transcripts/`, `evaluations/` | Built and probed. Both trust decisions approved by Ashwin (wording drafted with Codex). Server 1.1.0 discloses its transcript writes |
 | 2.4 What moves the score | `CHANGE.md`, `changes/` | One change (v1.1) measured on held-out labels; **potentially contaminated** |
 | 3. Sign-off and driver's seat | `SIGNOFF.md` | Signed by Ashwin on 2026-11-25, for the limited checks described, not full rubric completion. ⚠ The driver's-seat table is Claude Code's draft and not approved |
-| Frictional | `FRICTIONAL.md` | ⚠ Some lines drafted with Codex and not yet confirmed by Ashwin; three personal slots marked "Not supplied" |
+| Frictional | `FRICTIONAL.md` | Lines drafted with Codex, confirmed by Ashwin as descriptions of the recorded events; three personal slots marked "Not supplied" |
 
 ## Sample sizes: what the brief requires and what we chose
 

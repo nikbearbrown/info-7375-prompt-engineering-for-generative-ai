@@ -44,8 +44,8 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
   helped draft the wording. Signed: "Ashwin Thankachan, November 25, 2026", for the limited checks described, not
   full rubric completion.
 - **Ran the tests personally:** 55 tests at `b616bc09`, OK, exit 0 (`drafting/checks-run-by-ashwin.txt`).
-- **FRICTIONAL.md:** supplied draft lines written with Codex, not yet confirmed. Asked that the three personal slots
-  be marked "Not supplied".
+- **FRICTIONAL.md:** supplied draft lines written with Codex, and confirmed them on 2026-11-25 as descriptions of
+  the recorded events. Asked that the three personal slots be marked "Not supplied".
 - **Not done by Ashwin:** any of the 47 hand verdicts or any human claim labels.
 
 ## What Codex contributed (as relayed by Ashwin)
