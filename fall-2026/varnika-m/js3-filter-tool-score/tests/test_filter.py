@@ -91,5 +91,29 @@ class MustHavesOnly(unittest.TestCase):
         self.assertFalse(r(evaluate(posting(body=body), RESUME, must_haves_only=True), "R4")["passed"])
 
 
+class Version1_1(unittest.TestCase):
+    """FILTER.md v1.1, A and B, with v1 kept reproducible."""
+
+    def test_a_washington_dc_with_dots_is_a_us_location(self):
+        p = posting(location="Washington, D.C.")
+        self.assertTrue(r(evaluate(p, RESUME), "R3")["passed"])
+        self.assertFalse(r(evaluate(p, RESUME, version="v1"), "R3")["passed"])  # the v1 bug the audit found
+
+    def test_a_dc_alone_still_needs_the_comma(self):
+        self.assertFalse(r(evaluate(posting(location="D.C. United fan club, London"), RESUME), "R3")["passed"])
+
+    def test_b_must_be_graduating_later_than_his_degree_fails(self):
+        for when in ("in December 2026 or Spring 2027", "in 2028", "in Dec 2026"):
+            p = posting(body=GOOD_BODY + "<li>Must be graduating %s.</li>" % when)
+            result = evaluate(p, RESUME)
+            self.assertFalse(r(result, "R2")["passed"], when)
+            self.assertEqual(result["outcome"], "close_call")
+            self.assertEqual(evaluate(p, RESUME, version="v1")["outcome"], "keep")
+
+    def test_b_a_degree_already_finished_is_fine(self):
+        p = posting(body=GOOD_BODY + "<li>Recently completed a Bachelor's or Master's degree.</li>")
+        self.assertTrue(r(evaluate(p, RESUME), "R2")["passed"])
+
+
 if __name__ == "__main__":
     unittest.main()

@@ -97,8 +97,10 @@ def score():
     postings = {p["key"]: p for p in load()[0]}
     resume = load_persona()
     rows = {}
-    variants = {"v1 (keep at 5, all years)": {}, "M1 filter file: must-have years only": {"must_haves_only": True},
-                "M2 setting: keep at 4": {"keep_at": 4}}
+    variants = {"v1 (keep at 5, all years)": {"version": "v1"},
+                "M1 filter file: must-have years only (on v1)": {"version": "v1", "must_haves_only": True},
+                "M2 setting: keep at 4 (on v1)": {"version": "v1", "keep_at": 4},
+                "v1.1 (A: D.C.; B: graduation date)": {"version": "v1.1"}}
     for name, options in variants.items():
         rows[name] = agreement({i["item"]: "Y" if evaluate(postings[i["key"]], resume, **options)["outcome"] == "keep"
                                 else "N" for i in items}, truth)

@@ -7,6 +7,12 @@ import re
 from js3 import rule
 
 KEEP, CLOSE = 5, 4  # FILTER.md: keep at 5 of 5 (JS1); a close call is one rule short
+VERSION = "v1.1"
+# v1.1 A: R3 also accepts "D.C." after a comma (JS1's rule knew only "DC").
+DC = re.compile(r",\s*D\.C\.?(?![A-Za-z0-9])")
+# v1.1 B: R2 fails "must be graduating" in December 2026 or later; he finished his degree in May 2026.
+GRADUATING = re.compile(r"(?i)must be (?:planning on )?graduating[^.;\n]{0,80}")
+LATER = re.compile(r"(?i)\b(?:20(?:2[7-9]|[3-9]\d))\b|\b(?:dec(?:ember)?|winter|fall)\.? *2026\b")
 PREFERRED = re.compile(r"(?i)\b(preferred|nice[- ]to[- ]haves?|bonus|(?:is |are |be )?a plus|strong candidates may also"
                        r"|you might also|not required|extra credit|ideally)\b")
 HEADING = re.compile(r"(?is)(<h[1-6][^>]*>.*?</h[1-6]>|<(?:strong|b)>[^<]{3,160}</(?:strong|b)>)")
@@ -44,7 +50,22 @@ def missing_fields(posting):
     return missing
 
 
-def evaluate(posting, resume, must_haves_only=False, keep_at=KEEP):
+def apply_v1_1(posting, checks):
+    """The two rules added in FILTER.md v1.1, on top of JS1's checks (which stay byte-identical in rule.py)."""
+    r2, r3 = checks[1], checks[2]
+    places = [part.strip() for part in re.split(r"[|;]", r3["posting_value"] or "")]
+    dc = [part for part in places if DC.search(part)]
+    if dc and not r3["passed"]:
+        r3.update(passed=True, us_locations=dc, explanation="US location(s): %s (v1.1: D.C.)" % "; ".join(dc))
+    text = text_of(html.unescape(posting.get("content") or ""))
+    later = [m.group(0) for m in GRADUATING.finditer(text) if LATER.search(m.group(0))]
+    if later and r2["passed"]:
+        r2.update(passed=False, graduation=later[0],
+                  explanation='v1.1: "%s"; he finished his degree in May 2026' % later[0].strip())
+    return checks
+
+
+def evaluate(posting, resume, must_haves_only=False, keep_at=KEEP, version=VERSION):
     """One posting: the JS1 record, its score, and its outcome (keep, close call, reject, cannot tell)."""
     missing = missing_fields(posting)
     if missing:
@@ -55,10 +76,12 @@ def evaluate(posting, resume, must_haves_only=False, keep_at=KEEP):
     if must_haves_only:  # only R4 reads the must-have text; R5 still reads the whole description
         full = rule.judge(posting, resume)
         verdict["checks"] = [c if c["rule"] == "R4" else f for c, f in zip(verdict["checks"], full["checks"])]
+    if version == "v1.1":
+        apply_v1_1(posting, verdict["checks"])
     score = sum(c["passed"] for c in verdict["checks"])
     outcome = "keep" if score >= keep_at else "close_call" if score == keep_at - 1 else "reject"
     skills = next(c for c in verdict["checks"] if c["rule"] == "R5")["matches"]
-    return {"key": posting.get("key"), "score": score, "outcome": outcome, "missing": [],
+    return {"key": posting.get("key"), "version": version, "score": score, "outcome": outcome, "missing": [],
             "checks": verdict["checks"], "skills": [m["skill"] for m in skills],
             "failed": [c["rule"] for c in verdict["checks"] if not c["passed"]]}
 

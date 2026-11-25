@@ -17,7 +17,7 @@ HERE = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(HERE))
 
 from js3.claims import answer, label_claims  # noqa: E402
-from js3.filter import run_filter  # noqa: E402
+from js3.filter import VERSION, run_filter  # noqa: E402
 from js3.load import load, load_persona  # noqa: E402
 
 SUPPORTED_VERSIONS = ["2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05"]
@@ -25,7 +25,7 @@ SERVER_INFO = {"name": "js3-job-filter", "version": "1.0.0"}
 TOOL = {
     "name": "score_posting",
     "title": "Score a saved job posting",
-    "description": ("Run Varnika's JS3 filter (FILTER.md v1) on one posting saved from the 2026-11-10 run: its score "
+    "description": ("Run Varnika's JS3 filter (FILTER.md v1.1) on one posting saved from the 2026-11-10 run: its score "
                     "out of 5, which rules failed, each claim labeled supported / contradicted / insufficient with "
                     "the quote that decides it, and the answer ('fits', 'does not fit' or 'I cannot tell'). "
                     "Read-only. The posting_id is 'system/board/id', e.g. 'lever/palantir/<uuid>', or the bare id."),
@@ -72,7 +72,7 @@ class Server:
         claims = label_claims(posting, result) if result["outcome"] != "cannot_tell" else []
         body = {"posting_id": posting["key"], "company": posting["company_name"], "title": posting["title"],
                 "location": (posting.get("location") or {}).get("name"), "url": posting["absolute_url"],
-                "filter": "FILTER.md v1", "score": result["score"], "outcome": result["outcome"],
+                "filter": "FILTER.md " + VERSION, "score": result["score"], "outcome": result["outcome"],
                 "failed_rules": result.get("failed", []), "skills_matched": result["skills"],
                 "claims": claims, "answer": answer(claims) if claims else
                 {"answer": "I cannot tell", "because": ["missing: " + ", ".join(result["missing"])]}}

@@ -1,6 +1,6 @@
 # FILTER.md — Job-Search Agent 3
 
-**Version:** v1, 2026-11-25. Written before any JS3 code. I read the draft and replied "ok" before it was committed.
+**Version:** v1.1, 2026-11-25 (v1 written before any JS3 code; v1.1 after the audit, see Versions). I read the draft and replied "ok" before it was committed.
 **Where it comes from:**
 - Rules R1–R5 are my JS1 rules (`../js1-contract-and-watch/CONTRACT.md`, section 4, 2026-10-31), reused unchanged. Their reasons below are from that contract.
 - Decisions D1–D3 are mine, made on 2026-11-25. Claude Code recommended each one, and I agreed ("ok as you say").
@@ -117,3 +117,15 @@ M3 and M4 ask Claude, through Claude Code (`claude -p`), for an opinion, which i
 ## Versions
 
 - **v1, 2026-11-25:** this file. Rules R1–R5 from JS1; D1 (v1 counts every years phrase; must-haves only is tested as M1), D2 ("I cannot tell" when C1, C3 or C4 is insufficient) and D3 (pass line at most 1 of 30) decided by me.
+- **v1.1, 2026-11-25, after the reject audit and the measurements (my decisions; Claude Code recommended each, I replied "ok"):**
+
+  | Change | Kind | What changed | Measured evidence |
+  |---|---|---|---|
+  | **A** | **added** | **R3** also accepts "**D.C.**" (with dots) after a comma, like "DC" | 2 of my 8 close-call labels were fits (items 53, 54) that failed **only** R3, because their location is "Washington, D.C.". On all 1,014 postings, 64 have "D.C." and v1 failed every one of them on R3; 18 of them were close calls that move to keep. |
+  | **B** | **added** | **R2** also fails a posting whose description says a candidate "must be graduating" (or "planning on graduating") in December 2026 or a later year. He finished his degree in May 2026. | 1 of my 8 kept labels was N (item 32: "Must be graduating in December 2026 or Spring 2027"). 3 kept postings in v1 say this. |
+  | **C** | recorded, **no rule** | False friend: R1's "Platform Engineer" matched "IT Systems Engineer, **Client Platform Engineer**, ChromeOS", which is device administration, not software engineering (item 4, my N) | one example. v1 already rejected it, because R5 failed. A rule from one title would be fitted to one posting. |
+  | **D** | **rejected** | M1, R4 counts must-have years only | On my 16 held-out labels: 16/16 with or without it. It moved one held-out posting (43, my N) from reject to close call, which still means not kept. No measurable gain. |
+  | **E** | **rejected** | M2, keep at 4 of 5 | On held-out: 10/16, with 6 kept postings I labeled not fit. |
+  | **F** | **rejected** | grouping the same title as one job | the "Forward Deployed Software Engineer - US Government" postings share a title but differ in must-haves ("Active … Top Secret" against "or willingness to obtain") |
+
+  A and B were found on the audit labels, so they are **fitted on those labels**. On the held-out labels, v1.1 agrees 16/16, the same as v1. No held-out posting is in "D.C." or asks for a future graduation, so the held-out set cannot show their effect. M3 (prompt) and M4 (context) are not filter rules: M3 was worse on held-out (14/16) and is not adopted, and M4 gave the same answers.
