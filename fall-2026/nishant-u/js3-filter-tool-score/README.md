@@ -1,164 +1,137 @@
-# Job-Search Agent 2 — The Loop, the Tools, and the Diff (nishant-u)
+# Job-Search Agent 3 — The Filter, the Tool, and the Score (nishant-u)
 
 ## What this is
 
-A bounded loop that watches five public job boards across two applicant-tracking systems, Greenhouse
-and Ashby, for one fictional résumé (Priya Nair). It works under a permission policy enforced in code,
-and it changed only through a reviewed diff.
+The layer that decides **what reaches Priya, and why**, for one fictional job seeker (Priya Nair, `data/resume.example.json`). It covers Chapters 7–9.
 
-- **Gate first.** The exits, budgets, repeat rule, error policy and permission policy were written in
-  `GATE.md` before any code.
-- **The loop** (`agent2/loop.py`) ends in exactly one of `finished`, `incomplete`, `budget-exhausted` or
-  `error`. It saves every raw response verbatim with its sha256, writes a trace line per observation,
-  and reports only postings new since the last run, judged by my JS1 rule.
-- **The outcome check** (`agent2/check.py`) is separate from the loop and reads only the saved raw
-  responses.
-- **What the agent never does:** apply, email, message anyone, log in, POST or delete anything. It only
-  sends GET requests to `boards-api.greenhouse.io` and `api.ashbyhq.com`.
+- **A filter you can read** (`FILTER.md`, versions 1 and 2) with four relevance rules, four evidence rules and an abstention rule. It was written before any code and changed only after a measured reject audit.
+- **A source-grounded shortlist.** Every claim is labeled supported / contradicted / insufficient against the posting's own text, with the exact quote (`SHORTLIST.md`).
+- **A tool server written from scratch** that offers one capability to Claude over the Model Context Protocol message shape: `score_posting(posting_id)`. It has real transcripts, and both it and the course's reference server are evaluated with Chapter 8's four ledgers (`MCP-EVALUATION.md`).
+- **An account of what moves the score:** the origin of every number, and one change at a time measured on held-out labels (`SCORE.md`).
 
-| # | System | Board | Why it's in the plan |
-|---|---|---|---|
-| 1 | Greenhouse | `faire` | Wholesale e-commerce; my JS1 board |
-| 2 | Greenhouse | `instacart` | Grocery e-commerce |
-| 3 | Ashby | `poshmark` | Resale e-commerce, the second system |
-| 4 | Greenhouse | `poshmark` | A real board that returns HTTP 200 with 0 jobs: the finished-wrong-answer case |
-| 5 | Greenhouse | `no-such-board-js2-test` | Fails on purpose (HTTP 404) |
-
-Profiles: `full` runs boards 1–5 and ends `incomplete` because of board 5. `demo` runs boards 1–4.
+Everything runs offline over the 182 unique postings my JS2 loop saved from three boards on 2026-11-10: Greenhouse faire and instacart, and Ashby poshmark. The agent never applies, emails, messages or logs in.
 
 ## What I started from
 
-- **My JS1**, branch `nishant-u-js1`, final commit `d63ee48`. It was copied unchanged into this folder
-  in `ca43940`. JS1's files (`agent/`, `CONTRACT.md`, `experiment/`, `runs/`, `seeded/`, `state/` and
-  JS1's tests) are kept as they were. JS2 reuses JS1's rule judge (`agent/rules.py`), validator, résumé
-  check and the optional Claude judge.
-- **Endpoint formats** checked against the instructor's collector Lectern
-  (`fall-2026/nik-bear-brown/lectern/collect.py`) and the Reallocation Engine's providers
-  (`scripts/ats/providers/*.mjs` and `.claude/skills/greenhouse-watch/`). The Greenhouse URL is
-  `https://boards-api.greenhouse.io/v1/boards/<board>/jobs?content=true`. The Ashby URL is
-  `https://api.ashbyhq.com/posting-api/job-board/<board>`.
-- I wrote no code from Lectern or the Reallocation Engine. `agent2/` is new.
+My JS2 agent, branch `nishant-u-js2`, final commit **`f956e22`**. Its committed folder was copied unchanged into this one (commit `adfad6f`): the JS1 rule and contract, the JS2 loop, its saved raw responses and its tests. JS2's README, FRICTIONAL and sign-off are in that commit.
 
 ## Language and toolchain
 
-- **Python 3.12, standard library only.** Nothing to install. Tested on Python 3.12.10.
-- **Tests:** `unittest`. No test touches the network: they use fakes and constructed fixtures.
-- **Tested on:** Windows 11 with Git Bash. The commands below use `python`; in Git Bash `python3` also
-  worked for JS1.
-- **Windows clone:** other folders in this course repository have paths longer than Windows' default
-  limit. Clone with `git clone -c core.longpaths=true ...`, or checkout fails before this folder is
-  reached.
-- **Optional:** the Claude Code CLI (`claude`), logged in, only for `--claude`. Without it the Claude
-  judge records "not run".
-- **macOS:** with a python.org install, HTTPS may need the bundled "Install Certificates.command" before
-  live runs. This hasn't been tested here.
+- **Language:** Python 3.12 (tested on 3.12.10), standard library only. Nothing to install.
+- **Tests:** `unittest`.
+- **Platform:** Windows 11 with Git Bash. Some saved-response paths are long, so clone with `git clone -c core.longpaths=true …`.
+- **Optional:** the Claude Code CLI (tested with 2.1.332), only to repeat the one Claude Code MCP run. Nothing else uses Claude or the network.
 
 ## Commands
 
-Run everything from this folder (`fall-2026/nishant-u/js2-loop-tools-diff/`).
-
-**Tests** (offline; JS1's 66 and JS2's 65):
+Run from this folder (`fall-2026/nishant-u/js3-filter-tool-score/`).
 
 ```bash
-python -m unittest discover -s tests -t . -v
+# All tests (JS1 + JS2 + JS3): 220 tests, 1 skipped on Windows (the JS2 real-symlink case)
+python -m unittest discover -s tests -t .
+
+# The filter over the 182 saved postings (offline)
+python -m agent3.run --filter-version 2                      # writes out3/filter-run-v2/ (the default)
+python -m agent3.run --filter-version 1 --out /tmp/v1-check   # to reproduce v1 without touching out3/filter-run/
+
+# The blind audit kit (deterministic for the seed). Use --out: the default writes into audit/
+# and would overwrite my filled-in audit/audit.csv with the blank kit.
+python -m audit.make_kit --seed 20261124 --out /tmp/audit-kit
+
+# The scripted MCP client (each run appends to mcp_server/transcripts/)
+python mcp_server/client.py --target js3          # this folder's server
+python mcp_server/client.py --target reference    # the course server, lessons/08-mcp-from-scratch/code/main.py
+
+# The one real Claude Code run (optional; needs the Claude Code CLI and an account)
+claude -p "Use the score_posting tool to score the job posting greenhouse:faire:8806617002. Report its verdict and reason, then list each claim (C1 to C4) with its label and the exact quote the tool returned. Use only what the tool returned; do not add anything." \
+  --mcp-config mcp_server/mcp-config.json --strict-mcp-config --tools "" \
+  --allowedTools "mcp__js3-score__score_posting" --output-format stream-json --verbose
 ```
 
-Expected: `Ran 131 tests`, `OK (skipped=1)`. The skip is boundary case 8 if your OS refuses to create a
-symlink (see `POLICY.md`).
-
-**Replay a saved run, no network.** Use a scratch `--out` so the committed runs and states are left alone:
-
-```bash
-python -m agent2.loop --profile full --replay-dir out/full/runs/2026-11-10-1 --out /tmp/js2-replay
-python -m agent2.check /tmp/js2-replay/runs/<run printed above>
-```
-
-Expected: `exit incomplete; 5 requests` (board 5 fails with 404 and board 4 is `unverified-empty`), and
-the check flags `zero-postings greenhouse:poshmark` and `cross-system poshmark`. In PowerShell, use a
-path such as `$env:TEMP\js2-replay`.
-
-**Live runs** (GET only, 5 requests at most per run):
-
-```bash
-python -m agent2.loop --profile full --out out/full     # boards 1-5; ends incomplete (the 404 board)
-python -m agent2.loop --profile demo --out out/demo     # boards 1-4
-python -m agent2.check out/full/runs/<run>              # the outcome check, separate from the loop
-```
-
-Each output root holds its own `state/seen_ids.json`. The CLI has no state-path flag, so separate states
-mean separate `--out` roots.
+**Reproducing v1:** re-running v1 reproduces `out3/filter-run/results.json` byte for byte. Its `shortlist.md` now differs from the committed one by a single quote, which the quote fix in `409b995` corrected.
 
 ## What actually ran
 
+Every JS3 commit, oldest first. Author: Nishant U. Commits marked * also carry a `Co-Authored-By: Claude` trailer.
+
 | Commit | What it is |
-|---|---|
-| `ca43940` | JS1 `d63ee48` copied unchanged into this folder |
-| `58d6431` | `GATE.md`, written before any code |
-| `c5ee0fe` | Gate amendment before code: the two profiles, `read_file`, merge-only `update_state` (Claude Code found the 3 gaps) |
-| `e666f6e` | 62 JS2 tests written from the gate before any implementation; all failed (`ModuleNotFoundError: agent2`) |
-| `5e3e3d0` | The implementation: loop, providers, policy, outcome check; 128 tests OK, 1 skip |
-| `d5640de` | Gate amendment after implementation: the 8 decisions Claude Code made, accepted by me |
-| `6399099` | Live runs: `out/demo/runs/2026-11-10-1` (finished) and `out/full/runs/2026-11-10-1` (incomplete, the 404 board), plus `FINISHED-WRONG.md` |
-| `c050acd` | Second live demo run, `out/demo/runs/2026-11-10-2`: finished, "0 new" on the empty board |
-| `4ba8bd3` | Review packet: gate amendment, reproduction, regression test failing before the patch |
-| `bccbc41` | Review packet: scope widened before the patch (4 planned test changes) |
-| `cd15d19` | The accepted patch: an empty 200 board is `unverified-empty` and the run is `incomplete` |
-| `c51b1af` | Post-patch live demo run, `out/demo-postpatch/runs/2026-11-10-1`: incomplete |
-| `98ae593` | Second live full run, `out/full/runs/2026-11-10-2`: incomplete, 4 real new Instacart postings |
-| this commit | Final docs: README, POLICY, SOURCES, FRICTIONAL, sign-off and driver's seat |
-
-**The finished-wrong-answer evidence** is the two pre-patch live demo runs, `out/demo/runs/2026-11-10-1`
-and `out/demo/runs/2026-11-10-2`, made by the code at `5e3e3d0`. Both ended `finished`. The second
-reported Greenhouse poshmark as "0 postings, 0 new", while the independent check flagged it from the raw
-responses (`FINISHED-WRONG.md`). The post-patch run `out/demo-postpatch/runs/2026-11-10-1` shows the
-fix: the same live boards end `incomplete`, with Greenhouse poshmark `unverified-empty`. After the
-patch, the demo profile no longer reproduces the wrong answer.
-
-**The live runs, all on 2026-11-10:**
-
-| Run | Code | Exit | Notes |
-|---|---|---|---|
-| `out/demo/runs/2026-11-10-1` | pre-patch | `finished` | fresh state; every board a baseline |
-| `out/full/runs/2026-11-10-1` | pre-patch | `incomplete` | the 404 board failed, not retried, "unknown", not "0 new" |
-| `out/demo/runs/2026-11-10-2` | pre-patch | `finished` | the wrong answer: Greenhouse poshmark "0 postings, 0 new" |
-| `out/demo-postpatch/runs/2026-11-10-1` | post-patch | `incomplete` | Greenhouse poshmark `unverified-empty` |
-| `out/full/runs/2026-11-10-2` | post-patch | `incomplete` | Instacart 88 → 92: 4 new ids, all judged `not_relevant` by the rule (R1 or R3) |
-
-Every live run contacted only `boards-api.greenhouse.io` and `api.ashbyhq.com` (the trace's `host`
-column and the raw sidecars' URLs).
+| --- | --- |
+| `adfad6f`* | Start from JS2 `f956e22`: an unchanged copy of the committed folder (385 files, byte-identical) |
+| `5a6df3f`* | FILTER.md v1, written before any JS3 code |
+| `f308043`* | AUDIT-RULE.md, written before any audit sample was drawn |
+| `7a0c270`* | 44 tests written from FILTER.md, all failing (`agent3` did not exist yet) |
+| `8e759bf`* | `agent3/` filter, shortlist and offline CLI; v1 run: 16 accepted, 166 rejected (F1 144, F2 9, F3 8, F4 5), 0 abstained |
+| `096a74c`* | The blind audit kit, committed blank (45 postings, seed 20261124) |
+| `b8b0a20` | The reject audit, 45 verdicts in `audit/audit.csv` |
+| `b68e605`* | FILTER.md v2: my decisions after the audit (accept 1, 2, 7, 8; reject 4, 5, 6) |
+| `79f1dcc`* | 18 tests for v2, failing before the v2 code |
+| `fb071b5`* | v2 implemented; v2 run: 23 accepted, F1 144, F2 7, F3 8, F4 0. v1 is still the library default |
+| `c67ba2f`* | AUDIT-REPORT.md: comparison, false friends, decisions, v1 vs v2 |
+| `409b995`* | Fix: the C2 quote rested on a substring ("SQL" inside "MySQL"), plus a regression test |
+| `03ad6d4`* | SHORTLIST.md: entailment cases, abstention counterexample, C3 |
+| `d8d45e6`* | SCORE.md: origin of every number; one change at a time on held-out labels |
+| `bcf17ad`* | SPLIT.md exposure log: 4 held-out postings were in the audit |
+| `7339062`* | The v2 run also writes `shortlist.json` (for the tool server) |
+| `b16b973`* | MCP tool server from scratch, with 17 tests |
+| `875563e`* | Real MCP transcripts: scripted client (JS3 and reference servers), one Claude Code run |
+| `d5882e2`* | MCP-EVALUATION.md draft (four ledgers, two servers) |
+| `87b152a` | My trust decisions for both servers |
+| `32f95f1`* | Server descriptions changed to match my trust decision |
 
 ## Where each required artifact is
 
 | Required | Where |
-|---|---|
-| README (language, toolchain, commands, what ran) | this file |
-| `GATE.md` | `GATE.md`, with all amendments, dated |
-| The code and tests | `agent2/` (`loop.py`, `providers.py`, `policy.py`, `check.py`); `tests/test_js2_*.py`, `tests/js2_helpers.py`, `tests/js2_mutants.py` |
-| The agent trace of a real run, with the deliberate failure | `out/full/runs/2026-11-10-2/trace.jsonl` and `report.md` (post-patch); `out/full/runs/2026-11-10-1/` (pre-patch) |
-| The finished-wrong-answer demonstration | `FINISHED-WRONG.md` |
-| The permission policy and boundary-test table | `POLICY.md` |
-| The review packet | `REVIEW-PACKET.md` |
-| The sign-off and driver's seat | below |
-| Saved raw responses | `out/*/runs/*/raw/` (each `.body` verbatim, with a `.meta.json` holding the URL, HTTP status, time and sha256); check outputs `out/*/check-*.json`; states `out/*/state/seen_ids.json` |
-| `SOURCES.md`, `FRICTIONAL.md` | `SOURCES.md`, `FRICTIONAL.md` |
+| --- | --- |
+| The filter, versioned, written before the build | `FILTER.md` (v1 at `5a6df3f`; v2 decisions and the Version 2 section below the unchanged v1 text) |
+| The evidence rules and expected sources | `FILTER.md` |
+| Code | `agent3/filter.py`, `agent3/shortlist.py`, `agent3/run.py`, `audit/make_kit.py`, `mcp_server/server.py`, `mcp_server/client.py` |
+| Tests | `tests/test_js3_filter.py`, `test_js3_shortlist.py`, `test_js3_mutants.py` (+ `js3_mutants.py`), `test_js3_run.py`, `test_js3_audit_kit.py`, `test_js3_v2.py`, `test_js3_mcp.py` |
+| Run outputs | `out3/filter-run/` (v1), `out3/filter-run-v2/` (v2: `results.json`, `shortlist.md`, `shortlist.json`) |
+| The reject audit, with hand verdicts | `audit/audit.csv` (verdicts); the judgment rule in `AUDIT-RULE.md`; the kit in `audit/postings/` and `audit/HOW-TO.md` |
+| What the audit can and can't show; false friends; rule changes | `audit/AUDIT-REPORT.md` |
+| The source-grounded shortlist and its labels | `SHORTLIST.md` (links `out3/filter-run-v2/shortlist.md`) |
+| The tool server and its transcripts | `mcp_server/` (`server.py`, `client.py`, `mcp-config.json`, `transcripts/`) |
+| The Claude Code run, with date and session ID | `mcp_server/CLAUDE-CODE-RUN.md` |
+| Both server evaluations and trust decisions | `MCP-EVALUATION.md` |
+| What moves the score | `SCORE.md` |
+| Sign-off and driver's seat | this README, below |
+| Sources and what Claude contributed | `SOURCES.md` (written by me) |
+| Honest log | `FRICTIONAL.md` |
 
 ## Sign-off
 
 ```text
-Sign-off — Job-Search Agent 2
-Checked: the gate came before code (58d6431; amendment c5ee0fe before the tests in e666f6e); the four exits (test_js2_loop Exits); budgets, including a retry blocked by the budget (test_js2_loop); the repeat rule and the error policy per HTTP outcome (test_js2_loop ErrorPolicy); no invented value for a failed board (the live full run: the 404 board shows "unknown", not "0 new"); all 15 boundary cases, predicted in GATE.md before code (test_js2_policy); the six wrong versions are caught (test_js2_mutants); the outcome check reads only the raw responses (test_js2_check, plus the live runs); the review fix (test_js2_review).
-How: by hand: none. Commands I ran myself: the regression test before the patch (2 failures on bccbc41) and after (3 ok), the full suite (131 tests, 1 skip), and git diff --stat. Tests written before Claude's code existed: e666f6e (62 tests, written by Claude Code from my gate, all failing before the implementation) and the regression test 4ba8bd3 (before the patch). With Claude's help: the boundary-case table was checked against GATE.md by Claude in claude.ai and reviewed by me; the code, the tests and the doc drafts were written by Claude Code.
-Not checked: boundary case 8 (a real symlink) on this machine, which was skipped (a junction was refused, but that isn't a committed test); an empty Ashby board (every empty-board test uses Greenhouse); telling a company that truly isn't hiring from a wrong board (both now end incomplete); the Claude judge on Ashby postings (not run); redirect hops counted against the budget (they aren't); macOS and Linux; each host's terms beyond its API docs, and any rate limit.
-Not claiming: that the outcome check catches every wrong answer (it catches only zero-posting boards and cross-system zero vs non-zero); that the policy is a sandbox (it's a preflight, and JS1's claude_judge writes inside an approved folder without going through policy.py); that "finished" means correct.
-Signed: Nishant U, 2026-11-10.
+Sign-off — Job-Search Agent 3
+Checked:      FILTER.md written before any code (5a6df3f); F1–F4, C1–C4, abstention and missing fields
+              (test_js3_filter, test_js3_shortlist); the four wrong versions are caught (test_js3_mutants);
+              the v2 changes (test_js3_v2); the run is offline, deduplicated and deterministic (test_js3_run);
+              the audit kit is deterministic and shows no filter reasons (test_js3_audit_kit); the MCP
+              server's lifecycle, error codes, path refusal and no-network imports (test_js3_mcp); quotes
+              rest on whole-word matches (regression test, 409b995); v1 reproduces byte for byte.
+How:          by hand: TODO-NISHANT (write this yourself).
+              Tests written before the implementation: 7a0c270 (44 tests, all failing before agent3
+              existed) and 79f1dcc (v2 tests failing before the v2 code), written by Claude Code from my
+              FILTER.md. By recomputation: the v1/v2 comparisons and the Clopper-Pearson intervals. With
+              Claude's help: the code, the tests, the report drafts and the MCP ledgers; the rule decisions
+              and both trust decisions are mine.
+Not checked:  v2 on a fresh sample (the fix counts come from the same 45 that suggested the changes);
+              the 136 unjudged rejects; the C1–C4 labels by hand (they are computed); boundary symlink case
+              on Windows; the MCP server with other clients or the older protocol versions it claims;
+              Ashby's isRemote and workplaceType fields (unused); seniority; whether the postings
+              (collected 2026-11-10) are still open.
+Not claiming: that the 3/30 (10%, 95% CI 2.1–26.5%) miss estimate is a measured rate, or that it
+              describes v2; that v2 is better in general; that a shortlisted posting means Priya should
+              apply; that "sponsors visas: insufficient" means a company doesn't sponsor; that anything
+              was trained.
+Signed:       Nishant U, 2026-11-25.
 ```
 
 ## Driver's seat
 
-| Task | Claude did | I did | Why it stays mine | Evidence |
-|---|---|---|---|---|
-| Gate (exits, budgets, policy) | Drafted it; Claude Code found 3 gaps | Approved it and its amendments before code | The loop's limits are commitments I'm accountable for | 58d6431, c5ee0fe, d5640de |
-| Boundary predictions | Drafted the 15 cases | Approved them before any code; checked the test table against them | A prediction only counts if it comes before the result | GATE.md; POLICY.md |
-| Loop, tests and code | Claude Code wrote the tests, then the code | Set the order; chose the boards and the deliberate failure | What runs against real hosts is my responsibility | e666f6e then 5e3e3d0 |
-| The review | Claude Code wrote the regression test and the patch | Widened the scope before the patch, ran the tests myself before and after, decided to accept | Accepting a change is a judgment on evidence | bccbc41 run; REVIEW-PACKET.md Decision; cd15d19 |
-| Live runs | Claude Code ran them | Set limits: no push, separate states, each run reported verbatim | Authority over my repo and over live requests stays with me | out/ runs; FRICTIONAL |
+| Task | What Claude should do | What I should do | Why it stays mine | Evidence |
+| --- | --- | --- | --- | --- |
+| The filter rules and their reasons | Implement the rules exactly as written, point out where the text is ambiguous, write tests and wrong versions from it | Write the rules and a reason for each, before any code; settle the ambiguities | What counts as relevant for Priya is a decision about her goals, not a fact in the postings | `FILTER.md` v1 at `5a6df3f`, before code at `8e759bf`; tests failing first at `7a0c270`; interpretations listed in `agent3/filter.py` |
+| The reject audit and rule changes | Build a blind, seeded kit; compute agreement, the interval and the fix/break count for each candidate change; say what the counts overstate | Fix the audit rule before sampling; judge the postings; accept or reject each change with a reason | A rule change trades one kind of error for another, and only I can price that trade | `AUDIT-RULE.md` (`f308043`), kit (`096a74c`), verdicts (`b8b0a20`), decisions in `FILTER.md` (`b68e605`), `audit/AUDIT-REPORT.md` |
+| The shortlist claims | Label each claim against the posting text with an exact quote; flag where a match does not entail the claim | Read the flagged cases; decide what a label is allowed to claim | A matching word is not support; whether a sentence supports a claim is a reading judgment | `SHORTLIST.md` cases 1–3; quote fix `409b995` |
+| The MCP server and trust decisions | Write the server and its tests; run real transcripts; fill the four ledgers with evidence types | Decide whether to trust each server, for what, and under which conditions | Compatibility is not authorization: someone has to own the decision to connect a tool to an assistant | `mcp_server/transcripts/`, `MCP-EVALUATION.md`, trust decisions at `87b152a` |
+| The final call that a posting is worth Priya's time | Claude can label claims against the text | Decide whether to put a posting in front of her | Whether a posting is worth her time depends on things the text can't settle (seniority fit, sponsorship, her priorities), so that judgment stays mine | C3 is "insufficient" for every accepted posting; seniority is not judged (`FILTER.md`); 22 of the 23 v2-accepted titles say Senior or Staff, and the 23rd is a "Lead" |

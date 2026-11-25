@@ -1,92 +1,81 @@
-# FRICTIONAL — Job-Search Agent 2 (nishant-u)
+# FRICTIONAL — Job-Search Agent 3 (nishant-u)
 
-An honest log of what went wrong, what I checked, and what I accepted, changed or rejected. JS1's log
-is in `fall-2026/nishant-u/js1-contract-and-watch/FRICTIONAL.md` at `d63ee48`.
+> **Draft for Nishant to edit.** Drafted by Claude Code on 2026-11-25 from the session record and the commits. Rewrite it in your own words before submitting.
 
-## 2026-11-10 — The gate had three gaps before any code
+An honest log of what went wrong, what I checked, and what I accepted, changed or rejected. JS2's log is `fall-2026/nishant-u/js2-loop-tools-diff/FRICTIONAL.md` at `f956e22`; JS1's is linked from there.
 
-After I committed `GATE.md` (`58d6431`), Claude Code's review found three problems in it:
+## 2026-11-24 — The abstention threshold never fired
 
-1. **The demo couldn't happen.** `finished` required every planned board to parse, and board 5 always
-   returns 404, so a full run could never show a finished wrong answer.
-2. **Case 9 didn't fit.** Boundary case 9 was a read, but there was no read operation in the vocabulary.
-3. **Merge vs replace.** Nothing distinguished a merging `update_state` from a replacing one.
+FILTER.md v1 abstains when a posting's text is under 300 characters after removing HTML.
+- **What the data showed:** on all 182 postings it fired **0 times**. The shortest posting is 2,679 characters.
+- **The limit:** I could only show the rule's limits with a constructed posting. In SHORTLIST.md, 880 characters of company boilerplate plus a one-line role were accepted by both v1 and v2 instead of abstaining.
+- **What I learned:** counting characters doesn't measure how much the text says about the job.
+- **Unresolved:** I haven't changed the rule.
 
-I fixed all three in an amendment before any code (`c5ee0fe`): the `full` and `demo` profiles with the
-outcome-check thresholds, a `read_file` operation, merge-only `update_state`, wrong version 6 and
-boundary case 15. **What I learned:** I had written the exits and the demo plan separately and never
-checked them against each other.
+## 2026-11-24 — F3 rejected Poshmark's US offices
 
-## 2026-11-10 — Eight implementation decisions accepted after the code
+Before writing any tests I read the real location strings. Poshmark writes US offices as `US California (Redwood City) - Office`, which ends in neither a state code nor "Remote", so F3 v1 rejects it.
+- **What I did:** I kept v1 literal, and a test pinned the behavior, so the audit would have to find it rather than me patching it quietly.
+- **The fix:** v2 change 7 accepts `US <State> (<City>) - Office`.
+- **The effect:** it changed no verdicts. Every such posting fails F1 first. So the fix is right, but this data doesn't test it.
 
-While implementing (`5e3e3d0`), Claude Code made 8 decisions the gate didn't cover:
+## 2026-11-25 — False friends
 
-1. https only, and no username or password in a URL;
-2. a retry blocked by a budget means `budget-exhausted`;
-3. other HTTP codes fail with no retry;
-4. refused or repeated boards count against the board budget and make the run `incomplete`;
-5. the baseline is per board;
-6. redirects are re-checked up to 3 hops, but the hops are not counted against the budget;
-7. the Claude judge doesn't run on Ashby postings;
-8. the check matches companies by the profile's `company` field.
+Four disagreements in the reject audit came from a title word matching or blocking for the wrong reason:
+- **"Lead" (row 4):** *Strategy & Analytics Senior Lead* is "a high-impact individual contributor".
+- **"Lead" (row 28):** the same pattern.
+- **"Manager" (row 10):** *Insights Manager II* is "the analytical backbone".
+- **"Software Engineer" (row 30):** the title hides "ML infrastructure" work.
 
-It listed them instead of hiding them. I reviewed them and accepted all 8 in a dated amendment
-(`d5640de`), marked as coming after the implementation. **Unresolved:** decision 6 means the request
-budget doesn't bound redirect hops (it's in the sign-off's "Not checked").
+Near misses, where the verdict was right but the word could mislead:
+- **"AML":** anti-money laundering. Whole-word matching saved it.
+- **"Ads Manager":** a product name.
+- **"hybrid":** "preload vs. tool-calling vs. hybrid", about AI architecture, was quoted as evidence against "Remote".
+- **"Employer-sponsored retirement plan":** C3 correctly ignored it.
 
-## 2026-11-10 — Boundary case 8 skipped; a junction check instead
+## 2026-11-25 — The v2 decisions: what they fixed and broke
 
-The real-symlink test (case 8) is skipped on my machine. Windows refused to create the symlink with
-WinError 1314 ("A required privilege is not held by the client"), and the test records that reason.
-Claude Code ran a one-off check with a directory junction, which needs no privilege: the policy refused
-the write through it, and nothing reached the outside folder. That check is not a committed test, so
-case 8 is still "not checked" in my sign-off. **What would settle it:** Windows Developer Mode, or
-running the suite on macOS or Linux.
+I accepted changes 1 (cut "lead"), 2 (count Priya's résumé practices in F4), 7 (US office form) and 8 ("hybrid" needs office/day/schedule words). I rejected 4, 5 and 6.
+- **Fixed:** on my 45 audit verdicts, v2 fixes rows 4, 8, 27, 35 and 44.
+- **Broke:** row 15. A Staff scientist who will "mentor or manage" is now accepted; I accepted that as a known miss.
+- **Still missed:** rows 10, 28 and 30.
+- **Unaudited:** one posting I never judged changed verdict (*Strategy & Analytics Lead*).
+- **The catch:** agreement went from 37 to 41 of 45, but on the same sample that suggested the changes, so it overstates the improvement. v2 hasn't been tested on a fresh sample.
 
-## 2026-11-10 — The first regression test was too weak
+## 2026-11-25 — The C2 "MySQL" quote bug
 
-For the review packet, Claude Code's first draft of `tests/test_js2_review.py` built a state in which
-Greenhouse poshmark had never been seen. On the unpatched code that board is reported as "baseline",
-not "0 new", so the assertion `"0 new" not in report.md` would have passed without any fix. Claude Code
-caught this itself, by printing what the unpatched code did for each property before committing. It then
-split the test into a "seen" case (like my second live demo run, which said "0 new") and a "fresh" case
-(like the first, which saved the empty board as seen), plus the control. Both regression cases failed in
-my own run on `bccbc41`. **What I learned:** a test that fails for one reason (the exit) can still have
-assertions that would pass on broken code. Check what each assertion sees on the old code.
+While writing SHORTLIST.md, I found that `faire:8806617002`'s "Uses SQL: supported" quoted a sentence containing only "MySQL".
+- **Cause:** the label was right, but the code located its quote with a substring search instead of the whole-word match.
+- **Fix:** in `409b995`, with a regression test. Labels and verdicts didn't change.
+- **Left as is:** the committed v1 output still shows the old quote, so re-running v1 now matches `results.json` byte for byte but differs from `shortlist.md` by that one quote.
 
-## 2026-11-10 — Scope widened before the patch
+## 2026-11-25 — My held-out labels were exposed to the audit
 
-The allowed-file list for the patch was `agent2/loop.py` and the new test file. Before the patch, Claude
-Code predicted that 4 existing tests encoded the old behaviour (an empty 200 board counted as clean) and
-would fail. I widened the scope before the patch (`bccbc41`) to those 4 tests only, and wrote down for
-each the exact planned change and why it isn't a weakening. After the patch, the 4 changes matched the
-table and the prediction held: 131 tests, 1 skip.
+For SCORE.md I measured v1 vs v2 on my JS1 held-out labels.
+- **The problem:** 4 of the 10 held-out postings were in the reject audit I used to choose v2. Two of them (rows 44 and 27) are among the postings change 2 was designed to fix.
+- **A second problem:** the JS1 labels are my old keyword rule applied by hand. v1 matches them 10/10 almost by construction. v2 scores 8/10 because it disagrees exactly where I decided to change the rule.
+- **What I did:** logged the exposure in SPLIT.md (`bcf17ad`).
+- **Unresolved:** a fair test of v2 still needs fresh labels under my audit rule.
 
-## 2026-11-10 — An unplanned docstring edit
+## 2026-11-25 — The reference-server run failed on a client path bug
 
-The patch also changed the module docstring of `agent2/loop.py`, which wasn't in my table. The old text
-called the demo profile "the finished-wrong-answer run", which the patch made false. Claude Code flagged
-the edit when it showed me the diff. I accepted it because it is inside the allowed file and corrects a
-false statement (`REVIEW-PACKET.md`, Scope check).
+My first scripted-client run against the course server sent nothing. The client computed the repository root one level too shallow (`parents[2]` instead of `parents[3]`), so it started a file that doesn't exist, and the process exited. No transcript was written. The client was fixed and the run repeated; that run is the reference transcript.
 
-## 2026-11-10 — The CLI has no state flag
+## 2026-11-25 — Redacting private paths from the transcripts
 
-To give each live run its own state, I expected a `--state` flag. There isn't one: the state lives
-inside the output root. Separate `--out` roots were used instead (`out/demo`, `out/full`,
-`out/demo-postpatch`), with no code change. **Accepted** rather than adding a flag mid-assignment.
+Claude Code's event stream from the MCP run contained my Windows user name, local plugin, memory and socket paths, and my installed skills. Two client-side logs had absolute paths in the server command.
+- **What's committed:** redacted copies.
+- **What's kept locally:** the originals, in a git-ignored folder. Their sha256 hashes are in `mcp_server/CLAUDE-CODE-RUN.md`.
+- **Prevention:** the client now logs repo-relative paths.
 
-## 2026-11-10 — Instacart changed during the day
+## 2026-11-25 — My server's descriptions overstated what it does
 
-Instacart's Greenhouse board had 88 postings in the morning runs and 92 at 18:02 UTC. The second full
-run (`98ae593`) reported 4 new ids against the morning's state. All four were judged `not_relevant` by
-the JS1 rule: two failed R1 (no title term) and two failed R3 (no US location part). That is a real new
-posting being detected, not a constructed one. It also means the board counts in my docs are snapshots,
-not constants.
+My server's `initialize` instructions said "Read-only", but the server appends every message to its transcript log. Its tool description made "score" sound like a fresh judgment, when it returns a saved FILTER.md v2 verdict for postings collected on 2026-11-10. I said so in my trust decision, and fixed both descriptions in `32f95f1`, with a test pinning the wording. The transcripts keep the old wording, as recorded.
 
-## 2026-11-10 — After the patch, the demo no longer reproduces the wrong answer
+## 2026-11-25 — Excel broke the encoding in audit.csv
 
-The post-patch live demo (`c51b1af`) ended `incomplete`, with Greenhouse poshmark `unverified-empty`.
-That is the fix working, but it means the finished-wrong-answer can no longer be shown by running the
-current code. The evidence is the pre-patch runs `out/demo/runs/2026-11-10-1` and `-2`, made by
-`5e3e3d0` and quoted in `FINISHED-WRONG.md`. **Unresolved:** the patch also makes a company that
-genuinely isn't hiring end every run `incomplete`, and the agent can't tell that apart from a wrong board.
+After I saved `audit/audit.csv` from Excel, 11 notes showed double-encoded characters (`rÃ©sumÃ©`, `â€”`).
+- **The first fix:** that version had already been committed. Before anything was pushed, I repaired it and replaced that commit, and the replaced commit was pruned from the repository.
+- **A second change:** a later save changed "résumé" to "resume" and em dashes to hyphens. That version is the audit commit, `b8b0a20`.
+- **Effect on results:** none of this changed a verdict.
+- **What I'd do differently:** edit the CSV in a text editor, or check its encoding before committing.
