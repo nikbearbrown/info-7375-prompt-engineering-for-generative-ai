@@ -1,6 +1,6 @@
 # FILTER.md: Job-Search Agent 3 — The Filter, the Tool, and the Score
 
-Ethan Gomes · INFO 7375 · v1.1 · 2026-11-25 · written before any JS3 code
+Ethan Gomes · INFO 7375 · v1.2 · 2026-11-25 · written before any JS3 code
 
 ## Scope
 
@@ -17,7 +17,7 @@ A posting ends in exactly one of three buckets:
 - **cannot tell**: a field the rules need is missing or empty, so the filter does not guess. These are listed separately and never
   counted as rejects or as "nothing relevant".
 
-## 1. The filter (v1.1)
+## 1. The filter (v1.2)
 
 ### Hard rules
 
@@ -26,7 +26,7 @@ A posting ends in exactly one of three buckets:
 | **F1 Role** | title | The title contains one of the role phrases: "data engineer", "analytics engineer", "data platform", "data infrastructure", "data analyst", "business intelligence", "BI engineer" (case-insensitive, whole phrase) | Evan's target titles, plus the two BI phrases because Tableau and Power BI are among his shipped skills. Whole phrases, because the word "data" or "analyst" alone matches unrelated jobs |
 | **F2 Seniority** | title | The title contains none of these as whole words: Staff, Principal, Lead, Manager, Management, Director, Head, VP, Intern, Distinguished, Architect. "Senior" is allowed | These levels are above or below 4 years. Senior is judged by years (F4) instead, because many Senior data roles ask for 4–5 |
 | **F3 Location** | location | Boston, or a US marker (state, code, "United States", listed metro) as a whole word; remote counts if it names the US | Evan is in Boston, open to remote and to relocating within the US only |
-| **F4 Years** | description | The first "N years" phrase with "experience" within 60 characters has N ≤ 5 | Evan has about 4 years; 5 is a reasonable reach, more is not |
+| **F4 Years** | description | The first "N years" phrase with "experience" within 60 characters has N ≤ 5 | Evan has about 4 years; up to 5 is a fit, more is not. 3 or fewer is preferred and scores higher |
 
 F4 fails only on a stated number above 5. A description with no years phrase passes F4, but the shortlist must then say "I cannot tell"
 about seniority fit (section 2).
@@ -55,14 +55,14 @@ on held-out labels (section 5).
 | Part of the score | Points | Origin |
 |---|---|---|
 | Each distinct topic word, capped at 8 | 8 each (max 64) | set by me, v1.1 |
-| Years N ≤ 4 (preferred) | +16 | set by me, v1.1; the cut-off 4 is inherited from the persona |
+| Years N ≤ 3 (preferred) | +16 | set by me; points v1.1, cut-off 3 v1.2 (the persona said 4) |
 | Location: Boston, or else remote in the US (one bonus only) | +10 Boston, +5 remote US | set by me, v1.1 |
 | Visa sponsorship offered (rule V1) | +10 | set by me, v1.1 |
 | **Maximum** | **100** | 64 + 16 + 10 + 10 |
 | Threshold: at least 2 distinct topic words | gate, not points | inherited from JS1 R4 |
 | Years limit 5 | gate, not points | inherited from the persona |
 
-A posting with no years phrase gets no years bonus. A posting that is both in Boston and remote gets the Boston bonus only.
+A posting asking for 4 or 5 years is kept but gets no years bonus, and so does a posting with no years phrase. A posting that is both in Boston and remote gets the Boston bonus only.
 
 ### Visa sponsorship (points only, never a reject)
 
@@ -161,3 +161,4 @@ file's hash is recorded before tuning starts. Every change in section 1 is measu
 |---|---|---|---|
 | v1 | 2026-11-24 | First version, written before any JS3 code | Built from the JS1 contract R1–R5, the persona and the JS2 boards |
 | v1.1 | 2026-11-25 | Score out of 100 (8 per skill, capped at 8; +16 years; +10 Boston or +5 remote US; +10 visa); visa rules V1–V2; "business intelligence" and "BI engineer" added to F1; wrong versions 9–10. Kept: threshold 2, Senior allowed, years limit 5, no years phrase = kept, fresh snapshot | My decisions on the v1 placeholders, still before any JS3 code |
+| v1.2 | 2026-11-25 | Preferred years cut-off moved from 4 to 3: N ≤ 3 gets +16; 4–5 is kept with no bonus; the limit stays 5 | I prefer roles asking 3 years or fewer, but up to 5 is still a fit; still before any JS3 code |
