@@ -48,6 +48,41 @@ Dated entries. **Claude Code's process notes** are labeled as Claude's: they rec
 - The §2 LEVEL wording "0–2 years" was ambiguous for a person with under one year of full-time work.
 - Clarifications C1/C2 were written before any label was returned.
 
+**9. The labels arrived as screenshots (`1a774a0`, `b8852e8`)**
+- Aditya labeled in his own CSV and sent two screenshots.
+- I transcribed the labels and checked all 63 titles against the committed sheet (63/63 matched), but **in doing so I read the 23 held-out labels before any freeze.**
+- I disclosed this in `labels/TRANSCRIPTION.md`, and Aditya decided to draw a fresh held-out set (amendment A3). He had already deleted his CSV, so the transcription can only be re-checked against the screenshots.
+
+**10. The fresh held-out set could not contain a keep**
+- All 7 v1.0 keep clusters were already on the first sheet, so H2 (24 postings) has no v1.0 keep.
+- This is stated in A3, `FREEZE.json` and the README. It limits what H2 can say about precision.
+
+**11. Fixing the false friend made things worse (`61c999b`)**
+- *Expected:* removing the boilerplate matches (C-a) would improve the filter.
+- *Measured on dev:* recall fell from 6/9 to 3/9. The boilerplate +2 had been carrying the correct New Grad keeps.
+- The three real misses (S05, S26, S43) came from the years penalty instead: Aditya labels "5+ years" roles `yes` and "Senior" titles `no`.
+- Aditya chose v1.1 = C-a + C-b + C-e over C-b alone. Both were 9/9 · 9/9 on dev, so dev cannot separate them.
+
+**12. My privacy check did not gate a commit (`fbfd556`)**
+- I ran a grep for private strings in the same command as `git commit`, and the commit went ahead even though the grep printed matches.
+- The matches were all "Northeastern University" from the **fictional persona's** education line, which is already public in JS1/JS2. So nothing leaked.
+- *Lesson:* a check that only reports is not a gate.
+
+**13. After the freeze, v1.1 amplified two false friends (`d966622`)**
+- While labeling the shortlist I found that v1.1's top-ranked posting (`8546367002`, score 11) gets E +3 from "It is **not** intended for … new graduate …". Negation is invisible to whole-word matching.
+- "the most junior data scientists" (`8091041002`) also became +3.
+- Separately, all seven New Grad keeps require graduating in 2026–27, while the persona graduated in December 2025.
+- Logged in FILTER.md as found after the freeze. **Not fixed**: a change now would need new held-out evidence.
+
+**14. Claude disagreed with Aditya on a dev posting**
+- In the 6-call format check, Claude answered "no" for S35 (New Grad, Aarhus) in both arms, citing the graduation window. Aditya had labeled it `yes`, "check the graduation window".
+- This is not an error on either side: it is a different judgment about the same sentence. It is recorded in the driver's-seat table.
+
+**Unresolved:**
+- whether the v1.1 changes generalize (this is what H2 tests);
+- a negation-aware early-career rule (a v1.2 candidate);
+- whether eligibility, such as graduation windows, belongs in the filter or should stay a human check.
+
 ---
 
 ## Aditya's entries
