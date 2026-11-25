@@ -1,4 +1,4 @@
-$ python3 -m unittest discover -s tests -t . -v   (2026-11-25 14:21)
+$ python3 -m unittest discover -s tests -t . -v   (2026-11-25 14:59)
 test_contradicted_years_never_shortlisted (tests.test_evidence.Justify.test_contradicted_years_never_shortlisted) ... ok
 test_every_claim_is_labelled_with_a_quote_or_cannot_tell (tests.test_evidence.Justify.test_every_claim_is_labelled_with_a_quote_or_cannot_tell) ... ok
 test_missing_text_cannot_tell_everything (tests.test_evidence.Justify.test_missing_text_cannot_tell_everything) ... ok
@@ -14,6 +14,9 @@ test_whole_word (tests.test_evidence.SkillClaims.test_whole_word) ... ok
 test_over_limit_contradicted (tests.test_evidence.YearsClaims.test_over_limit_contradicted) ... ok
 test_unstated_is_insufficient_and_cannot_tell (tests.test_evidence.YearsClaims.test_unstated_is_insufficient_and_cannot_tell) ... ok
 test_within_limit_supported (tests.test_evidence.YearsClaims.test_within_limit_supported) ... ok
+test_minimum_section_still_supported (tests.test_evidence_regression.PreferredSectionNotEndedByABullet.test_minimum_section_still_supported) ... ok
+test_real_headings_still_detected (tests.test_evidence_regression.PreferredSectionNotEndedByABullet.test_real_headings_still_detected) ... ok
+test_skills_under_preferred_are_insufficient (tests.test_evidence_regression.PreferredSectionNotEndedByABullet.test_skills_under_preferred_are_insufficient) ... ok
 test_decision_records_filter_version (tests.test_filter.FilterFile.test_decision_records_filter_version) ... ok
 test_numbers_come_from_the_filter_file (tests.test_filter.FilterFile.test_numbers_come_from_the_filter_file) ... ok
 test_missing_location_does_not_change_verdict (tests.test_filter.Missing.test_missing_location_does_not_change_verdict) ... ok
@@ -48,6 +51,11 @@ test_whole_word (tests.test_filter_v11.TitleExclude.test_whole_word) ... ok
 test_education_years_ignored_in_v11 (tests.test_filter_v11.YearsEducation.test_education_years_ignored_in_v11) ... ok
 test_experience_years_still_count (tests.test_filter_v11.YearsEducation.test_experience_years_still_count) ... ok
 test_v10_unchanged (tests.test_filter_v11.YearsEducation.test_v10_unchanged) ... ok
+test_clearly_non_us_rejected (tests.test_filter_v12.USOnly.test_clearly_non_us_rejected) ... ok
+test_missing_or_vague_kept (tests.test_filter_v12.USOnly.test_missing_or_vague_kept) ... ok
+test_mixed_us_and_non_us_kept (tests.test_filter_v12.USOnly.test_mixed_us_and_non_us_kept) ... ok
+test_us_kept (tests.test_filter_v12.USOnly.test_us_kept) ... ok
+test_v11_ignores_location (tests.test_filter_v12.USOnly.test_v11_ignores_location) ... ok
 test_failed_board_is_failed_not_zero (tests.test_policy_collect.FailedBoard.test_failed_board_is_failed_not_zero) ... ok
 test_more_than_five_boards_refused (tests.test_policy_collect.FailedBoard.test_more_than_five_boards_refused) ... ok
 test_writes_only_inside_data_out_transcripts (tests.test_policy_collect.Files.test_writes_only_inside_data_out_transcripts) ... ok
@@ -71,6 +79,6 @@ test_server_source_has_no_network_or_outside_writes (tests.test_toolserver.NoSid
 test_both_directions_recorded (tests.test_toolserver.Transcript.test_both_directions_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 70 tests in 0.411s
+Ran 78 tests in 0.424s
 
 OK

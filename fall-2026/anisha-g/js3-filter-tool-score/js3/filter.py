@@ -14,6 +14,18 @@ def has_phrase(text, phrase):
 _RANGE = re.compile(r"(?<![\d.])(\d{1,2})\s*\+?\s*(?:-|–|—|to)\s*(\d{1,2})\s*\+?\s*(?:years?|yrs?)\b", re.I)
 _SINGLE = re.compile(r"(?<![\d.])(\d{1,2})\s*\+?\s*(?:plus\s+)?(?:years?|yrs?)\b", re.I)
 
+def _marker(loc, m):
+    """Location marker: short all-caps codes (MA, SF, IN, DE) match case-sensitively, so 'in the US' is not India."""
+    if len(m) <= 3 and m.isupper():
+        return re.search(r"(?<![A-Za-z0-9])" + re.escape(m) + r"(?![A-Za-z0-9])", loc) is not None
+    return has_phrase(loc, m)
+
+def non_us(location, cfg):
+    """v1.2 R5: True only when the location names a non-US place and no US place. Missing/vague -> False (kept)."""
+    if not location or "us_markers" not in cfg: return False
+    if any(_marker(location, m) for m in cfg["us_markers"]): return False
+    return any(_marker(location, m) for m in cfg["non_us_markers"])
+
 def years_spans(text, ignore_if_followed_by=()):
     """[(top_of_range, matched_text)]. A range counts by its top (FILTER.md R4).
     v1.1: a match followed within 40 characters by one of ignore_if_followed_by (e.g. 'university education') is skipped."""
@@ -39,6 +51,7 @@ def evaluate(posting, cfg):
     w = cfg["weights"]
     d["r1"] = any(has_phrase(title, x) for x in cfg["role_words"])
     d["r2_reject"] = any(has_phrase(title, x) for x in cfg["seniority_words"])
+    d["r5_reject"] = non_us(posting.get("location"), cfg)                                       # v1.2
     d["r1b_reject"] = any(has_phrase(title, x) for x in cfg.get("title_exclude_words", []))       # v1.1
     d["skills"] = [s for s in cfg["skills"] if has_phrase(text, s)]
     d["r3"] = len(d["skills"]) >= cfg["min_skills"]
@@ -46,7 +59,7 @@ def evaluate(posting, cfg):
     if ys: d["years_max"] = max(ys); d["r4"] = d["years_max"] <= cfg["max_years"]
     d["score"] = (w["title"] if d["r1"] else 0) + min(w["skill_cap"], w["per_skill"] * len(d["skills"])) \
                  - (w["seniority_penalty"] if d["r2_reject"] else 0) - (w["years_penalty"] if d["r4"] is False else 0)
-    d["failed"] = [r for r, bad in [("R1", not d["r1"]), ("R1b", d.get("r1b_reject")), ("R2", d["r2_reject"]), ("R3", not d["r3"]), ("R4", d["r4"] is False)] if bad]
+    d["failed"] = [r for r, bad in [("R1", not d["r1"]), ("R1b", d.get("r1b_reject")), ("R2", d["r2_reject"]), ("R3", not d["r3"]), ("R4", d["r4"] is False), ("R5", d.get("r5_reject"))] if bad]
     d["status"] = "kept" if not d["failed"] and d["score"] >= cfg["keep_threshold"] else "rejected"
     return d
 
