@@ -94,3 +94,16 @@ The filter counts a word. The claim needs a sentence that asks for it.
 - Hemanth's check is one pass by one person, with quotes shortened to about 130 characters in chat. The full quotes are in the generated file.
 - How to label a skill listed among options, or a location that is only a city, is unresolved.
 - Two shortlisted postings, #3 and #4, are in the held-out set. Their held-out verdicts are not used here.
+
+## 7. After v1.2 (Nov 24): the evidence layer anticipated the new rule
+
+This shortlist was built and checked under **v1.1**. FILTER.md v1.2 adds R17, which rejects a posting whose text asks for 5+ years. Under v1.2:
+- **#2, #5, #8 and #9 leave the shortlist.** These four ask for 5, 8, 5 and 6 years.
+  - They are 4 of the 5 postings whose level claim (C3) was **contradicted** by a quote here: "5+ years of experience as a data engineer…", "5+ years (Senior) or 8+ years (Staff)…", "Have 5+ years in technical product support…".
+  - The 5th, #3, says "3 to 6 years", and its range counts by the lower bound, so it stays.
+- **#1, #4, #6, #7 and #10 stay.** None of them asks for 5+ years.
+
+So the filter now does, cheaply and up front, what the claim check was catching downstream with a quote. This is what the audit's second pass suggested: the experience requirement decides most of these postings.
+
+**Not done.** The v1.2 shortlist has 4 postings that were never claim-labeled or hand-checked. `python -m js3 shortlist` would label them (10 Claude calls, then a hand check). This document stays the record of the v1.1 shortlist.
+

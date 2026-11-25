@@ -2,6 +2,8 @@
 
 Every number here is recomputed from committed files by `python -m js3 audit`, which writes [`audit/audit-results.md`](audit/audit-results.md). That file also has the per-posting table.
 
+> **Read section 8 first if you read only one.** Sections 1–7 use the **first-pass** labels, as committed on Nov 22. Section 8 shows that those labels were made with a view that **never showed the experience requirement**, what changed when Hemanth labeled again with it visible, and how that reversed the audit's main conclusion. Both sets of labels are kept and reported (`python -m js3 audit --labels corrected` → `audit/audit-results-corrected.md`).
+
 ## 1. What was audited, and how
 
 - **The filter.** FILTER.md **v1.0** (commit `12c826a`) ran on everything the agent collected: **1,176 unique postings** from three live snapshots (Oct 31, Nov 7 and Nov 20) of Anthropic, Notion and Perplexity. It **kept 194 and rejected 982**; none were "cannot tell" (`filter-runs/v1.0/summary.md`).
@@ -110,3 +112,59 @@ Hemanth kept the rule (X2 rejected). The plan is to let the shortlist's level cl
 - **What "relevant" means here.** It is Hemanth's "worth Priya's time to read in full". It's broader than Priya's profile targets: Hemanth wanted data center architecture, hardware and sourcing roles. The filter is measured against these labels, not against Priya's profile.
 - **The closest calls and the kept sample.** Neither supports a corpus-wide rate.
 - **Whether X1 helps on unseen postings.** That's the held-out test in `SCORE.md`.
+
+## 8. The labeling view left out the deciding fact (Nov 23–24, 2026)
+
+**How it came up.** Before signing, Hemanth explained the senior-role verdicts: "I marked senior roles worth reading because I did not see the experience in job description, I can always label them again, but I want to create a good project from this."
+
+**Measured** (`js3/labeling.py`, `states_years`):
+- Of the 115 postings Hemanth had labeled, **90 state a number of years of experience** somewhere in their text.
+- The first view, 400 characters starting at "About the role", showed that requirement in **0 of the 90**. The requirements section always comes later.
+- **67** of the 90 ask for 5 years or more, and Hemanth had marked **31** of those "worth reading".
+
+**The second pass** (Hemanth chose option "a", relabel all 90):
+- **Setup:** the seed (`audit/relabel-seed.json`) and the list in a seeded order (`audit/relabel-list.json`) were committed before the first item was shown.
+- **The new view (v2):** the same rule for every posting, showing the title, the location, a 250-character summary, and **every "N years" phrase with about 110 characters around it, verbatim**.
+- **A defect, fixed before any label:**
+  - the first version of view v2 cut Greenhouse text at sentence ends, which that text doesn't have, so 4 of the first 10 items showed no years phrase;
+  - Claude caught it before Hemanth answered and fixed it; the list and order are unchanged (commit history).
+- **The labeling:** Hemanth labeled all 90 blind, in 9 batches, on Nov 23–24 (`audit/labels-v2.csv`, with a timestamp on every row).
+
+| first pass → second pass | postings |
+|---|---:|
+| relevant → **not relevant** | **35** |
+| not relevant → relevant | 4 |
+| unchanged | 51 |
+
+**39 of 90 verdicts changed** (Wilson 95% 34%–54%). Of the 43 first-pass "relevant" verdicts among these postings, 35 became "not relevant" (Wilson 67%–90%). Details: `audit/relabel-results.md`.
+
+**What a labeling view is.** It's a retrieval step, and it left out the one fact that decides most of these postings for an 8-month co-op graduate. This is Chapter 7's point ("retrieval and what it leaves out") showing up in our own measurement, not in the agent.
+
+**The corrected labels:** the second-pass verdict where one exists, otherwise the first-pass one. They reverse the audit's conclusion (filter v1.0; `audit/audit-results-corrected.md`):
+
+| | First-pass labels (sections 1–7) | **Corrected labels** |
+|---|---|---|
+| Random rejects Hemanth wanted (misses) | 11 / 30 (22%–54%, about 210–524 postings) | **3 / 30** (3%–26%, about 33–246 postings) |
+| Random kept Hemanth didn't want | 2 / 15 (4%–38%) | **7 / 15** (25%–70%) |
+| The filter's main weakness | recall: it rejects too much | **precision: it keeps senior roles** |
+| X1 on the 55 audit labels (in-sample) | 39 → 42 | **42 → 39** |
+| X1 on its own fresh test (10 postings) | v1.1 right 7/10 | v1.1 right **8/10** |
+
+- **X1 now points two ways.** On the audit labels it costs 3, because some Perplexity "Technical Staff" postings it keeps ask for 4–5 years and are now "not relevant". On its own fresh 10 it still helps. Both results are reported. X1 stays, and the experience rule below covers what it lets through.
+- **The location tension (section 6) mostly disappeared.** The London AI Inference Engineer posting, which Hemanth first marked "not relevant", became "relevant" once its "3+ years" was visible.
+
+**What changed in the filter (FILTER.md v1.2; the changelog has every measurement):**
+- **Rejected,** measured on the 75 corrected tuning labels (the audit's 55 plus the X1 test's 20, never the held-out 40):
+  - Y1 and Y2, which keep more (53 and 52 correct, against 57 for v1.1);
+  - Y3, which softens seniority, because its evidence was the view artifact;
+  - Y5, the location penalty (57).
+- **Added: R17, reject a posting whose text asks for 5 or more years.** It is 70 of 75 correct, against 57. Precision rises from 56% to 87% with the same recall (91%), and what reaches Priya drops from 212 postings to 105.
+  - The cut-off 5 is **fitted**: 3, 4, 5 and 6 were compared.
+  - **A second false friend** was found while measuring it: "Minimum 2-6 years … (depending on seniority level)" was read as 6 years. A range now counts by its lower bound.
+- **These decisions were delegated.** Hemanth: "Do whatever you recommend and complete the project, I need to submit this today". The held-out result is in `SCORE.md` section 2c.
+
+**What this section does not show:**
+- **The second pass is the same person, a day later, who had already seen many of these titles.** Some changes may come from memory or a changed mood, not only from the new view. There was no second labeler.
+- **View v2 shows only the years phrases and a summary.** Other facts, such as the domain or the visa, can still be hidden.
+- **The 25 labeled postings that state no years were not shown again.** Their first-pass verdicts stand in the corrected set.
+

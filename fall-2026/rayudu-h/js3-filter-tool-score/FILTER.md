@@ -1,8 +1,9 @@
 # FILTER.md: Job-Search Agent 3
 
-**Version 1.1, Nov 22, 2026.**
+**Version 1.2, Nov 24, 2026.**
 - v1.0 was written before any JS3 code (commit `12c826a`).
 - v1.1 adds one rule change after the reject audit (section 6; `AUDIT.md`).
+- v1.2 adds one rule (R17, experience asked for), after a second labeling pass showed the first labels were made without seeing the experience requirement (`AUDIT.md` section 8).
 - This document **is** the filter. The code reads the fenced `filter` block in section 2 and nothing else.
 - Every result records the filter version and the SHA-256 of this file.
 - Changes are logged in section 6. Words that were added, cut or rejected are each logged with their measurement, following the format of the instructor's Lectern `keywords.json`.
@@ -42,11 +43,12 @@ Matching is by whole word or whole phrase, ignoring case: `(?<![A-Za-z0-9])word(
 | R11 | **Location never decides.** It is shown and checked as claim C4 | Priya is open to remote; a location filter would throw out 94% of postings without anyone reading them | Hemanth, Q4 = a (as in JS1). The inherited ±1.0 location weight is **cut** | Boston 12 · remote 64 · elsewhere 1,100 |
 | R12 | **Sponsorship is not scored.** It is checked as claim C5 | No posting states sponsorship for the specific role. Every Anthropic posting carries the same company-wide paragraph ("We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate"). Notion and Perplexity use "sponsor" only for events and partners | Hemanth, Q5 = b | 815 of 815 Anthropic postings carry that paragraph. Notion and Perplexity: 0 postings say whether they sponsor the candidate (Perplexity's "Global Mobility Lead" talks about visas only because that is the job's subject) |
 | R13 | An empty title, or text shorter than 200 characters, gives **"cannot tell"**, never "rejected" | Missing text is missing evidence, not a reason to reject | proposed by Claude | 0 postings today |
+| R17 | **Rejected if the text asks for 5 or more years** of experience. The rule reads every "N years", "N+ years" and "N or more years" and takes the largest; a range ("2-6 years", "3 to 6 years") counts by its lower bound | Priya has one 8-month co-op. In the second labeling pass, with the experience line visible, Hemanth rejected almost every posting asking for 5+ years | **fitted** (from v1.2): the cut-off 5 was chosen among 3, 4, 5 and 6 on the 75 corrected tuning labels; Hemanth delegated the decision ("Do whatever you recommend…") | v1.2 rejects 317 postings by this rule (after the exclusions); 107 of them were kept by v1.1 |
 | R14 | **The shortlist:** the top **10** kept postings that are still listed in the latest snapshot, by score. Ties go to more distinct skills, then to the posting key | What reaches Priya. The tie-break is arbitrary but fixed | 10: Hemanth, Q7 (default); tie-break: proposed by Claude | — |
 
 ```filter
 {
-  "filter_version": "1.1",
+  "filter_version": "1.2",
   "matching": "whole word or phrase, ignore case",
   "role_words_title": ["AI", "Engineer", "Engineering", "ML", "Machine Learning", "Data"],
   "exclude_title_words": ["Manager", "Director", "Head", "Intern", "Internship", "VP", "Vice President", "Chief",
@@ -58,6 +60,9 @@ Matching is by whole word or whole phrase, ignoring case: `(?<![A-Za-z0-9])word(
   "seniority_title_words": ["Staff", "Principal", "Senior", "Sr", "Lead"],
   "seniority_ignore_phrases": ["Technical Staff"],
   "role_ignore_phrases": [],
+  "experience_years_min": 5,
+  "experience_excludes": true,
+  "experience_range_low": true,
   "weights": {"role_word": 3.0, "skill": 1.0, "skill_any": 0.5, "skill_unshipped": 0.25, "degree": 0.5, "seniority": -2.0},
   "max_skill_hits": 8,
   "threshold": 3.0,
@@ -137,6 +142,12 @@ Each entry gives: date · version · change · who asked · measurement · decis
 | Nov 22, 2026 | 1.1 | **Rejected (X3):** drop "must name one of Priya's skills" (R8) | Claude; Hemanth: "X3 reject" | 39 → 40 correct; kept 194 → 266 (72 more). R8 rejected 7 of the random rejects that Hemanth wanted. Dropping R8 brings back only 2 of those 7; the other 5 still score below the threshold. It also adds a false keep | **rejected** |
 | Nov 22, 2026 | 1.1 | **Rejected (X4):** "Data Center" doesn't count as the role word "Data" (`role_ignore_phrases`). **False friend:** "Data" in "Data Center" (35 titles) | Claude; Hemanth: "X4 Reject" | 39 → 39 correct; 0 corpus postings change, because every "Data Center" title is already rejected by R8. The false friend does no harm today only because another rule blocks it | **rejected**; kept here as a known false friend |
 | Nov 23, 2026 | 1.1 | **Out-of-sample check of X1** (no rule change). Labels were drawn after X1 existed but never used to choose it | Claude proposed it (Hemanth: "1 and 2 plus 3"); Hemanth labeled 20 postings blind | On 10 never-labeled postings that X1 changes, Hemanth wanted **7**: v1.1 is right 7/10 (Wilson 40%–89%), v1.0 is right 3/10. On 10 unaffected controls, both versions are right 9/10 (`audit/x1-results.md`) | X1 stays; the in-sample gain held out of sample, on a small set |
+| Nov 23–24, 2026 | 1.1 | **The labels themselves were re-checked** (no rule change). Hemanth: "I marked senior roles worth reading because I did not see the experience in job description". Measured: the first labeling excerpt showed the experience requirement in **0 of 90** labeled postings that have one | Claude proposed a second pass (Hemanth: "a") | With the experience sentences visible, **39 of 90 verdicts changed** (35 relevant → not relevant, 4 the other way). Every later number in this table uses the **corrected** labels (the second-pass verdict where one exists) | the first-pass labels stay committed as they were; both sets are reported |
+| Nov 24, 2026 | 1.2 | **Rejected (Y1):** a role word waives the skill rule (R8) | Claude proposed it before the second pass (it then looked like a recall fix) | On the 75 corrected tuning labels: 57 → **53** correct, precision 56% → 50%; kept 212 → 297 | **rejected** (delegated) |
+| Nov 24, 2026 | 1.2 | **Rejected (Y2):** more role words (Software, Developer, Scientist, Platform, Infrastructure, Architect), with Y1 | Claude | 57 → **52** correct; kept 343 | **rejected** (delegated) |
+| Nov 24, 2026 | 1.2 | **Rejected (Y3):** seniority penalty −2 → −1 | Claude, from the first-pass labels | the first-pass "relevant" verdicts on senior roles were made without the experience line, and Hemanth explained them that way | **rejected**: R9 stays at −2 |
+| Nov 24, 2026 | 1.2 | **Rejected (Y5):** a posting with no US location gets −2 (Priya is on F-1 OPT) | Claude | 57 → **57** correct; recall 91% → 82%. The location tension of the first pass mostly disappeared in the second (the London AI Inference posting became "relevant") | **rejected** (delegated); location still never decides |
+| Nov 24, 2026 | **1.2** | **Added (Z5, R17):** reject when the text asks for 5+ years, ranges by their lower bound | Claude; Hemanth: "Do whatever you recommend and complete the project, I need to submit this today" | On the 75 corrected tuning labels: **57 → 70** correct; recall 91% → 91%; precision 56% → **87%**; kept 212 → **105**. Cut-offs compared: 3 (65/75), 4 (68), **5 (70)**, 6 (64). **False friend found and fixed while measuring:** "Minimum 2-6 years … (depending on seniority level)" read as 6 years, so ranges now count by their lower bound (without that: 69/75). Held-out result in `SCORE.md` section 2c | **accepted** |
 
 ## 7. Decision record
 
@@ -153,3 +164,5 @@ Each entry gives: date · version · change · who asked · measurement · decis
 **Status of Claude's proposals** (R13, the R14 tie-break, sections 3, 4 and 5): **accepted by Hemanth** ("accept") on Nov 22, 2026, at 2:07 PM EST, without changes.
 
 **After the reject audit** (Nov 22, 3:33 PM EST), for the measured changes X1–X4, Hemanth replied: "X1 accept, X2 reject, X3 reject, X4 Reject". Claude had recommended exactly this and had pointed out the tension with Q3 (section 6, X2).
+
+**After the second labeling pass** (Nov 24, 11:13 PM EST), on Claude's recommendation to accept Z5 and reject Y1, Y2, Y3 and Y5, Hemanth replied: "Do whatever you recommend and complete the project, I need to submit this today". These are recorded as **delegated** decisions, not as Hemanth's own choices.
