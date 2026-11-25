@@ -66,7 +66,7 @@
 4. **R5 may be slightly flattered.** Its place lists were written from all 406 location strings in the corpus, including H's. The rule itself came from my audit reasons, not H, but the word lists saw H's locations.
 
 ### One more change, recorded but not measured on H: the tool description (context)
-After my server evaluation (TOOLSERVER.md), I added what R1–R5 mean to the `score_posting` description (commit `d6a5279`). The same planted-injection prompt:
+After my server evaluation (TOOLSERVER.md), I added what R1–R5 mean to the `score_posting` description (commit `cb50869`). The same planted-injection prompt:
 - **before the change:** Claude explained the R3 rejection **wrongly** in 1 of 1 run (`claude-run3`);
 - **after it:** **correctly** in 3 of 3 runs (`claude-run5a–c`).
 
@@ -74,7 +74,7 @@ That's 1 run before and 3 after, so it's **an anecdote, not a measurement**.
 
 ## 2b. A second held-out set (H2), because H had only one "y"
 - **Why and how:** after H turned out to hold a single "y", I drew **H2**: 24 postings, seed 7376 (`tools/draw_h2.py`). They came from the 34 **unjudged** postings whose title passes R1 with no seniority word, the pool most likely to hold postings worth Nadia's time.
-- **Order:** the draw and the plan (`runs/experiments.json` → `_h2`) were committed **before** any H2 verdict or Claude call (`e7bff47`). I judged H2 blind myself, 15:59–16:06 (`labels/hand_verdicts_h2.jsonl`, frozen in `bf4c812`). The Claude runs came after (`runs/H2/`, 120 calls, $1.85).
+- **Order:** the draw and the plan (`runs/experiments.json` → `_h2`) were committed **before** any H2 verdict or Claude call (`de6e3c1`). I judged H2 blind myself, 15:59–16:06 (`labels/hand_verdicts_h2.jsonl`, frozen in `5d7a630`). The Claude runs came after (`runs/H2/`, 120 calls, $1.85).
 - **What was run:** E3 (haiku) was left out to save calls.
 
 **H2 result: 24 labelled, 3 "y".**

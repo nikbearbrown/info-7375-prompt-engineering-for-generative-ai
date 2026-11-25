@@ -44,15 +44,15 @@ python3 -m js3.claude_judge --h2 B B2 E1 E2 E4     # the same experiments on H2 
 | `0810190` | 14:12 | **Live collection**, 5/5 boards, 1,734 postings (`logs/10`); filter v1.0 keeps 11 (`logs/11`); the audit seed, the draw and the blind sheet, **before any judging** |
 | `f30af68` | 14:18 | Tool server transcripts: 4 real Claude Code sessions, my scripted client, the other server; the Chapter 9 experiment plan **before any Claude call** |
 | `4b4dffd` | 14:20 | 180 real Claude judge calls on the held-out set (before my verdicts existed) |
-| `2c8683c` → `4eddf21` | 14:21 | Filter v1.1: tests first (`logs/04`: 2 of 6 fail; the other 4 check that v1.0 is unchanged), then code (`logs/05`) |
-| `017f3ca` → `6551bd8` | 14:23 | Evidence bug found by re-reading labels: regression test first (`logs/06` fails), then the fix (`logs/07`, 73/73) |
-| `474e2d5` | 14:51 | **My 76 hand verdicts** (judged 14:27–14:51), frozen by hash before any comparison |
-| `d6a5279`, `df3d67f` | 14:55 | Server description fixed after my own evaluation; run 5 (3 sessions) |
-| `7c66429` → `7658ac6` | 14:58–14:59 | Filter v1.2 (R5 US-only, my decision): tests first (`logs/08`), then code (`logs/09`, 78/78) |
-| `b2e2721` | 15:02 | Independent check, 9/9 PASS (`logs/41`) |
-| `58c30b8` | ~15:55 | Fixes from an independent strict-TA review (exact v1.1 timing, disclosed reason defects, tests described accurately) |
-| `e7bff47` → `bf4c812` | 15:58–16:07 | **Second held-out set H2**: drawn and planned first, then my 24 blind verdicts (3 y), frozen by hash |
-| `06c7cf1` → `f2a42cb` | 16:08–16:14 | Candidate v1.3 (tests first, `logs/14`); 120 Claude runs on H2 |
+| `7c5cd58` → `7f23086` | 14:21 | Filter v1.1: tests first (`logs/04`: 2 of 6 fail; the other 4 check that v1.0 is unchanged), then code (`logs/05`) |
+| `c571f67` → `c1a3dce` | 14:23 | Evidence bug found by re-reading labels: regression test first (`logs/06` fails), then the fix (`logs/07`, 73/73) |
+| `dcfa9eb` | 14:51 | **My 76 hand verdicts** (judged 14:27–14:51), frozen by hash before any comparison |
+| `cb50869`, `6917aa6` | 14:55 | Server description fixed after my own evaluation; run 5 (3 sessions) |
+| `990c6d5` → `702c8ea` | 14:58–14:59 | Filter v1.2 (R5 US-only, my decision): tests first (`logs/08`), then code (`logs/09`, 78/78) |
+| `ea75577` | 15:02 | Independent check, 9/9 PASS (`logs/41`) |
+| `a34cc45` | ~15:55 | Fixes from an independent strict-TA review (exact v1.1 timing, disclosed reason defects, tests described accurately) |
+| `de6e3c1` → `5d7a630` | 15:58–16:07 | **Second held-out set H2**: drawn and planned first, then my 24 blind verdicts (3 y), frozen by hash |
+| `2f63e23` → `7a74971` | 16:08–16:14 | Candidate v1.3 (tests first, `logs/14`); 120 Claude runs on H2 |
 | *(re-judge)* | 15:39–15:41 | My 5 re-judged items: same verdicts, corrected reasons; no number changed |
 | *(final)* | | Sign-off. The final hash is in Canvas |
 
@@ -90,7 +90,7 @@ python3 -m js3.claude_judge --h2 B B2 E1 E2 E4     # the same experiments on H2 
   - **The saved data:** recounted independently by `tools/check.py` (9/9 PASS, `logs/41`).
   - **The audit:** by hand, 76 blind verdicts.
 - **How:**
-  - **By tests frozen before the code:** Claude wrote all of `tests/` from my FILTER.md (and later rule decisions) **before** writing the implementation, and each set was frozen by hash and shown failing first (commits `340c11f`, `2c8683c`, `017f3ca`, `7c66429`). Claude wrote both the tests and the code, so these are **not** tests I wrote myself before reading Claude's code. What I own is the specification they test (FILTER.md) and the wrong versions they must catch.
+  - **By tests frozen before the code:** Claude wrote all of `tests/` from my FILTER.md (and later rule decisions) **before** writing the implementation, and each set was frozen by hash and shown failing first (commits `340c11f`, `7c5cd58`, `c571f67`, `990c6d5`). Claude wrote both the tests and the code, so these are **not** tests I wrote myself before reading Claude's code. What I own is the specification they test (FILTER.md) and the wrong versions they must catch.
   - **By hand:** the 24 H2 verdicts (judged and typed by me), the 76 verdicts (reasons worded with help from another Claude chat), re-judging the 5 slips, and checking 3 shortlist postings against their quotes.
   - **By recomputation:** `tools/check.py`.
   - **With Claude's help:** Claude wrote all the code, the tests (from my FILTER.md), the experiment plan and the drafts of these documents. Claude also re-read the 49 shortlist labels; the 3 relevance≠entailment postings I checked myself are listed in SHORTLIST.md. Another Claude chat helped me word most of my audit reasons; the verdicts are mine.
@@ -126,4 +126,4 @@ python3 -m js3.claude_judge --h2 B B2 E1 E2 E4     # the same experiments on H2 
 ## Notes for TAs
 - `shasum -a 256 -c tests.frozen.sha256` shows **FILTER.md: FAILED on purpose**. FILTER.md was frozen with the v1.0 tests and later got §5 and its change log; §1–4 are unchanged from `7ee4178`. Every test file still says OK (`logs/01`).
 - **A parallel draft from 2026-11-13** (a different persona, "Riley Park", and 24 boards) was sitting **untracked** in this folder. It was never committed. Before building I moved it out of the repo (FRICTIONAL.md).
-- **Some transcripts predate fixes.** Tool-server transcripts and the E4 runs before `6551bd8` used the evidence code with the heading bug, and those before `d6a5279` show the old tool description. The transcripts are kept exactly as recorded (TOOLSERVER.md §3).
+- **Some transcripts predate fixes.** Tool-server transcripts and the E4 runs before `c1a3dce` used the evidence code with the heading bug, and those before `cb50869` show the old tool description. The transcripts are kept exactly as recorded (TOOLSERVER.md §3).

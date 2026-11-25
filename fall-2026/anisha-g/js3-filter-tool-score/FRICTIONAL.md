@@ -40,15 +40,15 @@ Claude wrote the wording. I committed FILTER.md **alone, first**: `7ee4178`, 14:
 - "Analytics" in *Software Engineer, Data Warehouse Analytics*;
 - "2 years of **university education**" read as experience.
 
-The tests came first (`logs/04` fail, `2c8683c`), then the code (`4eddf21`).
+The tests came first (`logs/04` fail, `7c5cd58`), then the code (`7f23086`).
 
 **~2:23 pm: The bug I would have shipped.** While Claude re-read every shortlist label against the posting text, *Processing Cost Analyst* turned up: score 8, the top of the ranking, and shortlisted. But all its tools were under "Preferred qualifications". The labeller had treated the short bullet "Experience with **Oracle Suite**" as a heading (it contains "experience"), which ended the Preferred section. The fix order:
-1. a regression test first (`017f3ca`, `logs/06` fails);
-2. then the fix (`6551bd8`), 73/73.
+1. a regression test first (`c571f67`, `logs/06` fails);
+2. then the fix (`c1a3dce`), 73/73.
 
 The shortlist went from 9 to 8. **Unresolved:** tool transcripts and the E4 runs made before 14:23 used the buggy labeller. I kept them as recorded and said so in TOOLSERVER.md.
 
-**~2:27–2:51 pm: My verdicts.** I judged all 76 on the blind sheet: 74 n, 2 y, each with a reason. They were frozen by hash at once (`474e2d5`).
+**~2:27–2:51 pm: My verdicts.** I judged all 76 on the blind sheet: 74 n, 2 y, each with a reason. They were frozen by hash at once (`dcfa9eb`).
 
 **~2:52 pm: Slips in my reasons.** Claude noticed problems in the reasons:
 - items 7/8 and 22/23 carried the reasons of neighbouring postings;
@@ -65,15 +65,15 @@ Claude asked me how the verdicts were made. My answer: they're mine, and the mis
 **~2:55 pm: My server fixed after evaluating it as a stranger's.**
 - Its description said it "does not… store anything", but it writes every message to a transcript.
 - It returned rule codes without meanings.
-- Fixed in `d6a5279`.
-- The same injection prompt then got a correct R3 explanation 3/3 (`df3d67f`). That's 1 run before and 3 after, so I call it an anecdote.
+- Fixed in `cb50869`.
+- The same injection prompt then got a correct R3 explanation 3/3 (`6917aa6`). That's 1 run before and 3 after, so I call it an anecdote.
 
 **~2:57 pm: My rule decisions.** Claude measured candidates on the whole corpus:
 - US-only drops 5 of the 10 v1.1 keeps;
 - an FP&A exclusion drops 2;
 - "specialist" adds 1 keep out of 52 such titles.
 
-I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A and "specialist" (FILTER.md §5). Tests came first (`7c66429`, `logs/08`: the new-rule test fails), then code (`7658ac6`), 78/78.
+I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A and "specialist" (FILTER.md §5). Tests came first (`990c6d5`, `logs/08`: the new-rule test fails), then code (`702c8ea`), 78/78.
 
 **~3:00 pm: The held-out result I can't use as proof.**
 - H has **one** "y" in 30, so "always say no" scores 96.7% and ties the best scorer.
@@ -85,13 +85,13 @@ I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A
 
 **3:39–3:41 pm: The re-judge.** All 5 verdicts were the same as before (5 × n), with reasons now written for the right posting. No number changed. (Item 7's reason was left blank.)
 
-**~3:55 pm: A strict review.** An independent Claude reviewer, which saw only the assignment and this folder, found 11 problems. They're fixed in `58c30b8`; the main ones:
+**~3:55 pm: A strict review.** An independent Claude reviewer, which saw only the assignment and this folder, found 11 problems. They're fixed in `a34cc45`; the main ones:
 - v1.1 had been coded at 14:21, **before** my verdicts, but the documents said "after the audit";
 - reasons with a lost first letter, and placeholder text, not disclosed;
 - the evidence bug credited to me instead of Claude;
 - the tests described as "written before the code" without saying Claude wrote both.
 
-**~3:58–4:07 pm: A second held-out set.** H had only one "y", so nothing could be shown. Claude drew H2 (24 analyst-title postings, seed committed first, `e7bff47`), and I judged it blind myself, deciding and typing every verdict (3 y, `bf4c812`). I re-judged item 12 (16:07).
+**~3:58–4:07 pm: A second held-out set.** H had only one "y", so nothing could be shown. Claude drew H2 (24 analyst-title postings, seed committed first, `de6e3c1`), and I judged it blind myself, deciding and typing every verdict (3 y, `5d7a630`). I re-judged item 12 (16:07).
 
 **~4:08–4:14 pm: What H2 showed.**
 - All 3 of my yeses were rejected by **my own R4**, which reads "3–5 years" by its top; I read it by its bottom. My gate encoded a rule I don't hold, and I only saw it on boundary postings.
