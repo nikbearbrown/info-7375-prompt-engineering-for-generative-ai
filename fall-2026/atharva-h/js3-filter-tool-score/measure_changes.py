@@ -1,6 +1,7 @@
 """What moves the score: one change at a time, each against the same baseline, read on the held-out labels.
 
-    python3 measure_changes.py        print every comparison; write state/measure/changes.json
+    python3 measure_changes.py          print every comparison; write state/measure/changes.json
+    python3 measure_changes.py adopted  v1.2 as adopted (F1+F4+F5, C3 prompt), measured once after the decision
 
 Filter changes (deterministic; each one replaces one v1.0 setting, everything else unchanged):
   F1 a filter word: R4 also matches "does not provide sponsorship"
@@ -53,9 +54,9 @@ def evaluate_with(change):
         patches = {k: v for k, v in change.items() if k != "R2_MIN"}
         if patches:
             with mock.patch.multiple(F, **patches):
-                v = F.evaluate(p)
+                v = F.evaluate(p, "1.0")
         else:
-            v = F.evaluate(p)
+            v = F.evaluate(p, "1.0")
         if "R2_MIN" in change and p.get("text"):
             low, words = F.lowest_years(p["text"])
             if low is not None and low >= change["R2_MIN"] and "R2" not in v["rejected_by"]:
@@ -83,12 +84,36 @@ def score_answers(answers, labels, side):
             "accuracy on answered": M.ratio(len(right), len(answered)), "abstained on a yes": len(abstained_yes)}
 
 
+def adopted(tools, postings, labels):
+    """v1.2 as I adopted it, measured once, after the decision. Not used to choose anything."""
+    results, errors = M.measure(lambda p: F.evaluate(p, "1.2"), postings, labels)
+    kept = {p["key"] for p in postings if F.evaluate(p, "1.2")["verdict"] == "keep"}
+    answers = {k: a for k, a in claim_answers(tools, "no-field-names").items() if k in kept}
+    out = {"filter": {r["set"]: r for r in results}, "errors": errors, "kept": len(kept),
+           "claims (no-field-names) on v1.2's kept": {
+               "held-out": score_answers(answers, labels, "held-out"),
+               "tuning": score_answers(answers, labels, "tuning"),
+               "answered": sum(a != "I cannot tell" for a in answers.values())}}
+    print(f"v1.2 as adopted: {len(kept)} kept of {len(postings)}")
+    for r in results:
+        if r["set"].endswith("/ both"):
+            print(f"  {r['set']:20} precision {r['precision']:16} recall {r['recall']}")
+    for side in ("held-out", "tuning"):
+        a = out["claims (no-field-names) on v1.2's kept"][side]
+        print(f"  claims, {side:8}: coverage {a['coverage']:16} accuracy on answered {a['accuracy on answered']}")
+    tools.write_text("state/measure/v1.2_adopted.json", json.dumps(out, indent=1) + "\n")
+    return 0
+
+
 def main(argv):
     tools = Tools(Policy())
+    if argv[1:] == ["adopted"]:
+        _, postings = corpus.load(tools)
+        return adopted(tools, postings, M.load_labels(tools))
     _, postings = corpus.load(tools)
     labels = M.load_labels(tools)
     out = {"filter": {}, "claude": {}}
-    base = {p["key"]: F.evaluate(p)["verdict"] for p in postings}
+    base = {p["key"]: F.evaluate(p, "1.0")["verdict"] for p in postings}
     print("FILTER CHANGES (precision / recall of keep; held-out decides)")
     for name, change in FILTER_CHANGES.items():
         ev = evaluate_with(change)

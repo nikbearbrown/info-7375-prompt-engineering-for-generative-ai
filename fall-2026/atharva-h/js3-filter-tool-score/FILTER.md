@@ -1,6 +1,9 @@
 # FILTER — Job-Search Agent 3
 
-**Version 1.1, 2026-11-25** (v1.0 was 2026-11-17). Written before the filter, scorer, or tool server is built. v1.1 adds supplement boards only. The filter rules, score, and threshold are unchanged from v1.0.
+**Version 1.2, 2026-11-25** (v1.0 was 2026-11-17).
+- **v1.0** was written before the filter, scorer, or tool server was built.
+- **v1.1** added supplement boards only.
+- **v1.2** adopts three filter changes and one prompt change. Each was measured one at a time against v1.0 on the held-out labels (`SCORE.md`), and I chose them after my reject audit (`AUDIT.md`). They are marked **v1.2** below. Everything not marked is unchanged from v1.0.
 
 - **Where it came from:** an interview on 2026-11-17. Claude gave the questions as one list with options and a recommendation for each, and I chose. The wording is Claude's draft from my answers, and I reviewed it before it was committed.
 - **Changes:** a rule, weight, or threshold changes only by a new version in "Version history", with the date, what was added, cut, or rejected, and its measured effect. This changelog style is borrowed from the instructor's Lectern collector.
@@ -21,9 +24,9 @@ Any one of these rejects the posting, whatever its score.
 | # | Rule | Reads | Reason |
 |---|---|---|---|
 | R1 | **Seniority:** the title contains Senior, Sr, Lead, Principal, Staff, Manager, Director, Head, VP, Vice President, or Chief, as a whole word anywhere in the title | title | Riley's excluded seniority (JS1 persona). It checks the whole title, so "Data Analyst, Senior" is caught too. |
-| R2 | **Years:** the description requires more than 2 years, meaning the lowest number in a stated requirement is 3 or more ("3+ years", "3-5 years", "at least 4 years of experience") | description | Riley has 0–2 years. An employer's lowest acceptable number is what matters, so "1-3 years" passes and "3-5 years" does not. |
+| R2 | **Years:** the description requires more than 2 years, meaning the lowest number in a stated requirement is 3 or more ("3+ years", "3-5 years", "at least 4 years of experience"). **v1.2:** when there are several stated requirements, each must hold, so the highest of their lowest numbers counts. "6+ years … 2+ years" is 6. | description | Riley has 0–2 years. An employer's lowest acceptable number is what matters, so "1-3 years" passes and "3-5 years" does not. The v1.0 code took the lowest number across *all* requirements, which let a "6+ years" posting through (my audit, #35). |
 | R3 | **Location:** every location the posting gives is outside the US | location, description | Riley wants any US location or US remote. One US location among several is enough. |
-| R4 | **No sponsorship:** the text says the employer will not sponsor ("unable to sponsor", "will not sponsor", "does not sponsor", "no visa sponsorship", "without sponsorship now or in the future") | description | Riley needs sponsorship. A stated "no" settles it. Silence is not a "no". |
+| R4 | **No sponsorship:** the text says the employer will not sponsor ("unable to sponsor", "will not sponsor", "does not sponsor", "no visa sponsorship", "without sponsorship now or in the future", and in **v1.2** "does not provide sponsorship") | description | Riley needs sponsorship. A stated "no" settles it. Silence is not a "no". v1.2 adds Veeva's wording, which v1.0 missed (my audit, #12). |
 
 **A rule whose field is missing never rejects.** If the description or location is missing, R2–R4 cannot fire. The posting is scored on what is there, and its claims are marked insufficient (see "Evidence rules").
 
@@ -34,7 +37,7 @@ Any one of these rejects the posting, whatever its score.
 | The title contains a **role phrase**: "data analyst", "BI analyst", "business intelligence analyst", "business analyst", "reporting analyst", or "analytics analyst" | +4 | Riley's target titles, plus two other names for the same work. This is the clearest signal, so a role phrase alone reaches the threshold. |
 | The title contains **"analyst"** but no role phrase | +1 | Bare "analyst" mostly means a different job. In the 2026-11-17 probe it was compliance, tax, fraud, and credit analysts. Such a job reaches the threshold only if it also asks for three of Riley's tools. |
 | The title has **neither** | the score is 0, and skill words are not counted | So a "Software Engineer" posting that mentions SQL and Excel is never kept |
-| Each distinct **skill word** in the description: SQL, Tableau, Power BI, Excel, Python, dashboard(s), reporting | +1 each, counted once, at most 7 | Each of Riley's tools is equally weak evidence. Each word counts once, so long postings don't win by repetition. |
+| Each distinct **skill word** in the description: SQL, Tableau, Power BI, Excel, Python, dashboard(s), reporting. **v1.2:** "reporting" doesn't count when followed by "to" or "directly to". | +1 each, counted once, at most 7 | Each of Riley's tools is equally weak evidence. Each word counts once, so long postings don't win by repetition. "Reporting to the Senior Manager" is about who you report to, not reporting work (my audit, #27). |
 
 **Threshold: keep when the score is 4 or more.** A role phrase alone reaches it. "Analyst" alone needs three skill words. I set this by hand for v1.0, and it may be tuned only on the tuning labels.
 
@@ -45,11 +48,12 @@ Any one of these rejects the posting, whatever its score.
 - "reporting" in "reporting to the CFO"
 - "analyst" in non-data analyst jobs
 
-v1.0 does not special-case any of them. The audit measures them first.
+v1.0 did not special-case any of them, so the audit could measure them first. The audit found "reporting to" (#27), and v1.2 excludes it. "excel" as a verb was not seen. Bare "analyst" is behind 5 of the 10 wrong keeps, but no measured change fixed it without cost, so v1.2 leaves it.
 
 ## Evidence rules
 Each kept posting gets a justification made of claims, one for each property: role, seniority, years, location, sponsorship, and skills. `claude -p` writes the claims. Each claim must quote the posting's own text. Claude does not decide keep or reject; the rules above do.
 
+- **The prompt (v1.2):** the claims prompt also says never to include the field names "Title:", "Locations:", or "Description:" in a quote. They are not posting text. This is variant `no-field-names` in `claims.py` (C3 in `SCORE.md`).
 - **Supported:** the claim quotes an exact span of the posting's title, location, or description (matched after whitespace is collapsed), and that span says what the claim says.
 - **Contradicted:** the posting text says the opposite. For example, the claim says "entry level" and the text says "5+ years required".
 - **Insufficient:** the text is silent or ambiguous on the point, or the quoted span is not in the text.
@@ -153,3 +157,16 @@ Counts are from the 2026-11-18 probe, 4,123 postings in all. The collection run 
 ## Version history
 - **v1.0 (2026-11-17, revised 2026-11-18 before it was committed):** first version, from the interview. On 2026-11-18, the boards were re-chosen by a fixed rule over a 116-board probe, raw responses became compressed, and the labeling sample was capped. Nothing measured yet.
 - **v1.1 (2026-11-25):** added the supplement-board rule ("v1.1 supplement boards") and its label sample, because all 92 v1.0 labels were "no". No filter rule, weight, or threshold changed. Nothing measured yet.
+- **v1.2 (2026-11-25):** my decisions after the reject audit, from changes measured one at a time against v1.0 on the held-out labels (`SCORE.md`). None of them changed held-out precision or recall (2/2, 2/2); each is adopted for the reason given.
+  - **Adopted:**
+    - **F1:** R4 adds "does not provide sponsorship". Flips 1 posting: Veeva ADP, a tuning "no".
+    - **F4:** R2 reads the highest of the stated requirements. Flips 1: Zoox Financial Analyst, my audit's wrong keep #35.
+    - **F5:** "reporting" before "to" is not a skill word. Flips 1: Datadog FP&A Analyst R&D, my audit's wrong keep #27.
+    - **C3:** the claims prompt forbids field names in quotes. Quotes found went from 46/48 to 46/46.
+  - **Rejected:**
+    - **F2,** threshold 5: tuning evidence only.
+    - **F3,** reject at 2+ years: it loses a held-out "yes", recall 2/2 → 1/2.
+    - **A1,** no abstention on seniority: 6 tuning answers, all wrong.
+    - **C1,** loose quotes: its gain was within run-to-run noise.
+    - **C2,** title-only context: fewer quoted claims.
+  - **What was not changed:** threshold, weights, R1, R3.

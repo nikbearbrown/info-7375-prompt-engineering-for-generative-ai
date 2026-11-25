@@ -1,6 +1,8 @@
 # SCORE — what moves the score
 
-**Status: Claude's draft from `measure.py` and `measure_changes.py` output. Waiting for my review. The decisions in "What I change" are mine, not yet made.**
+**Status: Claude's draft from `measure.py` and `measure_changes.py` output.**
+- **The decisions in "What I changed" are mine,** made on 2026-11-25.
+- **The rest of the page** is waiting for my review.
 
 ## Where every number comes from
 Each number below is produced by a script and saved in a file, or was set by hand and says so. Nothing in this table is estimated.
@@ -12,7 +14,8 @@ Each number below is produced by a script and saved in a file, or was set by han
 | Threshold | 4 | **Set by hand** in FILTER.md v1.0, from my interview answers. Never tuned. |
 | Weights: role phrase +4, bare "analyst" +1, each skill +1 | as stated | **Set by hand** in FILTER.md v1.0, so that a role phrase alone reaches 4 |
 | R2's cut-off: reject when the lowest stated years ≥ 3 | 3 | Riley's `max_required_years: 2` (JS1 `persona/resume.json`) |
-| Kept by v1.0 | 12 of 4,240 | `python3 filter.py run` → `state/filter/verdicts_v1.0.json` |
+| Kept by v1.0 | 12 of 4,240 | `python3 filter.py run 1.0` → `state/filter/verdicts_v1.0.json` |
+| Kept by v1.2 | 9 of 4,240 | `python3 filter.py run` → `state/filter/verdicts_v1.2.json`, after my decision |
 | Labels | 114 (92 v1.0 + 22 supplement); 112 "no", 2 "yes" | Claude drafted each; I reviewed every one (`reviewed` column, 2026-11-25). `state/labels/labels*.csv` |
 | Split | 77 tuning, 37 held-out | `labels.py`, seed 20261120, each stratum split 2:1 (`state/labels/split*.json`) |
 | Held-out precision and recall of v1.0 | 2/2 and 2/2 | `python3 measure.py` → `state/measure/v1.0_labels.txt` |
@@ -76,8 +79,10 @@ The filter stays v1.0, so these act only on the 12 kept postings.
 - **Where every improvement on this page comes from:** a rule, a number, or a prompt sentence that I wrote and versioned, measured against labels that I made.
 - **What "the agent learned" would mean here:** a FILTER.md version changed. It does not mean a model was trained.
 
-## What I change (my decisions, not yet made)
-Claude's recommendation, for me to accept or reject:
+## What I changed (my decisions, 2026-11-25)
+I read Claude's recommendations below and accepted all of them. They are FILTER.md **v1.2**: F1, F4, F5, and C3 adopted, and F2, F3, A1, C1, and C2 rejected.
+
+Claude's recommendations, as I accepted them:
 - **F1, adopt.** Veeva's line is a stated refusal to sponsor, which is exactly what R4 exists for. Held-out can't see it, but the reason is the rule's own, not a score.
 - **F4, adopt.** It fixes a misreading of R2 in the v1.0 code, not a new rule. FILTER.md's reason talks about one range ("1-3 years" passes). It never meant that a second, lower requirement cancels a higher one.
 - **F5, adopt.** It is the false friend FILTER.md predicted and my audit found (#27). The fix is narrow: one word, before "to".
@@ -85,3 +90,23 @@ Claude's recommendation, for me to accept or reject:
 - **A1, reject.** It trades abstentions for confident wrong answers on tuning.
 - **C1 and C2, reject.**
 - **C3, adopt as the prompt for v1.2.** It removes a checker failure caused by the prompt itself.
+
+## v1.2 as adopted, measured once after the decision
+Run with `python3 measure.py` and `python3 measure_changes.py adopted`, saved as `state/measure/v1.2_labels.txt`, `v1.2_adopted.txt`, and `v1.2_adopted.json`. These numbers were produced after I decided, and they chose nothing.
+
+| | v1.0 | v1.2 |
+|---|---|---|
+| Kept, whole corpus | 12 | 9 (Veeva ADP, Zoox Financial Analyst, and Datadog FP&A Analyst R&D drop out) |
+| Held-out precision / recall | 2/2, 2/2 | 2/2, 2/2 |
+| Tuning precision (not used) | 0/7 | 0/6 |
+| Claims, held-out coverage | 0/2 (base prompt) | 0/2 (C3 prompt) |
+| Claims, tuning coverage / accuracy (not used) | 3/7, 0/3 | 3/6, 0/3 |
+
+**What v1.2 fixes:**
+- **3 of my 10 audit errors:** #12, #27, and #35 are now rejected.
+- **The held-out "yes" postings are untouched.**
+
+**What it doesn't fix:**
+- **The 2-year postings.** I rejected F3 because it loses a held-out "yes".
+- **Abstention on both held-out "yes" postings.** Neither says "entry level".
+- **The three postings whose problem no rule reads:** the intern's graduation date, the part-time contract, and the Salesforce administration experience.

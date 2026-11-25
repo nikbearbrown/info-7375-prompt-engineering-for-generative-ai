@@ -47,11 +47,11 @@ Public, with no login. Everything said about how they behave comes from response
 | `FILTER.md` | Interviewed me with all the questions in one list, with options and a recommendation for each. Flagged that its own abstention recommendation would abstain on almost everything, and narrowed it. Wrote v1.0 and v1.1 from my answers. | Chose every answer. Approved v1.0 before any code existed, and chose to add boards (v1.1) rather than drop Riley's sponsorship need. |
 | Board choice | Proposed fixing the selection rule before the probe ran. Wrote and ran both probes. Found and fixed the Israel "IL" false match. Tightened the v1.1 title rule before the probe read any new board. | Accepted the 12 boards and the 2 supplement boards the rules picked |
 | Code | Wrote every Python file: `adapters.py`, `text.py`, `loop.py`, `corpus.py`, `labels.py`, `filter.py`, `measure.py`, `measure_changes.py`, `audit.py`, `claims.py`, `mcp_server.py`, `mcp_client.py`, `mcp_eval_fetch.py`, and the probes. Ran the collection and every script. | — |
-| Tests | Wrote all 98 tests, including the two wrong versions, run as checks the real filter must fail | — |
+| Tests | Wrote all 103 tests, including the two wrong versions, run as checks the real filter must fail | — |
 | Labels | Drafted all 114 labels against Riley's profile | Reviewed every one, and kept every draft |
 | Reject audit | Drew the seeded sample, wrote the sheet with no verdict drafted, copied my verdicts in unchanged, and ran the report | Judged all 50 rows, with a reason for each |
 | Claims | Wrote them (through `claude -p`), with the checker that labels them | Labeled all 72 claims myself, checking each quote against its claim |
-| Measurements | Ran every change, caught its own checker bug and its own R2 misreading, ran the base prompt twice to measure noise, and recommended what to adopt | **Pending:** decide which changes to adopt |
+| Measurements | Ran every change, caught its own checker bug and its own R2 misreading, ran the base prompt twice to measure noise, recommended what to adopt, and implemented v1.2 with v1.0 still callable | Decided which changes to adopt: I accepted Claude's recommendations (FILTER.md v1.2) |
 | MCP | Wrote the server, the client, and the Fetch evaluation script. Ran Claude Code as the client and installed and ran Fetch. Read Fetch's source and found its `npm install` behavior before running it. | Approved installing Fetch. **Pending:** review `MCP_EVAL.md` |
 | Documents | Drafted `README.md`, `SCORE.md`, `SHORTLIST.md`, `MCP_EVAL.md`, `AUDIT.md`, this file, `SIGNOFF.md`, and the `FRICTIONAL.md` entries from my sessions and this folder's files | **Pending:** review them. The signature in `SIGNOFF.md` is mine. |
 

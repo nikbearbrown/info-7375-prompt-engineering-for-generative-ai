@@ -1,6 +1,6 @@
 """Measure a filter version against my reviewed labels.
 
-    python3 measure.py               v1.0 on tuning and held-out labels, by corpus part and together
+    python3 measure.py [VERSION]     a filter version (default: current) on tuning and held-out labels
 
 Labels come from state/labels/labels.csv (v1.0 sample) and labels_v1_1.csv (v1.1 supplement); the split
 from split.json and split_v1_1.json. A label counts only if its `reviewed` column is filled in.
@@ -70,8 +70,9 @@ def main(argv):
     tools = Tools(Policy())
     _, postings = corpus.load(tools)
     labels = load_labels(tools)
-    results, errors = measure(F.evaluate, postings, labels)
-    print(f"filter v{F.VERSION}, threshold {F.THRESHOLD}, {len(labels)} reviewed labels")
+    version = argv[1] if len(argv) > 1 else F.VERSION
+    results, errors = measure(lambda p: F.evaluate(p, version), postings, labels)
+    print(f"filter v{version}, threshold {F.THRESHOLD}, {len(labels)} reviewed labels")
     print(f"{'set':32} {'n':>3} {'tp':>3} {'fp':>3} {'fn':>3} {'tn':>3}  precision        recall")
     for r in results:
         print(f"{r['set']:32} {r['n']:>3} {r['tp']:>3} {r['fp']:>3} {r['fn']:>3} {r['tn']:>3}  "

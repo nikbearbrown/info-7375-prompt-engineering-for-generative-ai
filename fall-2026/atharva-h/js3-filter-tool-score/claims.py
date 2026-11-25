@@ -20,6 +20,9 @@ The substring checker then labels each claim:
 A found quote shows the text is there, not that it says what the claim says (relevance is not entailment).
 That second question is mine: I confirm every label in the base sheet.
 
+FILTER.md v1.2 adopts no-field-names as the claims prompt. v1.2 keeps 9 of v1.0's 12 postings, so its claims
+are the no-field-names claims on those 9 (measure_changes.py, "v1.2 as adopted").
+
 The agent's answer for a kept posting is "I cannot tell" when its role, seniority, or location claim is
 insufficient, or its description is missing; otherwise "keep". Years and sponsorship never force it.
 """
@@ -154,7 +157,7 @@ def main(argv):
     command, variant = argv[1], argv[2]
     tools = Tools(Policy())
     _, postings = corpus.load(tools)
-    kept = [p for p in postings if F.evaluate(p)["verdict"] == "keep"]
+    kept = [p for p in postings if F.evaluate(p, "1.0")["verdict"] == "keep"]  # claims were run on v1.0's kept set
     folder = f"state/claims/{variant}"
     if command == "run":
         todo = [p for p in kept if not os.path.exists(f"{folder}/{safe(p['key'])}.json")]

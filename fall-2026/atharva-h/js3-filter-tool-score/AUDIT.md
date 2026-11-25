@@ -60,12 +60,14 @@ Every rule added, cut, or rejected, from FILTER.md's first version to now.
 | 2026-11-25 | Supplement boards by a full-text probe rule | added (v1.1) | All 92 v1.0 labels were "no" | Mine (`6a3ea0f`) |
 | 2026-11-25 | The v1.1 probe rule's first title test ("any analyst") | **rejected** before the probe ran | It flagged 16 finance, tax, and compliance analysts in the v1.0 corpus | Replaced by role phrase, or "analyst" with a data word |
 | 2026-11-25 | Implementing R3: "SF" and a "San Francsico" typo count as US; "AMER", "NAMER", and "Americas" count as unknown, not US | implementation of v1.0 | A listing of all 340 non-US location strings | Recorded in FRICTIONAL. "Toronto, CA" counting as US remains a known false friend. |
-| 2026-11-25 | F1: R4 also matches "does not provide sponsorship" | candidate | Audit #12; held-out unchanged; 1 corpus flip | **Pending my decision** |
-| 2026-11-25 | F2: threshold 4 → 5 | candidate | Tuning only; held-out unchanged | **Pending** |
-| 2026-11-25 | F3: R2 rejects at 2+ years | candidate | It would fix 5 of my 10 audit errors, but loses a held-out "yes" (recall 2/2 → 1/2) | **Pending** |
-| 2026-11-25 | F4: R2 reads the highest of the stated requirements | candidate (code fix) | Audit #35; held-out unchanged; 1 corpus flip | **Pending** |
-| 2026-11-25 | F5: "reporting" not counted before "to" | candidate | Audit #27; held-out unchanged; 1 corpus flip | **Pending** |
-| 2026-11-25 | C1: prompt without "copy exactly"; C2: title-only context; C3: "no field names in quotes"; A1: abstain without seniority | candidates | `SCORE.md` | **Pending** |
+| 2026-11-25 | F1: R4 also matches "does not provide sponsorship" | **added (v1.2)** | Audit #12; held-out unchanged; 1 corpus flip | Adopted, my decision |
+| 2026-11-25 | F2: threshold 4 → 5 | **rejected** | Tuning only; held-out unchanged | Rejected, my decision |
+| 2026-11-25 | F3: R2 rejects at 2+ years | **rejected** | It would fix 5 of my 10 audit errors, but loses a held-out "yes" (recall 2/2 → 1/2) | Rejected, my decision |
+| 2026-11-25 | F4: R2 reads the highest of the stated requirements | **changed (v1.2), a code fix** | Audit #35; held-out unchanged; 1 corpus flip | Adopted, my decision |
+| 2026-11-25 | F5: "reporting" not counted before "to" | **added (v1.2)** | Audit #27; held-out unchanged; 1 corpus flip | Adopted, my decision |
+| 2026-11-25 | C1: prompt without "copy exactly"; C2: title-only context; C3: "no field names in quotes"; A1: abstain without seniority | C3 **added (v1.2)**; C1, C2, and A1 **rejected** | `SCORE.md` | My decisions |
+
+**The result:** v1.2 keeps 9 postings instead of 12. My audit errors #12, #27, and #35 are now rejected, and held-out stays 2/2 and 2/2 (`SCORE.md`, "v1.2 as adopted").
 
 **What the audit adds to those decisions:**
 - **F3 is the hard one.** It would remove the largest group of my audit errors, the 2-year postings, but it costs the one held-out "yes" whose "2+ years" is only *preferred*.

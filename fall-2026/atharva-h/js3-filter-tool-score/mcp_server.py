@@ -9,7 +9,7 @@ written to stdout; diagnostics go to stderr.
 Methods: initialize, notifications/initialized, ping, tools/list, tools/call. Anything else is a JSON-RPC
 "method not found" error. A message without an id is a notification and gets no reply.
 
-One tool, score_posting. It takes a posting key from the frozen corpus and returns the v1.0 filter's verdict
+One tool, score_posting. It takes a posting key from the frozen corpus and returns the current filter's verdict
 with the words behind every rule and point. It is read-only by construction:
 - the corpus is loaded once, at start, from the saved raw responses (corpus.load), never fetched;
 - no code path in a request handler writes, sends, or fetches anything;
@@ -115,7 +115,7 @@ class Server:
                "corpus": p["corpus"], "filter_version": F.VERSION, "verdict": v["verdict"], "score": v["score"],
                "threshold": v["threshold"], "rejected_by": v["rejected_by"], "title_signal": v["title_signal"],
                "skills": v["skills"],
-               "note": "A rule output from FILTER.md v1.0, not a judgment of whether to apply."}
+               "note": f"A rule output from FILTER.md v{F.VERSION}, not a judgment of whether to apply."}
         return {"content": [{"type": "text", "text": json.dumps(out, indent=1)}], "structuredContent": out,
                 "isError": False}
 

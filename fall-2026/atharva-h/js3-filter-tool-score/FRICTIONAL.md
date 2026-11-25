@@ -226,3 +226,17 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - **The counts:** 41 supported, 3 contradicted, 28 insufficient, with 2 differing from the checker.
   - **The answers:** recomputed (`claims.py confirmed`). The agent answers 3 of 12, all "no", the same as the checker's labels. Veeva is back to "I cannot tell".
 - **Not changed:** my judgments on what quotes mean. These include labeling Zoox's "Currently enrolled…" supported for seniority, and FanDuel "Analyst"'s "2+ years … preferred" insufficient for years. They are judgments, not breaks of a mechanical rule.
+
+## 2026-11-25 — My decisions: FILTER.md v1.2
+- **What I decided:** after going through the recommendations at the end of `SCORE.md`, I accepted all of them.
+  - **Adopted:** F1 ("does not provide sponsorship" in R4), F4 (R2 reads the highest stated requirement), F5 ("reporting to" is not the skill), and C3 (no field names in quotes).
+  - **Rejected:** F2, F3, A1, C1, and C2.
+- **What Claude did with them:**
+  - **FILTER.md:** recorded them as v1.2, marking each changed rule with its reason and my audit row.
+  - **The code:** v1.2 is the current filter, and v1.0 is still callable. Claude checked that the v1.0 label measurement and my audit draw reproduce exactly.
+  - **Tests: 103, all passing** (5 new for v1.2).
+- **v1.2, measured once after the decision:**
+  - It keeps 9 postings instead of 12. My audit errors #12, #27, and #35 are now rejected. Held-out precision and recall are still 2/2 and 2/2.
+  - The claims still abstain on both held-out "yes" postings.
+- **The MCP server now serves v1.2.** A new `mcp_client.py` session shows Datadog FP&A Analyst R&D and Veeva ADP returned as "reject".
+- **Docs updated:** `SCORE.md`, `AUDIT.md`, `SOURCES.md`, `SIGNOFF.md`, `README.md`, and `MCP_EVAL.md` now show the decisions as mine and give the v1.2 numbers.

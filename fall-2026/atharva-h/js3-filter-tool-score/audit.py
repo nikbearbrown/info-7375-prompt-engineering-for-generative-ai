@@ -25,6 +25,7 @@ from policy import Policy
 from tools import Tools
 
 SEED = 20261125
+AUDITED = "1.0"  # the audit judged v1.0's verdicts; it stays pinned to v1.0
 SIZES = {"kept": 10, "reject": 30, "near": 10}
 COLUMNS = ["n", "key", "title", "location", "url", "verdict", "score", "why", "your_call", "reason"]
 
@@ -47,7 +48,7 @@ def why(v):
 def draw(postings, excluded, seed=SEED):
     rng = random.Random(seed)
     pool = sorted((p for p in postings if p["key"] not in excluded), key=lambda p: p["key"])
-    scored = [(p, F.evaluate(p)) for p in pool]
+    scored = [(p, F.evaluate(p, AUDITED)) for p in pool]
     kept = [x for x in scored if x[1]["verdict"] == "keep"]
     rejected = [x for x in scored if x[1]["verdict"] == "reject"]
     groups = {"kept": rng.sample(kept, min(SIZES["kept"], len(kept)))}
@@ -78,7 +79,7 @@ def main(argv):
         out = io.StringIO()
         w = csv.DictWriter(out, fieldnames=COLUMNS, lineterminator="\n")
         w.writeheader()
-        md = [f"# Reject audit, filter v{F.VERSION} ({len(rows)} postings)", "",
+        md = [f"# Reject audit, filter v{AUDITED} ({len(rows)} postings)", "",
               "For each one, decide whether the filter's verdict is what Riley Navarro's agent should have done "
               "(fictional: entry-level Data/BI/Business Analyst, 0-2 years, US or US remote, needs sponsorship). "
               "Write `right` or `wrong` in `your_call` in `audit_v1.0.csv`, with a one-line reason.", ""]
@@ -89,18 +90,18 @@ def main(argv):
             md += [f"## {n}. {p['title']}", "", f"- **Filter verdict:** {v['verdict']}: {why(v)}",
                    f"- **Location:** {'; '.join(dict.fromkeys(p['locations'])) or 'not given'}",
                    f"- **Link:** {p['url']}", "", p["text"] or "_No description text in the response._", ""]
-        meta = {"filter": F.VERSION, "seed": SEED, "sizes": SIZES, "pool": pool,
+        meta = {"filter": AUDITED, "seed": SEED, "sizes": SIZES, "pool": pool,
                 "excluded": "every held-out label (split.json, split_v1_1.json)",
                 "groups": {p["key"]: name for name, p, _ in rows}}
-        tools.write_text(f"state/audit/audit_v{F.VERSION}.csv", out.getvalue())
-        tools.write_text(f"state/audit/audit_postings_v{F.VERSION}.md", "\n".join(md) + "\n")
-        tools.write_text(f"state/audit/draw_v{F.VERSION}.json", json.dumps(meta, indent=1) + "\n")
+        tools.write_text(f"state/audit/audit_v{AUDITED}.csv", out.getvalue())
+        tools.write_text(f"state/audit/audit_postings_v{AUDITED}.md", "\n".join(md) + "\n")
+        tools.write_text(f"state/audit/draw_v{AUDITED}.json", json.dumps(meta, indent=1) + "\n")
         print(f"drew {len(rows)}: " + ", ".join(f"{k} {sum(g == k for g in meta['groups'].values())}"
                                                for k in SIZES) + f" from a pool of {pool}")
         return 0
     if argv[1:] == ["report"]:
-        groups = json.loads(tools.read_text(f"state/audit/draw_v{F.VERSION}.json"))["groups"]
-        rows = list(csv.DictReader(tools.read_text(f"state/audit/audit_v{F.VERSION}.csv").splitlines()))
+        groups = json.loads(tools.read_text(f"state/audit/draw_v{AUDITED}.json"))["groups"]
+        rows = list(csv.DictReader(tools.read_text(f"state/audit/audit_v{AUDITED}.csv").splitlines()))
         missing = [r["n"] for r in rows if r["your_call"].strip().lower() not in ("right", "wrong")]
         if missing:
             print(f"not judged yet: rows {', '.join(missing)}")

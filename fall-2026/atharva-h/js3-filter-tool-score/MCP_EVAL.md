@@ -25,6 +25,10 @@ The server logs every message it receives (`in`) and sends (`out`) to `state/mcp
 2. **`initialize` with protocol version `2025-11-25`.** The client offered `roots` and `elicitation` (form and url). The server echoed the version and declared only `tools`, so it never asks for either.
 3. **Two `tools/call` requests.** Each carried `_meta` with Claude Code's `toolUseId` and a `progressToken`. The server ignores `_meta` and never sends progress.
 
+**Version note:**
+- **The two transcripts above** were recorded under filter v1.0.
+- **After I adopted v1.2,** the server serves v1.2. One more `mcp_client.py` session (`transcript_2026-11-25T222904Z.jsonl`) shows it: Datadog FP&A Analyst R&D and Veeva ADP, both kept under v1.0, now come back "reject", with `filter_version` "1.2".
+
 ## Declared vs actual
 
 | Declared | Actual | How I know |
@@ -43,7 +47,7 @@ The server logs every message it receives (`in`) and sends (`out`) to `state/mcp
 - **Arbitrary files:** the key never becomes a path.
 - **The full posting text, my labels, my audit verdicts, the persona file, or the transcript log:** none of them is reachable through the tool.
 - **Changing the filter:** the only argument is `key`. The rules, weights, and threshold change only by a new FILTER.md version.
-- **A decision about applying:** every result carries "A rule output from FILTER.md v1.0, not a judgment of whether to apply". Claude Code repeated that line in its answer. Whether a posting is worth Riley's application stays with me (see SIGNOFF).
+- **A decision about applying:** every result carries "A rule output from FILTER.md v1.x, not a judgment of whether to apply", naming the version it ran. Claude Code repeated that line in its answer. Whether a posting is worth Riley's application stays with me (see SIGNOFF).
 
 ## Trust decision
 - **I let Claude Code use this server, with `score_posting` as its only allowed tool** (`--strict-mcp-config --allowedTools mcp__js3-job-filter__score_posting`). The reasons:
