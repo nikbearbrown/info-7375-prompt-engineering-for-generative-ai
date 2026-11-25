@@ -1,0 +1,20 @@
+# 2026-11-09T23:18:08Z  JS2_IMPL=agent.wrong_stub_failed_board python3 -m unittest -v tests.test_wrong_versions   (after amendments)
+test_request_budget_is_enforced_not_just_logged (tests.test_wrong_versions.WrongVersion1BudgetSilentlyIgnored.test_request_budget_is_enforced_not_just_logged) ... ok
+test_404_board_is_failed_not_zero_new (tests.test_wrong_versions.WrongVersion2FailedBoardReportedAsNoNewJobs.test_404_board_is_failed_not_zero_new) ... fetch failed for stripe: HTTP Error 404: Not Found
+FAIL
+
+======================================================================
+FAIL: test_404_board_is_failed_not_zero_new (tests.test_wrong_versions.WrongVersion2FailedBoardReportedAsNoNewJobs.test_404_board_is_failed_not_zero_new)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_wrong_versions.py", line 80, in test_404_board_is_failed_not_zero_new
+    self.assertEqual(stripe["board_status"], "failed")
+AssertionError: 'ok' != 'failed'
+- ok
++ failed
+
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+FAILED (failures=1)

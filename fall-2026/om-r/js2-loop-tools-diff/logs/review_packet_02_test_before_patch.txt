@@ -1,0 +1,86 @@
+# 2026-11-10T00:07:06Z  python3 -m unittest -v tests.test_removal_detection   (CURRENT, unpatched loop at b908dbf; expected to FAIL)
+test_a_removal_is_reported_once_not_on_every_later_run (tests.test_removal_detection.RemovalDetection.test_a_removal_is_reported_once_not_on_every_later_run) ... ERROR
+test_baseline_run_reports_no_removals (tests.test_removal_detection.RemovalDetection.test_baseline_run_reports_no_removals) ... ERROR
+test_failed_board_reports_no_removals_and_keeps_state (tests.test_removal_detection.RemovalDetection.test_failed_board_reports_no_removals_and_keeps_state) ... ERROR
+test_posting_absent_from_second_fetch_is_reported_removed (tests.test_removal_detection.RemovalDetection.test_posting_absent_from_second_fetch_is_reported_removed) ... ERROR
+test_removed_and_new_in_the_same_run_stay_separate (tests.test_removal_detection.RemovalDetection.test_removed_and_new_in_the_same_run_stay_separate) ... ERROR
+test_removed_id_that_reappears_is_not_reported_new (tests.test_removal_detection.RemovalDetection.test_removed_id_that_reappears_is_not_reported_new) ... ERROR
+test_state_written_before_this_change_falls_back_to_seen_ids (tests.test_removal_detection.RemovalDetection.test_state_written_before_this_change_falls_back_to_seen_ids) ... ERROR
+test_unchanged_board_reports_no_removals (tests.test_removal_detection.RemovalDetection.test_unchanged_board_reports_no_removals) ... ERROR
+
+======================================================================
+ERROR: test_a_removal_is_reported_once_not_on_every_later_run (tests.test_removal_detection.RemovalDetection.test_a_removal_is_reported_once_not_on_every_later_run)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 75, in test_a_removal_is_reported_once_not_on_every_later_run
+    self.assertEqual(self._ids(1, 3)["boards"]["gitlab"]["removed"], [2])
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+======================================================================
+ERROR: test_baseline_run_reports_no_removals (tests.test_removal_detection.RemovalDetection.test_baseline_run_reports_no_removals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 67, in test_baseline_run_reports_no_removals
+    self.assertEqual(gitlab["removed"], [])
+                     ~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+======================================================================
+ERROR: test_failed_board_reports_no_removals_and_keeps_state (tests.test_removal_detection.RemovalDetection.test_failed_board_reports_no_removals_and_keeps_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 92, in test_failed_board_reports_no_removals_and_keeps_state
+    self.assertEqual(gitlab["removed"], [])
+                     ~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+======================================================================
+ERROR: test_posting_absent_from_second_fetch_is_reported_removed (tests.test_removal_detection.RemovalDetection.test_posting_absent_from_second_fetch_is_reported_removed)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 46, in test_posting_absent_from_second_fetch_is_reported_removed
+    self.assertEqual(gitlab["removed"], [2])
+                     ~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+======================================================================
+ERROR: test_removed_and_new_in_the_same_run_stay_separate (tests.test_removal_detection.RemovalDetection.test_removed_and_new_in_the_same_run_stay_separate)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 61, in test_removed_and_new_in_the_same_run_stay_separate
+    self.assertEqual(gitlab["removed"], [2])
+                     ~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+======================================================================
+ERROR: test_removed_id_that_reappears_is_not_reported_new (tests.test_removal_detection.RemovalDetection.test_removed_id_that_reappears_is_not_reported_new)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 84, in test_removed_id_that_reappears_is_not_reported_new
+    self.assertEqual(gitlab["removed"], [])
+                     ~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+======================================================================
+ERROR: test_state_written_before_this_change_falls_back_to_seen_ids (tests.test_removal_detection.RemovalDetection.test_state_written_before_this_change_falls_back_to_seen_ids)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 101, in test_state_written_before_this_change_falls_back_to_seen_ids
+    self.assertEqual(self._ids(1, 3)["boards"]["gitlab"]["removed"], [2])
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+======================================================================
+ERROR: test_unchanged_board_reports_no_removals (tests.test_removal_detection.RemovalDetection.test_unchanged_board_reports_no_removals)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/omraut/Desktop/js2-loop-tools-diff/tests/test_removal_detection.py", line 71, in test_unchanged_board_reports_no_removals
+    self.assertEqual(self._ids(1, 2, 3)["boards"]["gitlab"]["removed"], [])
+                     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^
+KeyError: 'removed'
+
+----------------------------------------------------------------------
+Ran 8 tests in 0.023s
+
+FAILED (errors=8)

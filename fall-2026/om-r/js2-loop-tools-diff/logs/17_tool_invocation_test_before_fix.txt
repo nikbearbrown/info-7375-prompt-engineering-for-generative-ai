@@ -1,0 +1,20 @@
+# 2026-11-10T00:22:50Z  python3 -m unittest -v tests.test_tool_invocation   (SCRATCH COPY with tools/replay_from_file.py and tools/weak_patch_check.py as committed at 94262e3, i.e. BEFORE the fix; expected to FAIL)
+test_module_mode_from_project_root ... 
+  test_module_mode_from_project_root  (tool='weak_patch_check') ... FAIL
+test_script_mode_from_another_directory ... 
+  test_script_mode_from_another_directory  (tool='replay_from_file') ... FAIL
+  test_script_mode_from_another_directory  (tool='weak_patch_check') ... FAIL
+test_script_mode_from_project_root ... 
+  test_script_mode_from_project_root  (tool='replay_from_file') ... FAIL
+  test_script_mode_from_project_root  (tool='weak_patch_check') ... FAIL
+FAIL: test_module_mode_from_project_root  (tool='weak_patch_check')
+FileNotFoundError: [Errno 2] No such file or directory: '--help/agent/loop.py'
+FAIL: test_script_mode_from_another_directory  (tool='replay_from_file')
+ModuleNotFoundError: No module named 'agent'
+FAIL: test_script_mode_from_another_directory  (tool='weak_patch_check')
+FileNotFoundError: [Errno 2] No such file or directory: '--help/agent/loop.py'
+FAIL: test_script_mode_from_project_root  (tool='replay_from_file')
+ModuleNotFoundError: No module named 'agent'
+FAIL: test_script_mode_from_project_root  (tool='weak_patch_check')
+FileNotFoundError: [Errno 2] No such file or directory: '--help/agent/loop.py'
+FAILED (failures=5)

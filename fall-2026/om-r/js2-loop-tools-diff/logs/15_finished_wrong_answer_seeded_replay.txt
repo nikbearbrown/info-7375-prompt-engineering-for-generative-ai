@@ -1,0 +1,17 @@
+# 2026-11-10T00:05:28Z  python3 -m tools.replay_from_file --board stripe --from-file evidence/stripe_SEEDED_empty_20261110T000450Z.json   (SEEDED: constructed empty response, NOT live data)
+========================================================================
+SEEDED REPLAY - constructed input, NOT live board data
+board:        stripe
+replayed:     evidence/stripe_SEEDED_empty_20261110T000450Z.json  (575 bytes, sha256 981899822f761f87)
+state copied: state/stripe_seen.json -> <scratch>/state/stripe_seen.json
+scratch root: /var/folders/c2/hk_k8pq11y9f6pghcbc55m6c0000gn/T/js2_replay_mo5i8s9s
+========================================================================
+----- loop's own report (agent.loop.format_report, unmodified) -----
+JS2 loop run 2026-11-10T00:05:28+00:00  EXIT: finished
+  requests 1/15  elapsed 0.002s/120s  board limit 5
+  stripe               ok           0 postings in response, 0 new  (1 request(s))
+  run log: logs/run_20261110T000528Z.json
+----- end of loop's own report -----
+note: paths in the loop's report (evidence, run log) are inside the scratch root, not the project; the scratch root is deleted below
+real state/stripe_seen.json unchanged: True
+# exit code: 0

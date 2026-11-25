@@ -1,0 +1,37 @@
+# 2026-11-09T23:51:54Z  python3 tests/mutation_check.py
+unmutated agent/permissions.py: PASS (OK)
+
+[1] CAUGHT   re-add api.anthropic.com to the host allow-list
+    - ALLOWED_HOSTS = frozenset({"boards-api.greenhouse.io", "api.lever.co"})
+    + ALLOWED_HOSTS = frozenset({"boards-api.greenhouse.io", "api.lever.co", "api.anthropic.com"})
+    result: FAILED (failures=1)
+    failed: test_api_anthropic_com_is_refused_until_judgment_code_exists
+
+[2] CAUGHT   drop the port check
+    -  or port not in (None, 443)
+    + (deleted)
+    result: FAILED (failures=1)
+    failed: test_non_443_port_is_refused
+
+[3] CAUGHT   disable new-board approval
+    - if not real.exists() and board not in self.approved_new_boards:
+    + if False:
+    result: FAILED (failures=1)
+    failed: test_unapproved_new_board_state_creation_is_refused
+
+[4] CAUGHT   resolve paths with abspath instead of realpath (stop following symlinks)
+    - return Path(os.path.realpath(p))
+    + return Path(os.path.abspath(p))
+    result: FAILED (failures=2)
+    failed: test_state_dir_replaced_by_symlink_outside_root_is_refused
+    failed: test_symlink_inside_logs_pointing_outside_is_refused
+
+[5] CAUGHT   string-prefix containment instead of path-component containment
+    - real != d and real.is_relative_to(d)
+    + real != d and str(real).startswith(str(d))
+    result: FAILED (failures=2)
+    failed: test_sibling_prefix_evidence_evil_and_logs2_are_refused
+
+5/5 mutations caught, 0 survived
+project tree unchanged: True
+# exit code: 0

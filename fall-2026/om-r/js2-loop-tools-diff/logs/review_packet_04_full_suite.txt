@@ -1,0 +1,53 @@
+# 2026-11-10T00:07:38Z  python3 -m unittest discover -v -s tests -t .   (full suite, PATCHED loop)
+test_503_then_budget_hit_during_retry_is_interrupted (tests.test_loop_retry_budget.RetryThenBudgetHit.test_503_then_budget_hit_during_retry_is_interrupted) ... ok
+test_timeout_then_budget_hit_during_retry_is_interrupted (tests.test_loop_retry_budget.RetryThenBudgetHit.test_timeout_then_budget_hit_during_retry_is_interrupted) ... ok
+test_allowed_host_as_prefix_of_other_domain_is_refused (tests.test_permissions.HostAllowList.test_allowed_host_as_prefix_of_other_domain_is_refused) ... ok
+test_api_anthropic_com_is_refused_until_judgment_code_exists (tests.test_permissions.HostAllowList.test_api_anthropic_com_is_refused_until_judgment_code_exists) ... ok
+test_explicit_port_443_is_allowed (tests.test_permissions.HostAllowList.test_explicit_port_443_is_allowed) ... ok
+test_fetch_refuses_disallowed_host_before_any_network_call (tests.test_permissions.HostAllowList.test_fetch_refuses_disallowed_host_before_any_network_call) ... ok
+test_look_alike_subdomain_is_refused (tests.test_permissions.HostAllowList.test_look_alike_subdomain_is_refused) ... ok
+test_non_443_port_is_refused (tests.test_permissions.HostAllowList.test_non_443_port_is_refused) ... ok
+test_non_allow_listed_host_is_refused (tests.test_permissions.HostAllowList.test_non_allow_listed_host_is_refused) ... ok
+test_plain_http_to_allowed_host_is_refused (tests.test_permissions.HostAllowList.test_plain_http_to_allowed_host_is_refused) ... ok
+test_userinfo_trick_greenhouse_at_evil_is_refused (tests.test_permissions.HostAllowList.test_userinfo_trick_greenhouse_at_evil_is_refused) ... ok
+test_valid_greenhouse_url_is_allowed (tests.test_permissions.HostAllowList.test_valid_greenhouse_url_is_allowed) ... ok
+test_valid_lever_url_is_allowed (tests.test_permissions.HostAllowList.test_valid_lever_url_is_allowed) ... ok
+test_all_refusals_are_permission_errors (tests.test_permissions.NewBoardApproval.test_all_refusals_are_permission_errors) ... ok
+test_existing_board_state_update_needs_no_approval (tests.test_permissions.NewBoardApproval.test_existing_board_state_update_needs_no_approval) ... ok
+test_unapproved_new_board_state_creation_is_refused (tests.test_permissions.NewBoardApproval.test_unapproved_new_board_state_creation_is_refused) ... ok
+test_redirect_downgrade_to_http_is_refused (tests.test_permissions.Redirects.test_redirect_downgrade_to_http_is_refused) ... ok
+test_redirect_to_non_allow_listed_host_is_refused (tests.test_permissions.Redirects.test_redirect_to_non_allow_listed_host_is_refused) ... ok
+test_redirect_within_allow_list_is_followed (tests.test_permissions.Redirects.test_redirect_within_allow_list_is_followed) ... ok
+test_absolute_path_outside_root_is_refused (tests.test_permissions.WriteContainment.test_absolute_path_outside_root_is_refused) ... ok
+test_approved_new_board_state_write_is_allowed (tests.test_permissions.WriteContainment.test_approved_new_board_state_write_is_allowed) ... ok
+test_dot_dot_traversal_out_of_logs_is_refused (tests.test_permissions.WriteContainment.test_dot_dot_traversal_out_of_logs_is_refused) ... ok
+test_missing_allowed_dirs_are_created_on_first_write (tests.test_permissions.WriteContainment.test_missing_allowed_dirs_are_created_on_first_write) ... ok
+test_non_state_file_in_state_dir_is_refused (tests.test_permissions.WriteContainment.test_non_state_file_in_state_dir_is_refused) ... ok
+test_sibling_prefix_evidence_evil_and_logs2_are_refused (tests.test_permissions.WriteContainment.test_sibling_prefix_evidence_evil_and_logs2_are_refused) ... ok
+test_sibling_prefix_state_evil_is_refused (tests.test_permissions.WriteContainment.test_sibling_prefix_state_evil_is_refused) ... ok
+test_state_dir_replaced_by_symlink_outside_root_is_refused (tests.test_permissions.WriteContainment.test_state_dir_replaced_by_symlink_outside_root_is_refused) ... ok
+test_state_file_in_state_subdirectory_is_refused (tests.test_permissions.WriteContainment.test_state_file_in_state_subdirectory_is_refused) ... ok
+test_symlink_inside_logs_pointing_outside_is_refused (tests.test_permissions.WriteContainment.test_symlink_inside_logs_pointing_outside_is_refused) ... ok
+test_write_inside_evidence_is_allowed (tests.test_permissions.WriteContainment.test_write_inside_evidence_is_allowed) ... ok
+test_write_inside_logs_is_allowed (tests.test_permissions.WriteContainment.test_write_inside_logs_is_allowed) ... ok
+test_write_to_project_root_is_refused (tests.test_permissions.WriteContainment.test_write_to_project_root_is_refused) ... ok
+test_writing_the_allowed_dir_itself_is_refused (tests.test_permissions.WriteContainment.test_writing_the_allowed_dir_itself_is_refused) ... ok
+test_a_removal_is_reported_once_not_on_every_later_run (tests.test_removal_detection.RemovalDetection.test_a_removal_is_reported_once_not_on_every_later_run) ... ok
+test_baseline_run_reports_no_removals (tests.test_removal_detection.RemovalDetection.test_baseline_run_reports_no_removals) ... ok
+test_failed_board_reports_no_removals_and_keeps_state (tests.test_removal_detection.RemovalDetection.test_failed_board_reports_no_removals_and_keeps_state) ... ok
+test_posting_absent_from_second_fetch_is_reported_removed (tests.test_removal_detection.RemovalDetection.test_posting_absent_from_second_fetch_is_reported_removed) ... ok
+test_removed_and_new_in_the_same_run_stay_separate (tests.test_removal_detection.RemovalDetection.test_removed_and_new_in_the_same_run_stay_separate) ... ok
+test_removed_id_that_reappears_is_not_reported_new (tests.test_removal_detection.RemovalDetection.test_removed_id_that_reappears_is_not_reported_new) ... ok
+test_state_written_before_this_change_falls_back_to_seen_ids (tests.test_removal_detection.RemovalDetection.test_state_written_before_this_change_falls_back_to_seen_ids) ... ok
+test_unchanged_board_reports_no_removals (tests.test_removal_detection.RemovalDetection.test_unchanged_board_reports_no_removals) ... ok
+test_request_budget_is_enforced_not_just_logged (tests.test_wrong_versions.WrongVersion1BudgetSilentlyIgnored.test_request_budget_is_enforced_not_just_logged) ... ok
+test_404_board_is_failed_not_zero_new (tests.test_wrong_versions.WrongVersion2FailedBoardReportedAsNoNewJobs.test_404_board_is_failed_not_zero_new) ... ok
+
+----------------------------------------------------------------------
+Ran 43 tests in 0.046s
+
+OK
+#
+# python3 tests/mutation_check.py   (permission mutation check, unaffected by this change)
+5/5 mutations caught, 0 survived
+project tree unchanged: True

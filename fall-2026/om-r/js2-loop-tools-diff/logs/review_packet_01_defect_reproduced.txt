@@ -1,0 +1,31 @@
+# 2026-11-10T00:06:38Z  Part B step 1: reproduce the defect BEFORE any fix (loop at b908dbf)
+# Input pair: REAL evidence/gitlab_20261109T232631Z.json  ->  SEEDED evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json (constructed: one posting dropped, NOT live data)
+
+## (a) what the input pair actually contains (plain set difference, outside the loop)
+real response ids: 251   seeded response ids: 250   real state seen_ids: 251
+in real, absent from seeded: [8858174002]
+in seeded, absent from real: []
+removed id is in real state seen_ids: True
+
+## (b) the CURRENT loop on the seeded later fetch (real state copied to scratch)
+# python3 -m tools.replay_from_file --board gitlab --from-file evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json
+========================================================================
+SEEDED REPLAY - constructed input, NOT live board data
+board:        gitlab
+replayed:     evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json  (41342 bytes, sha256 4750dfbe6434dc5d)
+state copied: state/gitlab_seen.json -> <scratch>/state/gitlab_seen.json
+scratch root: /var/folders/c2/hk_k8pq11y9f6pghcbc55m6c0000gn/T/js2_replay_ss0bwsv0
+========================================================================
+----- loop's own report (agent.loop.format_report, unmodified) -----
+JS2 loop run 2026-11-10T00:06:38+00:00  EXIT: finished
+  requests 1/15  elapsed 0.001s/120s  board limit 5
+  gitlab               ok           250 postings in response, 0 new  (1 request(s))
+  run log: logs/run_20261110T000638Z.json
+----- end of loop's own report -----
+note: paths in the loop's report (evidence, run log) are inside the scratch root, not the project; the scratch root is deleted below
+real state/gitlab_seen.json unchanged: True
+# exit code: 0
+
+## (c) does the loop's output mention the missing posting at all?
+# grep -c -i -e 8858174002 -e 'Regional Sales Director, National Security Group' -e removed -e missing <output of (b)>
+0

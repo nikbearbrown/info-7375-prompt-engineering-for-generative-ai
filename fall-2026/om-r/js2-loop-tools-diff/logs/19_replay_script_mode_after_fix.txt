@@ -1,0 +1,27 @@
+# 2026-11-10T00:22:58Z  env -u PYTHONPATH python3 tools/replay_from_file.py --board gitlab --from-file evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json   (SCRIPT mode, cwd=project root, after the fix; SEEDED input, NOT live data)
+========================================================================
+SEEDED REPLAY - constructed input, NOT live board data
+board:        gitlab
+replayed:     evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json  (41342 bytes, sha256 4750dfbe6434dc5d)
+state copied: state/gitlab_seen.json -> <scratch>/state/gitlab_seen.json
+scratch root: /var/folders/c2/hk_k8pq11y9f6pghcbc55m6c0000gn/T/js2_replay_rst8ztk2
+========================================================================
+----- loop's own report (agent.loop.format_report, unmodified) -----
+JS2 loop run 2026-11-10T00:22:58+00:00  EXIT: finished
+  requests 1/15  elapsed 0.002s/120s  board limit 5
+  gitlab               ok           250 postings in response, 0 new, 1 removed  (1 request(s))
+  removed postings (in the previous fetch, absent from this one):
+    - [gitlab] id 8858174002
+  run log: logs/run_20261110T002258Z.json
+----- end of loop's own report -----
+note: paths in the loop's report (evidence, run log) are inside the scratch root, not the project; the scratch root is deleted below
+real state/gitlab_seen.json unchanged: True
+# exit code: 0
+#
+# Om's original positional form, for the record (the script takes --board/--from-file flags):
+# env -u PYTHONPATH python3 tools/replay_from_file.py gitlab evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json
+usage: replay_from_file.py [-h] --board
+                           {badslug-gitlab-typo,gitlab,palantir,stripe}
+                           --from-file FROM_FILE [--keep-scratch]
+replay_from_file.py: error: the following arguments are required: --board, --from-file
+# exit code: 2

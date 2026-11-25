@@ -1,0 +1,46 @@
+# 2026-11-10T00:08:05Z  behavior after the patch (loop at d3e2e8a): the two SEEDED replays re-run
+
+## (a) Part B step 1 input again: REAL gitlab -> SEEDED minus one (constructed, NOT live data)
+# python3 -m tools.replay_from_file --board gitlab --from-file evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json
+========================================================================
+SEEDED REPLAY - constructed input, NOT live board data
+board:        gitlab
+replayed:     evidence/gitlab_SEEDED_minus_one_20261110T000619Z.json  (41342 bytes, sha256 4750dfbe6434dc5d)
+state copied: state/gitlab_seen.json -> <scratch>/state/gitlab_seen.json
+scratch root: /var/folders/c2/hk_k8pq11y9f6pghcbc55m6c0000gn/T/js2_replay_l0ykcyr6
+========================================================================
+----- loop's own report (agent.loop.format_report, unmodified) -----
+JS2 loop run 2026-11-10T00:08:05+00:00  EXIT: finished
+  requests 1/15  elapsed 0.001s/120s  board limit 5
+  gitlab               ok           250 postings in response, 0 new, 1 removed  (1 request(s))
+  removed postings (in the previous fetch, absent from this one):
+    - [gitlab] id 8858174002
+  run log: logs/run_20261110T000805Z.json
+----- end of loop's own report -----
+note: paths in the loop's report (evidence, run log) are inside the scratch root, not the project; the scratch root is deleted below
+real state/gitlab_seen.json unchanged: True
+# exit code: 0
+
+## (b) Part A input again: SEEDED empty stripe response (constructed, NOT live data); removed-id list truncated to 3 lines + count
+# python3 -m tools.replay_from_file --board stripe --from-file evidence/stripe_SEEDED_empty_20261110T000450Z.json
+========================================================================
+SEEDED REPLAY - constructed input, NOT live board data
+board:        stripe
+replayed:     evidence/stripe_SEEDED_empty_20261110T000450Z.json  (575 bytes, sha256 981899822f761f87)
+state copied: state/stripe_seen.json -> <scratch>/state/stripe_seen.json
+scratch root: /var/folders/c2/hk_k8pq11y9f6pghcbc55m6c0000gn/T/js2_replay_mcwgj7ia
+========================================================================
+----- loop's own report (agent.loop.format_report, unmodified) -----
+JS2 loop run 2026-11-10T00:08:05+00:00  EXIT: finished
+  requests 1/15  elapsed 0.001s/120s  board limit 5
+  stripe               ok           0 postings in response, 0 new, 771 removed  (1 request(s))
+  removed postings (in the previous fetch, absent from this one):
+    - [stripe] id 5416444
+    - [stripe] id 5601879
+    - [stripe] id 5895430
+  run log: logs/run_20261110T000805Z.json
+----- end of loop's own report -----
+note: paths in the loop's report (evidence, run log) are inside the scratch root, not the project; the scratch root is deleted below
+real state/stripe_seen.json unchanged: True
+# ... removed-id lines in output: 771
+# exit code: 0
