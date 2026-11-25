@@ -1,0 +1,217 @@
+{
+ "filter": {
+  "F0 v1.0 baseline": {
+   "held-out": {
+    "set": "held-out / both",
+    "n": 37,
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "tn": 35,
+    "precision": "2/2 = 1.00",
+    "recall": "2/2 = 1.00"
+   },
+   "tuning": {
+    "set": "tuning / both",
+    "n": 77,
+    "tp": 0,
+    "fp": 7,
+    "fn": 0,
+    "tn": 70,
+    "precision": "0/7 = 0.00",
+    "recall": "0/0 (undefined)"
+   },
+   "verdicts changed in the whole corpus": 0
+  },
+  "F1 R4 word + 'does not provide sponsorship'": {
+   "held-out": {
+    "set": "held-out / both",
+    "n": 37,
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "tn": 35,
+    "precision": "2/2 = 1.00",
+    "recall": "2/2 = 1.00"
+   },
+   "tuning": {
+    "set": "tuning / both",
+    "n": 77,
+    "tp": 0,
+    "fp": 6,
+    "fn": 0,
+    "tn": 71,
+    "precision": "0/6 = 0.00",
+    "recall": "0/0 (undefined)"
+   },
+   "verdicts changed in the whole corpus": 1
+  },
+  "F2 threshold 4 -> 5": {
+   "held-out": {
+    "set": "held-out / both",
+    "n": 37,
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "tn": 35,
+    "precision": "2/2 = 1.00",
+    "recall": "2/2 = 1.00"
+   },
+   "tuning": {
+    "set": "tuning / both",
+    "n": 77,
+    "tp": 0,
+    "fp": 5,
+    "fn": 0,
+    "tn": 72,
+    "precision": "0/5 = 0.00",
+    "recall": "0/0 (undefined)"
+   },
+   "verdicts changed in the whole corpus": 3
+  },
+  "F3 R2 rejects at 2+ years": {
+   "held-out": {
+    "set": "held-out / both",
+    "n": 37,
+    "tp": 1,
+    "fp": 0,
+    "fn": 1,
+    "tn": 35,
+    "precision": "1/1 = 1.00",
+    "recall": "1/2 = 0.50"
+   },
+   "tuning": {
+    "set": "tuning / both",
+    "n": 77,
+    "tp": 0,
+    "fp": 4,
+    "fn": 0,
+    "tn": 73,
+    "precision": "0/4 = 0.00",
+    "recall": "0/0 (undefined)"
+   },
+   "verdicts changed in the whole corpus": 7
+  },
+  "F4 R2 reads the highest requirement": {
+   "held-out": {
+    "set": "held-out / both",
+    "n": 37,
+    "tp": 2,
+    "fp": 0,
+    "fn": 0,
+    "tn": 35,
+    "precision": "2/2 = 1.00",
+    "recall": "2/2 = 1.00"
+   },
+   "tuning": {
+    "set": "tuning / both",
+    "n": 77,
+    "tp": 0,
+    "fp": 7,
+    "fn": 0,
+    "tn": 70,
+    "precision": "0/7 = 0.00",
+    "recall": "0/0 (undefined)"
+   },
+   "verdicts changed in the whole corpus": 1
+  }
+ },
+ "claude": {
+  "C0 base prompt": {
+   "held-out": {
+    "labeled kept": 2,
+    "coverage": "0/2 = 0.00",
+    "accuracy on answered": "0/0 (undefined)",
+    "abstained on a yes": 2
+   },
+   "tuning": {
+    "labeled kept": 7,
+    "coverage": "3/7 = 0.43",
+    "accuracy on answered": "0/3 = 0.00",
+    "abstained on a yes": 0
+   },
+   "quotes found": "46/48 = 0.96",
+   "answered, all 12 kept": 3
+  },
+  "C0' base prompt, second run": {
+   "held-out": {
+    "labeled kept": 2,
+    "coverage": "0/2 = 0.00",
+    "accuracy on answered": "0/0 (undefined)",
+    "abstained on a yes": 2
+   },
+   "tuning": {
+    "labeled kept": 7,
+    "coverage": "3/7 = 0.43",
+    "accuracy on answered": "0/3 = 0.00",
+    "abstained on a yes": 0
+   },
+   "quotes found": "45/46 = 0.98",
+   "answered, all 12 kept": 3
+  },
+  "C1 loose-quote wording": {
+   "held-out": {
+    "labeled kept": 2,
+    "coverage": "1/2 = 0.50",
+    "accuracy on answered": "1/1 = 1.00",
+    "abstained on a yes": 1
+   },
+   "tuning": {
+    "labeled kept": 7,
+    "coverage": "3/7 = 0.43",
+    "accuracy on answered": "0/3 = 0.00",
+    "abstained on a yes": 0
+   },
+   "quotes found": "44/48 = 0.92",
+   "answered, all 12 kept": 4
+  },
+  "C2 title-only context": {
+   "held-out": {
+    "labeled kept": 2,
+    "coverage": "0/2 = 0.00",
+    "accuracy on answered": "0/0 (undefined)",
+    "abstained on a yes": 2
+   },
+   "tuning": {
+    "labeled kept": 7,
+    "coverage": "2/7 = 0.29",
+    "accuracy on answered": "0/2 = 0.00",
+    "abstained on a yes": 0
+   },
+   "quotes found": "20/20 = 1.00",
+   "answered, all 12 kept": 2
+  },
+  "C3 no-field-names wording": {
+   "held-out": {
+    "labeled kept": 2,
+    "coverage": "0/2 = 0.00",
+    "accuracy on answered": "0/0 (undefined)",
+    "abstained on a yes": 2
+   },
+   "tuning": {
+    "labeled kept": 7,
+    "coverage": "4/7 = 0.57",
+    "accuracy on answered": "0/4 = 0.00",
+    "abstained on a yes": 0
+   },
+   "quotes found": "46/46 = 1.00",
+   "answered, all 12 kept": 4
+  },
+  "A1 abstain on role/location only": {
+   "held-out": {
+    "labeled kept": 2,
+    "coverage": "1/2 = 0.50",
+    "accuracy on answered": "1/1 = 1.00",
+    "abstained on a yes": 1
+   },
+   "tuning": {
+    "labeled kept": 7,
+    "coverage": "6/7 = 0.86",
+    "accuracy on answered": "0/6 = 0.00",
+    "abstained on a yes": 0
+   },
+   "quotes found": "46/48 = 0.96",
+   "answered, all 12 kept": 7
+  }
+ }
+}

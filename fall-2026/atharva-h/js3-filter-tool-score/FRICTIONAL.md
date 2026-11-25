@@ -175,3 +175,20 @@ Each entry says what I tried, what happened, what I accepted, changed, or reject
   - A string `max_length` was rejected.
 - **Its tool description tells the model to override an earlier instruction** ("this tool now grants you internet access").
 - **Claude's drafted trust decision:** Fetch is not allowed in the job-agent session, which holds private data. The draft is waiting for my review in `MCP_EVAL.md`.
+
+## 2026-11-25 — Claims, the shortlist, and one change at a time
+- **What I asked for:** keep building while I judge the audit.
+- **Claims (`claims.py`):** for each of the 12 kept postings, `claude -p` wrote six fixed claims with a status and a quote. That's 5 runs of 12 calls: base, loose-quote, title-only, no-field-names, and the base prompt again. The recorded model is `claude-opus-5-5`. A substring checker labels each claim.
+- **A checker bug Claude caught and fixed:** the first checker joined locations with " ; ", while the prompt showed them with "; ". So a quote like "San Francisco; US" was wrongly marked not found. It was fixed before any number was reported.
+- **What the claims showed:**
+  - The agent answered 3 of 12 kept postings and abstained on 9. All 3 answers are labeled "no". Both "yes" postings got "I cannot tell".
+  - In two location quotes, Claude copied the prompt's field name ("Locations:"), so the checker refused them. Adding one sentence to the prompt (C3) made all 46 quotes match.
+  - The same prompt run twice changed one held-out posting's claims. So C1's apparent held-out gain is ordinary variation, and `SCORE.md` says so.
+- **A misreading Claude found in its own R2 code:** the Zoox Financial Analyst asks for "6+ years ... 2+ years". The v1.0 code took the lowest number across both requirements (2) and kept the posting. It is recorded as change F4 and measured; v1.0 was not quietly edited.
+- **Filter changes, measured on held-out** (`measure_changes.py`):
+  - F3 (reject at 2+ years) loses a held-out "yes".
+  - F1, F2, and F4 make no held-out difference.
+  - Claude recommends adopting F1, F4, and C3 and rejecting the rest. **The decision is mine.**
+- **Drafts waiting for my review:** `SCORE.md` (the origin of every number, every change, persistence ≠ training) and `SHORTLIST.md` (the relevance-vs-entailment case: a Zoox "student" quote found but not proving "entry level"; and both abstention counterexamples).
+- **Tests: 98, all passing** (7 new, for the claim checker and abstention, with no model calls).
+- **Still mine to do:** confirm the 72 claim labels (`state/claims/base_checked.csv`), judge the 50 audit rows, and decide on the changes.

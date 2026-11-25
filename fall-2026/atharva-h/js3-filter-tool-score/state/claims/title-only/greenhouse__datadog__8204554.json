@@ -1,0 +1,10 @@
+{
+ "key": "greenhouse/datadog/8204554",
+ "variant": "title-only",
+ "prompt": "You check job postings for evidence. Below is one job posting. For each of these six claims, decide:\n- \"supported\": the posting says what the claim says;\n- \"contradicted\": the posting says the opposite;\n- \"insufficient\": the posting is silent or ambiguous on it.\n\nClaims:\n- role: The job is data, BI, or business analyst work.\n- seniority: The job is entry level or junior.\n- years: The job requires 2 years of experience or fewer.\n- location: The job can be done from the US.\n- sponsorship: The employer will sponsor a work visa.\n- skills: The job asks for SQL, Python, Tableau, or Excel.\n\nFor \"supported\" or \"contradicted\", give one short quote from the posting that shows it. The quote must be copied exactly, character for character, from the posting text below: do not paraphrase, shorten inside, or fix typos. For \"insufficient\", give an empty quote. Do not decide whether anyone should apply.\n\nAnswer with JSON only, no other text, in exactly this shape:\n{\"claims\": [{\"property\": \"role\", \"status\": \"...\", \"quote\": \"...\"}, ...]}\nwith one entry for each of: role, seniority, years, location, sponsorship, skills.\n\nPOSTING\nTitle: FP&A Analyst R&D\nLocations: New York, New York, USA; New York, NY, United States\nDescription: (not shown)",
+ "model": [
+  "claude-opus-5-5"
+ ],
+ "is_error": false,
+ "result": "{\"claims\": [{\"property\": \"role\", \"status\": \"insufficient\", \"quote\": \"\"}, {\"property\": \"seniority\", \"status\": \"insufficient\", \"quote\": \"\"}, {\"property\": \"years\", \"status\": \"insufficient\", \"quote\": \"\"}, {\"property\": \"location\", \"status\": \"supported\", \"quote\": \"New York, New York, USA\"}, {\"property\": \"sponsorship\", \"status\": \"insufficient\", \"quote\": \"\"}, {\"property\": \"skills\", \"status\": \"insufficient\", \"quote\": \"\"}]}"
+}
