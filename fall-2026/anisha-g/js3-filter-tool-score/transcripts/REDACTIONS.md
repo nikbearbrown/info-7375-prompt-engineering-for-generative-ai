@@ -10,9 +10,9 @@ Local paths only (home folder -> `~`, Claude Code scratch folder -> `<SCRATCH>`)
 | `transcripts/claude-run2-boundary-stream.jsonl` | 0 |
 | `transcripts/claude-run3-injection-stream.jsonl` | 0 |
 | `transcripts/claude-run4-unknown-id-stream.jsonl` | 0 |
-| `transcripts/claude-run5a-injection-after-desc-fix-stream.jsonl` | 4 |
-| `transcripts/claude-run5b-injection-after-desc-fix-stream.jsonl` | 4 |
-| `transcripts/claude-run5c-injection-after-desc-fix-stream.jsonl` | 4 |
+| `transcripts/claude-run5a-injection-after-desc-fix-stream.jsonl` | 0 |
+| `transcripts/claude-run5b-injection-after-desc-fix-stream.jsonl` | 0 |
+| `transcripts/claude-run5c-injection-after-desc-fix-stream.jsonl` | 0 |
 | `transcripts/client-other-filesystem-2.2.0-20261125T141705.jsonl` | 0 |
 | `transcripts/client-other-filesystem-2.2.0-copy-20261125T141735.jsonl` | 0 |
 | `transcripts/client-other-filesystem-2.2.0-resources-20261125T141718.jsonl` | 0 |
@@ -55,5 +55,27 @@ Local paths only (home folder -> `~`, Claude Code scratch folder -> `<SCRATCH>`)
 | `transcripts/server-20261125T145516-76847.jsonl` | 0 |
 | `transcripts/server-20261125T145516-76848.jsonl` | 0 |
 | `transcripts/server-20261125T145516-76849.jsonl` | 0 |
-
-Not redacted on purpose: `logs/00_tests_before_any_code.txt` contains my macOS username in Python traceback paths. It is the "tests before any code" evidence committed in `340c11f`, so I left it exactly as recorded. The username only reveals my name, which is already on this submission.
+| `transcripts/server-20261125T160849-80903.jsonl` | 0 |
+| `transcripts/server-20261125T160849-80936.jsonl` | 0 |
+| `transcripts/server-20261125T160849-80939.jsonl` | 0 |
+| `transcripts/server-20261125T160850-80963.jsonl` | 0 |
+| `transcripts/server-20261125T160851-80982.jsonl` | 0 |
+| `transcripts/server-20261125T160851-81002.jsonl` | 0 |
+| `transcripts/server-20261125T160853-81029.jsonl` | 0 |
+| `transcripts/server-20261125T160854-81060.jsonl` | 0 |
+| `transcripts/server-20261125T160854-81062.jsonl` | 0 |
+| `transcripts/server-20261125T160855-81087.jsonl` | 0 |
+| `transcripts/server-20261125T160856-81115.jsonl` | 0 |
+| `transcripts/server-20261125T160857-81135.jsonl` | 0 |
+| `transcripts/server-20261125T160858-81156.jsonl` | 0 |
+| `transcripts/server-20261125T160859-81176.jsonl` | 0 |
+| `transcripts/server-20261125T160859-81196.jsonl` | 0 |
+| `transcripts/server-20261125T160859-81216.jsonl` | 0 |
+| `transcripts/server-20261125T160900-81236.jsonl` | 0 |
+| `transcripts/server-20261125T160901-81258.jsonl` | 0 |
+| `transcripts/server-20261125T160902-81296.jsonl` | 0 |
+| `transcripts/server-20261125T160904-81317.jsonl` | 0 |
+| `transcripts/server-20261125T160904-81338.jsonl` | 0 |
+| `transcripts/server-20261125T160905-81358.jsonl` | 0 |
+| `transcripts/server-20261125T160905-81378.jsonl` | 0 |
+| `transcripts/server-20261125T160906-81395.jsonl` | 0 |

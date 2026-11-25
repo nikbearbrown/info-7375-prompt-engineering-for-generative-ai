@@ -35,7 +35,7 @@
   196,
   1723
  ],
- "heldout": {
+ "H": {
   "always 'not relevant' (baseline)": {
    "n": 30,
    "tp": 0,
@@ -79,6 +79,20 @@
    "recall": 1.0
   },
   "filter v1.2": {
+   "n": 30,
+   "tp": 1,
+   "fp": 1,
+   "fn": 0,
+   "tn": 28,
+   "acc": 0.9666666666666667,
+   "wilson": [
+    0.8332924860304112,
+    0.9940915620051425
+   ],
+   "precision": 0.5,
+   "recall": 1.0
+  },
+  "filter v1.3 (candidate, derived from H2)": {
    "n": 30,
    "tp": 1,
    "fp": 1,
@@ -191,5 +205,164 @@
    "recall": 1.0
   }
  },
- "noise_floor_B_vs_B2_flips": []
+ "H_noise_floor_flips": [],
+ "H2": {
+  "always 'not relevant' (baseline)": {
+   "n": 24,
+   "tp": 0,
+   "fp": 0,
+   "fn": 3,
+   "tn": 21,
+   "acc": 0.875,
+   "wilson": [
+    0.6899571185214244,
+    0.9565574496068442
+   ],
+   "precision": null,
+   "recall": 0.0
+  },
+  "filter v1.0": {
+   "n": 24,
+   "tp": 0,
+   "fp": 0,
+   "fn": 3,
+   "tn": 21,
+   "acc": 0.875,
+   "wilson": [
+    0.6899571185214244,
+    0.9565574496068442
+   ],
+   "precision": null,
+   "recall": 0.0
+  },
+  "filter v1.1": {
+   "n": 24,
+   "tp": 0,
+   "fp": 0,
+   "fn": 3,
+   "tn": 21,
+   "acc": 0.875,
+   "wilson": [
+    0.6899571185214244,
+    0.9565574496068442
+   ],
+   "precision": null,
+   "recall": 0.0
+  },
+  "filter v1.2": {
+   "n": 24,
+   "tp": 0,
+   "fp": 0,
+   "fn": 3,
+   "tn": 21,
+   "acc": 0.875,
+   "wilson": [
+    0.6899571185214244,
+    0.9565574496068442
+   ],
+   "precision": null,
+   "recall": 0.0
+  },
+  "filter v1.3 (candidate, derived from H2)": {
+   "n": 24,
+   "tp": 2,
+   "fp": 0,
+   "fn": 1,
+   "tn": 21,
+   "acc": 0.9583333333333334,
+   "wilson": [
+    0.7975777375115778,
+    0.9926067346451949
+   ],
+   "precision": 1.0,
+   "recall": 0.6666666666666666
+  },
+  "shortlist v1.0 (filter + evidence gate)": {
+   "n": 24,
+   "tp": 0,
+   "fp": 0,
+   "fn": 3,
+   "tn": 21,
+   "acc": 0.875,
+   "wilson": [
+    0.6899571185214244,
+    0.9565574496068442
+   ],
+   "precision": null,
+   "recall": 0.0
+  },
+  "Claude B: baseline: inherited JS1 revised prompt, full posting text": {
+   "n": 24,
+   "tp": 1,
+   "fp": 1,
+   "fn": 2,
+   "tn": 20,
+   "acc": 0.875,
+   "wilson": [
+    0.6899571185214244,
+    0.9565574496068442
+   ],
+   "precision": 0.5,
+   "recall": 0.3333333333333333
+  },
+  "Claude B2: exact repeat of B: the noise floor": {
+   "n": 24,
+   "tp": 0,
+   "fp": 1,
+   "fn": 3,
+   "tn": 20,
+   "acc": 0.8333333333333334,
+   "wilson": [
+    0.6414652961213058,
+    0.9332143199927109
+   ],
+   "precision": 0.0,
+   "recall": 0.0
+  },
+  "Claude E1: PROMPT changed: JS1 baseline prompt (no written rules)": {
+   "n": 24,
+   "tp": 1,
+   "fp": 0,
+   "fn": 2,
+   "tn": 21,
+   "acc": 0.9166666666666666,
+   "wilson": [
+    0.741507847985494,
+    0.9768416721570264
+   ],
+   "precision": 1.0,
+   "recall": 0.3333333333333333
+  },
+  "Claude E2: CONTEXT changed: title + first 600 characters of text only": {
+   "n": 24,
+   "tp": 0,
+   "fp": 0,
+   "fn": 3,
+   "tn": 21,
+   "acc": 0.875,
+   "wilson": [
+    0.6899571185214244,
+    0.9565574496068442
+   ],
+   "precision": null,
+   "recall": 0.0
+  },
+  "Claude E4: TOOL LIST changed: Claude is offered my score_posting tool": {
+   "n": 24,
+   "tp": 0,
+   "fp": 1,
+   "fn": 3,
+   "tn": 20,
+   "acc": 0.8333333333333334,
+   "wilson": [
+    0.6414652961213058,
+    0.9332143199927109
+   ],
+   "precision": 0.0,
+   "recall": 0.0
+  }
+ },
+ "H2_noise_floor_flips": [
+  "greenhouse:stripe:8354566"
+ ]
 }

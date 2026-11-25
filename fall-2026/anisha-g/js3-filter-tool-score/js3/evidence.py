@@ -37,10 +37,10 @@ def label_skill(text, skill):
         if not nice and not NICE.search(s): return {"label": S, "quote": s, "cannot_tell": False}
     return {"label": I, "quote": hits[0][0] if hits else "", "cannot_tell": True}
 
-def label_years(text, max_years, ignore=()):
+def label_years(text, max_years, ignore=(), range_uses="top"):
     best = None
     for s, _ in units(text):
-        for n, m in F.years_spans(s, ignore):
+        for n, m in F.years_spans(s, ignore, range_uses):
             if best is None or n > best[0]: best = (n, s)
     if best is None: return {"label": I, "quote": "", "cannot_tell": True}
     return {"label": S if best[0] <= max_years else C, "quote": best[1], "cannot_tell": False}
@@ -56,7 +56,7 @@ def justify(posting, cfg):
                         "label": S if role and not d["r2_reject"] and not d.get("r1b_reject") else C, "quote": d["title"], "cannot_tell": False})
     for sk in d["skills"]:
         r = label_skill(text, sk); j["claims"].append(dict(r, kind="skill", claim=f"requires {sk}", source="text"))
-    y = label_years(text, cfg["max_years"], cfg.get("years_ignore_if_followed_by", ()))
+    y = label_years(text, cfg["max_years"], cfg.get("years_ignore_if_followed_by", ()), cfg.get("years_range_uses", "top"))
     j["claims"].append(dict(y, kind="years", claim=f"asks for at most {cfg['max_years']} years", source="text"))
     for c in j["claims"]: c["say"] = _say(c["label"], c["claim"], c["quote"])
     supported = sum(1 for c in j["claims"] if c["kind"] == "skill" and c["label"] == S)

@@ -68,6 +68,7 @@ Scaled to all 1723 v1.0 rejects, **if** this random sample is representative: ab
 | filter v1.0 | 30 | 1 | 4 | 0 | 25 | 86.7% | 70.3% – 94.7% | 20.0% | 100.0% |
 | filter v1.1 | 30 | 1 | 4 | 0 | 25 | 86.7% | 70.3% – 94.7% | 20.0% | 100.0% |
 | filter v1.2 | 30 | 1 | 1 | 0 | 28 | 96.7% | 83.3% – 99.4% | 50.0% | 100.0% |
+| filter v1.3 (candidate, derived from H2) | 30 | 1 | 1 | 0 | 28 | 96.7% | 83.3% – 99.4% | 50.0% | 100.0% |
 | shortlist v1.0 (filter + evidence gate) | 30 | 1 | 2 | 0 | 27 | 93.3% | 78.7% – 98.2% | 33.3% | 100.0% |
 | Claude B: baseline: inherited JS1 revised prompt, full posting text | 30 | 1 | 2 | 0 | 27 | 93.3% | 78.7% – 98.2% | 33.3% | 100.0% |
 | Claude B2: exact repeat of B: the noise floor | 30 | 1 | 2 | 0 | 27 | 93.3% | 78.7% – 98.2% | 33.3% | 100.0% |
@@ -76,14 +77,39 @@ Scaled to all 1723 v1.0 rejects, **if** this random sample is representative: ab
 | Claude E3: SETTING changed: model haiku instead of sonnet | 30 | 0 | 1 | 1 | 28 | 93.3% | 78.7% – 98.2% | 0.0% | 0.0% |
 | Claude E4: TOOL LIST changed: Claude is offered my score_posting tool | 30 | 1 | 1 | 0 | 28 | 96.7% | 83.3% – 99.4% | 50.0% | 100.0% |
 
-Noise floor: the exact repeat B2 disagreed with B on **0 of 30** held-out postings.
+Noise floor: the exact repeat B2 disagreed with B on **0 of 30** postings.
 
-### Held-out items where any scorer disagrees with me
-| id | title | me | v1.0 | v1.1 | v1.2 | B | E1 | E2 | E3 | E4 |
-|---|---|---|---|---|---|---|---|---|---|---|
-| `greenhouse:lyft:8734166002` | Workforce Management (WFM) Forecasting Analyst | **n** | y | y | n | n | n | n | n | n |
-| `greenhouse:stripe:7456167` | Credit Risk Operations Analyst (CDMX) | **n** | y | y | n | n | n | n | n | n |
-| `greenhouse:stripe:8194291` | Data Analyst, Intern | **n** | y | y | y | y | n | n | y | y |
-| `greenhouse:stripe:8324207` | Processing Cost Analyst | **n** | y | y | n | n | n | n | n | n |
-| `greenhouse:stripe:8417785` | Operations Insights, Business Partner Analyst | **y** | y | y | y | y | n | n | n | y |
-| `greenhouse:lyft:8648040002` | Analytics Lead, SCC | **n** | n | n | n | y | n | n | n | n |
+### Items where any scorer disagrees with me
+| id | title | me | v1.0 | v1.1 | v1.2 | v1.3 | shortlist v1.0 (+ evidence gate) | B | E1 | E2 | E3 | E4 |
+|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| `greenhouse:lyft:8734166002` | Workforce Management (WFM) Forecasting Analyst | **n** | y | y | n | n | y | n | n | n | n | n |
+| `greenhouse:stripe:7456167` | Credit Risk Operations Analyst (CDMX) | **n** | y | y | n | n | n | n | n | n | n | n |
+| `greenhouse:stripe:8194291` | Data Analyst, Intern | **n** | y | y | y | y | y | y | n | n | y | y |
+| `greenhouse:stripe:8324207` | Processing Cost Analyst | **n** | y | y | n | n | n | n | n | n | n | n |
+| `greenhouse:stripe:8417785` | Operations Insights, Business Partner Analyst | **y** | y | y | y | y | y | y | n | n | n | y |
+| `greenhouse:lyft:8648040002` | Analytics Lead, SCC | **n** | n | n | n | n | n | y | n | n | n | n |
+
+## Second held-out set (H2: analyst titles, drawn after H): 24 labelled y/n (3 y), 0 '?' left out
+| Scorer | n | TP | FP | FN | TN | Accuracy | Wilson 95% | Precision | Recall |
+|---|---|---|---|---|---|---|---|---|---|
+| always 'not relevant' (baseline) | 24 | 0 | 0 | 3 | 21 | 87.5% | 69.0% – 95.7% | – | 0.0% |
+| filter v1.0 | 24 | 0 | 0 | 3 | 21 | 87.5% | 69.0% – 95.7% | – | 0.0% |
+| filter v1.1 | 24 | 0 | 0 | 3 | 21 | 87.5% | 69.0% – 95.7% | – | 0.0% |
+| filter v1.2 | 24 | 0 | 0 | 3 | 21 | 87.5% | 69.0% – 95.7% | – | 0.0% |
+| filter v1.3 (candidate, derived from H2) | 24 | 2 | 0 | 1 | 21 | 95.8% | 79.8% – 99.3% | 100.0% | 66.7% |
+| shortlist v1.0 (filter + evidence gate) | 24 | 0 | 0 | 3 | 21 | 87.5% | 69.0% – 95.7% | – | 0.0% |
+| Claude B: baseline: inherited JS1 revised prompt, full posting text | 24 | 1 | 1 | 2 | 20 | 87.5% | 69.0% – 95.7% | 50.0% | 33.3% |
+| Claude B2: exact repeat of B: the noise floor | 24 | 0 | 1 | 3 | 20 | 83.3% | 64.1% – 93.3% | 0.0% | 0.0% |
+| Claude E1: PROMPT changed: JS1 baseline prompt (no written rules) | 24 | 1 | 0 | 2 | 21 | 91.7% | 74.2% – 97.7% | 100.0% | 33.3% |
+| Claude E2: CONTEXT changed: title + first 600 characters of text only | 24 | 0 | 0 | 3 | 21 | 87.5% | 69.0% – 95.7% | – | 0.0% |
+| Claude E4: TOOL LIST changed: Claude is offered my score_posting tool | 24 | 0 | 1 | 3 | 20 | 83.3% | 64.1% – 93.3% | 0.0% | 0.0% |
+
+Noise floor: the exact repeat B2 disagreed with B on **1 of 24** postings.
+
+### Items where any scorer disagrees with me
+| id | title | me | v1.0 | v1.1 | v1.2 | v1.3 | shortlist v1.0 (+ evidence gate) | B | E1 | E2 | E4 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| `greenhouse:stripe:8230306` | Renewals Analyst | **y** | n | n | n | n | n | n | n | n | n |
+| `greenhouse:stripe:8354566` | AMER Data Analyst - Sales Strategy and Operations | **y** | n | n | n | y | n | y | y | n | n |
+| `greenhouse:klaviyo:8182739003` | Customer Success Operations Analyst | **y** | n | n | n | y | n | n | n | n | n |
+| `greenhouse:stripe:5416444` | Data Analyst | **n** | n | n | n | n | n | y | n | n | y |

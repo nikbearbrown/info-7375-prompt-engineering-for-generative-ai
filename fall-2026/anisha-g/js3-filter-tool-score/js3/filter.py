@@ -26,7 +26,7 @@ def non_us(location, cfg):
     if any(_marker(location, m) for m in cfg["us_markers"]): return False
     return any(_marker(location, m) for m in cfg["non_us_markers"])
 
-def years_spans(text, ignore_if_followed_by=()):
+def years_spans(text, ignore_if_followed_by=(), range_uses="top"):
     """[(top_of_range, matched_text)]. A range counts by its top (FILTER.md R4).
     v1.1: a match followed within 40 characters by one of ignore_if_followed_by (e.g. 'university education') is skipped."""
     if not text: return []
@@ -34,13 +34,13 @@ def years_spans(text, ignore_if_followed_by=()):
     def skip(m): return any(has_phrase(text[m.end():m.end() + 40], w) for w in ignore_if_followed_by)
     for m in _RANGE.finditer(text):
         taken.append(m.span())
-        if not skip(m): out.append((int(m.group(2)), m.group(0)))
+        if not skip(m): out.append((int(m.group(1) if range_uses == "bottom" else m.group(2)), m.group(0)))   # v1.3 candidate: bottom
     for m in _SINGLE.finditer(text):
         if not any(a <= m.start() < b for a, b in taken) and not skip(m): out.append((int(m.group(1)), m.group(0)))
     return out
 
-def years_in(text, ignore_if_followed_by=()):
-    return [n for n, _ in years_spans(text, ignore_if_followed_by)]
+def years_in(text, ignore_if_followed_by=(), range_uses="top"):
+    return [n for n, _ in years_spans(text, ignore_if_followed_by, range_uses)]
 
 def evaluate(posting, cfg):
     title = (posting.get("title") or "").strip(); text = (posting.get("text") or "").strip()
@@ -55,7 +55,7 @@ def evaluate(posting, cfg):
     d["r1b_reject"] = any(has_phrase(title, x) for x in cfg.get("title_exclude_words", []))       # v1.1
     d["skills"] = [s for s in cfg["skills"] if has_phrase(text, s)]
     d["r3"] = len(d["skills"]) >= cfg["min_skills"]
-    ys = years_in(text, cfg.get("years_ignore_if_followed_by", ()))
+    ys = years_in(text, cfg.get("years_ignore_if_followed_by", ()), cfg.get("years_range_uses", "top"))
     if ys: d["years_max"] = max(ys); d["r4"] = d["years_max"] <= cfg["max_years"]
     d["score"] = (w["title"] if d["r1"] else 0) + min(w["skill_cap"], w["per_skill"] * len(d["skills"])) \
                  - (w["seniority_penalty"] if d["r2_reject"] else 0) - (w["years_penalty"] if d["r4"] is False else 0)
