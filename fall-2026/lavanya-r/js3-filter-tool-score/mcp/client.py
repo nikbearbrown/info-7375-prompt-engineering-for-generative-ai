@@ -76,8 +76,15 @@ class Client:
                 return parsed
 
     def close(self):
+        """Close stdin and wait 10 s. A server that does not exit on EOF is
+        terminated, and that is recorded (claude mcp serve 2.1.312 did not)."""
         self.proc.stdin.close()
-        code = self.proc.wait(timeout=10)
+        try:
+            code = self.proc.wait(timeout=10)
+        except subprocess.TimeoutExpired:
+            self.proc.terminate()
+            code = f"no exit 10 s after stdin closed; terminated ({self.proc.wait(timeout=10)})"
+            self._record("note", code)
         self.out.close()
         return code
 
