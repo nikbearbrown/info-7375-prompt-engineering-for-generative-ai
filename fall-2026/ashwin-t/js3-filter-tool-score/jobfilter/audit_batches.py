@@ -84,11 +84,11 @@ def write_batches() -> int:
 # found by fixed section headings. "not found" means the pattern found nothing, not that the posting is silent.
 # Headings are tried in order, most specific first; the first one found wins. A bare "requirements" only counts
 # when a colon follows it, because Klaviyo's opening boilerplate says "beyond the traditional job requirements".
-DUTIES = [re.compile(x, re.I) for x in (r"what you'?ll do", r"what you will do", r"core responsibilities",
+DUTIES = [re.compile(x, re.I) for x in (r"what you['’]?ll be doing", r"what you['’]?ll do", r"what you will do", r"core responsibilities",
                                         r"responsibilities\s*:", r"the role\b", r"about the role", r"your impact",
                                         r"in this role,? you")]
-REQUIRES = [re.compile(x, re.I) for x in (r"what we require", r"what you bring", r"skills you'?ll need to bring",
-                                          r"who you are", r"what we'?re looking for", r"minimum qualifications",
+REQUIRES = [re.compile(x, re.I) for x in (r"what we require", r"what you bring", r"skills you['’]?ll need to bring",
+                                          r"who you are", r"what you['’]?ll need", r"what we['’]?re looking for", r"minimum qualifications",
                                           r"qualifications\s*:", r"requirements\s*:", r"you might be a (?:good|great) fit")]
 EMPLOYMENT = re.compile(r"\b(full[- ]time|part[- ]time|intern(?:ship)?|contractor|contract (?:role|position)|"
                         r"contract[- ]to[- ]hire|temporary|fixed[- ]term)\b", re.I)

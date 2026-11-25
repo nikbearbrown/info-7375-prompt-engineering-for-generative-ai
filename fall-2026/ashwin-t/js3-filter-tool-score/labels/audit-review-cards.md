@@ -156,11 +156,11 @@ Ashwin's labeling rule (given in chat, 2026-11-25): if a posting needs a securit
 - **Board / link:** greenhouse/klaviyo · https://www.klaviyo.com/careers/jobs/7822352003?gh_jid=7822352003
 - **Location:** San Francisco, CA; Boston · structured: none given
 - **Employment type:** declared none; words in title/text: none
-- **Duties:** not found
+- **Duties:** …What You’ll Be Doing AI-First People Systems & Architecture Reimagine core People workflows (recruiting, onboarding, performance, daily tasks) through an AI-first lens, not just incremental automation Design and build AI-powered workflows, copilots, and agents that automate and a…
 - **Requirements:** not found
 - **Years mentioned:** …sity to experiment and reimagine People workflows 5+ years of engineering or data engineering experience, wi… / …engineering or data engineering experience, with 2+ years building AI/ML or LLM-powered delivering tangible…
 - **Clearance:** none found
-- **Flags:** duties heading, requirements heading, declared employment type
+- **Flags:** requirements heading, declared employment type
 
 ### 18. Lead Treasury Analyst
 
@@ -190,10 +190,10 @@ Ashwin's labeling rule (given in chat, 2026-11-25): if a posting needs a securit
 - **Location:** Seoul, South Korea · structured: isRemote True, workplaceType Hybrid
 - **Employment type:** declared FullTime; words in title/text: none
 - **Duties:** …THE ROLE Notion is shaping the future of Go-To-Market, and as a Solutions Consultant (SC), you’ll bring that future to life by building alongside customers and turning their biggest challenges into measurable outcomes. As a customer-facing, quota-carrying SC, you’ll b…
-- **Requirements:** not found
+- **Requirements:** …SKILLS YOU’LL NEED TO BRING - 8–15+ years of full-cycle, quota-carrying experience selling enterprise software, with a proven record of closing large, complex deals. - Commercial ownership and pipeline generation. You can demonstrate how you created or advanced business, influenced cust…
 - **Years mentioned:** …r workflows mature. SKILLS YOU’LL NEED TO BRING - 8–15+ years of full-cycle, quota-carrying experience selling…
 - **Clearance:** none found
-- **Flags:** requirements heading
+- **Flags:** none
 
 ### 24. Contract Operations
 
@@ -459,7 +459,7 @@ Ashwin's labeling rule (given in chat, 2026-11-25): if a posting needs a securit
 - **Board / link:** greenhouse/klaviyo · https://www.klaviyo.com/careers/jobs/7517734003?gh_jid=7517734003
 - **Location:** Boston, MA; Boston; San Francisco · structured: none given
 - **Employment type:** declared none; words in title/text: none
-- **Duties:** …the Role Klaviyo is seeking a Senior Lead Product Manager to drive our Enterprise product strategy and lead the evolution of our platform for the world’s most sophisticated, data-driven brands. This role sits at the center of one of Klaviyo’s most important growth opp…
+- **Duties:** …What You’ll Do: Set and evangelize a 2–3 year vision for Klaviyo’s Enterprise platform that delivers scalability, flexibility, and enterprise-grade governance while preserving ease of use. Translate company goals into clear OKRs and roadmaps that accelerate Enterprise adopt…
 - **Requirements:** …What You Bring: 12+ years of experience in Product Management with significant exposure to Enterprise SaaS products. Proven success leading enterprise-grade or platform products such as CRM, marketing automation, customer data platforms, analytics, data infrastructure, or A…
 - **Years mentioned:** …reliability. What You’ll Do: Set and evangelize a 2–3 year vision for Klaviyo’s Enterprise platform that del… / …ys of working from the ground up. What You Bring: 12+ years of experience in Product Management with signific…
 - **Clearance:** none found
