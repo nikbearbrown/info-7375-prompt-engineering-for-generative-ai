@@ -28,6 +28,29 @@
   - one live Claude Code session (`Nov 24, 06:03 UTC`, `3ee665a`) alongside the server's own JSONL call log;
   - an adversarial probe that caught the missing runtime schema validation, fixed tests-first in `e273c8e`.
 
+### How each item was checked
+
+- **By hand:**
+  - Hand-labeled all 90 sampled postings and judged all 53 audit postings by reading each posting's full text (`labels/`, `audit/filter-v1.0/`).
+  - Verified every verbatim quote and claim in `shortlist/CASES.md` against the source text.
+  - Read the live Claude Code MCP transcript (`evidence/mcp/claude-code-transcript.md`), and read Claude's subagent report on the official Filesystem MCP server (`v2.4.0`) README and source, checking its claims as written in `mcp/EVALUATIONS.md`.
+- **By a test I wrote before reading Claude's code:**
+  - Strictly speaking, none—Claude wrote all 57 unit tests in `tests/`. The closest artifact I authored myself prior to implementation is my hand-labeled answer key (`215f29a`), committed before `agent/filter.py` existed (`342075a`) and used by `agent/evaluate.py` to score the filter.
+  - For the automated tests, I approved writing each test suite first and confirmed it failed before implementation (`3beb6f0`, `f89aef7`, `8458710`). The specific tests I rely on most are:
+    - **Filter:** `DecimalYears.test_decimal_is_read_whole`, `DecimalYears.test_real_posting_swe_ii_asks_1_5`, `ThreeYears.test_w2_real_example_now_rejected`, `W4DedupeBeforeFilter.test_us_copy_survives_when_canada_copy_comes_first`, `W5AnyNonUsPart.test_mixed_locations_pass`.
+    - **Shortlist:** `QuotesAreVerbatim.test_every_quote_on_the_real_shortlist`, `Labels.test_relevance_is_not_entailment`, `Abstention.test_two_insufficient_goes_to_cannot_tell`.
+    - **MCP server:** `test_tools_list_is_read_only`, `test_log_must_stay_in_folder`, `test_unknown_argument_is_refused`, `test_unknown_board_is_not_searched_not_no_matches`.
+    - **Wrong versions:** `tests/wrong_versions.py` patching `W1`–`W5` into `agent/filter.py`.
+- **By recomputation:**
+  - Claude wrote the recomputation scripts, and I ran or inspected their outputs:
+    - **Survey counts & Wilson interval:** `python3 -m score.recount` recomputes the duplicate-group counts (`173` / `82` / `91`), the `23` `Engineer II` titles, the `31` substring matches, and the `95%` Wilson interval (`0.0%` to `11.4%` on `0/30` rejects).
+    - **Precision and recall:** `python3 -m agent.evaluate` recomputes `tp` / `fp` / `fn` / `tn` directly from saved filter decisions.
+    - **Fresh-clone verification:** Claude's fresh-clone run at `2f40542` reproduced every reported figure; I read its output.
+    - **Year-citation check:** Claude's verification script checked all experience-year citations in my label reasons against the raw posting text.
+- **With Claude's help:**
+  - Claude implemented the Python modules, unit tests, and reading aids, drafted the initial markdown write-ups, ran the adversarial probe against `js3-job-filter`, and had a subagent inspect the Filesystem server's GitHub source.
+  - I made all human label and audit judgments, approved each rule change and the single `heldout` run, and rewrote the write-ups in my own words.
+
 ## 2. What I did not check
 
 1. **Postings outside three boards on one day:** Only `robinhood`, `affirm`, and `wealthfront` collected on Nov 23, 2026 were tested; nothing here measures how the filter performs on other companies or later dates.
@@ -45,7 +68,7 @@
 
 ## 4. Driver's seat: why the system stays mine
 
-| Part | What Claude did | What I did | Decision I made, and its evidence | Why it stays mine |
+| Part | What Claude should do (what it did here) | What I should do (what I did here) | Decision I made, and its evidence | Why it stays mine |
 | :--- | :--- | :--- | :--- | :--- |
 | **What counts as a good posting** | Built the stratified sampler and reading aids; checked cited years against posting text | Hand-labeled 90 postings and judged 53 audit postings by reading them in full | Kept `SWE II` roles asking `1.5+` years; rejected `3`-year roles, mobile-only roles, and mid-level `2+`-year roles (`labels/`, `audit/`) | Deciding whether a role fits Sam is a human hiring judgment, not something keyword counts settle |
 | **The rules** | Drafted `FILTER.md` and `agent/filter.py`; proposed the `N ≥ 3` penalty | Approved `v1.0` untouched; approved `v1.2`; required `v1.0` to stay unedited | `v1.2` (`6dc9c6a`), chosen from `dev` and the audit before running `heldout` | Any rule change shifts which jobs Sam sees; I own that precision-recall trade-off |
@@ -57,4 +80,4 @@
 
 - **Status:** Signed
 - **Operator:** Atharva C.
-- **Date:** 2026-11-24
+- **Date:** 2026-11-25
