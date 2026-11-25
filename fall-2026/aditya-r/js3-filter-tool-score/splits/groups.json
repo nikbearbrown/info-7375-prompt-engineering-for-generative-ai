@@ -1,0 +1,501 @@
+{
+ "plan": "FILTER.md \u00a75 + amendments A1, A2",
+ "filter": "v1.0",
+ "seeds": {
+  "heldout": 7375,
+  "dev": 7376,
+  "sheet_order": 7377
+ },
+ "near_duplicate_rule": "same board, word 5-shingle Jaccard >= 0.8, single-link",
+ "clusters_total": 757,
+ "pools": {
+  "rejects_outside_H": 1249,
+  "score5_reject_clusters_outside_H": 13,
+  "keeps_outside_H": 7,
+  "keep_clusters_outside_H": 4,
+  "keeps_total": 11,
+  "keep_clusters_total": 7
+ },
+ "shortfalls": {
+  "D-close-above": "3 clusters at score 6 outside H (planned 6)",
+  "D-kept": "4 keep clusters (7 postings) outside H (planned 8); one posting from each taken"
+ },
+ "heldout": {
+  "H-keep": [
+   {
+    "key": "greenhouse:databricks:6865704002",
+    "score": 6,
+    "verdict": "keep"
+   },
+   {
+    "key": "greenhouse:databricks:8760167002",
+    "score": 8,
+    "verdict": "keep"
+   },
+   {
+    "key": "ashby:notion:85947779-6b87-466a-98bc-30a640448c28",
+    "score": 7,
+    "verdict": "keep"
+   }
+  ],
+  "H-near-reject(3-5)": [
+   {
+    "key": "greenhouse:databricks:8536436002",
+    "score": 3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8921476002",
+    "score": 4,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8842408002",
+    "score": 3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:figma:5790627004",
+    "score": 3,
+    "verdict": "reject"
+   },
+   {
+    "key": "ashby:notion:30a5c739-185f-4a55-8a63-85974d687444",
+    "score": 3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8811059002",
+    "score": 4,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8878946002",
+    "score": 5,
+    "verdict": "reject"
+   },
+   {
+    "key": "ashby:notion:79c18580-c927-456c-9d5f-72efbc6c43cb",
+    "score": 3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8700398002",
+    "score": 3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8199399002",
+    "score": 3,
+    "verdict": "reject"
+   }
+  ],
+  "H-other-reject": [
+   {
+    "key": "greenhouse:databricks:8583146002",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "ashby:notion:2f7589e1-b08d-49b1-83aa-2ea2454550db",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:7649411002",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8716187002",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8829053002",
+    "score": -2,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8603392002",
+    "score": -7,
+    "verdict": "reject"
+   },
+   {
+    "key": "ashby:notion:42702b6a-b4a6-47ac-add0-07b435a8be38",
+    "score": -7,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8627549002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8854350002",
+    "score": 2,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8760171002",
+    "score": -4,
+    "verdict": "reject"
+   }
+  ]
+ },
+ "dev": {
+  "D-random-reject": [
+   {
+    "key": "greenhouse:figma:5806875004",
+    "score": 0,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8675570002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8882379002",
+    "score": -4,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8294304002",
+    "score": -4,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8927394002",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8878066002",
+    "score": -1,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8490644002",
+    "score": -6,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8569410002",
+    "score": 1,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8379331002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8860657002",
+    "score": -7,
+    "verdict": "reject"
+   },
+   {
+    "key": "ashby:notion:e4b7c4d5-9c71-4f82-bf32-0af60e1f2a9f",
+    "score": -8,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8604591002",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8910850002",
+    "score": -2,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8235785002",
+    "score": -7,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:7994770002",
+    "score": -4,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:7807722002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "ashby:notion:57b88701-42ce-4c7d-901d-bf65a6256ebc",
+    "score": -1,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:6544325002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:figma:6238252004",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8560772002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8657553002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:figma:6212642004",
+    "score": 0,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8459031002",
+    "score": -7,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8661245002",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8736885002",
+    "score": 2,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8099342002",
+    "score": -3,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8635216002",
+    "score": -5,
+    "verdict": "reject"
+   },
+   {
+    "key": "ashby:notion:45f60d0e-e44f-40c5-985e-4096a8966860",
+    "score": 2,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8493722002",
+    "score": -7,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8559315002",
+    "score": -5,
+    "verdict": "reject"
+   }
+  ],
+  "D-close-below(score 5)": [
+   {
+    "key": "greenhouse:databricks:8829029002",
+    "score": 5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:figma:5551532004",
+    "score": 5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8482037002",
+    "score": 5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8843577002",
+    "score": 5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:databricks:8882485002",
+    "score": 5,
+    "verdict": "reject"
+   },
+   {
+    "key": "greenhouse:figma:6233043004",
+    "score": 5,
+    "verdict": "reject"
+   }
+  ],
+  "D-close-above(score 6)": [
+   {
+    "key": "greenhouse:databricks:6865698002",
+    "score": 6,
+    "verdict": "keep"
+   },
+   {
+    "key": "greenhouse:databricks:8133691002",
+    "score": 6,
+    "verdict": "keep"
+   },
+   {
+    "key": "greenhouse:databricks:8029666002",
+    "score": 6,
+    "verdict": "keep"
+   }
+  ],
+  "D-kept(all outside H)": [
+   {
+    "key": "greenhouse:databricks:6865698002",
+    "score": 6,
+    "verdict": "keep"
+   },
+   {
+    "key": "greenhouse:databricks:8133691002",
+    "score": 6,
+    "verdict": "keep"
+   },
+   {
+    "key": "greenhouse:databricks:8029666002",
+    "score": 6,
+    "verdict": "keep"
+   },
+   {
+    "key": "greenhouse:databricks:8091041002",
+    "score": 8,
+    "verdict": "keep"
+   }
+  ]
+ },
+ "sheet_ids": {
+  "greenhouse:databricks:8604591002": "S01",
+  "greenhouse:databricks:8854350002": "S02",
+  "greenhouse:databricks:8736885002": "S03",
+  "greenhouse:databricks:8829029002": "S04",
+  "greenhouse:figma:5551532004": "S05",
+  "greenhouse:databricks:8842408002": "S06",
+  "ashby:notion:2f7589e1-b08d-49b1-83aa-2ea2454550db": "S07",
+  "greenhouse:figma:5790627004": "S08",
+  "greenhouse:databricks:8882379002": "S09",
+  "greenhouse:databricks:8459031002": "S10",
+  "greenhouse:databricks:6865704002": "S11",
+  "greenhouse:databricks:8603392002": "S12",
+  "greenhouse:databricks:8829053002": "S13",
+  "greenhouse:databricks:8235785002": "S14",
+  "greenhouse:databricks:8910850002": "S15",
+  "greenhouse:databricks:8760167002": "S16",
+  "greenhouse:databricks:8493722002": "S17",
+  "ashby:notion:30a5c739-185f-4a55-8a63-85974d687444": "S18",
+  "greenhouse:databricks:8583146002": "S19",
+  "greenhouse:figma:6212642004": "S20",
+  "greenhouse:databricks:8760171002": "S21",
+  "greenhouse:databricks:8661245002": "S22",
+  "greenhouse:databricks:8843577002": "S23",
+  "greenhouse:databricks:8627549002": "S24",
+  "greenhouse:databricks:8099342002": "S25",
+  "greenhouse:databricks:8878946002": "S26",
+  "greenhouse:databricks:8921476002": "S27",
+  "greenhouse:databricks:8700398002": "S28",
+  "greenhouse:databricks:7649411002": "S29",
+  "greenhouse:databricks:8490644002": "S30",
+  "greenhouse:databricks:7994770002": "S31",
+  "greenhouse:databricks:8878066002": "S32",
+  "greenhouse:databricks:8199399002": "S33",
+  "ashby:notion:42702b6a-b4a6-47ac-add0-07b435a8be38": "S34",
+  "greenhouse:databricks:8133691002": "S35",
+  "greenhouse:databricks:7807722002": "S36",
+  "greenhouse:databricks:8811059002": "S37",
+  "greenhouse:databricks:8716187002": "S38",
+  "greenhouse:databricks:8029666002": "S39",
+  "ashby:notion:e4b7c4d5-9c71-4f82-bf32-0af60e1f2a9f": "S40",
+  "greenhouse:databricks:8091041002": "S41",
+  "greenhouse:databricks:8882485002": "S42",
+  "greenhouse:figma:6233043004": "S43",
+  "greenhouse:databricks:8675570002": "S44",
+  "greenhouse:databricks:8860657002": "S45",
+  "greenhouse:figma:5806875004": "S46",
+  "greenhouse:databricks:8569410002": "S47",
+  "greenhouse:databricks:6865698002": "S48",
+  "ashby:notion:79c18580-c927-456c-9d5f-72efbc6c43cb": "S49",
+  "ashby:notion:85947779-6b87-466a-98bc-30a640448c28": "S50",
+  "greenhouse:databricks:8536436002": "S51",
+  "greenhouse:databricks:8482037002": "S52",
+  "greenhouse:figma:6238252004": "S53",
+  "greenhouse:databricks:8560772002": "S54",
+  "greenhouse:databricks:8927394002": "S55",
+  "greenhouse:databricks:8635216002": "S56",
+  "ashby:notion:45f60d0e-e44f-40c5-985e-4096a8966860": "S57",
+  "greenhouse:databricks:6544325002": "S58",
+  "greenhouse:databricks:8379331002": "S59",
+  "greenhouse:databricks:8559315002": "S60",
+  "ashby:notion:57b88701-42ce-4c7d-901d-bf65a6256ebc": "S61",
+  "greenhouse:databricks:8294304002": "S62",
+  "greenhouse:databricks:8657553002": "S63"
+ },
+ "split_of_sheet_id": {
+  "S01": "dev",
+  "S02": "heldout",
+  "S03": "dev",
+  "S04": "dev",
+  "S05": "dev",
+  "S06": "heldout",
+  "S07": "heldout",
+  "S08": "heldout",
+  "S09": "dev",
+  "S10": "dev",
+  "S11": "heldout",
+  "S12": "heldout",
+  "S13": "heldout",
+  "S14": "dev",
+  "S15": "dev",
+  "S16": "heldout",
+  "S17": "dev",
+  "S18": "heldout",
+  "S19": "heldout",
+  "S20": "dev",
+  "S21": "heldout",
+  "S22": "dev",
+  "S23": "dev",
+  "S24": "heldout",
+  "S25": "dev",
+  "S26": "heldout",
+  "S27": "heldout",
+  "S28": "heldout",
+  "S29": "heldout",
+  "S30": "dev",
+  "S31": "dev",
+  "S32": "dev",
+  "S33": "heldout",
+  "S34": "heldout",
+  "S35": "dev",
+  "S36": "dev",
+  "S37": "heldout",
+  "S38": "heldout",
+  "S39": "dev",
+  "S40": "dev",
+  "S41": "dev",
+  "S42": "dev",
+  "S43": "dev",
+  "S44": "dev",
+  "S45": "dev",
+  "S46": "dev",
+  "S47": "dev",
+  "S48": "dev",
+  "S49": "heldout",
+  "S50": "heldout",
+  "S51": "heldout",
+  "S52": "dev",
+  "S53": "dev",
+  "S54": "dev",
+  "S55": "dev",
+  "S56": "dev",
+  "S57": "dev",
+  "S58": "dev",
+  "S59": "dev",
+  "S60": "dev",
+  "S61": "dev",
+  "S62": "dev",
+  "S63": "dev"
+ }
+}
