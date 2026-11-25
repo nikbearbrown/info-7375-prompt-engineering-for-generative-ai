@@ -29,5 +29,9 @@ check("sets disjoint and sized", len(set(ids)) == 76 and [len(s[k]) for k in ["A
 check("A all rejected, C all kept", all(dec[i]["status"] == "rejected" for i in s["A_random_rejects"]) and all(dec[i]["status"] == "kept" for i in s["C_kept_sample"]))
 hv = Path("labels/hand_verdicts.jsonl").read_bytes()
 check("hand verdicts unchanged since frozen", hashlib.sha256(hv).hexdigest() == Path("labels/hand_verdicts.sha256").read_text().split()[0])
+hv2 = Path("labels/hand_verdicts_h2.jsonl").read_bytes()
+check("H2 verdicts unchanged since frozen", hashlib.sha256(hv2).hexdigest() == Path("labels/hand_verdicts_h2.sha256").read_text().split()[0])
+h2 = json.loads(Path("audit/sets_h2.json").read_text())["H2_heldout"]
+check("H2 disjoint from the first 76 and fully judged", not (set(h2) & set(ids)) and {json.loads(l)["id"] for l in hv2.decode().splitlines()} == set(h2))
 check("76 verdicts, one per sheet item", len({json.loads(l)["id"] for l in hv.decode().splitlines()} & set(ids)) == 76)
 sys.exit(0 if ok else 1)

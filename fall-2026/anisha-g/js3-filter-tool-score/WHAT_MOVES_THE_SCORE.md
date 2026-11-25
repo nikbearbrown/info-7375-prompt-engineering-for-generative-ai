@@ -2,7 +2,7 @@
 **Anisha Gaikar · JS3 · 2026-11-25.** Numbers regenerate with `python3 -m js3.report` (`out/report_original.md`, `out/report_corrected.md`). The Claude runs were real `claude -p` calls made on 2026-11-25 between 14:18 and 14:21 ET; every raw reply is in `runs/<experiment>/`.
 
 ## 1. Where every number came from
-**Fitted on my labels: nothing.** No weight, threshold or word list was tuned to my verdicts. The v1.1/v1.2 rules were *chosen* from audit items (v1.1 by Claude before my verdicts, v1.2 by me after them; FILTER.md §5), but no number in them was fitted.
+**Fitted on my labels: one experiment, not adopted (§2c).** No number in any adopted filter was tuned to my verdicts. The v1.1/v1.2 rules were *chosen* from audit items (v1.1 by Claude before my verdicts, v1.2 by me after them; FILTER.md §5), but no number in them was fitted.
 
 | Number / object | Value | Origin | Where |
 |---|---|---|---|
@@ -12,7 +12,7 @@
 | `min_skills` | 2 | **hand-set** (my choice) | same |
 | `max_years` | 3 | **inherited**: the persona's `max_years_experience` (JS1) | same |
 | Weights: title 3, per skill 1, skill cap 5, seniority −3, years −3 | | **hand-set**: Claude's proposal to reproduce my rule exactly (title + 2 skills = 5); I accepted it in FILTER.md §1.4 | same |
-| `keep_threshold` | 5 | **hand-set** (= title + 2 skills) | same |
+| `keep_threshold` | 5 | **hand-set** (= title + 2 skills). A **fitted** alternative (8) was tested and not adopted (§2c) | same; `tools/fit_threshold.py` |
 | Close-call band | score 4–6, or exactly one failed rule | **hand-set** (FILTER.md §1.4) | `js3/filter.py:is_close_call` |
 | R4 range reading in candidate v1.3 | bottom of a range | **hand-set** from my H2 reasons; **not adopted** | `filters/filter_v1.3.json` |
 | `engineer` exclusion (R1b) | 1 word | **hand-set** by Claude at 14:21 from reading group C, **before** my verdicts; I accepted it after judging (v1.1) | `filters/filter_v1.1.json` |
@@ -108,6 +108,19 @@ That's 1 run before and 3 after, so it's **an anecdote, not a measurement**.
    - **On H2** it catches 2 of 3 with no false keeps, but that is **circular**: the rule came from H2.
    - **On H**, where it can be tested cleanly, it is **identical to v1.2** (1 TP, 1 FP).
    - **So there's no clean evidence for v1.3, and it is not adopted** (FILTER.md §5). Testing it needs a third labelled set.
+
+## 2c. A fitted number: the keep threshold fitted on my audit labels
+`tools/fit_threshold.py` (`logs/42`, `out/fit_threshold.json`):
+- **The fit:** the threshold was fitted on the 46 audit labels (A, B, C, with 1 "y") over thresholds 3–9; everything else is as in v1.2.
+- **Result:** best dev accuracy at **threshold 8** (97.8%, versus 91.3% at the hand-set 5).
+- **Measured on data the fit never saw:**
+
+| Held-out set | hand-set 5 | fitted 8 |
+|---|---|---|
+| H (30, 1 y) | 96.7%: TP 1, FP 1 | 96.7%: TP **0**, FP 0, FN 1 |
+| H2 (24, 3 y) | 87.5%: TP 0, FN 3 | 87.5%: TP 0, FN 3 |
+
+**What this shows:** with a single "y" in the dev labels, the fit learns "keep almost nothing". It buys a lower false-keep count by giving up the one posting I wanted, so held-out accuracy doesn't move. **A number fitted on labels this lopsided isn't better than a hand-set one, just more confident.** I kept 5.
 
 ## 3. What persistence is not proof of
 - **Every Claude call here was a fresh, separate session** (`claude -p`, one process per posting), with the same model flag.

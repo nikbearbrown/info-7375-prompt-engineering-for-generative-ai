@@ -100,6 +100,8 @@ I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A
 - With my tool, Claude copied my filter's R4 mistake (`runs/H2/E4`).
 - **Unresolved:** v1.3 needs a third labelled set.
 
+**~4:20 pm: A fitted number.** Fitting the keep threshold on my 46 audit labels picked 8 ("keep almost nothing"), because those labels hold only one "y". On H and H2 it ties the hand-set 5 and gives up my one true keep on H. I kept 5 (`logs/42`).
+
 ## What I accepted, modified or rejected from Claude
 | Claude's suggestion | What I did |
 |---|---|
@@ -111,6 +113,7 @@ I accepted both v1.1 rules, chose **R5 US-only** for v1.2, and **rejected** FP&A
 | Fixing case-sensitive Excel and "(2) years" now | **Rejected for now**: found on held-out items, so fixing them would contaminate H |
 | (I asked Claude to judge the 76 for me) | Claude declined, because the assignment requires my own judgment; I judged all 76 myself |
 | Candidate v1.3 (R4 reads the bottom of a range) | **Not adopted**: no clean evidence; recorded in FILTER.md §5 |
+| Fitted keep threshold 8 | **Rejected**: same held-out accuracy, and it loses my one true keep |
 | Copy-paste slips in 5 reasons | **Modified**: re-judged in a separate file; originals kept |
 
 ## (my own words)

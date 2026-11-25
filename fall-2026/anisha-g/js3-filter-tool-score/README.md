@@ -24,6 +24,7 @@ python3 tools/draw_sets.py                         # the seeded audit + held-out
 python3 -m js3.judge                               # the blind hand-judging sheet (a human answers; Claude does not)
 python3 -m js3.report                              # audit + held-out tables -> out/report_original.md (and _corrected.md)
 python3 tools/check.py                             # independent recount (does not import js3)
+python3 tools/fit_threshold.py                     # a fitted keep threshold, tested on H and H2 (not adopted)
 python3 toolserver/server.py                       # the MCP-shaped tool server on stdio
 python3 toolserver/client.py own toolserver/script_own.json -- python3 toolserver/server.py   # my scripted client
 claude -p "Use the score_posting tool to score posting id greenhouse:stripe:8189909" \
