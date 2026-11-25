@@ -1,10 +1,11 @@
 """The written rule from FILTER.md v1 (R1-R5 plus cannot_tell). Its output is a record: anyone can recompute it."""
 import re
 
+# v2 change 3: "Backend / API Engineer" (Stripe, audit item 60); only "/ API" is allowed, not any slash word.
 # FILTER.md v1 section 1. Vrajesh's list plus the JS2 words. Title only: description words never count.
 ROLE = re.compile(
     r"software engineer|software developer|full[\s-]?stack (?:software )?engineer|"
-    r"back[\s-]?end (?:software )?engineer|front[\s-]?end (?:software )?engineer|"
+    r"back[\s-]?end(?:\s*/\s*api)? (?:software )?engineer|front[\s-]?end (?:software )?engineer|"
     r"java engineer|python engineer|\.net engineer|react developer|ui\s*/\s*ux developer|"
     r"\bai engineer|\bllm engineer|solutions architect|forward[\s-]deployed engineer",
     re.I,
@@ -14,9 +15,14 @@ ML = re.compile(r"(?i:machine[\s-]learning)|\bML\b")
 SENIOR = re.compile(r"\b(senior|sr|staff|principal|lead|manager|head|director)\b", re.I)
 # "3+ years", "5 years", "4-6 years", "1–4 years": the first number is the smallest in a range.
 YEARS = re.compile(r"(\d+)\s*\+?\s*(?:(?:-|–|—|to)\s*\d+\s*)?\+?\s*years?\b", re.I)
-NO_SPONSOR = re.compile(r"unable to sponsor|no sponsorship|not sponsor|without sponsorship", re.I)
+# v2 change 1: Roblox wording ("may not be able to employ candidates ... or support future H-1B sponsorship at this
+# time"). Anchored to visa words, because "executive sponsor" / "gain sponsorship for deployments" are false friends.
+NO_SPONSOR = re.compile(r"unable to sponsor|no sponsorship|not sponsor|without sponsorship|"
+                        r"not be able to employ[^.]{0,200}sponsorship|(?:h-?1b|f-?1|visa)[^.]{0,40}sponsorship at this time", re.I)
 # FILTER.md R5. A negation ("no security clearance") must not trigger it.
-CLEARANCE = re.compile(r"(?<!no )(?<!not )(?<!without )(?:security clearance|ts/sci|top secret)", re.I)
+# v2 change 2: also "government secret clearance" (Databricks, audit item 18). Bare "clearance" is NOT matched
+# (retail "clearance sale"). Known limit: "clearance is a plus" still matches (audit item 55 was a beneficial one).
+CLEARANCE = re.compile(r"(?<!no )(?<!not )(?<!without )(?:(?:security|secret|government) clearance|ts/sci|top secret)", re.I)
 US = {"usa", "us", "united states", "united states of america"}
 
 

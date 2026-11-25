@@ -38,6 +38,18 @@ CASES = [(f"role: {t}", posting(t), "relevant", None) for t in ROLE_TITLES] + [
      "not_relevant", "R3"),
     ("cannot sponsor", posting("Software Engineer", desc="We are unable to sponsor visas."),
      "not_relevant", "R4"),
+    # v2 change 1 (R4): real Roblox wording from the audit (items 6, 15); and a false friend that must NOT trigger it
+    ("v2 R4 roblox wording", posting("Software Engineer", desc="For US based roles only, please note the Company may not "
+     "be able to employ candidates for this role who have United States work authorization related to certain U.S. visa "
+     "categories, or support future H-1B sponsorship at this time."), "not_relevant", "R4"),
+    ("v2 R4 false friend: executive sponsorship", posting("Solutions Architect", desc="Gain executive sponsorship for "
+     "enterprise wide deployments and work with sponsors and champions."), "relevant", None),
+    # v2 change 2 (R5): real Databricks wording from the audit (item 18)
+    ("v2 R5 secret clearance wording", posting("AI Engineer", desc="U.S. citizenship and eligibility for a U.S. government "
+     "secret clearance are required to access classified information."), "not_relevant", "R5"),
+    # v2 change 3 (R1): real Stripe title from the audit (item 60)
+    ("v2 R1 slash in title", posting("Backend / API Engineer, Radar"), "relevant", None),
+    ("v2 R1 slash must stay narrow", posting("Backend / Sales Engineer"), "not_relevant", "R1"),
     # cannot_tell: location or description not mentioned
     ("location missing", posting("Software Engineer", location=None, country=None), "cannot_tell", None),
     ("description missing", posting("Software Engineer", desc=""), "cannot_tell", None),

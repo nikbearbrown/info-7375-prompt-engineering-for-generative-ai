@@ -1,0 +1,23 @@
+.F..
+======================================================================
+FAIL: test_every_case (test_filter.RealFilter.test_every_case)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NEU course\PEAI\_js3-worktree\fall-2026\vrajesh-n\js3-filter-tool-score\tests\test_filter.py", line 29, in test_every_case
+    self.assertEqual(mismatches(rule.judge), [])
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: ['v2 R4 roblox wording: got relevant/None,[158 chars]one'] != []
+
+First list contains 3 additional elements.
+First extra element 0:
+'v2 R4 roblox wording: got relevant/None, want not_relevant/R4'
+
++ []
+- ['v2 R4 roblox wording: got relevant/None, want not_relevant/R4',
+-  'v2 R5 secret clearance wording: got relevant/None, want not_relevant/R5',
+-  'v2 R1 slash in title: got not_relevant/R1, want relevant/None']
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.003s
+
+FAILED (failures=1)
