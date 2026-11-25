@@ -337,6 +337,25 @@ The committed implementation re-counts in Phase 2, and any difference is recorde
 - **No rule change may be made in order to grow the shortlist.**
 - **Every v1.1 change must cite the audit rows** (`audit_id`) that motivated it, in §9.
 
+**Amendment, 2026-11-25** (after `e0d80ff0`, before any audit verdict) [DECIDED 2026-11-25]:
+- **Evidence for v1.1** is audit rows **or** a committed measurement artifact.
+- **Changes that can only remove postings from the shortlist** (veto additions) may cite
+  `e0d80ff0` (`audit/sponsor-visa-hits.md`).
+- **Changes that can add postings to the shortlist** still require audit rows.
+- **Planned for v1.1, not applied.** It is held until all audit verdicts are in, so that the
+  audit measures v1.0.0.
+  - Add exactly the two missed phrasings from `e0d80ff0` to `vetoes.sponsorship`:
+    - `no visa/relocation support` (gh-airbnb:8299386)
+    - `unable to provide … visa sponsorship` (lv-spotify:a3c9129a-…). This one is a bounded
+      pattern: "unable to provide", then a few words, then "visa sponsorship".
+  - A test must show the pattern does **not** match "executive sponsor", "financial sponsor",
+    event sponsorship, or "Visa and Mastercard".
+  - Expected effect: 0 decisions change (both postings already score 0). The CHANGELOG records
+    the counts before and after.
+  - **Rejected alternative:** a broad `sponsor` / `visa` match. In `e0d80ff0`, 29 of the 31
+    distinct matching lines were false friends (executive or financial sponsors, event
+    sponsorship, Visa the card network).
+
 ---
 
 ## 6. The filter spec (the code loads this block) [DECIDED 2026-11-25, hand-set v1]
