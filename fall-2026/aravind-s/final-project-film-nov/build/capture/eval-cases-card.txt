@@ -1,0 +1,16 @@
+duplicate-delivery (fault): Payments counted twice in the books
+  action that fits: rollback_deploy ledger-consumer
+poison-message (fault): The ledger stops booking: a poison message
+  action that fits: rollback_deploy ledger-consumer
+provider-outage (fault): Payments fail: the provider hangs, and our circuit breaker fails fast
+  action that fits: none
+money-unit (fault): Customers charged 100 times the amount: a money-unit bug
+  action that fits: rollback_deploy payments-api
+secret-rotation (fault): The books stop catching up: our webhook receiver refuses every webhook
+  action that fits: rollback_deploy webhook-receiver
+pool-exhaustion (fault): Payments fail: the payments API's database pool runs dry
+  action that fits: rollback_deploy payments-api
+false-alarm (false alarm): A false alarm: the ledger consumer group said to be 250 messages behind, on a healthy stack
+  action that fits: none
+missing-deploys (missing evidence): Payments counted twice in the books, with docker withheld from the tools
+  action that fits: rollback_deploy ledger-consumer
