@@ -7,7 +7,7 @@ state exactly which labels touched which decision.
 
 | File | Who made it | Use |
 |---|---|---|
-| `labels/heldout-sheet.csv` | Ashwin, blind (committed alone at `9757ee7b`: Y 7, N 19, ? 4) | Held-out measurement of one frozen change; **potentially contaminated** (see below) |
+| `labels/heldout-sheet.csv` | Ashwin, blind (committed alone at `9757ee7b`: Y 7, N 19, ? 4). Ashwin confirmed in chat on 2026-11-25 that these are their own judgments | Held-out measurement of one frozen change; **potentially contaminated** (see below) |
 | `labels/audit-sheet.csv` | Blank: no hand verdicts yet | The only verdicts `--report` reads |
 | `labels/audit-ai-draft.csv` | Codex, inferred from Ashwin's 30 held-out labels | Proposals only; not read by code |
 | `labels/audit-ai-assisted.csv` | 47 Codex suggestions inferred from Ashwin's held-out labels, supplied by Ashwin in chat in batches 1–5 on 2026-11-25. Ashwin states they are not independent hand judgments. 46 match the draft; row 35 differs (draft Y, supplied ?) | Exploratory only: `python3 -m jobfilter.audit --exploratory` writes `audit/EXPLORATORY-v1.0-ai-assisted.md` |

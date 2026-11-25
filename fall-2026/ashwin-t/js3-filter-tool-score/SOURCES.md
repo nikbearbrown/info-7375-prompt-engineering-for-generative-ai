@@ -32,7 +32,8 @@ Drafted by Claude Code on 2026-11-25. Ashwin reviews it with Codex.
   blind held-out labels.
 - **FILTER.md:** approved before any filter code. The approval wording was drafted by Codex and sent by Ashwin. It
   included the threshold change from 6 to 7 and keeping the level-II and forward-deployed exclusions.
-- **Held-out labels:** all 30, blind (`labels/heldout-sheet.csv`, committed alone at `9757ee7b`).
+- **Held-out labels:** all 30, blind (`labels/heldout-sheet.csv`, committed alone at `9757ee7b`). Asked directly on
+  2026-11-25, Ashwin confirmed these are their own judgments.
 - **Clearance rule for labeling:** "keep clearance cases uncertain where Supriya's eligibility is unknown. Don't
   treat willingness as eligibility."
 - **Audit verdicts:** supplied the 47 AI-assisted verdicts. Ashwin then stated they were Codex suggestions inferred
