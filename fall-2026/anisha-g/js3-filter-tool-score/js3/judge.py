@@ -1,4 +1,5 @@
-"""Blind hand-judging sheet (the human, not Claude, gives every verdict). Shows each posting in the shuffled order of
+"""Blind hand-judging sheet (redo mode: python3 -m js3.judge --redo 7,8,22,23,65 writes labels/hand_corrections.jsonl).
+ (the human, not Claude, gives every verdict). Shows each posting in the shuffled order of
 audit/sheet_order.json WITHOUT the filter's verdict or group. Saves after every answer to labels/hand_verdicts.jsonl;
 you can quit and resume.   Run in your own Terminal:  python3 -m js3.judge"""
 import json, re, sys, textwrap
@@ -15,7 +16,11 @@ def excerpt(text, n=1500):
     return ("..." if start else "") + s + ("..." if len(text or "") > start + n else "")
 
 def main():
+    global OUT
     order = json.loads(Path("audit/sheet_order.json").read_text())
+    if len(sys.argv) > 2 and sys.argv[1] == "--redo":       # re-judge given sheet items; originals stay untouched
+        items = [int(x) for x in sys.argv[2].split(",")]
+        order = [order[i - 1] for i in items]; OUT = Path("labels/hand_corrections.jsonl")
     corpus = {p["id"]: p for p in load_corpus()}
     done = {}
     if OUT.exists():
@@ -34,7 +39,7 @@ def main():
             if a == "q": print(f"saved {len(done)} verdicts to {OUT}"); return
             if a in ("y", "n", "?"): break
         why = input("  reason (optional, Enter to skip): ").strip()
-        rec = {"item": i + 1, "id": pid, "verdict": a, "reason": why, "at": datetime.now().isoformat(timespec="seconds")}
+        rec = {"item": (items[i] if OUT.name == "hand_corrections.jsonl" else i + 1), "id": pid, "verdict": a, "reason": why, "at": datetime.now().isoformat(timespec="seconds")}
         with OUT.open("a") as f: f.write(json.dumps(rec) + "\n")
         done[pid] = rec; i += 1
     print(f"\nAll {len(order)} judged. Saved to {OUT}.")
