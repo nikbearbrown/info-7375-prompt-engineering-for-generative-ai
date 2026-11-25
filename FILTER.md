@@ -17,7 +17,7 @@ A posting ends in exactly one of three buckets:
 - **cannot tell**: a field the rules need is missing or empty, so the filter does not guess. These are listed separately and never
   counted as rejects or as "nothing relevant".
 
-## 1. The filter (v1)
+## 1. The filter (v1.1)
 
 ### Hard rules
 
