@@ -1,0 +1,29 @@
+# Whisper (faster-whisper small.en, local cache) check of the pronunciation fix, run by Claude Code on 2026-11-21.
+# fix_pronunciation.py re-voiced B05, B08 and B16 with a respelling of one word each; narration_text and captions
+# are unchanged. BIDEA and BOUT keep name_voice.py's voicing of the student's name (not judged by Whisper).
+
+## B05
+SCRIPT: Others have built pieces. Government H-1B data counts an employer's past approvals and denials, not what a posting asks for. Jobscan scores a résumé against a posting and lists missing keywords. One paper flags whether experience and education are required or preferred. And a 2024 study found language models find skills but miss their exact wording.
+HEARD:  Others have built pieces. Government H-1B data counts in employers passed approvals and denials, not what a posting asks for. Jobscan scores a resume against a posting and lists missing keywords. One paper flags whether experience and education are required or preferred. And a 2024 study found language models find skills but missed their exact wording.
+CHECK:  PASS — 'Jobscan' heard
+
+## B08
+SCRIPT: On November twenty-first, Claude Code ran it from a fresh copy. All one hundred sixty-four tests passed. Then a live run read three boards, Anthropic, Databricks and Linear, and found one hundred seventy-two new postings.
+HEARD:  On November 21st, Claude Code ran it from a fresh copy. All 164 tests passed. Then a live run read three boards, anthropic, Databricks, and linear, and found 172 new postings.
+CHECK:  PASS — 'Anthropic' heard
+
+## B16
+SCRIPT: I'll break it on purpose at least five times: a quote with one word changed, an either-or rule, a posting silent on sponsorship, a board that refuses. And the failure I'm predicting now: a quote copied word for word, but 'five years preferred' treated as a requirement, caught by a separate check.
+HEARD:  I'll break it on purpose at least five times. A quote with one word changed in either or rule of posting silent on sponsorship, a board that refuses. In the failure I'm predicting now, a quote copied word for word, but five years preferred treated as a requirement caught by a separate check.
+CHECK:  PASS — 'either or' heard
+
+## BIDEA
+name voicing from name_voice.py kept: mp3/beat-BIDEA.mp3 sha256 ac54ae4cdb0f567f…, 11.083 s
+
+## BOUT
+name voicing from name_voice.py kept: mp3/beat-BOUT.mp3 sha256 bd78343acb6fe72e…, 3.411 s
+
+## B17 (added after the draft; voiced as written, no override)
+SCRIPT: It worked if at least twenty-seven of thirty held-out decisions match my labels and my checks catch every deliberate failure. It didn't work if the reader misquotes a posting, clears even one unmet requirement, or wrongly rules out more than one eligible posting, regardless of the overall score. I'll label about sixty postings by hand, including thirty randomly picked rejects, and set thirty aside before tuning.
+HEARD:  It worked if at least 27 of 30 held out decisions match my labels and my checks catch every deliberate failure. It didn't work if the reader misquotes a posting, clears even one unmet requirement or wrongly rules out more than one eligible posting regardless of the overall score. I'll label about 60 postings by hand, including 30 randomly picked rejects, and set 30 aside before tuning.
+

@@ -1,0 +1,367 @@
+1
+00:00:00,800 --> 00:00:02,112
+Hi, I'm Suketh Produtoor.
+
+2
+00:00:02,132 --> 00:00:06,428
+I'm an international student on F-1, looking for new-grad machine learning roles.
+
+3
+00:00:06,448 --> 00:00:09,465
+Before I tailor an application, I need to know one thing:
+
+4
+00:00:09,485 --> 00:00:11,063
+does this posting rule me out?
+
+5
+00:00:11,083 --> 00:00:12,150
+Titles can't tell me.
+
+6
+00:00:12,170 --> 00:00:16,288
+Earlier this term, a recipe Claude Code and I built screened eight real postings
+
+7
+00:00:16,308 --> 00:00:19,082
+for a fictional new grad, by title and sponsor record.
+
+8
+00:00:19,102 --> 00:00:21,048
+When an AI reviewer read them in full,
+
+9
+00:00:21,068 --> 00:00:25,186
+six asked for two to twelve-plus years of experience, or excluded new graduates.
+
+10
+00:00:25,208 --> 00:00:26,637
+So I'm building Fine Print.
+
+11
+00:00:26,657 --> 00:00:28,247
+It will read each new posting,
+
+12
+00:00:28,267 --> 00:00:32,272
+show me the exact sentence behind every requirement that could rule me out,
+
+13
+00:00:32,292 --> 00:00:35,599
+and wait for my approval before anything reaches my shortlist.
+
+14
+00:00:35,625 --> 00:00:36,893
+And postings keep coming.
+
+15
+00:00:36,913 --> 00:00:40,756
+In under two weeks, the three boards I watch showed one hundred seventy-two
+
+16
+00:00:40,776 --> 00:00:43,486
+postings that weren't in my November eighth snapshot.
+
+17
+00:00:43,506 --> 00:00:46,061
+One piece of Fine Print already runs: the watcher.
+
+18
+00:00:46,081 --> 00:00:47,040
+The reader is next.
+
+19
+00:00:47,083 --> 00:00:48,156
+What already exists?
+
+20
+00:00:48,176 --> 00:00:52,306
+My own first try matched on title and sponsor record, and couldn't tell fit.
+
+21
+00:00:52,326 --> 00:00:56,347
+On LinkedIn, I checked two graduate ML postings, from Qualcomm and TikTok.
+
+22
+00:00:56,367 --> 00:00:59,242
+Both separated minimum from preferred qualifications.
+
+23
+00:00:59,262 --> 00:01:00,716
+Neither stated sponsorship.
+
+24
+00:01:00,750 --> 00:01:02,097
+Others have built pieces.
+
+25
+00:01:02,117 --> 00:01:05,871
+Government H-1B data counts an employer's past approvals and denials,
+
+26
+00:01:05,891 --> 00:01:07,402
+not what a posting asks for.
+
+27
+00:01:07,422 --> 00:01:11,176
+Jobscan scores a résumé against a posting and lists missing keywords.
+
+28
+00:01:11,196 --> 00:01:15,278
+One paper flags whether experience and education are required or preferred.
+
+29
+00:01:15,298 --> 00:01:19,653
+And a 2024 study found language models find skills but miss their exact wording.
+
+30
+00:01:19,708 --> 00:01:23,438
+Fine Print will put those pieces together for one question: should I apply?
+
+31
+00:01:23,458 --> 00:01:26,188
+Each requirement will carry the posting's own sentence,
+
+32
+00:01:26,208 --> 00:01:27,688
+checked word for word by code.
+
+33
+00:01:27,708 --> 00:01:31,788
+Required will stay apart from preferred, silence on sponsorship will mean unknown,
+
+34
+00:01:31,808 --> 00:01:34,387
+and nothing will reach my shortlist until I approve.
+
+35
+00:01:34,417 --> 00:01:34,851
+Now, how.
+
+36
+00:01:34,871 --> 00:01:37,226
+In October I planned to build the reader first,
+
+37
+00:01:37,246 --> 00:01:41,420
+and now I can build it on top of jobwatch, which already monitors three job boards.
+
+38
+00:01:41,440 --> 00:01:44,604
+Its data: public job-board feeds, read only from an allow-list,
+
+39
+00:01:44,624 --> 00:01:47,837
+each response saved with a fingerprint before anything reads it.
+
+40
+00:01:47,857 --> 00:01:49,202
+The applicant is fictional.
+
+41
+00:01:49,250 --> 00:01:52,487
+On November twenty-first, Claude Code ran it from a fresh copy.
+
+42
+00:01:52,507 --> 00:01:54,555
+All one hundred sixty-four tests passed.
+
+43
+00:01:54,575 --> 00:01:58,070
+Then a live run read three boards, Anthropic, Databricks and Linear,
+
+44
+00:01:58,090 --> 00:02:02,051
+and found one hundred seventy-two postings it hadn't seen on November eighth.
+
+45
+00:02:02,083 --> 00:02:04,296
+Its simple word rule, from my first agent,
+
+46
+00:02:04,316 --> 00:02:07,752
+rejected all one hundred seventy-two for the fictional applicant.
+
+47
+00:02:07,772 --> 00:02:09,241
+Were those rejections right?
+
+48
+00:02:09,261 --> 00:02:10,410
+A word rule can't say.
+
+49
+00:02:10,430 --> 00:02:12,324
+That's the gap the reader will fill.
+
+50
+00:02:12,375 --> 00:02:16,232
+The run also refused to save its memory, because I hadn't approved that:
+
+51
+00:02:16,252 --> 00:02:18,224
+it ended incomplete, state unchanged.
+
+52
+00:02:18,244 --> 00:02:22,262
+On November eighth, I typed that approval myself, for one run and one file,
+
+53
+00:02:22,282 --> 00:02:23,662
+and only then did it save.
+
+54
+00:02:23,708 --> 00:02:27,651
+So far, in both job-search agents, I wrote the rules first, before any code.
+
+55
+00:02:27,671 --> 00:02:31,561
+Claude Code wrote the code, all but five of the tests, and ran most checks.
+
+56
+00:02:31,581 --> 00:02:35,784
+I ran my own checks, and twice I withheld my sign-off until the record was right.
+
+57
+00:02:35,833 --> 00:02:36,792
+Next, step by step.
+
+58
+00:02:36,812 --> 00:02:40,293
+By November twenty-fifth, the reader: each claim labelled supported,
+
+59
+00:02:40,313 --> 00:02:44,156
+contradicted or insufficient by the posting's own text, or 'I cannot tell'.
+
+60
+00:02:44,176 --> 00:02:47,503
+By December first, every quote checked against the saved posting.
+
+61
+00:02:47,523 --> 00:02:50,799
+By December thirteenth, my approval tied to the exact shortlist.
+
+62
+00:02:50,819 --> 00:02:52,858
+December twentieth: the full evaluation.
+
+63
+00:02:52,917 --> 00:02:54,052
+Do I have what I need?
+
+64
+00:02:54,072 --> 00:02:57,467
+No API credits: model calls will go through my Claude Code login,
+
+65
+00:02:57,487 --> 00:03:00,986
+as my first agent's judge did for twenty-seven postings in October.
+
+66
+00:03:01,006 --> 00:03:03,560
+Public boards need no accounts; a laptop runs it.
+
+67
+00:03:03,580 --> 00:03:05,977
+The limits: boards can refuse automated reads,
+
+68
+00:03:05,997 --> 00:03:08,236
+and usage caps mean a daily reading budget.
+
+69
+00:03:08,292 --> 00:03:09,733
+How will I know it worked?
+
+70
+00:03:09,753 --> 00:03:11,981
+I'll label real public postings by hand,
+
+71
+00:03:12,001 --> 00:03:15,072
+including a random sample of the ones my rule rejected,
+
+72
+00:03:15,092 --> 00:03:18,107
+and lock a held-out group away before tuning anything.
+
+73
+00:03:18,167 --> 00:03:21,776
+I'll measure four things: whether every quote really appears in the posting;
+
+74
+00:03:21,796 --> 00:03:25,072
+misreads, like 'preferred' read as 'required'; two errors kept apart,
+
+75
+00:03:25,092 --> 00:03:27,794
+clearing the applicant for a requirement they don't meet,
+
+76
+00:03:27,814 --> 00:03:31,758
+and ruling out a posting they'd qualify for; and how often it says 'I cannot tell'.
+
+77
+00:03:31,792 --> 00:03:35,456
+I'll break it on purpose at least five times: a quote with one word changed,
+
+78
+00:03:35,476 --> 00:03:38,994
+an either-or rule, a posting silent on sponsorship, a board that refuses.
+
+79
+00:03:39,014 --> 00:03:42,145
+And the failure I'm predicting now: a quote copied word for word,
+
+80
+00:03:42,165 --> 00:03:46,023
+but 'five years preferred' treated as a requirement, caught by a separate check.
+
+81
+00:03:46,083 --> 00:03:50,021
+It worked if at least twenty-seven of thirty held-out decisions match my labels and
+
+82
+00:03:50,041 --> 00:03:51,976
+my checks catch every deliberate failure.
+
+83
+00:03:51,996 --> 00:03:54,313
+It didn't work if the reader misquotes a posting,
+
+84
+00:03:54,333 --> 00:03:55,934
+clears even one unmet requirement,
+
+85
+00:03:55,954 --> 00:03:58,414
+or wrongly rules out more than one eligible posting,
+
+86
+00:03:58,434 --> 00:03:59,940
+regardless of the overall score.
+
+87
+00:03:59,960 --> 00:04:03,850
+I'll label about sixty postings by hand, including thirty randomly picked rejects,
+
+88
+00:04:03,870 --> 00:04:05,519
+and set thirty aside before tuning.
+
+89
+00:04:05,542 --> 00:04:08,822
+One honest limit: a set this small can show me where it fails.
+
+90
+00:04:08,842 --> 00:04:11,005
+It can't prove it works on every posting.
+
+91
+00:04:11,042 --> 00:04:11,802
+Fine Print.
+
+92
+00:04:11,822 --> 00:04:13,433
+Suketh Reddy Produtoor.

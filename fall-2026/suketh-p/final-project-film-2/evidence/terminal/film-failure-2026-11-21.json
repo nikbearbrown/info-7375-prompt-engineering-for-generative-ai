@@ -1,0 +1,44 @@
+{
+  "command": "python3 -m jobwatch run --run-id film-failure-2026-11-21 --failure-control",
+  "cwd_shown": "js2-loop-tools-diff",
+  "started_utc": "2026-11-21T23:43:36+00:00",
+  "ended_utc": "2026-11-21T23:43:38+00:00",
+  "exit_code": 3,
+  "python": "3.12.7",
+  "path_substitutions": [
+    {
+      "from": "<home folder>",
+      "to": "~"
+    }
+  ],
+  "lines": [
+    {
+      "t": 2.096,
+      "text": "run film-failure-2026-11-21: incomplete — not every board could be verified: ['greenhouse/jobwatch-no-such-board-js2']; results are provisional"
+    },
+    {
+      "t": 2.096,
+      "text": "  greenhouse/anthropic                     usable                 jobs=635 new=83"
+    },
+    {
+      "t": 2.096,
+      "text": "  greenhouse/databricks                    usable                 jobs=895 new=88"
+    },
+    {
+      "t": 2.096,
+      "text": "  ashby/linear                             usable                 jobs=32 new=1"
+    },
+    {
+      "t": 2.096,
+      "text": "  greenhouse/jobwatch-no-such-board-js2    failed-as-expected     jobs=unknown (HTTP 404, as expected for the failure control)"
+    },
+    {
+      "t": 2.096,
+      "text": "  used 4 boards, 4 requests, 2.035 s; state advanced: False"
+    },
+    {
+      "t": 2.096,
+      "text": "  evidence: runs/film-failure-2026-11-21/ (results.md, trace.md, raw/)"
+    }
+  ]
+}

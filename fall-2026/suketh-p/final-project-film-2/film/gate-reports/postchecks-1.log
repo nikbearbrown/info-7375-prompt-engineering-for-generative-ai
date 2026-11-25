@@ -1,0 +1,26 @@
+== make_srt
+fine-print-film.srt: 84 cues, ends 00:03:52,313
+== master_check
+[master] PASS  3840×2160  24fps  yuv420p  h264  233.8s
+rc=0
+== srt_check
+[srt] PASS  84 cues  0 errors  (fine-print-film.srt)
+rc=0
+== loudness_check
+[loud] checking 19 beats for per-beat silence …
+[loud] PASS  -22.00 LUFS  tp=-7.57 dBTP
+rc=0
+== sharpness_check (scratch folder named after the slug, holding only the master + sheet)
+[sharpness] GATE SHARPNESS PASS — 19 beats, median LV=285.5
+rc=0
+== factcheck_check
+[factcheck] 1 blocker(s):
+  [FC-1] no claims table found. FACTCHECK.md needs a markdown table with a Beat column and a Verdict column — see FACTCHECK-SPEC.md.
+rc=2
+== qc sheet
+qc-sheet.png: 19 beats at 85 % of fine-print-film.mp4 (total 233.75 s)
+bcf27cd16a6243d67c81bb7b2a27d9cc89e32730eaf53e1cd04b98068a2297a9  exports/landscape/fine-print-film.mp4
+f76771591d6dc3dd72c49518b2fdf91a27b74b3ce272aad09aa792d7d744c76b  exports/landscape/fine-print-film.srt
+stream|codec_name=h264|width=3840|height=2160|r_frame_rate=24/1
+stream|codec_name=aac|r_frame_rate=0/0
+format|duration=233.750000
