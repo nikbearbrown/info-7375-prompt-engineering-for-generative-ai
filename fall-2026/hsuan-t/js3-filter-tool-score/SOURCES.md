@@ -33,7 +33,7 @@
 Claude (Claude Code, Claude Opus) contributed, at my request and checked by me:
 
 **Job-Search Agent 3**
-- **FILTER.md:** the first draft of every reason tagged `[AI]`, §2–§4, and the measurements it quotes (`reports/filter_v1_measure.py`, `filter_v2_measure.py`).
+- **FILTER.md:** the first draft of the reasons for rules 1a and 1b, the "all rules pass" line, the measured location limit in §1.3, and §2–§4 (the abstention rule in §2 is mine), and the measurements it quotes (`reports/filter_v1_measure.py`, `filter_v2_measure.py`).
 - **Code:** `reports/audit_run.py`, `audit_sample.py`, `audit_report.py`, `shortlist.py`, `heldout_sample.py`, `f5_experiment.py`, `job_agent/mcp_server.py`, and the FILTER v2 / v2.1 changes in `job_agent/judges/`. The first batch was built through agent-loop (an autonomous coding loop) against tests I approved; `docs/adr/` are that agent's design notes.
 - **Tests:** all JS3 test code (`tests/test_js3_*.py`), and the red runs against the wrong versions.
 - **Analysis:** drawing the audit and held-out samples; the k/n counts and intervals; checking every shortlist quote against the raw files; proposing S20 and the v2 candidates; running E1 and E2.

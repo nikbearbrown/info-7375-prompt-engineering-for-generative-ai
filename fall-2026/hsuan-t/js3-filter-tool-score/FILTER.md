@@ -7,10 +7,7 @@
 
 How to read this file: §1 is the filter. §2 says when a claim about a posting counts as supported. §3 says what the agent should see. §4 lists wrong versions the tests must catch. §5 records every change after measuring.
 
-Reason tags show where each reason came from; I read every one and accept them all as mine (2026-11-24):
-- `[C]` taken from my own JS1 `CONTRACT.md` "The rule" / "Known limits" (already mine)
-- `[L]` taken from my `labels/LABELING_RULE.md`
-- `[AI]` drafted by Claude 2026-11-24, read and accepted by me
+I read every reason below and accept them all as mine (signed 2026-11-24). Many come from my JS1 `CONTRACT.md` and `labels/LABELING_RULE.md`; which first drafts came from Claude is listed in `SOURCES.md`.
 
 ---
 
@@ -20,33 +17,33 @@ Reason tags show where each reason came from; I read every one and accept them a
 
 | Rule | What it does | Why |
 |---|---|---|
-| M1 word lists | Lowercase, split at every character that is not a letter or digit, drop empty pieces. `"Backend/API Engineer"` → `[backend, api, engineer]` | Companies write the same title many ways; comparing words makes them equal. `[C]` |
-| M2 all words of one phrase | A target phrase matches when **every** word of it is in the text's word list; order and extra words don't matter | Matching on any single word let 163 of 737 Stripe titles through on 2026-10-29 ("Designer, Web Presence & Platform"); requiring every word cut it to 92. `[C]` |
-| M3 whole phrase (visa only) | "No sponsorship" phrases must appear together and in order | "No degree required. Visa sponsorship is available." has both "no" and "sponsorship" but says the opposite. `[C]` |
-| M4 one splitter | Every rule calls the same function in `words.py` | If each rule split on its own, one would drift and give plausible wrong verdicts. `[C]` |
-| M5 HTML removed | Content is unescaped, tags dropped, unescaped again before splitting | Greenhouse escapes its HTML once; without this, tag names become "words". `[C]` |
+| M1 word lists | Lowercase, split at every character that is not a letter or digit, drop empty pieces. `"Backend/API Engineer"` → `[backend, api, engineer]` | Companies write the same title many ways; comparing words makes them equal. |
+| M2 all words of one phrase | A target phrase matches when **every** word of it is in the text's word list; order and extra words don't matter | Matching on any single word let 163 of 737 Stripe titles through on 2026-10-29 ("Designer, Web Presence & Platform"); requiring every word cut it to 92. |
+| M3 whole phrase (visa only) | "No sponsorship" phrases must appear together and in order | "No degree required. Visa sponsorship is available." has both "no" and "sponsorship" but says the opposite. |
+| M4 one splitter | Every rule calls the same function in `words.py` | If each rule split on its own, one would drift and give plausible wrong verdicts. |
+| M5 HTML removed | Content is unescaped, tags dropped, unescaped again before splitting | Greenhouse escapes its HTML once; without this, tag names become "words". |
 
 ### 1.2 The rules, in order — the first rule that fails cuts the posting
 
 | ID | Rule | Reads | Words / threshold (v2) | Cuts when | Why |
 |---|---|---|---|---|---|
-| 1a | exclude words | `title` | `profile.exclude_title_words`: senior, staff, principal, lead, manager, director, head, quant, sales, intern, frontend, contract | any exclude word is in the title | Aarav has 2 years of experience: senior-and-above titles are out of reach, and sales / quant / frontend / intern / contract are not the job he is looking for. `[AI]` (the list itself is mine, the sentence is not) |
-| 1b | title (role words) | `title` | `profile.target_roles`: software engineer, backend, platform engineer, devops engineer, site reliability engineer | no target phrase matches | I only read on if the title is an engineering job. `[L]` These five are the roles Aarav's résumé is built for. `[AI]` |
-| 2 | location | every place the board lists (Greenhouse `location.name` + `offices[]`; Ashby `location` + `secondaryLocations[]` + country) | `profile.locations`: boston, us remote, us, united states | a location is written and no phrase matches | Aarav must work in the US (incl. US remote). `[L]` No location written (empty, `N/A`, `na`) or a bare `Remote` → pass: a field the board left blank is never a reason to cut. `[C]` All places are read because boards put "Hybrid" or a bare city in the first field (JS2 D7). `[C]` |
-| 3 | skills (topic words) | `content` | résumé `skills[].keywords[]` (17 words) + `data/skill_aliases.json`; **≥ 1** must appear | no résumé keyword or alias appears | Only check that uses the résumé. Greenhouse has no skills field, so "how many skills the JD lists" can't be counted without AI; the check looks each résumé word up in the JD instead. `[C]` ⚠️ My LABELING_RULE says "two or three" — the code says 1 (ISSUES 1.3, to be measured in §5). |
-| 4 | years | `content` | (A) an experience **ceiling** ("no more than 18 months", upper end of "0-1 years") below `years_experience` 2 → cut; otherwise the **largest** number before "year(s)/yrs", brackets included ("six (6) years"), must be ≤ `years_experience` 2 + `years_stretch` 2 = **4** | ceiling < 2, or largest years number > 4 | A requirement clearly beyond Aarav's level (2 years, at most 2 more) doesn't fit. `[L]` I judge experience mostly as a ratio, and I would still apply when I have about half of what is asked (2 of 4 yes, 2 of 5 no); for Aarav's 2 years that is the same line as 2 + 2. (Isaac 2026-11-25) A new-grad role with a ceiling below Aarav's years is for less experienced people: S01, S20 in the audit. (v2 A) The largest number is the total requirement; the smaller ones are parts of it ("5+ years …, including 3+ years of infra"). (v2 B2, audit S16) No number → pass. `[C]` |
-| 5 | visa | `content` | `data/no_sponsorship_phrases.json` (14 phrases; v2.1: "without sponsorship" → "work without sponsorship" + "without visa sponsorship"), only when `needs_sponsorship` is true | any phrase appears as a whole phrase | Aarav needs sponsorship; a JD that says it won't sponsor doesn't fit, a JD that says nothing → keep reading. `[L]` |
-| 6 | salary | `content` | largest `$NNN,NNN` amount; must be ≥ `min_salary` **$75,000** | largest amount < $75,000 | Below the lowest yearly pay Aarav accepts. `[L]` Largest amount: the top of a range is what the posting could pay. `[C]` No salary → pass. `[C]` |
-| E | empty posting | `content` | — | content empty or only tags → `status: error`, not judged | With no JD, rules 3–6 can't run, and "relevant" from the title alone would look right while being unsupported. `[C]` |
+| 1a | exclude words | `title` | `profile.exclude_title_words`: senior, staff, principal, lead, manager, director, head, quant, sales, intern, frontend, contract | any exclude word is in the title | Aarav has 2 years of experience: senior-and-above titles are out of reach, and sales / quant / frontend / intern / contract are not the job he is looking for. |
+| 1b | title (role words) | `title` | `profile.target_roles`: software engineer, backend, platform engineer, devops engineer, site reliability engineer | no target phrase matches | I only read on if the title is an engineering job. These five are the roles Aarav's résumé is built for. |
+| 2 | location | every place the board lists (Greenhouse `location.name` + `offices[]`; Ashby `location` + `secondaryLocations[]` + country) | `profile.locations`: boston, us remote, us, united states | a location is written and no phrase matches | Aarav must work in the US (incl. US remote). No location written (empty, `N/A`, `na`) or a bare `Remote` → pass: a field the board left blank is never a reason to cut. All places are read because boards put "Hybrid" or a bare city in the first field (JS2 D7). |
+| 3 | skills (topic words) | `content` | résumé `skills[].keywords[]` (17 words) + `data/skill_aliases.json`; **≥ 1** must appear | no résumé keyword or alias appears | Only check that uses the résumé. Greenhouse has no skills field, so "how many skills the JD lists" can't be counted without AI; the check looks each résumé word up in the JD instead. ⚠️ My LABELING_RULE says "two or three" — the code says 1 (ISSUES 1.3, to be measured in §5). |
+| 4 | years | `content` | (A) an experience **ceiling** ("no more than 18 months", upper end of "0-1 years") below `years_experience` 2 → cut; otherwise the **largest** number before "year(s)/yrs", brackets included ("six (6) years"), must be ≤ `years_experience` 2 + `years_stretch` 2 = **4** | ceiling < 2, or largest years number > 4 | A requirement clearly beyond Aarav's level (2 years, at most 2 more) doesn't fit. I judge experience mostly as a ratio, and I would still apply when I have about half of what is asked (2 of 4 yes, 2 of 5 no); for Aarav's 2 years that is the same line as 2 + 2. (Isaac 2026-11-25) A new-grad role with a ceiling below Aarav's years is for less experienced people: S01, S20 in the audit. (v2 A) The largest number is the total requirement; the smaller ones are parts of it ("5+ years …, including 3+ years of infra"). (v2 B2, audit S16) No number → pass. |
+| 5 | visa | `content` | `data/no_sponsorship_phrases.json` (14 phrases; v2.1: "without sponsorship" → "work without sponsorship" + "without visa sponsorship"), only when `needs_sponsorship` is true | any phrase appears as a whole phrase | Aarav needs sponsorship; a JD that says it won't sponsor doesn't fit, a JD that says nothing → keep reading. |
+| 6 | salary | `content` | largest `$NNN,NNN` amount; must be ≥ `min_salary` **$75,000** | largest amount < $75,000 | Below the lowest yearly pay Aarav accepts. Largest amount: the top of a range is what the posting could pay. No salary → pass. |
+| E | empty posting | `content` | — | content empty or only tags → `status: error`, not judged | With no JD, rules 3–6 can't run, and "relevant" from the title alone would look right while being unsupported. |
 
-All rules pass → `relevant`. There is no score or ranking in v1: the filter is pass / cut only. `[AI]`
+All rules pass → `relevant`. There is no score or ranking in v1: the filter is pass / cut only.
 
-### 1.3 Known limits (where the filter is known to be wrong) `[C]`
+### 1.3 Known limits (where the filter is known to be wrong)
 Kept in `CONTRACT.md` "Known limits"; the ones the reject audit (JS3 2.1) looks at first:
 - **Appears ≠ required** (rule 3): "nice to have", "Java or Go", "migrating away from Redis" all count as a match.
 - **Company intro matched**: 11 Stripe JDs share "We work mostly in Java, Ruby, JavaScript, Scala, and Go" → Java passes rule 3 on every one.
 - **≥ 1 is lenient**: Java, SQL or AWS alone passes rule 3. Requiring ≥ 2 was measured and rejected (v2 C, §5): I count skills by meaning ("CI/CD" for Jenkins, "containers" for Docker), the code counts words, so ≥ 2 cut 5 postings I would apply to. 4 of the 5 audit disagreements left in v2 are this limit (S17, S24, S42, S46: one shared word, but the core of the job is C/C++ or low-level systems).
-- **Location read literally**: a place is only matched by the words in `profile.locations`. In JS1, `Seattle, WA` had no "us" and was cut at rule 2. Since JS2 D7 every listed place (and Ashby's country) is read, so most US postings now carry "US" or "United States" somewhere. Measured 2026-11-24 on the 2,046 postings of `evidence/raw/2026-11-08T234257Z/`: 54 pass the title rules but are cut at rule 2; 53 are outside the US (London, Toronto, Dublin, Bengaluru…), **1 is a miss**: Stripe "Backend Engineer, Developer SDKs", location `Toronto, NY, SEA, SF; Canada Locations` (NY / SEA / SF are US cities written as abbreviations). → v2 candidate L1 in §5: measured again on all 2,123 postings under v2 and it changes **no** verdict (that one posting asks for 6 years and is cut at rule 4). `[AI]`
+- **Location read literally**: a place is only matched by the words in `profile.locations`. In JS1, `Seattle, WA` had no "us" and was cut at rule 2. Since JS2 D7 every listed place (and Ashby's country) is read, so most US postings now carry "US" or "United States" somewhere. Measured 2026-11-24 on the 2,046 postings of `evidence/raw/2026-11-08T234257Z/`: 54 pass the title rules but are cut at rule 2; 53 are outside the US (London, Toronto, Dublin, Bengaluru…), **1 is a miss**: Stripe "Backend Engineer, Developer SDKs", location `Toronto, NY, SEA, SF; Canada Locations` (NY / SEA / SF are US cities written as abbreviations). → v2 candidate L1 in §5: measured again on all 2,123 postings under v2 and it changes **no** verdict (that one posting asks for 6 years and is cut at rule 4).
 - **Years not about work**: "1 year of university education" is read as a years requirement.
 - **Degree alternatives** (v2 B2): "Bachelor's + five (5) years, or Master's + three (3) years" is judged by the 5, so Aarav (MS) is cut although the Master's path fits him (Stripe 8197135 "High Availability and Disaster Recovery"). Left as a limit: only Stripe US-PERM postings write it this way. (Isaac 2026-11-25)
 - **Contradicting JDs** (v2 B2): one posting says "7+ years" in one section and "4+ years" in another (openai "Intelligence & Investigations"); v2 takes 7.
@@ -56,7 +53,7 @@ Kept in `CONTRACT.md` "Known limits"; the ones the reject audit (JS3 2.1) looks 
 
 ---
 
-## 2. Evidence rules (for the shortlist, JS3 2.2) `[AI]` — drafted by Claude; the abstention rule below is my decision (2026-11-24)
+## 2. Evidence rules (for the shortlist, JS3 2.2) — the abstention rule below is my decision (2026-11-24)
 
 **Claim:** one sentence in a kept posting's justification that says something about the posting, e.g. "the JD asks for a skill Aarav has (Python)", "the JD requires ≤ 4 years", "the JD does not refuse sponsorship", "the salary reaches $75,000".
 
@@ -76,7 +73,7 @@ Each claim gets exactly one label, decided **only from the posting's own text** 
 
 ---
 
-## 3. Expected sources `[AI]` (facts from `data/boards.json` and the adapters)
+## 3. Expected sources (facts from `data/boards.json` and the adapters)
 
 | Board | ATS | Endpoint (public, no login) | Fields the agent reads |
 |---|---|---|---|
@@ -104,8 +101,8 @@ Only boards in `data/boards.json` are fetched (allow-list, JS2 policy). JS3 runs
 
 | # | Wrong version | Why it looks right | What it gets wrong | Test (`tests/test_js3_wrong_*.py`) |
 |---|---|---|---|---|
-| W1 | **Substring match** for skills (`"java" in jd.lower()`) | Less code; every JD that really says Java still matches | A résumé word hidden inside another word counts. Measured on all 2,046 saved postings: **937** cut at rule 3 by v1 would pass. "AWS" hides in "l**aws**" (the equal-opportunity sentence, 1,231 JDs), "Rust" in "en**trust**ed" / "t**rust**ed" (1,210), "Java" in "**Java**Script" (175). `[AI]` numbers from `reports/filter_v1_measure.py` | `test_js3_wrong_w1_substring.py`: JDs that say only "JavaScript", "applicable laws", "trusted partner" → rule 3 finds no résumé word; the substring version would find Java / AWS / Rust |
-| W2 | **Missing field = cut** (no location / years / salary → not_relevant) | "Be safe, only keep what we're sure of" | Cuts postings for what the board left out; 2 of the 5 relevant Stripe postings on 2026-10-29 had location `na` `[C]`. Also breaks the evidence rule in §2: missing information is a pass + an *insufficient* claim, not a cut. | `test_js3_wrong_w2_missing_field.py`: location `""` / `N/A` / `Remote`, no years, no salary → `relevant`, each skipped rule says `skipped: …` |
+| W1 | **Substring match** for skills (`"java" in jd.lower()`) | Less code; every JD that really says Java still matches | A résumé word hidden inside another word counts. Measured on all 2,046 saved postings: **937** cut at rule 3 by v1 would pass. "AWS" hides in "l**aws**" (the equal-opportunity sentence, 1,231 JDs), "Rust" in "en**trust**ed" / "t**rust**ed" (1,210), "Java" in "**Java**Script" (175). numbers from `reports/filter_v1_measure.py` | `test_js3_wrong_w1_substring.py`: JDs that say only "JavaScript", "applicable laws", "trusted partner" → rule 3 finds no résumé word; the substring version would find Java / AWS / Rust |
+| W2 | **Missing field = cut** (no location / years / salary → not_relevant) | "Be safe, only keep what we're sure of" | Cuts postings for what the board left out; 2 of the 5 relevant Stripe postings on 2026-10-29 had location `na`. Also breaks the evidence rule in §2: missing information is a pass + an *insufficient* claim, not a cut. | `test_js3_wrong_w2_missing_field.py`: location `""` / `N/A` / `Remote`, no years, no salary → `relevant`, each skipped rule says `skipped: …` |
 
 Considered and not chosen (2026-11-24): **W3** rank by keyword count (v1 has no ranking, so its test could only check that no score exists); **W4** years `<` instead of `≤` (a typo rather than a filter design mistake).
 

@@ -1265,4 +1265,23 @@ Trace: commits dcb3638, cb079e8, README.md "Sign-off — Job-Search Agent 3"
 
 **My judgment calls**
 
+- Kept the sign-off and submitted it. Later I asked for a plain walkthrough of what JS3 did, v1/v2/v3 and why MCP, then came back to FILTER.md's reason tags.
+
+**What's next**
+
+Remove the [C]/[L]/[AI] tags from FILTER.md.
+
+### 2026-11-25: Drop the reason tags from FILTER.md
+
+**What I tried and expected**
+
+Someone reading FILTER.md would think the reasons tagged [AI] might not be true. I already signed off, so the tags can go.
+
+**What happened**
+
+The AI removed every [C], [L] and [AI] tag. The header now says I read and accepted every reason and points to SOURCES.md, which now names the FILTER.md parts the AI drafted (rules 1a and 1b, the "all rules pass" line, the location limit, §2 to §4). The AI pointed out that Canvas already has the submitted copy (course 7287f23), so this change is only in the repo unless I export and submit again.
+Trace: commit 5e53cc7, merge 2c57c14
+
+**My judgment calls**
+
 **What's next**
