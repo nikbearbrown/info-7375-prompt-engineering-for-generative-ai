@@ -1,0 +1,55 @@
+{
+  "label": "demo-budget-exhausted",
+  "day": "2026-11-01",
+  "exit": "budget-exhausted",
+  "reason": "requests budget 3 reached before greenhouse:gleanwork attempt 1",
+  "boards": [
+    {
+      "key": "ashby:commure",
+      "status": "ok",
+      "postings": 84,
+      "new": 0,
+      "baseline": true,
+      "relevant": 0,
+      "invalid_records": 0,
+      "raw_path": "data/raw/2026-11-01/ashby_commure.json",
+      "rows": []
+    },
+    {
+      "key": "greenhouse:stripe",
+      "status": "ok",
+      "postings": 745,
+      "new": 0,
+      "baseline": true,
+      "relevant": 0,
+      "invalid_records": 0,
+      "raw_path": "data/raw/2026-11-01/greenhouse_stripe.json",
+      "rows": []
+    },
+    {
+      "key": "greenhouse:figma",
+      "status": "ok",
+      "postings": 140,
+      "new": 0,
+      "baseline": true,
+      "relevant": 0,
+      "invalid_records": 0,
+      "raw_path": "data/raw/2026-11-01/greenhouse_figma.json",
+      "rows": []
+    }
+  ],
+  "not_attempted": [
+    "greenhouse:gleanwork",
+    "greenhouse:databricks",
+    "greenhouse:doordashusa",
+    "greenhouse:twitch",
+    "greenhouse:roblox",
+    "lever:palantir",
+    "greenhouse:stripe-typo"
+  ],
+  "budget": {
+    "boards": "4/12",
+    "requests": "3/3",
+    "seconds": "0.9/180"
+  }
+}

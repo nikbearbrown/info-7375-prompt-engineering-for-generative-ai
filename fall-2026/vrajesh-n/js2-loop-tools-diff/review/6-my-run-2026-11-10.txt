@@ -1,0 +1,41 @@
+# Review step 5: commands Vrajesh ran himself on 2026-11-10 (Windows cmd), terminal output pasted verbatim into chat.
+
+C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff>python -m unittest tests.test_review_r3 -v
+test_every_greenhouse_record_cites_only_fields_that_exist (tests.test_review_r3.GreenhouseCountry.test_every_greenhouse_record_cites_only_fields_that_exist) ... ok
+test_location_strings_seen_in_real_data (tests.test_review_r3.GreenhouseCountry.test_location_strings_seen_in_real_data)
+Expected country for location strings copied from the 2026-11-01 Greenhouse responses. ... ok
+test_non_us_posting_still_fails_r3 (tests.test_review_r3.GreenhouseCountry.test_non_us_posting_still_fails_r3) ... ok
+test_us_new_grad_posting_is_not_rejected_by_r3 (tests.test_review_r3.GreenhouseCountry.test_us_new_grad_posting_is_not_rejected_by_r3) ... ok
+
+----------------------------------------------------------------------
+Ran 4 tests in 1.495s
+
+OK
+
+C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff>python -m unittest discover -s tests
+.............................Proposed change to config/boards.json: ADD lever:x -> https://api.lever.co/v0/postings/x?mode=json
+REFUSED: write to config/boards.json refused: needs the owner to type 'yes' (got 'y')
+Proposed change to config/boards.json: ADD lever:x -> https://api.lever.co/v0/postings/x?mode=json
+approved and written: 10 -> 11 boards
+....REFUSED: budget requests=16 is above the GATE.md limit 15; only a reviewed commit may raise it
+........................
+----------------------------------------------------------------------
+Ran 57 tests in 2.049s
+
+OK
+
+C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff>python -m earlybird run --replay 2026-10-23 --label my-review-day1 --state data/state/my-review.json --only ashby:commure,greenhouse:stripe,greenhouse:figma,greenhouse:databricks,lever:palantir
+  ashby:commure            ok       81 postings, baseline, 0 relevant
+  greenhouse:stripe        ok      726 postings, baseline, 0 relevant
+  greenhouse:figma         ok      141 postings, baseline, 0 relevant
+  greenhouse:databricks    ok      898 postings, baseline, 0 relevant
+  lever:palantir           ok      308 postings, baseline, 0 relevant
+my-review-day1: exit finished | budget boards 5/12, requests 5/15, seconds 0.1/180 | trace reports/my-review-day1-trace.jsonl
+
+C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff>python -m earlybird run --replay 2026-11-01 --label my-review-day2 --state data/state/my-review.json --only ashby:commure,greenhouse:stripe,greenhouse:figma,greenhouse:databricks,lever:palantir
+  ashby:commure            ok       84 postings, 7 new, 0 relevant
+  greenhouse:stripe        ok      745 postings, 91 new, 2 relevant
+  greenhouse:figma         ok      140 postings, 17 new, 0 relevant
+  greenhouse:databricks    ok      901 postings, 69 new, 2 relevant
+  lever:palantir           ok      301 postings, 6 new, 1 relevant
+my-review-day2: exit finished | budget boards 5/12, requests 5/15, seconds 0.6/180 | trace reports/my-review-day2-trace.jsonl

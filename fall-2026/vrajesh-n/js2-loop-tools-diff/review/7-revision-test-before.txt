@@ -1,0 +1,29 @@
+# Review step 6b: revision tests, run BEFORE the revised code (2026-11-10 14:31 EST)
+$ python -m unittest tests.test_review_r3.Revision -v
+test_bare_us_city_names_resolve_to_us (tests.test_review_r3.Revision.test_bare_us_city_names_resolve_to_us) ... FAIL
+test_california_CA_still_us (tests.test_review_r3.Revision.test_california_CA_still_us) ... ok
+test_canadian_city_with_CA_is_not_california (tests.test_review_r3.Revision.test_canadian_city_with_CA_is_not_california) ... FAIL
+test_non_us_bare_cities_stay_unknown (tests.test_review_r3.Revision.test_non_us_bare_cities_stay_unknown) ... ok
+
+======================================================================
+FAIL: test_bare_us_city_names_resolve_to_us (tests.test_review_r3.Revision.test_bare_us_city_names_resolve_to_us)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff\tests\test_review_r3.py", line 97, in test_bare_us_city_names_resolve_to_us
+    self.assertEqual(self.country(text), "USA", text)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: None != 'USA' : Chicago
+
+======================================================================
+FAIL: test_canadian_city_with_CA_is_not_california (tests.test_review_r3.Revision.test_canadian_city_with_CA_is_not_california)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff\tests\test_review_r3.py", line 88, in test_canadian_city_with_CA_is_not_california
+    self.assertIsNone(self.country(text), text)
+    ~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'USA' is not None : Toronto, CA
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.002s
+
+FAILED (failures=2)

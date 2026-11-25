@@ -1,0 +1,21 @@
+E....
+======================================================================
+ERROR: test_claims (unittest.loader._FailedTest.test_claims)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_claims
+Traceback (most recent call last):
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python313\Lib\unittest\loader.py", line 396, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "C:\Users\<user>\AppData\Local\Programs\Python\Python313\Lib\unittest\loader.py", line 339, in _get_module_from_name
+    __import__(name)
+    ~~~~~~~~~~^^^^^^
+  File "C:\NEU course\PEAI\_js3-worktree\fall-2026\vrajesh-n\js3-filter-tool-score\tests\test_claims.py", line 12, in <module>
+    from earlybird import claims  # noqa: E402
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+ImportError: cannot import name 'claims' from 'earlybird' (C:\NEU course\PEAI\_js3-worktree\fall-2026\vrajesh-n\js3-filter-tool-score\earlybird\__init__.py)
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.002s
+
+FAILED (errors=1)

@@ -1,0 +1,34 @@
+# Review step 6b: the revision as a diff (after patch 1 vs revised file)
+ .../boards-after-patch1.py => earlybird/boards.py        | 16 ++++++++++++++--
+ 1 file changed, 14 insertions(+), 2 deletions(-)
+diff --git a/review/before-patch/boards-after-patch1.py b/earlybird/boards.py
+index 8f388e8..d898001 100644
+--- a/review/before-patch/boards-after-patch1.py
++++ b/earlybird/boards.py
+@@ -50,12 +50,24 @@ _STATE_CODE = re.compile(r",\s*(" + "|".join(US_STATES) + r")\b")
+ _STATE_NAME = re.compile(r"\b(" + "|".join(sorted(US_STATES.values(), key=len, reverse=True)) + r")\b", re.I)
+ 
+ 
++# Review revision (Vrajesh, 2026-11-10): "If CA is preceded by a known Canadian city ... map it to Canada".
++_CANADA_CA = re.compile(r"\b(toronto|vancouver|montreal|montréal|ottawa|calgary|edmonton|waterloo|winnipeg|"
++                        r"halifax|quebec|victoria|mississauga|kitchener)\s*,\s*CA\b", re.I)
++# Review revision: bare US city names resolve to the US. "Keep It to United States Only": no world list,
++# only well-known US tech-hiring cities, plus the upper-case short forms seen in the 2026-11-01 data.
++_US_CITY = re.compile(r"\b(new york city|san francisco|bay area|silicon valley|chicago|seattle|los angeles|boston|"
++                      r"austin|denver|atlanta|san jose|palo alto|mountain view|sunnyvale|menlo park|redmond|"
++                      r"san diego|philadelphia|pittsburgh|miami|dallas|houston|phoenix|salt lake city)\b", re.I)
++_US_CITY_CODE = re.compile(r"\b(NYC|SF|SEA)\b")
++
++
+ def us_from_location(text):
+     """Greenhouse has no country field, only free text such as 'San Mateo, CA, United States' or
+     'Bellevue, Washington; ...; Vancouver, Canada'. Return 'USA' if any listed place is in the US, else None.
+     A posting open in several places counts as US if one of them is (the applicant can pick that office)."""
+-    text = text or ""
+-    if _US_WORDS.search(text) or _US_CODE.search(text) or _STATE_CODE.search(text) or _STATE_NAME.search(text):
++    text = _CANADA_CA.sub(r"\1, Canada", text or "")  # 'Toronto, CA' is Canada, not California
++    if (_US_WORDS.search(text) or _US_CODE.search(text) or _STATE_CODE.search(text) or _STATE_NAME.search(text)
++            or _US_CITY.search(text) or _US_CITY_CODE.search(text)):
+         return "USA"
+     return None
+ 

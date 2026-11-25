@@ -1,0 +1,5 @@
+{"dir": "client->server", "msg": {"jsonrpc": "2.0", "id": 1, "method": "initialize", "params": {"protocolVersion": "2025-06-18", "capabilities": {}, "clientInfo": {"name": "eval-client", "version": "0"}}}}
+{"dir": "server->client", "msg": {"jsonrpc": "2.0", "id": 1, "result": {"capabilities": {"prompts": {"listChanged": false}, "resources": {"listChanged": false, "subscribe": false}, "tools": {"listChanged": false}}, "protocolVersion": "2025-06-18", "serverInfo": {"name": "mcp-fetch", "version": "2026.11.18"}}}}
+{"dir": "client->server", "msg": {"jsonrpc": "2.0", "method": "notifications/initialized"}}
+{"dir": "client->server", "msg": {"jsonrpc": "2.0", "id": 2, "method": "tools/call", "params": {"name": "fetch", "arguments": {"url": "http://127.0.0.1:58694/"}}}}
+{"dir": "server->client", "msg": {"jsonrpc": "2.0", "id": 2, "result": {"content": [{"text": "Error executing tool fetch: Refused to fetch http://127.0.0.1:58694/robots.txt: 127.0.0.1 is not one of the hosts this server is allowed to fetch from (--allowed-hosts).", "type": "text"}], "isError": true}}}

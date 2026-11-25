@@ -1,0 +1,19 @@
+# Review: same new postings, judged before vs after the patch
+before = reports/run2-live.json (live, 2026-11-01 00:09); after = reports/review-after-fix-day2.json (replay of the bytes run2-live saved)
+
+same new set: True 190
+  ashby:commure            relevant 0 -> 0   invalid records 0 -> 0
+  greenhouse:stripe        relevant 0 -> 2   invalid records 8 -> 0
+  greenhouse:figma         relevant 0 -> 0   invalid records 0 -> 0
+  greenhouse:databricks    relevant 0 -> 2   invalid records 2 -> 0
+  lever:palantir           relevant 1 -> 1   invalid records 0 -> 0
+
+verdicts that changed:
+  greenhouse:databricks | Software Engineer - New Grad (2027 Start) | Bellevue, Washington; Mountain View, California; San Francisco, California; Vancouver, Canada
+     before: not_relevant R3  ->  after: relevant : software title 'Software Engineer - New Grad (2027 Start)' with no seniority word and no 3+ years asked, US co
+  greenhouse:databricks | Software Engineer - New Grad, Distributed Data Systems (2027 Start) | Bellevue, Washington; Mountain View, California
+     before: not_relevant R3  ->  after: relevant : software title 'Software Engineer - New Grad, Distributed Data Systems (2027 Start)' with no seniority word an
+  greenhouse:stripe | Software Engineer - Full stack | Seattle, WA
+     before: not_relevant R3  ->  after: relevant : software title 'Software Engineer - Full stack' with no seniority word and no 3+ years asked, US country 'USA'
+  greenhouse:stripe | Software Engineer, Fraud System Interventions | South San Francisco, CA
+     before: not_relevant R3  ->  after: relevant : software title 'Software Engineer, Fraud System Interventions' with no seniority word and no 3+ years asked, U

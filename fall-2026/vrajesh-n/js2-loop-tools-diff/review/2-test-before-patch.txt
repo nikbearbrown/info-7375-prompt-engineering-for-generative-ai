@@ -1,0 +1,58 @@
+# Review step 2: the new test, run BEFORE the patch (2026-11-01 00:11 EDT)
+$ python -m unittest tests.test_review_r3 -v
+test_every_greenhouse_record_cites_only_fields_that_exist (tests.test_review_r3.GreenhouseCountry.test_every_greenhouse_record_cites_only_fields_that_exist) ... FAIL
+test_location_strings_seen_in_real_data (tests.test_review_r3.GreenhouseCountry.test_location_strings_seen_in_real_data)
+Expected country for location strings copied from the 2026-11-01 Greenhouse responses. ... FAIL
+test_non_us_posting_still_fails_r3 (tests.test_review_r3.GreenhouseCountry.test_non_us_posting_still_fails_r3) ... ok
+test_us_new_grad_posting_is_not_rejected_by_r3 (tests.test_review_r3.GreenhouseCountry.test_us_new_grad_posting_is_not_rejected_by_r3) ... FAIL
+
+======================================================================
+FAIL: test_every_greenhouse_record_cites_only_fields_that_exist (tests.test_review_r3.GreenhouseCountry.test_every_greenhouse_record_cites_only_fields_that_exist)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff\tests\test_review_r3.py", line 48, in test_every_greenhouse_record_cites_only_fields_that_exist
+    self.assertEqual(bad[:3], [], f"{len(bad)} records cite a missing field")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Lists differ: [('stripe', 'Backend Engineer, Core Techno[405 chars]st")] != []
+
+First list contains 3 additional elements.
+First extra element 0:
+('stripe', 'Backend Engineer, Core Technology', "posting_fields cites 'address.postalAddress.addressCountry', which does not exist")
+
++ []
+- [('stripe',
+-   'Backend Engineer, Core Technology',
+-   "posting_fields cites 'address.postalAddress.addressCountry', which does not "
+-   'exist'),
+-  ('stripe',
+-   'Backend Engineer, Developer & End-user Experience Platform',
+-   "posting_fields cites 'address.postalAddress.addressCountry', which does not "
+-   'exist'),
+-  ('stripe',
+-   'Backend Engineer, Developer & End-user Experience Platform',
+-   "posting_fields cites 'address.postalAddress.addressCountry', which does not "
+-   'exist')] : 114 records cite a missing field
+
+======================================================================
+FAIL: test_location_strings_seen_in_real_data (tests.test_review_r3.GreenhouseCountry.test_location_strings_seen_in_real_data)
+Expected country for location strings copied from the 2026-11-01 Greenhouse responses.
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff\tests\test_review_r3.py", line 74, in test_location_strings_seen_in_real_data
+    self.assertEqual(got, want, text)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^
+AssertionError: None != 'USA' : San Mateo, CA, United States
+
+======================================================================
+FAIL: test_us_new_grad_posting_is_not_rejected_by_r3 (tests.test_review_r3.GreenhouseCountry.test_us_new_grad_posting_is_not_rejected_by_r3)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\NEU course\PEAI\info-7375-prompt-engineering-for-generative-ai\fall-2026\vrajesh-n\js2-loop-tools-diff\tests\test_review_r3.py", line 34, in test_us_new_grad_posting_is_not_rejected_by_r3
+    self.assertNotEqual(rec["failed_check"], "R3", rec["justification"])
+    ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'R3' == 'R3' : posting country is None, not the US; resume location is 'Boston, MA'
+
+----------------------------------------------------------------------
+Ran 4 tests in 5.570s
+
+FAILED (failures=3)

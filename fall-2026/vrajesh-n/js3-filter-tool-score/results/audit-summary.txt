@@ -1,0 +1,15 @@
+== Reject audit (filter v1), my labels as committed now ==
+random_reject: n=35 filter-rejected, I said Y (false rejects)=0 (0.0% to 9.9%), ? =0; rules in sample: {'R1': 25, 'R2': 8, 'R3': 2}
+close_call: n=12 filter-rejected, I said Y (false rejects)=1 (1.5% to 35.4%), ? =0; rules in sample: {'R2': 4, 'R1': 8}
+   false reject #60: Backend / API Engineer, Radar (R1)
+kept: n=15, I said Y=10, N=3 (7.0% to 45.2%), ?=2
+   kept #6 label N: Software Engineer, Reliability
+   kept #15 label N: Software Engineer, ROS
+   kept #18 label N: AI Engineer – Forward Deployed Engineering (AI FDE), U.S. Pu
+   kept #26 label ?: Systems PhD - Software Engineer
+   kept #34 label ?: Solutions Architect
+
+== False friends, measured on the 2026-11-01 snapshot (3068 postings) ==
+'training' appears in 1108 postings; 421 of them have a role title (38.0%); the other 687 would be wrongly kept by a filter that treats 'training' as a signal (W2)
+'sponsor' appears in 365 postings; 270 of them are about visas (74.0%); the rest are things like 'executive sponsor' (false friend for R4)
+'ML' in a title: 16 postings (case-insensitive 'ml' substring also hits 1 more, e.g. HTML)

@@ -1,0 +1,247 @@
+{
+ "date": "2026-11-25",
+ "model": "claude-sonnet-5-5",
+ "prompt": "Call score_posting for posting_id {id} on board {board}. Then answer in exactly ONE plain-English sentence, for a reader who has not seen the tool output: what does the posting's text say about the claim named '{claim}', and how sure can we be? Use only what the tool returned. If the label is insufficient, say 'I cannot tell'.",
+ "results": [
+  {
+   "i": 4,
+   "variant": "A",
+   "sentence": "I cannot tell: the posting's text names no technology that the candidate has shipped as a stated need, so the tool labeled \"stack_fit\" as insufficient, and we can't say whether the stack fits or how sure to be.",
+   "is_error": false
+  },
+  {
+   "i": 5,
+   "variant": "B",
+   "sentence": "The posting asks for \"2+ years industry experience\" with backend tech stacks, which is under the 3-year cutoff, so the tool labels the early_career claim \"supported\" and the quoted text backs that up directly, though it only shows what the posting says and not whether a new grad would be hired.",
+   "is_error": false
+  },
+  {
+   "i": 12,
+   "variant": "A",
+   "sentence": "The posting's text gives its location as \"New York, NY\", so the tool labeled the US-location claim \"supported\". That label rests on one direct quote, but it only tells us the listed location is in the US, and it says nothing about whether the role allows remote work or has other location conditions.",
+   "is_error": false
+  },
+  {
+   "i": 13,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text never mentions a security clearance, so the tool labeled the \"no clearance required\" claim \"insufficient\", meaning the text gives no evidence for or against it.",
+   "is_error": false
+  },
+  {
+   "i": 3,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text names none of the technologies from the persona's shipped project as a stated need, so the stack_fit claim was labeled \"insufficient\" with no supporting quote.",
+   "is_error": false
+  },
+  {
+   "i": 15,
+   "variant": "B",
+   "sentence": "The tool labels the early-career claim \"supported\" because the posting's minimum requirements say \"2–12+ years of industry software engineering experience\", whose low end is under 3 years. But that range reaches 12 or more years, so I'm only moderately sure, since the lower bound may be for a different level of the same role.",
+   "is_error": false
+  },
+  {
+   "i": 8,
+   "variant": "B",
+   "sentence": "I cannot tell: the tool labeled the 'early_career' claim (that the posting asks for fewer than 3 years of experience) as \"insufficient\", because the posting's text states no years of experience, so the label gives us nothing to be sure about.",
+   "is_error": false
+  },
+  {
+   "i": 10,
+   "variant": "B",
+   "sentence": "The posting's own text says the work involves building with LLMs, since it describes scaling features for an AI medical scribe \"using cutting-edge LLM models to create accurate, structured clinical notes\", and the tool labeled this claim \"supported\" with that direct quote, so we can be fairly confident, though this is only what the posting says and not proof of the actual day-to-day work.",
+   "is_error": false
+  },
+  {
+   "i": 1,
+   "variant": "A",
+   "sentence": "I cannot tell: the posting text gives no years of experience, so the tool labeled the 'early_career' claim \"insufficient\" and neither supports nor contradicts it.",
+   "is_error": false
+  },
+  {
+   "i": 18,
+   "variant": "A",
+   "sentence": "I cannot tell: the posting's text says nothing about visa sponsorship (the tool labeled the claim \"insufficient\" and gave no quote), so we have no evidence either way, and no confidence in any answer.",
+   "is_error": false
+  },
+  {
+   "i": 13,
+   "variant": "A",
+   "sentence": "I cannot tell: the tool labelled the 'no_clearance' claim \"insufficient\" because the posting's text never mentions a security clearance, so it neither supports nor contradicts the claim, and the tool gave no quote to back either reading.",
+   "is_error": false
+  },
+  {
+   "i": 9,
+   "variant": "A",
+   "sentence": "I cannot tell: the posting's text says nothing about sponsoring visas, so the tool labeled the sponsorship claim \"insufficient\", and the text gives no evidence either way.",
+   "is_error": false
+  },
+  {
+   "i": 20,
+   "variant": "A",
+   "sentence": "I cannot tell: the tool labeled the 'early_career' claim \"insufficient\" because the posting's text states no years of experience, so we can't be sure either way, even though the title says \"Internship.\"",
+   "is_error": false
+  },
+  {
+   "i": 7,
+   "variant": "A",
+   "sentence": "I cannot tell: the posting's text never mentions a security clearance, so the 'no_clearance' claim is labeled \"insufficient\", meaning it is neither confirmed nor contradicted and there is no quoted evidence to rely on.",
+   "is_error": false
+  },
+  {
+   "i": 1,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text states no years of experience, so the tool labeled the early_career claim (that it asks for fewer than 3 years) \"insufficient\", which means the text neither supports nor contradicts it.",
+   "is_error": false
+  },
+  {
+   "i": 16,
+   "variant": "A",
+   "sentence": "The posting's text mentions GraphQL, a technology on the candidate's resume, so the label for stack_fit is \"supported\", but that rests on a single quoted phrase and the tool gave no confidence score or fuller explanation, so we can only say it is a modest, text-based match.",
+   "is_error": false
+  },
+  {
+   "i": 20,
+   "variant": "B",
+   "sentence": "I cannot tell: the tool labeled the 'early_career' claim (that the posting asks for fewer than 3 years of experience) as insufficient, because the posting's text states no years of experience, so we can't be sure either way.",
+   "is_error": false
+  },
+  {
+   "i": 4,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text names none of the technologies from the candidate's shipped project as something it needs, so the stack_fit claim is labeled \"insufficient\" - that says the text gives no evidence either way, not that the stack is a bad fit.",
+   "is_error": false
+  },
+  {
+   "i": 12,
+   "variant": "B",
+   "sentence": "The posting's location field reads \"New York, NY\", which supports the claim that the role is in the US, and we can be fairly confident in that because the tool labeled it \"supported\" based on a direct quote from the posting, though that only covers what the listing text says.",
+   "is_error": false
+  },
+  {
+   "i": 6,
+   "variant": "A",
+   "sentence": "The posting's text supports the early-career claim, since it asks for only \"1+ years of professional engineering experience\" (or a Computer Science background) for a \"Software Engineer I\" role, and the tool labels it \"supported\" from a quoted excerpt of the posting, so we can be fairly but not perfectly sure.",
+   "is_error": false
+  },
+  {
+   "i": 10,
+   "variant": "A",
+   "sentence": "The posting's text supports the claim that the role is AI-focused, because it describes building features for an \"AI medical scribe\" that uses LLM models to write clinical notes. That is a direct quote from the posting, so we can be fairly sure, though the tool only checks what the text says and not how much of the job is actually AI work.",
+   "is_error": false
+  },
+  {
+   "i": 14,
+   "variant": "A",
+   "sentence": "I cannot tell: the posting's text says nothing about visa sponsorship, so the tool labeled the sponsorship claim \"insufficient\" and gave no quote, which means we can't be sure either way.",
+   "is_error": false
+  },
+  {
+   "i": 16,
+   "variant": "B",
+   "sentence": "The posting's text names GraphQL, a technology from Rohan's documented shipped project, so the 'stack_fit' claim is supported by a direct quote, though that only shows the technology is mentioned (not that it is a core requirement) and the tool gave no confidence score beyond the \"supported\" label.",
+   "is_error": false
+  },
+  {
+   "i": 8,
+   "variant": "A",
+   "sentence": "I cannot tell: the tool labeled the 'early_career' claim \"insufficient\" for this posting (Twitch's Software Engineer I) because the text states no years of experience, so it gave no quote either way and we can't be sure of anything on that claim.",
+   "is_error": false
+  },
+  {
+   "i": 19,
+   "variant": "B",
+   "sentence": "The posting's location field reads \"NYC-Privy\", which the tool labelled as supporting that the role is in the US. The only evidence is that short location string, so I'd call it fairly but not fully certain.",
+   "is_error": false
+  },
+  {
+   "i": 2,
+   "variant": "A",
+   "sentence": "The posting's text names data technologies such as Postgres, Redis and Elasticsearch, and the tool labeled \"stack_fit\" as supported on that basis. However, the quote it gave is cut off mid-word and has no explanation attached, so we can be fairly but not fully sure that the posting's stack matches.",
+   "is_error": false
+  },
+  {
+   "i": 17,
+   "variant": "A",
+   "sentence": "I cannot tell: the tool labelled the 'no_clearance' claim \"insufficient\" because the posting's text never mentions a security clearance, so nothing in it supports or contradicts the claim, and we can't be sure either way.",
+   "is_error": false
+  },
+  {
+   "i": 7,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text never mentions a security clearance, so the tool labelled the \"no_clearance\" claim \"insufficient\" and gave no quote, which means we can't be sure either way.",
+   "is_error": false
+  },
+  {
+   "i": 19,
+   "variant": "A",
+   "sentence": "The posting's location field reads \"NYC-Privy\", which the tool labeled as supporting a US location, though the label rests on that short location string alone, so we can be fairly but not fully sure it is in the US.",
+   "is_error": false
+  },
+  {
+   "i": 6,
+   "variant": "B",
+   "sentence": "The posting's text supports the claim that it asks for fewer than 3 years of experience, because it quotes \"1+ years of professional engineering experience\", so we can be fairly sure, though that rests on one quoted line.",
+   "is_error": false
+  },
+  {
+   "i": 9,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text says nothing about sponsoring visas, so the tool labeled the sponsorship claim \"insufficient\" and the posting gives no basis for either answer.",
+   "is_error": false
+  },
+  {
+   "i": 15,
+   "variant": "A",
+   "sentence": "The tool labelled \"early_career\" as supported, but the only text it quoted as evidence says the minimum requirement is \"2-12+ years of industry software engineering experience\", which points away from an entry-level role, so I would not trust that label without reading the posting itself.",
+   "is_error": false
+  },
+  {
+   "i": 17,
+   "variant": "B",
+   "sentence": "The posting's text never mentions a security clearance, so the tool labeled the claim \"no clearance is required\" as insufficient and I cannot tell whether one is needed, because the tool gives no quote and no confidence level beyond that label.",
+   "is_error": false
+  },
+  {
+   "i": 2,
+   "variant": "B",
+   "sentence": "The posting's text names at least one technology from Rohan's documented shipped project (it lists \"Postgres, Redis, Elasticsearch\" as example data technologies), so the stack_fit claim is labeled supported, though the match comes from an \"e.g.\" option list and the quoted snippet is cut off, so it is a text match and not proof that the role requires that stack.",
+   "is_error": false
+  },
+  {
+   "i": 5,
+   "variant": "A",
+   "sentence": "The posting's text is labeled \"supported\" for early_career, quoting a requirement of \"2+ years industry experience\" with backend tech stacks, so it appears to fit an early-career applicant, though the label comes from a rules-based check and the quote shows a 2-year experience ask that sits near the edge of what counts as entry-level.",
+   "is_error": false
+  },
+  {
+   "i": 11,
+   "variant": "B",
+   "sentence": "The posting's text supports the claim that the work involves building with LLMs or AI agents, because it quotes \"Agentic actions that help clinicians complete work\" and \"intelligent recommendations\", and since the tool labeled this \"supported\" with a direct quote, we can be fairly confident, though only as far as that one quoted passage goes.",
+   "is_error": false
+  },
+  {
+   "i": 14,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text says nothing about sponsoring visas, so the \"sponsorship\" claim is labeled insufficient, meaning there is no evidence either way and nothing to be sure of.",
+   "is_error": false
+  },
+  {
+   "i": 3,
+   "variant": "A",
+   "sentence": "I cannot tell: the tool labeled \"stack_fit\" as insufficient for this posting, because no technology from the resume's shipped skills appears as a stated need in the posting's text, so the text gives no evidence either way.",
+   "is_error": false
+  },
+  {
+   "i": 11,
+   "variant": "A",
+   "sentence": "The posting's text supports the claim that the role is AI-focused, since it describes multimodal inputs, intelligent recommendations and agentic actions that help clinicians complete work, and the tool gave this a \"supported\" label backed by a direct quote, though that quote is a truncated excerpt, so the confidence rests on that one passage alone.",
+   "is_error": false
+  },
+  {
+   "i": 18,
+   "variant": "B",
+   "sentence": "I cannot tell: the posting's text says nothing about sponsoring visas, so the tool labeled the sponsorship claim \"insufficient\" and we have no evidence either way.",
+   "is_error": false
+  }
+ ]
+}

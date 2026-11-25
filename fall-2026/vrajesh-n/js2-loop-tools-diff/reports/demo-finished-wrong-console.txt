@@ -1,0 +1,15 @@
+--- the agent's own report (wrong version 1 plugged in) ---
+  ashby:commure            ok  81 postings
+  greenhouse:stripe        ok  726 postings
+  greenhouse:figma         ok  141 postings
+  greenhouse:databricks    ok  898 postings
+  lever:palantir           ok  0 postings
+  exit: finished   <- looks clean
+--- independent check (re-reads the raw files with its own counter) ---
+  ok  ashby:commure            trace   81 | raw file 81
+  ok  greenhouse:stripe        trace  726 | raw file 726
+  ok  greenhouse:figma         trace  141 | raw file 141
+  ok  greenhouse:databricks    trace  898 | raw file 898
+  BAD lever:palantir           trace    0 | raw file 308
+  PROBLEM: lever:palantir: trace claims 0 postings, but data/raw/2026-10-23/lever_palantir.json holds 308
+  verdict: FAIL
