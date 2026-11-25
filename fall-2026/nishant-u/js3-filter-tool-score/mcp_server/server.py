@@ -34,10 +34,12 @@ POSTING_ID = re.compile(r"^(greenhouse|ashby):[a-z0-9-]{1,64}:[A-Za-z0-9-]{1,64}
 TOOL = {
     "name": "score_posting",
     "title": "Score one collected job posting",
-    "description": ("Return the FILTER.md v2 verdict (accept / reject / abstain), its reason, and for an "
-                    "accepted posting the C1-C4 claims (US-based, Uses <skill>, Sponsors visas, Remote) "
-                    "labeled supported / contradicted / insufficient with exact quotes. Reads only the "
-                    "saved v2 run for postings collected by the JS2 loop; it cannot fetch new postings."),
+    "description": ("Return the SAVED FILTER.md v2 verdict (accept / reject / abstain) for one posting collected "
+                    "on 2026-11-10, its reason, and for an accepted posting the C1-C4 claims (US-based, Uses "
+                    "<skill>, Sponsors visas, Remote) as computed then, labeled supported / contradicted / "
+                    "insufficient with exact quotes. This is a stored rule verdict, not a fresh judgment of fit, "
+                    "and the claim labels were not checked by hand. It reads only the saved v2 run and cannot "
+                    "fetch new or updated postings."),
     "inputSchema": {
         "type": "object",
         "properties": {"posting_id": {
@@ -138,7 +140,10 @@ class Server:
         version = requested if requested in SUPPORTED_VERSIONS else SUPPORTED_VERSIONS[0]
         return result(ident, {"protocolVersion": version, "capabilities": {"tools": {"listChanged": False}},
                               "serverInfo": SERVER_INFO,
-                              "instructions": "Read-only. One tool: score_posting(posting_id). Data: the saved FILTER.md v2 run."})
+                              "instructions": ("Read-only except that the server appends every message to its own "
+                                               "transcript log inside its folder. One tool: score_posting(posting_id), "
+                                               "which returns a SAVED FILTER.md v2 verdict for postings collected on "
+                                               "2026-11-10, not a fresh judgment of fit.")})
 
     def call(self, ident, params):
         if not isinstance(params, dict) or not isinstance(params.get("name"), str):

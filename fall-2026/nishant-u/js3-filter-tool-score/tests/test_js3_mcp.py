@@ -79,6 +79,20 @@ class Lifecycle(unittest.TestCase):
         self.assertFalse(s.ready)
 
 
+class Descriptions(unittest.TestCase):
+    def test_descriptions_match_the_trust_decision(self):
+        # MCP-EVALUATION.md, Server A trust decision (Nishant, 2026-11-25): no bare "Read-only",
+        # and "score" must read as a saved verdict, not a fresh judgment.
+        tool = ready_server().handle(req(2, "tools/list"))["result"]["tools"][0]
+        instructions = srv.Server().handle(INIT)["result"]["instructions"]
+        self.assertIn("SAVED FILTER.md v2 verdict", tool["description"])
+        self.assertIn("2026-11-10", tool["description"])
+        self.assertIn("not a fresh judgment of fit", tool["description"])
+        self.assertTrue(instructions.startswith("Read-only except"))
+        self.assertIn("transcript log", instructions)
+        self.assertIn("not a fresh judgment of fit", instructions)
+
+
 class Discovery(unittest.TestCase):
     def test_tools_list_declares_one_read_only_tool(self):
         tools = ready_server().handle(req(2, "tools/list"))["result"]["tools"]
