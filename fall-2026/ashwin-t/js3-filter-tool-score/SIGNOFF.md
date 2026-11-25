@@ -23,6 +23,7 @@ Signed or withheld: ____________ (name, date)
 | v1.1 changes one object, and only 2 development decisions | `tests/test_v11_mission_manager.py` |
 | The audit selection is reproducible and excludes held-out keys | `tests/test_tool_and_audit.py::Audit` |
 | 55 tests pass on Python 3.9.6 and 3.12.15 | `python3 -m unittest`, and the same with `/opt/homebrew/bin/python3.12` |
+| Ashwin ran the 55 tests personally on 3.9.6 at `b616bc09`: OK, exit 0 | `drafting/checks-run-by-ashwin.txt` |
 
 ## Candidate "Not checked" items, from the record
 
