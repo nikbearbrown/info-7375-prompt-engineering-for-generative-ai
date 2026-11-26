@@ -124,6 +124,7 @@ The tool server has its own planted wrong version (WF6, answering before the han
 | Date (ET) | Change | Measured? | Evidence |
 |---|---|---|---|
 | 2026-11-25 | **Cut before v0.1:** topic word `rag`. RAG is not on Priya's résumé (0 mentions), so a keep on `rag` would produce a C4 claim her résumé can't support. | no: decided from the résumé | `persona/priya-nair.resume.json` |
+| 2026-11-25 | **False friend (named by me in the audit):** `agents` matched in C08 "3P Revenue Accounting & Reporting" and R20 "Director, Technical Revenue Accounting" through "principal-vs-agent", an accounting term. Both were rejected anyway (close call; exclude word), so it changed no verdict in the audit. Not changed in v0.2, to keep one change at a time. | found in the audit | `audit/reject-audit-v0.1.md` C08, R20 |
 | 2026-11-25 | **v0.2, measured:** cut the exclude word `Lead` (`config/filter-v0.2.json`). The audit's only wrong reject (R08, 1 of 30) was rejected by it. Overall 76 → 77 kept; held-out agreement 19/30 → 19/30 (no change). | yes | `runs/2026-11-26T04-26-02Z-filter-v0.2/heldout-measure.md`, `SCORE.md` §2 |
 | 2026-11-25 | **Measured, not applied:** `agents` is in 174 of 174 Notion postings (≥ 90 %: boilerplate by §1.6). Not added to the ignore list in this round, to keep one change at a time. | yes | `runs/2026-11-26T02-20-53Z-filter-v0.1/boilerplate.md` |
 | 2026-11-25 | **Reasons in 1.4:** I chose one of Claude Code's drafted reasons per word and edited two (python, sql). | no | this file |

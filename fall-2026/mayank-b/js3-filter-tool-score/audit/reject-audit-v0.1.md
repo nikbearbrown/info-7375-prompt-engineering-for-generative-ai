@@ -840,7 +840,7 @@ About the role
 
 **My verdict:** reject
 **Why (one line):** Mayank: the filter got it right (filter wrong? no)
-**False friend? (word, or -):** -
+**False friend? (word, or -):** agents ("principal-vs-agent", an accounting term)
 
 ### R21 · greenhouse/anthropic · 5363469008
 
@@ -1664,7 +1664,7 @@ About the role
 
 **My verdict:** reject
 **Why (one line):** Mayank: the filter got it right (filter wrong? no)
-**False friend? (word, or -):** -
+**False friend? (word, or -):** agents ("principal-vs-agent", an accounting term)
 
 ### C09 · greenhouse/anthropic · 5423737008
 
