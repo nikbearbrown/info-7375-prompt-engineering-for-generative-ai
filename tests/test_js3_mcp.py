@@ -117,6 +117,15 @@ class DeclaredVsActual(unittest.TestCase):
         with mock.patch("builtins.open", guarded):
             self.assertFalse(call(s, {"board": "acme", "posting_id": "1"})["result"]["isError"])
 
+    def test_description_declares_the_version_it_runs(self):
+        # Found by Claude Code as a real client (evidence/mcp/claude_client): the description said v1.2, the output v1.3.
+        s = server()
+        init(s)
+        desc = s.handle({"jsonrpc": "2.0", "id": 9, "method": "tools/list"})["result"]["tools"][0]["description"]
+        out = call(s, {"board": "acme", "posting_id": "1"})["result"]["structuredContent"]
+        self.assertIn(out["filter_version"], desc)
+        self.assertEqual(desc.count("FILTER.md v"), 1)
+
     def test_same_input_same_answer(self):
         s = server()
         init(s)
