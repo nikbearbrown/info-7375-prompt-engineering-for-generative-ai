@@ -290,6 +290,23 @@ fixtures exercise the missing-field rules, and the tests say so.
 
 Under Option A, a prompt or context change cannot move relevance precision or recall.
 
+**Amendment, 2026-11-25** (before any Phase 5 run; Aravind) [DECIDED 2026-11-25]:
+- **Why.** v1.1.0-e keeps or marks cannot_tell **0** of the 20 held-out postings (count only; no
+  labels or ids were looked at). With no shortlisted held-out posting there are no held-out claims
+  to label.
+- **Prompt and context changes** are measured instead on the held-out postings **Aravind labeled
+  `relevant` or `cannot_tell`**. That set is chosen by his labels, not by the filter. Three automatic
+  metrics, all per claim, over Claude's justification for each of those postings:
+  1. **verbatim-quote share:** the share of claims whose quote is an exact substring of the posting
+     text (`src/evidence.mjs`, `quoteCheck`)
+  2. **JUDGMENT share:** the share of claims Claude marks `"kind": "judgment"` rather than
+     `"quoted"`
+  3. **abstention rate:** the share of claims where Claude says the posting does not state the fact
+     (`"quote": null`, or a claim marked `abstain`)
+- **These metrics are mechanical, not hand-labeled.** They do not say whether a claim is true or
+  entailed.
+- **Filter-file changes** are still measured on the held-out relevance labels.
+
 ---
 
 ## 5. Wrong versions (each must make at least one test fail) [DECIDED 2026-11-25, hand-set]
