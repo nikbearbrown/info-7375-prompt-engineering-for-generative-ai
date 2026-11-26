@@ -53,7 +53,7 @@ The hashes in these files are the ones on GitHub. My 24 commits were rebased ont
 | my rule decisions | `8c02746e` | FILTER.md v1.1: A rejected, B added, C rejected, D added; held-out labels |
 | parser fixes, test first | `0e23460c`, `401cacdb` | curly-apostrophe headings; "four (4) years"; live Claude runs P1/P2/C2 |
 | write-ups | (later commits) |
-| labeler fix, test first | (after the first push) | dev set 10/16 → 16/16; logs 14–18; SHORTLIST.md "Improvement" | [AUDIT.md](AUDIT.md), [SHORTLIST.md](SHORTLIST.md), [SCORE-CHANGES.md](SCORE-CHANGES.md), SIGNOFF, SOURCES, FRICTIONAL |
+| labeler fix, test first | `ed344260`, `124eca29` | dev set 10/16 → 16/16; logs 14–18; SHORTLIST.md "Improvement" | [AUDIT.md](AUDIT.md), [SHORTLIST.md](SHORTLIST.md), [SCORE-CHANGES.md](SCORE-CHANGES.md), SIGNOFF, SOURCES, FRICTIONAL |
 
 ## Language and toolchain
 
