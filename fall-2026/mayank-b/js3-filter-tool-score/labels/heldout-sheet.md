@@ -24,8 +24,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H02 · greenhouse/anthropic · 5391277008
 
@@ -46,8 +46,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H03 · greenhouse/anthropic · 5379593008
 
@@ -76,8 +76,8 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** cannot tell
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H04 · greenhouse/anthropic · 5490502008
 
@@ -97,8 +97,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H05 · greenhouse/anthropic · 5390811008
 
@@ -116,8 +116,8 @@ About the role:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H06 · greenhouse/anthropic · 4631822008
 
@@ -137,8 +137,8 @@ About the role:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H07 · greenhouse/anthropic · 5265365008
 
@@ -160,8 +160,8 @@ About Anthropic
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H08 · greenhouse/anthropic · 5277776008
 
@@ -179,8 +179,8 @@ About the role:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H09 · greenhouse/anthropic · 5418977008
 
@@ -205,8 +205,8 @@ About Anthropic
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H10 · greenhouse/anthropic · 5463598008
 
@@ -239,8 +239,8 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H11 · greenhouse/anthropic · 5456018008
 
@@ -256,8 +256,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H12 · greenhouse/anthropic · 5445806008
 
@@ -275,8 +275,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H13 · greenhouse/anthropic · 5471361008
 
@@ -324,8 +324,8 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H14 · greenhouse/anthropic · 4938432008
 
@@ -354,8 +354,8 @@ Responsibilities: 
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H15 · greenhouse/anthropic · 5459098008
 
@@ -388,8 +388,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H16 · greenhouse/anthropic · 4935314008
 
@@ -414,8 +414,8 @@ About the role:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H17 · greenhouse/anthropic · 5484035008
 
@@ -468,8 +468,8 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H18 · ashby/notion · 886bb3d2-45ac-45c6-ae21-62ba0b905b3c
 
@@ -487,8 +487,8 @@ Notinos (our employees) are customer zero in bringing this future of work to lif
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H19 · greenhouse/anthropic · 5490492008
 
@@ -504,8 +504,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H20 · greenhouse/anthropic · 4942024008
 
@@ -534,8 +534,8 @@ Responsibilities:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H21 · greenhouse/anthropic · 5382744008
 
@@ -555,8 +555,8 @@ About Anthropic
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H22 · greenhouse/anthropic · 5468352008
 
@@ -583,8 +583,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H23 · greenhouse/hubspotjobs · 7292159
 
@@ -609,8 +609,8 @@ What will you get to do in this Small Business Account Executive role?
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H24 · greenhouse/anthropic · 4461444008
 
@@ -633,8 +633,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H25 · greenhouse/anthropic · 5209196008
 
@@ -652,8 +652,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H26 · greenhouse/anthropic · 5478939008
 
@@ -671,8 +671,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H27 · greenhouse/anthropic · 5415461008
 
@@ -710,8 +710,8 @@ Responsibilities:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H28 · greenhouse/anthropic · 5419868008
 
@@ -734,8 +734,8 @@ About the role:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** keep
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H29 · greenhouse/anthropic · 5196852008
 
@@ -753,8 +753,8 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
 
 ### H30 · greenhouse/anthropic · 5160180008
 
@@ -782,5 +782,5 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
+**My verdict:** reject
+**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
