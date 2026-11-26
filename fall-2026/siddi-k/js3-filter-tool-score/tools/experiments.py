@@ -112,12 +112,15 @@ def confusion(pairs) -> dict:
 def cmd_score() -> int:
     labels = hand_labels()
     H = build_heldout.load()
-    keys = [f"{p['board']}:{p['id']}" for p in H]
+    # Found after the run: stripe:7392697 is in H twice (sheet held_out_B and JS1's held-out). It is scored once,
+    # with the JS1 copy (the later one in H, so it wins in every dict below) and the JS1 label (loaded last).
+    keys = list(dict.fromkeys(f"{p['board']}:{p['id']}" for p in H))
     missing = [k for k in keys if k not in labels]
     if missing:
         raise SystemExit(f"no hand label for {missing}")
     table = {"held_out": {"n": len(keys), "relevant": sum(labels[k] == "relevant" for k in keys)}, "rows": []}
-    per_item = {k: {"title": p["title"], "hand": labels[k]} for k, p in zip(keys, H)}
+    by_key = {f"{p['board']}:{p['id']}": p for p in H}
+    per_item = {k: {"title": by_key[k]["title"], "hand": labels[k]} for k in keys}
     for f in FILTERS:
         cfg = json.loads(policy.check_read(f"config/filter.{f}.json").read_text(encoding="utf-8"))
         preds = {}
