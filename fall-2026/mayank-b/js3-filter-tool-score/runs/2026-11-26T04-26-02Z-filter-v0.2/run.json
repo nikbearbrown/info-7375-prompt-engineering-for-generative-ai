@@ -1,0 +1,38 @@
+{
+ "run_id": "2026-11-26T04-26-02Z-filter-v0.2",
+ "corpus": "runs/2026-11-26T02-20-27Z-content",
+ "corpus_run": "2026-11-26T02-20-27Z-content",
+ "boards": {
+  "greenhouse/anthropic": {
+   "postings": 635,
+   "sha256": "190b4a41fa23f3c8c3274f5f6d5931a0ed76bd2e16f29d2cff4d29be7c6c3ee2",
+   "raw": "raw/greenhouse__anthropic__a1__200.json",
+   "with_text": 635
+  },
+  "greenhouse/hubspotjobs": {
+   "postings": 141,
+   "sha256": "e09c004fd938219bdb4582e3bcc4a8cc61a160cefb53efb49194141133106043",
+   "raw": "raw/greenhouse__hubspotjobs__a1__200.json",
+   "with_text": 141
+  },
+  "ashby/notion": {
+   "postings": 174,
+   "sha256": "6075aa11e3bbebcc84d7b2c6f741eafae2b9115979073f57736bef58f29110f8",
+   "raw": "raw/ashby__notion__a1__200.json",
+   "with_text": 174
+  },
+  "greenhouse/mayank-js2-no-such-board": {
+   "error": "http-4xx: HTTP 404"
+  }
+ },
+ "config": "config/filter-v0.2.json",
+ "filter_version": "0.2",
+ "postings": 950,
+ "close_calls": 49,
+ "verdicts": {
+  "ashby/notion reject": 174,
+  "greenhouse/anthropic keep": 77,
+  "greenhouse/anthropic reject": 558,
+  "greenhouse/hubspotjobs reject": 141
+ }
+}

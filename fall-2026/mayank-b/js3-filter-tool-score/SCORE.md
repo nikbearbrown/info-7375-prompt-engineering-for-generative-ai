@@ -29,7 +29,17 @@ Nothing in this system was **fitted** on labels. The one change below is chosen 
 
 ## 2. One change at a time
 
-_To be filled from the runs:_ the object changed (the filter file), the one rule changed (chosen from my reject audit), what was held fixed (corpus run, persona, code, tool list, prompt, settings), and the held-out table from `python3 jsa3.py measure`.
+- **Object changed:** the filter file only (`config/filter-v0.2.json`). **The one change:** the exclude word `Lead` was cut. Why: in my reject audit, the only wrong reject of 30 was R08 "AWS GTM Partnership Lead", rejected by `Lead` alone.
+- **Held fixed:** corpus run `2026-11-26T02-20-27Z-content`, persona, code, the prompt, the tool list, every other rule and number.
+- **Effect on all 950 postings:** kept 76 → 77, close calls 42 → 49 (`runs/2026-11-26T04-26-02Z-filter-v0.2/summary.md`).
+- **Held-out (30 postings, labelled blind before the change, used once):**
+
+| Filter | agree with me | false keeps | false rejects | other | n |
+|---|---:|---:|---:|---:|---:|
+| v0.1 | 19 | 1 | 9 | 1 | 30 |
+| v0.2 | 19 | 1 | 9 | 1 | 30 |
+
+**Result: no measurable change on the held-out set.** None of its 30 postings has `Lead` decide its verdict. The held-out set does show the filter's real weakness: 9 false rejects, postings I would keep that v0.1 rejects. That points at the next change (the role words and the level rules), and it would need a fresh held-out set, because this one is now used.
 
 ## 3. What persistence is not proof of
 
