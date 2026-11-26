@@ -1,0 +1,207 @@
+{
+ "at": "2026-11-26T02:24:48+00:00",
+ "model": "claude-haiku-5-5",
+ "posting": "4613568008",
+ "response": {
+  "duration_api_ms": 14487,
+  "stop_reason": "tool_use",
+  "session_id": "bf7b5689-6389-4b72-9cc4-876d47c21734",
+  "total_cost_usd": 0.00324536,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6324,
+   "cache_read_input_tokens": 3676,
+   "output_tokens": 2980,
+   "output_tokens_details": {
+    "thinking_tokens": 2612
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6324,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 2980,
+     "cache_read_input_tokens": 3676,
+     "cache_creation_input_tokens": 6324,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6324
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 4418,
+    "outputTokens": 3004,
+    "cacheReadInputTokens": 3676,
+    "cacheCreationInputTokens": 6324,
+    "webSearchRequests": 0,
+    "costUSD": 0.00324536,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 2612,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 6324,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"claims\":[{\"id\":\"C1\",\"claim\":\"The role matches Priya's target titles because its title includes 'Machine Learning', which is one of her targets.\",\"quote\":\"Research Engineer, Machine Learning (Reinforcement Learning)\"},{\"id\":\"C2\",\"claim\":\"The location is one Priya accepts, since the role is in San Francisco or New York City, both of which she is open to relocating to.\",\"quote\":\"San Francisco, CA | New York City, NY\"},{\"id\":\"C3\",\"claim\":\"The posting does not confirm that the level fits early-career, because its experience line ties required years to an internal job level it never specifies.\",\"quote\":\"Minimum years of experience: Years of experience required will correlate with the internal job level requirements for the position\"},{\"id\":\"C4\",\"claim\":\"The role calls for Python, a language Priya lists as one of her skills.\",\"quote\":\"Are proficient in Python and async/concurrent programming with frameworks like Trio\"}]}",
+  "structured_output": {
+   "claims": [
+    {
+     "id": "C1",
+     "claim": "The role matches Priya's target titles because its title includes 'Machine Learning', which is one of her targets.",
+     "quote": "Research Engineer, Machine Learning (Reinforcement Learning)"
+    },
+    {
+     "id": "C2",
+     "claim": "The location is one Priya accepts, since the role is in San Francisco or New York City, both of which she is open to relocating to.",
+     "quote": "San Francisco, CA | New York City, NY"
+    },
+    {
+     "id": "C3",
+     "claim": "The posting does not confirm that the level fits early-career, because its experience line ties required years to an internal job level it never specifies.",
+     "quote": "Minimum years of experience: Years of experience required will correlate with the internal job level requirements for the position"
+    },
+    {
+     "id": "C4",
+     "claim": "The role calls for Python, a language Priya lists as one of her skills.",
+     "quote": "Are proficient in Python and async/concurrent programming with frameworks like Trio"
+    }
+   ]
+  },
+  "ttft_ms": 12493,
+  "type": "result",
+  "duration_ms": 13509,
+  "uuid": "3e36b3e4-b81d-4c0a-a864-c7afef87fee1",
+  "ttft_stream_ms": 882,
+  "time_to_request_ms": 164,
+  "time_to_request_phases_ms": {
+   "other": 2,
+   "system_prompt": 40,
+   "resume_other": 0,
+   "process_user_input": 2,
+   "input_attachments": 84,
+   "input_hooks": 1,
+   "conversation_append": 0,
+   "tool_pool_refresh": 1,
+   "init_message": 5,
+   "init_frame_send": 6,
+   "engine_pickup": 5,
+   "loop_entry": 5,
+   "message_prep": 0,
+   "model_config_wait": 1,
+   "autocompact": 1,
+   "request_announcements": 3,
+   "query_setup": 1,
+   "model_gates": 0,
+   "tool_schema_build": 1,
+   "message_normalization": 1,
+   "client_creation": 2,
+   "request_build": 3
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 11,
+  "time_to_request_cpu_ms": 176,
+  "time_to_request_major_faults": 265,
+  "input_attachments_detail": {
+   "slowest_producer": "at_mentioned_files",
+   "slowest_producer_ms": 73,
+   "cpu_ms": 56,
+   "major_faults": 124,
+   "setup_ms": 0,
+   "prompt_producers_ms": 76,
+   "ambient_start_ms": 3,
+   "ambient_wait_ms": 2,
+   "render_ms": 0,
+   "producers": 40,
+   "token_counts": 0
+  },
+  "tool_schema_build_detail": {
+   "betas_ms": 0,
+   "waits_ms": 0,
+   "placement_ms": 1,
+   "render_ms": 0,
+   "after_ms": 0,
+   "other_ms": 0,
+   "tools": 1,
+   "new_schemas": 1
+  },
+  "message_normalization_detail": {
+   "before_ms": 0,
+   "normalize_ms": 1,
+   "images_ms": 0,
+   "post_process_ms": 0,
+   "after_ms": 0,
+   "other_ms": 0,
+   "messages": 13,
+   "wire_messages": 2
+  },
+  "request_build_detail": {
+   "records_ms": 1,
+   "system_ms": 0,
+   "headers_ms": 0,
+   "cache_break_record_ms": 0,
+   "plans_ms": 1,
+   "retry_setup_ms": 0,
+   "sent_build_ms": 1,
+   "record_attempt_ms": 0,
+   "other_ms": 0,
+   "sent_build_safety_context_ms": 0,
+   "sent_build_cache_breakpoints_ms": 0,
+   "sent_build_surrogate_scan_ms": 0
+  },
+  "first_content_frame_ms": 882,
+  "queued_turn_count": 0,
+  "result_index": 0,
+  "credential_expires_at": "2026-11-29T12:13:20.666Z"
+ }
+}

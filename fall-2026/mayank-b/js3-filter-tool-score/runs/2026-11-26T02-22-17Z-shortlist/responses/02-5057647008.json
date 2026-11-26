@@ -1,0 +1,207 @@
+{
+ "at": "2026-11-26T02:22:43+00:00",
+ "model": "claude-haiku-5-5",
+ "posting": "5057647008",
+ "response": {
+  "duration_api_ms": 12476,
+  "stop_reason": "tool_use",
+  "session_id": "4d94d2f1-c374-4b35-84ce-4431d0d2fc29",
+  "total_cost_usd": 0.00304006,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6129,
+   "cache_read_input_tokens": 3676,
+   "output_tokens": 2413,
+   "output_tokens_details": {
+    "thinking_tokens": 2077
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6129,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 2413,
+     "cache_read_input_tokens": 3676,
+     "cache_creation_input_tokens": 6129,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6129
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 4220,
+    "outputTokens": 2711,
+    "cacheReadInputTokens": 3676,
+    "cacheCreationInputTokens": 6129,
+    "webSearchRequests": 0,
+    "costUSD": 0.00304006,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 2351,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 6129,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"claims\":[{\"id\":\"C1\",\"claim\":\"The role matches Priya's target titles, because the title is Applied AI Engineer.\",\"quote\":\"Applied AI Engineer, Enterprise\"},{\"id\":\"C2\",\"claim\":\"The posting location, San Francisco, CA or New York City, NY, is one Priya accepts.\",\"quote\":\"San Francisco, CA | New York City, NY\"},{\"id\":\"C3\",\"claim\":\"The level fits early-career, which the quoted requirement contradicts.\",\"quote\":\"4+ years of experience in technical roles such as Forward Deployed Engineer, Product Engineer, Software Engineer, or Technical Product Manager\"},{\"id\":\"C4\",\"claim\":\"The work uses Python, one of Priya's listed languages.\",\"quote\":\"Strong programming skills with proficiency in Python or TypeScript\"}]}",
+  "structured_output": {
+   "claims": [
+    {
+     "id": "C1",
+     "claim": "The role matches Priya's target titles, because the title is Applied AI Engineer.",
+     "quote": "Applied AI Engineer, Enterprise"
+    },
+    {
+     "id": "C2",
+     "claim": "The posting location, San Francisco, CA or New York City, NY, is one Priya accepts.",
+     "quote": "San Francisco, CA | New York City, NY"
+    },
+    {
+     "id": "C3",
+     "claim": "The level fits early-career, which the quoted requirement contradicts.",
+     "quote": "4+ years of experience in technical roles such as Forward Deployed Engineer, Product Engineer, Software Engineer, or Technical Product Manager"
+    },
+    {
+     "id": "C4",
+     "claim": "The work uses Python, one of Priya's listed languages.",
+     "quote": "Strong programming skills with proficiency in Python or TypeScript"
+    }
+   ]
+  },
+  "ttft_ms": 9495,
+  "type": "result",
+  "duration_ms": 10376,
+  "uuid": "fd41d7ab-58b7-4176-90fc-c8213948ebce",
+  "ttft_stream_ms": 712,
+  "time_to_request_ms": 123,
+  "time_to_request_phases_ms": {
+   "other": 2,
+   "system_prompt": 26,
+   "resume_other": 0,
+   "process_user_input": 2,
+   "input_attachments": 66,
+   "input_hooks": 1,
+   "conversation_append": 0,
+   "tool_pool_refresh": 1,
+   "init_message": 3,
+   "init_frame_send": 6,
+   "engine_pickup": 3,
+   "loop_entry": 4,
+   "message_prep": 0,
+   "model_config_wait": 1,
+   "autocompact": 0,
+   "request_announcements": 3,
+   "query_setup": 0,
+   "model_gates": 0,
+   "tool_schema_build": 1,
+   "message_normalization": 0,
+   "client_creation": 2,
+   "request_build": 2
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 14,
+  "time_to_request_cpu_ms": 121,
+  "time_to_request_major_faults": 257,
+  "input_attachments_detail": {
+   "slowest_producer": "at_mentioned_files",
+   "slowest_producer_ms": 58,
+   "cpu_ms": 52,
+   "major_faults": 138,
+   "setup_ms": 0,
+   "prompt_producers_ms": 60,
+   "ambient_start_ms": 3,
+   "ambient_wait_ms": 1,
+   "render_ms": 0,
+   "producers": 40,
+   "token_counts": 0
+  },
+  "tool_schema_build_detail": {
+   "betas_ms": 0,
+   "waits_ms": 0,
+   "placement_ms": 0,
+   "render_ms": 1,
+   "after_ms": 0,
+   "other_ms": 0,
+   "tools": 1,
+   "new_schemas": 1
+  },
+  "message_normalization_detail": {
+   "before_ms": 0,
+   "normalize_ms": 0,
+   "images_ms": 0,
+   "post_process_ms": 0,
+   "after_ms": 0,
+   "other_ms": 0,
+   "messages": 13,
+   "wire_messages": 2
+  },
+  "request_build_detail": {
+   "records_ms": 0,
+   "system_ms": 0,
+   "headers_ms": 0,
+   "cache_break_record_ms": 1,
+   "plans_ms": 0,
+   "retry_setup_ms": 0,
+   "sent_build_ms": 1,
+   "record_attempt_ms": 0,
+   "other_ms": 0,
+   "sent_build_safety_context_ms": 0,
+   "sent_build_cache_breakpoints_ms": 0,
+   "sent_build_surrogate_scan_ms": 0
+  },
+  "first_content_frame_ms": 712,
+  "queued_turn_count": 0,
+  "result_index": 0,
+  "credential_expires_at": "2026-11-29T12:13:20.666Z"
+ }
+}

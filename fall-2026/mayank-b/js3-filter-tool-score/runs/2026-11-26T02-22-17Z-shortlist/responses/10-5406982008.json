@@ -1,0 +1,207 @@
+{
+ "at": "2026-11-26T02:24:32+00:00",
+ "model": "claude-haiku-5-5",
+ "posting": "5406982008",
+ "response": {
+  "duration_api_ms": 11621,
+  "stop_reason": "tool_use",
+  "session_id": "d9407eeb-00a4-4930-be89-b7d8bd9e7638",
+  "total_cost_usd": 0.00302386,
+  "usage": {
+   "input_tokens": 2,
+   "cache_creation_input_tokens": 6073,
+   "cache_read_input_tokens": 3676,
+   "output_tokens": 2687,
+   "output_tokens_details": {
+    "thinking_tokens": 2338
+   },
+   "server_tool_use": {
+    "web_search_requests": 0,
+    "web_fetch_requests": 0
+   },
+   "service_tier": "standard",
+   "cache_creation": {
+    "ephemeral_1h_input_tokens": 6073,
+    "ephemeral_5m_input_tokens": 0
+   },
+   "inference_geo": "global",
+   "iterations": [
+    {
+     "input_tokens": 2,
+     "output_tokens": 2687,
+     "cache_read_input_tokens": 3676,
+     "cache_creation_input_tokens": 6073,
+     "cache_creation": {
+      "ephemeral_5m_input_tokens": 0,
+      "ephemeral_1h_input_tokens": 6073
+     },
+     "type": "message"
+    }
+   ],
+   "speed": "standard",
+   "fallback_credit": null
+  },
+  "modelUsage": {
+   "claude-haiku-5-5": {
+    "inputTokens": 4165,
+    "outputTokens": 2712,
+    "cacheReadInputTokens": 3676,
+    "cacheCreationInputTokens": 6073,
+    "webSearchRequests": 0,
+    "costUSD": 0.00302386,
+    "contextWindow": 1000000,
+    "maxOutputTokens": 128000,
+    "thinkingTokens": 2338,
+    "cacheCreationEphemeral5mInputTokens": 0,
+    "cacheCreationEphemeral1hInputTokens": 6073,
+    "canonicalModel": "claude-haiku-5-5",
+    "provider": "firstParty",
+    "costBasis": "list"
+   }
+  },
+  "permission_denials": [],
+  "terminal_reason": "completed",
+  "fast_mode_state": "off",
+  "fast_mode_disabled_reason": "extra_usage_disabled",
+  "subagent_stats": {
+   "spawned": 0,
+   "requested": {
+    "background": 0,
+    "foreground": 0,
+    "unset": 0
+   },
+   "started_in_background": 0,
+   "max_depth": 0,
+   "spawned_by_subagents": 0,
+   "completed": 0,
+   "failed": 0,
+   "killed": {
+    "parent": 0,
+    "user": 0,
+    "system": 0
+   },
+   "refused": {
+    "depth_limit": 0,
+    "concurrency_limit": 0,
+    "budget": 0
+   },
+   "by_type": {}
+  },
+  "safety_stops": 0,
+  "is_error": false,
+  "num_turns": 2,
+  "subtype": "success",
+  "api_error_status": null,
+  "result": "{\"claims\":[{\"id\":\"C1\",\"claim\":\"The role matches Priya's target title Applied AI.\",\"quote\":\"Applied AI Architect, Startups\"},{\"id\":\"C2\",\"claim\":\"The location is one Priya accepts, since San Francisco, CA is on her relocation list.\",\"quote\":\"San Francisco, CA | New York City, NY\"},{\"id\":\"C3\",\"claim\":\"The level does not fit early-career, because the posting asks for 3+ years of experience.\",\"quote\":\"3+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, Forward Deployed Engineer, or technical founder who has done founder-led sales\"},{\"id\":\"C4\",\"claim\":\"The work uses Python, one of Priya's listed languages.\",\"quote\":\"Comfortable with Python and familiarity with common LLM frameworks, tools, and integration patterns\"}]}",
+  "structured_output": {
+   "claims": [
+    {
+     "id": "C1",
+     "claim": "The role matches Priya's target title Applied AI.",
+     "quote": "Applied AI Architect, Startups"
+    },
+    {
+     "id": "C2",
+     "claim": "The location is one Priya accepts, since San Francisco, CA is on her relocation list.",
+     "quote": "San Francisco, CA | New York City, NY"
+    },
+    {
+     "id": "C3",
+     "claim": "The level does not fit early-career, because the posting asks for 3+ years of experience.",
+     "quote": "3+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, Forward Deployed Engineer, or technical founder who has done founder-led sales"
+    },
+    {
+     "id": "C4",
+     "claim": "The work uses Python, one of Priya's listed languages.",
+     "quote": "Comfortable with Python and familiarity with common LLM frameworks, tools, and integration patterns"
+    }
+   ]
+  },
+  "ttft_ms": 10192,
+  "type": "result",
+  "duration_ms": 11094,
+  "uuid": "62afdcbe-32f5-490e-ad57-e7c58fe3563f",
+  "ttft_stream_ms": 881,
+  "time_to_request_ms": 193,
+  "time_to_request_phases_ms": {
+   "other": 2,
+   "system_prompt": 38,
+   "resume_other": 0,
+   "process_user_input": 29,
+   "input_attachments": 51,
+   "input_hooks": 1,
+   "conversation_append": 1,
+   "tool_pool_refresh": 0,
+   "init_message": 3,
+   "init_frame_send": 31,
+   "engine_pickup": 8,
+   "loop_entry": 11,
+   "message_prep": 1,
+   "model_config_wait": 1,
+   "autocompact": 1,
+   "request_announcements": 4,
+   "query_setup": 0,
+   "model_gates": 0,
+   "tool_schema_build": 1,
+   "message_normalization": 0,
+   "client_creation": 4,
+   "request_build": 6
+  },
+  "turn_start_resume_kind": "none",
+  "process_turn_index": 0,
+  "time_to_request_loop_lag_ms": 84,
+  "time_to_request_cpu_ms": 94,
+  "time_to_request_major_faults": 239,
+  "input_attachments_detail": {
+   "slowest_producer": "at_mentioned_files",
+   "slowest_producer_ms": 38,
+   "cpu_ms": 25,
+   "major_faults": 84,
+   "setup_ms": 0,
+   "prompt_producers_ms": 41,
+   "ambient_start_ms": 3,
+   "ambient_wait_ms": 4,
+   "render_ms": 0,
+   "producers": 40,
+   "token_counts": 0
+  },
+  "tool_schema_build_detail": {
+   "betas_ms": 0,
+   "waits_ms": 0,
+   "placement_ms": 0,
+   "render_ms": 1,
+   "after_ms": 0,
+   "other_ms": 0,
+   "tools": 1,
+   "new_schemas": 1
+  },
+  "message_normalization_detail": {
+   "before_ms": 0,
+   "normalize_ms": 0,
+   "images_ms": 0,
+   "post_process_ms": 0,
+   "after_ms": 0,
+   "other_ms": 0,
+   "messages": 13,
+   "wire_messages": 2
+  },
+  "request_build_detail": {
+   "records_ms": 1,
+   "system_ms": 0,
+   "headers_ms": 1,
+   "cache_break_record_ms": 0,
+   "plans_ms": 2,
+   "retry_setup_ms": 0,
+   "sent_build_ms": 2,
+   "record_attempt_ms": 0,
+   "other_ms": 0,
+   "sent_build_safety_context_ms": 0,
+   "sent_build_cache_breakpoints_ms": 0,
+   "sent_build_surrogate_scan_ms": 0
+  },
+  "first_content_frame_ms": 881,
+  "queued_turn_count": 0,
+  "result_index": 0,
+  "credential_expires_at": "2026-11-29T12:13:20.666Z"
+ }
+}
