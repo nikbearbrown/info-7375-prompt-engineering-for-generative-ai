@@ -1,6 +1,6 @@
 # FRICTIONAL.md
 
-Written by Siddi Kommuri and pasted in chat on 2026-11-25 at about 22:38 ET. Claude saved it verbatim. The entry topics follow a list of possible episodes Claude suggested when Siddi asked for a brief; the entries and their wording are Siddi's.
+Written by Siddi Kommuri and pasted in chat on 2026-11-25 at about 22:38 ET. Claude saved it verbatim, except for one phrase in Entry 2 that Siddi approved changing at about 22:43 ET: "using the filter" became "on the blind sheet, which did not show the filter's verdicts". The entry topics follow a list of possible episodes Claude suggested when Siddi asked for a brief; the entries and their wording are Siddi's.
 
 ### Entry 1 — Nov 25 · FILTER draft
 
@@ -8,7 +8,7 @@ I accepted Claude's FILTER.md draft because it gave me a starting point instead 
 
 ### Entry 2 — Nov 25 · Labeling 62 postings
 
-I labeled 62 postings using the filter, but I don't have a reliable time estimate for how long the labeling took. Some non-US and sales postings were marked relevant, which means I was not applying a strict location and job-function standard consistently with the earlier criteria. I need to be honest about whether those decisions reflected my actual interpretation or whether I moved too quickly through the labels. Claude helped organize the workflow, but the labels were my decisions. Stripe posting `7392697` changed from not relevant in October to relevant, and I need to understand what changed in my interpretation rather than pretend the two labels are consistent. **Evidence:** `4d633be9`
+I labeled 62 postings on the blind sheet, which did not show the filter's verdicts, but I don't have a reliable time estimate for how long the labeling took. Some non-US and sales postings were marked relevant, which means I was not applying a strict location and job-function standard consistently with the earlier criteria. I need to be honest about whether those decisions reflected my actual interpretation or whether I moved too quickly through the labels. Claude helped organize the workflow, but the labels were my decisions. Stripe posting `7392697` changed from not relevant in October to relevant, and I need to understand what changed in my interpretation rather than pretend the two labels are consistent. **Evidence:** `4d633be9`
 
 ### Entry 3 — Nov 25 · Keeping the labels
 

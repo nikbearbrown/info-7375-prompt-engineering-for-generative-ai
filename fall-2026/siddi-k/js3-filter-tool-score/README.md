@@ -71,7 +71,7 @@ python tools/audit_report.py && python tools/fit_threshold.py            # audit
 
 ## Sign-off — Job-Search Agent 3
 
-> Lines drafted by Claude for Siddi to read, change and then sign or withhold. Not signed yet.
+> Lines drafted by Claude. Siddi reviewed them and chose to sign them as they stand (2026-11-25, about 22:43 ET).
 
 ```text
 Sign-off — Job-Search Agent 3
@@ -97,7 +97,7 @@ Not claiming: that the filter finds the jobs I want (by my labels it wrongly rej
               that the agent's "relevant" is reliable (the abstention rule checks support, not meaning);
               that annotations or a server's name prove it is safe;
               that a change which moved no verdict on H has no effect.
-Signed or withheld: ____________ (name, date)
+Signed or withheld: Signed, Siddi Kommuri, 2026-11-25
 ```
 
 ## Driver's seat
