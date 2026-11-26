@@ -21,7 +21,7 @@ _Claude Code drafted the structure and the options on 2026-11-25. For each line 
 
 **Not claiming**
 - **A.** No rate for "the filter misses X % of jobs": the bound covers only this snapshot's reject pool. No claim that the tool server is safe for any client except the one I ran. No claim that any posting is right for a real person; Priya is fictional.
-- **B.** That the filter is good. It is v0.1/v0.2 on one day of three boards, and two of those boards keep nothing.
+
 
 **Signed or withheld:** Mayank Bhadrasen, Nov 25, 2026 (name, date)
 
@@ -36,4 +36,4 @@ _Claude Code drafted the structure and the options on 2026-11-25. For each line 
 | Whether a posting is worth Priya's time | never decide it | decide it |
 
 **Why the judgment stays mine**
-- **A.** A filter can only find the words I gave it. Whether a job is worth someone's time depends on things no posting states: what they want next, what they'll trade off, who they know there. The audit showed me what the words miss: [fill: one example from my audit].
+- **A.** A filter can only find the words I gave it. Whether a job is worth someone's time depends on things no posting states: what they want next, what they'll trade off, who they know there. The audit showed me what the words miss.

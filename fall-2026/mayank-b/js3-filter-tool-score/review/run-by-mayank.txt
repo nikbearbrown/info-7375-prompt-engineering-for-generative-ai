@@ -1,0 +1,56 @@
+# JS3 review commands run by Mayank Bhadrasen in his own terminal
+# date: 2026-11-25 23:35 EST   commit: 26838398   python: 3.9.6
+
+# expect: Ran N tests ... OK
+$ python3 -I -m unittest discover -s tests 2>&1 | grep -E "^(Ran|OK|FAILED)"
+Ran 75 tests in 4.572s
+OK
+[exit 0]
+
+# expect: 4/4 wrong versions caught (WF1-WF4)
+$ python3 -I scripts/wrong_versions.py
+wrong version                  tests run failed  result
+WF1 substring match                    2      2  CAUGHT
+WF2 raw keyword count                  1      1  CAUGHT
+WF3 relevance as entailment            1      1  CAUGHT
+WF4 silent drop of no-text             1      1  CAUGHT
+
+4/4 wrong versions caught
+[exit 0]
+
+# expect: the tool server's planted wrong version (WF6) is caught
+$ python3 -I scripts/wrong_versions_mcp.py 2>&1 | tail -3
+WF6 ReadyOnInitialize: failing steps [3]
+M2 UnknownIdAsProtocolError: failing steps [7]
+M3 ReinitializeResets: failing steps [15, 16]
+[exit 0]
+
+# expect: recomputed from the raw files: every saved v0.1 record is identical
+$ python3 -I -c "
+import json,sys; sys.path.insert(0,\"src\")
+from jsa3 import corpus, filter as F
+R=\"runs/2026-11-26T02-20-53Z-filter-v0.1\"; meta=json.load(open(R+\"/run.json\")); cfg=json.load(open(meta[\"config\"]))
+c=corpus.load(meta[\"corpus\"]); saved=[json.loads(l) for l in open(R+\"/records.jsonl\")]
+again=[F.evaluate(p,cfg) for p in c[\"postings\"]]
+print(\"records\",len(saved),\"identical\",sum(a==b for a,b in zip(saved,again)))
+print(\"raw SHA-256 checked for\",[b for b,i in c[\"boards\"].items() if \"sha256\" in i])"
+records 950 identical 950
+raw SHA-256 checked for ['greenhouse/anthropic', 'greenhouse/hubspotjobs', 'ashby/notion']
+[exit 0]
+
+# expect: the tool server imports no network module
+$ grep -nE "^(import|from) " src/jsa3/mcp_server.py
+30:from __future__ import annotations
+32:import argparse
+33:import hashlib
+34:import json
+35:import sys
+36:from datetime import datetime, timezone
+37:from pathlib import Path
+45:from jsa3 import corpus as corpus_mod  # noqa: E402
+46:from jsa3 import filter as filter_mod  # noqa: E402
+[exit 0]
+
+# expect: nothing modified by these commands
+$ git status --short -- src/ config/ FILTER.md
+[exit 0]
