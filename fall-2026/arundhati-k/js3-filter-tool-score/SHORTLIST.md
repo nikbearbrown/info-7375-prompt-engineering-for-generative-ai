@@ -130,7 +130,29 @@ Every change went in the strict direction, which fits the bias found above (too 
 Not re-run after the fix: the tool-server transcripts (01, 02) and the Claude scorer runs. They show the labeler as it
 was when they ran.
 
+## Held-out check of the fix (my blind labels, 2026-11-25)
+
+The fix changed 16 labels on the v1 shortlist ([log 18](evidence/logs/18-labeler-change-on-v1-shortlist.txt)). 6 of
+them are dev-set claims, which leaves **10 that were never used to design the fix**. I labeled those 10 **blind**,
+with both the old and the new labels hidden ([sheet](labels/changed-claims-to-check.md),
+[my answers](labels/my-changed-claims-labels-2026-11-25.txt), `python3 make_label_check.py
+evidence/old/evidence_before_fix_401cacdb.py`):
+
+| | agreed with my blind labels |
+|---|---|
+| labeler before the fix | **1/10** |
+| labeler after the fix | **9/10** ([log 21](evidence/logs/21-labeler-fix-heldout-check.txt)) |
+
+**The one miss is a new defect the fix introduced.** On stripe:7277110 (claim 1, "requires SQL") I said
+*supported*, and the fixed labeler said *insufficient*. That bullet starts with "•" instead of "-", so the new
+"prose is not a requirement" rule treated a real requirement as a description. I have **not** fixed it: these 10
+claims are the held-out check, and tuning on them would use them up.
+
+**Limits.** All 10 changes went in the same direction (supported → insufficient), so this tests the fix's strictness,
+not its whole behaviour. 10 claims is a small sample: 9/10 is consistent with a true agreement rate anywhere from
+about 55% to 99.7% (exact binomial, 95%). The claims the fix did **not** change were not re-checked here.
+
 ## What I would change next (not done)
 
-- Check the 16 changed labels on the v1 shortlist by hand. That would be the first held-out test of this fix.
+- Treat "•" (and other bullet characters) like "-", then re-check on a *new* set of claims, not these 10.
 - Re-record transcript 01, so the tool's claims reflect the fixed labeler.

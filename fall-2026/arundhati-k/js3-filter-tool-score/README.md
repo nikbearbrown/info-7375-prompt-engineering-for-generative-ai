@@ -87,6 +87,10 @@ python3 measure_claims.py
 ```
 
 ```bash
+python3 make_label_check.py evidence/old/evidence_before_fix_401cacdb.py
+```
+
+```bash
 python3 mcp_client.py own
 ```
 
@@ -113,7 +117,7 @@ python3 claude_score.py P1 P2 C2
   about 9% of rejects being wrong. 8 of 10 sampled keeps were wrong ([AUDIT.md](AUDIT.md)).
 - **Held-out (20, 2 Y):** filter v1 16/20, v1.1 18/20 (TP 0). The LIVE Claude scorer gave 17/20 under every
   prompt and context tried ([SCORE-CHANGES.md](SCORE-CHANGES.md)).
-- **Claim labeler fix (dev set):** agreement with my checked labels went from 10/16 to 16/16, test-first (SHORTLIST.md, logs 14–18).
+- **Claim labeler fix:** on the dev set, agreement with my checked labels went from 10/16 to 16/16 (test-first, logs 14–18). On 10 changed claims **held out** from the design, which I labeled blind, it went from 1/10 to 9/10 (log 21). The one miss is a new "•"-bullet defect, not fixed (SHORTLIST.md).
 - **Tool server:** 11 server tests (57 in total), and 3 real transcripts. One of them is a live `claude -p` session that called the tool
   twice.
 

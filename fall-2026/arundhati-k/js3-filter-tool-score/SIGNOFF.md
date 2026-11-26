@@ -56,6 +56,10 @@ fix.* The 57 tests were run again after the fix (evidence/logs/16-tests-after-la
 
 **My confirmation (my words, 2026-11-25):** The claim labeler now agrees with all 16 recorded labels. However, 10 of those labels were not independently re-checked during this evaluation. The 16 changed labels from the unchecked v1 shortlist have also not been manually reviewed.
 
+**Update (2026-11-25, Claude at my request):** after this confirmation I labeled the 10 changed claims outside the dev
+set blind. The fixed labeler agreed with me on 9/10 (the old one on 1/10); see SHORTLIST.md and log 21. The remaining
+6 changed claims are dev-set claims. The new "•"-bullet miss is unfixed.
+
 ## Driver's seat
 
 The "why" column is in my words, typed in chat 2026-11-25.
