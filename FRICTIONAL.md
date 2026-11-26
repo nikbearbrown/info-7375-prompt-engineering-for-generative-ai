@@ -124,6 +124,11 @@ Claude also caught its own mistakes:
 - the stale "(v1)" heading in FILTER.md
 - a sign-off line saying the measurement tests came before the code, when they came in the same commit
 - 10 of 46 claim labels from its own checker that were wrong
+- in a final sweep I asked for ("are the any major issues that may need correcting?"):
+  - the driver's seat still said the labels were wrong "1 time in 5" and "22% of the time", after my own check had found 8%
+  - CONTRACT.md and GATE.md, copied unchanged from JS1 and JS2, link to evidence folders that are only in those submissions
+
+  Both were fixed (e45c865), and I re-signed after reading the change.
 
 One mistake I caught by asking: the false "only Python 3.9.6" reason for not running fetch. Because it was in a signed sign-off, I
 re-signed only after it was corrected.
