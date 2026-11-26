@@ -1,6 +1,6 @@
 # FILTER.md — Job-Search Agent 3
 
-**Filter version: v1** · Persona: fictional "Jordan Lee" (`data/persona_resume.json`, copied unchanged from JS1)
+**Filter version: v1.1** (adopted 2026-11-25; v1's text below is unchanged, and v1.1 adds one rule, §A2) · Persona: fictional "Jordan Lee" (`data/persona_resume.json`, copied unchanged from JS1)
 
 > **Who wrote this.** Claude drafted it on 2026-11-25 (about 21:45 ET), at Siddi's choice ("Claude drafts, I edit").
 > It is built from three things Siddi wrote or decided: JS1 `CONTRACT.md` (title words, exclusions, seniority,
@@ -69,6 +69,14 @@ Cannot-tell postings are listed for Siddi and counted on their own. They are nev
 - Ties go to more distinct skills, then board order (Stripe, Notion, Canva), then id.
 - **Why:** a fixed, recomputable order, so a TA can rebuild the list by hand.
 
+## A2. v1.1 (adopted by Siddi, 2026-11-25, about 22:40 ET)
+
+**One added rule in G4:** a location part is also in the US if it whole-word contains one of these place names: san francisco, south san francisco, ssf, sf, seattle, sea, chicago, chi, new york, new-york, nyc, atlanta, atl, dc. *(hand-set, from the collection's own location strings, not from labels)*
+
+- **Why:** Stripe often writes bare city names ("Chicago", "SF, NYC"). v1 read 111 postings in the collection as "not US" that v1.1 places in the US. On the whole collection, v1.1 adds 4 keeps: AI Engineer; Data Analyst, SF; Machine Learning Engineer, Growth Platform; Machine Learning Engineer, Radar.
+- **Measured on the held-out labels before adoption:** v1 agreed with Siddi on 15 of 29, v1.1 on 17 of 29. It fixed 2 misses and added no false keeps. The details and the rest of the log are in §E.
+- **Where v1.1 is used:** `config/filter.v1.1.json`. The shortlist, the tool-server transcripts and the audit ran on v1 and stay as they ran.
+
 ## B. Evidence rules
 
 The shortlist justification for each posting is written by Claude, and it is a **judgment**. It is a list of **claims**: one checkable statement each, typed as role, location, years, degree, skill or other. Each claim carries a quote copied from the posting's title, location or text.
@@ -118,3 +126,9 @@ Every rule added, cut or rejected after measuring goes here, with the date, the 
 | Version | Date | Change | Measured on | Decision |
 |---|---|---|---|---|
 | v1 | 2026-11-25 | First version (this file) | — | — |
+| v1.1 | 2026-11-25 | **Added:** US place names in G4 (§A2) | Whole collection: keep 8 → 12. Held-out H (29 postings, Siddi's labels): agreement 15 → 17, 2 misses fixed, 0 false keeps added (`output/experiments/scores.json`) | **Adopted** by Siddi |
+| (v1.2 candidate) | 2026-11-25 | **Considered:** drop Notion's blurb sentence, "notion is the collaborative ai workspace". This is the false friend **"ai"**, which gave all 28 scored Notion postings a topic point. | Whole collection: no verdict changed (keep 8 → 8). H: agreement 15 → 15 | **Rejected for now** by Siddi: it fixed no held-out error, which the plan (`experiments/PLAN.md`) requires |
+| (threshold) | 2026-11-25 | **Fitted:** `keep_threshold` on the 13 audit postings that reached scoring | Best is 4, with 3 errors, the same as the hand-set value. On H only 1 posting reaches scoring, so the threshold cannot change any H result (`output/experiments/fitted_threshold.json`) | **Kept** at 4. Fitted value = hand-set value |
+| (found, not changed) | 2026-11-26 | G3 misses years stated without the word "experience": "5+ years in an analytics engineering … role" (Stripe Analytics Engineer) passed G3 | Found by the shortlist claim check (`SHORTLIST.md`); not measured further | Not changed in JS3 |
+| (found, not changed) | 2026-11-26 | Placeholder locations "N/A" (25), "LOCATION" (7) and "na" (3) are read as "not US". Under wrong version 4, they should be cannot tell. | Whole collection: 35 postings | Not changed in JS3 |
+| (found, not changed) | 2026-11-26 | Evidence rule B checks only whether the role claim is *supported*, not what it says. A supported claim that "this is not a data role" still gives "relevant". | `SHORTLIST.md` counterexample (Notion Security Engineer; Siddi labelled it not relevant) | Not changed in JS3. A fix would fix the deciding claims' wording in the prompt |

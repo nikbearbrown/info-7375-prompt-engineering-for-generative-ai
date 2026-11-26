@@ -5,7 +5,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 1. PhD Data Scientist, Intern (stripe, New York, Seattle, South San Francisco HQ)
 
-- Filter v1 score: 7 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 7 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|
@@ -19,7 +19,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 2. PhD Machine Learning Engineer, Intern (stripe, San Francisco, New York City, Seattle)
 
-- Filter v1 score: 7 · **Agent's answer: I cannot tell** (location claim insufficient) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 7 · **Agent's answer: I cannot tell** (location claim insufficient) · Siddi's blind label: **relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|
@@ -32,7 +32,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 3. Master's Machine Learning Engineer, Intern (stripe, San Francisco, New York City, Seattle)
 
-- Filter v1 score: 7 · **Agent's answer: I cannot tell** (location claim insufficient) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 7 · **Agent's answer: I cannot tell** (location claim insufficient) · Siddi's blind label: **relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|
@@ -45,7 +45,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 4. Security Engineer, Detection and Response (notion, San Francisco, California)
 
-- Filter v1 score: 5 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 5 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **not_relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|
@@ -59,7 +59,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 5. Technical Operations Engineer, Revenue (stripe, US)
 
-- Filter v1 score: 4 · **Agent's answer: I cannot tell** (role claim insufficient) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 4 · **Agent's answer: I cannot tell** (role claim insufficient) · Siddi's blind label: **relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|
@@ -73,7 +73,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 6. Analytics Engineer (stripe, New York)
 
-- Filter v1 score: 4 · **Agent's answer: not relevant** (years claim contradicted) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 4 · **Agent's answer: not relevant** (years claim contradicted) · Siddi's blind label: **relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|
@@ -87,7 +87,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 7. Business Systems Engineer (notion, San Francisco, California)
 
-- Filter v1 score: 4 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 4 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|
@@ -101,7 +101,7 @@ Claims: Claude (`prompts/justify_v1.md`). Labels: the mechanical quote check, th
 
 ## 8. Software Engineer, Early Career (AI) (notion, San Francisco, California)
 
-- Filter v1 score: 4 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **(not labelled yet)**
+- Filter v1 score: 4 · **Agent's answer: relevant** (role and location supported; nothing deciding contradicted) · Siddi's blind label: **relevant**
 
 | # | type | claim | quote (verbatim from Claude) | quote check | Claude labeler | **final** |
 |---|---|---|---|---|---|---|

@@ -101,6 +101,23 @@ class Location(unittest.TestCase):
         self.assertEqual(self.place("London", other=[{"name": "New York, NY", "country": None}]), "us")
 
 
+class V11PlaceNames(unittest.TestCase):
+    """FILTER.md A2 (v1.1): bare US city names pass G4; v1 behaviour is unchanged; foreign cities still fail."""
+
+    def test_v11_cities(self):
+        names = cfg("v1.1")["us_place_names"]
+        place = lambda n, extra: posting_place({"name": n, "country": None, "other": []}, extra)["place"]  # noqa: E731
+        for n in ("Chicago", "SF, NYC", "SEA, SF, NYC, CHI", "Seattle or San Francisco", "San Francisco, New-York, Seattle"):
+            self.assertEqual(place(n, names), "us", n)
+            self.assertEqual(place(n, ()), "not_us", f"v1 must still read {n!r} as not US")
+        for n in ("Toronto", "Dublin", "Sydney or Melbourne", "Remote - Australia"):
+            self.assertEqual(place(n, names), "not_us", n)
+
+    def test_v11_differs_from_v1_only_in_place_names(self):
+        a, b = cfg("v1"), cfg("v1.1")
+        self.assertEqual({k for k in set(a) | set(b) if a.get(k) != b.get(k)}, {"version", "_comment", "us_place_names"})
+
+
 class FilterFileAgreesWithFilterMd(unittest.TestCase):
     def test_every_listed_word_and_number_appears_in_filter_md(self):
         doc = (ROOT / "FILTER.md").read_text(encoding="utf-8").lower()
