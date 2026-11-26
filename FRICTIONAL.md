@@ -1,137 +1,50 @@
 # FRICTIONAL — honest log
 
-I started JS3 by writing FILTER.md before any code, as in JS2. I made the decisions and Claude Code drafted the wording, the code and
-the tests. What made this assignment hard was not the code. It was finding out that my own labels, my own audit and Claude's claim
-labels each needed checking, and that a sample of 30 can say much less than it seems to. This log goes through those moments with the
-commits, prompts and tests behind them.
+For JS3 I did the same thing I did in JS2: I wrote FILTER.md first, before touching any code. All the decisions were mine, and Claude Code wrote up the wording, the code and the tests based on them. The code turned out to be the easy part. What made this assignment difficult was realizing that I couldn't take anything at face value. My own labels needed checking, my own audit needed checking, and so did the labels Claude attached to its claims. I also learned that a sample of 30 tells you a lot less than it looks like it does. This log walks through those moments, along with the commits, prompts and tests that go with each one.
 
 ## 1. Starting point and the filter before the build
 
-I set up a new local repo and copied only what JS3 builds on: my JS2 code, tests, config, the Evan Gordon persona and the Oct 31
-baseline (c09a161, 113 tests passing). FILTER.md v1 came next (5813935), before any JS3 code. Claude had put placeholder numbers in
-the score, so I said "ask me the placeholder and i will answer them". The questions it then asked turned the guesses into my choices.
+I started by creating a fresh local repo and bringing over only the pieces JS3 actually depends on: my JS2 code, the tests, the config, the Evan Gordon persona and the Oct 31 baseline, which had 113 tests passing. The next thing I did was write FILTER.md v1, still before any JS3 code existed. When Claude filled the score with placeholder numbers, I told it "ask me the placeholder and i will answer them". The questions it came back with meant that what had been guesses became decisions I made myself.
 
 ## 2. My decisions on the filter
 
-I asked "can you make it so the max is a 100 point system?", which became 8 points per skill (at most 8 skills), +16 for years,
-+10 for Boston or +5 for remote US, and +10 for visa sponsorship (aa8b063). Then I asked "is it possible to add visa sponsorship rule
-now in the new filter?". When Claude proposed making it a hard rule, I said instead "Allow all jobs that fit, just job that offer
-sponsorship get points for sponsorship". So visa only adds points and never rejects a posting. I added the BI titles. I also corrected
-the years preference: "3 years or less is preferred but consider and jobs asking for up to 5 years". Claude pointed out that v1.1 had
-actually given the bonus for 4 or fewer, so this became v1.2 (33062cb). I kept "Data Engineering" out of the role phrases (whole
-phrase only), and it later showed up as a false friend.
+I asked "can you make it so the max is a 100 point system?", and that turned into 8 points per skill (capped at 8 skills), +16 for years, +10 for Boston or +5 for remote US, and +10 for visa sponsorship. After that I asked "is it possible to add visa sponsorship rule now in the new filter?". Claude suggested making it a hard rule, but I went a different way and told it "Allow all jobs that fit, just job that offer sponsorship get points for sponsorship". That means visa can only add points and never knocks a posting out. I also added the BI titles. Then I fixed the years preference: "3 years or less is preferred but consider and jobs asking for up to 5 years". Claude noticed that v1.1 had really been giving the bonus for 4 years or fewer, so this change became v1.2. I left "Data Engineering" out of the role phrases (matching on the whole phrase only), and later on it turned out to be a false friend.
 
 ## 3. The snapshot
 
-JS2's Greenhouse responses had no job descriptions, so the filter could not run on them. A fresh snapshot with `?content=true` took 10
-read-only requests and returned 2,629 postings (acf136d). Kraken was empty again and the 404 board was "not observed", as FILTER.md
-predicted. The raw files came to 33 MB, so I chose to gzip them, which got them down to 2.7 MB. The sha256 of the original bytes is
-checked every time the snapshot is loaded.
+The Greenhouse responses from JS2 didn't include job descriptions, which meant the filter had nothing to run on. I took a new snapshot with content=true, which needed 10 read-only requests and brought back 2,629 postings. Kraken came back empty again and the 404 board was "not observed", just as FILTER.md had predicted. The raw files added up to 33 MB, so I decided to gzip them, which brought them down to 2.7 MB. Every time the snapshot loads, the sha256 of the original bytes gets checked.
 
 ## 4. Shaping the label sheet
 
-I chose to label every data-related title (141 postings), not a smaller sample. Then I cut it down: "remove the ones which are
-outside the US. Don't remove the remote jobs" (1075876), and "I don't what any job posting that requires 6 years of experience or
-more". Claude listed all 25 removals with the quoted years phrase before deleting anything (092b255). That list showed a posting the
-filter's own years rule would read wrong: "3+ years managing" followed by "7+ years in software development". Later I asked for the
-labeling tool to "also add years expereince requirement mentioned and also if sponsorship details are mentioned". The first posting it
-showed asked for "10+ years" and had slipped through the cut, because "experience" was more than 60 characters away. Ten more like it
-were removed in place (532ecc3). By narrowing the sheet I gave up the chance to test the location and years rules with my labels, and
-REJECT_AUDIT.md says so.
+Instead of working from a smaller sample, I decided to label every data-related title, which came to 141 postings. After that I trimmed the set. First I said "remove the ones which are outside the US. Don't remove the remote jobs", and then "I don't what any job posting that requires 6 years of experience or more". Before deleting anything, Claude listed all 25 postings it was going to remove, each with the years phrase quoted. Going through that list, I spotted a posting the filter's own years rule would get wrong: "3+ years managing" followed by "7+ years in software development". Later I asked for the labeling tool to "also add years expereince requirement mentioned and also if sponsorship details are mentioned". The very first posting it showed me asked for "10+ years" and had made it past the cut, because the word "experience" sat more than 60 characters away. Ten more postings like that one were removed in place. Narrowing the sheet this way meant I lost the chance to test the location and years rules against my own labels, and REJECT_AUDIT.md says that openly.
 
 ## 5. Three labeling windows at once
 
-When Claude went to remove those ten postings, it found three copies of the labeling tool running in my terminals. Each copy saves
-the whole file, so they could have silently overwritten one another's labels. Claude did not change the file until I had closed all of
-them, and it then checked that my 12 saved labels and every other row were unchanged.
+While Claude was getting ready to remove those ten postings, it noticed that three copies of the labeling tool were open in my terminals. Since each copy writes out the entire file when it saves, they could have quietly overwritten each other's labels without anyone noticing. Claude held off on touching the file until I had closed all three, and afterwards it checked that my 12 saved labels and all the other rows were still exactly as they had been.
 
 ## 6. My labels broke my own rule
 
-After the first pass, 22 postings were labeled relevant, and 11 of them broke rule 1 of my own labeling rule: Data Scientists, a sales
-analyst, a customer-success analyst, a product manager. Most of my notes just said "data role". That is the same mistake I made in JS1:
-labeling by title. I saved the first pass as its own file (7037135) and did a second pass with --redo. I changed exactly the 11 that
-Claude had listed, all from relevant to not relevant (f5f97ba). That means the second pass was steered by Claude's list, in one
-direction only, and I am recording that here. The held-out hash was locked in the same commit, before the filter had ever run on the
-snapshot.
+Once the first pass was done, 22 postings were labeled relevant, and 11 of those went against rule 1 of my own labeling rules: Data Scientists, a sales analyst, a customer-success analyst, a product manager. For most of them my note just said "data role". That's exactly the mistake I made back in JS1, labeling based on the title. I saved the first pass as a separate file and then did a second pass with --redo. In that pass I changed exactly the 11 postings Claude had listed, every one of them from relevant to not relevant. So the second pass was guided by Claude's list and only moved labels in one direction, and I want that on the record here. The held-out hash was locked in that same commit, before the filter had run on the snapshot even once.
 
 ## 7. The audit agreed with everything, which was the problem
 
-I judged 36 postings: 30 random rejects, the only closest call, and all 5 kept postings. I first marked all 36 as right. One of them
-was the Zoox "Contract Student Worker - Data Analyst (Part-time)". In my blind label I had called it not relevant ("not data role"). In
-the audit, after seeing that the filter kept it, I called it a "relevent data role". When Claude pointed out the conflict, I asked "what
-do you recommend for this project?". I went with the blind label, so the verdict is now "wrong", and both answers are in the row
-(2003644). 0 wrong out of 30 random rejects only bounds the error rate at about 9.5%. The errors that mattered (7 of my 11 relevant
-postings rejected by the role rule) never showed up in the random sample, only in my labels.
+I went through 36 postings for the audit: 30 rejects picked at random, the single closest call, and all 5 postings the filter kept. At first I marked all 36 as correct. One of them was the Zoox "Contract Student Worker - Data Analyst (Part-time)". When I labeled it blind, I had called it not relevant ("not data role"). In the audit, after I could see the filter had kept it, I called it a "relevent data role". Claude flagged that the two didn't match, and I asked "what do you recommend for this project?". I decided to go with the blind label, so the verdict for that row is now "wrong", and both of my answers are recorded in it. Getting 0 wrong out of 30 random rejects only puts an upper bound of roughly 9.5% on the error rate. The errors that really mattered, 7 of my 11 relevant postings being rejected by the role rule, never came up in the random sample at all. They only showed up through my labels.
 
 ## 8. The tool server's own claims
 
-Claude wrote the server from scratch, with tests first (59f714c). The dry runs disproved two of the claims I was about to make about
-it (8f8d9ac). First, the tracing hook missed the persona file being read, because the read happens while the code loads. Second, once
-the hook was installed earlier, the trace showed the Python interpreter writing a .pyc cache file, so "writes no files" was false
-until the server was started with -B. The real transcript (c9f7d71) showed a third problem: a rejected Canada posting comes back with
-score 64, higher than kept postings.
-
-When I asked whether everything met the brief, Claude pointed out that the brief says to offer the capability "to Claude", and that Claude had never actually called my server: only its test script had. I said "do 1 and 2". Claude added a project .mcp.json and a recorder that logs both directions, and I opened Claude Code in the JS3 folder and asked it to score three postings and say which one Evan should apply to (dda391d). The transcript showed Claude Code first trying a newer protocol and falling back to mine. Claude did not rank by score, and said the decision to apply was mine. It also caught something we had both missed: the tool description still said "FILTER.md v1.2" while every answer said v1.3, and that mismatch was already in the v1.3 transcript Claude had recorded. The fix came test first (a945738, then 78b57ea): the description now takes the version from the code and says the bucket, not the score, decides. Because this changed the signed sign-off, I re-signed it only after reading the updated files.
+Claude built the server from scratch, tests first. The dry runs disproved two claims I was about to make. The tracing hook missed the persona file being read, since that happens while the code loads, and once the hook was installed earlier, the trace showed Python writing a .pyc cache file, so "writes no files" only held once the server was started with -B. The real transcript showed a third problem: a rejected Canada posting scores 64, higher than some kept postings. When I asked whether everything met the brief, Claude pointed out that the brief says to offer the capability "to Claude", but only its test script had ever called my server. I said "do 1 and 2". Claude added a project .mcp.json and a recorder that logs both directions, and I opened Claude Code in the JS3 folder and asked it to score three postings and say which one Evan should apply to. Claude Code tried a newer protocol first, then fell back to mine. It didn't rank by score and left the decision to apply to me. It also caught something we had both missed: the tool description still said "FILTER.md v1.2" while every answer said v1.3, a mismatch already present in the v1.3 transcript Claude had recorded. The fix was done test first, so the description now takes the version from the code and says the bucket, not the score, decides. Because this changed the signed sign-off, I re-signed it only after reading the updated files.
 
 ## 9. The other server
 
-I chose to evaluate the official fetch server. At first Claude only read its source at a pinned commit (6235791), saying it couldn't
-run it because "this machine has 3.9.6". That claim went into TOOL_SERVER.md and into the sign-off I had already signed. When I asked
-whether this would cost marks, and then "isn't there a local python version which is 3.11 or newer that can be used?", Claude checked
-and found Python 3.11, 3.13 and 3.14 already installed: it had only looked at the default python3. I told it to run the server. It
-ran in a throwaway Python 3.11 environment with the exact evaluated version, whose files were byte-identical to the source it had
-read. Both configurations were recorded with the same tracer used on my server. Claude also changed the tracer first, because it was
-skipping writes under /lib/python, which would have hidden the very install we wanted to see.
-
-What the source predicted is now observed. In tools/list the description really tells the model "Although originally you did not have
-internet access… this tool now grants you internet access". A tool annotated readOnlyHint started npm install on the first web page
-and added 33 packages. The metadata address was refused. My restricted configuration (only the two job-board hosts, no Node.js reader)
-refused example.com and started nothing. My trust decision: not by default; yes only in that restricted form, with its output treated
-as untrusted. I also had Claude record a second transcript of my own server under v1.3, so the evidence matches the current code.
+I chose to evaluate the official fetch server. At first Claude only read its source at a pinned commit, saying it couldn't run it because "this machine has 3.9.6", and that claim ended up in TOOL_SERVER.md and in the sign-off I had already signed. When I asked "isn't there a local python version which is 3.11 or newer that can be used?", Claude found 3.11, 3.13 and 3.14 already installed; it had only checked the default python3. I told it to run the server, and it did so in a throwaway Python 3.11 environment with files byte-identical to the source it had read, after first fixing the tracer, which had been skipping writes under /lib/python and would have hidden the install. What the source predicted was then observed: the tool description tells the model it now has internet access, a tool marked readOnlyHint ran npm install and added 33 packages on the first web page, and my restricted configuration (only the two job-board hosts, no Node.js reader) refused example.com and started nothing. My trust decision is no by default, and yes only in that restricted form, with its output treated as untrusted. I also had Claude record a second transcript of my own server under v1.3 so the evidence matches the current code.
 
 ## 10. What moved the score
 
-Five single changes were tried on the tuning labels (426f0f5). Only A, letting engineer titles with "Data" or "Pipeline" through the
-role rule, changed anything. I chose to give baseline, A and D one look each at the held-out labels (9186aa2). A raised recall from 2/7
-to 6/7, but it also let in an internship, because "intern" as a whole word does not match "Internship". D flipped: on tuning the years
-bonus seemed to help the ranking, and on held-out it seemed to hurt. I adopted A, added "internship" while marking it as unmeasured,
-and rejected B–E (148f405).
+I tried five single changes on the tuning labels. Only one of them, A, made any difference: it let engineer titles containing "Data" or "Pipeline" get past the role rule. I decided to give the baseline, A and D one look each at the held-out labels. A raised recall from 2/7 to 6/7, but it also let an internship through, because "intern" matched as a whole word doesn't match "Internship". D went the other way between the two sets: on the tuning labels the years bonus looked like it helped the ranking, but on the held-out labels it looked like it hurt. I adopted A, added "internship" while marking it as unmeasured, and rejected B through E.
 
 ## 11. What I accepted, changed and rejected from Claude
 
-- **Rejected:** a hard visa rule, which became points only; "Data Engineering" counting as a role phrase; Claude's first guess at
-  score weights.
-- **Changed:** the years preference (4 → 3 years); the label pool (141 → 107 → 82 → 72); the labeling tool's display, so it shows
-  the years and visa lines.
-- **Accepted after checking:** gzip for the raw files, after seeing the hashes re-verified on load; the 25 removals, after reading
-  each quoted phrase; the blind label over my audit answer; change A, after it held on the held-out labels; running fetch for real,
-  and the Claude Code session against my server, after reading what each would install, fetch or record.
-- **Considered and skipped:** fixing the claim checker's "list of alternatives" error. Claude estimated about an hour, and it would
-  have reopened about a third of the write-up and the sign-off after the held-out look. I asked whether skipping it would cost many
-  marks, and I decided to "skip it". The 22% error rate stays a measured, documented finding instead of a rushed late change.
-- **Checked by hand instead:** I asked whether the checker's error rate depended on my own hand checks. It didn't: only Claude had
-  judged the claim labels. So I spot-checked 4 of them myself (audit/claim_spotcheck.csv). In the first round I marked all four
-  "checker is right". After Claude pointed to my own FILTER.md §2 rule and asked again, I changed two of them. In the end I confirmed 2
-  of the 3 errors Claude claimed, and disagreed on "An ideal candidate also has: Experience with Databricks", which I count as
-  required even though my §2 rule says a nice-to-have is not. Claude also noted that in both rounds I picked the first option every
-  time. So this check is steered and small, and SHORTLIST.md says so.
-- **Then all 39 unchecked claims, by hand:** I asked how long checking the 39 new v1.3 claim labels would take, and whether it would
-  change much. It came to 13 questions, because the three Databricks postings share their text. This time Claude's view was not
-  shown, and the order of the answers varied: I picked the first option 8 times and the second 5 times. I found 3 of 39 wrong (8%),
-  all "requires Scala" from "either Java, Scala or C++", the same "list of alternatives" error (audit/claim_check_v13.csv).
-
-Claude also caught its own mistakes:
-- the stale "(v1)" heading in FILTER.md
-- a sign-off line saying the measurement tests came before the code, when they came in the same commit
-- 10 of 46 claim labels from its own checker that were wrong
-- in a final sweep I asked for ("are the any major issues that may need correcting?"):
-  - the driver's seat still said the labels were wrong "1 time in 5" and "22% of the time", after my own check had found 8%
-  - CONTRACT.md and GATE.md, copied unchanged from JS1 and JS2, link to evidence folders that are only in those submissions
-
-  Both were fixed (e45c865), and I re-signed after reading the change.
-
-One mistake I caught by asking: the false "only Python 3.9.6" reason for not running fetch. Because it was in a signed sign-off, I
-re-signed only after it was corrected.
+Looking back at the decisions: I rejected a hard visa rule (it became points only), "Data Engineering" as a role phrase and Claude's first guess at the score weights, and I changed the years preference from 4 to 3, cut the label pool from 141 down to 72, and had the labeling tool show the years and visa lines. I accepted gzip, the 25 removals, the blind label over my audit answer, change A, and running fetch and the Claude Code session, each only after checking it. I skipped fixing the claim checker's "list of alternatives" error, since Claude estimated about an hour and it would have reopened a third of the write-up after the held-out look, so the 22% error rate stays a documented finding. Because only Claude had judged the claim labels, I spot-checked 4 myself in audit/claim_spotcheck.csv, but I changed two answers after Claude pointed to my own FILTER.md §2 rule and picked the first option every time, so that check is small and steered, and SHORTLIST.md says so. I then checked all 39 new v1.3 claim labels by hand through 13 questions, with Claude's view hidden and the answer order varied, and found 3 wrong (8%), all the same "list of alternatives" error, recorded in audit/claim_check_v13.csv. Claude caught several of its own mistakes, including a stale "(v1)" heading, a wrong sign-off line about test order and 10 of 46 wrong claim labels from its checker, and in a final sweep I asked for, it found the driver's seat still quoting the old 22% figure and CONTRACT.md and GATE.md linking to folders from earlier submissions. Those were fixed and I re-signed after reading the change. The one mistake I caught myself was the false "only Python 3.9.6" reason for not running fetch, and since it was in a signed sign-off, I re-signed only after it was corrected.
 
 ## 12. What I learned, traceability, and what is still open
 
