@@ -23,6 +23,16 @@ Raw responses: `data/raw/2026-11-25/*.json.gz`. No login, no applying, no messag
 - `../js2-loop-tools-diff/`: board list, persona file, allow-list approach.
 - `../js1-contract-and-watch/prompts/baseline.txt`: copied unchanged as `prompts/judge_v1.txt` (inherited prompt).
 
+## Who ran what (summary)
+
+- **Me:** the filter-rule decisions (FILTER.md v1 and v1.1); hand judgments on the 54 audit postings, the 20 held-out
+  postings, the 6 disputed shortlist claims and the 10 held-out changed claims; and the full test suite run myself on
+  the final code. *"I ran the complete test suite myself on the final code. All 57 tests passed."*
+  (`evidence/logs/20-tests-run-by-me-final.txt`; an earlier 49-test run is in `evidence/logs/13-tests-run-by-me.txt`).
+- **Claude:** wrote every test (from my FILTER.md, before the code) and the code. It produced every other log in
+  `evidence/logs/` (the test-first "fails → passes" logs 00, 01, 03, 07, 08, 10, 11, 15, 16, and the run and
+  measurement logs). It also ran the fresh-clone and zip checks, which are not saved as logs.
+
 ## What Claude (Claude Code, Opus 5.5) contributed
 
 | part | Claude | me |
