@@ -30,6 +30,10 @@ quotes, and, for a kept posting, the labeled claims of its justification.
   that the home-folder path became `~`, the start-up event was cut to the fields that say what Claude
   had (the dropped key names are listed in the file), and rate-limit details and the credential
   expiry time were removed.
+- **Recorded before the two server fixes.** Every transcript predates `85187c4b` and `bd093fef`, the
+  fixes for the two bugs the independent reviews found. None of the 118 requests recorded in
+  `transcripts/server/` sends `params` or `arguments` that is not an object, and every log was written
+  inside `transcripts/`, so neither fix changes a recorded exchange.
 
 | Session (2026-11-25, EST) | Prompt | Server transcript | Claude transcript |
 |---|---|---|---|

@@ -4,7 +4,7 @@
 items 39 and 49 were missing from the record. `labels/hand-verdicts.jsonl` (frozen in `667a2932`,
 sha256 `c678ec0e…`) is not changed. The first answers that never reached it are in
 `labels/hand-verdicts-first-answers.jsonl`. Shreyash's words below are quoted from the session
-exactly as typed.*
+exactly as he sent them.*
 
 ## What Shreyash saw
 
@@ -21,6 +21,17 @@ exactly as typed.*
 - **Postings 32–70 came in one message** and were answered in one reply. Those answers were saved at
   18:03:18 EST, about two and a half minutes after the previous batch was saved (18:00:43). Most were
   rejected on location or role alone.
+- **How his answers arrived:** every answer after the first arrived as pasted text, in five replies,
+  and so did his 18:07 decisions.
+  - The frozen file's `by` field says "typed in the Claude Code chat" on all 74 lines. That was Claude
+    Code's wording, and it is wrong for every answer after the first. The file is frozen, so the
+    correction is recorded here.
+- **How he wrote them, in his words** (sent in the session at 20:02 EST, after the re-grade asked):
+
+  > I read the posting summaries Claude provided and asked for the full descriptions wherever I
+  > needed more information. I wrote my answers and decisions and pasted them into the session. When I
+  > said “I reviewed the suggested labels,” I meant that I reviewed the posting information provided
+  > by Claude, although some of my final decisions were influenced by its explanation.
 
 ## Where an answer was influenced, item by item
 

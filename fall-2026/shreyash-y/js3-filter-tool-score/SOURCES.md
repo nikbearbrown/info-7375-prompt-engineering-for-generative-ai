@@ -59,7 +59,8 @@
 | Both trust decisions | TOOLSERVER.md, sections 2 and 3 |
 | The README summary, the How sentences in the sign-off (he chose "I labeled the 70 postings myself" over his first draft) and the "why the judgment stays mine" paragraph | `README.md` |
 | The "In my own words" entries of FRICTIONAL.md (the "What Shreyash did" list above them is Claude Code's) | `FRICTIONAL.md` |
-| The signature | the sign-off in `README.md` |
+| After the re-grade: his account of how he wrote his answers (20:02 EST) and the entry on the double-check (20:03 EST) | `labels/hand-verdicts-provenance.md`; `FRICTIONAL.md` |
+| The signature (signed again at 20:03 EST, after the re-grade's changes) | the sign-off in `README.md` |
 
 ## What Claude Code contributed
 
@@ -73,6 +74,7 @@
 | The read-only source audit of chrome-devtools-mcp | by a Claude Code helper that ran no code (`evidence/chrome-devtools-mcp-source-audit-2026-11-25.md`) |
 | Drafts of `README.md` (except the summary, the How sentences, the driver's seat paragraph and the signature), `AUDIT.md`, `SHORTLIST.md`, `TOOLSERVER.md`, `SCORE.md`, this file, and Part 2 of `FRICTIONAL.md` | written from the files |
 | Two independent reviews after the documents were drafted (18:33–18:57 EST): a grader and a number check, both Claude Code helpers that read the files and reran the scripts on a copy | Their findings and the fixes are in FRICTIONAL.md Part 2. |
+| A re-grade of the submitted zip (19:13–19:37 EST) by another Claude Code helper, given the first grader's instructions, which read the files and reran the scripts on an unpacked copy | Its findings and the fixes are in FRICTIONAL.md Part 2. The fourth false friend in AUDIT.md section 4 is its finding. |
 
 **Home-folder paths in history.** Only the final tree is free of them. 17 pushed commits (`100875a5` to
 `0e31a4c3`) have the path in `evidence/*.txt`. That history was not rewritten, so the commit order stays

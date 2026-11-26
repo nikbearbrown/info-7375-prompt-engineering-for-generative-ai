@@ -13,8 +13,9 @@ closest calls). It was read, and no code was copied. The Reallocation Engine was
 
 - **Shreyash's own words:** the summary, FILTER.md, the 70 hand verdicts, every decision, both trust
   decisions, the How sentences in the sign-off, the driver's seat paragraph, the "In my own words"
-  entries of FRICTIONAL.md and the signature. How each hand verdict was given, including where Claude
-  Code influenced one, is in `labels/hand-verdicts-provenance.md`.
+  entries of FRICTIONAL.md, his account of how he wrote his answers, and the signature. How each hand
+  verdict was given, including where Claude Code influenced one, is in
+  `labels/hand-verdicts-provenance.md`.
 - **Drafted by Claude Code and checked against the files:** everything else (SOURCES.md has the full
   list).
 
@@ -34,7 +35,7 @@ Run every command from this folder.
 
 ## Summary, in my own words
 
-*Shreyash's words, typed into the session on 2026-11-25. Claude Code did not change them.*
+*Shreyash's words, written by him and pasted into the session on 2026-11-25. Claude Code did not change them.*
 
 I built this agent using my JS2 agent and added a tool called `score_posting` to filter jobs based on Alex's requirements. I used the reject-audit method to compare the filter results with job labels. The audit showed that exact word matching can miss good jobs and that matching skills alone can also allow unsuitable jobs. For example, the filter missed a Product Engineer role and accepted an Android role even though Android was not one of Alex's skills. I would add Product Engineer and count SQL databases as SQL, but keep the minimum of two skills. I would also keep the final decision with a human instead of fully trusting the agent.
 
@@ -139,6 +140,7 @@ postings, shortened.
 | 18:09–18:12 | v1.1 tests, code, and two test-first fixes for A4 | 2 verdicts change (the two misses); audit 45/46 (in-sample: A1 and A2 were designed from these misses); held-out 24/24 (no longer untouched: A3 was rejected on it) | `evidence/v11-*`, `evidence/state-codes-*`, `evidence/reside-colon-*` |
 | by 18:28, and 18:30 | **Shreyash ran the tests and the label-hash check himself.** The first command (Claude Code's) hid the result line; the corrected one showed it | 218 tests OK (1 expected failure); `labels/hand-verdicts.jsonl: OK` | `evidence/commands-run-by-shreyash-2026-11-25.txt` |
 | 18:33–18:57 | **Two independent reviews** by Claude Code helpers (a grader and a number check), reading the files and rerunning the scripts on a copy | estimated 82/100; findings fixed: 39/49 provenance, the held-out set's use on A3, tool-evaluation counts, two server bugs (fixed test-first), wording | FRICTIONAL.md Part 2, `evidence/server-review-bugs-*` |
+| 19:13–19:37 | **A re-grade** of the submitted zip (commit `a1334cd`) by another Claude Code helper, with the first grader's instructions | estimated 84/100; found a fourth false friend ("US" anywhere in an ad), now recorded, not fixed in code; asked how the pasted answers were written | AUDIT.md section 4, `results/whatif-v1.json`, `labels/hand-verdicts-provenance.md` |
 
 ## Folder map
 
@@ -182,6 +184,10 @@ postings, shortened.
 - **The filter reads words, not meaning.** "react quickly" counted as React, and "open to picking up
   Python" counted as Python. The verb case moved no verdict; the Android case is the false positive
   above.
+- **A "US" anywhere in a remote job's ad counts as "remote within the United States".** Of the 38
+  postings that pass Rule 3 this way, 24 quote something else: a pay range, equity terms, insurance, a
+  scam warning, or an office role in APAC. No v1 verdict changes. In v1.1 the open Product Engineer
+  job's location claim quotes its pay range (AUDIT.md section 4, false friend 4).
 - **The tool server scores with v1**, the version it was evaluated and transcribed with, not v1.1.
 - **Only one held-out label set exists, and only one person labeled.** Claude's labels are a second
   opinion, not a second rater of the same kind.
@@ -197,9 +203,15 @@ postings, shortened.
 - **After the independent reviews:**
   - his How sentences and the reviews' corrections were added;
   - he chose the wording "I labeled the 70 postings myself" over his first draft ("I reviewed the
-    suggested labels for the 70 postings"), since no labels had been suggested to him;
-  - at about 18:50 EST he signed the updated text below. His answers arrived between commits
-    `85187c4b` (18:48) and `bd093fef` (18:52).
+    suggested labels for the 70 postings"). By "suggested labels", his account says, he meant the
+    posting information Claude Code showed him (`labels/hand-verdicts-provenance.md`);
+  - at about 18:50 EST he signed the updated text. His answers arrived between commits `85187c4b`
+    (18:48) and `bd093fef` (18:52).
+- **After the re-grade (19:13–19:37):** Claude Code changed the text below in three places: the freeze
+  wording under Checked, "written by me and pasted" under How, and two new Not checked entries. At
+  20:03 EST Shreyash signed the updated text in the session: "Sign. I have read the revised Checked,
+  How and Not checked sections. I agree with the corrections and acknowledge the limitations of my
+  verification."
 
 ```text
 Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js3_filter_doc.py and
@@ -208,12 +220,12 @@ Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js
                 written before the v1.1 code (evidence/v11-tests-before-code-2026-11-25.txt). My five
                 wrong versions are tests in them: WV1 remote not from Massachusetts, WV2 skills in
                 benefits, WV3 more than 3 years, WV4 a made-up quote, WV5 a failed board as zero jobs.
-              - The filter against my own judgment: my 70 hand verdicts, frozen by sha256 before any
-                comparison: 0 misses in 30 random rejects, 2 misses in 15 closest calls, 1 false
-                positive in 2 kept postings, 24 of 24 on the held-out set (results/audit-v1.md). My
-                final answers for 31, 39 and 49 came after a double-check in which Claude Code described
-                how the rules read them. With my earlier answers, the audit set has 1 miss and 0 false
-                positives (labels/hand-verdicts-provenance.md).
+              - The filter against my own judgment: my 70 hand verdicts, frozen by sha256 before the
+                audit compared them with the filter: 0 misses in 30 random rejects, 2 misses in 15
+                closest calls, 1 false positive in 2 kept postings, 24 of 24 on the held-out set
+                (results/audit-v1.md). My final answers for 31, 39 and 49 came after a double-check in
+                which Claude Code described how the rules read them. With my earlier answers, the audit
+                set has 1 miss and 0 false positives (labels/hand-verdicts-provenance.md).
               - No made-up quotes: every quote the filter and the shortlist use is checked against the
                 posting (0 not found in 789 postings), and so is every quote in Claude's claim labels.
               - The tool server: tests/test_js3_mcp_server.py (15, written after the server code),
@@ -224,12 +236,13 @@ Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js
                 measurements (results/whatif-v1.json); A3 and A5 rejected after measuring.
 How:          The code and tests were written by Claude Code; the tests named above were committed
               before the code they test, except the server's. The hand verdicts, the v1.1 decisions,
-              the claim labels in SHORTLIST.md section 4 and both trust decisions are mine, typed into
-              the session. I labeled the 70 postings myself and focused on postings 31, 39 and 49, where
-              the rules and job fit were different. I used these cases to decide which rules should
-              change in v1.1 and which should stay the same. I ran the full test suite and the
-              hand-verdict hash check myself (evidence/commands-run-by-shreyash-2026-11-25.txt). The
-              rates and counts are recomputations by the scripts (js3 audit, js3.score, js3.whatif).
+              the claim labels in SHORTLIST.md section 4 and both trust decisions are mine, written by
+              me and pasted into the session; how I wrote them is in labels/hand-verdicts-provenance.md.
+              I labeled the 70 postings myself and focused on postings 31, 39 and 49, where the rules
+              and job fit were different. I used these cases to decide which rules should change in
+              v1.1 and which should stay the same. I ran the full test suite and the hand-verdict hash
+              check myself (evidence/commands-run-by-shreyash-2026-11-25.txt). The rates and counts are
+              recomputations by the scripts (js3 audit, js3.score, js3.whatif).
 Not checked:  - The miss rate among the 763 rejects outside the held-out set: 0 of 30 random rejects
                 gives a one-sided 95% upper bound of 9.5% (about 73 postings), for the four boards that
                 returned postings, on these dates.
@@ -243,6 +256,10 @@ Not checked:  - The miss rate among the 763 rejects outside the held-out set: 0 
                 very long input, or with two clients.
               - Whether a skill is central to a job or only mentioned: the Android job is a known false
                 positive in v1.1, and the server still scores with v1.
+              - Whether each quote supports its claim: the check shows that every quote exists in its
+                posting, not that it supports the claim. In v1.1 the Product Engineer job's location
+                claim quotes a pay range (AUDIT.md section 4, false friend 4).
+              - The v1.1 shortlist's claims against a second labeler: Claude labeled only v1's 45.
 Not claiming: That the agent finds good jobs; that the 5 open postings v1.1 keeps are all worth Alex's
               time (by my own label the Android one is not); that Claude agreeing with the filter on
               24 of 24 held-out postings makes either of them right in general; or that anything was
@@ -260,6 +277,6 @@ Signed or withheld: Signed — Shreyash Yadav, 2026-11-25
 | The tools | write the server, run it with Claude, keep the transcripts, audit the other server's code | decide whether to trust each server, and for what | TOOLSERVER.md, both trust decisions |
 | Whether a posting is worth Alex's time | rank it, explain it with quotes, say "I cannot tell" | decide | the Android job: every rule passed, Shreyash said no |
 
-**Why that judgment stays mine** (*Shreyash's words, typed into the session on 2026-11-25*):
+**Why that judgment stays mine** (*Shreyash's words, written by him and pasted into the session on 2026-11-25*):
 
 The agent follows the rules I give it, but those rules cannot cover every situation. A job can pass all the rules and still not be a good match, like the Android role. A job can also fail a rule and still be worth looking at, like the Product Engineer role. That is why the final decision should stay with me, and the agent should only help me make that decision.

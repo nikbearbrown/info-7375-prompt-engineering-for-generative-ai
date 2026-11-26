@@ -1,9 +1,11 @@
 # The reject audit (Chapter 7)
 
-*Drafted by Claude Code on 2026-11-25. The hand verdicts are Shreyash's: 70 postings, typed into the
-session between 17:53 and 18:04 EST and transcribed word for word into `labels/hand-verdicts.jsonl`.
-They were frozen by sha256 (`labels/hand-verdicts.sha256`, commit `667a2932`) before they were compared
-with the filter or with Claude. The generated tables are in `results/audit-v1.md`
+*Drafted by Claude Code on 2026-11-25. The hand verdicts are Shreyash's: 70 postings, written by him and
+sent in the session between 17:53 and 18:04 EST (every answer after the first as pasted text, in five
+replies), then transcribed word for word into `labels/hand-verdicts.jsonl`. They were
+frozen by sha256 (`labels/hand-verdicts.sha256`, commit `667a2932`) before the audit compared them with
+the filter or with Claude; for 31, 39 and 49, Claude Code had already described how the rules read them
+(section 2). The generated tables are in `results/audit-v1.md`
 (`python3 -m js3 audit`). The decisions in section 5 are Shreyash's. How each verdict was given,
 including the six answers that changed, is in `labels/hand-verdicts-provenance.md`. That file was added
 after the independent review of 2026-11-25 found that two first answers were missing from the record.*
@@ -91,6 +93,11 @@ One posting is in both A1 and A2, so 46 postings were audited and 24 held out: 7
   kind (17 of 17) was a "no".
 - **The whole audit describes the four boards that returned postings** (of the six checked), on
   2026-11-09, -10 and -25, for one fictional applicant. Another board, or another week, could fail in ways this sample never saw.
+- **The labels are not fully independent of the filter.** Shreyash judged Claude Code's summaries,
+  whose requirements excerpt was cut from the ad by the filter's own section reader (`js3/sections.py`,
+  through `js3/label.py`). He judged them against a description of Alex that lists the same
+  requirements the filter encodes (`js3/label.py`). Some agreement is built in. Item 8 shows how a
+  reader bug reached the labels: its requirements were missing from the summary until the fix.
 
 **Where a verdict was influenced, and how:**
 
@@ -128,7 +135,8 @@ contain none of these three postings.
 
 ## 4. False friends: words that matched for the wrong reason
 
-Measured by code over all 789 postings. They are listed by how much they mattered.
+Measured by code over all 789 postings. The first three are listed by how much they mattered; the
+fourth was found later, by the re-grade.
 
 1. **"Python", "React", "TypeScript" in a kept Android job.**
    - In `klaviyo:7792539003` the three skills that kept the job appear only in "open to picking up new
@@ -150,6 +158,25 @@ Measured by code over all 789 postings. They are listed by how much they mattere
    - The same sentence limits the job to one state. The inherited reading counted a residence list
      only when it named two states or more, a number Claude Code set in JS2.
    - It changed no verdict. Decision A4 fixed it in v1.1.
+4. **"US" anywhere in the ad.** *Found by the re-grade of the submitted zip on 2026-11-25, after the
+   rest of this audit. Counted by `python3 -m js3.whatif` (`results/whatif-v1.json`,
+   `_more.rule3_us_mentions`).*
+   - A remote job passes Rule 3 as "remote within the United States" when "US", "U.S." or "United
+     States" appears anywhere in its ad. That reading comes from JS2's `names_us`, which JS3 kept, and
+     from JS3's own location pattern, which also counts "US-based".
+   - 38 postings pass Rule 3 this way. The sentence each one quotes as evidence:
+     - **a real location sentence in 14:** "fully remote and open to candidates residing in the
+       U.S." (8), "open to candidates based in the US and Europe" (5), and "open to candidates based in
+       the United States" (1);
+     - **something else in 24:** a pay range, "For US-based candidates, the expected cash compensation
+       range…" (13); equity terms, "early exercise in the US" (6); "insurance (US)" (2); a scam warning
+       that names "the US FBI" (1); and "this role in APAC is office based" (2), which should fail.
+   - It changed no v1 verdict: all 38 fail another rule. It does reach the v1.1 shortlist. The open
+     Product Engineer job is kept, and its location claim quotes the pay range, not the ad's "This role
+     is open to candidates based in North America." The label is right, but its quote does not support
+     it (SHORTLIST.md section 5).
+   - Not fixed. A fix changes the filter's code and results, so it would need Shreyash's decision and a
+     row in FILTER.md's version log.
 
 ## 5. Rules added, cut or rejected after measuring
 

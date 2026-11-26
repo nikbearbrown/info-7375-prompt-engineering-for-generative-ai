@@ -118,8 +118,9 @@ has"), which was right. The second run added Alex's public profile (no contact d
 
 **What the three labels settle.**
 
-- Shreyash sided with the code on all three. That makes the final labels **45 of 45**: the code's
-  42 that Claude agreed with, plus these 3.
+- Shreyash sided with the code on all three. So the code's labels stand on all 45 claims: the 42 where
+  Claude agreed with the code, and these 3, which Shreyash settled. He did not check the other 42 one by
+  one.
 - So Claude's independent labels disagreed with the final labels on **3 of 45 claims**. Two of the
   three read a technical-leader *responsibility* as a Lead *role*, which Shreyash's title-based
   exclusion rule does not ask.
@@ -141,6 +142,12 @@ has"), which was right. The second run added Alex's public profile (no contact d
   - Recommendations is kept too, but it is closed, as is Test Frameworks.
 - **All 7 now answer "reaches Alex".** B4 removed the only must-have gap they had. Every quote was
   checked (0 not found).
+  - That check shows each quote exists in its posting, not that it supports the claim. One does not.
+    Linear's Product Engineer location claim is labeled *supported*, but its only quote from the ad is
+    the pay range ("For US-based candidates, the expected cash compensation range…"). The ad's own
+    location sentence, "This role is open to candidates based in North America.", is not used. The
+    label is right for the wrong reason (AUDIT.md section 4, false friend 4).
+  - Claude labeled only v1's 45 claims. The v1.1 shortlist's claims were not labeled independently.
   - For 6 of the 7, the full-time claim stays labeled *insufficient*, marked "not stated".
   - Linear's Product Engineer is *supported*: its board lists FullTime.
 - **4 of the 7 reach Alex with their skills claim labeled *insufficient*:** Growth, Android/Kotlin,

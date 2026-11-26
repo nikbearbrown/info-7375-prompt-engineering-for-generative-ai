@@ -13,7 +13,8 @@ here says what he thought.*
 - **2026-11-25, 16:58 and 17:05.** Wrote FILTER.md v1: 13 answers, then a reason for each rule and the
   decisions A–C, where three of his answers pulled against each other. Committed alone, before any code
   (`5e6a7703`, `3163fdb5`).
-- **17:53–18:04.** Labeled 70 postings in the chat, with a reason for each.
+- **17:53–18:04.** Labeled 70 postings in the chat, with a reason for each. Every answer after the
+  first arrived as pasted text, in five replies.
   - Asked for the full ad three times (11, 20 and, earlier, the requirements of 8).
   - Changed 6 answers:
     - 8, 11 and 20 after seeing more of the ad;
@@ -32,10 +33,16 @@ here says what he thought.*
   - chose "I labeled the 70 postings myself" over his first draft ("I reviewed the suggested labels");
   - signed the updated sign-off.
 - **By 18:28, and at 18:30.** Ran the full test suite and the hand-verdict hash check himself. The first command, which Claude Code gave him, hid the test result line, and the corrected one showed 218 tests OK (`evidence/commands-run-by-shreyash-2026-11-25.txt`).
+- **19:37–20:03, after the re-grade.** Asked how his pasted answers were written, he answered "I wrote
+  them all". He then:
+  - sent an account of how (20:02), which says that some of his final decisions were influenced by
+    Claude Code's explanation (`labels/hand-verdicts-provenance.md`);
+  - wrote the entry on the double-check below;
+  - signed the updated sign-off (20:03).
 
 ### In my own words
 
-*Shreyash's words, typed into the session on 2026-11-25. Claude Code changed formatting only.*
+*Shreyash's words, written by him and pasted into the session on 2026-11-25. Claude Code changed formatting only.*
 
 *These entries were written at the end of the work: pasted at about 18:07 EST, first committed in
 `b89adefd` (18:19). The evidence line after each one is Claude Code's.*
@@ -57,6 +64,20 @@ The audit showed three interesting cases: Recommendations, Android and Product E
 I compared the results from the code and Claude. I would disagree with Claude on the technical leader wording because being a technical leader does not automatically make someone a Lead Engineer. I would also limit the use of chrome-devtools-mcp because it accessed more information than the agent needed. One thing that is still unclear is how to tell whether a skill is central to the job or just mentioned in the posting without missing suitable jobs.
 
 *Evidence: SHORTLIST.md section 4; TOOLSERVER.md section 3; `transcripts/other-server/`.*
+
+**2026-11-25 — The double-check on 31, 39 and 49**
+
+*Added after the re-grade: pasted into the session at 20:03 EST. The heading and the evidence line are
+Claude Code's.*
+
+Before saving my answers, I asked Claude to double-check postings 31, 39 and 49. Claude explained how the existing filter treated each posting and reminded me that my judgment did not have to agree with the filter.
+
+I kept my answer for 31 because I believe MySQL and PostgreSQL should count toward SQL skills. I changed 39 because Android and Kotlin were the main requirements, and mentioning Python and React was not enough to make it a suitable job. I changed 49 because the actual responsibilities matched Alex's full-stack skills even though Product Engineer was not in the target role list.
+
+Claude's explanation helped me separate following the filter rules from deciding whether a job was worth applying to. I cannot confidently say that I would have changed both answers without that explanation, so I do not consider those final labels fully independent.
+
+*Evidence: `labels/hand-verdicts-provenance.md` (items 31, 39 and 49, and the double-check reply);
+`labels/hand-verdicts-first-answers.jsonl`; AUDIT.md section 3, "The audit set both ways".*
 
 ## Part 2 — Claude Code's log
 
@@ -169,6 +190,26 @@ times are EST on 2026-11-25.*
   - **What I take from it:** I stated some numbers before running them (36, 9, 51) and described
     records more broadly than they are. A reader who recomputes from the files caught what my own
     re-reading did not.
+- **19:13–19:37 — A re-grade, and what I fixed.**
+  - **The re-grade:** another Claude Code helper graded the submitted zip, with the first grader's
+    instructions (estimated 84/100). It reran the 222 tests and every report command on an unpacked
+    copy, and every output matched.
+  - **What it found, checked and recorded:**
+    - **A fourth false friend.** A "US" anywhere in a remote job's ad counts as "remote within the
+      United States". Of the 38 postings that pass Rule 3 that way, 24 quote something else, such as a
+      pay range. I missed it at 17:20 because I looked for skill words and the "remote position" case,
+      not at what Rule 3's passes quote. It is now counted by `python3 -m js3.whatif` and recorded in
+      AUDIT.md section 4. The code is unchanged.
+    - **An overstatement.** "Final labels 45 of 45" in SHORTLIST.md overstated Shreyash's part: he
+      settled 3 claims.
+    - **My wording.** I wrote "typed into the session" in five places for answers that arrived as
+      pasted text, and I put the same words in the frozen labels' `by` field. I corrected the
+      documents; the frozen file's correction is in `labels/hand-verdicts-provenance.md`.
+    - **A question for Shreyash.** It asked how the pasted answers were written, given how soon after
+      each batch they were saved. I asked him. He said he wrote all of them, and his account is in
+      `labels/hand-verdicts-provenance.md`.
+  - **What I take from it:** a quote that exists is not a quote that supports the claim. My check
+    proved the first, and the documents read as if it proved the second.
 - **Still unresolved:**
   - The held-out set is too easy to separate most changes: everything scores 24 of 24 except A3.
   - Only one person labeled.

@@ -8,6 +8,7 @@ come from js3/score.py and from the v1.1 run itself.)
 import copy
 import json
 import pathlib
+import re
 
 from jsagent import rule as js2
 from js3 import audit_report, claims, corpus, filtering, sections
@@ -46,7 +47,9 @@ def a3_asked_only(p, r, persona, cfg):
 def more_numbers(persona, cfg, posts, base, sets, hand):
     """Numbers the documents cite that no other script wrote down (added after the independent review of
     2026-11-25): the comparison with JS2's rule, closest calls per filter change, the Claude conditions'
-    differences from B, and the v1.1 shortlist's skills labels."""
+    differences from B, and the v1.1 shortlist's skills labels. Added after the re-grade: the Rule 3
+    passes that read "remote within the United States" from a US mention in the ad, grouped by the
+    start of the sentence each one quotes (AUDIT.md section 4, false friend 4)."""
     from jsagent import rule as js2rule
     from js3 import experiments
     out = {}
@@ -103,6 +106,24 @@ def more_numbers(persona, cfg, posts, base, sets, hand):
         sl.append({"key": k, "answer": j["answer"], "skills_label": skills["label"], "full_time_label": ft["label"],
                    "answer_if_skills_were_a_must_have": "I cannot tell" if (j["answer"] == "I cannot tell" or skills["label"] != "supported") else "reaches Alex"})
     out["shortlist_v1_1"] = sl
+    us_re = re.compile(r"United States|U\.S\.|\bUSA\b|\bUS\b")
+    groups = {}
+    for k in sorted(posts):
+        r3 = base[k]["rules"][2]
+        if r3["outcome"] != "pass" or not r3["detail"].startswith("remote within the United States"):
+            continue
+        if any(us_re.search(e["quote"]) for e in r3["evidence"] if e["field"] != "content"):
+            start = "(a US place tag)"
+        else:
+            start = next((e["quote"] for e in r3["evidence"] if e["field"] == "content"), "")[:60]
+        groups.setdefault(start, []).append(k)
+    kept_v11 = {e["key"] for e in sl}
+    out["rule3_us_mentions"] = {
+        "passes": sum(len(v) for v in groups.values()),
+        "by_quoted_sentence": [{"starts": s, "postings": len(v),
+                                "kept_v1": sum(base[k]["verdict"] == "Relevant" for k in v),
+                                "kept_v1_1": sorted(k for k in v if k in kept_v11)}
+                               for s, v in sorted(groups.items(), key=lambda x: -len(x[1]))]}
     return out
 
 
