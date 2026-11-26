@@ -37,7 +37,9 @@ signature written by Aravind (with drafting help from chat-Claude, claude.ai Cla
 ## Not claiming
 
 - That the filter works for a different persona, on other boards, or on postings after 2026-11-10.
-- That 0/30 false rejects is a rate. It's a bound (up to 11.6%) for this snapshot under v1.0.0.
+- That 0/30 false rejects is a rate. Against my final (rechecked) verdicts it is a bound (up to
+  11.6%) for this snapshot under v1.0.0; against my first-pass verdicts v1.0.0 had 2/30 (6.7%,
+  0.8–22.1%).
 - That v1.1.0-e is validated. Its rules were changed using audit rows (dev use), and the held-out
   set had no positives to test it on.
 - That the Claude justifications are reproducible. They came from claude.ai (its own system prompt,
