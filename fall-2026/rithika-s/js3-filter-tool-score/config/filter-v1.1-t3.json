@@ -1,0 +1,76 @@
+{
+  "_comment": "Step 9 experiment: v1.1 with ONLY the threshold changed 4 -> 3.",
+  "version": "1.1-t3",
+  "threshold": 3,
+  "close_call_scores": [
+    3,
+    4
+  ],
+  "rules": {
+    "R1": {
+      "name": "role words",
+      "field": "title",
+      "match": "whole_word",
+      "weight": 3,
+      "counted": "once",
+      "words": [
+        "ai engineer",
+        "ml engineer",
+        "machine learning",
+        "data engineer",
+        "ml infrastructure",
+        "ml platform",
+        "research engineer"
+      ]
+    },
+    "R2": {
+      "name": "topic words",
+      "field": "body_text",
+      "match": "whole_word",
+      "weight_per_distinct_word": 1,
+      "cap": 3,
+      "words": [
+        "llm",
+        "pytorch",
+        "tensorflow",
+        "inference",
+        "training",
+        "embedding",
+        "retrieval",
+        "mlops",
+        "model",
+        "spark"
+      ]
+    },
+    "R3": {
+      "name": "exclusion: clearance",
+      "fields": [
+        "title",
+        "body_text"
+      ],
+      "match": "substring",
+      "action": "reject",
+      "words": [
+        "clearance"
+      ]
+    },
+    "R4": {
+      "name": "exclusion: management and customer-facing titles",
+      "field": "title",
+      "match": "whole_word",
+      "action": "reject",
+      "words": [
+        "manager",
+        "director",
+        "head of",
+        "vp",
+        "applied ai engineer",
+        "fde",
+        "forward deployed",
+        "solutions architect",
+        "developer advocate",
+        "fellow"
+      ]
+    }
+  }
+}
