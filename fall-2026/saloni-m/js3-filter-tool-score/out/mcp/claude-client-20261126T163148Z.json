@@ -1,0 +1,18 @@
+{
+  "ran_at_utc": "20261126T163148Z",
+  "model_requested": "claude-sonnet-5-5",
+  "prompt": "You have two tools from an MCP server called js3. Use search_postings to find postings whose title contains 'data engineer'. Then call score_posting on the first result's uid. Report the uid, title, score, decision, and the rules that fired, exactly as the tools returned them. Do not add anything the tools did not return.",
+  "claude_code_version": "2.0.20 (Claude Code)",
+  "server_transcripts": [
+    "20261126T163150666071Z-server.jsonl"
+  ],
+  "returncode": 0,
+  "result": "First result from `search_postings` for \"data engineer\" (30 total matches):\n\n- **uid:** greenhouse:figma:6178851004\n- **title:** Data Engineer Intern (2027)\n- **score:** 5\n- **decision:** keep\n\n**Rules that fired** (from `score_posting`):\n- **R1**, in the title, matched \"data engineer\", for 3 points.\n- **R3**, in the text, matched \"python\" and \"sql\", for 2 points.\n\nI called `search_postings` twice by mistake. Both calls returned identical results.",
+  "models_used": [
+    "claude-haiku-4-5-20251001",
+    "claude-sonnet-5-5"
+  ],
+  "num_turns": 6,
+  "is_error": false,
+  "session_id": "17ba84ee-2505-43ff-adc0-bf30cd5b38a6"
+}

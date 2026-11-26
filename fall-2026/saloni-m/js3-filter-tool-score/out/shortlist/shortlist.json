@@ -1,0 +1,1232 @@
+{
+  "filter_version": "1.0",
+  "prompt": "prompts/justify_v1.md",
+  "items": [
+    {
+      "uid": "ashby:openai:1328e781-c66c-4f71-8eb0-6c684273833b",
+      "title": "Applied AI Engineer, Cyber | Tokyo",
+      "url": "https://jobs.ashbyhq.com/openai/1328e781-c66c-4f71-8eb0-6c684273833b",
+      "filter": {
+        "uid": "ashby:openai:1328e781-c66c-4f71-8eb0-6c684273833b",
+        "title": "Applied AI Engineer, Cyber | Tokyo",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "ai engineer",
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "evaluation"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:01+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting asks for hands-on Python and agent building, which matches her Python skills and her LangGraph-based Genie Router Agent at Staples.\", \"term\": \"Python\", \"quote\": \"Have hands-on experience building prototypes or production systems with APIs, Python or JavaScript, agents, scripts, CLIs, GitHub workflows, CI/CD systems, logs, tickets, scanners, or other common security tooling.\"}, {\"kind\": \"experience\", \"claim\": \"The role expects AI workflows designed with evals, guardrails, telemetry and human-in-the-loop review, which parallels her Staples work on MLflow tracing, drift monitoring and an LLM A/B evaluation framework, and her eval-guardrails project.\", \"term\": \"evals\", \"quote\": \"Understand how to design AI workflows with retrieval, structured outputs, tool use, evals, guardrails, telemetry, sandboxing, and human-in-the-loop review.\"}, {\"kind\": \"role\", \"claim\": \"The role involves building demos, prototypes and proofs of concept with agents for customers, which is close to her agent and inference-pipeline prototyping experience.\", \"term\": \"prototypes\", \"quote\": \"Build and deliver customer-facing demos, prototypes, workshops, proofs of concept, and reference architectures using OpenAI APIs, Codex, agents, scripts, CLIs, GitHub workflows, CI/CD systems, logs, tickets, scanners, and common security tools.\"}, {\"kind\": \"seniority\", \"claim\": \"The posting asks for 5+ years of customer-facing technical experience, which is well above her roughly eight-month co-op, so this is a significant stretch.\", \"term\": \"5+ years\", \"quote\": \"Have 5+ years of technical consulting, solutions engineering, security architecture, cyber advisory, deployment engineering, professional services, or equivalent customer-facing technical experience.\"}, {\"kind\": \"skill\", \"claim\": \"The posting requires strong cybersecurity domain expertise, and her profile shows no security-specific work, so this is a gap.\", \"term\": \"cybersecurity\", \"quote\": \"Bring strong cybersecurity domain expertise across one or more areas such as application security, cloud security, identity, vulnerability management, secure SDLC, incident response, detection engineering, threat intelligence, red teaming, or security architecture.\"}, {\"kind\": \"other\", \"claim\": \"The role is based in Tokyo, with relocation support offered to new employees.\", \"term\": \"Tokyo\", \"quote\": \"This role is based in our Tokyo office. We offer relocation support to new employees.\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "032f36c9-a585-40d5-8de0-2bb62749c799",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for hands-on Python and agent building, which matches her Python skills and her LangGraph-based Genie Router Agent at Staples.",
+          "term": "Python",
+          "quote": "Have hands-on experience building prototypes or production systems with APIs, Python or JavaScript, agents, scripts, CLIs, GitHub workflows, CI/CD systems, logs, tickets, scanners, or other common security tooling.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role expects AI workflows designed with evals, guardrails, telemetry and human-in-the-loop review, which parallels her Staples work on MLflow tracing, drift monitoring and an LLM A/B evaluation framework, and her eval-guardrails project.",
+          "term": "evals",
+          "quote": "Understand how to design AI workflows with retrieval, structured outputs, tool use, evals, guardrails, telemetry, sandboxing, and human-in-the-loop review.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evals'"
+        },
+        {
+          "kind": "role",
+          "claim": "The role involves building demos, prototypes and proofs of concept with agents for customers, which is close to her agent and inference-pipeline prototyping experience.",
+          "term": "prototypes",
+          "quote": "Build and deliver customer-facing demos, prototypes, workshops, proofs of concept, and reference architectures using OpenAI APIs, Codex, agents, scripts, CLIs, GitHub workflows, CI/CD systems, logs, tickets, scanners, and common security tools.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting asks for 5+ years of customer-facing technical experience, which is well above her roughly eight-month co-op, so this is a significant stretch.",
+          "term": "5+ years",
+          "quote": "Have 5+ years of technical consulting, solutions engineering, security architecture, cyber advisory, deployment engineering, professional services, or equivalent customer-facing technical experience.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting requires strong cybersecurity domain expertise, and her profile shows no security-specific work, so this is a gap.",
+          "term": "cybersecurity",
+          "quote": "Bring strong cybersecurity domain expertise across one or more areas such as application security, cloud security, identity, vulnerability management, secure SDLC, incident response, detection engineering, threat intelligence, red teaming, or security architecture.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The role is based in Tokyo, with relocation support offered to new employees.",
+          "term": "Tokyo",
+          "quote": "This role is based in our Tokyo office. We offer relocation support to new employees.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "keep",
+      "abstain_reasons": []
+    },
+    {
+      "uid": "ashby:openai:4762783e-61e1-4d36-af1d-8dee3c5f70e2",
+      "title": "Applied AI Engineer - Tokyo",
+      "url": "https://jobs.ashbyhq.com/openai/4762783e-61e1-4d36-af1d-8dee3c5f70e2",
+      "filter": {
+        "uid": "ashby:openai:4762783e-61e1-4d36-af1d-8dee3c5f70e2",
+        "title": "Applied AI Engineer - Tokyo",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "ai engineer",
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "evaluation"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:01+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [\n{\"kind\": \"role\", \"claim\": \"The role centers on designing, building and deploying AI systems in production, which matches her AI Engineer co-op at Staples where she built a Genie Router Agent used by 120+ analysts.\", \"term\": \"AI systems\", \"quote\": \"Design, build, and deploy AI systems that solve important customer problems and produce measurable business outcomes.\"},\n{\"kind\": \"skill\", \"claim\": \"The posting asks for high proficiency in Python, which is her first listed language and the one she used for her LangGraph and MLflow work.\", \"term\": \"Python\", \"quote\": \"Are highly proficient in Python and comfortable working across an AI application stack\"},\n{\"kind\": \"experience\", \"claim\": \"The posting wants systematic evaluation of AI systems, which fits her A/B framework with significance testing across 5+ production experiments and her custom MLflow scorers in eval-guardrails.\", \"term\": \"evaluate AI systems\", \"quote\": \"Understand how to evaluate AI systems systematically using representative data, graders, production signals, and human judgment.\"},\n{\"kind\": \"experience\", \"claim\": \"The role requires observability and reliability for production AI, which matches her inference pipeline with MLflow 3.0 tracing, drift monitoring and performance dashboards.\", \"term\": \"observability\", \"quote\": \"Make sound technical decisions across models, agents, retrieval, tools, data, reliability, observability, latency, cost, safety, security, and governance.\"},\n{\"kind\": \"experience\", \"claim\": \"The posting values agent-building and hands-on code contributions, which fits her LangGraph agent work, though her experience is one co-op and not a long enterprise customer-facing track record.\", \"term\": \"hands-on in code\", \"quote\": \"Work hands-on in code to build prototypes, evaluation harnesses, reference implementations, integrations, and production accelerators.\"},\n{\"kind\": \"other\", \"claim\": \"The posting requires fluent Japanese and English, and her profile does not show Japanese ability, so this may be a blocking requirement to check before applying.\", \"term\": \"Japanese\", \"quote\": \"Are able to speak Japanese and English fluently.\"}\n]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "f075304a-1499-4bbd-a300-35680ca9e36f",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "role",
+          "claim": "The role centers on designing, building and deploying AI systems in production, which matches her AI Engineer co-op at Staples where she built a Genie Router Agent used by 120+ analysts.",
+          "term": "AI systems",
+          "quote": "Design, build, and deploy AI systems that solve important customer problems and produce measurable business outcomes.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting asks for high proficiency in Python, which is her first listed language and the one she used for her LangGraph and MLflow work.",
+          "term": "Python",
+          "quote": "Are highly proficient in Python and comfortable working across an AI application stack",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting wants systematic evaluation of AI systems, which fits her A/B framework with significance testing across 5+ production experiments and her custom MLflow scorers in eval-guardrails.",
+          "term": "evaluate AI systems",
+          "quote": "Understand how to evaluate AI systems systematically using representative data, graders, production signals, and human judgment.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluate AI systems'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role requires observability and reliability for production AI, which matches her inference pipeline with MLflow 3.0 tracing, drift monitoring and performance dashboards.",
+          "term": "observability",
+          "quote": "Make sound technical decisions across models, agents, retrieval, tools, data, reliability, observability, latency, cost, safety, security, and governance.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'observability'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting values agent-building and hands-on code contributions, which fits her LangGraph agent work, though her experience is one co-op and not a long enterprise customer-facing track record.",
+          "term": "hands-on in code",
+          "quote": "Work hands-on in code to build prototypes, evaluation harnesses, reference implementations, integrations, and production accelerators.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'hands-on in code'"
+        },
+        {
+          "kind": "other",
+          "claim": "The posting requires fluent Japanese and English, and her profile does not show Japanese ability, so this may be a blocking requirement to check before applying.",
+          "term": "Japanese",
+          "quote": "Are able to speak Japanese and English fluently.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "I cannot tell",
+      "abstain_reasons": [
+        "3 of 6 claims are insufficient"
+      ]
+    },
+    {
+      "uid": "greenhouse:anthropic:5445806008",
+      "title": "Applied AI Architect, Cyber Specialist ",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5445806008",
+      "filter": {
+        "uid": "greenhouse:anthropic:5445806008",
+        "title": "Applied AI Architect, Cyber Specialist ",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "llm",
+              "evaluation",
+              "training"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:01+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting asks for comfort with Python and cloud environments plus hands-on use of LLMs for security work. She uses Python and AWS and built LLM agent pipelines at Staples, though not for security work.\", \"term\": \"Python\", \"quote\": \"Comfort with Python, CI/CD, and cloud environments, plus hands-on experience using LLMs for security work such as code review, vulnerability discovery, triage, or investigation\"}, {\"kind\": \"experience\", \"claim\": \"The role involves building reference implementations, harnesses, and evaluation approaches. This resembles her Staples work on an LLM A/B evaluation framework and her MLflow scorers in eval-guardrails.\", \"term\": \"evaluation approaches\", \"quote\": \"Build and maintain reference implementations, harnesses, and evaluation approaches, and help customers adapt them to their own environments and controls\"}, {\"kind\": \"seniority\", \"claim\": \"The posting requires 5+ years in security roles. Her only listed experience is an eight-month AI co-op with no security roles, so she falls well short of this requirement.\", \"term\": \"5+ years\", \"quote\": \"5+ years in security roles, with hands-on depth in at least two of: application security and secure SDLC, offensive security and penetration testing, detection and response, or threat intelligence and vulnerability management\"}, {\"kind\": \"role\", \"claim\": \"The role is a customer-facing security advisor who works across enterprise accounts. Her background is internal AI engineering for analysts at Staples, so the fit is partial at best.\", \"term\": \"technical advisor\", \"quote\": \"Serve as the security-domain technical advisor on strategic enterprise accounts, from discovery through deployment\"}, {\"kind\": \"degree\", \"claim\": \"The minimum education is a Bachelor's degree or equivalent experience. Her MS in Information Systems meets this.\", \"term\": \"Bachelor’s degree\", \"quote\": \"Minimum education: Bachelor’s degree or an equivalent combination of education, training, and/or experience\"}, {\"kind\": \"other\", \"claim\": \"The posting says Anthropic sponsors visas, though not for every role or candidate. This may matter if she needs sponsorship.\", \"term\": \"visa\", \"quote\": \"We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate.\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "b5a5e4ed-8b60-4cf4-b72a-22c787f1e657",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for comfort with Python and cloud environments plus hands-on use of LLMs for security work. She uses Python and AWS and built LLM agent pipelines at Staples, though not for security work.",
+          "term": "Python",
+          "quote": "Comfort with Python, CI/CD, and cloud environments, plus hands-on experience using LLMs for security work such as code review, vulnerability discovery, triage, or investigation",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role involves building reference implementations, harnesses, and evaluation approaches. This resembles her Staples work on an LLM A/B evaluation framework and her MLflow scorers in eval-guardrails.",
+          "term": "evaluation approaches",
+          "quote": "Build and maintain reference implementations, harnesses, and evaluation approaches, and help customers adapt them to their own environments and controls",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluation approaches'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting requires 5+ years in security roles. Her only listed experience is an eight-month AI co-op with no security roles, so she falls well short of this requirement.",
+          "term": "5+ years",
+          "quote": "5+ years in security roles, with hands-on depth in at least two of: application security and secure SDLC, offensive security and penetration testing, detection and response, or threat intelligence and vulnerability management",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "role",
+          "claim": "The role is a customer-facing security advisor who works across enterprise accounts. Her background is internal AI engineering for analysts at Staples, so the fit is partial at best.",
+          "term": "technical advisor",
+          "quote": "Serve as the security-domain technical advisor on strategic enterprise accounts, from discovery through deployment",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "degree",
+          "claim": "The minimum education is a Bachelor's degree or equivalent experience. Her MS in Information Systems meets this.",
+          "term": "Bachelor’s degree",
+          "quote": "Minimum education: Bachelor’s degree or an equivalent combination of education, training, and/or experience",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The posting says Anthropic sponsors visas, though not for every role or candidate. This may matter if she needs sponsorship.",
+          "term": "visa",
+          "quote": "We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate.",
+          "label": "insufficient",
+          "why": "the quote does not contain the term 'visa'"
+        }
+      ],
+      "answer": "keep",
+      "abstain_reasons": []
+    },
+    {
+      "uid": "ashby:openai:0cbc002e-bd6e-4aa3-9dbc-ed7fe59511ea",
+      "title": "Applied AI Engineer, Large Enterprise",
+      "url": "https://jobs.ashbyhq.com/openai/0cbc002e-bd6e-4aa3-9dbc-ed7fe59511ea",
+      "filter": {
+        "uid": "ashby:openai:0cbc002e-bd6e-4aa3-9dbc-ed7fe59511ea",
+        "title": "Applied AI Engineer, Large Enterprise",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "ai engineer",
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "evaluation"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:01+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"role\", \"claim\": \"The role centers on building evaluation systems for AI, which matches her Staples A/B framework for LLM evaluation and her eval-guardrails MLflow scorers.\", \"term\": \"evaluation\", \"quote\": \"Understand how to evaluate AI systems systematically using representative data, graders, production signals, and human judgment.\"}, {\"kind\": \"skill\", \"claim\": \"The posting asks for high proficiency in Python, which is her primary language.\", \"term\": \"Python\", \"quote\": \"Are highly proficient in Python and comfortable working across an AI application stack\"}, {\"kind\": \"experience\", \"claim\": \"The posting values observability and reliability in production AI. She built MLflow 3.0 tracing, drift monitoring and dashboards in her Staples inference pipeline.\", \"term\": \"observability\", \"quote\": \"Make sound technical decisions across models, agents, retrieval, tools, data, reliability, observability, latency, cost, safety, security, and governance.\"}, {\"kind\": \"experience\", \"claim\": \"The role involves building agents and moving them from prototype to production, similar to her LangGraph Genie Router Agent that 120+ analysts used.\", \"term\": \"agents\", \"quote\": \"Help customers progress from promising prototypes to reliable production systems, sustained adoption, and scaled impact.\"}, {\"kind\": \"seniority\", \"claim\": \"The posting requires 5+ years of enterprise AI delivery, and she has about 8 months of co-op experience, so this is a significant gap.\", \"term\": \"5+ years\", \"quote\": \"Have a demonstrated track record of 5+ years of designing, building, and delivering AI or machine-learning systems in enterprise environments\"}, {\"kind\": \"other\", \"claim\": \"The posting requires fluency in German and English. Her profile does not list German, and the role is based in Munich/Berlin, so this may be a blocker.\", \"term\": \"German\", \"quote\": \"Are fluent in both German and English\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "4c0cef96-c5e0-4029-851b-a016da901076",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "role",
+          "claim": "The role centers on building evaluation systems for AI, which matches her Staples A/B framework for LLM evaluation and her eval-guardrails MLflow scorers.",
+          "term": "evaluation",
+          "quote": "Understand how to evaluate AI systems systematically using representative data, graders, production signals, and human judgment.",
+          "label": "insufficient",
+          "why": "the quote does not contain the term 'evaluation'"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting asks for high proficiency in Python, which is her primary language.",
+          "term": "Python",
+          "quote": "Are highly proficient in Python and comfortable working across an AI application stack",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting values observability and reliability in production AI. She built MLflow 3.0 tracing, drift monitoring and dashboards in her Staples inference pipeline.",
+          "term": "observability",
+          "quote": "Make sound technical decisions across models, agents, retrieval, tools, data, reliability, observability, latency, cost, safety, security, and governance.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'observability'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role involves building agents and moving them from prototype to production, similar to her LangGraph Genie Router Agent that 120+ analysts used.",
+          "term": "agents",
+          "quote": "Help customers progress from promising prototypes to reliable production systems, sustained adoption, and scaled impact.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'agents'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting requires 5+ years of enterprise AI delivery, and she has about 8 months of co-op experience, so this is a significant gap.",
+          "term": "5+ years",
+          "quote": "Have a demonstrated track record of 5+ years of designing, building, and delivering AI or machine-learning systems in enterprise environments",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The posting requires fluency in German and English. Her profile does not list German, and the role is based in Munich/Berlin, so this may be a blocker.",
+          "term": "German",
+          "quote": "Are fluent in both German and English",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "I cannot tell",
+      "abstain_reasons": [
+        "3 of 6 claims are insufficient"
+      ]
+    },
+    {
+      "uid": "ashby:openai:98bffd0e-05cf-4748-93f1-b115c84e37b4",
+      "title": "Applied AI Architect, Education",
+      "url": "https://jobs.ashbyhq.com/openai/98bffd0e-05cf-4748-93f1-b115c84e37b4",
+      "filter": {
+        "uid": "ashby:openai:98bffd0e-05cf-4748-93f1-b115c84e37b4",
+        "title": "Applied AI Architect, Education",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "llm",
+              "evaluation",
+              "training"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:10+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting asks for Python and API/SDK prototyping, which matches her Python skills and her Databricks Genie API work at Staples.\", \"term\": \"Python\", \"quote\": \"Can prototype, explain technical tradeoffs, and work confidently with APIs, SDKs, and languages such as Python or JavaScript.\"}, {\"kind\": \"experience\", \"claim\": \"The role wants an understanding of agentic applications and model evaluation, which matches her LangGraph Genie Router Agent and her LLM A/B evaluation framework.\", \"term\": \"agentic applications, model evaluation\", \"quote\": \"Understand modern AI systems, frontier LLM models, agentic applications, model evaluation, retrieval, or enterprise AI workflows.\"}, {\"kind\": \"experience\", \"claim\": \"The posting includes evaluation and production-readiness tracking in the architecture scope, which fits her MLflow tracing, drift monitoring and custom MLflow scorers.\", \"term\": \"evaluation\", \"quote\": \"Translate education priorities into clear Applied AI Architectures spanning models, applications, institutional data, identity, integrations, security, privacy, governance, evaluation, and deployment.\"}, {\"kind\": \"seniority\", \"claim\": \"The posting asks for significant customer-facing technical experience, which is a likely gap because her only work experience is one 8-month co-op serving internal analysts.\", \"term\": \"significant experience\", \"quote\": \"Have significant experience in customer-facing technical roles such as solutions architecture, solutions engineering, technical account leadership, AI deployment, or technical customer success.\"}, {\"kind\": \"role\", \"claim\": \"The role is a senior technical owner for a portfolio of education customers who acts as the \\\"CTO of your book of business\\\", which is well above entry level for her.\", \"term\": \"senior technical owner\", \"quote\": \"you will be the senior technical owner for a named portfolio of education customers and the primary technical counterpart to their leadership teams\"}, {\"kind\": \"other\", \"claim\": \"The role is based in London with a hybrid schedule and relocation assistance, which matters because she is currently in Boston.\", \"term\": \"relocation assistance\", \"quote\": \"This role is based in London. We use a hybrid work model of 3 days in the office per week and offer relocation assistance.\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "6f4782b0-e985-4b58-9cf9-2c22e813b781",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for Python and API/SDK prototyping, which matches her Python skills and her Databricks Genie API work at Staples.",
+          "term": "Python",
+          "quote": "Can prototype, explain technical tradeoffs, and work confidently with APIs, SDKs, and languages such as Python or JavaScript.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role wants an understanding of agentic applications and model evaluation, which matches her LangGraph Genie Router Agent and her LLM A/B evaluation framework.",
+          "term": "agentic applications, model evaluation",
+          "quote": "Understand modern AI systems, frontier LLM models, agentic applications, model evaluation, retrieval, or enterprise AI workflows.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'agentic applications, model evaluation'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting includes evaluation and production-readiness tracking in the architecture scope, which fits her MLflow tracing, drift monitoring and custom MLflow scorers.",
+          "term": "evaluation",
+          "quote": "Translate education priorities into clear Applied AI Architectures spanning models, applications, institutional data, identity, integrations, security, privacy, governance, evaluation, and deployment.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluation'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting asks for significant customer-facing technical experience, which is a likely gap because her only work experience is one 8-month co-op serving internal analysts.",
+          "term": "significant experience",
+          "quote": "Have significant experience in customer-facing technical roles such as solutions architecture, solutions engineering, technical account leadership, AI deployment, or technical customer success.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "role",
+          "claim": "The role is a senior technical owner for a portfolio of education customers who acts as the \"CTO of your book of business\", which is well above entry level for her.",
+          "term": "senior technical owner",
+          "quote": "you will be the senior technical owner for a named portfolio of education customers and the primary technical counterpart to their leadership teams",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The role is based in London with a hybrid schedule and relocation assistance, which matters because she is currently in Boston.",
+          "term": "relocation assistance",
+          "quote": "This role is based in London. We use a hybrid work model of 3 days in the office per week and offer relocation assistance.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "keep",
+      "abstain_reasons": []
+    },
+    {
+      "uid": "ashby:openai:c00094f9-e071-4870-afec-104beb3ce499",
+      "title": "Applied AI Architect, Large Enterprise",
+      "url": "https://jobs.ashbyhq.com/openai/c00094f9-e071-4870-afec-104beb3ce499",
+      "filter": {
+        "uid": "ashby:openai:c00094f9-e071-4870-afec-104beb3ce499",
+        "title": "Applied AI Architect, Large Enterprise",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "llm",
+              "evaluation",
+              "training"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:10+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting asks for understanding of agentic applications and model evaluation, which matches her Staples LangGraph Genie Router Agent and her LLM A/B evaluation framework.\", \"term\": \"agentic applications\", \"quote\": \"agentic applications, model evaluation, retrieval, or enterprise AI workflows\"}, {\"kind\": \"skill\", \"claim\": \"The posting expects hands-on prototyping with APIs and Python, and she has built with Python and the Databricks Genie API.\", \"term\": \"Python\", \"quote\": \"work confidently with APIs, SDKs, and languages such as Python or JavaScript\"}, {\"kind\": \"experience\", \"claim\": \"The architecture duties include evaluation and deployment, which overlaps with her MLflow tracing, drift monitoring and custom MLflow scorers.\", \"term\": \"evaluation\", \"quote\": \"governance, evaluation, and deployment\"}, {\"kind\": \"seniority\", \"claim\": \"The posting asks for significant customer-facing technical experience, and she has about eight months as a co-op building tools for internal analysts, so this is a clear gap.\", \"term\": \"significant experience\", \"quote\": \"Have significant experience in customer-facing technical roles\"}, {\"kind\": \"role\", \"claim\": \"The role is a senior owner of a named customer portfolio and a counterpart to executives, which is well above her current entry-level experience and is mostly pre-sales and account strategy rather than hands-on building.\", \"term\": \"senior technical owner\", \"quote\": \"senior technical owner for a named portfolio of customers\"}, {\"kind\": \"other\", \"claim\": \"The role is listed in Munich, Germany, while she is based in Boston, so relocation and work authorization would need to be checked; the posting text does not address this.\", \"term\": \"Munich\", \"quote\": \"\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "031cc613-2ee9-4c33-9701-bc8bd675ff94",
+        "num_turns": 2,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for understanding of agentic applications and model evaluation, which matches her Staples LangGraph Genie Router Agent and her LLM A/B evaluation framework.",
+          "term": "agentic applications",
+          "quote": "agentic applications, model evaluation, retrieval, or enterprise AI workflows",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting expects hands-on prototyping with APIs and Python, and she has built with Python and the Databricks Genie API.",
+          "term": "Python",
+          "quote": "work confidently with APIs, SDKs, and languages such as Python or JavaScript",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The architecture duties include evaluation and deployment, which overlaps with her MLflow tracing, drift monitoring and custom MLflow scorers.",
+          "term": "evaluation",
+          "quote": "governance, evaluation, and deployment",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluation'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting asks for significant customer-facing technical experience, and she has about eight months as a co-op building tools for internal analysts, so this is a clear gap.",
+          "term": "significant experience",
+          "quote": "Have significant experience in customer-facing technical roles",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "role",
+          "claim": "The role is a senior owner of a named customer portfolio and a counterpart to executives, which is well above her current entry-level experience and is mostly pre-sales and account strategy rather than hands-on building.",
+          "term": "senior technical owner",
+          "quote": "senior technical owner for a named portfolio of customers",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The role is listed in Munich, Germany, while she is based in Boston, so relocation and work authorization would need to be checked; the posting text does not address this.",
+          "term": "Munich",
+          "quote": "",
+          "label": "insufficient",
+          "why": "no quote: an absence in the text is not support"
+        }
+      ],
+      "answer": "keep",
+      "abstain_reasons": []
+    },
+    {
+      "uid": "greenhouse:anthropic:5462966008",
+      "title": "Security Data Engineer",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5462966008",
+      "filter": {
+        "uid": "greenhouse:anthropic:5462966008",
+        "title": "Security Data Engineer",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "data engineer"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "sql",
+              "training"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:11+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting requires writing SQL and at least one general-purpose language well, and she lists Python and SQL as her core languages.\", \"term\": \"SQL\", \"quote\": \"Write SQL and at least one general-purpose programming language well\"}, {\"kind\": \"experience\", \"claim\": \"The role wants AI agents or automation that replaced recurring manual work, and at Staples she built a Genie Router Agent used by 120+ analysts that cut SQL query time by about 30%.\", \"term\": \"AI agents\", \"quote\": \"Have built AI agents or automation that replaced recurring manual work\"}, {\"kind\": \"experience\", \"claim\": \"The posting asks for tools and agents that retire costly reviews, and her LangGraph and Databricks Genie agent work is the same kind of building.\", \"term\": \"agents\", \"quote\": \"build the tools and agents the team runs on this data: reconciliation, audit evidence exports, custody checks\"}, {\"kind\": \"experience\", \"claim\": \"The role expects metrics a team makes decisions on and can defend, and she built an A/B framework with significance testing across 5+ production experiments at Staples.\", \"term\": \"metrics\", \"quote\": \"built metrics a team made decisions on and defended them when challenged\"}, {\"kind\": \"skill\", \"claim\": \"The posting stresses catching silent or drifting feeds, and she designed an inference pipeline with MLflow tracing, drift monitoring and dashboards.\", \"term\": \"drifting feed\", \"quote\": \"alerts on a silent or drifting feed, so a wrong or missing record is caught the same day\"}, {\"kind\": \"other\", \"claim\": \"The posting asks for direct experience with hardware inventory, custody, or security and compliance control data, and her resume shows none, so this is a real gap in an otherwise partial fit.\", \"term\": \"hardware\", \"quote\": \"Have worked hands-on with data about physical assets or security controls: a hardware fleet, data center or supply chain inventory, asset custody, or the control and evidence data of a security or compliance program\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "7e245bf0-d1f3-4c78-b5a2-090191a987c2",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting requires writing SQL and at least one general-purpose language well, and she lists Python and SQL as her core languages.",
+          "term": "SQL",
+          "quote": "Write SQL and at least one general-purpose programming language well",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role wants AI agents or automation that replaced recurring manual work, and at Staples she built a Genie Router Agent used by 120+ analysts that cut SQL query time by about 30%.",
+          "term": "AI agents",
+          "quote": "Have built AI agents or automation that replaced recurring manual work",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'AI agents'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting asks for tools and agents that retire costly reviews, and her LangGraph and Databricks Genie agent work is the same kind of building.",
+          "term": "agents",
+          "quote": "build the tools and agents the team runs on this data: reconciliation, audit evidence exports, custody checks",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'agents'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role expects metrics a team makes decisions on and can defend, and she built an A/B framework with significance testing across 5+ production experiments at Staples.",
+          "term": "metrics",
+          "quote": "built metrics a team made decisions on and defended them when challenged",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'metrics'"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting stresses catching silent or drifting feeds, and she designed an inference pipeline with MLflow tracing, drift monitoring and dashboards.",
+          "term": "drifting feed",
+          "quote": "alerts on a silent or drifting feed, so a wrong or missing record is caught the same day",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The posting asks for direct experience with hardware inventory, custody, or security and compliance control data, and her resume shows none, so this is a real gap in an otherwise partial fit.",
+          "term": "hardware",
+          "quote": "Have worked hands-on with data about physical assets or security controls: a hardware fleet, data center or supply chain inventory, asset custody, or the control and evidence data of a security or compliance program",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "I cannot tell",
+      "abstain_reasons": [
+        "3 of 6 claims are insufficient"
+      ]
+    },
+    {
+      "uid": "ashby:openai:9a57d693-24ad-4457-a408-50617551ea5e",
+      "title": "Partner Applied AI Engineer, Google Cloud ",
+      "url": "https://jobs.ashbyhq.com/openai/9a57d693-24ad-4457-a408-50617551ea5e",
+      "filter": {
+        "uid": "ashby:openai:9a57d693-24ad-4457-a408-50617551ea5e",
+        "title": "Partner Applied AI Engineer, Google Cloud ",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "ai engineer",
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "llm",
+              "evaluation"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:12+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting asks for practical LLM evaluation experience, which matches her Staples A/B framework for LLM evaluation and her eval-guardrails MLflow scorers.\", \"term\": \"LLM evaluation\", \"quote\": \"Have practical experience with LLM evaluation, retrieval, tool use, and secure enterprise integration.\"}, {\"kind\": \"skill\", \"claim\": \"The role wants production applications in Python, which is her primary language.\", \"term\": \"Python\", \"quote\": \"Can build production applications using Python or another relevant language, APIs, containers, and cloud services.\"}, {\"kind\": \"experience\", \"claim\": \"The role includes evaluation and observability practices, which fits her MLflow 3.0 tracing, drift monitoring and dashboards at Staples.\", \"term\": \"observability\", \"quote\": \"Establish evaluation, observability, CI/CD, and operational practices that address output quality, safety, reliability, latency, and cost.\"}, {\"kind\": \"experience\", \"claim\": \"The posting calls for tool-using workflows and retrieval-augmented generation, similar to her LangGraph-based Genie Router Agent used by 120+ analysts.\", \"term\": \"tool-using workflows\", \"quote\": \"Build retrieval-augmented generation and tool-using workflows, connecting approved enterprise data and services with clear authorization boundaries.\"}, {\"kind\": \"seniority\", \"claim\": \"The posting seeks an experienced technical leader with substantial consulting experience, which is a stretch for her given about eight months of co-op experience.\", \"term\": \"experienced technical leader\", \"quote\": \"We are looking for an experienced technical leader to serve as a primary technical counterpart to Google Cloud Customer Engineers, AI specialists, and partner technical teams.\"}, {\"kind\": \"skill\", \"claim\": \"The role requires hands-on Model Garden and Vertex AI SDK experience, which her listed skills do not show. She works in Databricks and AWS, so this is a gap.\", \"term\": \"Model Garden\", \"quote\": \"Have hands-on experience with Model Garden and the Vertex AI SDK for Python / Agent Platform SDK, including programmatic model discovery, deployment configuration, endpoint deployment, and inference testing.\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "28d911ae-2729-43ac-b224-d922f5115b6c",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for practical LLM evaluation experience, which matches her Staples A/B framework for LLM evaluation and her eval-guardrails MLflow scorers.",
+          "term": "LLM evaluation",
+          "quote": "Have practical experience with LLM evaluation, retrieval, tool use, and secure enterprise integration.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The role wants production applications in Python, which is her primary language.",
+          "term": "Python",
+          "quote": "Can build production applications using Python or another relevant language, APIs, containers, and cloud services.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role includes evaluation and observability practices, which fits her MLflow 3.0 tracing, drift monitoring and dashboards at Staples.",
+          "term": "observability",
+          "quote": "Establish evaluation, observability, CI/CD, and operational practices that address output quality, safety, reliability, latency, and cost.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'observability'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting calls for tool-using workflows and retrieval-augmented generation, similar to her LangGraph-based Genie Router Agent used by 120+ analysts.",
+          "term": "tool-using workflows",
+          "quote": "Build retrieval-augmented generation and tool-using workflows, connecting approved enterprise data and services with clear authorization boundaries.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'tool-using workflows'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting seeks an experienced technical leader with substantial consulting experience, which is a stretch for her given about eight months of co-op experience.",
+          "term": "experienced technical leader",
+          "quote": "We are looking for an experienced technical leader to serve as a primary technical counterpart to Google Cloud Customer Engineers, AI specialists, and partner technical teams.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The role requires hands-on Model Garden and Vertex AI SDK experience, which her listed skills do not show. She works in Databricks and AWS, so this is a gap.",
+          "term": "Model Garden",
+          "quote": "Have hands-on experience with Model Garden and the Vertex AI SDK for Python / Agent Platform SDK, including programmatic model discovery, deployment configuration, endpoint deployment, and inference testing.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "keep",
+      "abstain_reasons": []
+    },
+    {
+      "uid": "ashby:openai:6882c919-600e-43c8-92f9-803d4eb3bcd2",
+      "title": "Applied AI Architect, Government",
+      "url": "https://jobs.ashbyhq.com/openai/6882c919-600e-43c8-92f9-803d4eb3bcd2",
+      "filter": {
+        "uid": "ashby:openai:6882c919-600e-43c8-92f9-803d4eb3bcd2",
+        "title": "Applied AI Architect, Government",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "evaluation",
+              "training"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:17+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting asks for hands-on Python and API work, which matches her Python skills and her Databricks Genie API work at Staples.\", \"term\": \"Python\", \"quote\": \"Can prototype, explain technical tradeoffs, and work confidently with APIs, SDKs, and languages such as Python or JavaScript.\"}, {\"kind\": \"skill\", \"claim\": \"The posting wants an understanding of agentic applications and model evaluation, which fits her LangGraph router agent and her LLM A/B evaluation framework.\", \"term\": \"model evaluation\", \"quote\": \"Understand modern AI systems, frontier models, agentic applications, model evaluation, retrieval, and enterprise AI workflows.\"}, {\"kind\": \"experience\", \"claim\": \"The architecture duties include evaluation and deployment, which overlaps with her MLflow tracing, drift monitoring and evaluation scorers.\", \"term\": \"evaluation\", \"quote\": \"Develop clear Applied AI Architectures spanning models, applications, data, integration, identity, security, privacy, governance, evaluation, and deployment.\"}, {\"kind\": \"experience\", \"claim\": \"The role tracks adoption and measurable impact, and she has experience with a tool used by 120+ analysts and with production experiments.\", \"term\": \"adoption\", \"quote\": \"Track adoption, usage, account health, production readiness, and measurable mission impact, intervening early when risks threaten value realization.\"}, {\"kind\": \"seniority\", \"claim\": \"The posting asks for significant customer-facing technical experience, and she has only a single 8-month co-op, so this is a stretch for her.\", \"term\": \"significant experience\", \"quote\": \"Have significant experience in customer-facing technical roles such as solutions architecture, solutions engineering, technical account leadership, AI deployment, or technical customer success.\"}, {\"kind\": \"other\", \"claim\": \"The posting asks for government agency experience, which her profile does not show, so this is a gap.\", \"term\": \"government agencies\", \"quote\": \"Have experience working with government agencies, public institutions, or government contractors and understand how mission priorities, security, compliance, governance, and procurement considerations shape technology adoption.\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "c2a3391e-8827-4c41-ada7-c5601f4027a1",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for hands-on Python and API work, which matches her Python skills and her Databricks Genie API work at Staples.",
+          "term": "Python",
+          "quote": "Can prototype, explain technical tradeoffs, and work confidently with APIs, SDKs, and languages such as Python or JavaScript.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting wants an understanding of agentic applications and model evaluation, which fits her LangGraph router agent and her LLM A/B evaluation framework.",
+          "term": "model evaluation",
+          "quote": "Understand modern AI systems, frontier models, agentic applications, model evaluation, retrieval, and enterprise AI workflows.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The architecture duties include evaluation and deployment, which overlaps with her MLflow tracing, drift monitoring and evaluation scorers.",
+          "term": "evaluation",
+          "quote": "Develop clear Applied AI Architectures spanning models, applications, data, integration, identity, security, privacy, governance, evaluation, and deployment.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluation'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role tracks adoption and measurable impact, and she has experience with a tool used by 120+ analysts and with production experiments.",
+          "term": "adoption",
+          "quote": "Track adoption, usage, account health, production readiness, and measurable mission impact, intervening early when risks threaten value realization.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'adoption'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting asks for significant customer-facing technical experience, and she has only a single 8-month co-op, so this is a stretch for her.",
+          "term": "significant experience",
+          "quote": "Have significant experience in customer-facing technical roles such as solutions architecture, solutions engineering, technical account leadership, AI deployment, or technical customer success.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The posting asks for government agency experience, which her profile does not show, so this is a gap.",
+          "term": "government agencies",
+          "quote": "Have experience working with government agencies, public institutions, or government contractors and understand how mission priorities, security, compliance, governance, and procurement considerations shape technology adoption.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "keep",
+      "abstain_reasons": []
+    },
+    {
+      "uid": "greenhouse:anthropic:5486776008",
+      "title": "Applied AI Architect, Beneficial Deployment",
+      "url": "https://job-boards.greenhouse.io/anthropic/jobs/5486776008",
+      "filter": {
+        "uid": "greenhouse:anthropic:5486776008",
+        "title": "Applied AI Architect, Beneficial Deployment",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "llm",
+              "evaluation",
+              "training"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:18+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [\n{\"kind\": \"skill\", \"claim\": \"The posting asks for hands-on LLM API work with built and evaluated agents, which matches her LangGraph-based Genie Router Agent at Staples used by 120+ analysts.\", \"term\": \"LLM APIs\", \"quote\": \"Hands-on experience building with LLM APIs: you have built and evaluated working prototypes or agents\"},\n{\"kind\": \"skill\", \"claim\": \"The role includes building reusable prompt and eval templates, and her custom MLflow scorers in eval-guardrails are similar eval assets.\", \"term\": \"eval templates\", \"quote\": \"prompt and eval templates\"},\n{\"kind\": \"experience\", \"claim\": \"The role has researchers evaluate Claude on their own data before relying on it, and her LLM A/B evaluation framework with significance testing across 5+ production experiments is related work.\", \"term\": \"evaluate\", \"quote\": \"Help researchers evaluate Claude on their own questions and data before they rely on it\"},\n{\"kind\": \"seniority\", \"claim\": \"The posting asks for 7-10 years in customer-facing technical roles, while she has about 8 months of AI engineering co-op experience, so this is a large seniority gap.\", \"term\": \"7-10 years\", \"quote\": \"7-10 years in customer-facing technical roles\"},\n{\"kind\": \"degree\", \"claim\": \"The minimum education is a bachelor's degree or equivalent, which her completed MS in Information Systems exceeds.\", \"term\": \"degree\", \"quote\": \"equivalent combination of education, training, and/or experience\"},\n{\"kind\": \"other\", \"claim\": \"The role is based in Bangalore, India, while she is Boston-based, and the posting says Anthropic sponsors visas, though not for every role or candidate.\", \"term\": \"Bangalore\", \"quote\": \"We do sponsor visas!\"}\n]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "d65dcc30-6a2b-4d9e-a2f3-a4461f7a4d8f",
+        "num_turns": 2,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for hands-on LLM API work with built and evaluated agents, which matches her LangGraph-based Genie Router Agent at Staples used by 120+ analysts.",
+          "term": "LLM APIs",
+          "quote": "Hands-on experience building with LLM APIs: you have built and evaluated working prototypes or agents",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The role includes building reusable prompt and eval templates, and her custom MLflow scorers in eval-guardrails are similar eval assets.",
+          "term": "eval templates",
+          "quote": "prompt and eval templates",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role has researchers evaluate Claude on their own data before relying on it, and her LLM A/B evaluation framework with significance testing across 5+ production experiments is related work.",
+          "term": "evaluate",
+          "quote": "Help researchers evaluate Claude on their own questions and data before they rely on it",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluate'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting asks for 7-10 years in customer-facing technical roles, while she has about 8 months of AI engineering co-op experience, so this is a large seniority gap.",
+          "term": "7-10 years",
+          "quote": "7-10 years in customer-facing technical roles",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "degree",
+          "claim": "The minimum education is a bachelor's degree or equivalent, which her completed MS in Information Systems exceeds.",
+          "term": "degree",
+          "quote": "equivalent combination of education, training, and/or experience",
+          "label": "insufficient",
+          "why": "the quote does not contain the term 'degree'"
+        },
+        {
+          "kind": "other",
+          "claim": "The role is based in Bangalore, India, while she is Boston-based, and the posting says Anthropic sponsors visas, though not for every role or candidate.",
+          "term": "Bangalore",
+          "quote": "We do sponsor visas!",
+          "label": "insufficient",
+          "why": "the quote does not contain the term 'Bangalore'"
+        }
+      ],
+      "answer": "I cannot tell",
+      "abstain_reasons": [
+        "3 of 6 claims are insufficient"
+      ]
+    },
+    {
+      "uid": "ashby:openai:28cd6fe2-4096-426b-8b08-52a66458e2c6",
+      "title": "Applied AI Architect",
+      "url": "https://jobs.ashbyhq.com/openai/28cd6fe2-4096-426b-8b08-52a66458e2c6",
+      "filter": {
+        "uid": "ashby:openai:28cd6fe2-4096-426b-8b08-52a66458e2c6",
+        "title": "Applied AI Architect",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "llm",
+              "evaluation",
+              "training"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:18+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"skill\", \"claim\": \"The posting asks for understanding of agentic applications, model evaluation and enterprise AI workflows, which matches her LangGraph router agent and LLM evaluation work at Staples.\", \"term\": \"model evaluation\", \"quote\": \"Understand modern AI systems, frontier LLM models, agentic applications, model evaluation, retrieval, or enterprise AI workflows.\"}, {\"kind\": \"skill\", \"claim\": \"The posting wants hands-on prototyping with APIs and Python, which fits her Python skills and her Databricks Genie API work.\", \"term\": \"Python\", \"quote\": \"Can prototype, explain technical tradeoffs, and work confidently with APIs, SDKs, and languages such as Python or JavaScript.\"}, {\"kind\": \"experience\", \"claim\": \"The role includes designing architectures that cover evaluation and deployment, which relates to her MLflow tracing, drift monitoring and A/B evaluation pipeline.\", \"term\": \"evaluation\", \"quote\": \"Develop clear Applied AI Architectures spanning models, applications, data, integration, security, privacy, governance, evaluation, and deployment.\"}, {\"kind\": \"seniority\", \"claim\": \"The posting asks for significant customer-facing experience and a senior technical owner role, which is a stretch given her single co-op and recent MS graduation.\", \"term\": \"significant experience\", \"quote\": \"Have significant experience in customer-facing technical roles such as solutions architecture, solutions engineering, technical account leadership, AI deployment, or technical customer success.\"}, {\"kind\": \"role\", \"claim\": \"This is a go-to-market customer advisory role (the 'CTO of your book of business') rather than a hands-on engineering role, and her experience is in internal engineering.\", \"term\": \"CTO of your book of business\", \"quote\": \"You will act as the “CTO of your book of business”\"}, {\"kind\": \"other\", \"claim\": \"The role is based in Delhi, Mumbai or Bangalore with a hybrid schedule and relocation assistance, so it would require her to relocate from Boston.\", \"term\": \"Delhi\", \"quote\": \"This role can be based in Delhi, Mumbai, or Bangalore.\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "3a66095d-a0a0-4895-8a47-d638ac473590",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "skill",
+          "claim": "The posting asks for understanding of agentic applications, model evaluation and enterprise AI workflows, which matches her LangGraph router agent and LLM evaluation work at Staples.",
+          "term": "model evaluation",
+          "quote": "Understand modern AI systems, frontier LLM models, agentic applications, model evaluation, retrieval, or enterprise AI workflows.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting wants hands-on prototyping with APIs and Python, which fits her Python skills and her Databricks Genie API work.",
+          "term": "Python",
+          "quote": "Can prototype, explain technical tradeoffs, and work confidently with APIs, SDKs, and languages such as Python or JavaScript.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The role includes designing architectures that cover evaluation and deployment, which relates to her MLflow tracing, drift monitoring and A/B evaluation pipeline.",
+          "term": "evaluation",
+          "quote": "Develop clear Applied AI Architectures spanning models, applications, data, integration, security, privacy, governance, evaluation, and deployment.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluation'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting asks for significant customer-facing experience and a senior technical owner role, which is a stretch given her single co-op and recent MS graduation.",
+          "term": "significant experience",
+          "quote": "Have significant experience in customer-facing technical roles such as solutions architecture, solutions engineering, technical account leadership, AI deployment, or technical customer success.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "role",
+          "claim": "This is a go-to-market customer advisory role (the 'CTO of your book of business') rather than a hands-on engineering role, and her experience is in internal engineering.",
+          "term": "CTO of your book of business",
+          "quote": "You will act as the “CTO of your book of business”",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "other",
+          "claim": "The role is based in Delhi, Mumbai or Bangalore with a hybrid schedule and relocation assistance, so it would require her to relocate from Boston.",
+          "term": "Delhi",
+          "quote": "This role can be based in Delhi, Mumbai, or Bangalore.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "keep",
+      "abstain_reasons": []
+    },
+    {
+      "uid": "ashby:openai:01091aed-427d-4e10-8cdb-fb500cf55bb9",
+      "title": "Applied AI Engineer, Enterprise",
+      "url": "https://jobs.ashbyhq.com/openai/01091aed-427d-4e10-8cdb-fb500cf55bb9",
+      "filter": {
+        "uid": "ashby:openai:01091aed-427d-4e10-8cdb-fb500cf55bb9",
+        "title": "Applied AI Engineer, Enterprise",
+        "filter_version": "1.0",
+        "score": 5,
+        "threshold": 3,
+        "vetoed": false,
+        "text_missing": false,
+        "decision": "keep",
+        "margin": 2,
+        "fired": [
+          {
+            "rule": "R1",
+            "where": "title",
+            "matched": [
+              "ai engineer",
+              "applied ai"
+            ],
+            "points": 3
+          },
+          {
+            "rule": "R3",
+            "where": "text",
+            "matched": [
+              "python",
+              "evaluation"
+            ],
+            "points": 2
+          }
+        ]
+      },
+      "claude": {
+        "started_utc": "2026-11-26T16:33:22+00:00",
+        "ok": true,
+        "raw": "{\"claims\": [{\"kind\": \"role\", \"claim\": \"The role centers on building and deploying AI systems in production, which matches her Staples co-op building a Genie Router Agent used by 120+ analysts.\", \"term\": \"design, build, and deploy AI systems\", \"quote\": \"Design, build, and deploy AI systems that solve important customer problems and produce measurable business outcomes.\"}, {\"kind\": \"skill\", \"claim\": \"The posting asks for high proficiency in Python, which is her first listed language.\", \"term\": \"Python\", \"quote\": \"Are highly proficient in Python and comfortable working across an AI application stack\"}, {\"kind\": \"experience\", \"claim\": \"The posting wants systematic evaluation of AI systems, which fits her A/B framework with significance testing for LLM evaluation and her custom MLflow scorers.\", \"term\": \"evaluate AI systems\", \"quote\": \"Understand how to evaluate AI systems systematically using representative data, graders, production signals, and human judgment.\"}, {\"kind\": \"experience\", \"claim\": \"The posting lists observability and reliability among its production requirements, which fits her MLflow tracing, drift monitoring, and dashboards work.\", \"term\": \"observability\", \"quote\": \"Have navigated enterprise production requirements such as integrations, reliability, observability, security, privacy, data governance, performance, and cost.\"}, {\"kind\": \"role\", \"claim\": \"The role is customer-facing and partly go-to-market, which is a gap for her because her experience is internal analyst-facing engineering and she has no listed customer-facing or consulting work.\", \"term\": \"customer\", \"quote\": \"Partner directly with enterprise customers to identify high-value opportunities and translate them into technical architectures, implementation plans, evaluation strategies, and measurable success criteria.\"}, {\"kind\": \"seniority\", \"claim\": \"The posting asks for a demonstrated track record of taking enterprise AI systems from prototype to production, which she has only partly, through an 8-month co-op.\", \"term\": \"track record\", \"quote\": \"Have a demonstrated track record of designing, building, and delivering AI or machine-learning systems in enterprise environments, including taking systems from prototype to production.\"}]}",
+        "model": "claude-sonnet-5-5",
+        "models_used": [
+          "claude-haiku-4-5-20251001",
+          "claude-sonnet-5-5"
+        ],
+        "session_id": "6df7afe1-15ae-4f52-a66a-17e577bba25e",
+        "num_turns": 1,
+        "parse": "ok"
+      },
+      "claims": [
+        {
+          "kind": "role",
+          "claim": "The role centers on building and deploying AI systems in production, which matches her Staples co-op building a Genie Router Agent used by 120+ analysts.",
+          "term": "design, build, and deploy AI systems",
+          "quote": "Design, build, and deploy AI systems that solve important customer problems and produce measurable business outcomes.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "skill",
+          "claim": "The posting asks for high proficiency in Python, which is her first listed language.",
+          "term": "Python",
+          "quote": "Are highly proficient in Python and comfortable working across an AI application stack",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting wants systematic evaluation of AI systems, which fits her A/B framework with significance testing for LLM evaluation and her custom MLflow scorers.",
+          "term": "evaluate AI systems",
+          "quote": "Understand how to evaluate AI systems systematically using representative data, graders, production signals, and human judgment.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'evaluate AI systems'"
+        },
+        {
+          "kind": "experience",
+          "claim": "The posting lists observability and reliability among its production requirements, which fits her MLflow tracing, drift monitoring, and dashboards work.",
+          "term": "observability",
+          "quote": "Have navigated enterprise production requirements such as integrations, reliability, observability, security, privacy, data governance, performance, and cost.",
+          "label": "insufficient",
+          "why": "the quote does not state the number in 'observability'"
+        },
+        {
+          "kind": "role",
+          "claim": "The role is customer-facing and partly go-to-market, which is a gap for her because her experience is internal analyst-facing engineering and she has no listed customer-facing or consulting work.",
+          "term": "customer",
+          "quote": "Partner directly with enterprise customers to identify high-value opportunities and translate them into technical architectures, implementation plans, evaluation strategies, and measurable success criteria.",
+          "label": "insufficient",
+          "why": "the quote does not contain the term 'customer'"
+        },
+        {
+          "kind": "seniority",
+          "claim": "The posting asks for a demonstrated track record of taking enterprise AI systems from prototype to production, which she has only partly, through an 8-month co-op.",
+          "term": "track record",
+          "quote": "Have a demonstrated track record of designing, building, and delivering AI or machine-learning systems in enterprise environments, including taking systems from prototype to production.",
+          "label": "supported",
+          "why": "the quote is in the posting and contains the term"
+        }
+      ],
+      "answer": "I cannot tell",
+      "abstain_reasons": [
+        "3 of 6 claims are insufficient"
+      ]
+    }
+  ]
+}
