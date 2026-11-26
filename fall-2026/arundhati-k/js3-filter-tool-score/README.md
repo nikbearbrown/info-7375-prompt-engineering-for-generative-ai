@@ -9,16 +9,49 @@ classmate's JS3 folder was read.
 
 ## Order of work (each step committed before the next)
 
+The hashes in these files are the ones on GitHub. My 24 commits were rebased onto 1 newer classmate commit before pushing (author dates and order unchanged), so commit *messages* may still quote the old hashes:
+
+<details><summary>old → new hash map</summary>
+
+| before rebase | on GitHub |
+|---|---|
+| `a3e574da` | `e436212d` |
+| `aca05b4b` | `591bba1b` |
+| `e40e9b17` | `3ed49fc1` |
+| `fab69d83` | `01120f35` |
+| `37687242` | `d190b97e` |
+| `76e79e90` | `d39c2046` |
+| `49bebaab` | `8432d6fe` |
+| `81e4bcf1` | `5d2271b7` |
+| `ab371658` | `3eaf12a6` |
+| `5246ca26` | `c10a9ff3` |
+| `b4729c8e` | `fb9e0d0f` |
+| `0bf418c1` | `7286c818` |
+| `d47f0a32` | `d33137fc` |
+| `5e54bac0` | `ac89bb68` |
+| `3b091c23` | `401cacdb` |
+| `49191b37` | `0e23460c` |
+| `8a6b77e4` | `8c02746e` |
+| `9ee00800` | `7521ea81` |
+| `5c9c8b28` | `df7f606b` |
+| `771a61a9` | `69450ad8` |
+| `58a220b7` | `a2a4f120` |
+| `63941b01` | `fc924774` |
+| `18977838` | `0b607fc5` |
+| `a725b4a4` | `1b468cf7` |
+
+</details>
+
 | step | commit | what |
 |---|---|---|
-| gate | `a725b4a4` | [FILTER.md](FILTER.md) v1: my rules, reasons, evidence rules, sources and wrong versions, before any code |
-| tests first | `18977838` | 31 filter/evidence tests and 11 server tests, all failing on import ([log 00](evidence/logs/00-tests-before-code.txt)); collector and live snapshot |
-| code | `63941b01` | `jsagent3/filter.py`, `evidence.py`, `mcp_server.py`; the same 42 tests pass ([log 01](evidence/logs/01-tests-after-code.txt)) |
-| run + blind sample | `58a220b7` | v1 on 1,088 postings, 25 kept; audit sample and held-out sheets, filter verdict hidden |
-| tool server transcripts | `771a61a9`, `5c9c8b28` | real transcripts with my client, Claude Code, and `claude mcp serve`; [TOOL-EVALUATIONS.md](TOOL-EVALUATIONS.md) |
-| my audit verdicts | `9ee00800` | 54 blind verdicts; optional rule keys (off in v1) + tests |
-| my rule decisions | `8a6b77e4` | FILTER.md v1.1: A rejected, B added, C rejected, D added; held-out labels |
-| parser fixes, test first | `49191b37`, `3b091c23` | curly-apostrophe headings; "four (4) years"; live Claude runs P1/P2/C2 |
+| gate | `1b468cf7` | [FILTER.md](FILTER.md) v1: my rules, reasons, evidence rules, sources and wrong versions, before any code |
+| tests first | `0b607fc5` | 31 filter/evidence tests and 11 server tests, all failing on import ([log 00](evidence/logs/00-tests-before-code.txt)); collector and live snapshot |
+| code | `fc924774` | `jsagent3/filter.py`, `evidence.py`, `mcp_server.py`; the same 42 tests pass ([log 01](evidence/logs/01-tests-after-code.txt)) |
+| run + blind sample | `a2a4f120` | v1 on 1,088 postings, 25 kept; audit sample and held-out sheets, filter verdict hidden |
+| tool server transcripts | `69450ad8`, `df7f606b` | real transcripts with my client, Claude Code, and `claude mcp serve`; [TOOL-EVALUATIONS.md](TOOL-EVALUATIONS.md) |
+| my audit verdicts | `7521ea81` | 54 blind verdicts; optional rule keys (off in v1) + tests |
+| my rule decisions | `8c02746e` | FILTER.md v1.1: A rejected, B added, C rejected, D added; held-out labels |
+| parser fixes, test first | `0e23460c`, `401cacdb` | curly-apostrophe headings; "four (4) years"; live Claude runs P1/P2/C2 |
 | write-ups | (this commit and later) | [AUDIT.md](AUDIT.md), [SHORTLIST.md](SHORTLIST.md), [SCORE-CHANGES.md](SCORE-CHANGES.md), SIGNOFF, SOURCES, FRICTIONAL |
 
 ## Language and toolchain

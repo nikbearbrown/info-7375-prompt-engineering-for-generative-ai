@@ -4,7 +4,7 @@ Written on 2026-11-25, the day of the work. I used ChatGPT while writing these e
 the experiences and decisions are mine and I reviewed every entry (see SOURCES.md). Claude Code pasted the final text
 into this file without editing. The facts and numbers come from the files each pointer names.
 
-## Entry 1 — writing the filter (commit `a725b4a4`)
+## Entry 1 — writing the filter (commit `1b468cf7`)
 
 I started by deciding which job titles and technical skills were relevant to the roles I wanted. I chose titles like Backend Engineer, Java Developer, Software Engineer, Full Stack Engineer, Software Developer, and Platform Engineer. For the technical topics, I chose Java, Spring Boot, REST APIs, microservices, SQL, AWS, PostgreSQL, and distributed systems.
 
@@ -12,9 +12,9 @@ One thing I found difficult was deciding how strict the filter should be. Claude
 
 I also included "training" as a false friend because it could refer to machine-learning training rather than employee training. It never actually caused a problem in the results. That made me realize that I cannot predict every misleading keyword in advance. I need to look at what the filter gets wrong and improve it based on real examples.
 
-**Pointer:** `FILTER.md`, commit `a725b4a4`.
+**Pointer:** `FILTER.md`, commit `1b468cf7`.
 
-## Entry 2 — judging the 54 postings (commit `9ee00800`)
+## Entry 2 — judging the 54 postings (commit `7521ea81`)
 
 I reviewed 54 postings without seeing the filter's decisions. They were mixed together from 32 random rejects, 12 close calls, and 10 postings the filter had kept. Each entry showed the title, location, link, and up to four requirement lines. I gave my own Y or N verdict with a short reason. I agreed with all 32 random rejects, but only 2 of the 10 postings the filter kept were jobs I would consider.
 
@@ -22,9 +22,9 @@ When I looked at the 8 kept postings I had marked N, I noticed that I was applyi
 
 The audit made me see that matching keywords is not the same as checking whether a job fits what I am looking for. The filter agreed with me on the obvious rejects, but its keep list had too many jobs I would skip. Also, 32 correct random rejects do not prove that all the rejects are correct; with this sample size, some mistakes could still exist in the remaining postings.
 
-**Pointer:** `audit/my-verdicts-2026-11-25.txt`, commit `9ee00800`.
+**Pointer:** `audit/my-verdicts-2026-11-25.txt`, commit `7521ea81`.
 
-## Entry 3 — deciding which rule changes to accept (commit `8a6b77e4`)
+## Entry 3 — deciding which rule changes to accept (commit `8c02746e`)
 
 After reviewing the audit, I considered four changes suggested or discussed with Claude. I rejected making US location a hard requirement because I still wanted it to be a preference, not an automatic rejection. I also rejected lowering the topic-word threshold from two words to one because I felt that would let too many loosely related jobs through.
 
@@ -32,9 +32,9 @@ I accepted the experience rule: if a job explicitly requires 3+ years, it should
 
 I changed posting #26 from Y to N after reviewing its 5+ years requirement. I understand that this decision was made after seeing the audit results, so the audit was being used to refine the filter rather than as a final independent measurement. I kept the held-out set separate for the final comparison. The changes I accepted became rules B and D in the updated filter.
 
-**Pointer:** `SCORE-CHANGES.md` and the rule-change work, commit `8a6b77e4`.
+**Pointer:** `SCORE-CHANGES.md` and the rule-change work, commit `8c02746e`.
 
-## Entry 4 — held-out results: my labels vs my rules (commit `81e4bcf1`)
+## Entry 4 — held-out results: my labels vs my rules (commit `5d2271b7`)
 
 I expected v1.1 to improve the results after the changes I made using the 54-posting audit. But on the held-out set, v1.1 agreed with 18 out of 20 labels and found none of my two Y postings. It kept only 4 out of 1,088 jobs. It also tied with the simple approach of rejecting everything, which made me question whether the improvements I saw on the audit actually carried over.
 
@@ -50,9 +50,9 @@ Another issue was #18, a mobile internship. Claude marked it as a match because 
 
 My conclusion was that my labels were wrong, not the rules. I still need to decide whether backend focus should become an explicit rule and whether the current requirements-only approach is too restrictive. I also understand that 20 postings, with only two positive labels, are too few to make strong conclusions from a one-posting difference.
 
-**Pointer:** `SCORE-CHANGES.md`, commit `81e4bcf1`.
+**Pointer:** `SCORE-CHANGES.md`, commit `5d2271b7`.
 
-## Entry 5 — testing the tool servers (commit `ab371658`)
+## Entry 5 — testing the tool servers (commit `3eaf12a6`)
 
 I tested my own MCP server and Claude Code's `claude mcp serve` to understand what each one allowed. My server refused an `apply_to_job` request and a path traversal attempt using `../../etc/passwd`. That was good to see because I wanted the server to enforce boundaries instead of allowing actions outside the intended scope.
 
@@ -62,4 +62,4 @@ I would trust my own server only with restricted permissions and after testing t
 
 The main lesson for me was that a successful tool call does not prove a tool is safe. I need to understand what it can access and what it can change before giving it permission to work.
 
-**Pointer:** `TOOL-EVALUATIONS.md`, commit `ab371658`.
+**Pointer:** `TOOL-EVALUATIONS.md`, commit `3eaf12a6`.

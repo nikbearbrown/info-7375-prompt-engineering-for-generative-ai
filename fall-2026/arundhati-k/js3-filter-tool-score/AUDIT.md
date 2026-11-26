@@ -11,7 +11,7 @@ Figma 142 and Notion 174 ([log](evidence/logs/02-run-v1.txt); raw responses in `
 | topic score 1 | 31 |
 | level excluded (Senior/Staff/Principal/Lead/Sr.) | 16 |
 
-**Sample (seeded, seed 7375, commit `58a220b7`).** It has three strata, shuffled together. The judging sheet
+**Sample (seeded, seed 7375, commit `a2a4f120`).** It has three strata, shuffled together. The judging sheet
 [audit/to-judge.md](audit/to-judge.md) hid the filter's verdict:
 
 - 32 random rejects, drawn from the rejects that were not close calls
@@ -99,6 +99,6 @@ would agree on 48/54 of the audit set, so agreement alone overstates v1.1. See [
 **Two code defects were found during the audit and fixed test-first.** Neither is a rule change:
 
 1. Headings with a curly apostrophe ("What you’ll do") were not recognised as requirement sections. Test
-   `CurlyApostrophe`; logs 07 → 08; commit after `8a6b77e4`.
+   `CurlyApostrophe`; logs 07 → 08; commit after `8c02746e`.
 2. "four (4) years" was not read as a years requirement, and a sub-skill line ("one (1) year in each of…") hid the
    base requirement. Tests `SpelledYears` and `StrictestYearsWins`; logs 10 → 11.

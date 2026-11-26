@@ -53,9 +53,9 @@ The "why" column is in my words, typed in chat 2026-11-25.
 
 | task | Claude should | I should | why the judgment stays mine | pointer |
 |---|---|---|---|---|
-| filter rules | format them, find gaps, test them | decide which words and rules count, and why | I decide which skills, titles, experience levels, and locations matter for the roles I want. | `a725b4a4`, FILTER.md Appendix A |
-| reject audit | draw the sample blind, count, compute intervals | judge each posting | The tool can select the sample and calculate results, but I have to decide whether each rejected posting was actually relevant. | `9ee00800`, audit/my-verdicts-2026-11-25.txt |
-| rule changes A–D | measure each one | accept or reject each one | Claude can show how each change affects the results, but I decide which trade-offs are acceptable. | `8a6b77e4`, FILTER.md Revisions |
+| filter rules | format them, find gaps, test them | decide which words and rules count, and why | I decide which skills, titles, experience levels, and locations matter for the roles I want. | `1b468cf7`, FILTER.md Appendix A |
+| reject audit | draw the sample blind, count, compute intervals | judge each posting | The tool can select the sample and calculate results, but I have to decide whether each rejected posting was actually relevant. | `7521ea81`, audit/my-verdicts-2026-11-25.txt |
+| rule changes A–D | measure each one | accept or reject each one | Claude can show how each change affects the results, but I decide which trade-offs are acceptable. | `8c02746e`, FILTER.md Revisions |
 | held-out labels | draw the set, hide verdicts | label each posting | I have to judge whether each posting matches my criteria without using the filter's verdict as the answer. | labels/my-heldout-labels-2026-11-25.txt |
 | claim labels | auto-label, show the quote | confirm or override the "read" labels | I have to read the full sentence and decide whether the posting really supports, contradicts, or gives insufficient evidence for each claim. | SHORTLIST.md |
 | tool trust | run probes, record transcripts | decide whether to trust each server | Claude can run tests and show what a server does, but I am responsible for deciding what access I am comfortable giving it. | TOOL-EVALUATIONS.md |
