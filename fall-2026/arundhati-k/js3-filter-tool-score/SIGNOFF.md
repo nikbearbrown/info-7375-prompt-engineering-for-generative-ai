@@ -47,11 +47,13 @@ sample estimate, not a measured rate for all postings.
 Signed or withheld: Signed — Arundhati Kandelkar, 25/11/2026
 ```
 
-**Addendum after signing (2026-11-25, written by Claude at my request, re-confirmed by me below):** Not-checked item 4
+**Addendum after signing (2026-11-25, written by Claude at my request; my confirmation follows):** Not-checked item 4
 is now out of date. The labeler blind spot was fixed test-first, and agreement on the 16 shortlist claims went from
 10/16 to 16/16. Those 16 are a dev set, though (SHORTLIST.md). Replacement item 4: *the fixed labeler changed 16 labels
 on the v1 shortlist that I have not checked by hand, and transcripts 01–02 still show the labeler from before the
 fix.* The 57 tests were run again after the fix (evidence/logs/16-tests-after-labeler-fix.txt).
+
+**My confirmation (my words, 2026-11-25):** The claim labeler now agrees with all 16 recorded labels. However, 10 of those labels were not independently re-checked during this evaluation. The 16 changed labels from the unchecked v1 shortlist have also not been manually reviewed.
 
 ## Driver's seat
 
