@@ -71,6 +71,8 @@ the hook was installed earlier, the trace showed the Python interpreter writing 
 until the server was started with -B. The real transcript (c9f7d71) showed a third problem: a rejected Canada posting comes back with
 score 64, higher than kept postings.
 
+When I asked whether everything met the brief, Claude pointed out that the brief says to offer the capability "to Claude", and that Claude had never actually called my server: only its test script had. I said "do 1 and 2". Claude added a project .mcp.json and a recorder that logs both directions, and I opened Claude Code in the JS3 folder and asked it to score three postings and say which one Evan should apply to (dda391d). The transcript showed Claude Code first trying a newer protocol and falling back to mine. Claude did not rank by score, and said the decision to apply was mine. It also caught something we had both missed: the tool description still said "FILTER.md v1.2" while every answer said v1.3, and that mismatch was already in the v1.3 transcript Claude had recorded. The fix came test first (a945738, then 78b57ea): the description now takes the version from the code and says the bucket, not the score, decides. Because this changed the signed sign-off, I re-signed it only after reading the updated files.
+
 ## 9. The other server
 
 I chose to evaluate the official fetch server. At first Claude only read its source at a pinned commit (6235791), saying it couldn't
@@ -119,7 +121,7 @@ as Claude's, and a number that moves on tuning can reverse on held-out. Persisti
 because I edited a file, and Claude remembered my decisions because they were written to memory files.
 
 **Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. The commits run from c09a161 (the starting point),
-through 148f405 (v1.3), to the fetch-run and final commits. The tests are the full suite of 157, including test_W1–W10, the server
+through 148f405 (v1.3), to the fetch-run and final commits. The tests are the full suite of 158, including test_W1–W10, the server
 tests and scripts/js3_sabotage_check.py (9/9). The server evidence is in evidence/mcp/: both transcripts of my server and both fetch
 runs.
 
@@ -128,5 +130,5 @@ runs.
 - the "internship" fix is unmeasured
 - the student-worker false friend is still kept
 - what fetch's npm install downloaded was not reviewed, and its proxy and prompt paths were not run
-- no real MCP client has connected to my server
+- Claude Code connected to my server only once, and its fix was checked by a test, not a second session
 - everything rests on one day's snapshot, with 7 relevant held-out postings

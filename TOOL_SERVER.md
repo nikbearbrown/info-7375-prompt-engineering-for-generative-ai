@@ -21,15 +21,36 @@ python3 scripts/mcp_transcript.py --call samsara:8141959 --call ...      # recor
 
 ### The real transcripts
 
-There are two transcripts, both recorded on 2026-11-25. Each line records its direction, the time and the exact bytes, and each has
+There are three transcripts, all recorded on 2026-11-25. Each line records its direction, the time and the exact bytes, and each has
 its own audit trace.
 
-- `evidence/mcp/transcript.jsonl` (31 lines), recorded with the filter at v1.2. The table below is from this one.
+- `evidence/mcp/transcript.jsonl` (31 lines), recorded with the filter at v1.2.
 - `evidence/mcp/v1.3/transcript.jsonl` (35 lines), recorded after v1.3 with the same requests plus two more:
   - "Senior Software Engineer - Distributed Data Systems" (databricks 4513122002) is now **kept**, score 40, through change A
   - "Software Engineer, Internship - Data Connectors" (palantir 45e4617d…) is now **rejected** by F2 "internship"
   - every other answer matches the v1.2 transcript
   - its audit trace again shows 0 writes, 0 network and 0 processes
+
+- `evidence/mcp/claude_client/transcript.jsonl` (13 lines). **Claude Code as the client.** I started a Claude Code session (version
+  2.1.331) in this folder; it launched the server through `.mcp.json` and `scripts/mcp_logged_server.py`, a recorder that relays every
+  line unchanged and logs it, so the server itself still writes nothing. I typed: *"Use the score_posting tool to score these three
+  postings: samsara 8141959, samsara 7992889, and kraken 1. Then tell me which one Evan should apply to."* Claude's full reply is in
+  `claude_reply.md`. What the transcript and the reply show:
+  - **Protocol.** Claude Code first sent `server/discover` (protocol 2026-07-28). My server answered −32601, so Claude Code fell back
+    to `initialize` asking for 2025-11-25, and accepted my server's 2025-06-18. My server is two revisions behind and works only
+    because this client falls back.
+  - **Pipelining.** Claude sent all three `tools/call` requests before any reply, and the server answered them in order.
+  - **The client's use of the answers.** Claude did **not** rank by score. It said the rejected 64 fails F3 ("Remote - Canada"), that
+    the kraken posting "can't be scored" because the board had 0 postings, and that whether to apply "is yours". It also flagged the
+    over-generous "required" labels (the list-of-alternatives error in `SHORTLIST.md`).
+  - **A declared-vs-actual bug I had missed.** Claude pointed out that the tool's description said "FILTER.md **v1.2**" while every
+    output said v1.3. The description was hard-coded. My own v1.3 transcript contained the same mismatch, and I hadn't noticed it.
+    Fixed after this session, test first: `test_description_declares_the_version_it_runs` (`a945738`, failing) and then the fix
+    (`78b57ea`). The description now takes the version from the code, and it now also says that the bucket decides and a rejected
+    posting still has a score. The fix is verified by the test, not by a second Claude session.
+  - The audit trace shows 0 writes, 0 network and 0 processes.
+
+The table below is from the first transcript:
 
 | # | Client → server | Server → client |
 |---|---|---|
@@ -53,7 +74,8 @@ gives the same answer for the same input, and does not decide whether a job is w
 | Reads only the snapshot and persona | Audit trace | True, plus `/dev/urandom`, which the interpreter reads itself. Dry run 1 **missed** the persona read, because the hook was installed after the imports, and the persona is read at import |
 | Same answer for the same input | Test: two identical calls; the two transcripts | True for one filter version. Between versions the answer changes: Distributed Data Systems is rejected in the v1.2 run and kept in the v1.3 run |
 | Annotations `readOnlyHint`, `openWorldHint: false` | — | Consistent with the trace. Annotations are hints a client cannot verify |
-| Returns "the 0–100 score" | Transcript call 7 | **Misleading:** a *rejected* posting still has a score (64 for the Canada role, above kept postings at 48 and 32). The bucket, not the score, decides |
+| Returns "the 0–100 score" | Transcript call 7 | **Misleading:** a *rejected* posting still has a score (64 for the Canada role, above kept postings at 48 and 32). The bucket, not the score, decides. The description now says so (`78b57ea`). Claude, as a real client, read the bucket correctly anyway |
+| Scores "against FILTER.md v1.2" (the description's own words) | Claude Code as the client | **False after v1.3:** the outputs said v1.3. The version was hard-coded in the description. Fixed with a test that compares the two (`a945738` → `78b57ea`) |
 
 All three dry-run traces are in `evidence/mcp/dry_runs/`, and the final trace is `evidence/mcp/server_audit.txt`.
 
@@ -64,6 +86,8 @@ All three dry-run traces are in `evidence/mcp/dry_runs/`, and the final trace is
 - **To read "not observed" or "0 postings" as "no relevant jobs".**
 - **To any action.** There is no apply, write or fetch tool, and asking for `apply_to_job` is an error.
 - **To trust the annotations as guarantees,** or to expect the same answers across filter versions.
+- **To the newest protocol.** The server speaks up to 2025-06-18, and a client that doesn't fall back, as Claude Code did, can't use
+  it.
 
 ### Trust decision
 

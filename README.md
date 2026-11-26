@@ -22,7 +22,7 @@ my JS1 contract and persona (`CONTRACT.md`, `persona/`). JS2's `GATE.md`, `basel
 ## Exact commands (run from this folder)
 
 ```
-python3 -m unittest discover -s tests          # 157 tests
+python3 -m unittest discover -s tests          # 158 tests
 python3 scripts/js3_sabotage_check.py          # plants 9 wrong versions; each must turn its test red
 python3 scripts/collect_snapshot.py            # network: one GET per board -> snapshot/<date>/ (refuses to overwrite)
 python3 scripts/make_label_sheet.py            # label sheet (already made; refuses to overwrite)
@@ -32,6 +32,7 @@ python3 scripts/make_audit_sheet.py            # reject-audit sample -> audit/au
 python3 scripts/audit.py                       # judge the sample by hand
 python3 -B -m jsagent.mcp_server               # the tool server on stdin/stdout
 python3 scripts/mcp_transcript.py --call samsara:8141959 --out <new folder>   # record a transcript plus an audit trace
+# Claude Code as the client: open this folder in Claude Code; .mcp.json starts scripts/mcp_logged_server.py, which logs to evidence/mcp/claude_client/
 
 # the fetch evaluation (network; installs into a throwaway environment, not this folder)
 /opt/homebrew/bin/python3.11 -m venv <env> && <env>/bin/python -m pip install "mcp-server-fetch==2026.11.18"
@@ -53,9 +54,9 @@ are already used (`labels/HELDOUT_LOG.jsonl`).
 | Reject audit: 30 random rejects + 1 closest call + 5 kept, judged by me | 30/30 rejects right; 4/5 kept right | `audit/audit.csv`, `REJECT_AUDIT.md` |
 | Changes A–E on tuning; baseline, A and D on held-out once | A: held-out recall 2/7 → 6/7 | `SCORE.md` |
 | Filter v1.3 (A + "internship") on everything | 10 kept, 2,616 rejected, 3 cannot tell | `runs/filter-v1.3/`, `SHORTLIST.md` |
-| Tool server: 3 dry runs and 2 real transcripts (v1.2, v1.3) | 31 and 35 lines, both directions; 0 writes or network with `-B` | `evidence/mcp/`, `TOOL_SERVER.md` |
+| Tool server: 3 dry runs, 2 transcripts from my client (v1.2, v1.3), 1 with Claude Code as the client | 31, 35 and 13 lines, both directions; 0 writes or network with `-B`. Claude found the stale "v1.2" in the description, now fixed | `evidence/mcp/`, `TOOL_SERVER.md` |
 | The official `fetch` server, read at `c799c85` and run in two configurations | Default: the tool description tells the model to set aside earlier instructions; npm installed 33 packages despite `readOnlyHint`. Restricted: non-allowed hosts refused, nothing started | `evidence/mcp/fetch_reference/`, `evidence/mcp/fetch_run/` |
-| Tests / sabotage check | 157 OK / 9 of 9 wrong versions caught | — |
+| Tests / sabotage check | 158 OK / 9 of 9 wrong versions caught | — |
 
 ## Files
 
