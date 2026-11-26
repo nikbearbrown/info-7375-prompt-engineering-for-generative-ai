@@ -40,6 +40,7 @@ Tushar Patel · INFO 7375 · Fall 2026 · 2026-11-25
   - **Runs:** both `claude -p` MCP client sessions, on my instruction. Claude Code ran both the live fetch and the live claim run. I fixed the API-key configuration needed for the claim run.
 - **Claude through the API** (`claude-sonnet-5-5`, live and billed, 2026-11-23 23:33–23:34 ET): the 96 shortlist claims, each with a quote and a proposed label ([evidence/claims/claims-v1.jsonl](evidence/claims/claims-v1.jsonl)). These are model output, not labels. My labels are the reference.
 - **Claude Code as the MCP client** (2026-11-24): the two replies saved verbatim with their dates in `evidence/mcp/`.
+- **Claude chat:** Claude chat drafted FILTER.md v0.1 from my decisions about the persona, using ?content=true, and doing JS3 first. It wrote the prompts for Claude Code and reviewed the reports. It recommended rule changes, the false friend, featured cases, and trust decisions. I made the final decisions and changed several recommendations, including C3, C4, and the experience ranges. It also guided me through fixing the API-key problem.
 
 ## Co-Authored-By trailers
 

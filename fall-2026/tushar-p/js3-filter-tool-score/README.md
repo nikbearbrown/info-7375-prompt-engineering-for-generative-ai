@@ -70,6 +70,8 @@ done
 .venv/bin/python tools/mcp_server.py
 ```
 
+Tests and the filter read two files from the sibling JS1 folder: ../js1-contract-and-watch/persona/cole-palmer.example.json (fictional persona) and ../js1-contract-and-watch/config.json. Both are in the course repo, and both are included in the Canvas zip at the same relative paths.
+
 The MCP client command was run exactly as follows, both times, with [mcp-config.json](mcp-config.json):
 
 ```bash
