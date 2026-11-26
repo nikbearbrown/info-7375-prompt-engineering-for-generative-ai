@@ -25,7 +25,7 @@ About the role
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) sales role; Dublin; 5+ yrs sales
 
 ### H02 · greenhouse/anthropic · 5391277008
 
@@ -47,7 +47,7 @@ About the role
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) program operations, not engineering; SF/NYC
 
 ### H03 · greenhouse/anthropic · 5379593008
 
@@ -77,7 +77,7 @@ Responsibilities
 </details>
 
 **My verdict:** cannot tell
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) AV production, not AI/ML; 8+ yrs
 
 ### H04 · greenhouse/anthropic · 5490502008
 
@@ -98,7 +98,7 @@ About the role
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) life-sciences operations, not engineering
 
 ### H05 · greenhouse/anthropic · 5390811008
 
@@ -117,7 +117,7 @@ About the role:
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) applied AI research engineering; asks 6+ yrs
 
 ### H06 · greenhouse/anthropic · 4631822008
 
@@ -138,7 +138,7 @@ About the role:
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) alignment research engineering; SF
 
 ### H07 · greenhouse/anthropic · 5265365008
 
@@ -161,7 +161,7 @@ About Anthropic
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) ML research engineering; asks 8+ yrs ML
 
 ### H08 · greenhouse/anthropic · 5277776008
 
@@ -180,7 +180,7 @@ About the role:
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) field architect; 15+ yrs enterprise
 
 ### H09 · greenhouse/anthropic · 5418977008
 
@@ -206,7 +206,7 @@ About Anthropic
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) offensive security, not AI/ML; 5+ yrs
 
 ### H10 · greenhouse/anthropic · 5463598008
 
@@ -240,7 +240,7 @@ Responsibilities
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) RL research engineering; SF/NYC
 
 ### H11 · greenhouse/anthropic · 5456018008
 
@@ -257,7 +257,7 @@ About the role
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) IT systems engineering; Boston
 
 ### H12 · greenhouse/anthropic · 5445806008
 
@@ -276,7 +276,7 @@ About the role
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) applied AI architect, security focus; 5+ yrs
 
 ### H13 · greenhouse/anthropic · 5471361008
 
@@ -325,7 +325,7 @@ Responsibilities
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) applied AI architect, customer-facing; 3+ yrs
 
 ### H14 · greenhouse/anthropic · 4938432008
 
@@ -355,7 +355,7 @@ Responsibilities: 
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) pretraining research engineering; SF
 
 ### H15 · greenhouse/anthropic · 5459098008
 
@@ -389,7 +389,7 @@ About the role
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) RL research engineering; SF
 
 ### H16 · greenhouse/anthropic · 4935314008
 
@@ -415,7 +415,7 @@ About the role:
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) recruiting role; 5+ yrs
 
 ### H17 · greenhouse/anthropic · 5484035008
 
@@ -469,7 +469,7 @@ Responsibilities
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) applied AI architect, customer-facing; 3+ yrs
 
 ### H18 · ashby/notion · 886bb3d2-45ac-45c6-ae21-62ba0b905b3c
 
@@ -488,7 +488,7 @@ Notinos (our employees) are customer zero in bringing this future of work to lif
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) manager role; Dublin
 
 ### H19 · greenhouse/anthropic · 5490492008
 
@@ -505,7 +505,7 @@ About the role
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) research operations; remote US
 
 ### H20 · greenhouse/anthropic · 4942024008
 
@@ -535,7 +535,7 @@ Responsibilities:
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) software engineering; asks 6+ yrs
 
 ### H21 · greenhouse/anthropic · 5382744008
 
@@ -556,7 +556,7 @@ About Anthropic
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) capacity planning, not AI/ML
 
 ### H22 · greenhouse/anthropic · 5468352008
 
@@ -584,7 +584,7 @@ About the role
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) data-center asset management
 
 ### H23 · greenhouse/hubspotjobs · 7292159
 
@@ -610,7 +610,7 @@ What will you get to do in this Small Business Account Executive role?
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) sales role; Dublin
 
 ### H24 · greenhouse/anthropic · 4461444008
 
@@ -634,7 +634,7 @@ About the role
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) applied AI architect, customer-facing; 5+ yrs
 
 ### H25 · greenhouse/anthropic · 5209196008
 
@@ -653,7 +653,7 @@ About the role
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) data science; asks 8+ yrs
 
 ### H26 · greenhouse/anthropic · 5478939008
 
@@ -672,7 +672,7 @@ About the role
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) commercial lead role
 
 ### H27 · greenhouse/anthropic · 5415461008
 
@@ -711,7 +711,7 @@ Responsibilities:
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) sales; 11+ yrs
 
 ### H28 · greenhouse/anthropic · 5419868008
 
@@ -735,7 +735,7 @@ About the role:
 </details>
 
 **My verdict:** keep
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) Staff+ software engineering; 8+ yrs
 
 ### H29 · greenhouse/anthropic · 5196852008
 
@@ -754,7 +754,7 @@ About the role
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) data science for go-to-market; 5+ yrs
 
 ### H30 · greenhouse/anthropic · 5160180008
 
@@ -783,4 +783,4 @@ About the role
 </details>
 
 **My verdict:** reject
-**Why (one line):** (none given in chat; see notes/heldout-labels-chat-2026-11-25.txt)
+**Why (one line):** (Claude's summary of the posting) enterprise sales; Washington DC

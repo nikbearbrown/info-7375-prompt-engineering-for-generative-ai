@@ -51,9 +51,9 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R02 · greenhouse/anthropic · 5390754008
 
@@ -93,9 +93,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R03 · ashby/notion · b06005d2-e24b-467b-b7ea-783bac7366da
 
@@ -127,9 +127,9 @@ Notinos (our employees) are customer zero in bringing this future of work to lif
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R04 · greenhouse/anthropic · 5454142008
 
@@ -175,9 +175,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R05 · greenhouse/anthropic · 5412334008
 
@@ -239,9 +239,9 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R06 · greenhouse/anthropic · 5426651008
 
@@ -275,9 +275,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R07 · greenhouse/anthropic · 5435471008
 
@@ -314,9 +314,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R08 · greenhouse/anthropic · 5391184008
 
@@ -363,9 +363,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter was wrong here (rejected only on the exclude word 'Lead') (filter wrong? yes)
+**False friend? (word, or -):** -
 
 ### R09 · greenhouse/anthropic · 5391999008
 
@@ -405,9 +405,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R10 · greenhouse/anthropic · 5458689008
 
@@ -450,9 +450,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R11 · greenhouse/anthropic · 5391983008
 
@@ -491,9 +491,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R12 · ashby/notion · 7a044182-7787-47cd-b8eb-18ebf5642ed4
 
@@ -518,9 +518,9 @@ Notinos (our employees) are customer zero in bringing this future of work to lif
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R13 · greenhouse/anthropic · 5442048008
 
@@ -555,9 +555,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R14 · greenhouse/anthropic · 5470528008
 
@@ -594,9 +594,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R15 · greenhouse/hubspotjobs · 8355054
 
@@ -641,9 +641,9 @@ Sales (People) Manager, Small Business - DACH
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R16 · ashby/notion · a31170a3-a951-4794-a61f-56640dce1aee
 
@@ -666,9 +666,9 @@ Notinos (our employees) are customer zero in bringing this future of work to lif
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R17 · greenhouse/anthropic · 5428030008
 
@@ -711,9 +711,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R18 · greenhouse/anthropic · 5245851008
 
@@ -753,9 +753,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R19 · greenhouse/anthropic · 5022845008
 
@@ -793,9 +793,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R20 · greenhouse/anthropic · 5205541008
 
@@ -838,9 +838,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R21 · greenhouse/anthropic · 5363469008
 
@@ -882,9 +882,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R22 · greenhouse/anthropic · 5439499008
 
@@ -928,9 +928,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R23 · greenhouse/anthropic · 5398829008
 
@@ -967,9 +967,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R24 · greenhouse/anthropic · 5457043008
 
@@ -1029,9 +1029,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R25 · greenhouse/anthropic · 5456491008
 
@@ -1069,9 +1069,9 @@ About Anthropic
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R26 · ashby/notion · a8143379-6693-4046-b8cf-1528178d0f0f
 
@@ -1098,9 +1098,9 @@ Notinos (our employees) are customer zero in bringing this future of work to lif
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R27 · greenhouse/anthropic · 5425680008
 
@@ -1137,9 +1137,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R28 · greenhouse/anthropic · 5427309008
 
@@ -1177,9 +1177,9 @@ About the role 
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R29 · greenhouse/anthropic · 5451912008
 
@@ -1219,9 +1219,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### R30 · ashby/notion · 8109628c-ff17-4e90-b388-d159dc1c53ca
 
@@ -1256,9 +1256,9 @@ Notinos (our employees) are customer zero in bringing this future of work to lif
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ## Part: close-calls (15)
 
@@ -1321,9 +1321,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C02 · greenhouse/anthropic · 5462893008
 
@@ -1360,9 +1360,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C03 · greenhouse/anthropic · 5396384008
 
@@ -1409,9 +1409,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C04 · greenhouse/anthropic · 4020350008
 
@@ -1468,9 +1468,9 @@ About the role:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C05 · greenhouse/anthropic · 5477464008
 
@@ -1512,9 +1512,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C06 · greenhouse/anthropic · 5107890008
 
@@ -1584,9 +1584,9 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C07 · greenhouse/anthropic · 5413418008
 
@@ -1621,9 +1621,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C08 · greenhouse/anthropic · 5456619008
 
@@ -1662,9 +1662,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C09 · greenhouse/anthropic · 5423737008
 
@@ -1701,9 +1701,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C10 · greenhouse/anthropic · 5490572008
 
@@ -1748,9 +1748,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C11 · greenhouse/anthropic · 5485188008
 
@@ -1783,9 +1783,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C12 · greenhouse/anthropic · 5457137008
 
@@ -1824,9 +1824,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C13 · greenhouse/anthropic · 5432000008
 
@@ -1874,9 +1874,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C14 · greenhouse/anthropic · 5421263008
 
@@ -1969,9 +1969,9 @@ Responsibilities:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### C15 · greenhouse/anthropic · 5387564008
 
@@ -2008,9 +2008,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** reject
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ## Part: kept (10)
 
@@ -2061,9 +2061,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K02 · greenhouse/anthropic · 5461863008
 
@@ -2092,9 +2092,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K03 · greenhouse/anthropic · 5017202008
 
@@ -2136,9 +2136,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K04 · greenhouse/anthropic · 5468939008
 
@@ -2175,9 +2175,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K05 · greenhouse/anthropic · 5487188008
 
@@ -2217,9 +2217,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K06 · greenhouse/anthropic · 5066995008
 
@@ -2268,9 +2268,9 @@ Responsibilities
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K07 · greenhouse/anthropic · 5409008008
 
@@ -2312,9 +2312,9 @@ About the role:
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K08 · greenhouse/anthropic · 5491480008
 
@@ -2354,9 +2354,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K09 · greenhouse/anthropic · 5228463008
 
@@ -2401,9 +2401,9 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
 
 ### K10 · greenhouse/anthropic · 4949336008
 
@@ -2449,6 +2449,6 @@ About the role
 
 </details>
 
-**My verdict:** 
-**Why (one line):** 
-**False friend? (word, or -):** 
+**My verdict:** keep
+**Why (one line):** Mayank: the filter got it right (filter wrong? no)
+**False friend? (word, or -):** -
