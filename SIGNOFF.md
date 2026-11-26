@@ -18,6 +18,7 @@
 | The server makes no network requests and writes no files | `test_no_network_during_a_call`, `test_no_file_writes_during_a_call`; audit trace `evidence/mcp/server_audit.txt` |
 | The snapshot is what was downloaded | `jsagent/snapshot.py` checks every file's sha256 against `manifest.json` on load |
 | The logged held-out results reproduce | Recomputed after v1.3: baseline, A and D all match `HELDOUT_LOG.jsonl` |
+| The `fetch` server's declared vs. actual behavior, and that my restricted configuration holds | `evidence/mcp/fetch_run/default/` (the description as sent, npm install, temp file, metadata refused) and `restricted/` (non-allowed hosts refused, no Node or npm, no file writes) |
 
 **How:**
 - **By hand:**
@@ -38,15 +39,18 @@
   - all the code
   - the drafts of every document
   - running the snapshot, the filter and the transcripts
-  - reading the `fetch` source
+  - reading the `fetch` source, and running it in a throwaway Python 3.11 environment
   - checking the 46 v1.2 claim labels, which found 10 wrong
 
 **Not checked:**
 1. **The 39 new claim labels in the v1.3 shortlist.** Not checked one by one. The first new posting already shows the
    "list of alternatives" error.
 2. **The "internship" fix in F2.** It was found on held-out data, so it has no honest measurement.
-3. **The `fetch` server was never run.** It needs Python ≥ 3.11.5. My evaluation is from its source at one commit, so its runtime
-   behavior (the npm install, the robots.txt checks) is what the code says, not what I observed.
+3. **Parts of `fetch` I ran but did not trace, or did not run at all:**
+   - What `npm install` downloaded. Its child process isn't traced, and the 33 packages weren't reviewed.
+   - The proxy case, where the private-address guard is weaker.
+   - The user-initiated `fetch` prompt, which skips robots.txt.
+   - These come from its source, not from my runs.
 4. **Any client other than my own transcript script.** No real MCP client, such as Claude Code or the Inspector, has connected to
    my server.
 5. **Postings on other days.** Everything is one snapshot from 2026-11-25. The held-out set has only 7 relevant postings.
@@ -59,7 +63,7 @@
 - that the server is safe for any client, or that annotations prove anything
 - that anything was trained; every change was a file edit
 
-**Signed or withheld:** Signed, Ethan Gomes, 25 November 2026
+**Signed or withheld:** ____________ (name, date)
 
 ---
 

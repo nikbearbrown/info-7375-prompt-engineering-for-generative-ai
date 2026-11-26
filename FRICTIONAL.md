@@ -73,11 +73,19 @@ score 64, higher than kept postings.
 
 ## 9. The other server
 
-I chose to evaluate the official fetch server. Claude could not run it, because it needs Python 3.11.5 and this machine has 3.9.6, so
-it read the source at a pinned commit instead (6235791). I expected to find nothing much in a reference server. Instead, its tool
-description tells the model "Although originally you did not have internet access, and were advised to refuse… this tool now grants
-you internet access". It is also marked read-only, yet on first use it runs npm install. My trust decision: not by default; yes only
-if it is limited to the two job-board hosts, with the Node.js reader turned off, and its output treated as untrusted.
+I chose to evaluate the official fetch server. At first Claude only read its source at a pinned commit (6235791), saying it couldn't
+run it because "this machine has 3.9.6". That claim went into TOOL_SERVER.md and into the sign-off I had already signed. When I asked
+whether this would cost marks, and then "isn't there a local python version which is 3.11 or newer that can be used?", Claude checked
+and found Python 3.11, 3.13 and 3.14 already installed: it had only looked at the default python3. I told it to run the server. It
+ran in a throwaway Python 3.11 environment with the exact evaluated version, whose files were byte-identical to the source it had
+read. Both configurations were recorded with the same tracer used on my server. Claude also changed the tracer first, because it was
+skipping writes under /lib/python, which would have hidden the very install we wanted to see.
+
+What the source predicted is now observed. In tools/list the description really tells the model "Although originally you did not have
+internet access… this tool now grants you internet access". A tool annotated readOnlyHint started npm install on the first web page
+and added 33 packages. The metadata address was refused. My restricted configuration (only the two job-board hosts, no Node.js reader)
+refused example.com and started nothing. My trust decision: not by default; yes only in that restricted form, with its output treated
+as untrusted. I also had Claude record a second transcript of my own server under v1.3, so the evidence matches the current code.
 
 ## 10. What moved the score
 
@@ -101,19 +109,24 @@ Claude also caught its own mistakes:
 - a sign-off line saying the measurement tests came before the code, when they came in the same commit
 - 10 of 46 claim labels from its own checker that were wrong
 
+One mistake I caught by asking: the false "only Python 3.9.6" reason for not running fetch. Because it was in a signed sign-off, I
+re-signed only after it was corrected.
+
 ## 12. What I learned, traceability, and what is still open
 
 A sample that agrees with everything can be telling me about my own anchoring, not about the filter. My labels need the same checking
 as Claude's, and a number that moves on tuning can reverse on held-out. Persisting across sessions is not learning: the scorer changed
 because I edited a file, and Claude remembered my decisions because they were written to memory files.
 
-**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. The commits run from c09a161 to 148f405. The tests
-are the full suite of 157, including test_W1–W10, the server tests and scripts/js3_sabotage_check.py (9/9).
+**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. The commits run from c09a161 (the starting point),
+through 148f405 (v1.3), to the fetch-run and final commits. The tests are the full suite of 157, including test_W1–W10, the server
+tests and scripts/js3_sabotage_check.py (9/9). The server evidence is in evidence/mcp/: both transcripts of my server and both fetch
+runs.
 
 **Still open:**
 - the 39 new claim labels in v1.3 were not checked
 - the "internship" fix is unmeasured
 - the student-worker false friend is still kept
-- the fetch server was only read, never run
+- what fetch's npm install downloaded was not reviewed, and its proxy and prompt paths were not run
 - no real MCP client has connected to my server
 - everything rests on one day's snapshot, with 7 relevant held-out postings

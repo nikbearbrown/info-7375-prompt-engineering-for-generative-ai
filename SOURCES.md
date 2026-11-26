@@ -15,7 +15,11 @@
   `tools/list`, `tools/call` and tool annotations, the stdio framing, and the JSON-RPC error codes. My server is written from this,
   without the SDK.
 - **The official `fetch` server** — `github.com/modelcontextprotocol/servers`, `src/fetch`, commit `c799c85` (2026-11-18), version
-  2026.11.18. Read for the evaluation; excerpts in `evidence/mcp/fetch_reference/EXCERPTS.txt`.
+  2026.11.18. Read for the evaluation (excerpts in `evidence/mcp/fetch_reference/EXCERPTS.txt`) and run as the PyPI package
+  `mcp-server-fetch==2026.11.18`, with `mcp` 2.3.0 and its dependencies (full list in
+  `evidence/mcp/fetch_run/environment_and_npm_effect.txt`).
+- **Public test pages** — `https://example.com/` (a plain HTML page) and `http://169.254.169.254/` (the cloud metadata address, which
+  was refused), used only in the fetch runs.
 - **Python standard library documentation**, for audit hooks (`sys.addaudithook`), `gzip`, `zoneinfo` and `unittest`.
 
 ## Course
@@ -23,5 +27,5 @@
 
 ## AI assistance
 - Claude Code (Claude Opus 5.5) wrote the code, the tests and the first drafts of the documents, at my direction. It also recorded
-  the transcripts, read the `fetch` source, and checked the claim labels. Which parts are mine and which are Claude's is set out in
+  the transcripts, read and ran the `fetch` server, and checked the claim labels. Which parts are mine and which are Claude's is set out in
   `SIGNOFF.md` and `FRICTIONAL.md`.

@@ -12,6 +12,8 @@ my JS1 contract and persona (`CONTRACT.md`, `persona/`). JS2's `GATE.md`, `basel
 ## Language and toolchain
 
 - Python 3.9.6, standard library only (no third-party packages and no MCP SDK), tests with `unittest`, macOS, git
+- The `fetch` evaluation only: Homebrew Python 3.11.14 in a throwaway virtual environment outside this folder, with
+  `mcp-server-fetch==2026.11.18` (and `mcp` 2.3.0) from PyPI; Node.js 25.8.0 and npm 11.11.0 were on the PATH
 - The network is used only by `scripts/collect_snapshot.py`, through JS2's allow-listed, read-only GET fetcher
 - Claude is not called by anything in JS3
 
@@ -28,6 +30,12 @@ python3 scripts/make_audit_sheet.py            # reject-audit sample -> audit/au
 python3 scripts/audit.py                       # judge the sample by hand
 python3 -B -m jsagent.mcp_server               # the tool server on stdin/stdout
 python3 scripts/mcp_transcript.py --call samsara:8141959 --out <new folder>   # record a transcript plus an audit trace
+
+# the fetch evaluation (network; installs into a throwaway environment, not this folder)
+/opt/homebrew/bin/python3.11 -m venv <env> && <env>/bin/python -m pip install "mcp-server-fetch==2026.11.18"
+python3 scripts/fetch_transcript.py --python <env>/bin/python --out <new folder>                  # default configuration
+python3 scripts/fetch_transcript.py --python <env>/bin/python --out <new folder> -- \
+    --allowed-hosts boards-api.greenhouse.io api.lever.co --no-readability-js                      # my restricted configuration
 ```
 
 The held-out measurement is done in Python with `jsagent.measure.measure_heldout()`. It allows one look per change, and those looks
@@ -44,6 +52,7 @@ are already used (`labels/HELDOUT_LOG.jsonl`).
 | Changes A–E on tuning; baseline, A and D on held-out once | A: held-out recall 2/7 → 6/7 | `SCORE.md` |
 | Filter v1.3 (A + "internship") on everything | 10 kept, 2,616 rejected, 3 cannot tell | `runs/filter-v1.3/`, `SHORTLIST.md` |
 | Tool server: 3 dry runs and 2 real transcripts (v1.2, v1.3) | 31 and 35 lines, both directions; 0 writes or network with `-B` | `evidence/mcp/`, `TOOL_SERVER.md` |
+| The official `fetch` server, read at `c799c85` and run in two configurations | Default: the tool description tells the model to set aside earlier instructions; npm installed 33 packages despite `readOnlyHint`. Restricted: non-allowed hosts refused, nothing started | `evidence/mcp/fetch_reference/`, `evidence/mcp/fetch_run/` |
 | Tests / sabotage check | 157 OK / 9 of 9 wrong versions caught | — |
 
 ## Files
