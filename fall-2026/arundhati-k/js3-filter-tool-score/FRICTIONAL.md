@@ -1,7 +1,8 @@
 # FRICTIONAL — Job-Search Agent 3 (honest log)
 
 Written on 2026-11-25, the day of the work. I used ChatGPT while writing these entries (wording and organisation);
-the experiences and decisions are mine and I reviewed every entry (see SOURCES.md). Claude Code pasted the final text
+the experiences and decisions are mine and I reviewed every entry (see SOURCES.md). The "Also see" lines were
+added later from references Claude suggested and I chose. Claude Code pasted the final text
 into this file without editing. The facts and numbers come from the files each pointer names.
 
 ## Entry 1 — writing the filter (commit `1b468cf7`)
@@ -14,6 +15,8 @@ I also included "training" as a false friend because it could refer to machine-l
 
 **Pointer:** `FILTER.md`, commit `1b468cf7`.
 
+**Also see:** `tests/test_filter.py` (`WrongVersions`, `Threshold.test_keep_needs_two_topic_words`, `LevelAndUS.test_L1_seniority_rejects`); `filter/v1.json`; `evidence/logs/00-tests-before-code.txt` and `01-tests-after-code.txt`.
+
 ## Entry 2 — judging the 54 postings (commit `7521ea81`)
 
 I reviewed 54 postings without seeing the filter's decisions. They were mixed together from 32 random rejects, 12 close calls, and 10 postings the filter had kept. Each entry showed the title, location, link, and up to four requirement lines. I gave my own Y or N verdict with a short reason. I agreed with all 32 random rejects, but only 2 of the 10 postings the filter kept were jobs I would consider.
@@ -24,6 +27,8 @@ The audit made me see that matching keywords is not the same as checking whether
 
 **Pointer:** `audit/my-verdicts-2026-11-25.txt`, commit `7521ea81`.
 
+**Also see:** `run_filter.py`; `audit/to-judge.md`; `audit/sample.csv`; `evidence/logs/02-run-v1.txt`.
+
 ## Entry 3 — deciding which rule changes to accept (commit `8c02746e`)
 
 After reviewing the audit, I considered four changes suggested or discussed with Claude. I rejected making US location a hard requirement because I still wanted it to be a preference, not an automatic rejection. I also rejected lowering the topic-word threshold from two words to one because I felt that would let too many loosely related jobs through.
@@ -33,6 +38,8 @@ I accepted the experience rule: if a job explicitly requires 3+ years, it should
 I changed posting #26 from Y to N after reviewing its 5+ years requirement. I understand that this decision was made after seeing the audit results, so the audit was being used to refine the filter rather than as a final independent measurement. I kept the held-out set separate for the final comparison. The changes I accepted became rules B and D in the updated filter.
 
 **Pointer:** `SCORE-CHANGES.md` and the rule-change work, commit `8c02746e`.
+
+**Also see:** `tests/test_filter_options.py`; `tests/test_evidence.py`; `filter/v1.1.json`; `evidence/logs/06-filter-heldout.txt`.
 
 ## Entry 4 — held-out results: my labels vs my rules (commit `5d2271b7`)
 
@@ -52,6 +59,8 @@ My conclusion was that my labels were wrong, not the rules. I still need to deci
 
 **Pointer:** `SCORE-CHANGES.md`, commit `5d2271b7`.
 
+**Also see:** `prompts/judge_v1.txt`; `prompts/judge_v2.txt`; `claude_score.py`; `evidence/claude-runs/P1.jsonl`, `P2.jsonl`, `C2.jsonl`; `evidence/logs/09-claude-heldout.txt`.
+
 ## Entry 5 — testing the tool servers (commit `3eaf12a6`)
 
 I tested my own MCP server and Claude Code's `claude mcp serve` to understand what each one allowed. My server refused an `apply_to_job` request and a path traversal attempt using `../../etc/passwd`. That was good to see because I wanted the server to enforce boundaries instead of allowing actions outside the intended scope.
@@ -63,3 +72,5 @@ I would trust my own server only with restricted permissions and after testing t
 The main lesson for me was that a successful tool call does not prove a tool is safe. I need to understand what it can access and what it can change before giving it permission to work.
 
 **Pointer:** `TOOL-EVALUATIONS.md`, commit `3eaf12a6`.
+
+**Also see:** `tests/test_mcp_server.py`; `mcp_client.py`; `transcripts/01-own-client.md` and `transcripts/03-claude-mcp-serve.md`.
