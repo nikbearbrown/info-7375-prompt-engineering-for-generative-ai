@@ -1,0 +1,18 @@
+AUDIT open r /System/Library/CoreServices/SystemVersion.plist
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 1, 1, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 1, 1, 0)
+AUDIT open None /dev/null
+AUDIT open r 6
+AUDIT open WRITE w 7
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 2, 1, 6)
+AUDIT socket.connect (<socket.socket fd=11, family=2, type=1, proto=6, laddr=('0.0.0.0', 0)>, ('18.239.183.96', 443))
+HTTP Request: GET https://boards-api.greenhouse.io/robots.txt "HTTP/1.1 200 OK"
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 2, 1, 6)
+AUDIT socket.connect (<socket.socket fd=11, family=2, type=1, proto=6, laddr=('0.0.0.0', 0)>, ('18.239.183.96', 443))
+HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/samsara/jobs/8141959 "HTTP/1.1 200 OK"
+Tool 'fetch' failed: 'Error executing tool fetch: Refused to fetch https://example.com/robots.txt: example.com is not one of the hosts this server is allowed to fetch from (--allowed-hosts).'
+Tool 'fetch' failed: 'Error executing tool fetch: Refused to fetch http://169.254.169.254/robots.txt: 169.254.169.254 is not one of the hosts this server is allowed to fetch from (--allowed-hosts).'
