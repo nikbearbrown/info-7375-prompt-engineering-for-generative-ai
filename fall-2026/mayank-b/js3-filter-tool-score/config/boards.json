@@ -1,0 +1,9 @@
+{
+  "_source": "FILTER.md section 3 (Mayank, 2026-11-25, answers Q3-A and Q7-A): the three JS2 boards again, now with the posting text, plus JS2's deliberate bad board kept as a regression check. One GET each; the 404 is not retried (JS2 policy).",
+  "plan": [
+    {"ats": "greenhouse", "slug": "anthropic", "content": true, "note": "JS1/JS2 board, now with ?content=true"},
+    {"ats": "greenhouse", "slug": "hubspotjobs", "content": true, "note": "HubSpot's real board, now with ?content=true"},
+    {"ats": "ashby", "slug": "notion", "note": "Ashby already sends descriptionPlain"},
+    {"ats": "greenhouse", "slug": "mayank-js2-no-such-board", "content": true, "note": "DELIBERATE FAILURE kept from JS2: expected HTTP 404, reported as an error, never as 0 postings"}
+  ]
+}
