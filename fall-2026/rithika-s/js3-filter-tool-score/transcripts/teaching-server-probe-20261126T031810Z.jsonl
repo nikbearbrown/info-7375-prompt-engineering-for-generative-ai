@@ -1,0 +1,22 @@
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/list\"}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2025-06-18\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"rithika-probe\", \"version\": \"1\"}}}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"method\": \"tools/list\"}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 4, \"method\": \"tools/list\"}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 5, \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": {\"key\": \"office\"}}}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 6, \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": {\"key\": \"no-such-key\"}}}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 7, \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": {\"key\": \"office\", \"path\": \"../../etc/passwd\"}}}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 8, \"method\": \"tools/call\", \"params\": {\"name\": \"delete_record\", \"arguments\": {}}}"}
+{"dir": "out", "line": "{\"jsonrpc\": \"2.0\", \"id\": 9, \"method\": \"ping\"}"}
+{"dir": "out", "line": "{not valid json"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"error\": {\"code\": -32000, \"message\": \"Initialize and notify before using tools\"}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"result\": {\"protocolVersion\": \"2025-11-25\", \"capabilities\": {\"tools\": {}}, \"serverInfo\": {\"name\": \"info7375-readonly\", \"version\": \"1.0.0\"}}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"error\": {\"code\": -32000, \"message\": \"Initialize and notify before using tools\"}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 4, \"result\": {\"tools\": [{\"name\": \"lookup\", \"description\": \"Read a public course fixture\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"key\": {\"type\": \"string\"}}, \"required\": [\"key\"], \"additionalProperties\": false}}]}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 5, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"505A Dana Hall\"}], \"isError\": false}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 6, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"Record not found\"}], \"isError\": true}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 7, \"error\": {\"code\": -32602, \"message\": \"Expected a string key\"}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 8, \"error\": {\"code\": -32602, \"message\": \"Unknown tool\"}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": 9, \"error\": {\"code\": -32601, \"message\": \"Method not found\"}}"}
+{"dir": "in", "line": "{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32700, \"message\": \"Parse error\"}}"}
+{"returncode": 0, "stderr_tail": ""}
