@@ -307,6 +307,29 @@ Under Option A, a prompt or context change cannot move relevance precision or re
   entailed.
 - **Filter-file changes** are still measured on the held-out relevance labels.
 
+**Deviation, 2026-11-25: manual route for Claude** [DECIDED 2026-11-25, Aravind]:
+- **Intended path:** one tool-less `claude -p` call per posting from `src/judge.mjs`, as described
+  above.
+- **What happened:** all 7 Phase 3 calls failed with no reply. The CLI said: "You've hit your
+  individual spend limit". The records are in `runs/claude/justify.v1-v1.1.0-e/failed/`, commit
+  `3caf2978`. The limit could not be raised in time.
+- **Fallback, used from here on:**
+  - `tools/justify-shortlist.mjs --render` writes each fully rendered prompt to
+    `runs/claude/justify.v1-v1.1.0-e/manual/prompts/<id>.txt`. These are byte-identical to the
+    prompts the failed calls sent; that was checked against all 7 failed records.
+  - Aravind pastes each prompt into **claude.ai (web, incognito chat)** and saves the raw reply,
+    unedited, as `manual/responses/<id>.txt`.
+  - `tools/import-manual.mjs` validates it with the same `src/justify.mjs` code (schema,
+    exact-substring quotes, label rules; invalid replies are never repaired). It records the date,
+    the interface, the model as Aravind reports it, a `manual_paste` flag, and the SHA-256 of both
+    the prompt and the raw reply.
+- **What the manual route changes:**
+  - The model name is self-reported, not read from an API envelope.
+  - The claude.ai web chat has its own system prompt and settings, which are not controlled here. It
+    is not tool-less in the same verified way as `--tools ""`.
+  - There is no session id.
+- **Phase 5 prompt and context changes** use the same manual route.
+
 ---
 
 ## 5. Wrong versions (each must make at least one test fail) [DECIDED 2026-11-25, hand-set]
