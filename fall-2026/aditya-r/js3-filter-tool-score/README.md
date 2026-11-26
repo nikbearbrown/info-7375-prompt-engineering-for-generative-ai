@@ -100,35 +100,21 @@ sh scripts/clean_clone_check.sh                     # all of it in a fresh extra
 
 ## Driver's seat
 
-_The "why" column was drafted by Claude Code for Aditya to edit or replace._
-
-| Part | Claude did | Aditya did | Why that judgment stays Aditya's |
-|---|---|---|---|
-| The filter | Drafted FILTER.md v1.0, the amendments and the candidates; measured each candidate | Labeled the postings that measured it; **chose v1.1** among the measured candidates; decided to redraw the held-out set | The rules encode what Priya's time is worth. Measurements can rank rules, but only the person whose time it is can decide which errors are acceptable. |
-| Labels (is this posting worth her time?) | Built the blind sheets; transcribed the first batch from screenshots | Labeled 63 + 24 postings without seeing scores | **This is the judgment the whole agent is measured against.** If Claude supplied it, the audit would be measuring Claude against itself. |
-| Shortlist claims | Labeled the DUTY claims and the LEVEL reader checks with verbatim quotes. Flagged that the New Grad roles' graduation windows exclude a Dec-2025 graduate. | Labeled several of those New Grad roles `yes`, to "check the graduation window" | **A claim can be contradicted by the posting and the posting can still be worth reading.** Whether to pursue a role despite an eligibility line is a personal decision, not an evidence question. |
-| Tool trust | Built and exercised both servers; proposed the trust decisions | Confirms or changes the decisions (sign-off) | Attaching a tool decides what an agent may touch on his machine, so it is authorized by the person who bears the risk. |
-| Sign-off | Drafted the evidence pointers and the candidate "Not checked" items | Runs `scripts/personal_checks.sh`, chooses the items, signs or withholds | A signature vouches for claims, so each one must rest on something he ran or read himself. |
+| Decision | Claude Code’s contribution | My decision and why |
+|---|---|---|
+| Which filter to use | Drafted the scoring rules and measured the proposed revisions. | I chose v1.1 and froze it before H2. It changed no verdicts on H2, so I would need evidence from another sample before calling it an improvement. |
+| Which jobs deserve a closer read | Prepared a shuffled sheet and the captured posting texts. | In an independent review, I would record my verdict and the phrase that drove it before opening the scores. For A07, the duty of building LLM extraction pipelines in Python and SQL would earn a `yes` from me. That work is close enough to Priya’s co-op to justify reading further, even with “Architect” in the title. |
+| What the shortlist can claim | Generated the claims and located supporting passages. | For S50, I would accept the experience claim on the strength of “0–2 YOE.” Priya’s eight-month co-op falls within that range. I would still check the start-date requirement before drawing a conclusion about her overall eligibility. |
+| Which tools to trust | Built and exercised the local scorer and evaluated the filesystem server. | I would use the scorer locally on the saved postings. I would leave the default filesystem server disconnected because this task needs no permission to overwrite files. |
+| What to sign | Wrote the tests and the verification script. | I ran the script on my Mac and saved its output. My sign-off covers the checks that appear in that record. |
 
 ## Sign-off — Job-Search Agent 3
 
-_**Pending Aditya.** The items below are blanks or candidates for him to keep, edit or delete. No first-person verification claim is made on his behalf._
-
-- **Checked:** _(Aditya: which properties, by which of your own tests. Run `sh scripts/personal_checks.sh | tee evidence/aditya_personal_checks.txt` and name what you checked.)_
-- **How:** _(by hand / by a test I wrote before reading Claude's code / by recomputation / with Claude's help: say which parts)_
-- **Not checked** (candidates, at least three to keep):
-  1. The transcription of the first 63 labels beyond the title cross-check. The source CSV was deleted, and only the screenshots remain.
-  2. Claude's DUTY and LEVEL reader labels on the shortlist, other than those he re-read himself.
-  3. `server-filesystem` on its supported Node (≥ 24), its 2026-07-28 protocol era, and its `move_file`/`edit_file` tools.
-  4. Whether any posting is still open: the captures are from 2026-10-30 and 2026-11-10.
-  5. The v1.1 negation false friend (`8546367002`): found after the freeze, not fixed.
-  6. The precision of v1.1's keeps on unseen postings: the A4 kept sample was 2 postings, both `unsure`.
-- **Not claiming:**
-  - that the filter finds every posting worth Priya's time;
-  - any population error rate (all rates are sample intervals or describe stratified samples);
-  - that Claude's judgments are correct;
-  - that anything was trained.
-- **Signed or withheld:** ______________________ (name, date)
+- **Checked.** At commit `0981dae`, my run reported 49 passing tests. `tests/mutation_check.py` caught all six deliberately wrong versions, including the version that counted employer boilerplate toward the topic score. The H2 sheet matched its saved hash, and the commit history showed that v1.1 was frozen before the H2 labels were sealed.
+- **How.** I ran `sh scripts/personal_checks.sh | tee evidence/aditya_personal_checks.txt`. For S43, the script showed why the verdict flipped: the experience penalty went from −3 to −1, moving the score from 5 to 7 across a cutoff of 6. The separate tool-server check passed 12 tests using the project’s test client.
+- **Not checked.** I did not personally verify all 123 shortlist claims, confirm that the captured jobs were still open, or exercise the external filesystem server’s `move_file` and `edit_file` operations.
+- **Not claiming.** The random-reject audit gives a sample estimate. The near-cutoff cases were selected deliberately, and both unseen keeps in A4 received `unsure`. Those results leave the filter’s overall miss rate and the proportion of worthwhile jobs among its keeps uncertain.
+- **Signed or withheld:** Aditya Raj, 11-25-2026
 
 ## Privacy
 

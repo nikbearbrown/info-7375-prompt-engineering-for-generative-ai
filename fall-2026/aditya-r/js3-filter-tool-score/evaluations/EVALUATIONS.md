@@ -1,6 +1,6 @@
 # Two tool servers, evaluated the same way
 
-Both servers are evaluated under the same four headings. Each claim is marked **[exercised]** (a call was actually made, and its transcript is cited) or **[source]** (learned only by reading the code). The trust decisions are **proposed by Claude Code. Aditya confirms or changes them in the sign-off.**
+Both servers are evaluated under the same four headings. Each claim is marked **[exercised]** (a call was actually made, and its transcript is cited) or **[source]** (learned only by reading the code). The evidence sections were written by Claude Code. The **trust decision** at the end of each server's section is **Aditya's, in his words (2026-11-25)**. Claude Code's earlier proposals are kept in git history (commit `44af892`).
 
 ## 1. Our server: `js3-score-posting` 1.0.0 (`js3/mcp_server.py`, this folder)
 
@@ -35,15 +35,10 @@ Both servers are evaluated under the same four headings. Each claim is marked **
 - **Truthful annotations.** `readOnlyHint` is a claim by the server. Here it is backed by a source-scanning test. A client still cannot verify it over the wire.
 - **Safe text.** Tool results contain text copied from job postings. A client must treat that text as data, not instructions.
 
-### Proposed trust decision
-**Trust, within a narrow scope:**
-- Use it locally, over stdio, attached to Claude as a read-only scorer for this folder's saved corpus, pinned to the commit in the README.
-- Don't expose it over a network, and don't use it as a source of truth about whether a job is open or suitable.
+### Trust decision (Aditya, 2026-11-25)
+I would use `js3-score-posting` locally over stdio, pinned to the evaluated commit. The recorded Claude session showed the two outcomes I care about: a known posting returned a score with its components, and an unknown ID returned “I cannot tell.” The test client also confirmed that the tool’s result matched the result from running the scorer directly.
 
-Reasons:
-1. There is one tool with a closed input schema.
-2. No network or exec code exists, and a test checks the source for it.
-3. Every failure path seen ends in an explicit error or "I cannot tell".
+I would leave the optional wire log off during ordinary use because it writes a local transcript. A `keep` result is enough for me to put a posting on Priya’s reading list. I would check the original posting before deciding whether it is still open and worth pursuing.
 
 ## 2. Other server: `@modelcontextprotocol/server-filesystem` **2.3.0**
 
@@ -79,12 +74,7 @@ Reasons:
 - **A fixed version.** The version and the code can change underneath a client. Running `npx` without a pin would have fetched 2.4.0, published a week after the version evaluated here.
 - **Engine support.** The engine requirement (Node ≥ 24) was not met. Running on Node 22 is untested territory for its authors.
 
-### Proposed trust decision
-**Do not attach it to the job-search agent in its default mode.**
-- The six file-changing tools contradict this agent's rule that its tools may not change data, and a client's Roots can move its boundary.
-- **Conditionally acceptable** for read-only browsing of this folder only, with all of these:
-  1. `@2.3.0`, pinned;
-  2. `--read-only --confine-roots <js3 folder>`;
-  3. installed with `--ignore-scripts`;
-  4. on a supported Node (≥ 24).
-- Even then, `score_posting` already gives Claude what the agent needs. Broad file reads add exposure, such as the transcripts and labels, without adding capability. **Recommendation: not needed, so not attached.**
+### Trust decision (Aditya, 2026-11-25)
+I would leave the filesystem server disconnected from my job-search agent. In session A, the default configuration allowed a file write. In session C, the client changed which directory the server could read. My agent only needs to score saved postings by ID, so I have no reason to give it either permission.
+
+If I later need file browsing, I would pin version 2.3.0, install it with `--ignore-scripts`, and test `--read-only` and `--confine-roots` together on Node 24 or newer. The recorded sessions tested those protections separately on Node 22. Before attaching the server, I would verify that it rejects writes and keeps reads inside the JS3 folder.

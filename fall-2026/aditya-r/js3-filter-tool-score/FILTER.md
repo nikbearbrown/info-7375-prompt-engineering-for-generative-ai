@@ -2,7 +2,7 @@
 
 - **Version:** 1.0. This version is frozen once committed. Every later change is a new dated version in the change log at the bottom, and the v1.0 text above it is not edited. The v1.0 commit is the one whose message starts `JS3 gate: FILTER.md v1.0`.
 - **Written:** 2026-11-25. Claude Code (Opus 5.5) drafted it at Aditya Raj's request, before any JS3 code existed and before any JS3 score had been computed. It builds on Aditya's JS1 contract (`../js1-contract-and-watch/CONTRACT.md` §4, R1–R5).
-- **Aditya's review:** pending. Any rule he changes is recorded as v1.0-A (his amendment) in the change log, with the date.
+- **Aditya's review (2026-11-25):** I accept v1.0 as the original baseline and the v1.1 changes recorded in the change log. I’m keeping v1.1 frozen. A07 showed why I want to revisit the six-point penalty for “architect”: the posting described building LLM pipelines with Python and SQL, which fits Priya’s co-op experience. I’d test a narrower rule on fresh postings before adopting it.
 - **What was already known when this was written (disclosed, not hidden):**
   - JS1's three-condition rule marked 5 of 903 Databricks postings relevant (2026-10-30).
   - In the JS2 live run (2026-11-10), all 10 judged postings were `not_relevant`.

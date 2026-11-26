@@ -113,4 +113,22 @@ Dated entries. **Claude Code's process notes** are labeled as Claude's: they rec
 
 ## Aditya's entries
 
-_(to be added by Aditya: labeling experience, disagreements with the filter or with Claude, what he checked himself, what remains unresolved)_
+2026-11-25 — How I decided which postings were worth Priya’s time
+
+I read each posting and wrote down my verdict and reason before looking at the filter’s score. The question I used was, “Would I tell Priya to spend ten minutes reading this?” A yes meant I saw a duty that connected to her experience. I used unsure when a missing or conflicting detail could change my answer.
+
+A07, “Skills Systems Architect,” was one of my yes calls. The title gave me pause, but the posting described building LLM extraction and agent pipelines with Python and SQL. I could connect that work to Priya’s co-op. When I checked the score afterward, I saw that the word “architect” had cost the posting six points. I’d keep v1.1 frozen and test that rule on fresh examples, including both hands-on engineering jobs and senior consulting roles.
+
+A07 was the one yes among the 30 randomly sampled rejects. A05 and A25 were also misses, but I reviewed them because they were close to the cutoff. I reported those separately so a reader could tell how each posting entered the audit. Evidence: audit/AUDIT.md.
+
+2026-11-25 — What I verified on my Mac
+
+I ran scripts/personal_checks.sh at commit 0981dae and saved the output. All 49 tests passed, the suite caught all six deliberately wrong versions, and the H2 sheet matched its saved hash after the run.
+
+S43 made the scoring change easiest to follow. The script showed the same four role points and four topic points in both versions. The experience penalty changed from −3 to −1, taking the total from 5 to 7 across a cutoff of 6. That explains exactly why this posting flipped. Whether the lighter penalty helps on future postings is still open. Evidence: evidence/aditya_personal_checks.txt.
+
+2026-11-25 — Why I changed the evidence for S50
+
+While reviewing S50, I looked up the sentence cited for the claim that Priya’s experience fit the role. The shortlist quoted “This is NOT a new grad role!” I could find those exact words, but they didn’t tell me whether eight months of experience was acceptable. The next sentence did: the employer explicitly said the role was for candidates with “0–2 YOE.”
+
+I kept the supported label and corrected the citation. The score stayed the same. For future spot-checks, I’d ask one more question after locating a quote: Could someone reach this verdict from the quoted words alone? Evidence: review/postings/S50.md and shortlist/SHORTLIST.md.
