@@ -70,6 +70,14 @@ and 9 not relevant.**
 - **2 of the 3 relevant ones (D04 = A022, D12 = A042) were already on the v1.1.0-e shortlist as
   cannot_tell.** exp1 only turns them into keeps.
 - **So exp1 newly surfaces 10 postings, of which 1 is relevant** (D09 = A065, "5+ yrs min (stretch)").
+- **A false reject by the final filter, found post hoc: A065** (gh-stripe:8275556, "Product Manager,
+  Sandboxes").
+  - v1.1.0-b removed its only topic word, boilerplate "payments", and moved it from keep (0.825) to
+    reject (0.775) (FILTER.md §9, v1.1.0-b).
+  - Aravind now labels it **relevant**. So the boilerplate rule was right about the word, but it cost
+    a relevant posting at threshold 0.80.
+  - This was not known when v1.1.0-b was logged: A065 was an unjudged PM-stratum row. No rule was
+    changed (the filter is frozen).
 - **The 9 not-relevant extra keeps are exactly the failure the threshold was raised to prevent**
   (Checkpoint 1, W13):
   - 6 state 8+ or 10+ years: D01–D03, D05–D07
