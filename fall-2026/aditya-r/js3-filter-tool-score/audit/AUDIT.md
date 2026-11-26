@@ -74,3 +74,56 @@ Each change was made alone against v1.0, unless it is marked as a combination. T
 - **C-a + C-b + C-e**: removes the false friend, and keeps New Grad postings for the explicit new-grad signal.
 
 The frozen choice is recorded in `FREEZE.json`, together with the single-change comparisons that will be measured on H2.
+
+---
+
+# Fresh blind audit of the frozen v1.1 (amendment A4)
+
+- **Labels:** Aditya, 2026-11-25. The 37 postings come from near-duplicate clusters that were on **neither** earlier sheet. He entered his verdicts directly in `review/LABEL_SHEET_A4.csv`, sealed as `labels/SEAL_A4.json`.
+- **Recompute:** `.venv/bin/python -m js3.audit a4`, which writes `audit/audit_a4_results.json`.
+- **This audit does not change v1.1.** Its findings are logged as candidates for a later version.
+
+## Errors by group (v1.1, threshold 6)
+
+| Group | n | Aditya: yes / no / unsure | v1.1 errors | Which |
+|---|---|---|---|---|
+| A4-random-reject (uniform over the 1,019 unseen v1.1 rejects, seed 7380) | 30 | 1 / 29 / 0 | **1 of 30** (a missed yes) | A07 |
+| A4-close-below (score 5) | 5 | 2 / 2 / 1 | **2 of 4** decided (missed yeses) | A05, A25 |
+| A4-close-above (score 6), which is also in A4-kept | 1 | 0 / 0 / 1 | 0 decided | — |
+| A4-kept (all unseen keep clusters) | 2 | 0 / 0 / 2 | 0 decided | — |
+
+**What 30 random rejects can tell us here:**
+- **Observed:** 1 of 30 was a `yes`. The exact 95 % interval for the miss rate **among v1.1 rejects** is **0.1 % to 17.2 %**.
+- **What it allows us to say:** applied to v1.1's 1,278 rejects, that is anywhere from about 1 to about 220 worthwhile postings.
+- **Comparison with the first audit:** that audit covered v1.0, on different postings, and found 0/27 with an interval of 0–12.8 %. The two intervals overlap almost entirely. **Neither shows a difference between the versions.** Each is an interval from one sample, not a measured rate.
+- **Precision of keeps:** this audit says nothing about it. Both unseen keeps are labeled `unsure` (graduation wording for A02; "seven years" for A32), and the other 9 keep clusters were already reviewed. That limitation was stated before labeling.
+- **Closest calls:** the 5 just-below calls show where the misses concentrate (2 of 4 decided). They cannot estimate an overall rate.
+
+## New false friend: `architect` in the level rule (A07)
+
+- **The posting:** `greenhouse:databricks:…`, "Skills Systems **Architect**".
+- **How the filter treated it:** the level rule (S) reads `architect` as seniority and subtracts 6. There is also no role phrase (R = 0): `R 0 + S -6 + T 4 + E 0 + Y 0 = -2` → reject.
+- **What the posting actually says:** the job is to "Build the software that maintains the skills taxonomy and capability model, including LLM-driven skill extraction and organization, agentic pipelines that keep them current, …", with "Ability to use Python and SQL and build apps …".
+- **Aditya's verdict:** **yes** ("The architect would actually build LLM extraction and agent pipelines in Python and SQL").
+- **The wrong reason:** the word matched as a seniority marker, but here it names the function.
+- **Cost:** in v1.1, any posting with a title like this is unreachable (maximum 0 − 6 + 4 + 3 = 1). This miss cannot be fixed by the threshold.
+
+## Two other misses, both near the threshold
+
+- **A05, "Staff Machine Learning Engineer": `R 4 + S -6 + T 4 + E 3 + Y 0 = 5`.**
+  - The body says: "we are seeking multiple GenAI Engineers **from junior levels** to more senior levels", and "2-8 years".
+  - Aditya: **yes**.
+  - **The title-only level rule** (kept on purpose; wrong version W5 tests it) outranks what the body says. Here `junior` is a *genuine* signal, unlike in `8091041002`.
+- **A25, "Software Engineer - AI Platforms": `R 2 + S 0 + T 3 + E 0 + Y 0 = 5`.**
+  - "AI Platforms" is not a role phrase, and the role's LLM work appears only as "agent" and "evaluation".
+  - The years rule again took the sub-requirement: "3+ years of experience in one or more of: AI, …" was read instead of the "5+ years" floor.
+  - Aditya: **yes**, while noting the 5 years as a stretch.
+
+## Candidates for a later version (logged, not adopted; v1.1 stays frozen)
+
+| Candidate | Would fix | Risk |
+|---|---|---|
+| Treat `architect` as a level word only together with `senior`, `principal` or `staff`, or not at all | A07 | Brings back "Solutions Architect" sales-engineering roles (Aditya labeled several `no` in dev) |
+| Allow a role phrase with one inserted word ("AI *Automation* Engineer", "AI *Platforms*") | H10, partly A25 | Unmeasured |
+| Let an explicit body statement ("from junior levels") offset a title level word | A05 | Re-opens W5, so its test must change deliberately |
+| Ignore early-career phrases in negated sentences | `8546367002`, S50's citation | — |

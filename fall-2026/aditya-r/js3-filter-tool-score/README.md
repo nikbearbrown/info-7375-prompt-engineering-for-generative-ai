@@ -73,6 +73,7 @@ sh scripts/clean_clone_check.sh                     # all of it in a fresh extra
 | Claude Code as MCP client | 21:26 UTC | **LIVE Claude** | `transcripts/claude_code_2026-11-25_run1.*` |
 | Other server, 4 sessions | | LIVE local process; **js3 test client, not Claude** | `transcripts/fs_*`, `evaluations/` |
 | Claude context experiment: 6 format-check calls (dev) and 48 calls on H2 | 23:09–23:10 UTC for H2 | **LIVE Claude**, before any H2 label existed | `experiments/claude_context/raw/` |
+| Fresh blind audit A4 of v1.1 (37 postings) | Aditya, entered in the sheet; sealed `d6cf5cc` | human | `labels/audit_a4_labels.csv`, `audit/audit_a4_results.json` |
 | Labels on 24 H2 postings | Aditya, blind, edited in the sheet; sealed `94c0c89` after the freeze `9cde2b9` | human | `labels/heldout2_labels.csv`, `labels/SEAL_H2.json` |
 | Pre-registered comparisons on H2 | after the seal | REPLAY + labels + the saved Claude responses | `experiments/RESULTS_H2.json`, [`WHAT_MOVES_THE_SCORE.md` §3](WHAT_MOVES_THE_SCORE.md) |
 | Clean-extraction check | | fresh venv | `scripts/clean_clone_check.sh` |
@@ -82,7 +83,7 @@ sh scripts/clean_clone_check.sh                     # all of it in a fresh extra
 | Rubric item | Evidence |
 |---|---|
 | **Filter as a versioned document, written first (10)** | [`FILTER.md`](FILTER.md). v1.0 was committed alone as `80427cc`, before any code. Tests `5de50f2` came before the scorer `b33fca0`. The change log records A1–A3, C1–C3, v1.1 and the findings after the freeze. |
-| **Reject audit (12)** | [`audit/AUDIT.md`](audit/AUDIT.md): 30 uniform random rejects judged by Aditya (0/27 decided were misses; 95 % CI 0–12.8 %); the closest calls on both sides; keeps; what the sample can and cannot show. False friend: "agent(s)" and "unity catalog" from employer boilerplate (§3). Every rule added, cut or rejected is in §4. |
+| **Reject audit (12)** | [`audit/AUDIT.md`](audit/AUDIT.md), **two blind audits by Aditya:** v1.0 (30 uniform random rejects, 0/27 decided were misses, 95 % CI 0–12.8 %) and a **fresh audit of the frozen v1.1 on unseen postings** (A4: 1/30 random rejects missed, CI 0.1–17.2 %; 2 of 4 decided just-below calls missed; second false friend `architect`). Both include closest calls on both sides, keeps, and what the sample can and cannot show. False friend: "agent(s)" and "unity catalog" from employer boilerplate (§3). Every rule added, cut or rejected is in §4. |
 | **Source-grounded shortlist (12)** | [`shortlist/`](shortlist/README.md): 15 postings and 123 claims, each with a label, field and verbatim quote; relevance ≠ entailment (`6865704002`); abstentions; the negation counterexample (`8546367002`). |
 | **Tool server and two evaluations (12)** | `js3/mcp_server.py`; [`transcripts/`](transcripts/) (a real Claude Code session, both directions); [`evaluations/EVALUATIONS.md`](evaluations/EVALUATIONS.md): declared vs observed, what compatibility does not entitle a client to assume, and trust decisions for our server and for `server-filesystem` 2.3.0 |
 | **What moves the score (8)** | [`WHAT_MOVES_THE_SCORE.md`](WHAT_MOVES_THE_SCORE.md): the origin of every number, a score worked by hand, single changes on held-out H2 (pre-registered in `FREEZE.json`), and why persistence is not training. **H2 result:** v1.1 changed nothing (a null result); C-b alone and threshold 5 made false keeps; every filter missed the one yes (H10), which Claude with the rules in context caught. |
@@ -121,6 +122,7 @@ _**Pending Aditya.** The items below are blanks or candidates for him to keep, e
   3. `server-filesystem` on its supported Node (≥ 24), its 2026-07-28 protocol era, and its `move_file`/`edit_file` tools.
   4. Whether any posting is still open: the captures are from 2026-10-30 and 2026-11-10.
   5. The v1.1 negation false friend (`8546367002`): found after the freeze, not fixed.
+  6. The precision of v1.1's keeps on unseen postings: the A4 kept sample was 2 postings, both `unsure`.
 - **Not claiming:**
   - that the filter finds every posting worth Priya's time;
   - any population error rate (all rates are sample intervals or describe stratified samples);
