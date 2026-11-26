@@ -1,8 +1,11 @@
 # Labeling method: held-out (24) and audit (50)
 
+> **Update 2026-11-25 (after review):** Rithika reviewed every one of the 74 suggestions against the posting text and confirmed or corrected each (held-out: 20 approved, 4 corrected; audit: 45 approved, 5 corrected). Final verdicts are in `review_decisions.csv` and the two `*_verdicts.csv` files. These are Claude-suggested, human-reviewed labels, not blind hand labels.
+
+
 Status on 2026-11-25: **every verdict in `heldout_verdicts.csv` and
 `audit_verdicts.csv` is an automated suggestion by Claude Code
-(claude-opus-5-5). No verdict has been reviewed by a human yet.** None of
+(claude-opus-5-5). (This was the status before review; see the update above.)** None of
 them is a manual label by Rithika, and they must not be described as one
 until the review in section 6 is done.
 
