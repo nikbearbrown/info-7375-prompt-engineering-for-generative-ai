@@ -1,0 +1,61 @@
+You are writing a source-grounded justification for one job posting, for one fictional job seeker. You do NOT decide whether she should apply and you do NOT give a score. You state claims about what the posting says that bear on the definition below, and you ground every claim in the posting's own text.
+
+DEFINITION OF A RELEVANT POSTING (from the job seeker's filter document):
+A posting is worth Maya's time when it is:
+- a product-management role
+- whose stated experience requirement fits her application policy: **mostly roles requiring at
+  most 4 years, sometimes 5+ or 6+, never 7+**
+- in a place she can work
+- from an employer that does not rule out sponsorship
+- ideally in one of her domains.
+
+Technical Program Manager roles:
+- A TPM role counts as PM work for Maya only if the posting describes **owning product
+    direction**: deciding what gets built, setting the product strategy or roadmap. A posting
+    that describes only program delivery (coordinating schedules, dependencies, launches) does
+    not count.
+- The same years, location, and sponsorship conditions then apply.
+
+JOB SEEKER'S PREFERENCES (fictional persona):
+{
+ "preferred_max_years": 4,
+ "stretch_max_years": 6,
+ "locations": [
+  "San Francisco",
+  "Los Angeles",
+  "San Jose",
+  "Remote"
+ ],
+ "needs_sponsorship": true,
+ "domains": [
+  "payments",
+  "fintech",
+  "data",
+  "e-commerce",
+  "mobile"
+ ]
+}
+
+POSTING (the only source you may use; do not use any outside knowledge about the company):
+{
+ "id": "gh-stripe:7586413",
+ "title": "Product Manager, Terminal Developer Experiences",
+ "location": "San Francisco, Seattle",
+ "department": "8258 Terminal - PM",
+ "text": "Who we are\nAbout Stripe\nStripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career.\nAbout the team\nStripe Terminal helps our users extend their online presence to the physical world. The Terminal team’s mission is to make it as easy for businesses to accept in-person payments as the Stripe API has made it to accept online payments. Whether a user is building a superb retail experience, extending their website to a pop-up store, or enabling mobile point-of-sale payments at their next event, Terminal gives them the building blocks to do it.\nAlmost every Terminal experience starts with a developer building the integration. The Developer Experiences team owns that work: the SDKs, APIs, integration primitives, documentation, and example apps that developers—and, increasingly, AI agents—use to build on Terminal. In this role, you’ll own how developers and agents integrate in-person payments with Stripe, from making their first test charge to running their integrations at scale in production.\nWhat you’ll do\nYou’ll own the roadmap and execution for Terminal’s developer-facing surface: the client SDKs (JavaScript, iOS, Android, React Native, .NET, and Java), the integration primitives developers depend on, and the documentation and example apps that help them make their first successful charge. You’ll work with engineering to ship capabilities that make Terminal faster to integrate and more reliable to run while supporting newer patterns such as server-driven integration and agent-built integrations.\nResponsibilities\nOwn the roadmap and execution for Terminal’s developer experience within the team’s strategy: break the roadmap into milestones, define requirements, prioritize work, and drive delivery through sprint planning while making the tradeoffs required by a broad surface area.\nTalk regularly with external developers, platforms, and internal Stripe teams to validate ideas, requirements, and prototypes and turn what you learn into better developer experiences.\nPartner with engineering and design to ship functionality that delights developers building on Terminal, balancing impact against engineering cost and delivering measurable results.\nOwn the integration primitives developers depend on—including connection tokens, integration authentication, device attestation, and connectivity—to ensure that developers can build secure, reliable in-person payment experiences consistently across every SDK and platform.\nSet the direction for integrations at scale, from server-driven integration and reusable example apps to agentic tooling that allows AI agents to build and test safely, and maintain a high bar for Terminal’s documentation and accessibility.\nUse data to form a point of view, set success metrics, and determine whether changes are working.\nCommunicate decisions and status to stakeholders and use your technical judgment to help the team make tradeoff decisions.\nWho you are\nWe’re looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\nMinimum requirements\n5+ years of product management experience or equivalent experience, with a track record of shipping products that solve real user problems.\nTechnical expertise gained by building and owning developer-facing products such as APIs, SDKs, or developer tools.\nA track record of driving execution across cross-functional teams within an established product vision and strategy.\nStrong written and verbal communication skills, with the ability to make complex concepts accessible and structure ambiguous problems from first principles.\nComfort working across many functions, stakeholders, and subject-matter experts and engaging in healthy, respectful debate in pursuit of shared goals.\nPreferred qualifications\nExperience with mobile SDKs, including iOS or Android, or cross-platform frameworks such as React Native.\nExperience with payments, in-person commerce, or hardware-adjacent products.\nExperience building for AI agents or developing agentic tooling.\nExperience building and launching zero-to-one products.\nA hands-on approach: you test-drive integrations yourself and improve the documentation before shipping functionality."
+}
+
+INSTRUCTIONS
+1. Write 4 to 8 atomic claims. One fact per claim. Cover, when the posting addresses them: the role's title and level; the years of experience it REQUIRES (say whether a years figure is under a required/minimum heading or a preferred/bonus heading); the location; sponsorship or work authorization; the product domain.
+2. For each claim, copy ONE quote from the POSTING TEXT, character for character, that the claim rests on. Do not paraphrase, fix typos, change case, or join separate sentences. Keep it under 300 characters.
+3. If the posting does not state the fact a claim needs, set "quote" to null, set "abstain" to true, set "proposed_label" to "insufficient", and write the claim as "The posting does not state ...". Never fill a gap from outside knowledge.
+4. "kind" is "quoted" if the claim only restates what the quote says, or "judgment" if it goes beyond the quote (an inference, a comparison with the job seeker's preferences, or a reading of tone).
+5. "proposed_label", judged against the posting text only:
+   - "supported": the quote, by itself, entails the claim.
+   - "contradicted": the quote entails that the claim is false.
+   - "insufficient": no quote entails the claim either way, or the quote is only on topic.
+   Write claims that you expect to be supported or insufficient; do not write false claims on purpose.
+
+OUTPUT FORMAT. Reply with one JSON object and nothing else: no prose, no code fences. Exactly these keys:
+{"posting_id": "<the id given above>",
+ "claims": [ {"claim": "<one sentence>", "kind": "quoted" or "judgment", "quote": "<exact substring of the posting text>" or null, "proposed_label": "supported" or "contradicted" or "insufficient", "abstain": true or false} ] }

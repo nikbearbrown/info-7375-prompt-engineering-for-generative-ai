@@ -1,0 +1,61 @@
+You are writing a source-grounded justification for one job posting, for one fictional job seeker. You do NOT decide whether she should apply and you do NOT give a score. You state claims about what the posting says that bear on the definition below, and you ground every claim in the posting's own text.
+
+DEFINITION OF A RELEVANT POSTING (from the job seeker's filter document):
+A posting is worth Maya's time when it is:
+- a product-management role
+- whose stated experience requirement fits her application policy: **mostly roles requiring at
+  most 4 years, sometimes 5+ or 6+, never 7+**
+- in a place she can work
+- from an employer that does not rule out sponsorship
+- ideally in one of her domains.
+
+Technical Program Manager roles:
+- A TPM role counts as PM work for Maya only if the posting describes **owning product
+    direction**: deciding what gets built, setting the product strategy or roadmap. A posting
+    that describes only program delivery (coordinating schedules, dependencies, launches) does
+    not count.
+- The same years, location, and sponsorship conditions then apply.
+
+JOB SEEKER'S PREFERENCES (fictional persona):
+{
+ "preferred_max_years": 4,
+ "stretch_max_years": 6,
+ "locations": [
+  "San Francisco",
+  "Los Angeles",
+  "San Jose",
+  "Remote"
+ ],
+ "needs_sponsorship": true,
+ "domains": [
+  "payments",
+  "fintech",
+  "data",
+  "e-commerce",
+  "mobile"
+ ]
+}
+
+POSTING (the only source you may use; do not use any outside knowledge about the company):
+{
+ "id": "gh-stripe:8186541",
+ "title": "Product Manager, Connected Account Onboarding Experiences",
+ "location": "San Francisco, New-York, Seattle",
+ "department": "8250 Connect - PM",
+ "text": "Who we are\nAbout Stripe\nStripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career.\nAbout the team\nConnect Platform\nConnect is Stripe’s platform for businesses that serve other businesses. It helps platforms onboard and verify participants, manage accounts, accept payments, and pay out funds without building payments, compliance, or financial services infrastructure themselves.\nThe Connect Risk team builds the risk management capabilities that help platforms operate safely from day one, including onboarding, Know Your Customer (KYC) verification, fraud and credit risk management, and tax reporting. As AI-native platforms and marketplaces emerge, this work helps Stripe support increasingly dynamic global ecosystems.\nWhat you’ll do\nYou will own Connected Account Onboarding Experiences, the products and journeys that help platforms onboard their users safely, compliantly, and with minimal friction. You will shape experiences from sign-up and authentication through readiness to use Stripe products, across application programming interfaces (APIs) and hosted or embedded user interfaces (UI).\nYou will use funnel data, user research, and experimentation to improve conversion while meeting Stripe’s commitments to regulators and financial partners. You will set the strategy for what should be standardized or configurable across platform business models, products, and geographies, including opportunities to use artificial intelligence (AI) and agentic interfaces.\nResponsibilities\nSet the vision, strategy, goals, and roadmap for Connected Account Onboarding Experiences globally.\nLead cross-functional execution across Connect, Risk, engineering, design, data science, and partner-facing teams.\nUse funnel metrics, user research, and experimentation to identify friction and improve onboarding conversion.\nTranslate risk, regulatory, and partner requirements into intuitive experiences across APIs, platform tools, and connected-account UI.\nBuild scalable onboarding foundations that support different platform models, geographies, and evolving AI-enabled experiences.\nWho you are\nWe’re looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\nMinimum requirements\n6+ years of product management or product-focused founder experience\nExperience leading complex, multi-quarter product roadmaps and aligning internal teams and external partners around shared goals\nDemonstrated experience partnering with engineering, design, and data teams to build products and systems at scale\nStrong analytical skills, including defining success metrics, running experiments, and using data to improve business outcomes\nStrong written and verbal communication skills, with the ability to articulate user problems and product decisions clearly\nExperience working on complex platform, ecosystem, or regulated products.\nAbility to operate with autonomy in a dynamic environment.\nExperience working in high growth companies and products.\nPreferred qualifications\nExperience in payments, financial technology, or financial infrastructure\nExperience building user onboarding solutions in enterprise or business-to-business (B2B) industries through APIs or user interfaces\nExperience redesigning traditional user journeys through AI and building agentic interfaces"
+}
+
+INSTRUCTIONS
+1. Write 4 to 8 atomic claims. One fact per claim. Cover, when the posting addresses them: the role's title and level; the years of experience it REQUIRES (say whether a years figure is under a required/minimum heading or a preferred/bonus heading); the location; sponsorship or work authorization; the product domain.
+2. For each claim, copy ONE quote from the POSTING TEXT, character for character, that the claim rests on. Do not paraphrase, fix typos, change case, or join separate sentences. Keep it under 300 characters.
+3. If the posting does not state the fact a claim needs, set "quote" to null, set "abstain" to true, set "proposed_label" to "insufficient", and write the claim as "The posting does not state ...". Never fill a gap from outside knowledge.
+4. "kind" is "quoted" if the claim only restates what the quote says, or "judgment" if it goes beyond the quote (an inference, a comparison with the job seeker's preferences, or a reading of tone).
+5. "proposed_label", judged against the posting text only:
+   - "supported": the quote, by itself, entails the claim.
+   - "contradicted": the quote entails that the claim is false.
+   - "insufficient": no quote entails the claim either way, or the quote is only on topic.
+   Write claims that you expect to be supported or insufficient; do not write false claims on purpose.
+
+OUTPUT FORMAT. Reply with one JSON object and nothing else: no prose, no code fences. Exactly these keys:
+{"posting_id": "<the id given above>",
+ "claims": [ {"claim": "<one sentence>", "kind": "quoted" or "judgment", "quote": "<exact substring of the posting text>" or null, "proposed_label": "supported" or "contradicted" or "insufficient", "abstain": true or false} ] }

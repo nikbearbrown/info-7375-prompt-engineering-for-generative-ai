@@ -1,0 +1,61 @@
+You are writing a source-grounded justification for one job posting, for one fictional job seeker. You do NOT decide whether she should apply and you do NOT give a score. You state claims about what the posting says that bear on the definition below, and you ground every claim in the posting's own text.
+
+DEFINITION OF A RELEVANT POSTING (from the job seeker's filter document):
+A posting is worth Maya's time when it is:
+- a product-management role
+- whose stated experience requirement fits her application policy: **mostly roles requiring at
+  most 4 years, sometimes 5+ or 6+, never 7+**
+- in a place she can work
+- from an employer that does not rule out sponsorship
+- ideally in one of her domains.
+
+Technical Program Manager roles:
+- A TPM role counts as PM work for Maya only if the posting describes **owning product
+    direction**: deciding what gets built, setting the product strategy or roadmap. A posting
+    that describes only program delivery (coordinating schedules, dependencies, launches) does
+    not count.
+- The same years, location, and sponsorship conditions then apply.
+
+JOB SEEKER'S PREFERENCES (fictional persona):
+{
+ "preferred_max_years": 4,
+ "stretch_max_years": 6,
+ "locations": [
+  "San Francisco",
+  "Los Angeles",
+  "San Jose",
+  "Remote"
+ ],
+ "needs_sponsorship": true,
+ "domains": [
+  "payments",
+  "fintech",
+  "data",
+  "e-commerce",
+  "mobile"
+ ]
+}
+
+POSTING (the only source you may use; do not use any outside knowledge about the company):
+{
+ "id": "gh-airbnb:8303742",
+ "title": "Product Manager, Trips",
+ "location": "San Francisco, CA",
+ "department": "Product Management",
+ "text": "Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way.\nThe Community You Will Join\nYour Location:\nDue to the nature of this position, the successful applicant will need to be based in San Francisco, CA to be able to conduct their work.\nOur Commitment To Inclusion & Belonging:\nAirbnb is committed to working with the broadest talent pool possible. We believe diverse ideas foster innovation and engagement, and allow us to attract creatively-led people, and to develop the best products, services and solutions. All qualified individuals are encouraged to apply.\nWe strive to also provide a disability inclusive application and interview process. If you are a candidate with a disability and require reasonable accommodation in order to submit an application, please contact us at: reasonableaccommodations@airbnb.com . Please include your full name, the role you’re applying for and the accommodation necessary to assist you with the recruiting process.\nWe ask that you only reach out to us if you are a candidate whose disability prevents you from being able to complete our online application.\nEqual Employment Opportunity :\nAirbnb values diversity & belonging and is proud to be an Equal Employment Opportunity employer. All individuals seeking employment at Airbnb are considered without regard to race, color, religion, national origin, age, gender, sex, marital status, ancestry, physical or mental disability, veteran status, gender identity, gender expression, sexual orientation, or any other legally protected characteristic.\nHow We'll Take Care of You:\nOur job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands. The base pay range is subject to change and may be modified in the future. This role may also be eligible for bonus, equity, benefits, and Employee Travel Credits.\nPay Range\n$200,000 — $240,000 USD\nReasonable Accommodations: We are committed to providing reasonable accommodations throughout the recruitment process for applicants with disabilities. If you need assistance, or an accommodation, please let your recruiter know once you are contacted about a role.\nA Note on Recruiting Scams: Scammers sometimes pose as Airbnb recruiters to get money or personal information from candidates. A few things that will always be true for Airbnb’s hiring process: our open roles are posted on Airbnb’s Career’s Page at careers.airbnb.com, and our recruiters correspond only from @ airbnb.com or @ ext.airbnb.com email addresses. Our recruiters will never ask for your Social Security number, bank account details, passport, or payment app information while you are interviewing. We’ll also never ask you to pay a fee, send money, deposit or cash a check, or purchase work-related equipment (such as a company laptop) during the interview process. We encourage candidates to remain vigilant of these recruiting scams and not share sensitive information if you do not believe an individual is actually affiliated with Airbnb."
+}
+
+INSTRUCTIONS
+1. Write 4 to 8 atomic claims. One fact per claim. Cover, when the posting addresses them: the role's title and level; the years of experience it REQUIRES (say whether a years figure is under a required/minimum heading or a preferred/bonus heading); the location; sponsorship or work authorization; the product domain.
+2. For each claim, copy ONE quote from the POSTING TEXT, character for character, that the claim rests on. Do not paraphrase, fix typos, change case, or join separate sentences. Keep it under 300 characters.
+3. If the posting does not state the fact a claim needs, set "quote" to null, set "abstain" to true, set "proposed_label" to "insufficient", and write the claim as "The posting does not state ...". Never fill a gap from outside knowledge.
+4. "kind" is "quoted" if the claim only restates what the quote says, or "judgment" if it goes beyond the quote (an inference, a comparison with the job seeker's preferences, or a reading of tone).
+5. "proposed_label", judged against the posting text only:
+   - "supported": the quote, by itself, entails the claim.
+   - "contradicted": the quote entails that the claim is false.
+   - "insufficient": no quote entails the claim either way, or the quote is only on topic.
+   Write claims that you expect to be supported or insufficient; do not write false claims on purpose.
+
+OUTPUT FORMAT. Reply with one JSON object and nothing else: no prose, no code fences. Exactly these keys:
+{"posting_id": "<the id given above>",
+ "claims": [ {"claim": "<one sentence>", "kind": "quoted" or "judgment", "quote": "<exact substring of the posting text>" or null, "proposed_label": "supported" or "contradicted" or "insufficient", "abstain": true or false} ] }
