@@ -1,7 +1,8 @@
 # Sign-off — Job-Search Agent 3
 
 **Template drafted by Claude Code (2026-11-25) for Aravind to edit and sign.**
-- Every line under "Checked" names a real test or artifact.
+- Claude Code pre-filled only "Checked", and every line there names a test or artifact that exists.
+- "Not checked" and "Not claiming" are Aravind's to write.
 - The "How" column is Aravind's to fill: delete what doesn't apply.
 - **The Signed line stays blank until Aravind signs.**
 
@@ -23,30 +24,15 @@
 | The reject audit and the recheck | my 45 verdicts and 14 rechecks; `audit/RESULTS.md` recomputed by `tools/audit-results.mjs` | by hand |
 | Claim labels | my confirmed labels, re-checked by `tools/confirm-claims.mjs` | by hand |
 
-## Not checked (real items)
+## Not checked (at least three real items): written by Aravind
 
-- **PM-titled rejects:** 15 were drawn from 133 and **never judged**. There is no error estimate for
-  the group where a false reject matters most.
-- **Held-out has 0 relevant postings,** so recall, precision, and the threshold change are
-  unmeasured on held-out. Prompt/context changes were never run.
-- **Every v1.1 change was made on audit rows** (dev use). The "0 errors" under the final filter is
-  not an independent test.
-- **The known limits in FILTER.md §5.3–5.4 are logged, not fixed:** years under "Preferred"
-  headings, spelled-out numbers, years without the word "experience", near-duplicates (34 groups),
-  title vs body level, first-sentence-wins.
-- **The manual Claude route:** the model name is self-reported, and claude.ai's system prompt is
-  uncontrolled. Only one reply per posting, so run-to-run variance is unknown.
-- **The filesystem server was read, not run.** Its full path validation was not traced.
-- **The MCP server has no size or rate limits.** It was tested with two clients only.
+- 
+- 
+- 
 
-## Not claiming
+## Not claiming: written by Aravind
 
-- Not that the filter finds every posting worth Maya's time. The audit and labels are small,
-  enriched, and from one snapshot (2026-11-10, three boards).
-- No sample figure is a rate for all postings, other boards, or other dates.
-- Not that Claude's supported claims make a posting relevant (A005.7: entailed, not relevant).
-- Not that anything was trained or learned. All behavior lives in files (`phase5/RESULTS.md`).
-- Not that the agent applies, emails, or messages anyone. It never does.
+- 
 
 **Signed or withheld:** ____________ (name, date)
 
