@@ -2,8 +2,7 @@
 
 Both servers were run on 2026-11-25 and evaluated the same way: what the server **declares** on the wire, what it
 **actually does** (from code or observed behaviour), what a compatible client is **not entitled to**, and a trust
-decision. Facts below were drafted by Claude Code from the transcripts. The trust decisions are left blank because
-they are mine to make.
+decision. Facts below were drafted by Claude Code from the transcripts. The trust decisions are mine, typed in chat.
 
 | transcript | client | server |
 |---|---|---|
@@ -68,7 +67,7 @@ Redaction: in 01 and 03 the local home directory is replaced by `<HOME>` (`mcp_c
   `supported` from a quote asking for "2–12+ years", and Claude replied that this "doesn't clearly mean early
   career" and that the tool's own output disagrees on level.
 
-**Trust decision (Arundhati's own words):** ____
+**Trust decision (Arundhati's own words, 2026-11-25):** I would allow Claude to use my server only with restricted permissions. I would first verify that the server enforces the access boundaries I intended and that its tools cannot perform actions outside those boundaries.
 
 ---
 
@@ -109,4 +108,4 @@ Redaction: in 01 and 03 the local home directory is replaced by `<HOME>` (`mcp_c
 - **Long descriptions are input to the model.** A client is not entitled to treat ~180 KB of tool descriptions as
   neutral. They are instructions written by the server's author, and they go into the model's context.
 
-**Trust decision (Arundhati's own words):** ____
+**Trust decision (Arundhati's own words, 2026-11-25):** I would not connect it to anything yet. It lists 29 tools without safety annotations, and its Read tool returns file contents without asking permission. I would inspect the tools and test their permissions in an isolated environment before considering access.
