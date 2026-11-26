@@ -1,0 +1,29 @@
+[
+  {
+    "role": "primary",
+    "term": "program manager (title rule)",
+    "named_by": "Aravind",
+    "date": "2026-11-25",
+    "rows": ["A027", "A044", "A052"],
+    "line": "Technical Program Manager, Extensibility / Technical Program Manager, Extensibility Platform / Technical Program Manager, Money-as-a-Service (the titles)",
+    "why": "The title rule's core tier listed \"Technical Program Manager\" (v1.0.0 to v1.1.0-d), so these titles matched as PM roles. Aravind's hand verdict on all three: not relevant, program delivery only, partnering with or influencing PMs rather than owning product direction (FILTER.md §1 TPM rule). Under v1.1.0-a to v1.1.0-d this match changed 3 decisions against the hand verdicts (kept instead of rejected). Fixed in v1.1.0-e: TPM titles moved to the adjacent tier."
+  },
+  {
+    "role": "secondary",
+    "term": "training",
+    "named_by": "Aravind",
+    "date": "2026-11-25",
+    "rows": ["A014", "A047"],
+    "line": "Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands.",
+    "why": "In both rows it appears only in Airbnb's pay boilerplate (corpus count: 172 of 203 Airbnb postings). It is not a filter word in any version, so it changed no decision. It would be a false friend if it were added to the topic terms."
+  },
+  {
+    "role": "known_limit",
+    "term": "payments (boilerplate)",
+    "named_by": "Aravind",
+    "date": "2026-11-25",
+    "rows": [],
+    "line": "Stripe's company intro, e.g. \"... use Stripe to accept payments, grow their revenue, and accelerate new business opportunities.\"",
+    "why": "v1.1.0-b drops topic words that appear only in lines shared by at least 20% of a board's postings, but it matches exact lines only. 159 Stripe postings still count \"payments\" that appears only in a reworded company intro (FILTER.md §9, v1.1.0-b). No judged audit row's outcome depended on it."
+  }
+]

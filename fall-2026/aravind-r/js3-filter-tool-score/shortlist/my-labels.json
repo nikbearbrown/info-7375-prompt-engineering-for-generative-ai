@@ -1,0 +1,64 @@
+{
+  "decided_by": "Aravind",
+  "date": "2026-11-25",
+  "checkpoint": 3,
+  "rule": "Every claim takes Claude's proposed_label unless listed in overrides. Override quotes must be exact substrings of the posting body or location field.",
+  "overrides": [
+    {
+      "claim": "A020.5",
+      "label": "contradicted",
+      "quote": "San Francisco, Seattle",
+      "quote_source": "field:location",
+      "note": "Location is stated in the board location field, which counts as posting text (FILTER.md §2.1 amendment, 2026-11-25); the claim that no location is stated is false."
+    },
+    {
+      "claim": "A025.5",
+      "label": "contradicted",
+      "quote": "Seattle, New-York, San Francisco",
+      "quote_source": "field:location",
+      "note": "Location is stated in the board location field, which counts as posting text (FILTER.md §2.1 amendment, 2026-11-25); the claim that no location is stated is false."
+    },
+    {
+      "claim": "A005.5",
+      "label": "contradicted",
+      "quote": "San Francisco, New-York, Seattle",
+      "quote_source": "field:location",
+      "note": "Location is stated in the board location field, which counts as posting text (FILTER.md §2.1 amendment, 2026-11-25); the claim that no location is stated is false."
+    },
+    {
+      "claim": "A010.6",
+      "label": "contradicted",
+      "quote": "San Francisco Or New York",
+      "quote_source": "field:location",
+      "note": "Location is stated in the board location field, which counts as posting text (FILTER.md §2.1 amendment, 2026-11-25); the claim that no location is stated is false."
+    },
+    {
+      "claim": "A022.5",
+      "label": "contradicted",
+      "quote": "Seattle, New-York, San Francisco",
+      "quote_source": "field:location",
+      "note": "Location is stated in the board location field, which counts as posting text (FILTER.md §2.1 amendment, 2026-11-25); the claim that no location is stated is false."
+    },
+    {
+      "claim": "A042.6",
+      "label": "contradicted",
+      "quote": "San Francisco Or New York",
+      "quote_source": "field:location",
+      "note": "Location is stated in the board location field, which counts as posting text (FILTER.md §2.1 amendment, 2026-11-25); the claim that no location is stated is false."
+    },
+    {
+      "claim": "A010.4",
+      "label": "supported",
+      "quote": "Preferred Qualifications",
+      "quote_source": "body",
+      "note": "Second span: the \"Preferred Qualifications\" heading sits directly above the years line; with Claude's quote (\"The preferred qualifications are a bonus, not a requirement.\") the two spans entail the claim."
+    },
+    {
+      "claim": "A042.4",
+      "label": "supported",
+      "quote": "Preferred Qualifications",
+      "quote_source": "body",
+      "note": "Second span: the \"Preferred Qualifications\" heading sits directly above the years line; with Claude's quote (\"The preferred qualifications are a bonus, not a requirement.\") the two spans entail the claim."
+    }
+  ]
+}

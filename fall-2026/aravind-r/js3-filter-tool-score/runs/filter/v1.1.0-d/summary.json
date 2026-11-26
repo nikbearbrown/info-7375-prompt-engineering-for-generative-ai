@@ -1,0 +1,80 @@
+{
+  "ran_at": "2026-11-25T23:17:26.604Z",
+  "node": "v20.20.2",
+  "filter_file": "FILTER.md",
+  "filter_sha256": "eeb74f6c124d792faaeaf33d7a4af274e695f3c8fc6c399288e4e111fa79feb2",
+  "spec_version": "1.1.0-d",
+  "threshold": 0.8,
+  "network_requests": 0,
+  "shared_lines": {
+    "min_share": 0.2,
+    "per_board": {
+      "gh-airbnb": 16,
+      "gh-stripe": 6,
+      "lv-spotify": 3
+    }
+  },
+  "data": "data/MANIFEST.json (frozen 2026-11-10 snapshot)",
+  "boards": [
+    {
+      "board": "gh-airbnb",
+      "status": "ok",
+      "reason": null,
+      "raw_count": 203,
+      "skipped_null_id": 0,
+      "warnings": [],
+      "scored": 203,
+      "keep": 0,
+      "cannot_tell": 1,
+      "reject": 202,
+      "veto": 1
+    },
+    {
+      "board": "gh-broken",
+      "status": "unavailable",
+      "reason": "no jobs array (body: {\"status\":404,\"error\":\"Job not found\"})",
+      "raw_count": null,
+      "skipped_null_id": null,
+      "warnings": [],
+      "scored": null,
+      "keep": null,
+      "cannot_tell": null,
+      "reject": null,
+      "veto": null
+    },
+    {
+      "board": "gh-stripe",
+      "status": "ok",
+      "reason": null,
+      "raw_count": 776,
+      "skipped_null_id": 0,
+      "warnings": [],
+      "scored": 776,
+      "keep": 7,
+      "cannot_tell": 2,
+      "reject": 767,
+      "veto": 0
+    },
+    {
+      "board": "lv-spotify",
+      "status": "ok",
+      "reason": null,
+      "raw_count": 85,
+      "skipped_null_id": 0,
+      "warnings": [],
+      "scored": 85,
+      "keep": 0,
+      "cannot_tell": 0,
+      "reject": 85,
+      "veto": 1
+    }
+  ],
+  "totals": {
+    "scored": 1064,
+    "keep": 7,
+    "cannot_tell": 3,
+    "reject": 1054,
+    "veto": 2,
+    "near_band": 15
+  }
+}

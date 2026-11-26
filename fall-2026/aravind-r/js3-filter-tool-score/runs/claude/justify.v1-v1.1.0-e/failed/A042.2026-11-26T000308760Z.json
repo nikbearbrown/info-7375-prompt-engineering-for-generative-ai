@@ -1,0 +1,98 @@
+{
+  "label": "JUDGMENT",
+  "posting": "gh-stripe:8223723",
+  "audit_id": "A042",
+  "decision": "cannot_tell",
+  "spec_version": "1.1.0-e",
+  "prompt_file": "prompts/justify.v1.md",
+  "prompt_sha256": "9d5c15d4061eefded5e8e2b2083e37834b10efeea842bce33f599352472c8289",
+  "model_requested": "claude-sonnet-5-5",
+  "at": "2026-11-26T00:03:08.760Z",
+  "models": [],
+  "session_id": "a7958039-7d28-47a8-a240-a8930aec18cf",
+  "exit_code": 1,
+  "error": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+  "args_without_prompt": [
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--no-session-persistence",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "prompt": "You are writing a source-grounded justification for one job posting, for one fictional job seeker. You do NOT decide whether she should apply and you do NOT give a score. You state claims about what the posting says that bear on the definition below, and you ground every claim in the posting's own text.\n\nDEFINITION OF A RELEVANT POSTING (from the job seeker's filter document):\nA posting is worth Maya's time when it is:\n- a product-management role\n- whose stated experience requirement fits her application policy: **mostly roles requiring at\n  most 4 years, sometimes 5+ or 6+, never 7+**\n- in a place she can work\n- from an employer that does not rule out sponsorship\n- ideally in one of her domains.\n\nTechnical Program Manager roles:\n- A TPM role counts as PM work for Maya only if the posting describes **owning product\n    direction**: deciding what gets built, setting the product strategy or roadmap. A posting\n    that describes only program delivery (coordinating schedules, dependencies, launches) does\n    not count.\n- The same years, location, and sponsorship conditions then apply.\n\nJOB SEEKER'S PREFERENCES (fictional persona):\n{\n \"preferred_max_years\": 4,\n \"stretch_max_years\": 6,\n \"locations\": [\n  \"San Francisco\",\n  \"Los Angeles\",\n  \"San Jose\",\n  \"Remote\"\n ],\n \"needs_sponsorship\": true,\n \"domains\": [\n  \"payments\",\n  \"fintech\",\n  \"data\",\n  \"e-commerce\",\n  \"mobile\"\n ]\n}\n\nPOSTING (the only source you may use; do not use any outside knowledge about the company):\n{\n \"id\": \"gh-stripe:8223723\",\n \"title\": \"Product Manager - Issuance, Bridge\",\n \"location\": \"San Francisco Or New York\",\n \"department\": \"8504 Bridge - R&D\",\n \"text\": \"Who we are\\nAbout Bridge\\nWe're creating an entirely new payments platform, built with stablecoins, to simplify global money movement. Bridge enables faster, cheaper payments and borderless access to dollars via stablecoins. Through our APIs, businesses can send and receive funds across borders faster and cheaper vs. SWIFT and other fiat-only rails. Our virtual accounts enable international consumers and businesses to easily access, store, and spend US dollars. Our payouts infrastructure enables platforms to disburse USD to anyone globally. We believe many trillions of dollars will move and settle through stablecoin payment rails. Bridge is pulling this future forward.\\nWe have a small team of people who have previously built financial infrastructure at some of the world's leading companies (Coinbase, Stripe, Square, Brex, Upstart, DoorDash, Airbnb), and each and every one of them chose Bridge because they fundamentally believe that stablecoins will be a critical piece of financial infrastructure that allows for the improvement of global money movement.\\nAbout the team\\nJoin our Issuance Product team to shape the future of financial access and infrastructure. We're not just improving global payments, we're reinventing them with modern rails that allow for fast, cheap transactions at any size. You will build a platform that powers issuing compliant stablecoins in US/EU and beyond. We work with some of the largest fintechs, crypto companies, blockchains and more. This is your chance to lead meaningful innovation from day one, redefining the way businesses and people exchange value globally.\\nWhat you’ll do\\nResponsibilities\\nBuild a world class issuance platform that has the scale to power billions of dollars of transactions and issued stablecoins. Product areas include liquidity delivery, reserves management, mint/burn infrastructure, rewards, on-chain/crypto smart contracts, and launching custom stablecoins.\\nDrive product features from ideation to launch, collaborating with designers, engineers, and cross-functional partners such as legal and compliance.\\nDevelop a deep understanding of our users’ needs, operational landscape, and competitive environment across international markets.\\nOwn outcomes end-to-end, using data, feedback, and rapid iteration to refine your approach.\\nMake tough prioritization calls, balancing user needs, technical feasibility, and business impact.\\nDrive high-traffic features at scale, ensuring security, speed, and reliability for millions of users.\\nWho you are\\nWe're looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\\nWhat You’ll Need to Thrive\\nEmpathy for users : You’re passionate about uncovering and solving pain points.\\nDeep curiosity : You never stop asking “why” and dig into both qualitative and quantitative data.\\nOwner’s mentality : You tackle challenges head-on and drive solutions with conviction.\\nCollaborative spirit : You work seamlessly with team members but aren’t afraid to make the call when needed.\\nClarity and simplicity : You translate complex systems into intuitive, straightforward user experiences.\\nBias for learning : You embrace mistakes as opportunities to grow and improve quickly.\\nPreferred Qualifications\\n5+ years in product management or a related role, with a proven record of delivering impactful products.\\nDemonstrated success working with engineers, designers, and external partners to build complex systems.\\nStrong business acumen and comfort navigating ecosystem and platform-level challenges.\\nExperience integrating APIs, managing developer platforms, or building ecosystem-driven products.\\nExperience building regulated infrastructure in fintech, payments, or crypto.\\nIf you’re ready to shape the future of how money moves, we want to hear from you!\"\n}\n\nINSTRUCTIONS\n1. Write 4 to 8 atomic claims. One fact per claim. Cover, when the posting addresses them: the role's title and level; the years of experience it REQUIRES (say whether a years figure is under a required/minimum heading or a preferred/bonus heading); the location; sponsorship or work authorization; the product domain.\n2. For each claim, copy ONE quote from the POSTING TEXT, character for character, that the claim rests on. Do not paraphrase, fix typos, change case, or join separate sentences. Keep it under 300 characters.\n3. If the posting does not state the fact a claim needs, set \"quote\" to null, set \"abstain\" to true, set \"proposed_label\" to \"insufficient\", and write the claim as \"The posting does not state ...\". Never fill a gap from outside knowledge.\n4. \"kind\" is \"quoted\" if the claim only restates what the quote says, or \"judgment\" if it goes beyond the quote (an inference, a comparison with the job seeker's preferences, or a reading of tone).\n5. \"proposed_label\", judged against the posting text only:\n   - \"supported\": the quote, by itself, entails the claim.\n   - \"contradicted\": the quote entails that the claim is false.\n   - \"insufficient\": no quote entails the claim either way, or the quote is only on topic.\n   Write claims that you expect to be supported or insufficient; do not write false claims on purpose.\n\nOUTPUT FORMAT. Reply with one JSON object and nothing else: no prose, no code fences. Exactly these keys:\n{\"posting_id\": \"<the id given above>\",\n \"claims\": [ {\"claim\": \"<one sentence>\", \"kind\": \"quoted\" or \"judgment\", \"quote\": \"<exact substring of the posting text>\" or null, \"proposed_label\": \"supported\" or \"contradicted\" or \"insufficient\", \"abstain\": true or false} ] }\n",
+  "reply_text": null,
+  "envelope": {
+    "duration_api_ms": 0,
+    "stop_reason": "stop_sequence",
+    "session_id": "a7958039-7d28-47a8-a240-a8930aec18cf",
+    "total_cost_usd": 0,
+    "usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {},
+    "permission_denials": [],
+    "terminal_reason": "api_error",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": true,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": 429,
+    "api_error_origin": "first_party",
+    "api_error": "usage_limit_reached",
+    "result": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+    "type": "result",
+    "duration_ms": 427,
+    "uuid": "72883c60-3899-4b2a-bd24-4ffbb3799b3b",
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "credential_expires_at": "2026-11-30T08:40:42.198Z"
+  }
+}

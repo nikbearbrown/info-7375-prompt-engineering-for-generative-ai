@@ -1,0 +1,231 @@
+{
+  "computed_at": "2026-11-25T23:26:16.648Z",
+  "sampled_from": "v1.0.0",
+  "compared_run": "runs/filter/v1.1.0-d",
+  "plan_sha256": "6de3072e176a5b16c083b282c25a15b52757c6cb132764460f9df00bc8851f38",
+  "views": {
+    "A": {
+      "label": "v1.0.0 decisions vs first-pass verdicts",
+      "strata": {
+        "random_reject": {
+          "n": 30,
+          "verdicts": {
+            "relevant": 2,
+            "not_relevant": 28,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 30
+          },
+          "errors": 2,
+          "error_ids": [
+            "A032",
+            "A035"
+          ],
+          "interval_95": [
+            0.008178134460656301,
+            0.22073540152296184
+          ]
+        },
+        "closest_call": {
+          "n": 15,
+          "verdicts": {
+            "relevant": 15,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 3,
+            "reject": 12
+          },
+          "errors": 12,
+          "error_ids": [
+            "A005",
+            "A010",
+            "A013",
+            "A020",
+            "A025",
+            "A027",
+            "A030",
+            "A037",
+            "A044",
+            "A047",
+            "A049",
+            "A052"
+          ]
+        },
+        "kept": {
+          "n": 0,
+          "verdicts": {
+            "relevant": 0,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        },
+        "cannot_tell": {
+          "n": 3,
+          "verdicts": {
+            "relevant": 3,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 3,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        }
+      }
+    },
+    "B": {
+      "label": "v1.1.0-d decisions vs final verdicts",
+      "strata": {
+        "random_reject": {
+          "n": 30,
+          "verdicts": {
+            "relevant": 0,
+            "not_relevant": 30,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 30
+          },
+          "errors": 0,
+          "error_ids": [],
+          "interval_95": [
+            0,
+            0.11570330822202776
+          ]
+        },
+        "closest_call": {
+          "n": 15,
+          "verdicts": {
+            "relevant": 6,
+            "not_relevant": 8,
+            "cannot_tell": 1
+          },
+          "decisions": {
+            "keep": 7,
+            "cannot_tell": 3,
+            "reject": 5
+          },
+          "errors": 3,
+          "error_ids": [
+            "A027",
+            "A044",
+            "A052"
+          ]
+        },
+        "kept": {
+          "n": 0,
+          "verdicts": {
+            "relevant": 0,
+            "not_relevant": 0,
+            "cannot_tell": 0
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 0,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        },
+        "cannot_tell": {
+          "n": 3,
+          "verdicts": {
+            "relevant": 2,
+            "not_relevant": 0,
+            "cannot_tell": 1
+          },
+          "decisions": {
+            "keep": 0,
+            "cannot_tell": 3,
+            "reject": 0
+          },
+          "errors": 0,
+          "error_ids": []
+        }
+      }
+    }
+  },
+  "recheck": {
+    "declared": 14,
+    "rechecked": 14,
+    "revised": 11,
+    "revised_ids": [
+      "A013",
+      "A014",
+      "A027",
+      "A030",
+      "A032",
+      "A035",
+      "A037",
+      "A044",
+      "A047",
+      "A049",
+      "A052"
+    ],
+    "open": [],
+    "undeclared": []
+  },
+  "named_false_friends": [
+    {
+      "role": "primary",
+      "term": "program manager (title rule)",
+      "named_by": "Aravind",
+      "date": "2026-11-25",
+      "rows": [
+        "A027",
+        "A044",
+        "A052"
+      ],
+      "line": "Technical Program Manager, Extensibility / Technical Program Manager, Extensibility Platform / Technical Program Manager, Money-as-a-Service (the titles)",
+      "why": "The title rule's core tier listed \"Technical Program Manager\" (v1.0.0 to v1.1.0-d), so these titles matched as PM roles. Aravind's hand verdict on all three: not relevant, program delivery only, partnering with or influencing PMs rather than owning product direction (FILTER.md §1 TPM rule). Under v1.1.0-a to v1.1.0-d this match changed 3 decisions against the hand verdicts (kept instead of rejected). Fixed in v1.1.0-e: TPM titles moved to the adjacent tier."
+    },
+    {
+      "role": "secondary",
+      "term": "training",
+      "named_by": "Aravind",
+      "date": "2026-11-25",
+      "rows": [
+        "A014",
+        "A047"
+      ],
+      "line": "Our job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands.",
+      "why": "In both rows it appears only in Airbnb's pay boilerplate (corpus count: 172 of 203 Airbnb postings). It is not a filter word in any version, so it changed no decision. It would be a false friend if it were added to the topic terms."
+    },
+    {
+      "role": "known_limit",
+      "term": "payments (boilerplate)",
+      "named_by": "Aravind",
+      "date": "2026-11-25",
+      "rows": [],
+      "line": "Stripe's company intro, e.g. \"... use Stripe to accept payments, grow their revenue, and accelerate new business opportunities.\"",
+      "why": "v1.1.0-b drops topic words that appear only in lines shared by at least 20% of a board's postings, but it matches exact lines only. 159 Stripe postings still count \"payments\" that appears only in a reworded company intro (FILTER.md §9, v1.1.0-b). No judged audit row's outcome depended on it."
+    }
+  ],
+  "not_checked": {
+    "pm_reject": {
+      "drawn": 15,
+      "population": 133,
+      "judged": 0
+    },
+    "random_reject_unjudged": 10
+  },
+  "off_plan_verdicts": []
+}

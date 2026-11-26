@@ -1,0 +1,98 @@
+{
+  "label": "JUDGMENT",
+  "posting": "gh-airbnb:8303742",
+  "audit_id": "A014",
+  "decision": "cannot_tell",
+  "spec_version": "1.1.0-e",
+  "prompt_file": "prompts/justify.v1.md",
+  "prompt_sha256": "9d5c15d4061eefded5e8e2b2083e37834b10efeea842bce33f599352472c8289",
+  "model_requested": "claude-sonnet-5-5",
+  "at": "2026-11-26T00:03:10.095Z",
+  "models": [],
+  "session_id": "7265b6f3-5f4f-4258-b1a0-a3d7cbe3f814",
+  "exit_code": 1,
+  "error": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+  "args_without_prompt": [
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--no-session-persistence",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "prompt": "You are writing a source-grounded justification for one job posting, for one fictional job seeker. You do NOT decide whether she should apply and you do NOT give a score. You state claims about what the posting says that bear on the definition below, and you ground every claim in the posting's own text.\n\nDEFINITION OF A RELEVANT POSTING (from the job seeker's filter document):\nA posting is worth Maya's time when it is:\n- a product-management role\n- whose stated experience requirement fits her application policy: **mostly roles requiring at\n  most 4 years, sometimes 5+ or 6+, never 7+**\n- in a place she can work\n- from an employer that does not rule out sponsorship\n- ideally in one of her domains.\n\nTechnical Program Manager roles:\n- A TPM role counts as PM work for Maya only if the posting describes **owning product\n    direction**: deciding what gets built, setting the product strategy or roadmap. A posting\n    that describes only program delivery (coordinating schedules, dependencies, launches) does\n    not count.\n- The same years, location, and sponsorship conditions then apply.\n\nJOB SEEKER'S PREFERENCES (fictional persona):\n{\n \"preferred_max_years\": 4,\n \"stretch_max_years\": 6,\n \"locations\": [\n  \"San Francisco\",\n  \"Los Angeles\",\n  \"San Jose\",\n  \"Remote\"\n ],\n \"needs_sponsorship\": true,\n \"domains\": [\n  \"payments\",\n  \"fintech\",\n  \"data\",\n  \"e-commerce\",\n  \"mobile\"\n ]\n}\n\nPOSTING (the only source you may use; do not use any outside knowledge about the company):\n{\n \"id\": \"gh-airbnb:8303742\",\n \"title\": \"Product Manager, Trips\",\n \"location\": \"San Francisco, CA\",\n \"department\": \"Product Management\",\n \"text\": \"Airbnb was born in 2007 when two hosts welcomed three guests to their San Francisco home, and has since grown to over 5 million hosts who have welcomed over 2 billion guest arrivals in almost every country across the globe. Every day, hosts offer unique stays and experiences that make it possible for guests to connect with communities in a more authentic way.\\nThe Community You Will Join\\nYour Location:\\nDue to the nature of this position, the successful applicant will need to be based in San Francisco, CA to be able to conduct their work.\\nOur Commitment To Inclusion & Belonging:\\nAirbnb is committed to working with the broadest talent pool possible. We believe diverse ideas foster innovation and engagement, and allow us to attract creatively-led people, and to develop the best products, services and solutions. All qualified individuals are encouraged to apply.\\nWe strive to also provide a disability inclusive application and interview process. If you are a candidate with a disability and require reasonable accommodation in order to submit an application, please contact us at: reasonableaccommodations@airbnb.com . Please include your full name, the role you’re applying for and the accommodation necessary to assist you with the recruiting process.\\nWe ask that you only reach out to us if you are a candidate whose disability prevents you from being able to complete our online application.\\nEqual Employment Opportunity :\\nAirbnb values diversity & belonging and is proud to be an Equal Employment Opportunity employer. All individuals seeking employment at Airbnb are considered without regard to race, color, religion, national origin, age, gender, sex, marital status, ancestry, physical or mental disability, veteran status, gender identity, gender expression, sexual orientation, or any other legally protected characteristic.\\nHow We'll Take Care of You:\\nOur job titles may span more than one career level. The actual base pay is dependent upon many factors, such as: training, transferable skills, work experience, business needs and market demands. The base pay range is subject to change and may be modified in the future. This role may also be eligible for bonus, equity, benefits, and Employee Travel Credits.\\nPay Range\\n$200,000 — $240,000 USD\\nReasonable Accommodations: We are committed to providing reasonable accommodations throughout the recruitment process for applicants with disabilities. If you need assistance, or an accommodation, please let your recruiter know once you are contacted about a role.\\nA Note on Recruiting Scams: Scammers sometimes pose as Airbnb recruiters to get money or personal information from candidates. A few things that will always be true for Airbnb’s hiring process: our open roles are posted on Airbnb’s Career’s Page at careers.airbnb.com, and our recruiters correspond only from @ airbnb.com or @ ext.airbnb.com email addresses. Our recruiters will never ask for your Social Security number, bank account details, passport, or payment app information while you are interviewing. We’ll also never ask you to pay a fee, send money, deposit or cash a check, or purchase work-related equipment (such as a company laptop) during the interview process. We encourage candidates to remain vigilant of these recruiting scams and not share sensitive information if you do not believe an individual is actually affiliated with Airbnb.\"\n}\n\nINSTRUCTIONS\n1. Write 4 to 8 atomic claims. One fact per claim. Cover, when the posting addresses them: the role's title and level; the years of experience it REQUIRES (say whether a years figure is under a required/minimum heading or a preferred/bonus heading); the location; sponsorship or work authorization; the product domain.\n2. For each claim, copy ONE quote from the POSTING TEXT, character for character, that the claim rests on. Do not paraphrase, fix typos, change case, or join separate sentences. Keep it under 300 characters.\n3. If the posting does not state the fact a claim needs, set \"quote\" to null, set \"abstain\" to true, set \"proposed_label\" to \"insufficient\", and write the claim as \"The posting does not state ...\". Never fill a gap from outside knowledge.\n4. \"kind\" is \"quoted\" if the claim only restates what the quote says, or \"judgment\" if it goes beyond the quote (an inference, a comparison with the job seeker's preferences, or a reading of tone).\n5. \"proposed_label\", judged against the posting text only:\n   - \"supported\": the quote, by itself, entails the claim.\n   - \"contradicted\": the quote entails that the claim is false.\n   - \"insufficient\": no quote entails the claim either way, or the quote is only on topic.\n   Write claims that you expect to be supported or insufficient; do not write false claims on purpose.\n\nOUTPUT FORMAT. Reply with one JSON object and nothing else: no prose, no code fences. Exactly these keys:\n{\"posting_id\": \"<the id given above>\",\n \"claims\": [ {\"claim\": \"<one sentence>\", \"kind\": \"quoted\" or \"judgment\", \"quote\": \"<exact substring of the posting text>\" or null, \"proposed_label\": \"supported\" or \"contradicted\" or \"insufficient\", \"abstain\": true or false} ] }\n",
+  "reply_text": null,
+  "envelope": {
+    "duration_api_ms": 0,
+    "stop_reason": "stop_sequence",
+    "session_id": "7265b6f3-5f4f-4258-b1a0-a3d7cbe3f814",
+    "total_cost_usd": 0,
+    "usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {},
+    "permission_denials": [],
+    "terminal_reason": "api_error",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": true,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": 429,
+    "api_error_origin": "first_party",
+    "api_error": "usage_limit_reached",
+    "result": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+    "type": "result",
+    "duration_ms": 320,
+    "uuid": "c7ace15a-b8dc-4134-a370-037b9ab27871",
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "credential_expires_at": "2026-11-30T08:40:42.198Z"
+  }
+}

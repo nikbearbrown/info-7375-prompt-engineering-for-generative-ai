@@ -1,0 +1,14 @@
+{
+  "drawn_at": "2026-11-25T22:22:53.568Z",
+  "from_run": "runs/filter/v1.0.0",
+  "seed": 7375,
+  "prng": "mulberry32 (src/rng.mjs)",
+  "pm_title_regex": "/\\bproduct\\b|\\bprogram manager\\b/i",
+  "excluded": "the 55 audit postings",
+  "pool": {
+    "pm_titled": 149,
+    "other": 860
+  },
+  "method": "16 drawn from PM/product-titled pool, 24 from the rest; first half of each to dev, second to held-out; rows shuffled",
+  "enriched": "PM/product-titled postings are 149 of 1009 in the pool but 16 of 40 on the sheet. Precision/recall on this sheet are NOT population rates."
+}
