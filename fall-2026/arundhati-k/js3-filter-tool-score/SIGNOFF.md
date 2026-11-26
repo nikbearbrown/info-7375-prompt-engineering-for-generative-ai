@@ -33,12 +33,14 @@ Signed or withheld: ____________
 
 ## Driver's seat
 
+The "why" column is in my words, typed in chat 2026-11-25.
+
 | task | Claude should | I should | why the judgment stays mine | pointer |
 |---|---|---|---|---|
-| filter rules | format them, find gaps, test them | decide which words and rules count, and why | [ ] | `a725b4a4`, FILTER.md Appendix A |
-| reject audit | draw the sample blind, count, compute intervals | judge each posting | [ ] | `9ee00800`, audit/my-verdicts-2026-11-25.txt |
-| rule changes A–D | measure each one | accept or reject each one | [ ] | `8a6b77e4`, FILTER.md Revisions |
-| held-out labels | draw the set, hide verdicts | label each posting | [ ] | labels/my-heldout-labels-2026-11-25.txt |
-| claim labels | auto-label, show the quote | confirm or override the "read" labels | [ ] | SHORTLIST.md |
-| tool trust | run probes, record transcripts | decide whether to trust each server | [ ] | TOOL-EVALUATIONS.md |
-| is a posting worth my time | rank and quote evidence | decide, and apply | [ ] | SCORE-CHANGES.md (#14, #4 vs my rules) |
+| filter rules | format them, find gaps, test them | decide which words and rules count, and why | I decide which skills, titles, experience levels, and locations matter for the roles I want. | `a725b4a4`, FILTER.md Appendix A |
+| reject audit | draw the sample blind, count, compute intervals | judge each posting | The tool can select the sample and calculate results, but I have to decide whether each rejected posting was actually relevant. | `9ee00800`, audit/my-verdicts-2026-11-25.txt |
+| rule changes A–D | measure each one | accept or reject each one | Claude can show how each change affects the results, but I decide which trade-offs are acceptable. | `8a6b77e4`, FILTER.md Revisions |
+| held-out labels | draw the set, hide verdicts | label each posting | I have to judge whether each posting matches my criteria without using the filter's verdict as the answer. | labels/my-heldout-labels-2026-11-25.txt |
+| claim labels | auto-label, show the quote | confirm or override the "read" labels | I have to read the full sentence and decide whether the posting really supports, contradicts, or gives insufficient evidence for each claim. | SHORTLIST.md |
+| tool trust | run probes, record transcripts | decide whether to trust each server | Claude can run tests and show what a server does, but I am responsible for deciding what access I am comfortable giving it. | TOOL-EVALUATIONS.md |
+| is a posting worth my time | rank and quote evidence | decide, and apply | The agent can rank jobs and show evidence, but I make the final decision about where to spend my time and whether to apply. | SCORE-CHANGES.md (#14, #4 vs my rules) |
