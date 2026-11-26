@@ -28,7 +28,7 @@
 - **The 62 blind hand labels** (`4d633be9`).
 - **Keeping those labels as-is** after Claude reported their conflict with LABELING.md (`labels/DECISION.md`).
 - **Adopting v1.1 and rejecting v1.2 for now** (FILTER.md §E).
-- **Still to come, in Siddi's own words:** the two trust decisions (TOOL-SERVER.md), FRICTIONAL.md, and signing or withholding the sign-off.
+- **In Siddi's own words, saved verbatim:** the two trust decisions (TOOL-SERVER.md) and FRICTIONAL.md (entry topics follow a list Claude suggested on request). Still to come: signing or withholding the sign-off.
 
 ## What Claude contributed
 

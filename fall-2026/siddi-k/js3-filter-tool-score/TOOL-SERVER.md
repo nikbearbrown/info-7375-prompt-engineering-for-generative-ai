@@ -1,6 +1,6 @@
 # The tool, its transcripts, and two evaluations (brief Step 2.3)
 
-Facts and tables by Claude, each pointing to its evidence file. The two **trust decisions** are Siddi's.
+Facts and tables by Claude, each pointing to its evidence file. The two **trust decisions** are Siddi's, saved verbatim.
 
 ## 1. What the agent offers Claude
 
@@ -42,9 +42,11 @@ Facts and tables by Claude, each pointing to its evidence file. The two **trust 
 - treat a verdict as a judgment that a posting is worth Siddi's time;
 - take the annotations as guarantees. The 2025-11-25 schema calls every `ToolAnnotations` property a **hint**, and says clients should never make tool-use decisions based on annotations received from untrusted servers. (Copy saved 2026-11-18 in Make-up 1's `evidence/sources/2025-11-25_schema.md`.) This server's annotations are checked by the tests above, not by the protocol.
 
-**Siddi's trust decision about this server:**
+**Siddi's trust decision about this server** (written by Siddi, pasted in chat 2026-11-25 about 22:38 ET, saved verbatim):
 
-> *(Siddi to write, in their own words: would you let Claude call this server unattended, and why? What would change your mind?)*
+### js3.mcp_server
+
+I would allow Claude to call this server unattended, but only for its current read-oriented tools and within the existing filesystem and network restrictions. I relied on the sandbox test, input-validation tests, and reading the implementation, rather than its self-description or the word “idempotent.” I would not assume repeated calls return the same data across restarts, because the server serves the newest collection and can change its answer. I would reconsider unattended use if it gained write tools, accessed files outside `evidence/`, or silently changed what collection it reads.
 
 ## 4. The other server: the course's Chapter 8 lesson server
 
@@ -62,9 +64,11 @@ Facts and tables by Claude, each pointing to its evidence file. The two **trust 
 
 **What a compatible client is not entitled to here:** the same list as in §3. In addition, the name "readonly" entitles a client to nothing: it is self-reported. The 2026-07-28 discovery page says the same of `serverInfo`, that it is self-reported and a client should not rely on it for security decisions. (Make-up 1 `evidence/sources/2026-07-28_server_discover.md`.)
 
-**Siddi's trust decision about the course server:**
+**Siddi's trust decision about the course server** (written by Siddi, pasted in chat 2026-11-25 about 22:38 ET, saved verbatim):
 
-> *(Siddi to write: would you let Claude call it unattended, and what did you rely on, the code, the probe, or the name?)*
+### Chapter 8 server
+
+I would allow Claude to call this server unattended for its limited read-only task because the code is small and contains only one in-memory record, but I would keep its scope narrow. I relied on reading the 72 lines of source code, not testing it in a sandbox, and I would not rely on the word “readonly” in its name or any unverified self-description. I know it is currently simple, but I have less test evidence for it than for my own server. I would reconsider if it gained access to external data, additional tools, or write capabilities, or if its code changed without review.
 
 ## 5. The two servers side by side
 
