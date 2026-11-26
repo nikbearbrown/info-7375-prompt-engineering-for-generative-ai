@@ -5,8 +5,10 @@
 topic word, plus "early-career level" and "US-based". Every claim has two labels against the posting's own text:
 
 - **auto**: what `jsagent3/evidence.py` decided, using the FILTER.md §5 rules.
-- **read**: what the quoted line actually says when you read the whole sentence. This was done by Claude Code on
-  2026-11-25. **[Arundhati: confirm or override each "read" label; marked ✎ where auto and read differ.]**
+- **read**: what the quoted line actually says when you read the whole sentence. Claude Code drafted these on
+  2026-11-25. **I checked all six rows where auto and read differ (marked ✎) and agreed with each one, giving my
+  reason** ([audit/my-shortlist-checks-2026-11-25.txt](audit/my-shortlist-checks-2026-11-25.txt)). I did not
+  separately re-check the 10 rows where auto and read agree.
 
 Labels: S = supported, C = contradicted, I = insufficient.
 

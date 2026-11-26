@@ -32,7 +32,7 @@ Raw responses: `data/raw/2026-11-25/*.json.gz`. No login, no applying, no messag
 | audit | drew the seeded samples and wrote the blind sheets; computed agreement and intervals; found the false friends by printing each matched line | all 54 verdicts and the #26 revision |
 | rule changes | proposed and measured A–D | decided A rejected, B added, C rejected, D added, with my reasons |
 | held-out | drew the set | all 20 labels |
-| shortlist | auto labels (code) and the "read" labels, which are Claude's reading **pending my check** | (to confirm) |
+| shortlist | auto labels (code) and the "read" labels, which are Claude's reading | checked the 6 ✎ rows and agreed with each, with my reasons (audit/my-shortlist-checks-2026-11-25.txt) |
 | tool server | wrote the server and client, ran the transcripts, drafted TOOL-EVALUATIONS facts | trust decisions (to write) |
 | score changes | wrote judge_v2 from my rules, ran P1/P2/C2 live, wrote SCORE-CHANGES.md | (none) |
 | parser bugs | found and fixed both (curly apostrophe; "four (4) years"), tests first | (none) |
