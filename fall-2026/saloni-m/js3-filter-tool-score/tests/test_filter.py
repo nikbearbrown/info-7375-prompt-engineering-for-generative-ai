@@ -77,6 +77,26 @@ class TestRules(unittest.TestCase):
         self.assertEqual(r["score"], 3)  # R4 not applied: a missing body is not a body
 
 
+class TestCandidateSwitches(unittest.TestCase):
+    """C2 and C3 (AUDIT.md section 4) are off in v1.0 and change nothing until a variant turns them on."""
+
+    def test_c2_role_veto(self):
+        import copy
+        c2 = copy.deepcopy(FLT)
+        c2["role_veto_title"] = ["architect", "recruiter"]
+        self.assertEqual(score(P("Applied AI Architect"), FLT)["decision"], "keep")
+        self.assertEqual(score(P("Applied AI Architect"), c2)["decision"], "reject")
+        self.assertEqual(score(P("Recruiting Analytics Data Engineer"), c2)["decision"], "keep")
+
+    def test_c3_years_without_experience_word(self):
+        import copy
+        c3 = copy.deepcopy(FLT)
+        c3["years_penalty"]["require_experience_word"] = False
+        p = P("ML Engineer", LONG + " 5+ years in security roles.")
+        self.assertEqual(score(p, FLT)["decision"], "keep")
+        self.assertEqual(score(p, c3)["decision"], "reject")
+
+
 class TestWrongVersions(unittest.TestCase):
     """FILTER.md §5. Each wrong version must produce a different answer from the real filter."""
 

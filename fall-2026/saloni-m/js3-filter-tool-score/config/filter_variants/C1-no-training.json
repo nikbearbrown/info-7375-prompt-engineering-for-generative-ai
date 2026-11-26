@@ -1,0 +1,56 @@
+{
+ "filter_version": "1.0-C1",
+ "threshold": 3,
+ "role_title": {
+  "weight": 3,
+  "phrases": [
+   "machine learning",
+   "ml",
+   "mlops",
+   "ai engineer",
+   "applied ai",
+   "inference",
+   "data engineer",
+   "data engineering",
+   "data platform",
+   "analytics engineer"
+  ]
+ },
+ "seniority_veto_title": [
+  "senior",
+  "sr",
+  "staff",
+  "principal",
+  "lead",
+  "manager",
+  "head",
+  "director",
+  "vp",
+  "distinguished"
+ ],
+ "topic_text": {
+  "weight_each": 1,
+  "cap": 2,
+  "phrases": [
+   "python",
+   "sql",
+   "mlflow",
+   "databricks",
+   "spark",
+   "airflow",
+   "langgraph",
+   "llm",
+   "evaluation",
+   "data pipeline"
+  ]
+ },
+ "years_penalty": {
+  "weight": -3,
+  "min_years": 5
+ },
+ "phd_penalty": {
+  "weight": -2
+ },
+ "text_min_chars": 300,
+ "_change": "topic word \"training\" removed (false-friend candidate)"
+}

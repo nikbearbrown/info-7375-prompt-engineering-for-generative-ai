@@ -15,6 +15,8 @@ DEFAULT_DOC = os.path.join(HERE, "FILTER.md")
 _BLOCK = re.compile(r"```json filter\n(.*?)\n```", re.S)
 # R4: a number of years within 60 characters before "experience".
 _YEARS = re.compile(r"(\d{1,2})\s*\+?\s*(?:-|–|to)?\s*(?:\d{1,2})?\s*\+?\s*years?\b[^.\n]{0,60}?\bexperience", re.I)
+# Candidate C3 (off in v1.0): a number of years with no "experience" word, e.g. "5+ years in security roles".
+_YEARS_ANY = re.compile(r"(\d{1,2})\s*\+\s*years?\b|(\d{1,2})\s*(?:-|–|to)\s*\d{1,2}\s*years?\b", re.I)
 _PHD = re.compile(r"\bph\.?\s?d\.?(?![a-z])", re.I)
 _REQUIRED = re.compile(r"\b(required|require|requires|must)\b", re.I)
 _SOFT = re.compile(r"\b(preferred|or equivalent|nice to have|a plus|bonus)\b", re.I)
@@ -32,11 +34,16 @@ def load_filter(doc_path=DEFAULT_DOC, override_json=None):
     return json.loads(blocks[0])
 
 
-def years_required(text):
-    """Largest minimum number of years asked for next to 'experience', or None."""
-    found = [int(m.group(1)) for m in _YEARS.finditer(text or "")]
+def years_required(text, require_experience_word=True):
+    """Largest minimum number of years asked for (next to 'experience', unless switched off), or None."""
+    if require_experience_word:
+        ms = list(_YEARS.finditer(text or ""))
+        found = [int(m.group(1)) for m in ms]
+    else:
+        ms = list(_YEARS_ANY.finditer(text or ""))
+        found = [int(m.group(1) or m.group(2)) for m in ms]
     found = [y for y in found if 0 < y < 30]
-    return (max(found), [m.group(0) for m in _YEARS.finditer(text or "")]) if found else (None, [])
+    return (max(found), [m.group(0) for m in ms]) if found else (None, [])
 
 
 def phd_required(text):
@@ -58,6 +65,11 @@ def score(posting, flt):
     veto = [p for p in flt["seniority_veto_title"] if has_phrase(title, p)]
     if veto:
         fired.append({"rule": "R2", "where": "title", "matched": veto, "points": "veto"})
+    # Candidate C2 (absent in v1.0): titles that name a non-building role.
+    role_veto = [p for p in flt.get("role_veto_title", []) if has_phrase(title, p)]
+    if role_veto:
+        fired.append({"rule": "R2b", "where": "title", "matched": role_veto, "points": "veto"})
+        veto = veto + role_veto
 
     text_missing = len(text) < flt["text_min_chars"]
     if text_missing:
@@ -70,7 +82,7 @@ def score(posting, flt):
             pts = min(len(topic) * flt["topic_text"]["weight_each"], flt["topic_text"]["cap"])
             total += pts
             fired.append({"rule": "R3", "where": "text", "matched": topic, "points": pts})
-        yrs, spans = years_required(text)
+        yrs, spans = years_required(text, flt["years_penalty"].get("require_experience_word", True))
         if yrs is not None and yrs >= flt["years_penalty"]["min_years"]:
             total += flt["years_penalty"]["weight"]
             fired.append({"rule": "R4", "where": "text", "matched": spans[:3], "points": flt["years_penalty"]["weight"],

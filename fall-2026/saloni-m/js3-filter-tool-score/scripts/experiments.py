@@ -1,7 +1,8 @@
 """What moves the score (Chapter 9): one change to one object at a time, on the 30 held-out postings.
 
     python3 scripts/experiments.py run [--variants J0,J1,J2,J3] [--workers 4]   # real Claude calls
-    python3 scripts/experiments.py measure                                      # needs labels/heldout_sheet.csv labelled
+    python3 scripts/experiments.py measure --sheet audit                        # dev labels: choose filter rules
+    python3 scripts/experiments.py measure                                      # held-out labels: once, at the end
 
 Claude variants (each differs from J0 in exactly one object):
   J0  baseline: prompts/judge_v1.md, full posting context, no tools
@@ -120,11 +121,11 @@ def tally(pred, hand):
     return c
 
 
-def measure():
-    with open(os.path.join(HERE, "labels", "heldout_sheet.csv"), newline="", encoding="utf-8") as f:
+def measure(sheet="heldout"):
+    with open(os.path.join(HERE, "labels", f"{sheet}_sheet.csv"), newline="", encoding="utf-8") as f:
         hand = {r["uid"]: r["hand_label"] for r in csv.DictReader(f)}
     if not all(hand.values()):
-        sys.exit("labels/heldout_sheet.csv is not fully labelled; run scripts/label.py labels/heldout_sheet.csv")
+        sys.exit(f"labels/{sheet}_sheet.csv is not fully labelled; run scripts/label.py labels/{sheet}_sheet.csv")
     posts = {p["uid"]: p for p in load_postings(latest_snapshot())}
     rows = []
     for name, (desc, flt) in filter_variants().items():
@@ -132,7 +133,7 @@ def measure():
         rows.append({"variant": name, "changed": desc, **tally(pred, hand)})
     for var, v in CLAUDE_VARIANTS.items():
         path = os.path.join(OUT, f"{var}.jsonl")
-        if not os.path.exists(path):
+        if sheet != "heldout" or not os.path.exists(path):
             continue
         with open(path, encoding="utf-8") as f:
             recs = [json.loads(line) for line in f]
@@ -141,7 +142,7 @@ def measure():
         rows.append({"variant": var, "changed": v["changed"], "claude_calls": len(recs),
                      "ran_utc": f"{dates[0]} .. {dates[-1]}", **tally(pred, hand)})
     print(json.dumps(rows, indent=2))
-    with open(os.path.join(OUT, "measure.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT, f"measure-{sheet}.json"), "w", encoding="utf-8") as f:
         json.dump(rows, f, indent=2)
 
 
@@ -150,11 +151,13 @@ def main():
     ap.add_argument("cmd", choices=["run", "measure"])
     ap.add_argument("--variants", default="J0,J1,J2,J3")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--sheet", default="heldout", choices=["heldout", "audit"],
+                    help="audit = dev labels, filter variants only (to choose rules); heldout = final, once")
     a = ap.parse_args()
     if a.cmd == "run":
         run(a.variants.split(","), a.workers)
     else:
-        measure()
+        measure(a.sheet)
 
 
 if __name__ == "__main__":
