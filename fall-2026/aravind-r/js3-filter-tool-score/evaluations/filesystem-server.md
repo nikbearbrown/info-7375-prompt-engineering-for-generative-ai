@@ -1,6 +1,6 @@
 # Evaluation: the reference Filesystem MCP server
 
-**Drafted by Claude Code on 2026-11-25. For Aravind to edit; the trust decision is Aravind's.**
+**Drafted by Claude Code on 2026-11-25. Trust decision reviewed and adopted by Aravind, 2026-11-25; filesystem-server findings verified by Aravind in its source.**
 
 **Source:** `modelcontextprotocol/servers`, `src/filesystem`, npm `@modelcontextprotocol/server-filesystem` v2.4.0.
 - Read at commit `c799c8552b0f27b7a33a7b9233773da144dddcf5` (2026-11-18), shallow-cloned into the
@@ -56,7 +56,7 @@
 - The `@modelcontextprotocol/server` SDK it depends on: not read.
 - Its tests (`__tests__/`): not run. The server itself was never started.
 
-## Trust decision (draft)
+## Trust decision (Aravind, 2026-11-25)
 
 - **Would use:** only with `--read-only` **and** `--confine-roots`, with explicit command-line
   directories that hold no secrets, preferably in Docker with a read-only mount.

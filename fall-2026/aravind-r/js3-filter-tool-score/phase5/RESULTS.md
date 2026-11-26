@@ -19,7 +19,8 @@ evaluations are logged, with every row, in `phase5/heldout-log.jsonl` (2 entries
   product-titled), but under the corrected definition none qualifies. So **recall cannot be measured,
   and the threshold change cannot be judged on held-out.**
 - The change quadruples the snapshot shortlist (4 → 16 kept). None of the 12 new keeps is in the
-  held-out set, so whether they are right is untested.
+  held-out set, so whether they are right is untested. They were later hand-judged as a post-hoc diff-set (3 relevant
+  of 12); see 'Diff-set' below.
 - **The only measured fact:** neither version surfaced a held-out posting labeled not_relevant (0 of
   20).
   - 0 of 20 has an exact 95% upper bound of **16.8%** on the share of not-relevant held-out postings a

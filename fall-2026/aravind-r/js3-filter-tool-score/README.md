@@ -47,6 +47,8 @@ example after `nvm use 20`.
 cd fall-2026/aravind-r/js3-filter-tool-score
 ```
 
+In the Canvas zip, this folder is the zip's root (js3-filter-tool-score/); skip the cd.
+
 The tests (no network; synthetic fixtures plus the frozen snapshot; 71 tests):
 
 ```bash

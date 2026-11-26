@@ -1,6 +1,6 @@
 # Evaluation: my own MCP server (`mcp/server.mjs`), read as if someone else wrote it
 
-**Drafted by Claude Code on 2026-11-25. For Aravind to edit; the trust decision is Aravind's.**
+**Drafted by Claude Code on 2026-11-25. Trust decision reviewed and adopted by Aravind, 2026-11-25; filesystem-server findings verified by Aravind in its source.**
 
 **Marks:** **[V]** verified, with the evidence named. **[I]** inferred, not tested.
 
@@ -53,7 +53,7 @@ Speaking MCP correctly does not give a client:
   after the run.
 - [I] Not tested with any other client.
 
-## Trust decision (draft)
+## Trust decision (Aravind, 2026-11-25)
 
 **Trust it for its stated use:** a local stdio server, launched by me, against my own frozen
 snapshot. Its write path is one append-only file inside the project folder, it has no network path,
