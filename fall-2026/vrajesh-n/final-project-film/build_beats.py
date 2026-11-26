@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Build beat_sheet.json for the Early Bird pitch film, then sync it to the measured audio.
 
-Source script: SCRIPT.md (v0.2, 2026-10-14). Narration below is that script, respelled
+Source script: SCRIPT.md (v1.0, 2026-10-24). Narration below is that script, respelled
 only where Kokoro would misread it ("Info seventy-three seventy-five" for INFO 7375,
-"Screener" for Screenr, "Fast A P I" for FastAPI). Every on-screen figure is listed in
-FACTCHECK.md with its source; the only measured figures are from evidence/2026-10-14/,
-because Early Bird is not built.
+"Kuh-mure" for Commure, "I Ds" for IDs, "S Q L" for SQL, "Screener" for Screenr,
+"Fast A P I" for FastAPI, "Lang Graph" for LangGraph). Every on-screen figure is listed
+in FACTCHECK.md with its source; Early Bird is not built, so the only measured figures
+come from saved board files and the runs listed there.
 
 Two steps, either side of the audio:
 
@@ -52,140 +53,154 @@ def beat(bid, act, role, narration, est, pattern, props, show, cue_words=None, l
 
 
 BEATS = [
-    beat("B00", "OPEN", "Cold open: who is speaking, the synthetic-voice disclosure, and the need in one breath.",
-         "Hi, I'm Vrajesh. This is my final project pitch for Info seventy-three seventy-five, read by a "
-         "synthetic voice from my own script. I graduate in December, and I'm job hunting right now. In this "
-         "market, I don't want to skip a single software job. I want to see every new one, early.",
-         20, "EbOpen", {},
-         [{"at": 0.0, "event": "title lockup 'Early Bird.' over a rising sun line"},
-          {"at": "synthetic", "event": "honesty chip: synthetic voice, my script"},
-          {"at": "December", "event": "chip: graduating December 2026"},
-          {"at": "skip", "event": "a row of job cards; none is crossed out"},
-          {"at": "early", "event": "the newest card lifts and glows"}],
+    beat("B00", "OPEN", "Cold open: who is speaking, how the script was made, the synthetic voice, the need.",
+         "Hi, I'm Vrajesh, and this is my final project pitch for Info seventy-three seventy-five. I drafted this "
+         "script with Claude from my own decisions, and a synthetic voice reads it. I graduate in December, and I'm "
+         "job hunting right now. In this market, I don't want to skip a single software job. I want to see every new "
+         "one, early.",
+         20, "EfOpen", {},
+         [{"at": 0.0, "event": "title 'Early Bird.' over a rising sun"},
+          {"at": "synthetic", "event": "disclosure pill: script drafted with Claude, synthetic voice"},
+          {"at": "December", "event": "pill: Dec 2026 grad"},
+          {"at": "skip", "event": "a row of software job cards, all kept"},
+          {"at": "early", "event": "the newest card lifts: new"}],
          cue_words={"name": ("vrajesh", 1), "voice": ("synthetic", 1), "december": ("december", 1),
                     "skip": ("skip", 1), "early": ("early", 1)},
          lane="bookend"),
 
-    beat("B01", "WHAT", "Q1. One sentence, then the artifact and its form.",
-         "My project is Early Bird, a small Python agent. Each time I run it, it checks the job boards of the "
-         "twenty-five to thirty companies on my list, and reports only the software, full-stack and AI postings "
-         "that are new since the last run. The finished artifact is a public GitHub repository: a command-line "
-         "tool with its tests, the saved board responses, and one report per run.",
-         24, "EbWhatItIs", {},
-         [{"at": "agent", "event": "the agent box appears centre"},
-          {"at": "boards", "event": "company board chips stream in from the left"},
-          {"at": "new", "event": "only two cards pass through to the report"},
-          {"at": "artifact", "event": "artifact pills: repo, CLI, tests, saved responses, reports"}],
+    beat("B01", "WHAT", "Q1. One sentence, then the artifact and its form. PLANNED.",
+         "My project is Early Bird, a small Python agent I will build. Each time I run it, it will check the public "
+         "job boards of the twenty-five to thirty companies on my list, and report only the software, full-stack and "
+         "AI postings that are new since the last run. The finished artifact will be a public GitHub repository: a "
+         "command-line tool, its tests, the saved board responses, and one report per run.",
+         24, "EfWhat", {},
+         [{"at": "agent", "event": "run station appears"},
+          {"at": "boards", "event": "my-list station: Greenhouse, Lever, Ashby"},
+          {"at": "new", "event": "report station: only new software / full-stack / AI"},
+          {"at": "artifact", "event": "artifact pills"}],
          cue_words={"agent": ("agent", 1), "boards": ("boards", 1), "new": ("new", 1),
-                    "artifact": ("artifact", 1), "report": ("report", 1)}),
+                    "artifact": ("artifact", 1), "report": ("report", 2)}),
 
-    beat("B02", "EXISTS", "Exists today: the real probe run of 2026-10-14, numbers from evidence/2026-10-14/summary.json.",
-         "The agent doesn't exist yet. What exists is one probe I ran this morning, October fourteenth, against "
-         "five public job boards: Kuh-mure, Stripe, Figma, Databricks and Palantir. These are example companies, "
-         "not my private list. Two thousand one hundred fifty-six postings came back, and I saved every raw response.",
-         22, "EbProbe", {},
-         [{"at": "probe", "event": "terminal plate, REAL RUN 2026-10-14 chip"},
-          {"at": "boards", "event": "five real output rows land one by one"},
-          {"at": "example", "event": "caption: example companies, not my list"},
-          {"at": "thousand", "event": "hero counter climbs to 2,156"},
-          {"at": "saved", "event": "raw-file chips drop into a folder"}],
-         cue_words={"probe": ("probe", 1), "boards": ("boards", 1), "example": ("example", 1),
-                    "total": ("thousand", 1), "saved": ("saved", 1)}),
+    beat("B02", "EXISTS", "Exists today, REAL: two saved Commure snapshots (2026-10-14, 2026-10-23) and the ID diff "
+         "I ran on 2026-10-24.",
+         "The agent doesn't exist yet. What exists is real data. I saved Kuh-mure's public job board twice: on "
+         "October fourteenth, and again on October twenty-third. Eighty postings, then eighty-one. I compared the "
+         "posting I Ds: twelve were new, and eleven were gone. Five of the twelve new ones were software engineering "
+         "roles. Seven were not software: sales, marketing, design, and one partnerships role.",
+         24, "EfExists", {},
+         [{"at": "fourteenth", "event": "dot grid, Oct 14: 80 postings"},
+          {"at": "twenty-third", "event": "dot grid, Oct 23: 81 postings"},
+          {"at": "twelve", "event": "12 new dots light"},
+          {"at": "eleven", "event": "11 gone dots hollow on the left"},
+          {"at": "Five", "event": "5 software / 7 other"}],
+         cue_words={"data": ("data", 1), "fourteenth": ("fourteenth", 1), "twentythird": ("twenty-third", 1),
+                    "eighty": ("eighty", 1), "twelve": ("twelve", 1), "eleven": ("eleven", 1),
+                    "five": ("five", 1), "seven": ("seven", 1)}),
 
-    beat("B03", "WHY", "Q2. Two real alternatives examined (greenhouse-watch read 2026-10-14; LinkedIn Job Match "
-         "from launch coverage) and the specific difference.",
-         "Two things already exist. The course's own greenhouse-watch tool watches one board at a time, and keeps "
-         "only postings that match my resume keywords. In its demo, Figma posted eleven new jobs in four days, and "
-         "it kept none. LinkedIn's Job Match compares my profile with a posting, but only for jobs on LinkedIn, and "
-         "I can't re-run how it decided. Early Bird watches my whole list in one run. It keeps every software job, "
-         "instead of scoring skill gaps away. It only flags hard blockers, like five years required, and it quotes "
-         "the line, and code checks that the quote is really in the posting. It never applies for me.",
-         42, "EbAlternatives", {},
-         [{"at": "tool", "event": "column: greenhouse-watch"},
-          {"at": "none", "event": "stat pill: Figma demo, 11 new, 0 kept"},
-          {"at": "compares", "event": "column: LinkedIn Job Match"},
-          {"at": "whole", "event": "column: Early Bird (planned); its unique row lights"},
-          {"at": "quotes", "event": "a quoted blocker line with a check mark"}],
-         cue_words={"gw": ("tool", 1), "none": ("none", 1), "linkedin": ("compares", 1),
-                    "eb": ("whole", 1), "keeps": ("keeps", 2), "quotes": ("quotes", 1), "never": ("never", 1)}),
+    beat("B03", "WHY", "Q2. REAL: greenhouse-watch run by me on the same two snapshots (2026-10-24, course sample "
+         "resume). LinkedIn Job Match from launch coverage. PLANNED: Early Bird's difference.",
+         "The closest alternative is the course's own greenhouse-watch. I ran it myself on the same two snapshots, "
+         "with the course's sample resume. It found the same twelve new postings, and kept all five software roles. "
+         "But it also kept Head of Performance Creative, a marketing job, because the posting mentions Python and "
+         "S Q L. It watches one board per run, and keeps what passes a resume-word score. LinkedIn's Job Match only "
+         "covers LinkedIn jobs, and I can't re-run how it decided. Early Bird will watch my whole list in one run, "
+         "decide what counts as a software job from the role itself, not resume overlap, and keep every one, "
+         "flagging only hard blockers, quoting the line from the posting.",
+         46, "EfAlternative", {},
+         [{"at": "ran", "event": "the 12 new titles list in"},
+          {"at": "kept", "event": "greenhouse-watch column: 6 checks, 6 dashes"},
+          {"at": "marketing", "event": "MARKETING stamp on Head of Performance Creative; matched words"},
+          {"at": "one", "event": "cut to three option cards"},
+          {"at": "whole", "event": "Early Bird card (planned)"},
+          {"at": "quoting", "event": "example quoted blocker"}],
+         cue_words={"ran": ("ran", 1), "same": ("same", 1), "kept": ("kept", 1), "marketing": ("marketing", 1),
+                    "one": ("one", 1), "linkedin": ("linkedin's", 1), "whole": ("whole", 1),
+                    "quoting": ("quoting", 1)}),
 
-    beat("B04", "WHO", "Q3. The reader, and their first sixty seconds. Output is CONSTRUCTED (nothing is built).",
-         "Who opens it? A hiring manager for a full-stack or AI engineering role. In the first sixty seconds, they "
-         "run one command on labeled sample data, and open the report: new postings, quoted blockers, and the tests "
-         "that passed. The other user is me, before every application session.",
-         20, "EbFirstMinute", {},
+    beat("B04", "WHO", "Q3. The reader and their first sixty seconds. CONSTRUCTED (nothing is built).",
+         "Who will open it? A hiring manager for a full-stack or AI engineering role. In the first sixty seconds, "
+         "they will run one command on labeled sample data, and open the report: new postings, quoted blockers, and "
+         "the tests that passed. The other user will be me, before every application session.",
+         20, "EfWho", {},
          [{"at": "hiring", "event": "reader pill"},
-          {"at": "command", "event": "the command types into a terminal plate"},
-          {"at": "report", "event": "constructed report rows appear, labelled CONSTRUCTED"},
-          {"at": "me", "event": "second reader pill: me, before applying"}],
-         cue_words={"hiring": ("hiring", 1), "command": ("command", 1), "report": ("report", 1),
-                    "blockers": ("blockers", 1), "tests": ("tests", 1), "me": ("me", 1)}),
+          {"at": "sixty", "event": "60 s ring starts to sweep"},
+          {"at": "command", "event": "step 1: the command"},
+          {"at": "report", "event": "step 2: open the report"},
+          {"at": "blockers", "event": "step 3: what is in it"},
+          {"at": "me", "event": "second user: me"}],
+         cue_words={"hiring": ("hiring", 1), "sixty": ("sixty", 1), "command": ("command", 1),
+                    "report": ("report", 1), "blockers": ("blockers", 1), "me": ("me", 1)}),
 
-    beat("B05", "PROVES", "Q4. Course topics tied to the planned evidence for each.",
-         "What does it prove about me? Prompt contracts: Claude must answer in a fixed format, and a validator "
-         "rejects anything else. Verification: a rule anyone can recompute, next to a labeled Claude judgment. "
-         "Agent loops, with budgets and honest exit statuses. And evaluation: twenty postings I label by hand, "
-         "with ten held back for the final test.",
-         22, "EbProves", {},
-         [{"at": "contracts", "event": "tile 1: prompt contract, a JSON shape and a red reject"},
-          {"at": "verification", "event": "tile 2: record beside judgment"},
-          {"at": "loops", "event": "tile 3: a loop with a budget bar and exit tags"},
-          {"at": "evaluation", "event": "tile 4: 20 label dots, 10 split off as held out"}],
+    beat("B05", "PROVES", "Q4. Course topics tied to the evidence I will produce. PLANNED.",
+         "What will it prove about me? Prompt contracts: Claude will have to answer in a fixed format, and a "
+         "validator will reject anything else. Verification: a rule anyone can recompute, next to a labeled Claude "
+         "judgment. Agent loops, with budgets and honest exit statuses. And evaluation: twenty postings I will label "
+         "by hand, with ten held back for the final test.",
+         22, "EfProves", {},
+         [{"at": "contracts", "event": "ledger row 1"}, {"at": "verification", "event": "row 2"},
+          {"at": "loops", "event": "row 3"}, {"at": "evaluation", "event": "row 4"}],
          cue_words={"contracts": ("contracts", 1), "verification": ("verification", 1), "loops": ("loops", 1),
-                    "evaluation": ("evaluation", 1), "held": ("held", 1)}),
+                    "evaluation": ("evaluation", 1)}),
 
-    beat("B06", "SCOPE", "Q5. One deliberate exclusion, the first piece that runs, and how to verify it.",
+    beat("B06", "SCOPE", "Q5. Exclusions, the first piece that runs, and how to verify it: the REAL answer key "
+         "(12 new IDs) the PLANNED watcher must reproduce.",
          "What's out, on purpose: auto-applying, logging in, messaging anyone, and scraping LinkedIn. Companies on "
-         "their own hiring systems, like Google, will be marked unsupported, not guessed at. The first piece I'll "
-         "make run is the watcher on one board, Kuh-mure. Run one is a baseline and reports zero new. A later run "
-         "reports only new posting IDs, and anyone can check that by comparing the two saved files. As a second, "
-         "independent check, I'll run the course's greenhouse-watch on the same saved data, and compare our lists.",
-         36, "EbFirstRun", {},
-         [{"at": "out", "event": "four excluded actions, struck through"},
-          {"at": "unsupported", "event": "Google chip greys to 'unsupported'"},
-          {"at": "baseline", "event": "run 1 file card: baseline, 0 new"},
-          {"at": "later", "event": "run 2 file card: only new IDs highlighted"},
-          {"at": "independent", "event": "greenhouse-watch card joins with an equals sign"}],
+         "their own hiring systems, like Google, will be marked unsupported. The first piece I'll make run is the "
+         "watcher on Kuh-mure, and its check already has an answer key: the twelve new I Ds from my two saved files. "
+         "The watcher will have to report exactly those twelve, and my greenhouse-watch run is a second, independent "
+         "list.",
+         34, "EfScope", {},
+         [{"at": "out", "event": "four exclusions struck through"},
+          {"at": "unsupported", "event": "Google greys to unsupported"},
+          {"at": "first", "event": "answer-key card"},
+          {"at": "key", "event": "12 real ID prefixes pop in"},
+          {"at": "twelve", "event": "watcher must report exactly these 12 (planned)"},
+          {"at": "independent", "event": "greenhouse-watch also found 12 (real)"}],
          cue_words={"out": ("out", 1), "unsupported": ("unsupported", 1), "first": ("first", 1),
-                    "baseline": ("baseline", 1), "later": ("later", 1), "comparing": ("comparing", 1),
+                    "key": ("key", 1), "twelve": ("twelve", 2), "recompute": ("exactly", 1),
                     "independent": ("independent", 1)}),
 
-    beat("B07", "RISK", "Q6. One concrete, project-specific risk (real titles from evidence/2026-10-14) and the mitigation.",
-         "What could break it? Keeping every software job only works if software job is decided correctly. My "
-         "probe's simple keyword rule matched seven hundred eighty-nine titles, and some of them are sales jobs, "
-         "like Account Executive, AI Sales, at Stripe. If the report fills with noise, I'll stop reading it. So I'll "
-         "write the rule before the code, hand-label real postings, audit thirty random rejects, and only accept a "
-         "Claude verdict that quotes the posting.",
-         30, "EbRisk", {},
-         [{"at": "matched", "event": "real titles fall through a keyword sieve; counter 789 of 2,156"},
-          {"at": "sales", "event": "SALES stamp on 'Account Executive, AI Sales'"},
-          {"at": "noise", "event": "the report card fogs over"},
-          {"at": "rule", "event": "four mitigation pills clear the fog"}],
-         cue_words={"matched": ("matched", 1), "sales": ("sales", 1), "noise": ("noise", 1),
-                    "rule": ("rule", 2), "hand": ("hand-label", 1), "audit": ("audit", 1), "quotes": ("quotes", 1)}),
+    beat("B07", "RISK", "Q6. The risk: deciding what counts as a software job. Three REAL titles (Commure 2026-10-23, "
+         "my greenhouse-watch run, Stripe from the 2026-10-14 probe) and the mitigation.",
+         "What could break it? Deciding what counts as a software job. Words mislead both ways. Sales Strategy and "
+         "Operations, Agents, is a sales job. greenhouse-watch kept a marketing role because the posting said Python. "
+         "And across five boards, my probe's keyword rule matched seven hundred eighty-nine titles, including Account "
+         "Executive, AI Sales, at Stripe. So I'll write the rule before the code, hand-label real postings, audit "
+         "thirty random rejects, and only accept a Claude verdict that quotes the posting.",
+         32, "EfRisk", {},
+         [{"at": "Agents", "event": "case 1 + SALES stamp"},
+          {"at": "Python", "event": "case 2 + MARKETING stamp"},
+          {"at": "Account", "event": "case 3 + SALES stamp"},
+          {"at": "matched", "event": "counter 789 of 2,156"},
+          {"at": "rule", "event": "four mitigation pills"}],
+         cue_words={"deciding": ("deciding", 1), "agents": ("agents", 1), "python": ("python", 1),
+                    "account": ("account", 1), "matched": ("matched", 1), "rule": ("rule", 2),
+                    "hand": ("hand-label", 1), "audit": ("audit", 1), "quotes": ("quotes", 1)}),
 
     beat("B08", "WHYME", "Q7. Existing skills with real evidence (public repos, resume); new skills named honestly.",
          "Why this project? Some skills I already have. I've built Python and Fast A P I services, at Duma Info "
          "Services and in my public Market Data Service repo. I built Screener, a Chrome extension that filters "
          "reposted job listings. And as a software engineer intern at Wave Life Sciences, I built an AI assistant "
          "with Lang Graph, and testing agents in Claude Code. What's new for me is the discipline: contracts and "
-         "tests before code, held-out evaluation, permissions enforced in code, and a human approval gate before anything moves.",
-         34, "EbWhyMe", {},
-         [{"at": "Python", "event": "chip into 'Already have': Python + FastAPI"},
-          {"at": "Chrome", "event": "chip: job-listing filter (Screenr)"},
-          {"at": "intern", "event": "chip: LangGraph assistant"},
-          {"at": "Claude", "event": "chip: Claude Code test agents"},
-          {"at": "contracts", "event": "chips into 'New to me': four disciplines"}],
+         "tests before code, held-out evaluation, permissions enforced in code, and a human approval gate before "
+         "anything moves.",
+         34, "EfWhyMe", {},
+         [{"at": "Python", "event": "row: Python + FastAPI | repo, Duma"},
+          {"at": "Chrome", "event": "row: Screenr"},
+          {"at": "intern", "event": "row: LangGraph assistant"},
+          {"at": "Claude", "event": "row: Claude Code test agents"},
+          {"at": "contracts", "event": "New to me: four pills"}],
          cue_words={"python": ("python", 1), "screenr": ("chrome", 1), "wave": ("intern", 1),
                     "claude": ("claude", 1), "contracts": ("contracts", 1), "evaluation": ("evaluation", 1),
                     "permissions": ("permissions", 1), "gate": ("gate", 1)}),
 
-    beat("B09", "OUTRO", "Neutral student outro: title restated, no channel handle, voice disclosed again.",
-         "Early Bird won't apply for me. It makes sure I see every new job, early, with the evidence in front of me. "
-         "Then I apply. This was Vrajesh, and this pitch was read by a synthetic voice.",
-         12, "EbOutro", {},
-         [{"at": 0.0, "event": "title 'Early Bird.' returns"},
-          {"at": "see", "event": "verb chips land"},
+    beat("B09", "OUTRO", "Outro: title restated, authorship and voice disclosed again.",
+         "Early Bird won't apply for me. It will make sure I see every new software job, early, with the evidence "
+         "in front of me. Then I apply. This was Vrajesh. The script was drafted with Claude from my decisions, and "
+         "read by a synthetic voice.",
+         14, "EfOutro", {},
+         [{"at": 0.0, "event": "title returns with the sun"},
+          {"at": "see", "event": "verb pills"},
           {"at": "Vrajesh", "event": "author and colophon"}],
          cue_words={"see": ("see", 1), "evidence": ("evidence", 1), "apply": ("apply", 2), "name": ("vrajesh", 1)},
          lane="bookend", tail_silence_s=1.0),
@@ -198,7 +213,7 @@ METADATA = {
     "concept": "Early Bird: watch my target companies' public boards, report every new SWE/AI posting, quote real blockers",
     "student": "Vrajesh Nasit",
     "course": "INFO 7375",
-    "source_script": "SCRIPT.md (v0.2)",
+    "source_script": "SCRIPT.md (v1.0, 2026-10-24)",
     "engine": "kokoro",
     "voice_kokoro": VOICE,
     "clock": "narration",
@@ -207,10 +222,12 @@ METADATA = {
     "fps": 30,
     "honesty": {
         "built": False,
-        "real": "B02 and B07 show real output of evidence/probe.py, run 2026-10-14, labelled REAL RUN",
-        "mockups": "every product visual is labelled CONSTRUCTED or PLANNED",
-        "companies": "the five probe boards are example companies, not the author's private list",
-        "narration": "synthetic Kokoro am_onyx voice reading the author's script; disclosed in B00 and B09",
+        "real": "B02/B03/B06/B07: Commure snapshots saved 2026-10-14 and 2026-10-23, the ID diff and the "
+                "greenhouse-watch run the author ran on 2026-10-24, and the 2026-10-14 probe; labelled REAL",
+        "mockups": "every product visual is labelled PLANNED or CONSTRUCTED",
+        "companies": "the probe boards are example companies, not the author's private list",
+        "narration": "script drafted with Claude from the author's decisions; synthetic Kokoro am_onyx voice; "
+                     "disclosed in B00 and B09",
     },
 }
 
