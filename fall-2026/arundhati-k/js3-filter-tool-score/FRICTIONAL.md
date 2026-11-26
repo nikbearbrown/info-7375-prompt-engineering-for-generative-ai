@@ -51,6 +51,14 @@ My conclusion was that my labels were wrong, not the rules. I still need to deci
 
 **Pointer:** `SCORE-CHANGES.md`, commit `81e4bcf1`.
 
-## Entry 5 — the tool servers and my trust decisions (TOOL-EVALUATIONS.md, commit `ab371658`)
+## Entry 5 — testing the tool servers (commit `ab371658`)
 
-[ ]
+I tested my own MCP server and Claude Code's `claude mcp serve` to understand what each one allowed. My server refused an `apply_to_job` request and a path traversal attempt using `../../etc/passwd`. That was good to see because I wanted the server to enforce boundaries instead of allowing actions outside the intended scope.
+
+What surprised me was the behavior of `claude mcp serve`. It listed 29 tools, but there were no safety annotations, and its `Read` tool returned a file without checking whether that access was allowed. This made me realize that having tools available does not automatically mean they are safe to use.
+
+I would trust my own server only with restricted permissions and after testing that its restrictions are actually enforced by the server, not just written in instructions. I would want to test more invalid inputs, unauthorized paths, and actions outside the allowed boundaries before relying on it. I would not connect `claude mcp serve` to anything yet. I would first need to inspect its tools, understand their permissions, and test it in an isolated and restricted environment.
+
+The main lesson for me was that a successful tool call does not prove a tool is safe. I need to understand what it can access and what it can change before giving it permission to work.
+
+**Pointer:** `TOOL-EVALUATIONS.md`, commit `ab371658`.
