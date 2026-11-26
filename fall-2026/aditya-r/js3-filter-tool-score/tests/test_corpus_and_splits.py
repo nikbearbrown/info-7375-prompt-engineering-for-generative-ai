@@ -55,7 +55,7 @@ def test_sheet_is_blind():
 def test_draw_is_reproducible():
     from js3.sample import draw
     before = json.dumps(GROUPS, sort_keys=True)
-    after = json.dumps(draw(), sort_keys=True)
+    after = json.dumps(draw(write=False), sort_keys=True)
     assert before == after
 
 
@@ -70,3 +70,11 @@ def test_h2_disjoint_from_sheet_blind_and_reproducible():
         header = next(csv.reader(f))
     assert not {"score", "verdict", "group", "split"} & {h.lower() for h in header}
     assert json.dumps(draw_h2(write=False), sort_keys=True) == json.dumps(h2, sort_keys=True)
+
+
+def test_labeled_sheets_match_their_seals():
+    """Guards the bug where a test re-ran the draw and blanked Aditya's labeled sheet."""
+    import hashlib
+    for sheet, seal in (("LABEL_SHEET.csv", "SEAL.json"), ("LABEL_SHEET_H2.csv", "SEAL_H2.json")):
+        want = json.loads((ROOT / "labels" / seal).read_text())["sheet_sha256"]
+        assert hashlib.sha256((ROOT / "review" / sheet).read_bytes()).hexdigest() == want, sheet

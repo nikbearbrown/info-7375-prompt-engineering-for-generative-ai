@@ -63,7 +63,8 @@ def clusters(corpus):
     return {k: min(ms) for ms in members.values() for k in ms}  # cluster id = its smallest key
 
 
-def draw():
+def draw(write=True):
+    """write=False recomputes the draw without touching any file (tests must never overwrite a labeled sheet)."""
     corpus = load_corpus()
     results, _ = score_all(load_filter("v1.0"), corpus)
     cl = clusters(corpus)
@@ -157,6 +158,8 @@ def draw():
     sheet_ids = {k: f"S{i + 1:02d}" for i, k in enumerate(all_keys)}
     groups["sheet_ids"] = sheet_ids
     groups["split_of_sheet_id"] = {sheet_ids[k]: ("heldout" if k in h_keys else "dev") for k in all_keys}
+    if not write:
+        return groups
 
     (ROOT / "splits").mkdir(exist_ok=True)
     (ROOT / "splits" / "clusters.json").write_text(json.dumps(cl, indent=0, sort_keys=True) + "\n")

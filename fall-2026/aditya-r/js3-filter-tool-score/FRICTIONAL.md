@@ -86,6 +86,14 @@ Dated entries. **Claude Code's process notes** are labeled as Claude's: they rec
 - *Not acted on:* fixing the role rule now would mean fitting to H2.
 - *Learned:* a held-out set that cannot contain the cases a revision targets cannot validate that revision. Its value here was catching the interaction and the role-phrase blind spot.
 
+**16. A test had been erasing Aditya's labeled sheet**
+- While checking traceability, I found that `review/LABEL_SHEET.csv` was blank in git and on disk.
+- *Cause:* `test_draw_is_reproducible` re-ran `draw()`, which rewrites the sheet, so every test run after the transcription had blanked it. I had fixed exactly this hazard for H2 (`44d3915`) without checking the first sheet.
+- *No label was lost:* `labels/dev_labels.csv` was extracted before the first such test run.
+- *Recovery:* I rebuilt the sheet from it, and the result's sha256 equals the seal recorded at import (`bf228882…`), so it is byte-identical.
+- *Fixes:* `draw(write=False)` in the test, plus a new test that both labeled sheets still match their seals.
+- *Lesson:* a reproducibility test must not have side effects on human data.
+
 **Unresolved:**
 - whether the v1.1 changes generalize (this is what H2 tests);
 - a negation-aware early-career rule (a v1.2 candidate);
