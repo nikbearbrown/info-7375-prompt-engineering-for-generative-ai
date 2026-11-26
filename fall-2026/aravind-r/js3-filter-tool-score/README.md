@@ -106,6 +106,36 @@ The MCP server, over stdio. A client starts it; for the client config, see
 claude mcp add js3-filter -- ~/.nvm/versions/node/v20.20.2/bin/node "$PWD/mcp/server.mjs"
 ```
 
+Claude Desktop config (used for the 3 real `tools/call`). Add this to
+`~/Library/Application Support/Claude/claude_desktop_config.json` (back the file up first), then
+restart Claude Desktop:
+
+```json
+{
+  "mcpServers": {
+    "js3-filter": {
+      "command": "<HOME>/.nvm/versions/node/v20.20.2/bin/node",
+      "args": ["<ABSOLUTE PATH TO>/fall-2026/aravind-r/js3-filter-tool-score/mcp/server.mjs"]
+    }
+  }
+}
+```
+
+The judge tool (blind; shows no score, decision, or stratum; saves after every row). Audit, the
+recheck, and labels:
+
+```bash
+~/.nvm/versions/node/v20.20.2/bin/node tools/judge-audit.mjs
+```
+
+```bash
+~/.nvm/versions/node/v20.20.2/bin/node tools/judge-audit.mjs --recheck plan
+```
+
+```bash
+~/.nvm/versions/node/v20.20.2/bin/node tools/judge-audit.mjs --sheet labels/label-sheet.csv
+```
+
 Phase 5: evaluate a run against the dev labels. Held-out requires `--heldout-final --why "…"`, and
 every held-out evaluation is logged:
 
@@ -116,7 +146,7 @@ every held-out evaluation is logged:
 **Not to be re-run:**
 - `tools/make-samples.mjs` would redraw the audit and label sheets. It refuses to overwrite a sheet
   with any verdict in it.
-- `tools/judge-audit.mjs` is the interactive tool Aravind used to judge and label.
+- `tools/judge-audit.mjs` on a sheet that is already filled: it only offers empty rows, so re-running is harmless but pointless.
 
 ## What ran (past tense, with evidence)
 
@@ -129,6 +159,7 @@ every held-out evaluation is logged:
 | Filter changes v1.1.0-a…e, each with its own commit and measurement | final v1.1.0-e: keep 4, cannot_tell 3, reject 1,057, vetoes 2. Final filter vs final verdicts: random rejects 0/30 (95% upper bound 11.6%), closest calls 0/15 (dev use) | `FILTER.md` §9, tag `js3-filter-final` (`70c22c16`) |
 | False friend | primary: **"program manager"** in the title rule (A027, A044, A052); secondary: "training" (Airbnb pay boilerplate, not a filter word) | `audit/RESULTS.md` |
 | Phase 3 Claude calls (`claude -p`) | **all 7 failed** (spend limit, no reply) | `3caf2978` |
+| What did **not** run | `claude -p` for the justifications (spend limit, 0 tokens, no reply); a `tools/call` from Claude Code (same limit); any prompt or context change in Phase 5 (no held-out posting labeled relevant or cannot_tell) | `3caf2978`, `82f18acc`, `phase5/RESULTS.md` |
 | Phase 3 via claude.ai (manual) | 7 valid replies, 54 claims, all quotes verbatim. Aravind confirmed 37 supported / 6 contradicted / 11 insufficient. | `shortlist/SHORTLIST.md`, `ffd5e49f` |
 | MCP server, real clients | Claude Code: handshake and `tools/list` (`tools/call` blocked by the spend limit). Claude Desktop: 3 real `tools/call` (keep; veto with quote; `../../README.md` refused). | `transcripts/README.md`, `592026e1` |
 | Phase 5 | Held-out has **0 relevant** of 20. The baseline and threshold 0.70 both surfaced 0, so recall and the change could not be measured. No number was fitted on labels. | `phase5/RESULTS.md`, `phase5/ORIGINS.md` |
