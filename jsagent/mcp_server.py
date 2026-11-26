@@ -25,9 +25,10 @@ TOOL = {
     "name": "score_posting",
     "title": "Score one saved job posting",
     "description": (
-        "Scores one job posting from the saved 2026-11-25 snapshot against FILTER.md v1.2 for the fictional persona Evan "
-        "Gordon. Returns the bucket (kept / rejected / cannot_tell), the 0-100 score and its parts, each rule's result with "
-        "the quoted evidence, and every claim labeled supported / contradicted / insufficient. Reads only the saved snapshot "
+        "Scores one job posting from the saved 2026-11-25 snapshot against " + flt.FILTER_VERSION + " for the fictional persona "
+        "Evan Gordon. Returns the bucket (kept / rejected / cannot_tell), the 0-100 score and its parts, each rule's result "
+        "with the quoted evidence, and every claim labeled supported / contradicted / insufficient. The bucket decides: a "
+        "rejected posting still has a score, so never rank by score alone. Reads only the saved snapshot "
         "and the persona file; makes no network requests, writes no files, and gives the same answer for the same input. "
         "If the board was not observed or the posting is not in the snapshot, it says so instead of guessing. It does not "
         "decide whether a job is worth applying to."),
