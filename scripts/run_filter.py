@@ -1,6 +1,6 @@
-"""JS3 Step 3/4: run the filter (FILTER.md v1.2) on the whole snapshot and write the results and the shortlist.
+"""JS3 Step 3/4: run the filter (the FILTER.md version in jsagent/filter.py) on the whole snapshot and write the results and the shortlist.
 
-    python3 scripts/run_filter.py        # writes runs/filter-v1.2/ (refuses to overwrite)
+    python3 scripts/run_filter.py        # writes runs/filter-<version>/ (refuses to overwrite)
 
 Run only after the hand labels are finished, so the labels stay blind to the filter (FILTER.md section 5).
 """
@@ -14,7 +14,7 @@ sys.path.insert(0, str(ROOT))
 
 from jsagent import filter as flt, shortlist, snapshot  # noqa: E402
 
-OUT = ROOT / "runs" / "filter-v1.2"
+OUT = ROOT / "runs" / ("filter-" + flt.FILTER_VERSION.split()[-1])
 
 
 def main():

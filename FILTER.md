@@ -1,6 +1,6 @@
 # FILTER.md: Job-Search Agent 3 — The Filter, the Tool, and the Score
 
-Ethan Gomes · INFO 7375 · v1.2 · 2026-11-25 · written before any JS3 code
+Ethan Gomes · INFO 7375 · v1.3 · 2026-11-25 · v1–v1.2 written before any JS3 code
 
 ## Scope
 
@@ -17,14 +17,14 @@ A posting ends in exactly one of three buckets:
 - **cannot tell**: a field the rules need is missing or empty, so the filter does not guess. These are listed separately and never
   counted as rejects or as "nothing relevant".
 
-## 1. The filter (v1.2)
+## 1. The filter (v1.3)
 
 ### Hard rules
 
 | Rule | Reads | Passes when | Reasoning |
 |---|---|---|---|
-| **F1 Role** | title | The title contains one of the role phrases: "data engineer", "analytics engineer", "data platform", "data infrastructure", "data analyst", "business intelligence", "BI engineer" (case-insensitive, whole phrase) | Evan's target titles, plus the two BI phrases because Tableau and Power BI are among his shipped skills. Whole phrases, because the word "data" or "analyst" alone matches unrelated jobs |
-| **F2 Seniority** | title | The title contains none of these as whole words: Staff, Principal, Lead, Manager, Management, Director, Head, VP, Intern, Distinguished, Architect. "Senior" is allowed | These levels are above or below 4 years. Senior is judged by years (F4) instead, because many Senior data roles ask for 4–5 |
+| **F1 Role** | title | The title contains one of the role phrases: "data engineer", "analytics engineer", "data platform", "data infrastructure", "data analyst", "business intelligence", "BI engineer" (case-insensitive, whole phrase); **or** (v1.3) the title has the whole word Engineer or Developer **and** the whole word Data or Pipeline | Evan's target titles, plus the two BI phrases because Tableau and Power BI are among his shipped skills. Whole phrases, because the word "data" or "analyst" alone matches unrelated jobs. The v1.3 clause because data platform work is often titled "Software Engineer - Distributed Data Systems": it raised held-out recall from 2/7 to 6/7 |
+| **F2 Seniority** | title | The title contains none of these as whole words: Staff, Principal, Lead, Manager, Management, Director, Head, VP, Intern, Internship (v1.3), Distinguished, Architect. "Senior" is allowed | These levels are above or below 4 years. Senior is judged by years (F4) instead, because many Senior data roles ask for 4–5 |
 | **F3 Location** | location | Boston, or a US marker (state, code, "United States", listed metro) as a whole word; remote counts if it names the US | Evan is in Boston, open to remote and to relocating within the US only |
 | **F4 Years** | description | The first "N years" phrase with "experience" within 60 characters has N ≤ 5 | Evan has about 4 years; up to 5 is a fit, more is not. 3 or fewer is preferred and scores higher |
 
@@ -162,3 +162,7 @@ file's hash is recorded before tuning starts. Every change in section 1 is measu
 | v1 | 2026-11-24 | First version, written before any JS3 code | Built from the JS1 contract R1–R5, the persona and the JS2 boards |
 | v1.1 | 2026-11-25 | Score out of 100 (8 per skill, capped at 8; +16 years; +10 Boston or +5 remote US; +10 visa); visa rules V1–V2; "business intelligence" and "BI engineer" added to F1; wrong versions 9–10. Kept: threshold 2, Senior allowed, years limit 5, no years phrase = kept, fresh snapshot | My decisions on the v1 placeholders, still before any JS3 code |
 | v1.2 | 2026-11-25 | Preferred years cut-off moved from 4 to 3: N ≤ 3 gets +16; 4–5 is kept with no bonus; the limit stays 5 | I prefer roles asking 3 years or fewer, but up to 5 is still a fit; still before any JS3 code |
+| v1.3 | 2026-11-25 | **Added** to F1: Engineer/Developer + whole word Data or Pipeline (change A). Tuning recall 2/4 → 3/4, no false keeps; held-out (one look) recall 2/7 → 6/7, precision 0.67 → 0.75 | The only change that moved anything on tuning, and it held on held-out |
+| v1.3 | 2026-11-25 | **Added** "internship" to F2. **Not measured**: found on held-out, where change A kept "Software Engineer, Internship - Data Connectors"; validating it needs new labels | "intern" as a whole word misses "Internship"; my rule excludes internships |
+| v1.3 | 2026-11-25 | **Rejected** B (threshold 2 → 1), C (threshold 2 → 3), E (no location bonus): no effect on tuning (E: AUC 0.809 → 0.801), so not sent to held-out | A number that changes nothing measurable stays as written |
+| v1.3 | 2026-11-25 | **Rejected** D (drop the years ≤ 3 bonus): tuning AUC 0.809 → 0.711 (bonus helps), held-out 0.869 → 0.877 (bonus slightly hurts). Bonus kept at +16 | The two splits disagree, so with 4 and 7 relevant postings the effect is noise; no change is justified |

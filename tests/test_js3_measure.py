@@ -45,10 +45,10 @@ class W8(unittest.TestCase):
 
 class OneChangeAtATime(unittest.TestCase):
     def test_change_is_undone_after_use(self):
-        before = (flt.THRESHOLD, dict(flt.POINTS), flt.check_f1)
+        before = (flt.THRESHOLD, dict(flt.POINTS), flt.F1_ENGINEER_DATA, list(flt._EXCL))
         for change in measure.CHANGES:
             measure.evaluate_split(P, ROWS, "tuning", change)
-        self.assertEqual((flt.THRESHOLD, flt.POINTS, flt.check_f1), before)
+        self.assertEqual((flt.THRESHOLD, flt.POINTS, flt.F1_ENGINEER_DATA, flt._EXCL), before)
 
     def test_change_A_moves_only_f1(self):
         base = measure.evaluate_split(P, ROWS, "heldout")

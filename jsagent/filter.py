@@ -1,4 +1,4 @@
-"""The JS3 filter, exactly as FILTER.md v1.2 section 1 states it. Every result carries the evidence it was decided on.
+"""The JS3 filter, exactly as FILTER.md v1.3 section 1 states it. Every result carries the evidence it was decided on.
 
 Buckets: kept (every hard rule passes and T3 is met), rejected (a rule fails on evidence in the posting's own text),
 cannot_tell (no rule fails on evidence, but a field a rule needs is missing or names no country). A reject on evidence wins
@@ -10,14 +10,16 @@ from pathlib import Path
 
 from . import fetch, rule
 
-FILTER_VERSION = "FILTER.md v1.2"
+FILTER_VERSION = "FILTER.md v1.3"
 ROOT = Path(__file__).resolve().parent.parent
 PERSONA = json.loads((ROOT / "persona" / "evan-gordon.resume.json").read_text())
 
 # F1: Evan's target titles plus the two BI phrases (v1.1). Whole phrase, case-insensitive.
 ROLE_PHRASES = list(PERSONA["search"]["target_titles"]) + ["business intelligence", "BI engineer"]
-# F2: excluded whole words, case-insensitive. "Senior" is allowed.
-EXCLUDED = list(PERSONA["search"]["excluded_title_terms"])
+# F1, v1.3 (change A, measured on held-out): also an Engineer/Developer title with the whole word Data or Pipeline.
+F1_ENGINEER_DATA = True
+# F2: excluded whole words, case-insensitive. "Senior" is allowed. v1.3 adds "internship" (found on held-out, not measured).
+EXCLUDED = list(PERSONA["search"]["excluded_title_terms"]) + ["internship"]
 MAX_YEARS = 5          # F4 gate, inherited from the persona
 PREFERRED_YEARS = 3    # score bonus cut-off, v1.2
 # T1/T2: Evan's shipped skills; "familiar_with_not_shipped" (Flink, Kubernetes) never counts.
@@ -56,11 +58,17 @@ def _rule(result, field, span, why):
     return {"result": result, "field": field, "span": span, "why": why}
 
 
+_ENGINEER = re.compile(r"(?<![A-Za-z0-9])(engineer|developer)(?![A-Za-z0-9])", re.I)
+_DATA_WORD = re.compile(r"(?<![A-Za-z0-9])(data|pipeline)(?![A-Za-z0-9])", re.I)
+
+
 def check_f1(title):
     for phrase, rx in _ROLE:
         m = rx.search(title)
         if m:
             return _rule("pass", "title", m.group(0), f"title contains the role phrase '{phrase}'")
+    if F1_ENGINEER_DATA and _ENGINEER.search(title) and _DATA_WORD.search(title):
+        return _rule("pass", "title", title, "an Engineer/Developer title with the whole word Data or Pipeline (v1.3)")
     return _rule("fail", "title", title, "title contains none of the role phrases")
 
 

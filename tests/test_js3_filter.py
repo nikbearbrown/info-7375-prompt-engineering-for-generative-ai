@@ -19,12 +19,14 @@ def P(title="Data Engineer", loc="Boston, MA", content=GOOD, board="t", pid="1")
 
 class WrongVersions(unittest.TestCase):
     def test_W1_role_needs_whole_phrase(self):
-        for title in ("Data Center Technician", "Compliance Analyst", "Software Engineer, Data Engineering"):
+        for title in ("Data Center Technician", "Compliance Analyst", "Specialist Solutions Engineering - Data Engineering"):
             r = flt.evaluate(P(title=title))
             self.assertEqual(r["rules"]["F1"]["result"], "fail", title)
             self.assertEqual(r["bucket"], "rejected", title)
+        # v1.3 (change A): an Engineer/Developer title with the whole word Data or Pipeline also passes
         for title in ("Senior Data Engineer", "Analytics Engineer II", "Software Engineer - Data Platform", "BI Engineer",
-                      "Business Intelligence Developer", "data analyst"):
+                      "Business Intelligence Developer", "data analyst", "Software Engineer, Data Engineering",
+                      "Senior Software Engineer - Distributed Data Systems", "Software Engineer - Pipeline Infrastructure"):
             self.assertEqual(flt.evaluate(P(title=title))["rules"]["F1"]["result"], "pass", title)
 
     def test_W2_topic_words_case_sensitive_whole_word(self):
@@ -93,7 +95,7 @@ class FilterRules(unittest.TestCase):
 
     def test_seniority(self):
         for title in ("Staff Data Engineer", "Lead Analytics Engineer", "Data Engineering Manager, Data Platform",
-                      "Data Analyst Intern", "Data Platform Architect"):
+                      "Data Analyst Intern", "Data Platform Architect", "Software Engineer, Internship - Data Connectors"):
             self.assertEqual(flt.evaluate(P(title=title))["rules"]["F2"]["result"], "fail", title)
         self.assertEqual(flt.evaluate(P(title="Senior Data Engineer"))["rules"]["F2"]["result"], "pass")
 

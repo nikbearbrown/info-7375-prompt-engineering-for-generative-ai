@@ -13,7 +13,6 @@ import csv
 import hashlib
 import io
 import json
-import re
 from datetime import datetime
 from pathlib import Path
 from zoneinfo import ZoneInfo
@@ -31,25 +30,19 @@ class HeldoutViolation(Exception):
 
 
 # ------------------------------------------------------------------ the single changes (each one alone against v1.2)
-_ENG_DATA = re.compile(r"(?<![A-Za-z0-9])(data|pipeline)(?![A-Za-z0-9])", re.I)
-_ENGINEER = re.compile(r"(?<![A-Za-z0-9])(engineer|developer)(?![A-Za-z0-9])", re.I)
-
-
-def _f1_engineer_data(title, real=flt.check_f1):
-    r = real(title)
-    if r["result"] == "fail" and _ENGINEER.search(title) and _ENG_DATA.search(title):
-        return flt._rule("pass", "title", title, "engineer/developer title with the whole word Data or Pipeline (change A)")
-    return r
-
+# The measurements in HELDOUT_LOG.jsonl were made against v1.2, so "baseline" puts v1.2 back (no change A, no "internship"
+# in F2) and every change is v1.2 plus that one change. v1.3 = v1.2 + A + "internship" (FILTER.md change log).
+_V12 = [(flt, "F1_ENGINEER_DATA", False), (flt, "_EXCL", [(w, rx) for w, rx in flt._EXCL if w != "internship"])]
 
 CHANGES = {
-    "baseline": ("FILTER.md v1.2 as written", []),
+    "baseline": ("FILTER.md v1.2 as written", _V12),
     "A_f1_engineer_data": ("F1 also passes an Engineer/Developer title containing the whole word 'Data' or 'Pipeline'",
-                           [(flt, "check_f1", _f1_engineer_data)]),
-    "B_threshold_1": ("T3 threshold 2 -> 1 distinct topic word", [(flt, "THRESHOLD", 1)]),
-    "C_threshold_3": ("T3 threshold 2 -> 3 distinct topic words", [(flt, "THRESHOLD", 3)]),
-    "D_no_years_bonus": ("Years <= 3 bonus +16 -> 0", [(flt, "POINTS", dict(flt.POINTS, years=0))]),
-    "E_no_location_bonus": ("Boston +10 / remote US +5 -> 0 / 0", [(flt, "POINTS", dict(flt.POINTS, boston=0, remote_us=0))]),
+                           [_V12[1], (flt, "F1_ENGINEER_DATA", True)]),
+    "B_threshold_1": ("T3 threshold 2 -> 1 distinct topic word", _V12 + [(flt, "THRESHOLD", 1)]),
+    "C_threshold_3": ("T3 threshold 2 -> 3 distinct topic words", _V12 + [(flt, "THRESHOLD", 3)]),
+    "D_no_years_bonus": ("Years <= 3 bonus +16 -> 0", _V12 + [(flt, "POINTS", dict(flt.POINTS, years=0))]),
+    "E_no_location_bonus": ("Boston +10 / remote US +5 -> 0 / 0",
+                            _V12 + [(flt, "POINTS", dict(flt.POINTS, boston=0, remote_us=0))]),
 }
 
 
