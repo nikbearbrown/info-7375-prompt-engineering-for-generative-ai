@@ -69,7 +69,7 @@ Each change was made alone against v1.0, unless it is marked as a combination. T
 
 ## 5. Freeze decision (Aditya)
 
-**Pending.** The choice for **v1.1** is between:
+**Decided 2026-11-25: C-a + C-b + C-e.** Aditya chose it from the two options below. It was frozen as v1.1 in `FREEZE.json` (commit `9cde2b9`) before the H2 labels existed. The options were:
 - **C-b alone**: one change. The false friend stays.
 - **C-a + C-b + C-e**: removes the false friend, and keeps New Grad postings for the explicit new-grad signal.
 
