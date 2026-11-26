@@ -31,7 +31,8 @@ def _is_heading(line):
 def sections(body):
     """[(kind, line)] with kind in required / preferred / other, decided by the nearest heading above."""
     kind, out = "other", []
-    for line in (body or "").splitlines():
+    body = (body or "").replace("\u2019", "'")  # Stripe/Notion use curly apostrophes in headings
+    for line in body.splitlines():
         if _is_heading(line):
             if PREFERRED_HEAD.search(line):
                 kind = "preferred"

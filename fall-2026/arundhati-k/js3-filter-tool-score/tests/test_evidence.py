@@ -93,3 +93,11 @@ class LevelAndLocation(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CurlyApostrophe(unittest.TestCase):
+    """Found 2026-11-25 while inspecting held-out #14: Stripe writes "What you’ll do" with U+2019."""
+
+    def test_curly_heading_is_required(self):
+        body = "What you’ll do\n- Build REST APIs in Java\n"
+        self.assertEqual([k for k, _ in sections(body)][1], "required")
