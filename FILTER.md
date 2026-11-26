@@ -1,6 +1,6 @@
 # FILTER.md: Job-Search Agent 3 — The Filter, the Tool, and the Score
 
-Ethan Gomes · INFO 7375 · v1.3 · 2026-11-25 · v1–v1.2 written before any JS3 code
+Ethan Gomes · INFO 7375 · v1.3 · 2026-11-25 
 
 ## Scope
 
