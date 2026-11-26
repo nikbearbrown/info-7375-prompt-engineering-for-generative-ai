@@ -64,3 +64,10 @@ Each claim in a shortlist justification is checked against that posting's own te
 ## Change log
 
 (Empty at v1.0. Every rule added, cut, or rejected after measuring goes here, with its version number, the measurement behind it, and the date.)
+
+### v1.1 — 2026-11-25 (after the reject audit, see AUDIT.md)
+- **Added** `research engineer` to R1. Two postings I labeled relevant ("Research Engineer / Research Scientist, Post Training") were rejected only by title wording.
+- **Added** title exclusions `applied ai engineer`, `fde`, `forward deployed`, `solutions architect`, `developer advocate`, `fellow` to R4 (renamed "management and customer-facing titles"). False friend: `ai engineer` and `machine learning` matched customer-facing roles (Applied AI Engineer ×4, AI FDE, Solutions Architect – AI&ML Engineer, Machine Learning Fellow), 7 of 9 kept-stratum errors.
+- **Rejected** adding `software engineer` to R1: three relevant misses had it, but it would admit hundreds of non-ML software roles.
+- Known cost: "Applied AI Engineer, Codex Core Agent" (audit row 38, labeled relevant) is now rejected.
+- Audit errors on the same 50 rows: 14 (v1.0) → 5 (v1.1). Tuned on these labels, so not evidence for unseen postings; held-out check in SCORE.md.
