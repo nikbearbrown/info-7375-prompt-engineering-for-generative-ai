@@ -17,7 +17,6 @@ Rithika Sankar Rajeswari. Entries are tied to commits.
 ## Labels (dd5aef2a, 45d02190)
 - Claude Code built a batch labeler and suggested all 74 verdicts. I paused to reconsider whether the held-out set could still count as independent, then reviewed each suggestion and corrected 9 (held-out rows 8, 14, 15 to unsure, and row 20's reason; audit rows 8, 17, 29, 34, 35, 43, settling 34 and 35 as "not" after seeing the titles).
 - The first verdict commit still held Claude's suggestions, and LABELING_METHOD.md still said "not reviewed". The counts gave it away (5 unsure instead of my 7). I fixed both before measuring.
-- Reflection: *[Your words: what reviewing the suggestions taught you; the four "excerpt does not establish" corrections]*
 
 ## Audit and v1.1 (8d56f9e6)
 - 7 of 9 kept postings were wrong. False friend: `ai engineer` matched "Applied AI Engineer" and FDE roles. Added `research engineer` and customer-facing title exclusions. Rejected adding `software engineer` (too broad), knowingly losing audit row 38.
