@@ -10,10 +10,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The role matches Priya's target titles because its title contains Machine Learning. | Research Engineer, Machine Learning (Reinforcement Learning) | not reviewed |  |  |
-| C2 | The location is one Priya accepts, since the posting lists San Francisco, CA, which is on her relocation list. | San Francisco, CA / New York City, NY | not reviewed |  |  |
-| C3 | The level fits early-career, though the posting asks for industry experience in machine learning research. | Have industry experience in machine learning research | not reviewed |  |  |
-| C4 | The work uses Python, which Priya lists as a language. | Are proficient in Python and async/concurrent programming with frameworks like Trio | not reviewed |  |  |
+| C1 | The role matches Priya's target titles because its title contains Machine Learning. | Research Engineer, Machine Learning (Reinforcement Learning) | not reviewed | **supported** |  |
+| C2 | The location is one Priya accepts, since the posting lists San Francisco, CA, which is on her relocation list. | San Francisco, CA / New York City, NY | not reviewed | **supported** |  |
+| C3 | The level fits early-career, though the posting asks for industry experience in machine learning research. | Have industry experience in machine learning research | not reviewed | **insufficient** |  |
+| C4 | The work uses Python, which Priya lists as a language. | Are proficient in Python and async/concurrent programming with frameworks like Trio | not reviewed | **supported** |  |
 
 ## S02 · greenhouse/anthropic · 5057647008
 
@@ -21,10 +21,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The role matches Priya's target titles, because the title is Applied AI Engineer. | Applied AI Engineer, Enterprise | not reviewed |  |  |
-| C2 | The posting location, San Francisco, CA or New York City, NY, is one Priya accepts. | San Francisco, CA / New York City, NY | not reviewed |  |  |
-| C3 | The level fits early-career, which the quoted requirement contradicts. | 4+ years of experience in technical roles such as Forward Deployed Engineer, Product Engineer, Software Engineer, or Technical Product Manager | not reviewed |  |  |
-| C4 | The work uses Python, one of Priya's listed languages. | Strong programming skills with proficiency in Python or TypeScript | not reviewed |  |  |
+| C1 | The role matches Priya's target titles, because the title is Applied AI Engineer. | Applied AI Engineer, Enterprise | not reviewed | **supported** |  |
+| C2 | The posting location, San Francisco, CA or New York City, NY, is one Priya accepts. | San Francisco, CA / New York City, NY | not reviewed | **supported** |  |
+| C3 | The level fits early-career, which the quoted requirement contradicts. | 4+ years of experience in technical roles such as Forward Deployed Engineer, Product Engineer, Software Engineer, or Technical Product Manager | not reviewed | **supported** |  |
+| C4 | The work uses Python, one of Priya's listed languages. | Strong programming skills with proficiency in Python or TypeScript | not reviewed | **supported** |  |
 
 ## S03 · greenhouse/anthropic · 5192805008
 
@@ -32,10 +32,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The title Applied AI Architect, Commercial contains the target title Applied AI. | Applied AI Architect, Commercial | not reviewed |  |  |
-| C2 | The location line lists San Francisco, CA, which Priya is open to relocating to. | San Francisco, CA / New York City, NY | not reviewed |  |  |
-| C3 | The level fits early-career, though the posting asks for 3+ years of experience. | 3+ years of highly technical experience as a software engineer (or equivalent) with some customer-facing exposure | not reviewed |  |  |
-| C4 | The work uses Python, which is one of Priya's listed language skills. | Comfort with Python expected | not reviewed |  |  |
+| C1 | The title Applied AI Architect, Commercial contains the target title Applied AI. | Applied AI Architect, Commercial | not reviewed | **supported** |  |
+| C2 | The location line lists San Francisco, CA, which Priya is open to relocating to. | San Francisco, CA / New York City, NY | not reviewed | **supported** |  |
+| C3 | The level fits early-career, though the posting asks for 3+ years of experience. | 3+ years of highly technical experience as a software engineer (or equivalent) with some customer-facing exposure | not reviewed | **supported** |  |
+| C4 | The work uses Python, which is one of Priya's listed language skills. | Comfort with Python expected | not reviewed | **supported** |  |
 
 ## S04 · greenhouse/anthropic · 5383335008
 
@@ -43,10 +43,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The role matches Priya's target title, Applied AI. | Applied AI Architect, Enterprise Tech | not reviewed |  |  |
-| C2 | The location is one Priya accepts: San Francisco, CA or New York City, NY. | San Francisco, CA / New York City, NY / Seattle, WA | not reviewed |  |  |
-| C3 | The level fits early-career. | 5+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, or Technical Account Manager | not reviewed |  |  |
-| C4 | The work uses Python, one of Priya's skills. | Comfortable with python | not reviewed |  |  |
+| C1 | The role matches Priya's target title, Applied AI. | Applied AI Architect, Enterprise Tech | not reviewed | **supported** |  |
+| C2 | The location is one Priya accepts: San Francisco, CA or New York City, NY. | San Francisco, CA / New York City, NY / Seattle, WA | not reviewed | **supported** |  |
+| C3 | The level fits early-career. | 5+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, or Technical Account Manager | not reviewed | **supported** |  |
+| C4 | The work uses Python, one of Priya's skills. | Comfortable with python | not reviewed | **supported** |  |
 
 ## S05 · greenhouse/anthropic · 5409008008
 
@@ -54,10 +54,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The title contains the phrase Applied AI, which is one of Priya's target titles. | Applied AI Architect, Strategic Enterprise Tech | not reviewed |  |  |
-| C2 | The posting lists San Francisco, CA, which Priya is open to relocating to. | San Francisco, CA / New York City, NY / Seattle, WA | not reviewed |  |  |
-| C3 | The posting asks for 8+ years of experience, which does not fit an early-career candidate. | 8+ years of experience in roles such as Field CTO, Solutions Architect, Sales Engineer, or Product Manager, with hands-on building experience | not reviewed |  |  |
-| C4 | The posting asks for Python, which is one of Priya's listed skills. | Comfortable with python | not reviewed |  |  |
+| C1 | The title contains the phrase Applied AI, which is one of Priya's target titles. | Applied AI Architect, Strategic Enterprise Tech | not reviewed | **supported** |  |
+| C2 | The posting lists San Francisco, CA, which Priya is open to relocating to. | San Francisco, CA / New York City, NY / Seattle, WA | not reviewed | **supported** |  |
+| C3 | The posting asks for 8+ years of experience, which does not fit an early-career candidate. | 8+ years of experience in roles such as Field CTO, Solutions Architect, Sales Engineer, or Product Manager, with hands-on building experience | not reviewed | **contradicted** |  |
+| C4 | The posting asks for Python, which is one of Priya's listed skills. | Comfortable with python | not reviewed | **supported** |  |
 
 ## S06 · greenhouse/anthropic · 5455618008
 
@@ -65,10 +65,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The role matches Priya's target because the title contains the target title Applied AI, though the posting describes a pre-sales position. | Applied AI Architect, Public Sector (State & Local Government) | not reviewed |  |  |
-| C2 | The location is one Priya accepts because New York City, NY is listed, and she is open to relocating there. | New York City, NY; San Francisco, CA; Washington, DC | not reviewed |  |  |
-| C3 | The level fits early-career, but the posting requires 5+ years of experience, so this claim is contradicted. | 5+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, or Technical Account Manager | not reviewed |  |  |
-| C4 | The work uses Python, which Priya has, though the posting only asks for familiarity with it. | Familiar with Python | not reviewed |  |  |
+| C1 | The role matches Priya's target because the title contains the target title Applied AI, though the posting describes a pre-sales position. | Applied AI Architect, Public Sector (State & Local Government) | not reviewed | **supported** |  |
+| C2 | The location is one Priya accepts because New York City, NY is listed, and she is open to relocating there. | New York City, NY; San Francisco, CA; Washington, DC | not reviewed | **supported** |  |
+| C3 | The level fits early-career, but the posting requires 5+ years of experience, so this claim is contradicted. | 5+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, or Technical Account Manager | not reviewed | **insufficient** |  |
+| C4 | The work uses Python, which Priya has, though the posting only asks for familiarity with it. | Familiar with Python | not reviewed | **supported** |  |
 
 ## S07 · greenhouse/anthropic · 5483945008
 
@@ -76,10 +76,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The role matches Priya's target titles because it is an Applied AI role. | Applied AI Engineer, Commercial | not reviewed |  |  |
-| C2 | The location San Francisco, CA is one Priya is open to relocating to. | San Francisco, CA | not reviewed |  |  |
-| C3 | The level fits early-career is contradicted by the posting, which requires 4+ years of technical experience. | 4+ years of technical experience as a software engineer, forward deployed engineer, ML engineer, product engineer, or technical founder | not reviewed |  |  |
-| C4 | The work uses Python, a skill Priya has. | the ability to work in a real codebase in Python or TypeScript, not just notebooks | not reviewed |  |  |
+| C1 | The role matches Priya's target titles because it is an Applied AI role. | Applied AI Engineer, Commercial | not reviewed | **supported** |  |
+| C2 | The location San Francisco, CA is one Priya is open to relocating to. | San Francisco, CA | not reviewed | **supported** |  |
+| C3 | The level fits early-career is contradicted by the posting, which requires 4+ years of technical experience. | 4+ years of technical experience as a software engineer, forward deployed engineer, ML engineer, product engineer, or technical founder | not reviewed | **supported** |  |
+| C4 | The work uses Python, a skill Priya has. | the ability to work in a real codebase in Python or TypeScript, not just notebooks | not reviewed | **supported** |  |
 
 ## S08 · greenhouse/anthropic · 5491480008
 
@@ -87,10 +87,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The role matches Priya's target because its title contains 'Applied AI'. | Applied AI Architect, Technology Partnerships | not reviewed |  |  |
-| C2 | The location matches Priya's preferences because the posting lists San Francisco, CA, which Priya is open to relocating to. | San Francisco, CA / New York City, NY | not reviewed |  |  |
-| C3 | The level does not fit early-career because the posting asks for 8+ years of experience. | 8+ years of experience in technical customer-facing or partner-facing roles such as Solutions Architect, Sales Engineer, Partner Engineer, Developer Relations Engineer, or Technical Account Manager, or as a software engineer on platform, API, or integrations work | not reviewed |  |  |
-| C4 | The role expects Python, one of the languages Priya lists. | (comfort with Python or TypeScript expected) | not reviewed |  |  |
+| C1 | The role matches Priya's target because its title contains 'Applied AI'. | Applied AI Architect, Technology Partnerships | not reviewed | **supported** |  |
+| C2 | The location matches Priya's preferences because the posting lists San Francisco, CA, which Priya is open to relocating to. | San Francisco, CA / New York City, NY | not reviewed | **supported** |  |
+| C3 | The level does not fit early-career because the posting asks for 8+ years of experience. | 8+ years of experience in technical customer-facing or partner-facing roles such as Solutions Architect, Sales Engineer, Partner Engineer, Developer Relations Engineer, or Technical Account Manager, or as a software engineer on platform, API, or integrations work | not reviewed | **insufficient** |  |
+| C4 | The role expects Python, one of the languages Priya lists. | (comfort with Python or TypeScript expected) | not reviewed | **supported** |  |
 
 ## S09 · greenhouse/anthropic · 5364804008
 
@@ -98,10 +98,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The posting title contains 'Machine Learning', which matches Priya's target title. | Machine Learning Infrastructure Engineer, Safeguards Research | not reviewed |  |  |
-| C2 | The posting's location line lists San Francisco, CA, which Priya accepts for relocation. | San Francisco, CA / New York City, NY | not reviewed |  |  |
-| C3 | The posting's level is unclear for early-career, since it asks for a track record. | Strong candidates will have a track record of solving large-scale systems and data problems | not reviewed |  |  |
-| C4 | The work uses Python, which Priya lists as a skill. | Strong software engineering fundamentals and hands-on coding ability, with proficiency in Python | not reviewed |  |  |
+| C1 | The posting title contains 'Machine Learning', which matches Priya's target title. | Machine Learning Infrastructure Engineer, Safeguards Research | not reviewed | **supported** |  |
+| C2 | The posting's location line lists San Francisco, CA, which Priya accepts for relocation. | San Francisco, CA / New York City, NY | not reviewed | **supported** |  |
+| C3 | The posting's level is unclear for early-career, since it asks for a track record. | Strong candidates will have a track record of solving large-scale systems and data problems | not reviewed | **contradicted** |  |
+| C4 | The work uses Python, which Priya lists as a skill. | Strong software engineering fundamentals and hands-on coding ability, with proficiency in Python | not reviewed | **supported** |  |
 
 ## S10 · greenhouse/anthropic · 5406982008
 
@@ -109,10 +109,10 @@ Abstention rule (FILTER.md 2): if C2 or C3 has no passage in the posting, the po
 
 | Claim | Claude's sentence | Passage Claude quoted | Mechanical check | **My label** | **Deciding sentence (if I disagree)** |
 |---|---|---|---|---|---|
-| C1 | The role matches Priya's target title Applied AI. | Applied AI Architect, Startups | not reviewed |  |  |
-| C2 | The location is one Priya accepts, since San Francisco, CA is on her relocation list. | San Francisco, CA / New York City, NY | not reviewed |  |  |
-| C3 | The level does not fit early-career, because the posting asks for 3+ years of experience. | 3+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, Forward Deployed Engineer, or technical founder who has done founder-led sales | not reviewed |  |  |
-| C4 | The work uses Python, one of Priya's listed languages. | Comfortable with Python and familiarity with common LLM frameworks, tools, and integration patterns | not reviewed |  |  |
+| C1 | The role matches Priya's target title Applied AI. | Applied AI Architect, Startups | not reviewed | **supported** |  |
+| C2 | The location is one Priya accepts, since San Francisco, CA is on her relocation list. | San Francisco, CA / New York City, NY | not reviewed | **supported** |  |
+| C3 | The level does not fit early-career, because the posting asks for 3+ years of experience. | 3+ years of experience in technical customer-facing roles such as Solutions Architect, Sales Engineer, Forward Deployed Engineer, or technical founder who has done founder-led sales | not reviewed | **supported** |  |
+| C4 | The work uses Python, one of Priya's listed languages. | Comfortable with Python and familiarity with common LLM frameworks, tools, and integration patterns | not reviewed | **supported** |  |
 
 ## Variation: the same prompt sent again
 
