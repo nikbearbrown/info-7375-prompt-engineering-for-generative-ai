@@ -39,5 +39,4 @@ Raw responses: `data/raw/2026-11-25/*.json.gz`. No login, no applying, no messag
 
 **Lookup I did myself (2026-11-25, my words):** I opened the Stripe job link (https://stripe.com/jobs/search?gh_jid=6042172). It displays Backend Engineer, Core Technology, and the line is present under Minimum requirements: "Ability to write high-quality code (in programming languages like Go, Java, C/C++ etc.)". This matches the saved snapshot text that SHORTLIST.md quotes for posting 1.
 
-**Help on my FILTER.md answers:** [Arundhati: say whether your five answers were written by you alone or with
-ChatGPT/Claude help.]
+**Help from ChatGPT (my words, 2026-11-25):** I came up with the actual answers and decisions in FILTER.md based on my understanding of the project and the type of roles I was targeting. I did use ChatGPT to help with wording and organizing some of the responses, and also used it while writing the FRICTIONAL.md entries. I reviewed everything and made the final decisions myself. Claude helped later with implementation, tests, and review.

@@ -1,7 +1,8 @@
-# FRICTIONAL — Job-Search Agent 3 (honest log, my own words)
+# FRICTIONAL — Job-Search Agent 3 (honest log)
 
-Written on 2026-11-25, the day of the work, and typed by me in chat. Claude Code only pasted it into this file,
-without editing. The facts and numbers I mention come from the files each pointer names.
+Written on 2026-11-25, the day of the work. I used ChatGPT while writing these entries (wording and organisation);
+the experiences and decisions are mine and I reviewed every entry (see SOURCES.md). Claude Code pasted the final text
+into this file without editing. The facts and numbers come from the files each pointer names.
 
 ## Entry 1 — writing the filter (commit `a725b4a4`)
 
