@@ -4,7 +4,7 @@ For JS3 I did the same thing I did in JS2: I wrote FILTER.md first, before touch
 
 ## 1. Starting point and the filter before the build
 
-I started by creating a fresh local repo and bringing over only the pieces JS3 actually depends on: my JS2 code, the tests, the config, the Evan Gordon persona and the Oct 31 baseline, which had 113 tests passing. The next thing I did was write FILTER.md v1, still before any JS3 code existed. When Claude filled the score with placeholder numbers, I told it "ask me the placeholder and i will answer them". The questions it came back with meant that what had been guesses became decisions I made myself.
+I started by creating a fresh local repo and bringing over only the pieces JS3 actually depends on: my JS2 code and its tests (113 passing), the config, the Evan Gordon persona and the Oct 31 baseline. The next thing I did was write FILTER.md v1, still before any JS3 code existed. When Claude filled the score with placeholder numbers, I told it "ask me the placeholder and i will answer them". The questions it came back with meant that what had been guesses became decisions I made myself.
 
 ## 2. My decisions on the filter
 
@@ -52,21 +52,22 @@ A sample that agrees with everything can be telling me about my own anchoring, n
 as Claude's, and a number that moves on tuning can reverse on held-out. Persisting across sessions is not learning: the scorer changed
 because I edited a file, and Claude remembered my decisions because they were written to memory files.
 
-**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. The main commits are:
-- c09a161, the starting point
-- 5813935 to 33062cb, FILTER.md v1 to v1.2
-- 148f405, v1.3
-- 134df74, the v1.3 transcript
-- 5f582c9, the fetch runs
-- dda391d, the Claude Code session
-- a945738 and 78b57ea, the description fix, test first
-- cc215e3, an earlier signature; the two hand checks of the claim labels and my final signature come after it
+**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. Every step has its own commit, and `git log --oneline` lists them in order. The main ones, by commit message:
+- "Starting point: JS2 code, tests, config, persona and the Oct 31 baseline"
+- "FILTER.md v1" to "FILTER.md v1.2", all before the first JS3 code
+- "Labels: second pass by Ethan…; held-out set locked"
+- "FILTER.md v1.3 (Ethan's decisions after measuring)"
+- "Step 5: second real transcript, recorded under filter v1.3"
+- "Step 5: the official fetch server run in two configurations"
+- "Step 5: Claude Code as a real client of my server"
+- "Test first: the tool description must declare the filter version it runs", then "Fix: the tool description now takes the filter version from the code"
+- the two hand checks of the claim labels and the final "SIGNOFF.md: re-signed by Ethan Gomes"
 
 The tests are the full suite of 158, including test_W1–W10, the server tests and scripts/js3_sabotage_check.py (9/9). The server
 evidence is in evidence/mcp/: three transcripts of my server (v1.2, v1.3 and Claude Code as the client) and both fetch runs.
 
-**Still open:**
-- the claim checker's "list of alternatives" error is confirmed by hand (3 of 39, and in the first 46) but not fixed
+**What is unresolved (known limits, not unfinished work):**
+- the claim checker's bug itself: it still reads "such as A, B or C" lists as requiring each one. My hand checks are done and confirmed it (3 of 39 wrong), but the code was not fixed
 - the "internship" fix is unmeasured
 - the student-worker false friend is still kept
 - what fetch's npm install downloaded was not reviewed, and its proxy and prompt paths were not run
