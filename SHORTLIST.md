@@ -47,8 +47,19 @@ Claude checked all 46 claims of the v1.2 shortlist against the posting text at m
 | **Under-support:** a real requirement missed, because list items with no full stops run together into one "sentence" that also holds a preference word | Samsara #1: AWS; Palantir: Python; Zoox student: Python, SQL | *"Required Qualifications Strong proficiency in SQL, PySpark, Python in production environments"* → labeled insufficient |
 
 So the checker repeats wrong version 6 ("a word counts as support") in a form my test did not cover: "Python a plus" is caught, but
-"such as Go, Python, Scala, or Java" is not. The 39 new claims in v1.3 were not checked one by one. The first new posting already shows
-the same error: *"5+ years of production level experience in either Java, Scala or C++"* is labeled as supporting "requires Scala".
+"such as Go, Python, Scala, or Java" is not.
+
+**The 39 new claims in v1.3, checked by me** (`audit/claim_check_v13.csv`, 2026-11-25):
+- **How.** I judged every one, as 13 questions. The three Databricks postings share their requirement sentences and got identical
+  labels, so one answer covered all three, and the 15 title, location and visa claims were one question. Each question showed the
+  claim, the checker's label and the posting's own words, without Claude's view. The order of the answers changed from question to
+  question, and I picked the first option 8 times and the second 5 times.
+- **Result.** **3 of 39 wrong (8%)**, all the same claim: "requires Scala" from *"5+ years of production level experience in either
+  Java, Scala or C++"*, on each of the three Databricks postings. That is the "list of alternatives" error again. The other 36 I judged
+  right.
+- **What it shows.** The error rate on these 39 (8%) is lower than Claude's 22% on the first 46. But it is one error pattern repeated
+  three times, on postings that share their text, so it is really one mistake, not three independent ones. Both checks point at the
+  same weakness.
 
 ### My own spot-check of Claude's check (`audit/claim_spotcheck.csv`)
 

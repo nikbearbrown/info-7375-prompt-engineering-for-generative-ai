@@ -37,6 +37,8 @@
   - a spot-check of 4 claim labels (`audit/claim_spotcheck.csv`): I confirmed 2 of the 3 errors Claude claimed and its one "right",
     and disagreed on "ideal candidate also has" (Databricks). My first round marked all four right; I changed two after Claude
     pointed to my §2 rule, so it is not independent
+  - all 39 new claim labels in the v1.3 shortlist (`audit/claim_check_v13.csv`), without Claude's view shown and with the order of
+    the answers varied: 3 of 39 wrong, all "requires Scala" from "either Java, Scala or C++" on the three Databricks postings
 - **By a test written before Claude's code:** the filter and claim tests (`35915cd`) and the server tests (`59f714c`) were committed
   before the code they test. The measurement tests (W8) were **not**: they came in the same commit as `measure.py` (`426f0f5`).
   *Claude wrote all of these tests too. What makes the first two sets "before" is the commit order.*
@@ -49,8 +51,8 @@
   - checking the 46 v1.2 claim labels, which found 10 wrong
 
 **Not checked:**
-1. **The 39 new claim labels in the v1.3 shortlist.** Not checked one by one. The first new posting already shows the
-   "list of alternatives" error.
+1. **The claim checker after a fix.** The "list of alternatives" error is documented and confirmed by hand, but not fixed, so no
+   corrected labels exist and none were measured.
 2. **The "internship" fix in F2.** It was found on held-out data, so it has no honest measurement.
 3. **Parts of `fetch` I ran but did not trace, or did not run at all:**
    - What `npm install` downloaded. Its child process isn't traced, and the 33 packages weren't reviewed.
@@ -66,11 +68,12 @@
 **Not claiming:**
 - that the filter finds every relevant job, or that a kept job is worth applying to
 - that the score ranks jobs well: the AUC differences were noise at this sample size
-- that the claim labels are right: Claude found 10 of 46 wrong (22%); my spot-check confirmed 2 of the 3 I looked at
+- that the claim labels are right: Claude found 10 of 46 wrong (22%); my spot-check confirmed 2 of the 3 I looked at; I found 3 of
+  the 39 new ones wrong (8%)
 - that the server is safe for any client, or that annotations prove anything
 - that anything was trained; every change was a file edit
 
-**Signed or withheld:** Signed, Ethan Gomes, 25 November 2026
+**Signed or withheld:** ____________ (name, date)
 
 ---
 

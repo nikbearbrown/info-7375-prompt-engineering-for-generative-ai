@@ -115,6 +115,10 @@ and rejected B–E (148f405).
   of the 3 errors Claude claimed, and disagreed on "An ideal candidate also has: Experience with Databricks", which I count as
   required even though my §2 rule says a nice-to-have is not. Claude also noted that in both rounds I picked the first option every
   time. So this check is steered and small, and SHORTLIST.md says so.
+- **Then all 39 unchecked claims, by hand:** I asked how long checking the 39 new v1.3 claim labels would take, and whether it would
+  change much. It came to 13 questions, because the three Databricks postings share their text. This time Claude's view was not
+  shown, and the order of the answers varied: I picked the first option 8 times and the second 5 times. I found 3 of 39 wrong (8%),
+  all "requires Scala" from "either Java, Scala or C++", the same "list of alternatives" error (audit/claim_check_v13.csv).
 
 Claude also caught its own mistakes:
 - the stale "(v1)" heading in FILTER.md
@@ -138,13 +142,13 @@ because I edited a file, and Claude remembered my decisions because they were wr
 - 5f582c9, the fetch runs
 - dda391d, the Claude Code session
 - a945738 and 78b57ea, the description fix, test first
-- cc215e3, an earlier signature; the claim spot-check and my final signature come after it
+- cc215e3, an earlier signature; the two hand checks of the claim labels and my final signature come after it
 
 The tests are the full suite of 158, including test_W1–W10, the server tests and scripts/js3_sabotage_check.py (9/9). The server
 evidence is in evidence/mcp/: three transcripts of my server (v1.2, v1.3 and Claude Code as the client) and both fetch runs.
 
 **Still open:**
-- the 39 new claim labels in v1.3 were not checked
+- the claim checker's "list of alternatives" error is confirmed by hand (3 of 39, and in the first 46) but not fixed
 - the "internship" fix is unmeasured
 - the student-worker false friend is still kept
 - what fetch's npm install downloaded was not reviewed, and its proxy and prompt paths were not run
