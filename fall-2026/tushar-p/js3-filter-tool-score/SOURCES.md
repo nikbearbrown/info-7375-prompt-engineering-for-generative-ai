@@ -37,10 +37,9 @@ Tushar Patel · INFO 7375 · Fall 2026 · 2026-11-25
   - **Code:** all code under `agent/` that is new in JS3 (filter, postings, text, sheets, claims), the labelers in `tools/`, the MCP server, the report scripts in `audit/` and `checks/`, and every test in `tests/`.
   - **Proposals:** the C4 heading definition, from a survey of the text of all 979 postings, which I accepted into v0.2.
   - **Drafts:** the prose of AUDIT-RESULTS*.md, SCORE-REPORT.md, SHORTLIST.md (between the script-generated blocks) and EVAL-FACTS.md, plus this README, SIGNOFF.md draft and SOURCES.md.
-  - **Runs:** both `claude -p` MCP client sessions, on my instruction. [Tushar: confirm who ran the live fetch (2026-11-22T04:28Z) and the live claim run (2026-11-23).]
+  - **Runs:** both `claude -p` MCP client sessions, on my instruction. Claude Code ran both the live fetch and the live claim run. I fixed the API-key configuration needed for the claim run.
 - **Claude through the API** (`claude-sonnet-5-5`, live and billed, 2026-11-23 23:33–23:34 ET): the 96 shortlist claims, each with a quote and a proposed label ([evidence/claims/claims-v1.jsonl](evidence/claims/claims-v1.jsonl)). These are model output, not labels. My labels are the reference.
 - **Claude Code as the MCP client** (2026-11-24): the two replies saved verbatim with their dates in `evidence/mcp/`.
-- **Claude chat:** [Tushar: describe what Claude chat contributed, if anything. Claude Code has no record of chat sessions.]
 
 ## Co-Authored-By trailers
 

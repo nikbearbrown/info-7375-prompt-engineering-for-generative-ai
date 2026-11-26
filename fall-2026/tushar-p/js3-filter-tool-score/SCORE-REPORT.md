@@ -356,3 +356,5 @@ Moves no row on this sheet.
 - **Nothing was trained.** Claude, the model, did not change. Every behavior change in this project is a change to a file: FILTER.md and `agent/filter.py`. Running it again tomorrow and getting the same results shows that the file changed and is deterministic, not that anything learned.
 - **Rules were not revised after this comparison.** FILTER.md v0.2 says: "Decisions frozen 2026-11-23 before any held-out comparison. … Rules will not be revised in response to held-out results." The rules are as committed in `f3edf99`; this commit adds only the report, its script and its test.
 - **The held-out postings' text was seen before the freeze, but their labels were not.** The C4 heading definition came from a survey of heading markup across all 979 postings, which included the 30 held-out postings. No held-out label was read before this report.
+
+2026-11-25: agent/claims.py and tools/mcp_server.py were added after this report; agent/filter.py is unchanged since f3edf99
