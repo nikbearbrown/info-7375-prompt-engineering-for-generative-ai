@@ -2,7 +2,7 @@
 
 **Version 0.1 · 2026-11-25 · Mayank Bhadrasen (mayank-b) · INFO 7375 Job-Search Agent 3**
 
-Status: **DRAFT for my approval.** Claude Code turned my answers (`notes/filter-answers-2026-11-25.md`, from `notes/FILTER-QUESTIONS.md`) into this document. Lines marked _(proposed by Claude)_ are its wording or its additions; I keep, edit or cut each one before this is committed (JS3-CP1). This file is written **before** the filter code is committed and before the filter has seen the JS3 corpus. Its machine copy is `config/filter.json`; `tests/test_filter_md.py` fails if the two disagree.
+This file was written **before** the filter code was committed and before the filter saw the JS3 corpus (JS3-CP1). Its machine copy is `config/filter.json`; `tests/test_filter_md.py` fails if the two disagree. Claude Code drafted it from my answers (`notes/filter-answers-2026-11-25.md`); I chose and edited every reason.
 
 **Started from.** My JS2 (`../js2-loop-tools-diff`: the bounded loop, allow-list, permission policy, raw responses + SHA-256), my JS1 title and location rule, and the instructor's **Lectern** filter as the model for this document. From Lectern I take a filter that is a document, a keep rule with a threshold, a per-company ignore list, and recording every word added, cut or rejected after measuring. Priya Nair (`persona/priya-nair.resume.json`) is fictional.
 
@@ -11,7 +11,7 @@ Status: **DRAFT for my approval.** Claude Code turned my answers (`notes/filter-
 ### 1.1 Role words: in the **title**
 
 | Word | Why |
-|---|---|
+|---|--- |
 | `AI Engineer` | Priya's last job title (Staples co-op). Inherited from JS1. |
 | `ML Engineer` | Her MS and co-op are ML engineering. Inherited from JS1. |
 | `Machine Learning` | Catches "Machine Learning Engineer" and "Engineer, Machine Learning". Inherited from JS1. |
@@ -33,14 +33,14 @@ Priya accepts **Boston, MA**, the relocation cities **San Francisco, CA** and **
 
 A topic word counts **once** however often it appears (WF2). Each word's forms are listed; every form is whole-word, case-insensitive.
 
-| Word | Forms _(proposed by Claude)_ | Why _(my line; Claude's suggestion until I rewrite it)_ |
+| Word | Forms (proposed by Claude, approved by me) | Why |
 |---|---|---|
-| `python` | python | Her main language; every project on her résumé uses it. |
-| `sql` | sql | Her Genie Router agent cut SQL query time about 30%; SQL appears twice on her résumé. |
-| `llm` | llm, llms, large language model, large language models | Her co-op is LLM work: the router and LLM evaluation. |
-| `evaluation` | evaluation, evaluations, evals | "LLM evaluation" is a named skill on her résumé (the A/B evaluation framework). |
-| `agents` | agent, agents, agentic | She built a LangGraph agent used by 120+ analysts. |
-| `machine learning` | machine learning | Her ML Engineer target and MLflow work; matched as a phrase. |
+| `python` | python | Her main language, She's most comfortable with it and every project on her résumé uses it. |
+| `sql` | sql | Her Genie Router agent cut SQL query time about 30%, so SQL work is evidence she can point to. |
+| `llm` | llm, llms, large language model, large language models | Both her co-op and her coursework (LLM Systems) are about LLMs, so this is the core of what she wants to do next. |
+| `evaluation` | evaluation, evaluations, evals | She built an A/B evaluation framework with significance tests; postings that ask for evals ask for exactly that. |
+| `agents` | agent, agents, agentic | Her strongest project is an agent (LangGraph, 120+ users). Risk I accept: "agent" also means support or sales agents, which the audit must check. |
+| `machine learning` | machine learning | Her degree coursework and MLflow pipelines are machine-learning work; matched as a two-word phrase so "machine" alone never counts. |
 
 ### 1.5 The keep rule, the score and the threshold
 
@@ -124,6 +124,7 @@ The tool server has its own planted wrong version (WF6, answering before the han
 | Date (ET) | Change | Measured? | Evidence |
 |---|---|---|---|
 | 2026-11-25 | **Cut before v0.1:** topic word `rag`. RAG is not on Priya's résumé (0 mentions), so a keep on `rag` would produce a C4 claim her résumé can't support. | no: decided from the résumé | `persona/priya-nair.resume.json` |
+| 2026-11-25 | **Reasons in 1.4:** I chose one of Claude Code's drafted reasons per word and edited two (python, sql). | no | this file |
 | 2026-11-25 | v0.1 created from my answers | no: inherited (JS1, Lectern) or hand-set | `notes/filter-answers-2026-11-25.md` |
 | 2026-11-25 | **Claude route changed, not the filter:** the API key from my JS1 `.env` returned HTTP 401 (`runs/2026-11-26T02-21-14Z-shortlist-api-401/`). The same prompt, model (`claude-haiku-5-5`) and JSON schema now go through the Claude Code CLI (`claude -p`, my NEU Claude Code account, no tools, no MCP servers, no saved session). | no | `src/jsa3/shortlist.py` `call_claude_cli()` |
 | 2026-11-25 | **Observation, not a change:** while building the loader, Claude Code saw that Notion writes "San Francisco, California" and "New York, New York". The inherited exact-match rule accepts only "San Francisco, CA" and "New York City, NY". v0.1 keeps the rule as decided; the audit decides. | seen before the run | `../js2-loop-tools-diff/runs/2026-11-11T02-24-39Z-second-check/raw/ashby__notion__a1__200.json` (location counts) |

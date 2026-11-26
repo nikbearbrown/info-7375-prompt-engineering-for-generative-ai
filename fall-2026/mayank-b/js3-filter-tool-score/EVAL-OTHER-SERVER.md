@@ -1,6 +1,6 @@
-# Evaluation: the course's Chapter 8 teaching server (draft for Mayank's decision)
+# Evaluation: the course's Chapter 8 teaching server 
 
-**Status: DRAFT by Claude Code. The trust decision at the end is blank and belongs to Mayank.**
+**Drafted by Claude Code; the trust decision at the end is mine (Mayank Bhadrasen, 2026-11-25).**
 
 | | |
 |---|---|
@@ -11,7 +11,6 @@
 | Run as | `python3 -I other-server/main.py --stdio`, cwd = project root |
 | Evidence | `transcripts/C-teaching-server-2026-11-26T02-23-17Z.*` (22/22 steps matched `EXPECTED-C.md`, which was written from source before the first run). The first run `…2026-11-25T20-31-04Z.*` was also 22/22. `transcripts/C2-teaching-server-replay-of-B-*` (Claude Code's real handshake lines, replayed). An `-X importtime` run (below) |
 | Task evaluated for | (a) connecting it to Claude Code inside JS3; (b) the Chapter 8 classroom exercise |
-
 
 > **Re-recorded on the JS3 corpus, 2026-11-25 21:26 ET** (corpus run `2026-11-26T02-20-27Z-content`): `transcripts/A-scripted-2026-11-26T02-26-36Z` (22/22 steps as predicted), `transcripts/C-teaching-server-2026-11-26T02-26-45Z` (22/22), and the real client `transcripts/B-claude-code-2026-11-26T02-26-53Z` (Claude Code 2.1.323 sent `server/discover`, then `initialize`, `notifications/initialized`, `tools/list`, `tools/call`; the tool returned `keep` for posting 5183044008, and Claude repeated the verdict and reason verbatim). The observations below were first made on the development recordings against the JS2 corpus (named where cited); the re-recordings reproduced every step.
 
@@ -89,7 +88,7 @@ printf '%s\n' '{"jsonrpc":"2.0","id":1,"method":"initialize"}' '{"jsonrpc":"2.0"
 - **Chapter 8 classroom task: allow, bounded** to commit `a8629ce1…`, run as `python3 -I … --stdio` on the fixture.
 - Re-review if the course publishes a new commit of `main.py`, a tool is added, or the data stops being a literal fixture.
 
-## Sign-off (template; Mayank fills it in or withholds it)
+## Sign-off
 
 ```text
 Sign-off — MCP evaluation packet, other server (course Chapter 8 teaching server @ a8629ce1)
@@ -99,10 +98,12 @@ How:          predictions written from source before running (EXPECTED-C.md); dr
 Not checked:  OS-level activity; live Claude Code connection (deliberately not made before a decision);
               whether the fixture value is true; other commits of the file
 Not claiming: that it is secure, conformant, or endorsed beyond the named task and commit
-Decision:     ____ for task ____, commit a8629ce1c437abee3a2c4f025bd8be3183b0f0af
+Decision:     deny for the JS3 job-search agent; allow for the Chapter 8 classroom exercise, commit a8629ce1c437abee3a2c4f025bd8be3183b0f0af
 Re-review if: new commit / new tool / non-fixture data / a different task
 ```
 
-**Decision (Mayank): ____ (allow / deny / pending, date)**
+**Decision (Mayank): deny for JS3; allow for the Chapter 8 exercise (2026-11-25).**
 
-Signed or withheld: ____________ (name, date)
+Deny for my job-search agent, 2026-11-25: it offers nothing this task needs (one fixture lookup). Allow for the Chapter 8 classroom exercise at commit a8629ce1, because I ran it and it touches no network or files. But it accepts a second `initialize`, ignores the requested version and drops a `tools/call` with no id, so it is a teaching example, not a model to copy.
+
+Signed: Mayank Bhadrasen, 2026-11-25

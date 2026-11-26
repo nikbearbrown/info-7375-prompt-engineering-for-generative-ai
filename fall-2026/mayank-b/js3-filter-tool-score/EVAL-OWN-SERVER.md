@@ -1,6 +1,6 @@
-# Evaluation: own tool server `jsa3-score-posting` (draft for Mayank's decision)
+# Evaluation: own tool server `jsa3-score-posting` 
 
-**Status: DRAFT by Claude Code. The trust decision at the end is blank and belongs to Mayank.**
+**Drafted by Claude Code; the trust decision at the end is mine (Mayank Bhadrasen, 2026-11-25).**
 
 | | |
 |---|---|
@@ -13,7 +13,6 @@
 Evidence types (Chapter 8): **advertised** (what the server says about itself) · **source-inspected**
 (read in code) · **executed** (ran on a fixture or a real corpus, with a transcript or a test) ·
 **independently sourced** · **uninspected** (not looked at; this is not the same as "none").
-
 
 > **Re-recorded on the JS3 corpus, 2026-11-25 21:26 ET** (corpus run `2026-11-26T02-20-27Z-content`): `transcripts/A-scripted-2026-11-26T02-26-36Z` (22/22 steps as predicted), `transcripts/C-teaching-server-2026-11-26T02-26-45Z` (22/22), and the real client `transcripts/B-claude-code-2026-11-26T02-26-53Z` (Claude Code 2.1.323 sent `server/discover`, then `initialize`, `notifications/initialized`, `tools/list`, `tools/call`; the tool returned `keep` for posting 5183044008, and Claude repeated the verdict and reason verbatim). The observations below were first made on the development recordings against the JS2 corpus (named where cited); the re-recordings reproduced every step.
 
@@ -101,12 +100,11 @@ Evidence types (Chapter 8): **advertised** (what the server says about itself) �
 
 **Allow, bounded**: for the task above, server SHA-256 `4143fd10…64ed`, launched as
 `python3 -I src/jsa3/mcp_server.py --corpus <a run dir in this repo>`, with Claude Code limited to
-`mcp__jsa3__score_posting` and built-in tools off. Two conditions: (1) fix or accept the C4 finding
-before pointing it at a corpus folder that anyone else could have written; (2) R4 is Mayank's call.
+`mcp__jsa3__score_posting` and built-in tools off. Two conditions: (1) the C4 finding (a raw path in `report.json` could point outside the run folder) was **fixed on 2026-11-25 in JS3-CP10**: `corpus.load()` now refuses it, tested by `tests/test_sheets.py` `CorpusPaths`; (2) R4 is Mayank's call.
 Re-review if a tool is added, any of the four imported files changes, the launch command loses `-I`,
 the corpus or filter version changes, or the client changes.
 
-## Sign-off (template; Mayank fills it in or withholds it)
+## Sign-off
 
 ```text
 Sign-off — MCP evaluation packet, own server
@@ -116,10 +114,12 @@ How:          tests written before the recordings (EXPECTED-A.md first), scripte
 Not checked:  OS-level file/network activity (C3c); prompt injection through posting text (E5); client handling of
               error replies; other clients; whether any verdict is true about the job (E3)
 Not claiming: that the server is secure, MCP-conformant, or fit beyond this task and this version
-Decision:     ____ for task "score one saved posting for Mayank's review", server SHA-256 4143fd10…64ed
+Decision:     allow for task "score one saved posting for Mayank's review", server SHA-256 4143fd10…64ed
 Re-review if: new tool / import change / launch command change / new corpus or filter version / new client
 ```
 
-**Decision (Mayank): ____ (allow / deny / pending, date)**
+**Decision (Mayank): allow, bounded (2026-11-25).**
 
-Signed or withheld: ____________ (name, date)
+Allow, 2026-11-25, for one task only: scoring a saved posting for my review, with the server launched with `-I` and Claude Code limited to `score_posting`. I checked what it does by running it (transcripts A and B), not by trusting its description. If anything in the re-review list changes, it goes back to pending.
+
+Signed: Mayank Bhadrasen, 2026-11-25

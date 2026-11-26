@@ -72,6 +72,8 @@ def location_check(location: str, loc_cfg: dict) -> tuple[str, str | None]:
     if not pieces:
         return "missing", None
     exact = [loc_cfg["home"], *loc_cfg["relocate"]] + (loc_cfg["remote_us_pieces"] if loc_cfg.get("open_to_remote") else [])
+    same_place = {k.casefold(): v for k, v in loc_cfg.get("same_place", {}).items()}   # optional (absent in v0.1)
+    pieces = [same_place.get(p.casefold(), p) for p in pieces]
     for piece in pieces:
         if any(piece.casefold() == e.casefold() for e in exact):
             return "pass", piece

@@ -41,6 +41,12 @@ class Location(unittest.TestCase):
         for loc in ("London, UK", "Remote - Ireland", "Dublin, Ireland"):
             self.assertEqual(F.location_check(loc, L)[0], "fail", loc)
 
+    def test_same_place_spellings_are_optional(self):
+        L = copy.deepcopy(CFG["location"])
+        self.assertEqual(F.location_check("San Francisco, California", L)[0], "fail")   # v0.1: exact match only
+        L["same_place"] = {"San Francisco, California": "San Francisco, CA"}
+        self.assertEqual(F.location_check("San Francisco, California", L), ("pass", "San Francisco, CA"))
+
     def test_location_fail_rejects_before_text(self):
         r = F.evaluate(post("ML Engineer", location="Tokyo, Japan", text=""), CFG)
         self.assertEqual(r["verdict"], "reject")
