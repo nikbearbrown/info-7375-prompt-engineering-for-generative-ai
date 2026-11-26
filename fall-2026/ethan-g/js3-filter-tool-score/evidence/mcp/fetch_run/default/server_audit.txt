@@ -1,0 +1,57 @@
+AUDIT open r /System/Library/CoreServices/SystemVersion.plist
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 1, 1, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 1, 1, 0)
+AUDIT open None /dev/null
+AUDIT open r 6
+AUDIT open WRITE w 7
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 2, 1, 6)
+AUDIT socket.connect (<socket.socket fd=11, family=2, type=1, proto=6, laddr=('0.0.0.0', 0)>, ('18.239.183.96', 443))
+HTTP Request: GET https://boards-api.greenhouse.io/robots.txt "HTTP/1.1 200 OK"
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.getaddrinfo ('boards-api.greenhouse.io', None, 0, 0, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 2, 1, 6)
+AUDIT socket.connect (<socket.socket fd=11, family=2, type=1, proto=6, laddr=('0.0.0.0', 0)>, ('18.239.183.96', 443))
+HTTP Request: GET https://boards-api.greenhouse.io/v1/boards/samsara/jobs/8141959 "HTTP/1.1 200 OK"
+AUDIT socket.getaddrinfo ('example.com', None, 0, 0, 0)
+AUDIT socket.getaddrinfo ('example.com', None, 0, 0, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 30, 1, 6)
+AUDIT socket.connect (<socket.socket fd=11, family=30, type=1, proto=6, laddr=('::', 0, 0, 0)>, ('2606:4700:10::6814:179a', 443, 0, 0))
+HTTP Request: GET https://example.com/robots.txt "HTTP/1.1 404 Not Found"
+AUDIT socket.getaddrinfo ('example.com', None, 0, 0, 0)
+AUDIT socket.getaddrinfo ('example.com', None, 0, 0, 0)
+AUDIT socket.__new__ (<socket.socket fd=-1, family=0, type=0, proto=0>, 30, 1, 6)
+AUDIT socket.connect (<socket.socket fd=11, family=30, type=1, proto=6, laddr=('::', 0, 0, 0)>, ('2606:4700:10::6814:179a', 443, 0, 0))
+HTTP Request: GET https://example.com/ "HTTP/1.1 200 OK"
+AUDIT open WRITE None /dev/null
+AUDIT open r 12
+AUDIT open r 14
+AUDIT subprocess.Popen ('/opt/homebrew/bin/node', ['/opt/homebrew/bin/node', '-v'], None, None)
+mcp-server-fetch: installing Readability.js's dependencies with npm in /private/tmp/claude-501/-Users-ethangomes-Desktop-Prompt-Engineering-Job-Search-Agent-1/8bdcbe6e-377a-4e98-9c22-8b4d35cc8694/scratchpad/fetchenv/lib/python3.11/site-packages/readabilipy/javascript (first use; this contacts the npm registry)
+AUDIT open WRITE None /dev/null
+AUDIT open r 12
+AUDIT open r 14
+AUDIT subprocess.Popen ('/opt/homebrew/bin/npm', ['/opt/homebrew/bin/npm', 'install', '--no-audit', '--no-fund'], PosixPath('/private/tmp/claude-501/-Users-ethangomes-Desktop-Prompt-Engineering-Job-Search-Agent-1/8bdcbe6e-377a-4e98-9c22-8b4d35cc8694/scratchpad/fetchenv/lib/python3.11/site-packages/readabilipy/javascript'), None)
+
+added 41 packages in 2s
+npm notice
+npm notice New minor version of npm available! 11.11.0 -> 11.21.3
+npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.21.3
+npm notice To update run: npm install -g npm@11.21.3
+npm notice
+AUDIT open WRITE None /var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/60ctordw
+AUDIT os.remove ('/var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/60ctordw', -1)
+AUDIT os.mkdir ('/var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/mcp-server-fetch-dzxd1j3w', 448, -1)
+AUDIT open WRITE w /var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/mcp-server-fetch-dzxd1j3w/page.html
+AUDIT open WRITE None /dev/null
+AUDIT open r 12
+AUDIT open r 14
+AUDIT subprocess.Popen ('/opt/homebrew/bin/node', ['/opt/homebrew/bin/node', '/private/tmp/claude-501/-Users-ethangomes-Desktop-Prompt-Engineering-Job-Search-Agent-1/8bdcbe6e-377a-4e98-9c22-8b4d35cc8694/scratchpad/fetchenv/lib/python3.11/site-packages/readabilipy/javascript/ExtractArticle.js', '-i', '/var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/mcp-server-fetch-dzxd1j3w/page.html', '-o', '/var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/mcp-server-fetch-dzxd1j3w/article.json'], PosixPath('/private/tmp/claude-501/-Users-ethangomes-Desktop-Prompt-Engineering-Job-Search-Agent-1/8bdcbe6e-377a-4e98-9c22-8b4d35cc8694/scratchpad/fetchenv/lib/python3.11/site-packages/readabilipy/javascript'), None)
+AUDIT open r /var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/mcp-server-fetch-dzxd1j3w/article.json
+AUDIT shutil.rmtree ('/var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/mcp-server-fetch-dzxd1j3w', None)
+AUDIT open None /var/folders/ny/zzwkgbvj1k3ffk1fdlkrwn800000gn/T/mcp-server-fetch-dzxd1j3w
+AUDIT os.remove ('page.html', 11)
+AUDIT os.remove ('article.json', 11)
+AUDIT socket.getaddrinfo ('169.254.169.254', None, 0, 0, 0)
+Tool 'fetch' failed: 'Error executing tool fetch: Refused to fetch http://169.254.169.254/robots.txt: 169.254.169.254 resolves to 169.254.169.254, which is not a public address. Start the server with --allow-private-ips to allow private, loopback and link-local addresses.'
