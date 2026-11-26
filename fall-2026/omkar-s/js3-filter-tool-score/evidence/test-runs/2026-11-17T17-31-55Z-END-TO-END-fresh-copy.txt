@@ -1,0 +1,92 @@
+=== END-TO-END 2026-11-17T17:31:55Z · python 3.14.2 · claude 2.1.292 · live=1
+
+--- 1. tests
+Ran 71 tests in 0.206s
+
+OK
+PASS  all tests pass
+
+--- 2. mutants
+CONTROL (no change): passed (OK)
+WV1   KILLED   skill match by substring: Java scores on JavaScript (FAILED (failures=3))
+WV2   KILLED   rank by raw keyword count, part 1: no cap (FAILED (failures=1))
+WV2b  KILLED   rank by raw keyword count, part 2: gates ignored (FAILED (failures=2))
+WV3   KILLED   relevance as entailment: any mention is a supported requirement (FAILED (failures=4))
+WV4   KILLED   first number before 'years' is the requirement (FAILED (failures=5))
+WV5   KILLED   no abstention: short or empty posting becomes reject (FAILED (failures=2))
+WV6   KILLED   bare Remote passes G1 (FAILED (failures=1))
+WV7   KILLED   empty source counted as covered with 0 matches (FAILED (failures=1))
+8/8 KILLED
+PASS  control passed and every mutant KILLED
+
+--- 3. offline pipeline reproduces the saved outputs
+filter v1.6 on 2026-11-17T06-16-31Z: 1142 postings → keep 7, reject 1135, cannot_tell 0; close calls 4
+wrote runs/2026-11-17T06-16-31Z/filter-v1.6/
+shortlist: 7 kept → 2 worth reading, 5 kept but I cannot tell
+wrote audit/AUDIT-RESULTS.md (0 of 49 cards hand-labelled)
+wrote experiments/SCORE-RESULTS.md
+PASS  shortlist-v1.6.md identical to the saved one
+PASS  filter-v1.6 summary identical
+PASS  SCORE-RESULTS identical apart from the generation time (lock status compared too)
+PASS  AUDIT-RESULTS identical apart from the generation time
+PASS  v1.6 keeps 7
+PASS  coverage line says INCOMPLETE + I cannot tell for greenhouse:webflow
+
+--- 4. MCP server probe
+tools/list BEFORE initialize               {"code": -32002, "message": "server not initialized: send initialize first"}
+initialize                                 {"protocolVersion": "2025-06-18", "capabilities": {"tools": {"listChanged": false}}, "serverInfo": {"name": "js3-score", "title": "JS3 posting scorer (read-only
+ping                                       {}
+tools/list                                 {"tools": [{"name": "score_posting", "title": "Score one job posting with the JS3 filter", "description": "Runs the JS3 filter (FILTER.md, current version) on O
+call by id (Toast SWE II Backend)          {"content": [{"type": "text", "text": "Software Engineer II, Backend (Remote US) → keep, score 5.0 (threshold 5.0, filter v1.6)\n  T1 +3: title has \"software e
+call pasted posting                        {"content": [{"type": "text", "text": "Software Engineer I (Boston, MA) → keep, score 7.0 (threshold 5.0, filter v1.6)\n  T1 +3: title has \"software engineer\"
+hostile: path traversal as posting_id      {"code": -32602, "message": "posting_id must match ^[A-Za-z0-9-]{1,64}$"}
+hostile: unknown tool 'apply_to_job'       {"code": -32602, "message": "unknown tool: 'apply_to_job'"}
+hostile: extra argument 'url'              {"code": -32602, "message": "unexpected arguments: ['url']"}
+edge: wrong type                           {"code": -32602, "message": "arguments must be strings: ['posting_id']"}
+edge: id not collected                     {"content": [{"type": "text", "text": "No collected posting has id '999999999' in corpus 2026-11-17T06-16-31Z. I cannot tell anything about it."}], "isError": t
+edge: unknown method resources/list        {"code": -32601, "message": "method not found: resources/list"}
+edge: malformed JSON                       {"code": -32700, "message": "parse error: Expecting property name enclosed in double quotes"}
+edge: content over 50,000 chars            {"code": -32602, "message": "content longer than 50000 characters"}
+edge: both id and pasted text              {"code": -32602, "message": "give posting_id OR title/location/content, not both"}
+transcript: transcripts/client-mine-2026-11-17T17-32-10Z.jsonl
+PASS  path traversal refused
+PASS  unknown tool refused
+PASS  pre-initialize refused
+PASS  transcript has both directions
+PASS  no server log outside transcripts/
+
+--- 5. live collection on the copy, then the pipeline on the new corpus
+greenhouse:klaviyo         ok      141  
+greenhouse:hubspotjobs     ok      137  
+greenhouse:toast           ok      320  
+greenhouse:datadog         ok      381  
+ashby:linear               ok       33  
+ashby:webflow              ok       28  
+lever:spotify              ok       87  
+greenhouse:webflow         empty     0  HTTP 200 with 0 postings: cannot tell (AB4)
+run 2026-11-17T17-32-10Z: 1127 postings, 8 requests, 3.65 s, INCOMPLETE
+collect exit 3
+filter v1.6 on 2026-11-17T17-32-10Z: 1127 postings → keep 7, reject 1120, cannot_tell 0; close calls 4
+wrote runs/2026-11-17T17-32-10Z/filter-v1.6/
+PASS  new corpus has postings from 7 sources and webflow empty
+shortlist: 7 kept → 2 worth reading, 5 kept but I cannot tell
+(the live board changes daily, so the new shortlist is reported, not compared)
+
+--- 6. one live Claude Code session as MCP client (final server code)
+tool_use {"posting_id": "8334794"}
+answer: Posting 8334794 (Software Engineer II, Backend, Toast, Remote US) got a **keep** verdict with a score of 5 against a threshold of 5, but its shortlist status is **kept_cannot_tell**. The reason is that the Java mention sits under "Nice to Haves", so no skill claim is supported.
+PASS  Claude called score_posting
+
+--- 7. edge cases (temp copy only)
+PASS  store refuses a write into config/
+wrote audit/AUDIT-RESULTS.md (49 of 49 cards hand-labelled)
+PASS  report computes Part R with an interval once all 49 are labelled
+PASS  draw refuses once verdicts exist
+(4.5, 47)
+PASS  fit-threshold writes a dev-only report
+PASS  experiments run refuses a new call under a broken lock
+PASS  collect refuses to overwrite a run of the same name
+redacted sub/planted.jsonl (1 home paths)
+PASS  redact exits 0, walks subfolders, and leaves no home path
+
+=== 0 FAILED checks

@@ -1,0 +1,40 @@
+"""The wrong versions from FILTER.md section 4, as exact text replacements in a temp copy of js3/.
+
+Each entry: id, file, old text, new text, what it gets wrong. tests/run_mutants.py applies one at a
+time and expects at least one test to FAIL (KILLED). A replacement that does not apply is an ERROR,
+never a pass.
+"""
+MUTANTS = [
+    ("WV1", "js3/textutil.py",
+     '    return re.compile(r"(?<![A-Za-z0-9])" + re.escape(phrase) + r"(?![A-Za-z0-9])", re.I)',
+     '    return re.compile(re.escape(phrase), re.I)',
+     "skill match by substring: Java scores on JavaScript"),
+    ("WV2", "js3/scorer.py",
+     '    counted = found[:w["K1_cap"]]',
+     '    counted = found\n    rec_gates_ignored = True',
+     "rank by raw keyword count, part 1: no cap"),
+    ("WV2b", "js3/scorer.py",
+     '        for g in ("G1", "G2", "G3"):\n            if not rec["gates"][g]["pass"]:',
+     '        for g in ():\n            if not rec["gates"][g]["pass"]:',
+     "rank by raw keyword count, part 2: gates ignored"),
+    ("WV3", "js3/scorer.py",
+     '        label = {"required": "supported", "negated": "contradicted"}.get(where, "insufficient")',
+     '        label = "supported" if where != "absent" else "insufficient"',
+     "relevance as entailment: any mention is a supported requirement"),
+    ("WV4", "js3/textutil.py",
+     '    full = _statements(text, plus_alone)\n    st = [(n, q) for n, q, _ in full]\n    if not st:',
+     '    m = re.search(r"(\\d{1,2})\\+?\\s*years", text or "")\n    return (int(m.group(1)), [(int(m.group(1)), m.group(0))]) if m else (None, [])\n    full = st = []\n    if not st:',
+     "first number before 'years' is the requirement"),
+    ("WV5", "js3/scorer.py",
+     '    if not title.strip() or len(text) < cfg["min_content_chars"]:',
+     '    if False:',
+     "no abstention: short or empty posting becomes reject"),
+    ("WV6", "js3/scorer.py",
+     '    g1, g1_why = location_ok(loc, offices)\n',
+     '    g1, g1_why = location_ok(loc, offices)\n    if "remote" in loc.lower():\n        g1, g1_why = True, "remote"\n',
+     "bare Remote passes G1"),
+    ("WV7", "js3/run_filter.py",
+     '    missing = [s for s in src["sources"] if s["status"] != "ok"]',
+     '    missing = [s for s in src["sources"] if s["status"] not in ("ok", "empty")]',
+     "empty source counted as covered with 0 matches"),
+]
