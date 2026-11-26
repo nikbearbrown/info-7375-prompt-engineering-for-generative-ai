@@ -178,10 +178,15 @@ def main(argv=None) -> int:
     p.add_argument("--collection", default=None)
     p.add_argument("--config", default="config/filter.v1.json")
     p.add_argument("--transcript", default=None, help="JSONL file under evidence/ that records every line both ways")
+    p.add_argument("--postings", default=None, help="serve this folder's held-out set instead: data/heldout")
     a = p.parse_args(argv)
-    run = a.collection or latest_collection()
     cfg = json.loads(policy.check_read(a.config).read_text(encoding="utf-8"))
-    postings = collect.load_postings(policy.ROOT / "data" / "collections" / run)
+    if a.postings:
+        run = a.postings
+        postings = collect.load_postings(policy.check_read(a.postings))
+    else:
+        run = a.collection or latest_collection()
+        postings = collect.load_postings(policy.ROOT / "data" / "collections" / run)
     serve(Server(cfg, run, postings), Transcript(a.transcript))
     return 0
 

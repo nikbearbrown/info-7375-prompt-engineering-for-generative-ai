@@ -73,7 +73,7 @@ def evaluate(cfg: dict, posting: dict) -> dict:
     excl = first_hit(cfg["title_exclusions"], t)
     senior = re.search(cfg["seniority_regex"], t)
     years, years_sentence = years_required(sentences)
-    place = posting_place(posting["location"])
+    place = posting_place(posting["location"], cfg.get("us_place_names", ()))
     gates = {
         "G1_title_exclusion": {"passed": excl is None, "hit": excl},
         "G2_seniority": {"passed": senior is None, "hit": senior.group(1) if senior else None},

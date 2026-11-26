@@ -14,8 +14,7 @@ from pathlib import Path
 from . import policy
 
 MODEL = "claude-sonnet-5-5"
-BASE_ARGV = ["-p", "--model", MODEL, "--tools", "", "--no-session-persistence", "--strict-mcp-config",
-             "--setting-sources", "project"]
+BASE_ARGV = ["-p", "--tools", "", "--no-session-persistence", "--strict-mcp-config", "--setting-sources", "project"]
 
 
 def claude_bin() -> str:
@@ -26,10 +25,10 @@ def claude_bin() -> str:
 
 
 def run(prompt: str, extra_argv: list[str], output_format: str = "json", mcp_config: dict | None = None,
-        timeout: float = 600.0) -> tuple[list[str], bytes, str, int]:
+        timeout: float = 600.0, model: str = MODEL) -> tuple[list[str], bytes, str, int]:
     """Returns (argv as run, raw stdout, stderr text, exit code)."""
     with tempfile.TemporaryDirectory(prefix="js3-claude-", ignore_cleanup_errors=True) as tmp:
-        argv = [claude_bin(), *BASE_ARGV, "--output-format", output_format, *extra_argv]
+        argv = [claude_bin(), *BASE_ARGV, "--model", model, "--output-format", output_format, *extra_argv]
         if output_format == "stream-json":
             argv.append("--verbose")
         if mcp_config is not None:

@@ -25,12 +25,12 @@ TRAILING_CODE_RE = re.compile(r",\s*([a-z]{2})\s*$")
 NORTH_AMERICA = whole_word("north america")
 
 
-def part_place(part: str) -> str:
-    """One location part, by name only."""
+def part_place(part: str, us_place_names=()) -> str:
+    """One location part, by name only. `us_place_names` is empty in filter v1 (candidate v1.1 adds US cities)."""
     p = part.strip().lower()
     if not p:
         return "unknown"
-    if any(whole_word(w).search(p) for w in US_WORDS):
+    if any(whole_word(w).search(p) for w in (*US_WORDS, *us_place_names)):
         return "us"
     m = TRAILING_CODE_RE.search(p)
     if m and m.group(1) in CODES:
@@ -45,11 +45,11 @@ def part_place(part: str) -> str:
     return "not_us"          # a place the rule does not recognise as US is not guessed to be US
 
 
-def place_of(name: str, country) -> tuple[str, str]:
+def place_of(name: str, country, us_place_names=()) -> tuple[str, str]:
     """(place, the text that decided). A country field, when present, decides instead of the name."""
     if country:
         return ("us" if str(country).strip().lower() in US_COUNTRY_VALUES else "not_us"), f"country={country}"
-    places = [(part_place(part), part.strip()) for part in SPLIT_RE.split((name or "").lower())]
+    places = [(part_place(part, us_place_names), part.strip()) for part in SPLIT_RE.split((name or "").lower())]
     places = [x for x in places if x[1]] or [("unknown", "")]
     for want in ("us", "unknown"):
         for pl, part in places:
@@ -58,11 +58,11 @@ def place_of(name: str, country) -> tuple[str, str]:
     return "not_us", places[0][1]
 
 
-def posting_place(loc: dict) -> dict:
+def posting_place(loc: dict, us_place_names=()) -> dict:
     """Gate G4 for a collected posting: any US entry passes; else unknown if any entry is unknown; else not_us."""
     entries = [(loc.get("name") or "", loc.get("country"))] + [(o.get("name") or "", o.get("country"))
                                                               for o in (loc.get("other") or [])]
-    results = [(*place_of(n, c), n) for n, c in entries]
+    results = [(*place_of(n, c, us_place_names), n) for n, c in entries]
     for want in ("us", "unknown"):
         for pl, why, n in results:
             if pl == want:

@@ -1,0 +1,133 @@
+{
+  "version": "filter-v1.1-candidate",
+  "_comment": "Candidate v1.1 = v1 plus ONE change: us_place_names (G4). Hand-set on 2026-11-26 from the 149 location strings v1 placed outside the US in collection 2026-11-26T02-59-56Z (no labels used). Not adopted unless Siddi says so.",
+  "title_exclusions": [
+    "account",
+    "sales",
+    "solutions",
+    "architect",
+    "recruiter",
+    "recruiting",
+    "marketing",
+    "consultant",
+    "customer",
+    "support",
+    "field",
+    "partner",
+    "evangelist",
+    "advocate",
+    "product"
+  ],
+  "seniority_regex": "\\b(senior|sr|staff|principal|lead|manager|director|head|vp)\\b",
+  "years_cap": 4,
+  "role_words": [
+    "machine learning",
+    "ml",
+    "data engineer",
+    "data engineering",
+    "data platform",
+    "data scientist",
+    "ai"
+  ],
+  "role_points": 3,
+  "skills": {
+    "python": [
+      "python"
+    ],
+    "sql": [
+      "sql"
+    ],
+    "scala": [
+      "scala"
+    ],
+    "spark": [
+      "spark",
+      "apache spark",
+      "pyspark"
+    ],
+    "airflow": [
+      "airflow",
+      "apache airflow"
+    ],
+    "kafka": [
+      "kafka",
+      "apache kafka"
+    ],
+    "dbt": [
+      "dbt"
+    ],
+    "bigquery": [
+      "bigquery"
+    ],
+    "gcp": [
+      "gcp",
+      "google cloud"
+    ],
+    "docker": [
+      "docker"
+    ],
+    "kubernetes": [
+      "kubernetes",
+      "k8s"
+    ],
+    "tableau": [
+      "tableau"
+    ]
+  },
+  "skill_points_each": 1,
+  "skill_cap": 4,
+  "topic_words": [
+    "machine learning",
+    "deep learning",
+    "data pipeline",
+    "data pipelines",
+    "etl",
+    "data warehouse",
+    "data modeling",
+    "ai",
+    "llm",
+    "llms"
+  ],
+  "topic_points": 1,
+  "keep_threshold": 4,
+  "boilerplate": {
+    "stripe": {
+      "cut_headings": [
+        "in-office expectations"
+      ],
+      "drop_sentence_phrases": [
+        "stripe is a financial infrastructure platform"
+      ]
+    },
+    "notion": {
+      "cut_headings": [],
+      "drop_sentence_phrases": []
+    },
+    "Canva": {
+      "cut_headings": [],
+      "drop_sentence_phrases": []
+    }
+  },
+  "board_order": [
+    "stripe",
+    "notion",
+    "Canva"
+  ],
+  "shortlist_size": 10,
+  "us_place_names": [
+    "san francisco",
+    "south san francisco",
+    "ssf",
+    "sf",
+    "seattle",
+    "sea",
+    "chicago",
+    "chi",
+    "new york",
+    "new-york",
+    "nyc",
+    "atlanta",
+    "atl",
+    "dc"
+  ]
+}
