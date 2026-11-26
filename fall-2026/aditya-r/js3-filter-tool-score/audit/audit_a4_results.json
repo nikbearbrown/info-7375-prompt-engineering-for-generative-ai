@@ -1,0 +1,105 @@
+{
+ "labels": "labels/audit_a4_labels.csv",
+ "audited_filter": "v1.1",
+ "n": 37,
+ "label_counts": {
+  "no": 31,
+  "unsure": 3,
+  "yes": 3
+ },
+ "groups": {
+  "A4-close-above(score 6)": {
+   "n": 1,
+   "labels": {
+    "unsure": 1
+   },
+   "v1.1": {
+    "unsure_keep": 1
+   },
+   "errors": []
+  },
+  "A4-close-below(score 5)": {
+   "n": 5,
+   "labels": {
+    "yes": 2,
+    "unsure": 1,
+    "no": 2
+   },
+   "v1.1": {
+    "FN": 2,
+    "unsure_reject": 1,
+    "TN": 2
+   },
+   "errors": [
+    {
+     "sheet_id": "A05",
+     "label": "yes",
+     "v1.1": "reject",
+     "arithmetic": "R 4 + S -6 + T 4 + E 3 + Y 0 = 5",
+     "score": 5,
+     "title": "Staff Machine Learning Engineer ",
+     "reason": "Despite the staff title, the team explicitly recruits junior GenAI engineers. The LLM evaluation work justifies a read even though the stated experience range starts at two years."
+    },
+    {
+     "sheet_id": "A25",
+     "label": "yes",
+     "v1.1": "reject",
+     "arithmetic": "R 2 + S 0 + T 3 + E 0 + Y 0 = 5",
+     "score": 5,
+     "title": "Software Engineer - AI Platforms",
+     "reason": "Evaluation frameworks and agentic search are close enough to her co-op to merit a read. Five years of software engineering is a significant stretch."
+    }
+   ]
+  },
+  "A4-kept(all unseen keep clusters)": {
+   "n": 2,
+   "labels": {
+    "unsure": 2
+   },
+   "v1.1": {
+    "unsure_keep": 2
+   },
+   "errors": []
+  },
+  "A4-random-reject": {
+   "n": 30,
+   "labels": {
+    "no": 29,
+    "yes": 1
+   },
+   "v1.1": {
+    "TN": 29,
+    "FN": 1
+   },
+   "errors": [
+    {
+     "sheet_id": "A07",
+     "label": "yes",
+     "v1.1": "reject",
+     "arithmetic": "R 0 + S -6 + T 4 + E 0 + Y 0 = -2",
+     "score": -2,
+     "title": "Skills Systems Architect",
+     "reason": "The architect would actually build LLM extraction and agent pipelines in Python and SQL. That makes the posting worth a read for Priya."
+    }
+   ]
+  }
+ },
+ "random_reject_estimate": {
+  "sample": 30,
+  "yes": 1,
+  "unsure": 0,
+  "no": 29,
+  "miss_rate_decided": "1/30",
+  "ci95_decided": [
+   0.0008,
+   0.1722
+  ],
+  "worst_case_unsure_as_miss": "1/30",
+  "ci95_worst_case": [
+   0.0008,
+   0.1722
+  ],
+  "v1.1_rejects_in_corpus": 1278
+ },
+ "comparisons": []
+}
