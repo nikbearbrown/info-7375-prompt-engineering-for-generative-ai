@@ -4,8 +4,9 @@ Ethan Gomes · INFO 7375 · v1.3 · 2026-11-25
 
 ## Scope
 
-This file decides which collected postings reach me, and why. It is written before the filter, the shortlist, the tool server or the
-scorer exist, and the code must follow it. It builds on my JS2 agent (commit `7404ffb`) and on my JS1 contract: the five rules R1–R5 in
+This file decides which collected postings reach me, and why. Versions v1–v1.2 were written before the filter, the shortlist, the
+tool server or the scorer existed (commits `5813935`, `aa8b063` and `33062cb`, all before the first JS3 code commit `be89270`), and the
+code follows this file. v1.3 records the changes I made after measuring (section 5 and the change log). It builds on my JS2 agent (commit `7404ffb`) and on my JS1 contract: the five rules R1–R5 in
 `CONTRACT.md`, applied to the fictional persona Evan Gordon, a data engineer with about 4 years of experience who prefers Boston and is
 open to remote or relocating within the US. A rule changes only through a new version of this file, with the change and its reason in
 the change log at the bottom.
@@ -153,7 +154,8 @@ the rest of JS2's permission policy are unchanged.
 
 Before any score change is tried, I hand-label a set of postings from the new snapshot as relevant or not, without seeing the filter's
 or Claude's answers, following the labeling rule from JS1. The set is split into tuning labels and held-out labels, and the held-out
-file's hash is recorded before tuning starts. Every change in section 1 is measured only on the held-out labels, one change at a time.
+file's hash is recorded before tuning starts. Changes are tried one at a time and chosen using the tuning labels only. A change that
+moves anything on tuning is then measured once on the held-out labels before it is adopted.
 
 ## Change log
 

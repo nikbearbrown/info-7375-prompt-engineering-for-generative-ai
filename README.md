@@ -14,7 +14,9 @@ my JS1 contract and persona (`CONTRACT.md`, `persona/`). JS2's `GATE.md`, `basel
 - Python 3.9.6, standard library only (no third-party packages and no MCP SDK), tests with `unittest`, macOS, git
 - The `fetch` evaluation only: Homebrew Python 3.11.14 in a throwaway virtual environment outside this folder, with
   `mcp-server-fetch==2026.11.18` (and `mcp` 2.3.0) from PyPI; Node.js 25.8.0 and npm 11.11.0 were on the PATH
-- The network is used only by `scripts/collect_snapshot.py`, through JS2's allow-listed, read-only GET fetcher
+- The agent uses the network only in `scripts/collect_snapshot.py`, through JS2's allow-listed, read-only GET fetcher. The `fetch`
+  evaluation (`scripts/fetch_transcript.py`) also used the network: PyPI for the install, then the fetch server's own requests to
+  Greenhouse and example.com, and npm
 - Claude is not called by anything in JS3
 
 ## Exact commands (run from this folder)
@@ -62,7 +64,7 @@ are already used (`labels/HELDOUT_LOG.jsonl`).
 | `FILTER.md` | The filter, evidence rules, expected sources and wrong versions (v1–v1.2 before the build; v1.3 after measuring) |
 | `REJECT_AUDIT.md` | The audit, what the sample can show, the false friends |
 | `SHORTLIST.md` | The shortlist, its claim labels, relevance vs. entailment, the abstention counterexample |
-| `TOOL_SERVER.md` | The server, its transcript, declared vs. actual, and the two evaluations with trust decisions |
+| `TOOL_SERVER.md` | The server, its transcripts, declared vs. actual, and the two evaluations with trust decisions |
 | `SCORE.md` | The origin of every number, the one-change-at-a-time results, and what persistence is not proof of |
 | `SIGNOFF.md` | The sign-off and the driver's seat |
 | `SOURCES.md`, `FRICTIONAL.md` | Sources; the honest log |
