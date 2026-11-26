@@ -1,0 +1,59 @@
+{
+  "version": "v1.1",
+  "source": "FILTER.md v1.1 (Revisions, 2026-11-25): my decisions B + D after the v1 audit",
+  "role": {
+    "R1": "back[- ]?end engineer",
+    "R2": "java developer",
+    "R3": "software engineer",
+    "R4": "full[- ]?stack engineer",
+    "R5": "software developer",
+    "R6": "platform engineer"
+  },
+  "topic": {
+    "T1": {
+      "pattern": "\\bJava\\b(?!Script)",
+      "flags": "i",
+      "label": "Java"
+    },
+    "T2": {
+      "pattern": "\\bSpring Boot\\b",
+      "flags": "i",
+      "label": "Spring Boot"
+    },
+    "T3": {
+      "pattern": "\\bREST(ful)?\\b",
+      "flags": "",
+      "label": "REST APIs"
+    },
+    "T4": {
+      "pattern": "\\bmicro-?services?\\b",
+      "flags": "i",
+      "label": "microservices"
+    },
+    "T5": {
+      "pattern": "(?<![A-Za-z])SQL\\b",
+      "flags": "i",
+      "label": "SQL"
+    },
+    "T6": {
+      "pattern": "\\bAWS\\b",
+      "flags": "",
+      "label": "AWS"
+    },
+    "T7": {
+      "pattern": "\\bPostgre(SQL|s)\\b",
+      "flags": "i",
+      "label": "PostgreSQL"
+    },
+    "T8": {
+      "pattern": "\\bdistributed systems?\\b",
+      "flags": "i",
+      "label": "distributed systems"
+    }
+  },
+  "level_exclude": "\\b(senior|staff|principal|lead|sr\\.?)(?=\\W|$)",
+  "threshold": 2,
+  "us_bonus": 1,
+  "max_required_years": 2,
+  "topic_in_required_only": true
+}

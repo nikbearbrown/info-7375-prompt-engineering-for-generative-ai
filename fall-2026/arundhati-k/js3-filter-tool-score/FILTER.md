@@ -106,7 +106,26 @@ it. Allow-list: only these two hosts. The agent never logs in, applies or messag
 
 ## Revisions
 
-(none yet: v1)
+### v1 pending items: decided 2026-11-25 (my words, [audit/my-decisions-2026-11-25.txt](audit/my-decisions-2026-11-25.txt))
+
+| item | decision |
+|---|---|
+| 2-word threshold | Accept, when both words appear in relevant job-description context (that condition became rule D below) |
+| "Sr." = Senior | Accept |
+| 3+ years required contradicts early-career | Accept, with preferred experience treated differently from required experience |
+
+### v1.1: 2026-11-25, after the v1 audit ([AUDIT.md](AUDIT.md))
+
+Measured on my 54 audit verdicts first (the dev set), then on my 20 held-out labels ([SCORE-CHANGES.md](SCORE-CHANGES.md)).
+
+| change | status | my reason |
+|---|---|---|
+| **A** require US (unknown location → reject) | **rejected** | "The US should be a preference, not a hard requirement. Unknown location should stay unknown rather than automatically disqualifying a role." |
+| **B** reject if 3+ years explicitly required (`max_required_years: 2`) | **added** | "Reject roles where 3+ years of experience are explicitly required. If that experience is only preferred, don't automatically reject." |
+| **C** threshold 2 → 1 | **rejected** | "Lowering the threshold to one topic word would let too many loosely related jobs through." |
+| **D** count topic words only in requirements / responsibilities sections (`topic_in_required_only: true`) | **added** | "Count topic words in the actual requirements section, not a general company or team description. That should reduce false matches." |
+
+The machine copy is `filter/v1.1.json`. v1 stays in `filter/v1.json`, unchanged.
 
 ## Appendix A — my answers, verbatim
 
