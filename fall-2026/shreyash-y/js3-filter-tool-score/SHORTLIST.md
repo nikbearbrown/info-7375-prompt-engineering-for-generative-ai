@@ -5,15 +5,18 @@ claim of every kept posting) and `results/claims-claude/` (Claude's independent 
 decisions in section 4 are Shreyash's.*
 
 - **What was kept.** Filter v1 kept **5** of the 789 postings, all Klaviyo, all Boston. **4** are
-  still open. `klaviyo:7855793003` closed after 2026-11-10, so it is labeled but not shortlisted.
+  still open. `klaviyo:7855793003` closed after 2026-11-10. It is labeled like the others and appears
+  in `results/shortlist-v1.*`, but as a closed posting it would not reach Alex.
 - **The claims.** Each kept posting's justification is **nine claims**: role, department, location,
-  skills, experience, seniority, full-time, paid, relocation. Six are must-haves under the evidence
-  rules (answer 11): role, location, experience and the three exclusion claims.
+  skills, experience, seniority, full-time, paid, relocation. **Seven** are must-haves under the
+  evidence rules (answer 11): role, location, experience, and the four exclusion claims (seniority,
+  full-time, paid, relocation).
 - **Who labeled them.**
   - The code labels every claim (`js3/claims.py`). A label is *supported* only with an exact quote
     from the posting that states the claim.
   - Claude (opus, `claude -p`, no tools) labeled the same 45 claims without seeing the code's
-    labels, and gave a quote for each label (`js3/claim_judge.py`, 2026-11-25 17:33–17:34 EST; the first run, without Alex's profile, was at 17:31–17:32).
+    labels. It gave an exact quote wherever it found one: 35 of its 45 labels have a quote, and the
+    other 10 are "insufficient" with none (`js3/claim_judge.py`, 2026-11-25 17:33–17:34 EST; the first run, without Alex's profile, was at 17:31–17:32).
   - Every quote from both was checked against the posting (wrong version 4): **0 not found**.
 - **Agreement.** The two labelers agree on **42 of 45** claims. The 3 disagreements are in section 4.
 
@@ -90,9 +93,9 @@ evidence that is present but misleading.
   every must-have would have shown as "supported".
 - A quote that exists is not a quote that entails.
 
-**Measured, not adopted.** Exempting "full-time not stated" the way follow-up B exempts experience
+**Measured, then adopted.** Exempting "full-time not stated" the way follow-up B exempts experience
 would turn the 4 open postings into "reaches Alex", including the Android one. That is a change to the
-evidence rules, so it is Shreyash's call (section 4).
+evidence rules, so it was Shreyash's call. He adopted it as B4 (section 4; FILTER.md v1.1).
 
 ## 4. Shreyash's decisions
 
@@ -101,7 +104,7 @@ evidence rules, so it is Shreyash's call (section 4).
 | # | Posting, claim | Code | Claude, with its quote | Shreyash's label and why |
 |---|---|---|---|---|
 | 1 | Growth `7696724003`, "It is not a Director, Staff, Principal, Manager or Lead role." | supported: the title has none of the five words | **contradicted**: "You will serve as a technical leader and liaison". "The posting describes the role as a technical leadership position, so it is effectively a lead role." | **Supported.** "I agree with the code. Being a technical leader does not mean the job title is Lead Engineer. Senior engineers can also guide other engineers." |
-| 2 | Flows `8199437003`, "It asks for at least 2 of Alex's skills." | insufficient: only in the intro and the "Technologies we use" list, not under a requirements heading | **supported**: "React, TypeScript, JavaScript Python, Django, Celery". The intro also says "from the React canvas down to the Python services and APIs underneath". | **Insufficient.** "The ad mentions React and Python, but it does not clearly say that both are required skills. Mentioning a technology and asking for experience in it are two different things." |
+| 2 | Flows `8199437003`, "It asks for at least 2 of Alex's skills." | insufficient: only in the intro and the "Technologies we use" list, not under a requirements heading | **supported**: "React, TypeScript, JavaScript Python, Django, Celery". *(Claude Code's note, not Claude's label: the ad's intro also says "from the React canvas down to the Python services and APIs underneath".)* | **Insufficient.** "The ad mentions React and Python, but it does not clearly say that both are required skills. Mentioning a technology and asking for experience in it are two different things." |
 | 3 | Flows `8199437003`, the seniority claim | supported | **insufficient**: the posting asks the hire to act "as a technical leader" and "never explicitly says the role is not a lead role" | **Supported.** "I agree with the code. Acting as a technical leader is a responsibility, not a Lead job title. My exclusion rule is based on the job title." |
 | 4 | The evidence rules: should "full-time not stated" be an exception like follow-up B? | — | — | **Yes, make it an exception.** "If full-time is not stated, I want the job to pass this rule but mark employment type as "not stated." If the ad clearly says part-time, temporary, internship, unpaid or contract-only, reject it." (FILTER.md v1.1, B4) |
 
@@ -137,7 +140,16 @@ has"), which was right. The second run added Alex's public profile (no contact d
   Linear's Product Engineer.
   - Recommendations is kept too, but it is closed, as is Test Frameworks.
 - **All 7 now answer "reaches Alex".** B4 removed the only must-have gap they had. Every quote was
-  checked (0 not found), and the full-time claim stays labeled *insufficient*, marked "not stated".
+  checked (0 not found).
+  - For 6 of the 7, the full-time claim stays labeled *insufficient*, marked "not stated".
+  - Linear's Product Engineer is *supported*: its board lists FullTime.
+- **4 of the 7 reach Alex with their skills claim labeled *insufficient*:** Growth, Android/Kotlin,
+  Recommendations and Flows. This happens because skills is not a must-have.
+  - Measured, not proposed: if skills were a must-have, those 4 would become "I cannot tell" and 3
+    would reach Alex (Test Frameworks, Conversational Products, Product Engineer). The source is
+    `results/whatif-v1.json`, `_more.shortlist_v1_1`.
+  - That change would also hold back Growth and Flows, which Shreyash wants. It is the same trade-off
+    as A3.
 - **The Android/Kotlin job still reaches Alex,** and Shreyash's hand label says it should not.
   - It stays because he rejected A3, the change that would have removed it along with two jobs he
     wants.

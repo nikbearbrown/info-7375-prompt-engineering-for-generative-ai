@@ -25,3 +25,17 @@ fail only the location rule, and they differ only in title and city.
 
 What a label means: Shreyash's own answer to "Should this job reach Alex?" (yes / no / I cannot tell
 from the posting), read from the posting, with an optional note.
+
+---
+
+*Corrections by Claude Code, 2026-11-25 19:02 EST, after the independent review. The plan above is unchanged,
+as it was committed before any label.*
+
+1. *The 18 unlabeled Palantir closest calls are in New York (8), Palo Alto (4), London (3), and
+   Washington DC, Seattle and Denver (1 each). London was missing above.*
+2. *"No rule change or prompt change is designed from these labels" held for the held-out set. But
+   Shreyash later used its labels once, to reject A3 (FILTER.md v1.1), so it is no longer an untouched
+   test of v1.1 (SCORE.md section 4).*
+3. *What the labeler saw is described in `labels/hand-verdicts-provenance.md`: Claude Code's chat
+   summaries, and a double-check of 31, 39 and 49 in which Claude Code described how the rules read
+   them.*

@@ -4,7 +4,9 @@
 session between 17:53 and 18:04 EST and transcribed word for word into `labels/hand-verdicts.jsonl`.
 They were frozen by sha256 (`labels/hand-verdicts.sha256`, commit `667a2932`) before they were compared
 with the filter or with Claude. The generated tables are in `results/audit-v1.md`
-(`python3 -m js3 audit`). The decisions in section 5 are Shreyash's.*
+(`python3 -m js3 audit`). The decisions in section 5 are Shreyash's. How each verdict was given,
+including the six answers that changed, is in `labels/hand-verdicts-provenance.md`. That file was added
+after the independent review of 2026-11-25 found that two first answers were missing from the record.*
 
 ## 1. What the filter saw and decided
 
@@ -16,7 +18,7 @@ with the filter or with Claude. The generated tables are in `results/audit-v1.md
     report it as having zero. `whoop` returned an empty list.
 - **Filter v1:** kept 5, said "I cannot tell" about 0, and rejected 784, of which **44 are closest
   calls** (fail exactly one rule).
-- **Compared with JS2's rule v2 rev 3:** the same verdict on all 789. Only the reasons changed: for
+- **Compared with JS2's rule v2 rev 3** (`results/whatif-v1.json`, `_more.v1_vs_js2_rule`): the same verdict on all 789. Only the reasons changed: for
   example, 122 location results became "cannot tell". JS2 had failed 84 of them and passed 38:
   - 29 Oscar ads whose office tag names one state, such as "Remote (Texas)", while the ad's own state
     list includes Massachusetts. JS2 trusted the list; answer 6a calls the two a disagreement.
@@ -36,8 +38,13 @@ with the filter or with Claude. The generated tables are in `results/audit-v1.md
 | A3 | 2 of the 5 kept | counts only |
 | H | 24 held out for SCORE.md: 3 kept, 11 closest calls, 10 other rejects | the experiments |
 
-One posting is in both A1 and A2, so 46 postings were audited and 24 held out: 70 to label. All 70 came
-in one shuffled order, without the filter's verdict or the part each posting belonged to.
+One posting is in both A1 and A2, so 46 postings were audited and 24 held out: 70 to label.
+
+- **How they were shown:** all 70 came in one shuffled order, without the filter's verdict or the part
+  each posting belonged to. They were summaries that Claude Code wrote in the chat
+  (`labels/hand-verdicts-provenance.md`).
+- **The one exception:** when Shreyash asked for a double-check of 31, 39 and 49, Claude Code told him
+  how the rules read those three postings. Their final answers are therefore not blind.
 
 ## 3. How many the filter got wrong
 
@@ -50,17 +57,20 @@ in one shuffled order, without the filter's verdict or the part each posting bel
 
 **The disagreements**, with Shreyash's own reasons:
 
-- **Miss: Software Engineer II - Recommendations** (`klaviyo:7855798003`, Boston, 2+ years).
+- **Miss: Software Engineer II - Recommendations** (`klaviyo:7855798003`, Boston, 2+ years). His "yes" came before the double-check, and he kept it.
   - Rule 4 found one skill, Python. The ad names MySQL and Postgres, which are not the whole term "SQL".
   - Shreyash: "I think MySQL and PostgreSQL should count towards Alex's SQL skill. The rule is too strict
     here."
 - **Miss: Product Engineer** (`linear:0c7c2e26-…`, remote in North America, 2-5 years, React and
-  TypeScript).
+  TypeScript). This is his final answer, given after the double-check. His first answer was "no":
+  "Product Engineer is not one of the listed target roles".
   - Rule 1: the title is not one of the nine phrases.
   - Shreyash: "Even though the title is Product Engineer, the actual work matches Alex's full-stack
     skills…"
 - **False positive: Software Engineer II (Mobile Developer - Android/Kotlin) - Remote**
-  (`klaviyo:7792539003`).
+  (`klaviyo:7792539003`). This is his final answer, given after the double-check. His first answer was
+  "yes", with the doubt: "It passes the written rules, but Android development is the main
+  requirement, which is not among Alex's skills".
   - Every rule passed.
   - Shreyash: "The main requirement is Android and Kotlin, which Alex does not have. Just mentioning
     Python and React does not make it a good match."
@@ -79,8 +89,8 @@ in one shuffled order, without the filter's verdict or the part each posting bel
   - the 30 random rejects held none.
 - **The 18 Palantir closest calls left unlabeled** are counted, not judged. Every labeled one of their
   kind (17 of 17) was a "no".
-- **The whole audit describes these six boards, on 2026-11-09, -10 and -25, for one fictional
-  applicant.** Another board, or another week, could fail in ways this sample never saw.
+- **The whole audit describes the four boards that returned postings** (of the six checked), on
+  2026-11-09, -10 and -25, for one fictional applicant. Another board, or another week, could fail in ways this sample never saw.
 
 **Where a verdict was influenced, and how:**
 
@@ -89,10 +99,32 @@ in one shuffled order, without the filter's verdict or the part each posting bel
   seeing the full section. The bug is fixed test-first (`tests/test_js3_sections_apostrophe.py`), and
   the fix changed no filter result.
 - **Items 11 and 20.** Shreyash asked for the full ad and changed "cannot tell" to "yes".
-- **Item 31.** Shreyash answered after Claude Code told him how Rule 4 reads the ad, so it is marked
-  `not_blind` in the file.
-- **Items 8, 11, 20 and 31 together:** both answers are kept in the file (74 lines for 70 postings), and
-  the last one counts.
+- **Item 31.**
+  - His first answer was "no" ("The job is closed"). Claude Code's chat summaries had left out "judge it
+    as if it were open".
+  - Asked to judge it as if open, he answered "yes" and asked for a double-check.
+  - In the double-check, Claude Code told him how Rule 4 reads the ad, and he kept "yes". The final line
+    is marked `not_blind`.
+- **Items 39 and 49.**
+  - He answered 39 "yes" and 49 "no", with notes, and asked for a double-check before they were saved.
+  - Claude Code held both answers and told him how the rules read the two postings. It framed the
+    label as his judgment, not the rules'.
+  - He changed 39 to "no" and 49 to "yes".
+  - His first answers never reached the frozen file. They are recorded in
+    `labels/hand-verdicts-first-answers.jsonl`, transcribed from the session after the review.
+- **Six answers changed in all** (8, 11, 20, 31, 39, 49). The frozen file keeps the first and final
+  answers of the first four (74 lines for 70 postings; the last one counts).
+
+**The audit set both ways** (`results/audit-v1.json`, `audit_set_both_ways`):
+
+| Answers used | Agree | Misses | False positives |
+|---|---|---|---|
+| Final answers (the tables above) | 43 of 46 | 2 (31, 49) | 1 (39) |
+| Answers given before any rule explanation (31 yes, 39 yes, 49 no) | 45 of 46 | 1 (31) | 0 |
+
+Two of the three disagreements, the Product Engineer miss and the Android false positive, exist only
+in answers given after Claude Code described the rules. The 30 random rejects and the held-out set
+contain none of these three postings.
 
 ## 4. False friends: words that matched for the wrong reason
 
@@ -110,9 +142,11 @@ Measured by code over all 789 postings. They are listed by how much they mattere
    - It changed no verdict: both ads still name two real skills and fail other rules. JS1 predicted
      this weakness (INTERPRETATIONS.md) without measuring it.
 3. **"remote position".**
-   - In 36 Oscar ads it matched "the ad says remote", in "This is a remote position, open to candidates
-     who reside in: Dallas, TX." Filter v1 read that as the location tag and the ad disagreeing
-     (answer 6a), and said "cannot tell".
+   - In 36 ads (35 Oscar, 1 Palantir) it matched "the ad says remote", in sentences like "This is a
+     remote position, open to candidates who reside in: Dallas, TX."
+   - The city and state vary: Dallas, Atlanta, San Francisco, Tempe, Florida.
+   - Filter v1 read that as the location tag and the ad disagreeing (answer 6a), and said "cannot
+     tell".
    - The same sentence limits the job to one state. The inherited reading counted a residence list
      only when it named two states or more, a number Claude Code set in JS2.
    - It changed no verdict. Decision A4 fixed it in v1.1.
@@ -131,19 +165,26 @@ code). The version log there has one row for each.
 | **A5** minimum skills 1, fitted on the audit labels | +1 audit agreement; ties on the held-out set | **Rejected** |
 | **B4** evidence rules: "full-time not stated" passes, marked not stated | all 5 kept were "I cannot tell" only for this | **Added** |
 
-**Measured before the labels, and not proposed,** because they moved no verdict or made one worse:
+**Measured on the corpus before the labels existed, and not proposed**
+(`results/whatif-v1.json`, `_more.filter_changes_corpus`):
 
 - dropping Rule 2: 0 verdicts;
 - JS2's reading of Palantir `Dev`: 0 verdicts;
-- maximum years 5: one more false positive on the audit;
-- minimum skills 3: 0 verdicts.
+- minimum skills 3: 0 verdicts;
+- maximum years 5: +1 posting kept. Checked against the audit labels afterwards, that posting is one
+  Shreyash rejected (7+ years), so it would be a false positive.
 
-**Filter v1.1 against the same labels** (`results/filter-v1.1/`, 218 tests pass):
+**Filter v1.1 against the same labels** (`results/filter-v1.1/`, 222 tests pass):
 
 - **Kept:** 7 (5 open). It changes exactly 2 verdicts, the two misses.
-- **Audit:** **45 of 46** agree. The Android false positive stays, because Shreyash rejected A3, and a
-  test records it.
-- **Held-out:** 24 of 24.
+- **Audit:** **45 of 46** agree.
+  - This is in-sample: A1 and A2 were designed from these audit misses.
+  - The Android false positive stays, because Shreyash rejected A3, and a test records it.
+- **Held-out:** 24 of 24, but no longer an untouched test: A3 was rejected on these labels.
 - **A4's count was first stated wrongly.** Claude Code gave its effect as "36" before running it; the
-  first v1.1 code changed 12. 24 ads write the state as a code ("TX") and 2 write "reside:" without
-  "in". Two test-first fixes brought it to 35 of 36, and FILTER.md carries a dated correction.
+  first v1.1 code changed 12. Of the other 24:
+  - 21 write the state as a code after "reside in" ("TX");
+  - 2 write "reside:" without "in" (one of them also with a code);
+  - 1 (Palantir, Warsaw) is not a residence line.
+
+  Two test-first fixes brought it to 35 of 36, and FILTER.md carries a dated correction.

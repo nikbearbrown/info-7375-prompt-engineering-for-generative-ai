@@ -18,8 +18,8 @@ quotes, and, for a kept posting, the labeled claims of its justification.
 |---|---|---|
 | Server | `js3/mcp_server.py` | MCP written from scratch: JSON-RPC 2.0 over stdio, one JSON message per line, Python standard library only. It handles `initialize`, `notifications/initialized`, `ping`, `tools/list` and `tools/call`. Anything else gets -32601. |
 | Client | `js3/mcp_client.py` | A minimal client: `initialize`, `notifications/initialized`, `tools/list`, then the calls it is given. Every line is logged both ways. Used for the scripted session and for the other server. |
-| Offer to Claude | `js3/offer.py` | Runs `claude -p` (Claude Code 2.1.331, `--model opus`) from an empty temporary folder with `--mcp-config` naming only this server, plus `--strict-mcp-config`, `--setting-sources ""` (no plugins, hooks or CLAUDE.md), `--tools ""` (no built-in tools), `--allowedTools mcp__js3__score_posting` and `--no-session-persistence`. |
-| Tests | `tests/test_js3_mcp_server.py` | 15 tests, written **after** the server code (see FRICTIONAL.md). |
+| Offer to Claude | `js3/offer.py` | Runs `claude -p` (Claude Code 2.1.331, `--model opus`) from an empty temporary folder with `--mcp-config` naming only this server, plus `--strict-mcp-config`, `--setting-sources ""` (none of the user's settings, plugins, hooks or CLAUDE.md; Claude Code's six built-in plugins still load, as each transcript's init event shows), `--tools ""` (no built-in tools), `--allowedTools mcp__js3__score_posting` and `--no-session-persistence`. |
+| Tests | `tests/test_js3_mcp_server.py`, `tests/test_js3_mcp_server_review.py` | 15 tests, written **after** the server code (see FRICTIONAL.md); 4 more, written **before** the fix of two bugs the independent reviews found. |
 
 **The real transcripts, in both directions.**
 
@@ -82,8 +82,8 @@ Two things the protocol did that the server did not expect:
 |---|---|---|
 | One tool, `score_posting`; capabilities `tools` only | One tool. A call to any other name gets -32602, and any other method gets -32601. No resources, prompts or sampling. | `test_exactly_one_read_only_tool`, `test_unknown_tool`, `test_unknown_method_parse_error_and_batch`; session 1 (`server/discover` got -32601) |
 | "It reads only saved data: it does not fetch pages, contact any site" (`openWorldHint: false`) | It loads `data/corpus.jsonl`, `filter-v1.json` and the persona once, at start. After start-up, no network module is loaded: `socket`, `ssl`, `http.client`, `urllib.request` and `subprocess` are all absent. A posting not in the corpus is an error that says "This tool does not fetch postings". | `test_no_network_module_is_loaded`, `test_unknown_posting_is_a_tool_error_not_a_fetch`; session 3 |
-| "…apply, or change anything" (`readOnlyHint: true`, `destructiveHint: false`) | The tool writes nothing. **But the server process itself writes a file:** its transcript, one file per session in `transcripts/server/`. The tool description does not mention this. The path is fixed by the server, the client cannot choose it, and a folder outside `transcripts/` is refused. | `test_the_transcript_folder_must_be_inside_transcripts`; the 28 files in `transcripts/server/` |
-| `posting_key` must match `^[a-z0-9-]{1,64}:[A-Za-z0-9-]{1,64}$`; no other properties | The server enforces the schema itself and does not rely on the client: a path-like key, extra arguments or a missing key each get `isError: true`. The key is only ever looked up in a dictionary; no file path is built from it. | `test_a_path_is_not_a_key`, `test_extra_or_missing_arguments`; scripted session (`../../etc/passwd`) |
+| "…apply, or change anything" (`readOnlyHint: true`, `destructiveHint: false`) | The tool writes nothing. **But the server process itself writes a file:** its transcript, one file per session in `transcripts/server/`. The tool description does not mention this. The path is fixed by the server, and the client cannot choose it. **Until the independent review, the folder check compared strings, so a sibling `transcripts-evil/` passed it:** the same bug class as JS2's `runs-evil`. It is now a path check. | `test_the_transcript_folder_must_be_inside_transcripts`, `test_a_sibling_folder_that_starts_with_transcripts_is_refused`; the 28 files in `transcripts/server/` |
+| `posting_key` must match `^[a-z0-9-]{1,64}:[A-Za-z0-9-]{1,64}$`; no other properties | The server enforces the schema itself and does not rely on the client: a path-like key, extra arguments or a missing key each get `isError: true`. The key is only ever looked up in a dictionary; no file path is built from it. **Until the independent review, a `params` or `arguments` value that was not an object crashed the server** (exit 1). Fixed test-first: such `params` get -32602, and such `arguments` get `isError`. | `test_a_path_is_not_a_key`, `test_extra_or_missing_arguments`, `test_params_that_are_not_an_object_get_invalid_params`, `test_arguments_that_are_not_an_object_are_a_tool_error`; scripted session (`../../etc/passwd`) |
 | "A verdict is the filter's record, not a judgment that the job is good" | Every result carries that note, and the verdict is FILTER.md v1 computed by code. A kept posting also gets the abstention answer from `js3/claims.py`. In today's data that answer is "I cannot tell" for all 5 kept postings, and Claude repeated it in session 1. | `test_score_a_kept_posting` (every quote checked against the posting) |
 | Not declared at all | The output includes the fictional Alex's skills, inside the rule details. It never includes contact details. | `test_contact_details_are_never_returned` |
 
@@ -109,7 +109,9 @@ Two things the protocol did that the server did not expect:
 - Two clients on one server. Stdio allows only one.
 - A corpus file someone edited by hand.
 
-> **Shreyash's trust decision on my own server** (pasted 2026-11-25, about 18:07 EST): I would trust it to check the written rules and show evidence for each result. I would not fully trust its final decision without checking the rejected jobs and closest calls.
+> **Shreyash's trust decision on my own server** (pasted 2026-11-25 at about 18:50 EST, replacing a shorter one from 18:07): I would trust my score_posting server to apply the written rules and provide evidence from the job description, as long as the tests pass and the posting data is complete. If information is missing or unclear, it should not guess, and the final decision should stay with me.
+>
+> *His 18:07 version: "I would trust it to check the written rules and show evidence for each result. I would not fully trust its final decision without checking the rejected jobs and closest calls."*
 
 ## 3. Another server, evaluated the same way: `chrome-devtools-mcp`
 
@@ -119,23 +121,25 @@ Two things the protocol did that the server did not expect:
   downloaded for this assignment.
 - **How it was evaluated:**
   - a read-only audit of its installed source by a Claude Code helper (no code run), with file and
-    line references;
+    line references (`evidence/chrome-devtools-mcp-source-audit-2026-11-25.md`);
   - two sessions through `js3/mcp_client.py` on 2026-11-25. Both ran with
     `CHROME_DEVTOOLS_MCP_NO_USAGE_STATISTICS=1`, `CHROME_DEVTOOLS_MCP_NO_UPDATE_CHECKS=1`,
-    `--usageStatistics=false`, `--performanceCrux=false`, `--isolated` and `--headless`.
+    `--usageStatistics=false`, `--performanceCrux=false`, `--isolated` and `--headless`. The exact
+    commands are in `evidence/chrome-devtools-mcp-commands-2026-11-25.md`, and the session-2 script is
+    `evidence/chrome-devtools-mcp-session2.py`.
 - **Shreyash's question (answer 13):** is it useful for checking job postings before deciding whether
   to use it?
 
 | | Declared | Actual |
 |---|---|---|
-| **Tools** | 30 tools (session 1, 17:26:23). 9 are marked `readOnlyHint: true`. | `click`, `fill`, `fill_form`, `type_text`, `press_key`, `upload_file` and `handle_dialog` act on pages. `upload_file` reads local files and hands them to the page. `evaluate_script` runs JavaScript in the page, and `navigate_page` takes an `initScript` that does the same. `emulate` can add HTTP headers to every request. The read-only marks track whether a tool can write a file, not what it does to a site: `take_snapshot` is marked not read-only because it can save to a file. |
+| **Tools** | 30 tools (session 1, 17:26:23). 8 are marked `readOnlyHint: true`: `get_console_message`, `get_css_styles`, `list_console_messages`, `list_network_requests`, `list_pages`, `performance_analyze_insight`, `select_page`, `wait_for`. | `click`, `fill`, `fill_form`, `type_text`, `press_key`, `upload_file` and `handle_dialog` act on pages. `upload_file` reads local files and hands them to the page. `evaluate_script` runs JavaScript in the page, and `navigate_page` takes an `initScript` that does the same. `emulate` can add HTTP headers to every request. The read-only marks track whether a tool can write a file, not what it does to a site: `take_snapshot` is marked not read-only because it can save to a file. |
 | **Server info** | `chrome_devtools` 1.10.1; protocol `2025-06-18`; capabilities `logging` and `tools` (`listChanged: true`) | The tool list can change during a session (`listChanged`). |
 | **Network** | Nothing in `tools/list` or `initialize` mentions network use by the server itself. | **On by default:** (1) usage statistics, sent by a detached process to `play.googleapis.com` (Clearcut): tool names, success, latency and the client's name; (2) a daily update check against the npm registry; (3) page URLs from performance traces, sent to Google's CrUX API. Only a stderr notice and the README say so, and the update check can be turned off only by an environment variable. With our settings, stderr confirmed "turning off usage statistics". |
 | **Browser profile** | — | Chrome starts only on the first tool call. By default it keeps a persistent profile in `~/.cache/chrome-devtools-mcp/chrome-profile` (it exists on this Mac, created Nov 6). `--isolated` uses a temporary one, and we used it. |
 | **Where it can go** | — | There is no URL allow-list unless `--allowedUrlPattern` is given. |
 
-**The test of checking a posting** (session 2, 17:26:49–17:26:55, one public page, read-only tools
-only):
+**The test of checking a posting** (session 2, 17:26:49–17:26:55, one public page, no input tools:
+no click, fill, type or upload):
 
 - Calls: `list_pages`, then `navigate_page` to the posting's own URL
   (`https://www.klaviyo.com/careers/jobs/7792539003?gh_jid=7792539003`), then `take_snapshot` and
@@ -146,10 +150,14 @@ only):
   Email, Phone, Resume/CV ("Attach"), LinkedIn Profile and the demographic questions, plus a
   "Submit application" button and a reCAPTCHA. With `fill_form`, `upload_file` and `click`, a client
   could apply. The agent must never do that.
-- **One page load contacted 51 hosts.** The agent's allow-list has 3. They include
-  `ad.doubleclick.net`, `analytics.google.com`, `connect.facebook.net`, `alb.reddit.com`,
-  `bat.bing.com`, `js.hs-analytics.net`, `cdn.amplitude.com` and `www.recaptcha.net`. The full list
-  is in the transcript.
+- **One page load contacted at least 51 hosts,** counted in the first 200 of its 231 requests. The
+  listing's page 2 was not fetched. The agent's allow-list has 3.
+  - Among them are `ad.doubleclick.net`, `analytics.google.com`, `connect.facebook.net`,
+    `alb.reddit.com`, `bat.bing.com`, `js.hs-analytics.net`, `cdn.amplitude.com` and
+    `www.recaptcha.net`.
+  - The hosts of the first 200 requests are in the transcript.
+  - This load was a deliberate one-time exception to the allow-list, for the evaluation Shreyash asked
+    for in FILTER.md answer 13 (`evidence/chrome-devtools-mcp-commands-2026-11-25.md`).
 - **The text it reads is the text the agent already has.** The Greenhouse API returned the same ad
   as JSON, from one host, in the agent's own run.
 
@@ -169,4 +177,6 @@ apply. If Shreyash ever uses it to look at a page by hand, it should run isolate
 telemetry, update checks and CrUX off, `--allowedUrlPattern` limited to the board hosts, and no input
 tools.
 
-> **Shreyash's trust decision on chrome-devtools-mcp** (pasted 2026-11-25, about 18:07 EST): I would not use it as my main tool. One page load connected to 51 hosts and exposed the full application form, which is more access than my agent needs just to read a job posting.
+> **Shreyash's trust decision on chrome-devtools-mcp** (pasted 2026-11-25 at about 18:50 EST, replacing a shorter one from 18:07): I would only allow it to read public job postings when the normal API does not provide enough information. I would use an isolated browser with no saved login details, restrict access to approved websites and block unnecessary third-party requests. I would not allow it to fill application forms, upload resumes or submit applications.
+>
+> *His 18:07 version: "I would not use it as my main tool. One page load connected to 51 hosts and exposed the full application form, which is more access than my agent needs just to read a job posting." [Claude Code's correction: at least 51 hosts, counted in the first 200 of 231 requests.]*

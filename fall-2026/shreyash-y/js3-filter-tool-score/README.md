@@ -1,7 +1,7 @@
 # Job-Search Agent 3: The Filter, the Tool, and the Score
 
 **Student:** Shreyash Yadav (`shreyash-y`) · INFO 7375 Prompt Engineering & Agentic AI, Fall 2026 · Professor Nik Bear Brown
-**Assignment:** JS3, Chapters 7–9. Due 2026-11-23; built and submitted 2026-11-25.
+**Assignment:** JS3, Chapters 7–9. Due 2026-11-23; built 2026-11-25 (late).
 
 **Starting point:** my own JS2 agent (`fall-2026/shreyash-y/js2-loop-tools-diff`, submitted commit
 `177d5a8`). Its collector, rule v2 rev 3, persona, GATE.md and 121 tests were copied unchanged in
@@ -12,7 +12,9 @@ closest calls). It was read, and no code was copied. The Reallocation Engine was
 *Who wrote what:*
 
 - **Shreyash's own words:** the summary, FILTER.md, the 70 hand verdicts, every decision, both trust
-  decisions, the driver's seat paragraph, Part 1 of FRICTIONAL.md and the signature.
+  decisions, the How sentences in the sign-off, the driver's seat paragraph, the "In my own words"
+  entries of FRICTIONAL.md and the signature. How each hand verdict was given, including where Claude
+  Code influenced one, is in `labels/hand-verdicts-provenance.md`.
 - **Drafted by Claude Code and checked against the files:** everything else (SOURCES.md has the full
   list).
 
@@ -40,19 +42,27 @@ I built this agent using my JS2 agent and added a tool called `score_posting` to
 
 - **Language:** Python 3, standard library only, with nothing to install. Tested on Python 3.14.6
   (macOS). The code uses 3.9+ syntax.
-- **Tests:** `unittest`. 218 tests, with 1 expected failure (JS2's Physician Reviewer test of the
+- **Tests:** `unittest`. 222 tests, with 1 expected failure (JS2's Physician Reviewer test of the
   inherited rule).
-- **Claude runs:** the Claude Code CLI, `claude` 2.1.331, with `--model opus` (claude-opus-5-5) and
-  once `haiku` (claude-haiku-5-5). It is logged in with Shreyash's subscription, and no API key is
-  used. Each call runs from an empty temporary folder with `--setting-sources ""`, so no plugin, hook,
-  CLAUDE.md or memory reaches it.
+- **Claude runs:** the Claude Code CLI, `claude` 2.1.331, with `--model opus` (claude-opus-5-5), and
+  `haiku` (claude-haiku-5-5) for the 24 calls of condition S. It is logged in with Shreyash's
+  subscription, and no API key is used.
+  - Each call runs from a new, empty temporary folder with `--setting-sources ""` and
+    `--strict-mcp-config`. So none of the user's settings, plugins, hooks, MCP servers or CLAUDE.md
+    files load.
+  - Claude Code's six built-in plugins and built-in skills still load; each transcript's init event
+    lists them.
+  - Memory is kept per folder, and each run's folder was new. The saved init events do not show the
+    memory path.
 - **The other tool server:** `chrome-devtools-mcp` 1.10.1, already in the local npx cache, run with
   Node 24.22.2 and Google Chrome 157.
 - **Network:**
   - The live collection run reached only the three board hosts in GATE.md (`python3 -m jsagent run`).
   - The Claude CLI reached Anthropic.
-  - The chrome-devtools-mcp check loaded one public posting page, which contacted 51 hosts
-    (TOOLSERVER.md).
+  - The chrome-devtools-mcp check loaded one public posting page. It contacted **at least 51 hosts**,
+    counted in the first 200 of the page's 231 requests. This was a one-time exception to the agent's
+    3-host allow-list, made for the evaluation Shreyash asked for (TOOLSERVER.md,
+    `evidence/chrome-devtools-mcp-commands-2026-11-25.md`).
   - Nothing else uses the network.
 
 ## Commands, from a fresh clone
@@ -87,7 +97,7 @@ python3 -m js3 shortlist && python3 -m js3 shortlist --filter filter-v1.1.json
 A scripted MCP session against the tool server, with the transcript written to a file you name:
 
 ```bash
-python3 -m js3.mcp_client --out /tmp/js3-session.jsonl --call score_posting '{"posting_key": "klaviyo:7792539003"}' -- python3 -m js3 serve
+python3 -m js3.mcp_client --out /tmp/js3-session.jsonl --call score_posting '{"posting_key": "klaviyo:7792539003"}' -- python3 -m js3 serve --no-log
 ```
 
 These need the network or the logged-in `claude` CLI. Each one writes new files:
@@ -119,15 +129,16 @@ postings, shortened.
 | 17:14 | Filter tests written from FILTER.md, before the filter | 2 test modules fail to import | `evidence/tests-before-filter-code-2026-11-25.txt` |
 | 17:20 | **Filter v1** on all 789 collected postings | 5 kept, 0 cannot tell, 44 closest calls, 0 quotes not found; the same verdicts as JS2's rule | `results/filter-v1/` |
 | 17:20 | Audit and held-out draw, before any label | 70 to label, seed 7375 | `labels/SAMPLE-PLAN.md` |
-| 17:23–17:25 | **The tool server**, offered to Claude three times and run once by my own client | Claude used it, reported "I cannot tell" correctly, and refused to apply | `transcripts/server/`, `transcripts/claude/` |
-| 17:26 | **chrome-devtools-mcp**: declared tools, and one public posting page | 30 tools; the page contacted 51 hosts and showed the application form | `transcripts/other-server/` |
+| 17:23–17:25 | **The tool server**, offered to Claude three times and run once by my own client | Claude used it and reported "I cannot tell" correctly; asked to apply, it said it could not | `transcripts/server/`, `transcripts/claude/` |
+| 17:26 | **chrome-devtools-mcp**: declared tools, and one public posting page | 30 tools (8 marked read-only); the page contacted at least 51 hosts (counted in the first 200 of 231 requests) and showed the application form | `transcripts/other-server/` |
 | 17:28–17:39 | **168 Claude judge calls**: B, B2, P, C, S, T and B3 on the 24 held-out postings, before any label | no condition moved a verdict; C changed the reasons on 12; T called the tool 0 times | `results/judge/` |
 | 17:31–17:34 | Claude's independent claim labels for the 5 kept postings, run twice | run 2: 42 of 45 agree with the code | `results/claims-claude*/` |
-| 17:53–18:04 | **Shreyash's 70 hand verdicts**, frozen by sha256 | audit: 0/30 random misses, 2/15 closest-call misses, 1/2 false positive; held-out 24/24 | `labels/`, AUDIT.md |
+| 17:53–18:04 | **Shreyash's 70 hand verdicts**, frozen by sha256 | audit: 0/30 random misses, 2/15 closest-call misses, 1/2 false positive; held-out 24/24. Answers 31, 39 and 49 were finalized after a double-check in which Claude Code described how the rules read them. With the earlier answers: 1 miss, 0 false positives | `labels/`, AUDIT.md, `labels/hand-verdicts-provenance.md` |
 | 17:57 | A bug found by Shreyash's note on posting 8 (curly apostrophe), fixed test-first | 0 filter results changed | `evidence/apostrophe-*` |
 | 18:07 | **Shreyash's v1.1 decisions** after measuring | adopt A1, A2, A4, B4; reject A3, A5 | FILTER.md "Version 1.1" |
-| 18:09–18:12 | v1.1 tests, code, and two test-first fixes for A4 | 2 verdicts change (the two misses); audit 45/46; held-out 24/24 | `evidence/v11-*`, `evidence/state-codes-*`, `evidence/reside-colon-*` |
+| 18:09–18:12 | v1.1 tests, code, and two test-first fixes for A4 | 2 verdicts change (the two misses); audit 45/46 (in-sample: A1 and A2 were designed from these misses); held-out 24/24 (no longer untouched: A3 was rejected on it) | `evidence/v11-*`, `evidence/state-codes-*`, `evidence/reside-colon-*` |
 | by 18:28, and 18:30 | **Shreyash ran the tests and the label-hash check himself.** The first command (Claude Code's) hid the result line; the corrected one showed it | 218 tests OK (1 expected failure); `labels/hand-verdicts.jsonl: OK` | `evidence/commands-run-by-shreyash-2026-11-25.txt` |
+| 18:33–18:57 | **Two independent reviews** by Claude Code helpers (a grader and a number check), reading the files and rerunning the scripts on a copy | estimated 82/100; findings fixed: 39/49 provenance, the held-out set's use on A3, tool-evaluation counts, two server bugs (fixed test-first), wording | FRICTIONAL.md Part 2, `evidence/server-review-bugs-*` |
 
 ## Folder map
 
@@ -161,8 +172,13 @@ postings, shortened.
 
 - **Filter v1.1 still keeps the Android/Kotlin job, which Shreyash's own label rejects.** The change
   that would remove it (A3) also removes two jobs he wants. It is recorded as a known false positive.
-- **The audit bounds the miss rate below 9.5% at best,** for these boards and these dates. The held-out
-  set separated only one change (A3), because its 24 postings do not sit where most changes act.
+- **The audit's one-sided 95% upper bound on the miss rate is 9.5%.** It covers the 763 rejects
+  outside the held-out set, from the four boards that returned postings, on these dates.
+- **The held-out set separated only one change (A3),** because its 24 postings do not sit where most
+  changes act. Once it was used to reject A3, it stopped being an untouched test for v1.1.
+- **Three answers came after a double-check.** The final answers for 31, 39 and 49 were given after
+  Claude Code described how the rules read those postings. Two of the audit's three disagreements
+  (39 and 49) exist only in those final answers (`labels/hand-verdicts-provenance.md`).
 - **The filter reads words, not meaning.** "react quickly" counted as React, and "open to picking up
   Python" counted as Python. The verb case moved no verdict; the Android case is the false positive
   above.
@@ -172,12 +188,18 @@ postings, shortened.
 
 ## Sign-off — Job-Search Agent 3
 
-*Drafted by Claude Code from the files. Shreyash signed it in the session on 2026-11-25 at 18:21 EST,
-typing "sign shreyash yadav 26th november 2026", and corrected the date at 18:28 EST ("sorry its 25th
-november"). He did not change the text and did not add a sentence on what he checked himself, so the
-How line states only what the files show. After signing, at 18:30 EST, he ran the full test suite himself
-(218, OK) and the hand-verdict hash check (`evidence/commands-run-by-shreyash-2026-11-25.txt`); the signed
-text was not changed for that.*
+*Drafted by Claude Code from the files.*
+
+- **18:21 EST:** Shreyash signed it in the session ("sign shreyash yadav 26th november 2026"), and at
+  18:28 corrected the date to the 25th.
+- **18:30:** he ran the full test suite and the hand-verdict hash check himself
+  (`evidence/commands-run-by-shreyash-2026-11-25.txt`).
+- **After the independent reviews:**
+  - his How sentences and the reviews' corrections were added;
+  - he chose the wording "I labeled the 70 postings myself" over his first draft ("I reviewed the
+    suggested labels for the 70 postings"), since no labels had been suggested to him;
+  - at about 18:50 EST he signed the updated text below. His answers arrived between commits
+    `85187c4b` (18:48) and `bd093fef` (18:52).
 
 ```text
 Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js3_filter_doc.py and
@@ -188,20 +210,31 @@ Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js
                 benefits, WV3 more than 3 years, WV4 a made-up quote, WV5 a failed board as zero jobs.
               - The filter against my own judgment: my 70 hand verdicts, frozen by sha256 before any
                 comparison: 0 misses in 30 random rejects, 2 misses in 15 closest calls, 1 false
-                positive in 2 kept postings, 24 of 24 on the held-out set (results/audit-v1.md).
+                positive in 2 kept postings, 24 of 24 on the held-out set (results/audit-v1.md). My
+                final answers for 31, 39 and 49 came after a double-check in which Claude Code described
+                how the rules read them. With my earlier answers, the audit set has 1 miss and 0 false
+                positives (labels/hand-verdicts-provenance.md).
               - No made-up quotes: every quote the filter and the shortlist use is checked against the
                 posting (0 not found in 789 postings), and so is every quote in Claude's claim labels.
-              - The tool server: tests/test_js3_mcp_server.py (15, written after the server code) and
-                the real transcripts of three claude -p sessions and one scripted session.
-              - One change at a time: 168 Claude calls and six filter-file changes, scored against my
-                held-out labels (results/score-v1.json); A3 and A5 rejected after measuring.
+              - The tool server: tests/test_js3_mcp_server.py (15, written after the server code),
+                tests/test_js3_mcp_server_review.py (4, written before fixing two bugs the reviews found),
+                and the real transcripts of three claude -p sessions and one scripted session.
+              - One change at a time: 168 Claude calls and five filter-file changes against the
+                baseline, scored against my held-out labels (results/score-v1.json), and the A2/A3
+                measurements (results/whatif-v1.json); A3 and A5 rejected after measuring.
 How:          The code and tests were written by Claude Code; the tests named above were committed
               before the code they test, except the server's. The hand verdicts, the v1.1 decisions,
               the claim labels in SHORTLIST.md section 4 and both trust decisions are mine, typed into
-              the session. The rates and counts are recomputations by the scripts (js3 audit, js3.score,
-              js3.whatif).
-Not checked:  - The miss rate among all 763 rejects: 0 of 30 random rejects bounds it only below 9.5%
-                (up to about 73 postings), and only for these six boards on these dates.
+              the session. I labeled the 70 postings myself and focused on postings 31, 39 and 49, where
+              the rules and job fit were different. I used these cases to decide which rules should
+              change in v1.1 and which should stay the same. I ran the full test suite and the
+              hand-verdict hash check myself (evidence/commands-run-by-shreyash-2026-11-25.txt). The
+              rates and counts are recomputations by the scripts (js3 audit, js3.score, js3.whatif).
+Not checked:  - The miss rate among the 763 rejects outside the held-out set: 0 of 30 random rejects
+                gives a one-sided 95% upper bound of 9.5% (about 73 postings), for the four boards that
+                returned postings, on these dates.
+              - v1.1 against untouched labels: A1 and A2 were designed from the audit, and A3 was
+                rejected on the held-out set, so neither set is an untouched test of v1.1.
               - The 18 Palantir closest calls that were counted, not labeled.
               - chrome-devtools-mcp's telemetry and update traffic: read in its source and turned off,
                 not observed on the network; its bundled DevTools code (about 200,000 lines) was not
@@ -214,7 +247,7 @@ Not claiming: That the agent finds good jobs; that the 5 open postings v1.1 keep
               time (by my own label the Android one is not); that Claude agreeing with the filter on
               24 of 24 held-out postings makes either of them right in general; or that anything was
               trained: behavior that changed across sessions changed because its context changed.
-Signed: Shreyash Yadav, 25th November 2026
+Signed or withheld: Signed — Shreyash Yadav, 2026-11-25
 ```
 
 ## Driver's seat

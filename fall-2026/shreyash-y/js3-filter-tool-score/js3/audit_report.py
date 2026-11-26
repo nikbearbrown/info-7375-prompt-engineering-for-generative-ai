@@ -62,6 +62,23 @@ def report():
     for name, keys in parts.items():
         rows = compare(keys, records, verdicts)
         out["parts"][name] = {"summary": part_summary(rows), "rows": rows}
+    # The same audit with the answers Shreyash gave before Claude Code explained how the rules read
+    # items 31, 39 and 49 (labels/hand-verdicts-provenance.md; added 2026-11-25 after the review).
+    first = {}
+    fpath = HERE / "labels" / "hand-verdicts-first-answers.jsonl"
+    if fpath.exists():
+        for line in fpath.read_text().splitlines():
+            if line.strip():
+                rec = json.loads(line)
+                first[rec["key"]] = rec
+    audit_keys = sorted(set().union(*a.values()))
+    both = {}
+    for name, vv in (("final answers", verdicts), ("answers before any rule explanation", {**verdicts, **first})):
+        rows = compare(audit_keys, records, vv)
+        s = part_summary(rows)
+        both[name] = {"agree": s["agree"], "miss": s["miss (rejected, hand says yes)"],
+                      "false_positive": s["false positive (kept, hand says no)"], "n": s["n"]}
+    out["audit_set_both_ways"] = both
     a1 = out["parts"]["A1 random rejects"]["summary"]
     n_judged = a1["n"] - a1["hand: cannot tell"] - a1["not labeled"]
     k = a1["miss (rejected, hand says yes)"]
@@ -86,6 +103,11 @@ def markdown(out):
          f"one-sided 95% upper bound {r['one_sided_upper95']:.1%}.",
          f"- Over the {r['reject_pool']} rejects this sample was drawn from, that is about "
          f"{r['misses_in_pool_point']} missed postings, and the sample cannot rule out up to {r['misses_in_pool_upper95']}.", ""]
+    L += ["## The audit set (46) both ways (labels/hand-verdicts-provenance.md)", "",
+          "| Answers used | Agree | Misses | False positives |", "|---|---|---|---|"]
+    for name, b in out.get("audit_set_both_ways", {}).items():
+        L.append(f"| {name} | {b['agree']} / {b['n']} | {b['miss']} | {b['false_positive']} |")
+    L.append("")
     for name, part in out["parts"].items():
         s = part["summary"]
         L += [f"## {name}", "", " · ".join(f"{k}: {v}" for k, v in s.items()), "",

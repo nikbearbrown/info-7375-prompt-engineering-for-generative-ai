@@ -1,7 +1,9 @@
 # FILTER-NOTES: how FILTER.md v1 became code
 
-*Drafted by Claude Code on 2026-11-25, after FILTER.md was committed (`5e6a7703`, `3163fdb5`) and before
-any filter code existed. FILTER.md is Shreyash's and is not edited. This file records how each answer
+*Drafted by Claude Code on 2026-11-25, alongside the filter code and after FILTER.md was committed
+(`5e6a7703`, `3163fdb5`). It was first committed in `a774c4d6` (17:35 EST), after `js3/filtering.py`
+(`e8a9c431`, 17:20). An earlier version of this line said "before any filter code existed", which was
+wrong, as the independent review found. FILTER.md is Shreyash's and is not edited. This file records how each answer
 was made computable in `js3/filtering.py`, so a reader can apply the filter by hand and get the code's
 verdict. Where FILTER.md did not force a reading, the line is marked **choice**. The measured counts
 come from filter v1 run on all 789 collected postings (`results/filter-v1/`).*
@@ -80,9 +82,11 @@ The order the code follows:
      ("fully remote", "this role can be remote", ...), the result is **cannot tell**. Measured: 10
      fails, 4 cannot tell.
    - **6a and wrong version 1:** an office tag "Remote (State)" limits the job to that state.
-     - If Massachusetts is not one of the states and the ad says the US broadly ("reside in the
-       United States"), tag and ad **disagree**, so the result is **cannot tell**. The real
-       Physician Reviewer is one of these: 32 measured in all.
+     - If Massachusetts is not one of the states and the ad says otherwise, tag and ad **disagree**,
+       so the result is **cannot tell**. 32 were measured:
+       - in 2, the ad says the US broadly ("reside in the United States"); the real Physician Reviewer
+         is one of them;
+       - in the other 30, the ad's own state list includes Massachusetts.
      - If the ad says nothing more, the result is **fail** (wrong version 1): 44 measured.
      - An ad list of states without Massachusetts also gives **fail** (2).
    - A remote job open within the US with no state limit gives **pass** (38). So does a job whose
@@ -93,12 +97,12 @@ The order the code follows:
 4. **Neither Boston nor remote:** **fail** (476).
    - But if the ad says the job can be remote, the location tag and the ad **disagree (6a)**, so the
      result is **cannot tell** (36).
-   - **Measured false friend:** in all 36, Oscar's ad says "This is a remote position, open to
-     candidates who reside in: Dallas, Texas." The words "remote position" matched, but the same
-     sentence limits the job to one state. JS2's reading counts a "reside in" list only when it names
+   - **Measured false friend:** in 35 Oscar ads and 1 Palantir ad, the ad says something like "This
+     is a remote position, open to candidates who reside in: Dallas, TX."; the cities and states vary.
+     The words "remote position" matched, but the same sentence limits the job to one place. JS2's reading counts a "reside in" list only when it names
      **two or more** states, a number Claude Code set in JS2 rev 3, so one state is not seen as a
      limit. These should be **fail**, not cannot tell. No verdict changes, because all 36 fail
-     another rule. AUDIT.md records it.
+     another rule. AUDIT.md records it, and v1.1 (decision A4) reads 35 of the 36 as fail.
 
 ## Rule 4, skills (answer 7, wrong version 2)
 

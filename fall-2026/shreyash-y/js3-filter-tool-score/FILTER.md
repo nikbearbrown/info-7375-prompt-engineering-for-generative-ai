@@ -152,6 +152,18 @@ verdicts were frozen (commit `667a2932`) and compared with filter v1, and before
 Claude Code changed formatting only. The italic "Measured" line before each decision is Claude Code's,
 from `results/audit-v1.json` and `results/score-v1.json` (AUDIT.md, SCORE.md).*
 
+*Correction by Claude Code, 2026-11-25 19:00 EST, after the independent review: the "Measured" lines came
+from more places than the note above says.*
+
+- *A1's and A5's numbers are in `results/score-v1.json`.*
+- *A2's and A3's were measured by an ad-hoc script before 18:07 and saved only at 18:16
+  (`js3/whatif.py`, `results/whatif-v1.json`).*
+- *B4's number is in `results/shortlist-v1.json`.*
+- *A4's "36" was not measured; see the correction under A4.*
+- *The hand verdicts behind these decisions are described in `labels/hand-verdicts-provenance.md`:
+  item 49 for A1, item 31 for A2 and A5, and item 39 for the false positive that led to A3. The final
+  answers for 39 and 49 were given after Claude Code described how the rules read those postings.*
+
 **A1. Add the title phrase "Product Engineer" (Rule 1).** *Measured: fixes the one audit miss it touches
 (Linear "Product Engineer", hand label yes); 1 more posting kept of 789; no held-out posting is affected.*
 
@@ -176,8 +188,10 @@ who reside in: Dallas, Texas.").*
 > **Shreyash:** Adopt. If the company clearly says the person must live in a certain state, the agent should use that information. It should mark the location as failed instead of saying it cannot tell.
 
 *Correction by Claude Code, 2026-11-25 18:12 EST: "36" above was the number of postings with this pattern under v1, given as if it
-were the measured effect of the change. Measured: the first v1.1 code moved 12 of them, because 24 ads write the state
-as a two-letter code ("reside in: Dallas, TX.") and 2 write "reside:" without "in". After two test-first fixes to the
+were the measured effect of the change. Measured: the first v1.1 code moved 12 of them. Of the other 24, 21 write the state
+as a two-letter code ("reside in: Dallas, TX."), 2 write "reside:" without "in" (one of them also with a
+code), and 1 is the Palantir ad below. [Arithmetic corrected at 19:00 EST, after the review: this line first
+said "24 … and 2", which sums to 38.] After two test-first fixes to the
 code (tests/test_js3_filter_v11_state_codes.py), the change moves 35 of the 36 to "fail"; the 36th (Palantir, Warsaw) is
 not a residence line. 0 verdicts change, as stated. Shreyash's decision is unchanged.*
 

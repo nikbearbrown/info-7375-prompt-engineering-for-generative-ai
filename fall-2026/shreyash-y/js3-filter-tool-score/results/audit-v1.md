@@ -8,6 +8,13 @@ Hand verdicts: 70 of 70 postings labeled by Shreyash (labels/hand-verdicts.jsonl
 - 95% Wilson interval for the miss rate: 0.0% to 11.4%; one-sided 95% upper bound 9.5%.
 - Over the 763 rejects this sample was drawn from, that is about 0.0 missed postings, and the sample cannot rule out up to 72.5.
 
+## The audit set (46) both ways (labels/hand-verdicts-provenance.md)
+
+| Answers used | Agree | Misses | False positives |
+|---|---|---|---|
+| final answers | 43 / 46 | 2 | 1 |
+| answers before any rule explanation | 45 / 46 | 1 | 0 |
+
 ## A1 random rejects
 
 n: 30 · agree: 30 · miss (rejected, hand says yes): 0 · false positive (kept, hand says no): 0 · hand: cannot tell: 0 · not labeled: 0

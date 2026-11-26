@@ -29,8 +29,18 @@
     Claude Code's knowledge of the published specification. No MCP SDK was used.
   - What a real client actually sends came from the saved transcripts.
 - **Classmates:** one classmate's JS3 commit subjects, and the file names in one of those commits, were
-  visible in the course repository's `git log` on 2026-11-25. None of their files was opened, and
-  nothing was taken.
+  visible in the course repository's `git log` on 2026-11-25 at about 16:50 EST, before any JS3 work
+  here. None of their files was opened, and nothing was copied.
+  - Claude Code read those subjects before designing SCORE.md. Some name ideas this submission also
+    uses:
+    - a number "fitted on audit labels … tested on H and H2, not adopted";
+    - a noise floor;
+    - tool anchoring;
+    - a second held-out set.
+  - The brief itself asks for numbers "fitted on your labels", held-out measurement and the tool list
+    as a changed object, so those checks would exist either way. Still, an influence of those subjects
+    on how SCORE.md's checks were designed cannot be ruled out, and it is disclosed here.
+  - Shreyash did not see the subjects.
 - **Tools:**
   - Python 3.14.6 standard library;
   - Claude Code (model `claude-opus-5-5`) as the coding agent;
@@ -43,25 +53,30 @@
 | Part | Where |
 |---|---|
 | FILTER.md v1: answers 1–13 (16:58 EST) and the follow-up reasons and decisions A–C (17:05 EST). Claude Code changed formatting only and added labeled quotes of his earlier documents. | `FILTER.md` (`5e6a7703`, `3163fdb5`) |
-| All 70 hand verdicts, with his reasons, including the 4 he changed after seeing more of an ad | `labels/hand-verdicts.jsonl` (frozen in `667a2932`) |
+| All 70 hand verdicts, with his reasons. Six changed answers: 8, 11 and 20 after seeing more of the ad; 31 after being asked to judge it as if open; 39 and 49 after a double-check in which Claude Code described how the rules read them | `labels/hand-verdicts.jsonl` (frozen in `667a2932`); `labels/hand-verdicts-first-answers.jsonl` and `labels/hand-verdicts-provenance.md` for 39 and 49 |
 | The v1.1 decisions after measuring: adopt A1, A2, A4 and B4; reject A3 and A5 | FILTER.md "Version 1.1" (`61e0d4c0`) |
 | The three claim labels where the code and Claude disagreed, and the B4 evidence-rule exception | SHORTLIST.md section 4 |
 | Both trust decisions | TOOLSERVER.md, sections 2 and 3 |
-| The README summary and the "why the judgment stays mine" paragraph | `README.md` |
-| Part 1 of FRICTIONAL.md | `FRICTIONAL.md` |
+| The README summary, the How sentences in the sign-off (he chose "I labeled the 70 postings myself" over his first draft) and the "why the judgment stays mine" paragraph | `README.md` |
+| The "In my own words" entries of FRICTIONAL.md (the "What Shreyash did" list above them is Claude Code's) | `FRICTIONAL.md` |
 | The signature | the sign-off in `README.md` |
 
 ## What Claude Code contributed
 
 | Part | Notes |
 |---|---|
-| All new code in `js3/` and all new tests (`tests/test_js3_*`) | The filter's, v1.1's and each fix's tests were committed before the code they test. The tool server's tests were written after the server. |
+| All new code in `js3/` and all new tests (`tests/test_js3_*`) | The filter's, v1.1's and each fix's tests were committed before the code they test, with two exceptions. The tool server's first 15 tests were written after the server. The 'reside:' test was run failing first, but committed together with its fix (`1272a9d8`; see the evidence files' times). |
 | `FILTER-NOTES.md`, the reading of FILTER.md as code | Each choice FILTER.md did not force is marked **choice**. |
 | The audit draw, the blind labeling tool, and the chat batches shown to Shreyash | It was Claude Code's excerpts that once hid a requirement (AUDIT.md section 3). |
 | Every measurement, and the "Measured" lines in FILTER.md v1.1 | One of them ("36") was stated before it was run; it carries a dated correction. |
 | Running the live collection, the four MCP sessions, the chrome-devtools-mcp check, and all Claude runs | at Shreyash's request in this assignment |
-| The read-only source audit of chrome-devtools-mcp | by a Claude Code helper that ran no code |
-| Drafts of `README.md` (except the summary, the driver's seat paragraph and the signature), `AUDIT.md`, `SHORTLIST.md`, `TOOLSERVER.md`, `SCORE.md`, this file, and Part 2 of `FRICTIONAL.md` | written from the files |
+| The read-only source audit of chrome-devtools-mcp | by a Claude Code helper that ran no code (`evidence/chrome-devtools-mcp-source-audit-2026-11-25.md`) |
+| Drafts of `README.md` (except the summary, the How sentences, the driver's seat paragraph and the signature), `AUDIT.md`, `SHORTLIST.md`, `TOOLSERVER.md`, `SCORE.md`, this file, and Part 2 of `FRICTIONAL.md` | written from the files |
+| Two independent reviews after the documents were drafted (18:33–18:57 EST): a grader and a number check, both Claude Code helpers that read the files and reran the scripts on a copy | Their findings and the fixes are in FRICTIONAL.md Part 2. |
+
+**Home-folder paths in history.** Only the final tree is free of them. 17 pushed commits (`100875a5` to
+`0e31a4c3`) have the path in `evidence/*.txt`. That history was not rewritten, so the commit order stays
+checkable.
 
 ## Claude runs, all on 2026-11-25 (EST)
 
