@@ -62,7 +62,7 @@ def main(argv=None):
             lo, hi = clopper_pearson(len(errs), judged)
             s["error_rate_95ci"] = [round(lo, 3), round(hi, 3)]
             pop = pop_rej if "reject" in stratum else pop_keep
-            s["if_this_sample_is_typical"] = (f"between {lo * pop:.0f} and {hi * pop:.0f} of the {pop} "
+            s["if_this_sample_is_typical"] = (f"between {lo * pop:.0f} and {hi * pop:.0f} of the {pop:,} "
                                               f"{'rejects' if 'reject' in stratum else 'keeps'} could be wrong "
                                               f"(95% exact interval, k={len(errs)}, n={judged}); a sample estimate, not a measured count")
         else:

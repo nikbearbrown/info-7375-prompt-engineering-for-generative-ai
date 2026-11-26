@@ -66,24 +66,15 @@ What each change did (measured, before any hand label):
 | F3 | **filter file** | C2: veto `architect`, `recruiter` |
 | F4 | **filter file** | C3: R4 without "experience" |
 
-## 3. Measured against Saloni's held-out labels — PENDING
+## 3. Measured against Saloni's held-out labels
 
-> **Not done yet.** The held-out set has no hand labels, so no accuracy number exists for any
-> variant. In order:
-> 1. Saloni labels the dev sheet: `python3 scripts/label.py labels/audit_sheet.csv`
-> 2. Measure the filter candidates on **dev** and decide C1–C3, recording each in FILTER.md §6:
->    `python3 scripts/experiments.py measure --sheet audit`
-> 3. Saloni labels the held-out sheet: `python3 scripts/label.py labels/heldout_sheet.csv`
-> 4. Measure everything **once** on held-out: `python3 scripts/experiments.py measure`
->    (writes `out/experiments/measure-heldout.json`: tp/fp/fn/tn, cannot-tell counts,
->    agreement and its exact 95% interval for every variant)
->
-> Expected caveat to write next to J1: its prompt *is* Saloni's labeling rule, so higher
-> agreement would show that the prompt was told the answer key, not that Claude got better.
+> Filled by `python3 scripts/finish.py` after both sheets are labelled. It runs
+> `python3 scripts/experiments.py measure` once on the held-out set, after C1–C3 were decided on
+> dev labels.
 
-| Variant | agreement with Saloni (held-out) | 95% interval | cannot tell (Claude) | cannot tell (Saloni) |
-|---|---|---|---|---|
-| F0 … F4, J0 … J3 | _ | _ | _ | _ |
+<!-- finish.py:heldout -->
+_Not computed yet: the held-out sheet is unlabelled._
+<!-- /finish.py:heldout -->
 
 ## 4. What persistence is not proof of
 

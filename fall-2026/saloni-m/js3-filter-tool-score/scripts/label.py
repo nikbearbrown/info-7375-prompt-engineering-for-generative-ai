@@ -4,7 +4,10 @@
     python3 scripts/label.py labels/heldout_sheet.csv
     python3 scripts/label.py labels/claims_sheet.csv      # agree/disagree with the checker's claim labels
 
+    python3 scripts/label.py labels/audit_sheet.csv labels/heldout_sheet.csv   # both, one after the other
+
 Postings: y = worth Priya's time, n = not, ? = I cannot tell from the posting, f = show the full text.
+One key per row saves it. Add + (y+, n+, ?+) to also type a note for that row.
 The sheet never shows the filter's decision or score (blind labeling). Rule: labels/LABELING-RULE.md.
 """
 import csv
@@ -50,10 +53,13 @@ def save(path, rows, cols):
 
 
 def ask(prompt, allowed):
+    """Returns (key, wants_note). A trailing + asks for a note."""
     while True:
         a = input(prompt).strip().lower()
+        note = a.endswith("+") and len(a) > 1
+        a = a[:-1] if note else a
         if a in allowed:
-            return a
+            return a, note
 
 
 def main(path):
@@ -71,13 +77,13 @@ def main(path):
             print(f"CLAIM ({r['kind']}): {r['claim']}\nTERM: {r['term']}\nQUOTE: {r['quote']!r}\n"
                   f"CHECKER SAYS: {r['checker_label']}  ({r['checker_why']})")
             keys = {"a": "agree", "d": "disagree", "f": None, "q": None}
-            prompt = "a = agree with the checker, d = disagree, f = full text, q = quit: "
+            prompt = "a = agree with the checker, d = disagree, f = full text, q = quit  (+ for a note): "
         else:
             print(textwrap.indent(excerpt(p["text"]), "  "))
             keys = {"y": "worth_time", "n": "not_worth_time", "?": "cannot_tell", "f": None, "q": None}
-            prompt = "worth Priya's time?  y / n / ? (cannot tell) / f (full text) / q: "
+            prompt = f"[{todo.index(r) + 1}/{len(todo)}] worth Priya's time?  y / n / ? / f (full text) / q   (+ for a note): "
         while True:
-            a = ask(prompt, keys)
+            a, wants_note = ask(prompt, keys)
             if a == "f":
                 subprocess.run(["less"], input=p["text"].encode())
                 continue
@@ -85,7 +91,7 @@ def main(path):
         if a == "q":
             break
         r["hand_label"] = keys[a]
-        r["note"] = input("note (optional, Enter to skip): ").strip()
+        r["note"] = input("note: ").strip() if wants_note else r.get("note", "")
         r["labelled_at"] = dt.datetime.now().isoformat(timespec="seconds")
         save(path, rows, cols)
     left = sum(1 for r in rows if not r.get("hand_label"))
@@ -93,6 +99,10 @@ def main(path):
 
 
 if __name__ == "__main__":
-    if len(sys.argv) != 2:
+    if len(sys.argv) < 2:
         sys.exit(__doc__)
-    main(sys.argv[1])
+    for sheet in sys.argv[1:]:
+        main(sheet)
+        with open(sheet, newline="", encoding="utf-8") as f:
+            if any(not r.get("hand_label") for r in csv.DictReader(f)):
+                break  # stopped with q: don't start the next sheet

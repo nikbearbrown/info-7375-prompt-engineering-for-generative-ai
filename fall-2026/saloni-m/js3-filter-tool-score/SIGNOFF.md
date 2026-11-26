@@ -26,7 +26,6 @@ Checked:      - the filter reads FILTER.md and nothing else; every role word has
               - the exact interval code: 0 of 35 gives an upper bound of 1 - 0.025^(1/35)
                 (tests/test_stats.py)
               - [Saloni] the reject audit: k of 35 random rejects wrong, by my hand labels
-              - [Saloni] the claim labels: I agreed with _ of 72
 How:          - wrong versions and evidence rules: tests written by Claude Code in the same
                 session as the code, NOT before reading it
               - false friend: by recomputation (code counted the boilerplate in 634/634

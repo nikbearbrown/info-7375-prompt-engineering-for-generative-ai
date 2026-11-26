@@ -134,3 +134,5 @@ Drafted by Claude Code; Saloni confirms or replaces them in the sign-off.
 | Version | Date | Change | Measured on | Result | Kept? |
 |---|---|---|---|---|---|
 | 1.0 | 2026-11-26 | first version, before any JS3 data | — | — | — |
+<!-- finish.py:changelog -->
+<!-- /finish.py:changelog -->

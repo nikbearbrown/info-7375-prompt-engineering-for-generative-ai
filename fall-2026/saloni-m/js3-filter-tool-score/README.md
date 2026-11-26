@@ -80,12 +80,13 @@ samples and labels would no longer match. Re-collect only on purpose.
 
 ## What is left (Saloni)
 
-1. `python3 scripts/label.py labels/audit_sheet.csv`, then `python3 scripts/audit_report.py`. Fill
-   AUDIT.md §2 from `out/audit_report.json` and confirm or reject the false friend (§3).
-2. `python3 scripts/experiments.py measure --sheet audit`. Decide C1–C3 and write the outcome
-   into FILTER.md §6 (and a v1.1 if any is adopted).
-3. `python3 scripts/label.py labels/claims_sheet.csv` and note the disagreements in SHORTLIST.md §1.
-4. `python3 scripts/label.py labels/heldout_sheet.csv`, then `python3 scripts/experiments.py measure`.
-   Fill SCORE.md §3.
-5. Write FRICTIONAL.md Part A. Edit, then sign or withhold, SIGNOFF.md.
-6. Push the branch. Put the folder link and final commit hash in Canvas.
+1. Label both sheets (one key per row; `q` saves and stops, re-run to continue):
+   `python3 scripts/label.py labels/audit_sheet.csv labels/heldout_sheet.csv`
+2. `python3 scripts/finish.py`. It computes the audit, decides C1–C3 by the rule fixed in
+   AUDIT.md §4 before labelling, measures every variant once on held-out, and writes AUDIT.md
+   §2/§4, FILTER.md §6, SCORE.md §3 and the SIGNOFF counts. Read what it wrote.
+3. Write FRICTIONAL.md Part A (three or four entries, in my words). Edit, then sign, SIGNOFF.md.
+4. Commit, push the branch, put the folder link and final commit hash in Canvas.
+
+Optional: `python3 scripts/label.py labels/claims_sheet.csv` to review the checker's 72 claim
+labels. Every claim already carries a mechanical label; this review is not required.

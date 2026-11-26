@@ -18,26 +18,15 @@ Filter: FILTER.md **v1.0**. Run on the live snapshot `out/snapshots/20261126T162
 Claude Code redrew the sample once, before any label existed. The first draw missed the single posting at
 exactly the threshold, so I changed the rule to always include it (FRICTIONAL.md, entry 3).
 
-## 2. Hand verdicts — PENDING SALONI
+## 2. Hand verdicts
 
-> **Not done yet.** Every verdict in `labels/audit_sheet.csv` is empty. Saloni labels with
-> `python3 scripts/label.py labels/audit_sheet.csv`, using `labels/LABELING-RULE.md`. Then
-> `python3 scripts/audit_report.py` computes the tables below into `out/audit_report.json`.
-> Nothing in this section may be filled in by Claude.
+> Filled by `python3 scripts/finish.py` from Saloni's labels in `labels/audit_sheet.csv`
+> (labelled with `scripts/label.py`, rule `labels/LABELING-RULE.md`). Until then the block is empty.
+> Claude Code wrote the script; it did not write any label.
 
-| Stratum | n | cannot tell | judged | filter wrong (by Saloni's label) | exact 95% interval |
-|---|---|---|---|---|---|
-| random_reject | 35 | _ | _ | _ | _ |
-| near_threshold | 12 | _ | _ | _ | (not random: no rate) |
-| random_keep | 10 | _ | _ | _ | _ |
-
-**What the sample can honestly say.** Write it from the numbers, in this form: "k of n random
-rejects were wrong. If this sample is typical, between a and b of the 1,562 rejects could be
-wrong (exact 95% interval). That is a sample estimate, not a measured count." For scale: even
-**0 of 35** wrong only shows the reject error rate is probably below **10.0%**, which is up
-to about 156 of 1,562 postings. A sample of 35 cannot show that the filter misses "almost
-nothing". The near-threshold stratum was chosen by score, so it shows where the filter is
-fragile, and gives no rate for anything.
+<!-- finish.py:verdicts -->
+_Not computed yet: the sheet is unlabelled._
+<!-- /finish.py:verdicts -->
 
 ## 3. False friend — measured by code; Saloni confirms by hand
 
@@ -68,17 +57,24 @@ Architect posting Claude justified (SHORTLIST.md) describes a customer-facing ad
 ("act as the 'CTO of your book of business'"). That is the kind of role labeling rule 1
 excludes. Saloni's hand labels on the 10 random keeps will show whether that is a real error.
 
-## 4. Rules added, cut, or rejected after measuring — PENDING SALONI'S DEV LABELS
+## 4. Rules added, cut, or rejected after measuring
 
-Three candidates were written after reading v1.0's output. None is adopted yet. Each is
-measured on the dev labels with `python3 scripts/experiments.py measure --sheet audit` (see
-SCORE.md), and Saloni decides. FILTER.md §6 records the outcome as added, cut, or rejected.
+Three candidates were written after reading v1.0's output. Each is measured on the 57 dev labels
+(`python3 scripts/experiments.py measure --sheet audit`, run by `scripts/finish.py`).
 
+**Decision rule, fixed 2026-11-26 before any label existed** (so the labels cannot be used to
+pick a rule after the fact): adopt a candidate only if, on the dev labels, it makes fewer filter
+errors than v1.0 **and** turns no row v1.0 got right into an error. A tie is a rejection, so
+v1.0 stays when there is no evidence for the change. Rows labelled "cannot tell" count for
+neither side. FILTER.md §6 records the outcome.
+
+<!-- finish.py:candidates -->
 | Candidate | Change | Effect on all 1,651 (measured, no labels needed) | Dev result | Decision |
 |---|---|---|---|---|
 | C1 | cut topic word `training` | 610 score changes, 0 decision flips | _ | _ |
 | C2 | add title veto `architect`, `recruiter` | 34 keeps become rejects | _ | _ |
 | C3 | R4 reads "5+ years" without the word "experience" | 187 score changes, 12 keeps become rejects | _ | _ |
+<!-- /finish.py:candidates -->
 
 C2 has a trap that Claude Code spotted while drafting it. A veto on `recruiting` would have rejected "Recruiting
 Analytics Data Engineer", which is a data-engineering job. So the word list stops at `recruiter`.
