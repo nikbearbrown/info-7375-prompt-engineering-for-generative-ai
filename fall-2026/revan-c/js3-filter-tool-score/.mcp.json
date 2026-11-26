@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "js3-score-posting": {
+      "command": ".venv/bin/python",
+      "args": ["tools/mcp_tap.py", "--log", "runs/js3/transcripts/claude_code_session.jsonl", "--",
+               ".venv/bin/python", "-m", "jsfilter.mcp_server"]
+    }
+  }
+}

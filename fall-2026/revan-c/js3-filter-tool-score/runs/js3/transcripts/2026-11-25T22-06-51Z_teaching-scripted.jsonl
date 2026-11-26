@@ -1,0 +1,30 @@
+{"t": "2026-11-25T22:06:51.181+00:00", "dir": "tap", "raw": "{\"event\": \"start\", \"command\": [\".venv/bin/python\", \"-I\", \"third_party/ch8_teaching_server/main.py\", \"--stdio\"]}"}
+{"t": "2026-11-25T22:06:51.182+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"method\": \"tools/list\"}"}
+{"t": "2026-11-25T22:06:51.196+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 1, \"error\": {\"code\": -32000, \"message\": \"Initialize and notify before using tools\"}}"}
+{"t": "2026-11-25T22:06:51.196+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"unsupported-fixture\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"js3-scripted-client\", \"version\": \"1\"}}}"}
+{"t": "2026-11-25T22:06:51.196+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 2, \"result\": {\"protocolVersion\": \"2025-11-25\", \"capabilities\": {\"tools\": {}}, \"serverInfo\": {\"name\": \"info7375-readonly\", \"version\": \"1.0.0\"}}}"}
+{"t": "2026-11-25T22:06:51.196+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"method\": \"tools/list\"}"}
+{"t": "2026-11-25T22:06:51.196+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 3, \"error\": {\"code\": -32000, \"message\": \"Initialize and notify before using tools\"}}"}
+{"t": "2026-11-25T22:06:51.196+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"notifications/initialized\"}"}
+{"t": "2026-11-25T22:06:52.202+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 4, \"method\": \"tools/list\"}"}
+{"t": "2026-11-25T22:06:52.202+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 4, \"result\": {\"tools\": [{\"name\": \"lookup\", \"description\": \"Read a public course fixture\", \"inputSchema\": {\"type\": \"object\", \"properties\": {\"key\": {\"type\": \"string\"}}, \"required\": [\"key\"], \"additionalProperties\": false}}]}}"}
+{"t": "2026-11-25T22:06:52.202+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 5, \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": {\"key\": \"office\"}}}"}
+{"t": "2026-11-25T22:06:52.203+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 5, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"505A Dana Hall\"}], \"isError\": false}}"}
+{"t": "2026-11-25T22:06:52.203+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 6, \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": {\"key\": \"missing\"}}}"}
+{"t": "2026-11-25T22:06:52.203+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 6, \"result\": {\"content\": [{\"type\": \"text\", \"text\": \"Record not found\"}], \"isError\": true}}"}
+{"t": "2026-11-25T22:06:52.203+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 7, \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": [\"office\"]}}"}
+{"t": "2026-11-25T22:06:52.203+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 7, \"error\": {\"code\": -32602, \"message\": \"Expected a string key\"}}"}
+{"t": "2026-11-25T22:06:52.203+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 8, \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": {\"key\": \"office\", \"extra\": 1}}}"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 8, \"error\": {\"code\": -32602, \"message\": \"Expected a string key\"}}"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 9, \"method\": \"tools/call\", \"params\": {\"name\": \"score_posting\", \"arguments\": {\"key\": \"office\"}}}"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 9, \"error\": {\"code\": -32602, \"message\": \"Unknown tool\"}}"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "client->server", "raw": "{"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32700, \"message\": \"Parse error\"}}"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "client->server", "raw": "{\"id\": 11}"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": null, \"error\": {\"code\": -32600, \"message\": \"Invalid request\"}}"}
+{"t": "2026-11-25T22:06:52.204+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 12, \"method\": \"bad\"}"}
+{"t": "2026-11-25T22:06:52.205+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 12, \"error\": {\"code\": -32601, \"message\": \"Method not found\"}}"}
+{"t": "2026-11-25T22:06:52.205+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 13, \"method\": \"initialize\", \"params\": {\"protocolVersion\": \"2025-11-25\", \"capabilities\": {}, \"clientInfo\": {\"name\": \"js3-scripted-client\", \"version\": \"1\"}}}"}
+{"t": "2026-11-25T22:06:52.205+00:00", "dir": "server->client", "raw": "{\"jsonrpc\": \"2.0\", \"id\": 13, \"result\": {\"protocolVersion\": \"2025-11-25\", \"capabilities\": {\"tools\": {}}, \"serverInfo\": {\"name\": \"info7375-readonly\", \"version\": \"1.0.0\"}}}"}
+{"t": "2026-11-25T22:06:52.205+00:00", "dir": "client->server", "raw": "{\"jsonrpc\": \"2.0\", \"method\": \"tools/call\", \"params\": {\"name\": \"lookup\", \"arguments\": {\"key\": \"office\"}}}"}
+{"t": "2026-11-25T22:06:53.212+00:00", "dir": "tap", "raw": "{\"event\": \"exit\", \"returncode\": 0}"}

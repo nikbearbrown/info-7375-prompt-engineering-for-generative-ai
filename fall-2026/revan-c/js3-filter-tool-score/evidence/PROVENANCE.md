@@ -1,0 +1,11 @@
+# Evidence provenance
+
+| File | How it was produced | When (UTC) | sha256 |
+|---|---|---|---|
+| `klaviyo_2026-10-31T05-51-09Z.json` | Live response saved by the agent on **run 2** (live), run by Revan in the terminal. 156 postings, byte-identical to the pre-implementation snapshot. Compared with run 1's seeded baseline, exactly the two hand-removed ids were new. | 2026-10-31T05:51:09Z | `5643cdb8bf425ecad2c5ca51b7407dea0af8796942d382dd292f31e5c6f9837f` |
+| `klaviyo_2026-10-31T05-47-32Z.json` | Live response saved by the agent on the **first attempt at run 2**, which then crashed: no API key was visible to the process, and the SDK raised a TypeError before the first Claude call. No run file was written and state was not advanced. Byte-identical to the pre-implementation snapshot (same sha256), so the board had not changed between 04:26Z and 05:47Z. Kept as evidence of the failed attempt. | 2026-10-31T05:47:32Z | `5643cdb8bf425ecad2c5ca51b7407dea0af8796942d382dd292f31e5c6f9837f` |
+| `klaviyo_2026-10-31_seeded.json` | **SEEDED, constructed by Revan.** A copy of the snapshot below with two posting objects removed by hand, ids `8041054003` and `7792539003`, using the one-line Python command in the commit that adds this file. Checked afterwards: 154 postings, only those two ids missing, nothing added, every remaining posting identical to the snapshot. Two side effects of the command: `meta.total` still says 156, which the agent does not read; and the JSON was re-serialized compactly, so its bytes differ from the snapshot in formatting as well as content. | 2026-10-31T05:32:33Z | `0533a1f76f17bf5cb64bc5f85b7b6ffabe93c58ec3404a23e2720f7fb5f77152` |
+| `klaviyo_2026-10-31_preimplementation_live.json` | Real, unmodified response from `GET https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true`, fetched by **Claude Code with `curl`** during contract review — not by the agent, which did not exist yet. 156 postings, 2,887,182 bytes. | 2026-10-31T04:26:52Z | `5643cdb8bf425ecad2c5ca51b7407dea0af8796942d382dd292f31e5c6f9837f` |
+
+Files named `klaviyo_<UTC timestamp>.json` are written by the agent itself on a live run, byte-for-byte before parsing.
+A `*_seeded.json` file is a constructed input: record here who edited it and which posting objects were removed.

@@ -1,0 +1,200 @@
+{
+  "agent": "jsloop — Job-Search Agent 2",
+  "policy": "GATE.md",
+  "started_at": "2026-11-10T06:32:28+00:00",
+  "selection": [
+    "klaviyo",
+    "duolingo",
+    "patchmypc"
+  ],
+  "demo": false,
+  "approve_state_write": true,
+  "run_mode": "live",
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 4,
+    "max_seconds": 45.0,
+    "request_timeout": 8.0,
+    "finalize_reserve": 2.0
+  },
+  "budget_label": "production",
+  "status": "incomplete",
+  "exit_code": 10,
+  "stop_reason": null,
+  "error": null,
+  "requests_made": 3,
+  "elapsed_seconds": 0.026,
+  "boards": [
+    {
+      "order": 1,
+      "board": "klaviyo",
+      "provider": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "mode": "live",
+      "source": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "deliberate_failure": false,
+      "outcome": "failed",
+      "reason": null,
+      "http_status": null,
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "raw_path": null,
+      "raw_bytes": null,
+      "raw_note": "no response body was received, so none was saved",
+      "postings_in_response": "unknown",
+      "baseline": null,
+      "new_count": "unknown",
+      "new_postings": [],
+      "seconds": 0.018
+    },
+    {
+      "order": 2,
+      "board": "duolingo",
+      "provider": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "mode": "live",
+      "source": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "deliberate_failure": false,
+      "outcome": "failed",
+      "reason": null,
+      "http_status": null,
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "raw_path": null,
+      "raw_bytes": null,
+      "raw_note": "no response body was received, so none was saved",
+      "postings_in_response": "unknown",
+      "baseline": null,
+      "new_count": "unknown",
+      "new_postings": [],
+      "seconds": 0.004
+    },
+    {
+      "order": 3,
+      "board": "patchmypc",
+      "provider": "lever",
+      "url": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "mode": "live",
+      "source": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "deliberate_failure": false,
+      "outcome": "failed",
+      "reason": null,
+      "http_status": null,
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "raw_path": null,
+      "raw_bytes": null,
+      "raw_note": "no response body was received, so none was saved",
+      "postings_in_response": "unknown",
+      "baseline": null,
+      "new_count": "unknown",
+      "new_postings": [],
+      "seconds": 0.004
+    }
+  ],
+  "state_path": "state/js2/seen_ids.json",
+  "state_updated": false,
+  "state_note": "state not written: run status is incomplete",
+  "trace_path": "runs/js2/2026-11-10T06-32-28Z_normal.json",
+  "actions": [
+    {
+      "seq": 1,
+      "t": 0.001,
+      "event": "preflight_ok",
+      "boards": [
+        "klaviyo",
+        "duolingo",
+        "patchmypc"
+      ],
+      "demo": false,
+      "approve_state_write": true
+    },
+    {
+      "seq": 2,
+      "t": 0.001,
+      "event": "request",
+      "method": "GET",
+      "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "board": "klaviyo",
+      "timeout": 8.0
+    },
+    {
+      "seq": 3,
+      "t": 0.019,
+      "event": "response",
+      "board": "klaviyo",
+      "http_status": null,
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "bytes": null
+    },
+    {
+      "seq": 4,
+      "t": 0.019,
+      "event": "observed",
+      "board": "klaviyo",
+      "outcome": "failed",
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "postings": "unknown",
+      "new": "unknown"
+    },
+    {
+      "seq": 5,
+      "t": 0.019,
+      "event": "request",
+      "method": "GET",
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "board": "duolingo",
+      "timeout": 8.0
+    },
+    {
+      "seq": 6,
+      "t": 0.023,
+      "event": "response",
+      "board": "duolingo",
+      "http_status": null,
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "bytes": null
+    },
+    {
+      "seq": 7,
+      "t": 0.023,
+      "event": "observed",
+      "board": "duolingo",
+      "outcome": "failed",
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "postings": "unknown",
+      "new": "unknown"
+    },
+    {
+      "seq": 8,
+      "t": 0.023,
+      "event": "request",
+      "method": "GET",
+      "url": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "board": "patchmypc",
+      "timeout": 8.0
+    },
+    {
+      "seq": 9,
+      "t": 0.026,
+      "event": "response",
+      "board": "patchmypc",
+      "http_status": null,
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "bytes": null
+    },
+    {
+      "seq": 10,
+      "t": 0.026,
+      "event": "observed",
+      "board": "patchmypc",
+      "outcome": "failed",
+      "error": "network error: gaierror: [Errno 8] nodename nor servname provided, or not known",
+      "postings": "unknown",
+      "new": "unknown"
+    },
+    {
+      "seq": 11,
+      "t": 0.027,
+      "event": "write_trace",
+      "path": "runs/js2/2026-11-10T06-32-28Z_normal.json"
+    }
+  ]
+}
