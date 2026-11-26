@@ -1,0 +1,32 @@
+# probe of course Chapter 8 lesson server (lessons/08-mcp-from-scratch/code/main.py @ a8629ce1)
+# command: python C:/Users/SUHASK~1/AppData/Local/Temp/tmp.e6U7Tuj4wf/main.py --stdio
+# exit code 0; stderr: ''
+
+P1 tools/list before initialize
+  -> {"jsonrpc": "2.0", "id": 1, "error": {"code": -32000, "message": "Initialize and notify before using tools"}}
+P2 2026-07-28 discovery probe before initialize
+  -> {"jsonrpc": "2.0", "id": 2, "error": {"code": -32000, "message": "Initialize and notify before using tools"}}
+P3 initialize asking for an unknown protocol version
+  -> {"jsonrpc": "2.0", "id": 3, "result": {"protocolVersion": "2025-11-25", "capabilities": {"tools": {}}, "serverInfo": {"name": "info7375-readonly", "version": "1.0.0"}}}
+P4 ping (allowed at any time by the spec)
+  -> {"jsonrpc": "2.0", "id": 4, "error": {"code": -32000, "message": "Initialize and notify before using tools"}}
+P5 notifications/initialized (no reply expected)
+  -> (no reply, as expected for a notification)
+P6 tools/list
+  -> {"jsonrpc": "2.0", "id": 6, "result": {"tools": [{"name": "lookup", "description": "Read a public course fixture", "inputSchema": {"type": "object", "properties": {"key": {"type": "string"}}, "required": ["key"], "additionalProperties": false}}]}}
+P7 tools/call with valid arguments
+  -> {"jsonrpc": "2.0", "id": 7, "result": {"content": [{"type": "text", "text": "505A Dana Hall"}], "isError": false}}
+P8 tools/call with an extra argument
+  -> {"jsonrpc": "2.0", "id": 8, "error": {"code": -32602, "message": "Expected a string key"}}
+P9 tools/call with a path-like value
+  -> {"jsonrpc": "2.0", "id": 9, "result": {"content": [{"type": "text", "text": "Record not found"}], "isError": true}}
+P10 tools/call of a tool that was never listed
+  -> {"jsonrpc": "2.0", "id": 10, "error": {"code": -32602, "message": "Unknown tool"}}
+P11 non-ASCII argument value
+  -> {"jsonrpc": "2.0", "id": 11, "result": {"content": [{"type": "text", "text": "Record not found"}], "isError": true}}
+P12 a method the server does not offer
+  -> {"jsonrpc": "2.0", "id": 12, "error": {"code": -32601, "message": "Method not found"}}
+P13 malformed JSON
+  -> {"jsonrpc": "2.0", "id": null, "error": {"code": -32700, "message": "Parse error"}}
+P14 a JSON-RPC batch
+  -> {"jsonrpc": "2.0", "id": null, "error": {"code": -32600, "message": "Invalid request"}}

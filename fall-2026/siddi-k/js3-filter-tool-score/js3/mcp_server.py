@@ -142,7 +142,11 @@ class Server:
 
 class Transcript:
     def __init__(self, path):
-        self.f = open(policy.check_write(path), "a", encoding="utf-8", newline="\n") if path else None
+        self.f = None
+        if path:
+            real = policy.check_write(path)
+            real.parent.mkdir(parents=True, exist_ok=True)     # without this the server died at startup (03:17Z)
+            self.f = open(real, "a", encoding="utf-8", newline="\n")
 
     def log(self, direction: str, raw: str) -> None:
         if self.f:
