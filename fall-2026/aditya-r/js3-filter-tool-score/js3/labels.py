@@ -27,7 +27,7 @@ LABELS = ROOT / "labels"
 ALLOWED = {"yes", "no", "unsure"}
 
 
-def read_sheet(sheet=SHEET, groups_file="groups.json"):
+def read_sheet(sheet=SHEET, groups_file="groups.json", label_col="label"):
     groups = json.loads((ROOT / "splits" / groups_file).read_text())
     with sheet.open(encoding="utf-8-sig", newline="") as f:
         rows = list(csv.DictReader(f))
@@ -40,9 +40,9 @@ def read_sheet(sheet=SHEET, groups_file="groups.json"):
         sid = (r.get("sheet_id") or "").strip()
         if expected.get(sid) != (r.get("key") or "").strip():
             problems.append(f"{sid}: key changed or unknown")
-        lab = (r.get("label") or "").strip().lower()
+        lab = (r.get(label_col) or "").strip().lower()
         if lab not in ALLOWED:
-            problems.append(f"{sid}: label {r.get('label')!r} is not yes/no/unsure")
+            problems.append(f"{sid}: {label_col} {r.get(label_col)!r} is not yes/no/unsure")
         r["label"] = lab
         r["reason"] = (r.get("reason") or "").strip()
     return rows, groups.get("split_of_sheet_id"), problems
@@ -51,7 +51,7 @@ def read_sheet(sheet=SHEET, groups_file="groups.json"):
 def group_names(groups_file="groups.json"):
     g = json.loads((ROOT / "splits" / groups_file).read_text())
     names = {}
-    for part in ("dev", "heldout", "heldout2"):
+    for part in ("dev", "heldout", "heldout2", "audit"):
         for grp, items in g.get(part, {}).items():
             for it in items:
                 names.setdefault(it["key"], []).append(grp)
@@ -135,5 +135,25 @@ def load(path):
         return {r["key"]: r for r in csv.DictReader(f)}
 
 
+def cmd_import_a4():
+    """Fresh v1.1 audit (amendment A4): validate, seal, extract. Not held-out: it is read right away."""
+    sheet = ROOT / "review" / "LABEL_SHEET_A4.csv"
+    rows, _, problems = read_sheet(sheet, "audit_a4.json", label_col="verdict")
+    if problems:
+        print("NOT IMPORTED. Please fix in review/LABEL_SHEET_A4.csv:\n  " + "\n  ".join(problems))
+        return 1
+    LABELS.mkdir(exist_ok=True)
+    seal = {"sheet": "review/LABEL_SHEET_A4.csv", "sheet_sha256": sha(sheet), "rows": len(rows),
+            "imported_utc": dt.datetime.now(dt.timezone.utc).isoformat(timespec="seconds"),
+            "source": "entered by Aditya directly in the sheet"}
+    (LABELS / "SEAL_A4.json").write_text(json.dumps(seal, indent=1) + "\n")
+    names = group_names("audit_a4.json")
+    for r in rows:
+        r["group"], r["drawn_as"] = names.get(r["key"], ""), "audit_a4"
+    write(LABELS / "audit_a4_labels.csv", rows)
+    print(f"A4 sealed sha256 {seal['sheet_sha256'][:16]}…; {len(rows)} rows: {dict(Counter(r['label'] for r in rows))}")
+    return 0
+
+
 if __name__ == "__main__":
-    sys.exit({"import": cmd_import, "seal-h2": cmd_seal_h2, "heldout": cmd_heldout}[sys.argv[1]]())
+    sys.exit({"import": cmd_import, "seal-h2": cmd_seal_h2, "heldout": cmd_heldout, "import-a4": cmd_import_a4}[sys.argv[1]]())

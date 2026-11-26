@@ -111,8 +111,14 @@ def build(version):
                  "label": lab, "labeled_by": "rule (FILTER.md §2 C1)", "evidence": ev}
         rc = reader.get(key, {}).get("LEVEL")
         if rc:
-            level.update({"rule_label": lab, "label": rc["label"], "labeled_by": f"rule said {lab} -> {rc['labeled_by']}",
-                          "evidence": ev + rc["evidence"], "note": rc["note"]})
+            if rc.get("replace_rule_evidence"):  # rule label kept, its citation replaced; rule's quote stays on record
+                level.update({"rule_label": lab, "rule_evidence": ev, "label": rc["label"],
+                              "labeled_by": f"rule said {lab} (wrong citation) -> {rc['labeled_by']}",
+                              "evidence": rc["evidence"], "note": rc["note"] + " Rule's original citation: " +
+                              "; ".join(f"“{x['quote']}”" for x in ev)})
+            else:
+                level.update({"rule_label": lab, "label": rc["label"], "labeled_by": f"rule said {lab} -> {rc['labeled_by']}",
+                              "evidence": ev + rc["evidence"], "note": rc["note"]})
         claims.append(level)
         lab, ev = location_claim(p)
         claims.append({"type": "LOCATION", "claim": "The role is in Boston or remote within the US.",

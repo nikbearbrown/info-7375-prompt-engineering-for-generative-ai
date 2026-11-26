@@ -102,14 +102,26 @@
      "type": "LEVEL",
      "claim": "The role is open to someone with Priya's experience (under 1 year full-time).",
      "label": "supported",
-     "labeled_by": "rule (FILTER.md §2 C1)",
+     "labeled_by": "rule said supported (wrong citation) -> Claude Code (reading), 2026-11-25; found by Aditya Raj (review of the shortlist, 2026-11-25)",
      "evidence": [
+      {
+       "field": "posting.title",
+       "quote": "Software Engineer, Early Career (AI)"
+      },
+      {
+       "field": "posting.description",
+       "quote": "This role is for candidates with 0-2 YOE and can start full time right away."
+      }
+     ],
+     "rule_label": "supported",
+     "rule_evidence": [
       {
        "field": "posting.description",
        "quote": "This is NOT a new grad role!",
        "why": "early-career phrase 'new grad'"
       }
-     ]
+     ],
+     "note": "Evidence corrected. The rule cited 'This is NOT a new grad role!' as support, because E takes the first phrase in list order and 'new grad' comes before 'early career', so it matched a negated sentence. That sentence excludes people who have not graduated yet; it does not support or contradict Priya. The support is the title 'Early Career' and '0-2 YOE' (she has under 1 year). The label stays supported. The frozen score is unchanged (E +3 either way), and 'YOE' is not read by the years regex. Rule's original citation: “This is NOT a new grad role!”"
     },
     {
      "type": "LOCATION",

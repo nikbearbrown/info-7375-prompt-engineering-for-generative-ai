@@ -56,11 +56,12 @@ def confusion(rows, verdicts):
     return dict(m)
 
 
-def run(labels_path=ROOT / "labels" / "dev_labels.csv"):
+def run(labels_path=ROOT / "labels" / "dev_labels.csv", audited="v1.0", random_group="D-random-reject",
+        out_name="audit_results.json", candidates=True):
     corpus = load_corpus()
     with labels_path.open(encoding="utf-8") as f:
         rows = list(csv.DictReader(f))
-    base_cfg = load_filter("v1.0")
+    base_cfg = load_filter(audited)
     base = {r["key"]: score_posting(corpus[r["key"]], base_cfg) for r in rows}
     by_group = defaultdict(list)
     for r in rows:
@@ -69,11 +70,12 @@ def run(labels_path=ROOT / "labels" / "dev_labels.csv"):
     groups = {}
     for g, rs in sorted(by_group.items()):
         groups[g] = {"n": len(rs), "labels": dict(Counter(r["label"] for r in rs)),
-                     "v1.0": confusion(rs, {r["key"]: base[r["key"]]["verdict"] for r in rs}),
-                     "errors": [{"sheet_id": r["sheet_id"], "label": r["label"], "v1.0": base[r["key"]]["verdict"],
+                     audited: confusion(rs, {r["key"]: base[r["key"]]["verdict"] for r in rs}),
+                     "errors": [{"sheet_id": r["sheet_id"], "label": r["label"], audited: base[r["key"]]["verdict"],
+                                 "arithmetic": base[r["key"]].get("arithmetic"),
                                  "score": base[r["key"]]["score"], "title": corpus[r["key"]]["title"], "reason": r["reason"]}
                                 for r in rs if (r["label"] == "yes") != (base[r["key"]]["verdict"] == "keep") and r["label"] != "unsure"]}
-    rr = by_group.get("D-random-reject", [])
+    rr = by_group.get(random_group, [])
     decided = [r for r in rr if r["label"] != "unsure"]
     yes = sum(r["label"] == "yes" for r in rr)
     uns = sum(r["label"] == "unsure" for r in rr)
@@ -82,9 +84,9 @@ def run(labels_path=ROOT / "labels" / "dev_labels.csv"):
         "sample": len(rr), "yes": yes, "unsure": uns, "no": len(rr) - yes - uns,
         "miss_rate_decided": f"{yes}/{len(decided)}", "ci95_decided": clopper_pearson(yes, len(decided)),
         "worst_case_unsure_as_miss": f"{yes + uns}/{len(rr)}", "ci95_worst_case": clopper_pearson(yes + uns, len(rr)),
-        "v1.0_rejects_in_corpus": rejects_total}
+        f"{audited}_rejects_in_corpus": rejects_total}
     comps = []
-    for label, fv, thr, what in CANDIDATES:
+    for label, fv, thr, what in (CANDIDATES if candidates else []):
         cfg = load_filter(fv)
         if thr is not None:
             cfg["threshold"] = thr
@@ -97,15 +99,22 @@ def run(labels_path=ROOT / "labels" / "dev_labels.csv"):
         comps.append({"label": label, "filter": fv, "threshold": cfg["threshold"], "change": what,
                       "confusion": confusion(rows, {k: v["verdict"] for k, v in res.items()}),
                       "corpus_keeps": corpus_keeps, "flips": flips})
-    out = {"labels": str(labels_path.relative_to(ROOT)), "n": len(rows),
+    out = {"labels": str(Path(labels_path).resolve().relative_to(ROOT)), "audited_filter": audited, "n": len(rows),
            "label_counts": dict(Counter(r["label"] for r in rows)), "groups": groups,
            "random_reject_estimate": random_estimate, "comparisons": comps}
     (ROOT / "audit").mkdir(exist_ok=True)
-    (ROOT / "audit" / "audit_results.json").write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
+    (ROOT / "audit" / out_name).write_text(json.dumps(out, indent=1, ensure_ascii=False) + "\n")
     return out
 
 
 if __name__ == "__main__":
+    import sys
+    if sys.argv[1:] == ["a4"]:  # fresh audit of frozen v1.1 (amendment A4); no candidate rules
+        o = run(ROOT / "labels" / "audit_a4_labels.csv", "v1.1", "A4-random-reject", "audit_a4_results.json", False)
+        print(json.dumps(o["random_reject_estimate"], indent=1))
+        for g, v in o["groups"].items():
+            print(g, v["n"], v["labels"], v["v1.1"], [e["sheet_id"] for e in v["errors"]])
+        sys.exit(0)
     o = run()
     print(json.dumps(o["random_reject_estimate"], indent=1))
     for c in o["comparisons"]:

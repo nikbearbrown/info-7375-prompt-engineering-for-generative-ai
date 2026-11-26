@@ -35,3 +35,12 @@ The held-out rows stay unread until the revisions are frozen.
 - **Edit the CSV file directly** and save it in place (CSV UTF-8). **Please don't send screenshots or paste the labels into the chat.** Claude must not see these labels until the filter revision is frozen.
 - **Stay blind:** the same rule applies as before. Don't open `runs/`, `splits/`, `corpus/`, `shortlist/` or `FILTER.md` while labeling.
 - **How to resume:** tell Claude *"H2 labels saved"*. Claude will run `js3.labels seal-h2`. That checks that every row has `yes`, `no` or `unsure`, and records the file's sha256. It prints only row problems: no labels and no counts.
+
+---
+
+# Third batch: fresh blind audit A4 (FILTER.md amendment A4; separate from H2)
+
+- **What to fill in:** `review/LABEL_SHEET_A4.csv`. It has 37 rows, A01–A37, and none of them was on your earlier sheets. The full text of each row is in `review/postings_a4/Axx.md`.
+- **Columns:** `verdict` (`yes` = worth Priya's time, `no`, or `unsure`) and `reason`. Use your own judgment, as before. Edit the file directly and save it as CSV UTF-8.
+- **Stay blind:** as before, don't open `runs/`, `splits/`, `audit/`, `shortlist/` or `FILTER.md` while labeling.
+- **How to resume:** tell Claude *"A4 labels saved"*. Claude will run `js3.labels import-a4` (validate and seal) and then `js3.audit a4`. That gives the errors by group, the interval for the 30 random rejects, and any new false friend.

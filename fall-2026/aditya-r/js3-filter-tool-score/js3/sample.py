@@ -253,3 +253,75 @@ def draw_h2(write=True):
                 f"- location: {p['location'] or '(missing)'}\n- departments: {', '.join(p['departments']) or '(missing)'}\n"
                 f"- url: {p['url']}\n- captured: {p['last_seen']}\n\n---\n\n{readable(p['text'])}\n", encoding="utf-8")
     return out
+
+
+# ---- Plan amendment A4: fresh blind reject audit of frozen v1.1 (separate from H2) ----------------------
+SEED_A4, SEED_A4_SHEET = 7380, 7381
+A4_RANDOM, A4_CLOSE_BELOW = 30, 5
+
+
+def draw_a4(write=True):
+    corpus = load_corpus()
+    results, _ = score_all(load_filter("v1.1"), corpus)
+    cl = json.loads((ROOT / "splits" / "clusters.json").read_text())
+    seen = {cl[k] for k in json.loads((ROOT / "splits" / "groups.json").read_text())["sheet_ids"]}
+    seen |= {cl[k] for k in json.loads((ROOT / "splits" / "heldout2.json").read_text())["sheet_ids"]}
+    unseen = sorted(k for k in corpus if cl[k] not in seen)
+    rng = random.Random(SEED_A4)
+    rejects = [k for k in unseen if results[k]["verdict"] == "reject"]
+    random_rejects, taken = [], set()
+    for k in rng.sample(rejects, len(rejects)):
+        if cl[k] not in taken:
+            taken.add(cl[k])
+            random_rejects.append(k)
+            if len(random_rejects) == A4_RANDOM:
+                break
+    chosen = {cl[k]: k for k in random_rejects}
+
+    def pick(c, pred):
+        if c not in chosen:
+            chosen[c] = rng.choice([k for k in unseen if cl[k] == c and pred(results[k])])
+        return chosen[c]
+
+    is_below = lambda r: r["verdict"] == "reject" and r["score"] == 5
+    keep = lambda r: r["verdict"] == "keep"
+    below_cl = sorted({cl[k] for k in unseen if is_below(results[k])})
+    keep_cl = sorted({cl[k] for k in unseen if keep(results[k])})
+    close_below = [pick(c, is_below) for c in rng.sample(below_cl, min(A4_CLOSE_BELOW, len(below_cl)))]
+    kept = [pick(c, keep) for c in keep_cl]
+    lowest = min(results[k]["score"] for k in kept)
+    groups = {"A4-random-reject": random_rejects, "A4-close-below(score 5)": close_below,
+              f"A4-close-above(score {lowest})": [k for k in kept if results[k]["score"] == lowest],
+              "A4-kept(all unseen keep clusters)": kept}
+    keys = sorted({k for ks in groups.values() for k in ks})
+    assert not ({cl[k] for k in keys} & seen) and len({cl[k] for k in keys}) == len(keys)
+    random.Random(SEED_A4_SHEET).shuffle(keys)
+    sheet_ids = {k: f"A{i + 1:02d}" for i, k in enumerate(keys)}
+    out = {"plan": "FILTER.md amendment A4", "filter": "v1.1", "seeds": {"audit": SEED_A4, "sheet_order": SEED_A4_SHEET},
+           "pools": {"seen_clusters_excluded": len(seen), "unseen_clusters": len({cl[k] for k in unseen}),
+                     "unseen_rejects": len(rejects), "unseen_score5_reject_clusters": len(below_cl),
+                     "unseen_keep_clusters": len(keep_cl),
+                     "keep_clusters_total": len({cl[k] for k, r in results.items() if keep(r)})},
+           "limitation": f"only {len(keep_cl)} of the v1.1 keep clusters were unseen; kept sample = {len(kept)}",
+           "audit": {g: [{"key": k, "score": results[k]["score"], "verdict": results[k]["verdict"]} for k in ks]
+                     for g, ks in groups.items()},
+           "sheet_ids": sheet_ids}
+    if not write:
+        return out
+    (ROOT / "splits" / "audit_a4.json").write_text(json.dumps(out, indent=1) + "\n")
+    pdir = ROOT / "review" / "postings_a4"
+    pdir.mkdir(parents=True, exist_ok=True)
+    for old in pdir.glob("A*.md"):
+        old.unlink()
+    with (ROOT / "review" / "LABEL_SHEET_A4.csv").open("w", newline="", encoding="utf-8") as f:
+        w = csv.writer(f)
+        w.writerow(["sheet_id", "key", "title", "board", "location", "departments", "full_text", "verdict", "reason"])
+        for k in keys:
+            p, sid = corpus[k], sheet_ids[k]
+            w.writerow([sid, k, p["title"], p["board"], p["location"] or "", "; ".join(p["departments"]),
+                        f"review/postings_a4/{sid}.md", "", ""])
+            (pdir / f"{sid}.md").write_text(
+                f"# {sid} — {p['title']}\n\n- key: `{k}`\n- board: {p['provider']}:{p['board']}\n"
+                f"- location: {p['location'] or '(missing)'}\n- departments: {', '.join(p['departments']) or '(missing)'}\n"
+                f"- url: {p['url']}\n- captured: {p['last_seen']}\n\n---\n\n{readable(p['text'])}\n", encoding="utf-8")
+    return out

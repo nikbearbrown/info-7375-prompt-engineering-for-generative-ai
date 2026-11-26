@@ -78,3 +78,20 @@ def test_labeled_sheets_match_their_seals():
     for sheet, seal in (("LABEL_SHEET.csv", "SEAL.json"), ("LABEL_SHEET_H2.csv", "SEAL_H2.json")):
         want = json.loads((ROOT / "labels" / seal).read_text())["sheet_sha256"]
         assert hashlib.sha256((ROOT / "review" / sheet).read_bytes()).hexdigest() == want, sheet
+
+
+def test_a4_audit_fresh_blind_and_reproducible():
+    from js3.sample import draw_a4
+    a4 = json.loads((ROOT / "splits" / "audit_a4.json").read_text())
+    h2 = json.loads((ROOT / "splits" / "heldout2.json").read_text())
+    seen = {CLUSTERS[k] for k in GROUPS["sheet_ids"]} | {CLUSTERS[k] for k in h2["sheet_ids"]}
+    keys = list(a4["sheet_ids"])
+    assert len(keys) == len({CLUSTERS[k] for k in keys}) and not {CLUSTERS[k] for k in keys} & seen
+    assert len(a4["audit"]["A4-random-reject"]) == 30
+    with (ROOT / "review" / "LABEL_SHEET_A4.csv").open(encoding="utf-8-sig") as f:
+        header = next(csv.reader(f))
+    assert header == ["sheet_id", "key", "title", "board", "location", "departments", "full_text", "verdict", "reason"]
+    for md in (ROOT / "review" / "postings_a4").glob("A*.md"):
+        head = md.read_text(encoding="utf-8").split("---", 1)[0].lower()
+        assert "score" not in head and "group" not in head and "verdict" not in head
+    assert json.dumps(draw_a4(write=False), sort_keys=True) == json.dumps(a4, sort_keys=True)

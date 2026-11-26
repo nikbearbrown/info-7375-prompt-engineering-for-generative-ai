@@ -22,12 +22,13 @@ for v in v1.0 v1.1; do .venv/bin/python -m js3.run --filter "$v" >/dev/null; don
 .venv/bin/python -m js3.boilerplate >/dev/null
 .venv/bin/python -m js3.audit >/dev/null
 .venv/bin/python -m js3.reader_labels >/dev/null && .venv/bin/python -m js3.shortlist --filter v1.1 >/dev/null
+[ -f labels/audit_a4_labels.csv ] && .venv/bin/python -m js3.audit a4 >/dev/null
 [ -f labels/heldout2_labels.csv ] && .venv/bin/python -m js3.experiment --labels labels/heldout2_labels.csv --out experiments/RESULTS_H2.json >/dev/null
 echo "== regenerated outputs identical to the committed ones?"
 CHANGED=0
 for f in corpus/PROVENANCE.json runs/v1.0/scores.csv runs/v1.0/summary.json runs/v1.1/scores.csv runs/v1.1/summary.json \
          filters/boilerplate_segments.json audit/audit_results.json shortlist/claims.json shortlist/SHORTLIST.md \
-         shortlist/reader_labels.json experiments/RESULTS_H2.json; do
+         shortlist/reader_labels.json experiments/RESULTS_H2.json audit/audit_a4_results.json; do
   [ -f "$f" ] || continue
   if git -C "$REPO" show "$COMMIT:$SUB/$f" | cmp -s - "$f"; then echo "  same  $f"; else echo "  DIFF  $f"; CHANGED=1; fi
 done

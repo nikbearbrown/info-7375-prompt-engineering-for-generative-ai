@@ -37,8 +37,21 @@
 - Read properly, the same sentence **contradicts** it.
 - **The abstention rule only protects against missing evidence, not against misread evidence** (negation, or "the most junior data scientists" in `8091041002`).
 
+## Evidence correction found by Aditya: S50 (observed)
+
+**`ashby:notion:85947779-…`**, "Software Engineer, Early Career (AI)".
+- **What the rule cited:** the LEVEL rule labeled the claim **supported** and cited "**This is NOT a new grad role!**". The scorer's early-career rule takes the first phrase in list order, and `new grad` comes before `early career`, so it matched a negated sentence.
+- **Why that citation is wrong:**
+  - The negated sentence excludes people who have **not yet graduated**. A New Grad role hires students who will graduate later.
+  - It neither supports nor contradicts Priya, who graduated in December 2025.
+- **The real support:** the title, "Early **Career**", and the next sentence, "This role is for candidates with **0-2 YOE** and can start full time right away."
+- **The correction:**
+  - The **label stays supported**. The **citation is replaced**, and the rule's original quote is kept in the note.
+  - **The frozen v1.1 score is unchanged**: E is +3 whichever phrase matched, and "YOE" is not read by the years regex.
+  - So this is an evidence error, not a scoring error. It is the third negation case after `8546367002`, and one more reason a v1.2 early-career rule should skip negated sentences.
+
 ## What the shortlist shows overall
 
 - **LOCATION:** none of the 15 is in Boston. LOCATION is contradicted for 14 and insufficient for 1.
-- **LEVEL:** contradicted for 13. Seven of these are New Grad roles whose own text requires graduating in **fall 2026 to summer 2027** (or by December 2026), while the persona finished in December 2025. Aditya labeled several of these `yes`, with "check the graduation window".
+- **LEVEL:** contradicted for 13; S50 is supported, with corrected evidence. Seven of these are New Grad roles whose own text requires graduating in **fall 2026 to summer 2027** (or by December 2026), while the persona finished in December 2025. Aditya labeled several of these `yes`, with "check the graduation window".
 - **"Kept by the filter" is a reason to read, not evidence of fit.** That decision stays with the person (README → driver's seat).

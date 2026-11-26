@@ -27,7 +27,16 @@ FDE_DUTY = {"T3 llm": (S, "Develop cutting-edge GenAI solutions"), "T4 agents": 
 PY_OPTION = {"T1 python": (I, "You have implementation skills", "Python is one example in 'Python, Java, or C++'")}
 GRAD = lambda prefix: {"label": C, "prefix": prefix, "note": "Priya completed her MS in 2025-12 (persona), so this graduation window excludes her. The rule said 'supported' from the 'New Grad' title. Whether it disqualifies her is Aditya's call (his label: check the window)."}
 READER = {
-    "ashby:notion:85947779-6b87-466a-98bc-30a640448c28": {"DUTY": {
+    "ashby:notion:85947779-6b87-466a-98bc-30a640448c28": {"LEVEL": {
+        "label": S, "replace_rule_evidence": True, "found_by": "Aditya Raj (review of the shortlist, 2026-11-25)",
+        "quotes": [("posting.title", "Software Engineer, Early Career (AI)"),
+                   ("posting.description", "This role is for candidates with 0-2 YOE and can start full time right away.")],
+        "note": ("Evidence corrected. The rule cited 'This is NOT a new grad role!' as support, because E takes the first phrase in "
+                 "list order and 'new grad' comes before 'early career', so it matched a negated sentence. That sentence excludes "
+                 "people who have not graduated yet; it does not support or contradict Priya. The support is the title 'Early Career' "
+                 "and '0-2 YOE' (she has under 1 year). The label stays supported. The frozen score is unchanged (E +3 either way), "
+                 "and 'YOE' is not read by the years regex.")},
+        "DUTY": {
         "T3 llm": (S, "You'll work on cutting-edge AI-powered features"),
         "T5 ml": (I, "Expertise building and prototyping", "describes the applicant's past exploration, not the role's work"),
         "T6 evaluation": (S, "Contribute to evals and iteration loops")}},
@@ -85,8 +94,12 @@ def build():
         o = {"DUTY": duty}
         if "LEVEL" in entry:
             lv = entry["LEVEL"]
-            o["LEVEL"] = {"label": lv["label"], "labeled_by": BY, "note": lv["note"],
-                          "evidence": [{"field": "posting.description", "quote": expand(p, lv["prefix"])}]}
+            if "quotes" in lv:  # exact quotes; verified verbatim by js3.shortlist
+                ev = [{"field": f, "quote": q} for f, q in lv["quotes"]]
+            else:
+                ev = [{"field": "posting.description", "quote": expand(p, lv["prefix"])}]
+            o["LEVEL"] = {"label": lv["label"], "labeled_by": BY + (f"; found by {lv['found_by']}" if lv.get("found_by") else ""),
+                          "note": lv["note"], "evidence": ev, "replace_rule_evidence": lv.get("replace_rule_evidence", False)}
         out[key] = o
     path = ROOT / "shortlist" / "reader_labels.json"
     path.parent.mkdir(exist_ok=True)

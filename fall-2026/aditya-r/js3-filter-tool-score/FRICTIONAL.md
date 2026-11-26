@@ -94,6 +94,16 @@ Dated entries. **Claude Code's process notes** are labeled as Claude's: they rec
 - *Fixes:* `draw(write=False)` in the test, plus a new test that both labeled sheets still match their seals.
 - *Lesson:* a reproducibility test must not have side effects on human data.
 
+**17. Aditya caught a wrong citation in the shortlist; then a fresh audit of v1.1 (A4)**
+- **The citation (found by Aditya while reviewing the shortlist):** S50's LEVEL claim was "supported", but its cited quote was the negated "This is NOT a new grad role!".
+  - The very next sentence, "0-2 YOE", and the title "Early Career" are the real support.
+  - *Cause:* the early-career rule takes the first phrase in list order. The score is unaffected, but the evidence was wrong.
+  - *What I changed:* only the citation (a reader override that keeps the rule's original quote on record). The frozen scorer is unchanged.
+  - *What it shows:* neither my reader checks nor the quote verifier would catch this. The verifier proves a quote exists, not that it supports the claim.
+- **The A4 audit:** Aditya asked for a fresh blind audit of the frozen v1.1 (amendment A4, written before the draw).
+  - 37 rows: 30 random rejects, 5 just-below calls, and the 2 keep clusters he had not seen.
+  - *Limitation:* only 2 of the 11 v1.1 keep clusters were still unseen.
+
 **Unresolved:**
 - whether the v1.1 changes generalize (this is what H2 tests);
 - a negation-aware early-career rule (a v1.2 candidate);
