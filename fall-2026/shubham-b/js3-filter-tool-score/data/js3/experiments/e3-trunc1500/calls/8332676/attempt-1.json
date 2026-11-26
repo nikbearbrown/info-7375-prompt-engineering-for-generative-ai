@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.330 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6783,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "f1a1b8e25040237eb4be08da13c20b59b0459ebec0cc4afbffa4b367bdcb5f62",
+  "posting_id": "8332676",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "f5440fd5-bdd0-4304-b2f7-a271dc628ad6",
+  "started_at_et": "2026-11-25T00:58:39.739368-05:00",
+  "started_at_utc": "2026-11-25T05:58:39.739368Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6467,\"stop_reason\":\"end_turn\",\"session_id\":\"f5440fd5-bdd0-4304-b2f7-a271dc628ad6\",\"total_cost_usd\":0.028419,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4940,\"cache_read_input_tokens\":1450,\"output_tokens\":851,\"output_tokens_details\":{\"thinking_tokens\":300},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4940,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":851,\"cacheReadInputTokens\":1450,\"cacheCreationInputTokens\":4940,\"webSearchRequests\":0,\"costUSD\":0.028419,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":300,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4940,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"RELEVANT\\\",\\\"summary\\\":\\\"All four rule gates pass. The title 'Software Engineer - Full stack' contains 'software engineer' and no excluded marker. The content names React and Typescript, which match two eligible resume skills. The visible text has no citizenship, clearance or unpaid-work phrase. The location 'Seattle, WA' has US signals and no non-US signal. This is an opinion based on the supplied text only.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title is a full-stack Software Engineer role with no excluded seniority or intern marker, matching a target role.\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Content lists React, which matches the resume's React skill (case-sensitive match).\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Content lists Typescript, which matches the resume's TypeScript skill, making two distinct skills.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA has a US signal (city and state code) and no non-US signal.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The posting content is truncated, so a citizenship, clearance or unpaid-work phrase in the missing part cannot be ruled out.\\\",\\\"The match of 'Typescript' to the resume's 'TypeScript' assumes a case-insensitive whole-word match for that skill.\\\",\\\"The posting does not state the seniority level or years of experience required, and these are not gates.\\\"]}\",\"ttft_ms\":3200,\"type\":\"result\",\"duration_ms\":6548,\"uuid\":\"98630a10-76f4-4e5d-bf52-d745d41e5949\",\"ttft_stream_ms\":1312,\"time_to_request_ms\":80,\"first_content_frame_ms\":1312,\"queued_turn_count\":0,\"result_index\":0,\"credential_expires_at\":\"2026-12-10T03:32:49.590Z\"}\n",
+  "total_cost_usd": 0.028419,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

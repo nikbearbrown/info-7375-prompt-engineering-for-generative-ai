@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6923,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "1d0d87ade7d6803397f7929dff0cac375cfba681fe835911b45b9d9e949d33df",
+  "posting_id": "7476555",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "6863c3e4-05e9-428f-a221-66431e133079",
+  "started_at_et": "2026-10-31T14:21:51.186695-04:00",
+  "started_at_utc": "2026-10-31T18:21:51.186695Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6401,\"stop_reason\":\"end_turn\",\"session_id\":\"6863c3e4-05e9-428f-a221-66431e133079\",\"total_cost_usd\":0.027132,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4822,\"cache_read_input_tokens\":0,\"output_tokens\":784,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4822,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":784,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":4822,\"webSearchRequests\":0,\"costUSD\":0.027132,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4822,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a backend role at a strong-fit company, and Kiran's backend skills (APIs, Node.js, Spring Boot, GraphQL, Docker, Kubernetes, AWS) overlap well with the work and preferred qualifications. However, the posting requires 2–12+ years of industry experience excluding internships, which is above Kiran's entry-level to SWE II targets. The posting also lists only SEA, SF, NY and Toronto, with no US-wide or remote option, which does not clearly match the target locations. The mentoring responsibility also suggests a more senior scope than Kiran is aiming for.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets New Grad, Entry Level, SWE I and SWE II, while the posting's minimum requirements ask for 2–12+ years of industry experience and mentoring of other engineers.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran wants United States or Remote (US); the posting lists specific cities, including Toronto, with no remote option stated.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[2]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The Backend Engineer title matches one of Kiran's target roles.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran's REST, GraphQL and API-building experience aligns with the API-focused responsibilities and the GraphQL preference.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Docker, Kubernetes and AWS on the résumé match the preferred cloud-services qualifications.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas, so sponsorship is unknown.\\\",\\\"It is unclear whether the 2–12+ years range is a hard cutoff, since the posting says to apply if the minimum requirements are met and the interview process is language-agnostic.\\\",\\\"The résumé does not give dates, so Kiran's total years of industry experience cannot be established.\\\",\\\"The posting does not say whether the role can be done remotely within the US or whether any listed office is the required location.\\\",\\\"The posting does not state whether U.S. citizenship or a security clearance is required, though none is mentioned.\\\"]}\",\"ttft_ms\":6440,\"type\":\"result\",\"duration_ms\":6456,\"uuid\":\"c5949f8e-9706-4d79-97c7-e88e83b9a2a0\",\"ttft_stream_ms\":1180,\"time_to_request_ms\":53,\"first_content_frame_ms\":1180,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.027132,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

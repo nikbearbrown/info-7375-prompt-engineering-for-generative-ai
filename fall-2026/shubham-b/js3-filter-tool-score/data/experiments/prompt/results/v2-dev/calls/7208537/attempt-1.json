@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4292,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "905b427ecf2245916969c33565c4d3ab40896cfc326059f90b4ab80558bd9e81",
+  "posting_id": "7208537",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "219f5438-6c69-4bd0-b453-9c7343a2fa00",
+  "started_at_et": "2026-10-31T14:32:14.987997-04:00",
+  "started_at_utc": "2026-10-31T18:32:14.987997Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4001,\"stop_reason\":\"end_turn\",\"session_id\":\"219f5438-6c69-4bd0-b453-9c7343a2fa00\",\"total_cost_usd\":0.0257149,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5190,\"cache_read_input_tokens\":1109,\"output_tokens\":484,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5190,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":484,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5190,\"webSearchRequests\":0,\"costUSD\":0.0257149,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5190,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title and skill gates pass, but the location is London, which is a non-US signal with no US signal, so the US-based location gate fails. The title 'Software Engineer, Money Movement' contains 'software engineer' with no excluded markers. The posting text names no citizenship, clearance, or unpaid exclusion. Because one gate fails, the posting is not relevant to Kiran.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran targets the United States, but the posting location is London, a non-US signal with no US signal, so the location gate fails.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title contains 'Software Engineer' with no excluded markers, so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.target.excluded[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"No literal citizenship, clearance, or unpaid-work exclusion phrase appears in the content, so the exclusion gate passes.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The skill gate was not fully established: the content names no specific resume skills clearly as whole words (e.g., it says 'any programming language'), so it may fail, but this does not change the label.\\\",\\\"The posting mentions a hybrid and distributed team but does not say whether any US-based option exists for this role.\\\"]}\",\"ttft_ms\":4039,\"type\":\"result\",\"duration_ms\":4055,\"uuid\":\"c6e7072c-5aee-43ca-a240-a57ab17cf8d2\",\"ttft_stream_ms\":1270,\"time_to_request_ms\":51,\"first_content_frame_ms\":1270,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0257149,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

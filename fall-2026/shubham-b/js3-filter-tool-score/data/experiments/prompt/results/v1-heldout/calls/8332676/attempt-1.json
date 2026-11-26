@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6353,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "9478c1b4981f172a1075826c53be2092cc284df0871df5cd4eca5e7b148661da",
+  "posting_id": "8332676",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "229eb66c-71b3-4e71-be9b-c81d69639e36",
+  "started_at_et": "2026-10-31T14:33:07.895817-04:00",
+  "started_at_utc": "2026-10-31T18:33:07.895817Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6062,\"stop_reason\":\"end_turn\",\"session_id\":\"229eb66c-71b3-4e71-be9b-c81d69639e36\",\"total_cost_usd\":0.0216209,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3579,\"cache_read_input_tokens\":1109,\"output_tokens\":719,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3579,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":719,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":3579,\"webSearchRequests\":0,\"costUSD\":0.0216209,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3579,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title and stack partly overlap (full-stack, React, TypeScript, SQL, Java, REST APIs), and the location is in the US. However, the posting asks for 2 years of experience in each of Ruby, React, TypeScript, Java and Golang, plus latency analysis, system design and technical documentation. Kiran has no Ruby or shipped Go experience, and the role carries on-call, mentorship and 'multiple positions' scope that point to a mid-level role rather than new grad or entry level. The mix of required languages, especially Ruby and Golang, is a weak fit for Kiran's background. The location is also onsite-leaning (50% telecommuting in Seattle) rather than remote.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The full-stack software engineer title matches a target role.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The required Ruby and Golang are not in Kiran's languages, and the posting requires 2 years in each listed language.\\\"},{\\\"resume_path\\\":\\\"$.skills.familiar_with_not_shipped[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Go is only familiar, not shipped, while the posting requires 2 years of Golang work.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting requires 2 years of experience plus mentorship and on-call duties, which is above the new grad and entry-level targets and likely beyond SWE II.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA is in the United States, but the role is only 50% telecommuting rather than fully remote.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"Kiran's years of professional experience are not stated in the résumé, so the 2-year requirement cannot be checked.\\\",\\\"The posting does not say whether the role requires U.S. citizenship or a security clearance, though none is mentioned.\\\",\\\"The exact seniority level is not stated, so SWE II fit is unclear.\\\"]}\",\"ttft_ms\":6103,\"type\":\"result\",\"duration_ms\":6115,\"uuid\":\"25211486-d744-4deb-b526-266f878fd613\",\"ttft_stream_ms\":1412,\"time_to_request_ms\":51,\"first_content_frame_ms\":1412,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0216209,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

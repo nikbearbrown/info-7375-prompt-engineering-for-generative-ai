@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.330 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 9707,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "5b8491ee127812a95f75c72fbb3ce44135116c172952da7faeb68d5c6246e85a",
+  "posting_id": "8039548",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "63378a7b-bd6e-42d0-a7ef-52311c05fb08",
+  "started_at_et": "2026-11-25T00:56:28.885642-05:00",
+  "started_at_utc": "2026-11-25T05:56:28.885642Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":9124,\"stop_reason\":\"end_turn\",\"session_id\":\"63378a7b-bd6e-42d0-a7ef-52311c05fb08\",\"total_cost_usd\":0.036067,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5532,\"cache_read_input_tokens\":1450,\"output_tokens\":1379,\"output_tokens_details\":{\"thinking_tokens\":455},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5532,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":1379,\"cacheReadInputTokens\":1450,\"cacheCreationInputTokens\":5532,\"webSearchRequests\":0,\"costUSD\":0.036067,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":455,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5532,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"RELEVANT\\\",\\\"summary\\\":\\\"All four rule gates pass. The title has 'Full Stack' immediately followed by 'Engineer' and no excluded marker. The posting names several of Kiran's eligible skills: React, GraphQL, Docker, Kubernetes and AWS. It contains no citizenship, clearance or unpaid-work phrase, and the location 'US' is a US signal with no non-US signal. The rule says to ignore the 5+ years requirement, so it does not change the label. As an opinion about practical fit, the posting is a stretch for Kiran: it also asks for native Mandarin fluency and Ruby as a primary technology, and it targets a more senior level than Kiran's new-grad to SWE II range.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title gate: 'Full Stack Engineer' matches the full-stack engineer role family, with no excluded marker such as senior, staff, lead or intern.\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Skill gate: React appears with the exact case in the minimum requirements ('React and Ruby are our primary technologies').\\\"},{\\\"resume_path\\\":\\\"$.skills.backend[4]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Skill gate: GraphQL is named in the preferred qualifications.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops[3]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Skill gate: Kubernetes appears in 'Docker/Kubernetes'; Docker, also in the resume, appears in the same phrase.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Skill gate: AWS is named in the cloud-based services example list.\\\"},{\\\"resume_path\\\":\\\"$.target.excluded[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Exclusion gate: the content has no citizenship, security-clearance or unpaid-work phrase from the rule list.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Location gate: 'US' is a US signal and the location has no non-US signal.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not say whether the employer sponsors work visas.\\\",\\\"The posting requires native Mandarin fluency, which the resume does not show; this is not a rule gate.\\\",\\\"The posting names Ruby as a primary technology, which is not in the resume's eligible skills; this is not a rule gate.\\\",\\\"The posting asks for 5+ years of experience, which conflicts with Kiran's target levels but is not a gate under the rule.\\\",\\\"The posting mentions a distributed and hybrid team, so the actual work location and any on-site requirement are unclear.\\\"]}\",\"ttft_ms\":3744,\"type\":\"result\",\"duration_ms\":9200,\"uuid\":\"644504db-fe56-4e8f-992d-a48d62cfd878\",\"ttft_stream_ms\":766,\"time_to_request_ms\":72,\"first_content_frame_ms\":767,\"queued_turn_count\":0,\"result_index\":0,\"credential_expires_at\":\"2026-12-10T03:32:49.590Z\"}\n",
+  "total_cost_usd": 0.036067,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6889,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "9e00ed66c8f1e8f6f99ece2b9f6ffb10b5d6b50ef3a5ab4e07251c77d621c8bc",
+  "posting_id": "8175099",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "c9b214ec-1478-424e-adc2-99a03e9604d6",
+  "started_at_et": "2026-10-30T23:39:40.909962-04:00",
+  "started_at_utc": "2026-10-31T03:39:40.909962Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6608,\"stop_reason\":\"end_turn\",\"session_id\":\"c9b214ec-1478-424e-adc2-99a03e9604d6\",\"total_cost_usd\":0.0103279,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":368,\"cache_read_input_tokens\":4419,\"output_tokens\":841,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":368,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":841,\"cacheReadInputTokens\":4419,\"cacheCreationInputTokens\":368,\"webSearchRequests\":0,\"costUSD\":0.0103279,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":368,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a Senior Software Engineer role on a core networking and infrastructure team. It asks for a bachelor's degree plus 5 years of experience (or a master's plus 3 years) and 3 years in specific areas: Java and Go, Envoy, Linux, Puppet, EC2 and distributed systems. It also includes team-lead duties such as giving feedback on team members' performance. Kiran targets New Grad, Entry Level, SWE I and SWE II roles on full-stack, backend or frontend work. Kiran has some overlap in Java, Kubernetes, AWS/GCP and observability, but Go is listed only as familiar and not shipped. The seniority and the infrastructure focus do not match the target roles and levels.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The posting is a Senior role, while Kiran targets New Grad, Entry Level, SWE I and SWE II.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting requires 5 years of experience (or a master's plus 3 years) plus 3 years in specific areas, well above Kiran's target levels.\\\"},{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The work is core networking infrastructure (load balancing, mTLS, fleet health), not the full-stack, backend or frontend roles Kiran wants.\\\"},{\\\"resume_path\\\":\\\"$.skills.familiar_with_not_shipped\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting requires 3 years of Go, which Kiran lists only as familiar with and not shipped. Envoy, Puppet and Linux are not in Kiran's skills.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kubernetes, AWS and GCP overlap with the posting, but that is not enough to offset the seniority and experience gap.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas, so sponsorship is unknown.\\\",\\\"The posting does not say whether U.S. citizenship or a security clearance is required, so Kiran's exclusion cannot be checked.\\\",\\\"It is unclear whether the 'Multiple Positions Available' note covers lower levels, since only the senior requirements are listed.\\\",\\\"The posting says 100% telecommuting is permitted but lists South San Francisco, CA as the location, so it is unclear whether the role counts as Remote (US).\\\"]}\",\"ttft_ms\":6645,\"type\":\"result\",\"duration_ms\":6661,\"uuid\":\"21b863a3-abae-4e34-8182-027cde2c7b39\",\"ttft_stream_ms\":1342,\"time_to_request_ms\":51,\"first_content_frame_ms\":1342,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0103279,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.330 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 8412,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "3713114cad6444bbdeefe698156e595143a8972d3348349f9fab24b400bc9710",
+  "posting_id": "8206731",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "b09b4141-a19f-4663-9650-14c6b32a1b8f",
+  "started_at_et": "2026-11-25T00:58:16.925078-05:00",
+  "started_at_utc": "2026-11-25T05:58:16.925078Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":8088,\"stop_reason\":\"end_turn\",\"session_id\":\"b09b4141-a19f-4663-9650-14c6b32a1b8f\",\"total_cost_usd\":0.029407,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4952,\"cache_read_input_tokens\":1450,\"output_tokens\":945,\"output_tokens_details\":{\"thinking_tokens\":373},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4952,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":945,\"cacheReadInputTokens\":1450,\"cacheCreationInputTokens\":4952,\"webSearchRequests\":0,\"costUSD\":0.029407,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":373,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4952,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title and location gates pass, but the skill gate fails. The title is a full-stack engineer role with no excluded marker, and the location is San Francisco. However, the supplied posting content names none of Kiran's eligible skills, so the required two distinct matches are not met. The role is a reasonable fit in spirit, but the deterministic rule requires two skill matches.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title gate passes: 'Full Stack Engineer' fits the full-stack role family and has no excluded marker such as senior, staff, lead or intern.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Skill gate fails: the supplied content names no eligible language skill such as TypeScript, JavaScript, Java, Python, SQL or C#.\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"No frontend skill (React, Next.js, HTML, CSS) appears in the supplied content, so there are not two distinct matches.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Location gate passes: 'San Francisco' is a listed US city and no non-US signal is present.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The content is truncated mid-sentence ('Our users a...'), so skills, exclusion phrases or location rescue text could appear in the missing portion; this assessment uses only the supplied text.\\\",\\\"Whether the team's actual stack overlaps Kiran's skills cannot be established from the supplied text.\\\"]}\",\"ttft_ms\":4139,\"type\":\"result\",\"duration_ms\":8173,\"uuid\":\"767e4a28-747b-4d8e-96b5-74a49c206a51\",\"ttft_stream_ms\":1158,\"time_to_request_ms\":79,\"first_content_frame_ms\":1158,\"queued_turn_count\":0,\"result_index\":0,\"credential_expires_at\":\"2026-12-10T03:32:49.590Z\"}\n",
+  "total_cost_usd": 0.029407,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

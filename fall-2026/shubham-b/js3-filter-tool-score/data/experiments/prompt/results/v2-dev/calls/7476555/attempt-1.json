@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6929,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "1d0d87ade7d6803397f7929dff0cac375cfba681fe835911b45b9d9e949d33df",
+  "posting_id": "7476555",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "3b6173b4-7d3c-40fc-bd32-0823adb3ef6d",
+  "started_at_et": "2026-10-31T14:31:45.474951-04:00",
+  "started_at_utc": "2026-10-31T18:31:45.474951Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6435,\"stop_reason\":\"end_turn\",\"session_id\":\"3b6173b4-7d3c-40fc-bd32-0823adb3ef6d\",\"total_cost_usd\":0.0294389,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5101,\"cache_read_input_tokens\":1109,\"output_tokens\":892,\"output_tokens_details\":{\"thinking_tokens\":331},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5101,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":892,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5101,\"webSearchRequests\":0,\"costUSD\":0.0294389,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":331,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5101,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The posting passes the title, skill and exclusion gates, but fails the US-based location gate. The title is a Backend Engineer role with no excluded markers. The content names GraphQL, Docker, Kubernetes and AWS, which are four eligible skills. It has no citizenship, clearance or unpaid-work phrases. However, the location \\\\\\\"SEA, SF, NY, Toronto\\\\\\\" mixes US signals (SEA, SF) with a non-US signal (Toronto), so it fails §6.4.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Location mixes US signals (SEA, SF) with the non-US signal Toronto, so the US-based location gate fails.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[2]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title \\\\\\\"Backend Engineer\\\\\\\" matches the target role family and has no excluded markers, so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend[4]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"GraphQL appears in the preferred qualifications, which counts toward the skill gate.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Docker appears in the content. Kubernetes and AWS also match, so the skill gate passes.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is unknown.\\\",\\\"The posting does not say which of the listed locations (if any) the role is actually open in, so whether a US-based hire is possible is unclear beyond what the rule's location gate says.\\\"]}\",\"ttft_ms\":3274,\"type\":\"result\",\"duration_ms\":6490,\"uuid\":\"fc4008ed-ed60-41cb-a128-f164bcc7f817\",\"ttft_stream_ms\":1254,\"time_to_request_ms\":51,\"first_content_frame_ms\":1254,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0294389,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

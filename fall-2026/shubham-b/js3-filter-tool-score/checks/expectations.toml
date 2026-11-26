@@ -1,0 +1,28 @@
+# What a person knows about each company without asking the agent. checks/check_watch.py
+# compares every loop run with this file; the agent itself never reads it.
+#
+# Verified and confirmed by Me on 2026-11-10 after checking each portal directly outside
+# the agent:
+# - Ramp (ramp.com/careers): verified links lead to Ashby. Greenhouse ramp board has only 1 stale posting.
+# - Stripe (stripe.com/jobs/search): verified links point to Greenhouse.
+# - Figma (figma.com/careers): verified links point to Greenhouse.
+# - Linear (linear.app/careers): verified links point to Ashby.
+#
+# Each `min_postings` floor is confirmed as a conservative lower bound roughly an order of
+# magnitude under live counts (Stripe 768 -> 100, Figma 144 -> 20, Ramp 169 -> 20, Linear 32 -> 5).
+
+[companies.stripe]
+system = "greenhouse"
+min_postings = 100
+
+[companies.figma]
+system = "greenhouse"
+min_postings = 20
+
+[companies.ramp]
+system = "ashby"
+min_postings = 20
+
+[companies.linear]
+system = "ashby"
+min_postings = 5

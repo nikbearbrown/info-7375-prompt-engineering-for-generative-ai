@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4662,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "d06c834a19c3500b220862afd04e0c036c92f9c4bc5f2f75d80b52136bdd5d0b",
+  "posting_id": "8172497",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "d7490243-6e3c-44e5-8edd-47a5aedd8f93",
+  "started_at_et": "2026-10-31T14:34:25.691678-04:00",
+  "started_at_utc": "2026-10-31T18:34:25.691678Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4365,\"stop_reason\":\"end_turn\",\"session_id\":\"d7490243-6e3c-44e5-8edd-47a5aedd8f93\",\"total_cost_usd\":0.028100899999999998,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5604,\"cache_read_input_tokens\":1109,\"output_tokens\":557,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5604,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":557,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5604,\"webSearchRequests\":0,\"costUSD\":0.028100899999999998,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5604,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The posting fails the title gate: it is a manager role (\\\\\\\"Security Incident Response Manager\\\\\\\") with no target role-family phrase such as software engineer, backend engineer, etc., and it contains the excluded marker \\\\\\\"manager\\\\\\\". It also seeks 10+ years of incident response experience, which is not a gate but reinforces the poor fit. The skill gate is met (Python and SQL appear in the content), the exclusion gate is met (no citizenship, clearance, or unpaid phrases), and the location gate is met (US signals Seattle, SF, NYC, Chicago, Atlanta and no non-US signals). Because the title gate fails, the label is NOT_RELEVANT.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title is a security incident response manager role, not a software/backend/frontend/full-stack engineer title, and includes the excluded word \\\\\\\"manager\\\\\\\".\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[3]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Python is named as an expert-level requirement, counting toward the skill gate.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[4]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"SQL is named as an expert-level requirement, giving a second matching skill so the skill gate passes.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[1]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Location lists US cities and Remote in the US with no non-US signals, so the location gate passes.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas, so sponsorship is unknown.\\\"]}\",\"ttft_ms\":4406,\"type\":\"result\",\"duration_ms\":4423,\"uuid\":\"2abb4390-4986-4250-813a-2fe56beb4847\",\"ttft_stream_ms\":1253,\"time_to_request_ms\":56,\"first_content_frame_ms\":1253,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.028100899999999998,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

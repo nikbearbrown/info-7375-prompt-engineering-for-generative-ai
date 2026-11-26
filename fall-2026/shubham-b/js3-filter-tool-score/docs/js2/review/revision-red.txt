@@ -1,0 +1,24 @@
+FF                                                                       [100%]
+=================================== FAILURES ===================================
+____ test_an_old_raw_parsed_first_is_not_floored_and_the_live_one_still_is _____
+
+    def test_an_old_raw_parsed_first_is_not_floored_and_the_live_one_still_is() -> None:
+        live = ashby_body(*IDS[:2])
+        old = ashby_body(*IDS[:3])
+>       provider = FlooredProvider(get_provider("ashby"), 5, live_body=lambda: live)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: FlooredProvider.__init__() got an unexpected keyword argument 'live_body'
+
+tests/watch/test_floor_live_body.py:23: TypeError
+_______________________ test_no_live_body_means_no_floor _______________________
+
+    def test_no_live_body_means_no_floor() -> None:
+>       provider = FlooredProvider(get_provider("ashby"), 5, live_body=lambda: None)
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       TypeError: FlooredProvider.__init__() got an unexpected keyword argument 'live_body'
+
+tests/watch/test_floor_live_body.py:33: TypeError
+=========================== short test summary info ============================
+FAILED tests/watch/test_floor_live_body.py::test_an_old_raw_parsed_first_is_not_floored_and_the_live_one_still_is
+FAILED tests/watch/test_floor_live_body.py::test_no_live_body_means_no_floor
+2 failed in 0.02s

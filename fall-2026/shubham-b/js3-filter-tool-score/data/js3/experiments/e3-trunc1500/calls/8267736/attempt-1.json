@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.330 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 7675,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "e3e1c093fe3a6f67e249a9ad9e656a890cbc5ddffd901959b37c1387be9e584d",
+  "posting_id": "8267736",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "88b427e2-e220-49a2-b8a0-1f472ec1ff8c",
+  "started_at_et": "2026-11-25T00:58:25.342771-05:00",
+  "started_at_utc": "2026-11-25T05:58:25.342771Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":7348,\"stop_reason\":\"end_turn\",\"session_id\":\"88b427e2-e220-49a2-b8a0-1f472ec1ff8c\",\"total_cost_usd\":0.030795,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4964,\"cache_read_input_tokens\":1450,\"output_tokens\":1079,\"output_tokens_details\":{\"thinking_tokens\":407},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4964,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":1079,\"cacheReadInputTokens\":1450,\"cacheCreationInputTokens\":4964,\"webSearchRequests\":0,\"costUSD\":0.030795,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":407,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4964,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The posting passes the title gate, the exclusion gate and the location gate, but fails the skill gate. Only one eligible resume skill, AWS, appears in the title, content or department names. The other tech named in the content (Go, Terraform) are in familiar_with_not_shipped, which does not count, and Ansible is not on the resume. That is one distinct skill, and the rule needs at least two. The role is also mostly infrastructure, compliance and data-center tooling, which fits Kiran's React, Node.js and Spring Boot background only loosely.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.skills.cloud_devops[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"AWS is the only eligible resume skill that matches as a whole word in the posting, so the skill gate gets 1 of the 2 required matches.\\\"},{\\\"resume_path\\\":\\\"$.skills.familiar_with_not_shipped[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Go is required by the posting but is in familiar_with_not_shipped, so it does not count toward the skill gate.\\\"},{\\\"resume_path\\\":\\\"$.skills.familiar_with_not_shipped[1]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Terraform is mentioned in the posting but is excluded from the eligible skills, so it does not count.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title 'Software Engineer' passes the title gate and has no excluded markers.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA is a US location with no non-US signals, so the location gate passes.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not say whether the employer sponsors work visas.\\\",\\\"The posting is a mix of infrastructure, compliance and tooling duties, so how well it fits Kiran's day-to-day experience is not established from the text.\\\",\\\"Years of experience and degree requirements are listed but, per the rule, are not used as gates.\\\"]}\",\"ttft_ms\":3230,\"type\":\"result\",\"duration_ms\":7433,\"uuid\":\"fb39e545-1856-40e7-a547-1676f7ac4450\",\"ttft_stream_ms\":660,\"time_to_request_ms\":80,\"first_content_frame_ms\":660,\"queued_turn_count\":0,\"result_index\":0,\"credential_expires_at\":\"2026-12-10T03:32:49.590Z\"}\n",
+  "total_cost_usd": 0.030795,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

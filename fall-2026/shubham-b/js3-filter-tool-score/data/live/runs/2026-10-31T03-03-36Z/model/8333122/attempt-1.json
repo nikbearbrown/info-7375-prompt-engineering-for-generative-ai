@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 5732,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "8d89f5153363344d75d4f2b9d662853c9d01f558f84d16a59136322ccd172ffb",
+  "posting_id": "8333122",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "6c54e7e9-a958-49a2-ba26-89a1d11f72d0",
+  "started_at_et": "2026-10-30T23:04:35.119186-04:00",
+  "started_at_utc": "2026-10-31T03:04:35.119186Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5446,\"stop_reason\":\"end_turn\",\"session_id\":\"6c54e7e9-a958-49a2-ba26-89a1d11f72d0\",\"total_cost_usd\":0.0222078,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3915,\"cache_read_input_tokens\":1138,\"output_tokens\":643,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3915,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":643,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":3915,\"webSearchRequests\":0,\"costUSD\":0.0222078,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3915,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a Master's-level Machine Learning Engineer internship in Toronto. Kiran targets software engineering roles (full-stack, backend, frontend) at new grad or entry level, based in the United States or remote US. The posting is an internship, requires current Master's enrollment with intent to return to the degree program, and centers on ML skills (Scala, Spark, Pandas, NumPy, Scikit-learn, LLMs) that do not appear in Kiran's skills. The only overlap is Python and general software practice such as tests and pull requests.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The posting is for a Machine Learning Engineer intern, which is not among Kiran's target software engineering roles.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"An internship for Master's students does not match the new grad, entry level, SWE I or SWE II levels Kiran is seeking.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Toronto is outside the United States and Remote (US) locations Kiran is targeting.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting asks for Python, Scala, Spark, Pandas, NumPy and Scikit-learn with ML expertise; Kiran lists Python but none of the ML-specific tools.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is uncertain.\\\",\\\"The résumé does not state Kiran's education, so it is unclear whether Kiran is enrolled in a Master's program or intends to return to one.\\\",\\\"The posting does not say whether the role is remote or hybrid, or whether it could be done from the US.\\\",\\\"The posting does not mention citizenship or security clearance requirements, or whether the internship is paid.\\\"]}\",\"ttft_ms\":5473,\"type\":\"result\",\"duration_ms\":5501,\"uuid\":\"8c1bf214-6421-4c64-b1fd-d24b5afa3e98\",\"ttft_stream_ms\":1376,\"time_to_request_ms\":50,\"first_content_frame_ms\":1376,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0222078,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

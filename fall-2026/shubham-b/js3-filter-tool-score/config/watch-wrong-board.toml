@@ -1,0 +1,23 @@
+# Finished-wrong-answer demonstration (docs/js2/FINISHED_WRONG.md). Deliberate.
+# Ramp's careers page links to Ashby, but Ramp's old Greenhouse board still answers
+# 200 with one stale posting (found by probing on 2026-11-09). Same budgets and policy
+# as config/watch.toml.
+
+[budget]
+max_boards = 6
+max_requests = 10
+max_seconds = 180
+
+[retry]
+max_retries = 1
+pause_s = 2.0
+min_seconds_left = 5.0
+
+[policy]
+allowed_hosts = ["boards-api.greenhouse.io", "api.ashbyhq.com"]
+write_root = "data/watch"
+
+[[boards]]
+provider = "greenhouse"
+token = "ramp"
+min_postings = 20

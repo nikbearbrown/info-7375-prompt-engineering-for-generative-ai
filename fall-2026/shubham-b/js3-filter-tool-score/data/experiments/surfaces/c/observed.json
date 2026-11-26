@@ -1,0 +1,66 @@
+{
+  "is_error": false,
+  "model": "claude-sonnet-5-5",
+  "permission_denials": [],
+  "reads": [
+    "<sandbox>/state.json"
+  ],
+  "result_text": "I added 6 new posting IDs to `./state.json` and kept all the existing ones:\n\n- 8330815\n- 8316059\n- 8330813\n- 8330791\n- 8336023\n- 8330801\n\nThe response was too large for one fetch, so I read it in five chunks. The IDs in each chunk came from a summarizing model, not a raw parse. I compared them by eye against `seen_ids`, so I may have missed an ID. The last job in one chunk was cut off mid-entry and its ID wasn't visible. Its neighbors lined up with the existing list, so I think nothing was lost there.",
+  "sends": [
+    "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+    "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+    "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+    "https://boards-api.greenhouse.io/v1/boards/stripe/jobs",
+    "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"
+  ],
+  "session_id": "0803b5f6-bc4a-45b2-8df2-e6e354de72e5",
+  "tool_uses": [
+    {
+      "input": {
+        "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"
+      },
+      "name": "WebFetch"
+    },
+    {
+      "input": {
+        "file_path": "<sandbox>/state.json"
+      },
+      "name": "Read"
+    },
+    {
+      "input": {
+        "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"
+      },
+      "name": "WebFetch"
+    },
+    {
+      "input": {
+        "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"
+      },
+      "name": "WebFetch"
+    },
+    {
+      "input": {
+        "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"
+      },
+      "name": "WebFetch"
+    },
+    {
+      "input": {
+        "url": "https://boards-api.greenhouse.io/v1/boards/stripe/jobs"
+      },
+      "name": "WebFetch"
+    },
+    {
+      "input": {
+        "file_path": "<sandbox>/state.json"
+      },
+      "name": "Edit"
+    }
+  ],
+  "total_cost_usd": 0.13107349999999998,
+  "unparsed_lines": 0,
+  "writes": [
+    "<sandbox>/state.json"
+  ]
+}

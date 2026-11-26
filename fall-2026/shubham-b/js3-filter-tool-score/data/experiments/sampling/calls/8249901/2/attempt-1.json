@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 7353,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "50b44b294e33917aba240edbea022b71817a91c862d8a9e33ac13b49708b2c0e",
+  "posting_id": "8249901",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "bd7262e5-abbe-4c8d-bd0b-ce94efae2803",
+  "started_at_et": "2026-10-30T23:39:27.852883-04:00",
+  "started_at_utc": "2026-10-31T03:39:27.852883Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":7065,\"stop_reason\":\"end_turn\",\"session_id\":\"bd7262e5-abbe-4c8d-bd0b-ce94efae2803\",\"total_cost_usd\":0.010519700000000002,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":366,\"cache_read_input_tokens\":4217,\"output_tokens\":863,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":366,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":863,\"cacheReadInputTokens\":4217,\"cacheCreationInputTokens\":366,\"webSearchRequests\":0,\"costUSD\":0.010519700000000002,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":366,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The posting is a Seattle-based software engineer role, but it is a tier-0 infrastructure/reliability position that asks for three years of experience in each of several areas (AWS and Azure, distributed systems, Linux, NoSQL, critical incident handling) plus a degree. That is above the entry-level/SWE I-II targets, and the work centers on infrastructure, AMIs and on-call rather than the full-stack or backend product work Kiran targets. Only 50% telecommuting is permitted, so it is not a remote (US) role, though Seattle is within the United States. Some skills overlap (AWS, Python/Java, metrics dashboards), but the experience bar and infrastructure focus make it a weak fit.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets new grad/entry-level roles, but the posting's minimum requirements ask for three years of experience in several separate areas.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran wants backend/full-stack/frontend product roles; the posting emphasizes tier-0 services, infrastructure, AMIs/EC2 and on-call operations.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"AWS overlaps with Kiran's skills, but the posting also requires Azure, Linux and NoSQL experience at three years each, which the résumé does not show.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[1]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The role is located in Seattle, WA with only partial telecommuting, which does not match the Remote (US) preference although it is within the United States.\\\"},{\\\"resume_path\\\":\\\"$.skills.observability[1]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran's Prometheus/Grafana experience loosely matches the metrics, alarms and dashboards requirement, but this is a minor overlap.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas, so sponsorship is unknown.\\\",\\\"The posting does not mention U.S. citizenship or a security clearance, so whether either is required cannot be established.\\\",\\\"The résumé does not list years of experience or a degree, so it cannot be confirmed whether Kiran meets the Bachelor's and three-year minimums.\\\",\\\"The posting says 'security-sensitive data' but does not state whether any clearance is needed.\\\",\\\"It is unclear whether 'Multiple Positions Available' includes lower-level openings.\\\"]}\",\"ttft_ms\":7102,\"type\":\"result\",\"duration_ms\":7119,\"uuid\":\"343406d4-a8fa-4491-a274-522b477291a4\",\"ttft_stream_ms\":1428,\"time_to_request_ms\":53,\"first_content_frame_ms\":1428,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.010519700000000002,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

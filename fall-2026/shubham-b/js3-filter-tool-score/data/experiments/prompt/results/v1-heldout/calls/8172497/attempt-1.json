@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 5040,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "d06c834a19c3500b220862afd04e0c036c92f9c4bc5f2f75d80b52136bdd5d0b",
+  "posting_id": "8172497",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "e4fca34d-f4c8-4d33-8585-82e4e3d674a0",
+  "started_at_et": "2026-10-31T14:33:24.724642-04:00",
+  "started_at_utc": "2026-10-31T18:33:24.724642Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4743,\"stop_reason\":\"end_turn\",\"session_id\":\"e4fca34d-f4c8-4d33-8585-82e4e3d674a0\",\"total_cost_usd\":0.0224749,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4240,\"cache_read_input_tokens\":1109,\"output_tokens\":540,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4240,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":540,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":4240,\"webSearchRequests\":0,\"costUSD\":0.0224749,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4240,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a senior security and fraud incident response management role requiring 10+ years of experience leading incident response, plus expertise in digital forensics, network security and threat intelligence. Kiran targets new grad to SWE II software engineering roles (full-stack, backend, frontend). The posting's location (Remote in the US) fits, and Python and SQL overlap, but the role, level and domain do not match.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The posting is a Security Incident Response Manager role, not a software engineering role among Kiran's targets.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The content requires 10+ years leading security or fraud incident response, far above Kiran's new grad to SWE II levels.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Python and SQL are listed skills for Kiran, but here they serve fraud investigation and log analysis rather than software development, so the overlap is minor.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Remote in the US matches Kiran's location targets, but this does not outweigh the role and level mismatch.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is unknown.\\\",\\\"The posting does not state whether U.S. citizenship or a security clearance is required, so the exclusion cannot be fully checked.\\\",\\\"Compensation and whether the role is paid are not stated, though a paid role is likely.\\\"]}\",\"ttft_ms\":4784,\"type\":\"result\",\"duration_ms\":4797,\"uuid\":\"b2c43d97-8038-4b41-b580-f677c88e7a3f\",\"ttft_stream_ms\":1288,\"time_to_request_ms\":51,\"first_content_frame_ms\":1288,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0224749,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

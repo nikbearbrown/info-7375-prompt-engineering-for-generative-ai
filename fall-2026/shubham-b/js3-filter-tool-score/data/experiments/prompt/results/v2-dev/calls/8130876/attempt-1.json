@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6026,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "2f6e2bec2dc9b996e0f9338ca0e5e62bc8eeec8e0e0ac70b25a8263d2f34d46b",
+  "posting_id": "8130876",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "56137277-8e00-4753-a640-2d6709ca18f8",
+  "started_at_et": "2026-10-31T14:32:00.262043-04:00",
+  "started_at_utc": "2026-10-31T18:32:00.262043Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5746,\"stop_reason\":\"end_turn\",\"session_id\":\"56137277-8e00-4753-a640-2d6709ca18f8\",\"total_cost_usd\":0.0300329,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5542,\"cache_read_input_tokens\":1109,\"output_tokens\":775,\"output_tokens_details\":{\"thinking_tokens\":278},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5542,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":775,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":5542,\"webSearchRequests\":0,\"costUSD\":0.0300329,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":278,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5542,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The posting passes the title, skill and exclusion gates but fails the US location gate. The title \\\\\\\"Software Engineer, New Grad\\\\\\\" has a target phrase and no excluded marker. The content names Java and JavaScript, which match two eligible resume skills (Go is excluded). No citizenship, clearance or unpaid phrase appears. The location is \\\\\\\"Bangalore\\\\\\\", which has no US signal and is a listed non-US signal, so the rule fails.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran targets United States locations, but the posting location is Bangalore, a non-US signal with no US signal, so the location gate fails.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title contains 'software engineer' with no excluded marker, so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[2]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Java is named in the content's list of languages, which counts toward the skill gate.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[1]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"JavaScript is named in the content, which gives the second matching skill and passes the skill gate.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"Whether a Bangalore role could be filled remotely from the US is not stated; the rule treats it as non-US.\\\"]}\",\"ttft_ms\":2871,\"type\":\"result\",\"duration_ms\":5796,\"uuid\":\"cd17e027-85ea-448e-a52d-81c3df4ef1db\",\"ttft_stream_ms\":1222,\"time_to_request_ms\":49,\"first_content_frame_ms\":1222,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0300329,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}
