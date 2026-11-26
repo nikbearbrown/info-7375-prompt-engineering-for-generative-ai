@@ -19,10 +19,17 @@ python3 -B -m jsagent.mcp_server                                         # serve
 python3 scripts/mcp_transcript.py --call samsara:8141959 --call ...      # record a transcript plus an audit trace
 ```
 
-### The real transcript
+### The real transcripts
 
-`evidence/mcp/transcript.jsonl` holds 31 lines, each recording its direction, the time and the exact bytes. It was recorded on
-2026-11-25 with the filter at v1.2.
+There are two transcripts, both recorded on 2026-11-25. Each line records its direction, the time and the exact bytes, and each has
+its own audit trace.
+
+- `evidence/mcp/transcript.jsonl` (31 lines), recorded with the filter at v1.2. The table below is from this one.
+- `evidence/mcp/v1.3/transcript.jsonl` (35 lines), recorded after v1.3 with the same requests plus two more:
+  - "Senior Software Engineer - Distributed Data Systems" (databricks 4513122002) is now **kept**, score 40, through change A
+  - "Software Engineer, Internship - Data Connectors" (palantir 45e4617d…) is now **rejected** by F2 "internship"
+  - every other answer matches the v1.2 transcript
+  - its audit trace again shows 0 writes, 0 network and 0 processes
 
 | # | Client → server | Server → client |
 |---|---|---|
@@ -44,7 +51,7 @@ gives the same answer for the same input, and does not decide whether a job is w
 | No network | Test with `socket` patched to fail; audit-hook trace | True: 0 socket events |
 | Writes no files | Test with `open` patched to refuse writes; audit trace | **False at first.** Dry run 2: the Python interpreter wrote and renamed a `.pyc` cache in `~/Library/Caches`. True once started with `-B` (dry run 3 and the real run) |
 | Reads only the snapshot and persona | Audit trace | True, plus `/dev/urandom`, which the interpreter reads itself. Dry run 1 **missed** the persona read, because the hook was installed after the imports, and the persona is read at import |
-| Same answer for the same input | Test: two identical calls | True for one filter version. The answer changes between filter versions (the transcript is v1.2; the server now runs v1.3) |
+| Same answer for the same input | Test: two identical calls; the two transcripts | True for one filter version. Between versions the answer changes: Distributed Data Systems is rejected in the v1.2 run and kept in the v1.3 run |
 | Annotations `readOnlyHint`, `openWorldHint: false` | — | Consistent with the trace. Annotations are hints a client cannot verify |
 | Returns "the 0–100 score" | Transcript call 7 | **Misleading:** a *rejected* posting still has a score (64 for the Canada role, above kept postings at 48 and 32). The bucket, not the score, decides |
 

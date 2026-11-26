@@ -43,7 +43,7 @@ are already used (`labels/HELDOUT_LOG.jsonl`).
 | Reject audit: 30 random rejects + 1 closest call + 5 kept, judged by me | 30/30 rejects right; 4/5 kept right | `audit/audit.csv`, `REJECT_AUDIT.md` |
 | Changes A–E on tuning; baseline, A and D on held-out once | A: held-out recall 2/7 → 6/7 | `SCORE.md` |
 | Filter v1.3 (A + "internship") on everything | 10 kept, 2,616 rejected, 3 cannot tell | `runs/filter-v1.3/`, `SHORTLIST.md` |
-| Tool server: 3 dry runs and 1 real transcript | 31 lines, both directions; 0 writes or network with `-B` | `evidence/mcp/`, `TOOL_SERVER.md` |
+| Tool server: 3 dry runs and 2 real transcripts (v1.2, v1.3) | 31 and 35 lines, both directions; 0 writes or network with `-B` | `evidence/mcp/`, `TOOL_SERVER.md` |
 | Tests / sabotage check | 157 OK / 9 of 9 wrong versions caught | — |
 
 ## Files
