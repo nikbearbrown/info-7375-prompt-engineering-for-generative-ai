@@ -1,0 +1,41 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--model",
+    "claude-sonnet-5-5",
+    "--tools",
+    "",
+    "--no-session-persistence",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--output-format",
+    "stream-json",
+    "--allowedTools",
+    "mcp__js3__score_posting",
+    "--verbose",
+    "--mcp-config",
+    "<tmp>/mcp.json"
+  ],
+  "mcp_config": {
+    "mcpServers": {
+      "js3": {
+        "type": "stdio",
+        "command": "C:\\Users\\Suhas Kommuri\\AppData\\Local\\Programs\\Python\\Python313\\python.exe",
+        "args": [
+          "-m",
+          "js3.mcp_server",
+          "--transcript",
+          "C:\\Users\\Suhas Kommuri\\Documents\\GitHub\\course\\fall-2026\\siddi-k\\js3-filter-tool-score\\evidence\\mcp\\2026-11-26T03-06-55Z\\server-transcript.jsonl"
+        ],
+        "env": {
+          "PYTHONPATH": "C:\\Users\\Suhas Kommuri\\Documents\\GitHub\\course\\fall-2026\\siddi-k\\js3-filter-tool-score",
+          "PYTHONIOENCODING": "utf-8"
+        }
+      }
+    }
+  },
+  "exit_code": 0,
+  "started_utc": "2026-11-26T03-06-55Z"
+}
