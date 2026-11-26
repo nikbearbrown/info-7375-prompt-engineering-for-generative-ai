@@ -1,0 +1,26 @@
+{
+  "applied_at_utc": "2026-10-30T07:14:03.959951+00:00",
+  "applied_by": "Claude (orchestrating session), after `jsa exp surfaces capture`, before commit",
+  "rule": "Replace every occurrence of the absolute project-root path with the literal '<repo>'. No other byte changed.",
+  "why": "Claude Code stream-json transcripts record the absolute working directory, which exposes the student's local home path; the repo must not publish it. Unredacted originals were not committed.",
+  "files": [
+    {
+      "file": "data/experiments/surfaces/a/transcript.jsonl",
+      "sha256_before": "089728cdaa56322ca40faa63910ef52f20c4986d0cc488b42afa23110edbdbf3",
+      "sha256_after": "e64910f53edf51ffd2119f6bc9989753065e9eb786edcf686d249f85984d875f",
+      "replacements": 2
+    },
+    {
+      "file": "data/experiments/surfaces/b/transcript.jsonl",
+      "sha256_before": "1ab3ca7ca8bdad12d0d4c345017ea7339bc1c566229d60cb1b8e4eaa23d0034d",
+      "sha256_after": "f89d2d596d3ff60c8f5bf882cfaf9fd42da7dd27ad2ea05c3374afd10eaf94cd",
+      "replacements": 6
+    },
+    {
+      "file": "data/experiments/surfaces/c/transcript.jsonl",
+      "sha256_before": "c07946eaf6b9b633c609b7ccd9ccda861a255e97f2f5dc4c6f5a73d45b476140",
+      "sha256_after": "d20ded73b1de9bda6b6ff1deac0b9457c14c111a7b04fcfbe6e2eaf283ca4099",
+      "replacements": 7
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.330 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6712,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "a6e6fa8b075c05ca7832b16c48c5c79d7a76d6c11944ad530d332fce9c86fcad",
+  "posting_id": "8318509",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "b9141b76-679e-4cab-b569-21d8bfeb24b0",
+  "started_at_et": "2026-11-25T00:58:33.022307-05:00",
+  "started_at_utc": "2026-11-25T05:58:33.022307Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6345,\"stop_reason\":\"end_turn\",\"session_id\":\"b9141b76-679e-4cab-b569-21d8bfeb24b0\",\"total_cost_usd\":0.026781,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4973,\"cache_read_input_tokens\":1450,\"output_tokens\":674,\"output_tokens_details\":{\"thinking_tokens\":215},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4973,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":674,\"cacheReadInputTokens\":1450,\"cacheCreationInputTokens\":4973,\"webSearchRequests\":0,\"costUSD\":0.026781,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":215,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4973,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title passes the title gate, and the exclusion gate finds no citizenship, clearance or unpaid phrases. The posting fails two gates. The location is Taiwan, a non-US signal with no US signal. The visible content also names no two of Kiran's eligible skills: it says 'APIs', which is not 'REST API', and lists no languages, frameworks or tools.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran targets the United States, but the posting location is Taiwan, which fails the US-based location gate.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title 'Software Engineer' matches a target role family and has no excluded marker, so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend[3]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The content mentions only generic 'APIs', not 'REST API', RESTful API or REST services, so REST does not count. No second eligible skill appears either, so the skill gate fails.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting content is truncated, so skills or exclusion phrases in the missing text could not be assessed.\\\",\\\"The posting does not state seniority or years of experience in the visible text.\\\"]}\",\"ttft_ms\":3189,\"type\":\"result\",\"duration_ms\":6444,\"uuid\":\"1fcafcff-5009-4d67-a3c5-199f62e4077d\",\"ttft_stream_ms\":1540,\"time_to_request_ms\":94,\"first_content_frame_ms\":1540,\"queued_turn_count\":0,\"result_index\":0,\"credential_expires_at\":\"2026-12-10T03:32:49.590Z\"}\n",
+  "total_cost_usd": 0.026781,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,21 @@
+$ shasum -a 256 -c (test files of every freeze)   (2026-11-25 16:10)
+# FILTER.md is left out on purpose: it was frozen with the v1.0 tests and later got its v1.1/v1.2 sections and change log (sections 1-4 unchanged); its v1.0 hash stays in tests.frozen.sha256
+filters/filter_v1.0.json: OK
+tests/__init__.py: OK
+tests/helpers.py: OK
+tests/test_evidence.py: OK
+tests/test_filter.py: OK
+tests/test_policy_collect.py: OK
+tests/test_toolserver.py: OK
+tests/fixtures/corpus_small.jsonl: OK
+wrong_versions/__init__.py: OK
+wrong_versions/_mutate.py: OK
+wrong_versions/wv1_substring.py: OK
+wrong_versions/wv2_wordcount.py: OK
+tests/test_filter_v11.py: OK
+filters/filter_v1.1.json: OK
+tests/test_evidence_regression.py: OK
+tests/test_filter_v12.py: OK
+filters/filter_v1.2.json: OK
+tests/test_filter_v13.py: OK
+filters/filter_v1.3.json: OK

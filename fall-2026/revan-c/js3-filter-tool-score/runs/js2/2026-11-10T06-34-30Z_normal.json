@@ -1,0 +1,203 @@
+{
+  "agent": "jsloop — Job-Search Agent 2",
+  "policy": "GATE.md",
+  "started_at": "2026-11-10T06:34:30+00:00",
+  "selection": [
+    "klaviyo",
+    "duolingo",
+    "patchmypc"
+  ],
+  "demo": false,
+  "approve_state_write": false,
+  "run_mode": "mixed (seeded: klaviyo)",
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 4,
+    "max_seconds": 45.0,
+    "request_timeout": 8.0,
+    "finalize_reserve": 2.0
+  },
+  "budget_label": "production",
+  "status": "incomplete",
+  "exit_code": 10,
+  "stop_reason": null,
+  "error": null,
+  "requests_made": 2,
+  "elapsed_seconds": 0.814,
+  "boards": [
+    {
+      "order": 1,
+      "board": "klaviyo",
+      "provider": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/klaviyo/jobs?content=true",
+      "mode": "seeded",
+      "source": "fixtures/js2/klaviyo_empty_seeded.json",
+      "deliberate_failure": false,
+      "outcome": "failed",
+      "reason": null,
+      "http_status": null,
+      "error": "empty job list: zero postings is not evidence that there are no new jobs",
+      "raw_path": "fixtures/js2/klaviyo_empty_seeded.json",
+      "raw_bytes": 35,
+      "raw_note": null,
+      "postings_in_response": "unknown",
+      "baseline": null,
+      "new_count": "unknown",
+      "new_postings": [],
+      "seconds": null
+    },
+    {
+      "order": 2,
+      "board": "duolingo",
+      "provider": "greenhouse",
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "mode": "live",
+      "source": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "deliberate_failure": false,
+      "outcome": "ok",
+      "reason": null,
+      "http_status": 200,
+      "error": null,
+      "raw_path": "evidence/js2/2026-11-10T06-34-30Z_duolingo.body",
+      "raw_bytes": 741133,
+      "raw_note": null,
+      "postings_in_response": 61,
+      "baseline": false,
+      "new_count": 0,
+      "new_postings": [],
+      "seconds": 0.22
+    },
+    {
+      "order": 3,
+      "board": "patchmypc",
+      "provider": "lever",
+      "url": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "mode": "live",
+      "source": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "deliberate_failure": false,
+      "outcome": "ok",
+      "reason": null,
+      "http_status": 200,
+      "error": null,
+      "raw_path": "evidence/js2/2026-11-10T06-34-30Z_patchmypc.body",
+      "raw_bytes": 73158,
+      "raw_note": null,
+      "postings_in_response": 5,
+      "baseline": false,
+      "new_count": 0,
+      "new_postings": [],
+      "seconds": 0.587
+    }
+  ],
+  "state_path": "state/js2/seen_ids.json",
+  "state_updated": false,
+  "state_note": "state not written: run status is incomplete",
+  "trace_path": "runs/js2/2026-11-10T06-34-30Z_normal.json",
+  "actions": [
+    {
+      "seq": 1,
+      "t": 0.001,
+      "event": "preflight_ok",
+      "boards": [
+        "klaviyo",
+        "duolingo",
+        "patchmypc"
+      ],
+      "demo": false,
+      "approve_state_write": false
+    },
+    {
+      "seq": 2,
+      "t": 0.001,
+      "event": "read_seeded",
+      "board": "klaviyo",
+      "path": "fixtures/js2/klaviyo_empty_seeded.json"
+    },
+    {
+      "seq": 3,
+      "t": 0.002,
+      "event": "observed",
+      "board": "klaviyo",
+      "outcome": "failed",
+      "error": "empty job list: zero postings is not evidence that there are no new jobs",
+      "postings": "unknown",
+      "new": "unknown"
+    },
+    {
+      "seq": 4,
+      "t": 0.002,
+      "event": "request",
+      "method": "GET",
+      "url": "https://boards-api.greenhouse.io/v1/boards/duolingo/jobs?content=true",
+      "board": "duolingo",
+      "timeout": 8.0
+    },
+    {
+      "seq": 5,
+      "t": 0.221,
+      "event": "response",
+      "board": "duolingo",
+      "http_status": 200,
+      "error": null,
+      "bytes": 741133
+    },
+    {
+      "seq": 6,
+      "t": 0.222,
+      "event": "write_raw",
+      "board": "duolingo",
+      "path": "evidence/js2/2026-11-10T06-34-30Z_duolingo.body"
+    },
+    {
+      "seq": 7,
+      "t": 0.225,
+      "event": "observed",
+      "board": "duolingo",
+      "outcome": "ok",
+      "error": null,
+      "postings": 61,
+      "new": 0
+    },
+    {
+      "seq": 8,
+      "t": 0.225,
+      "event": "request",
+      "method": "GET",
+      "url": "https://api.lever.co/v0/postings/patchmypc?mode=json",
+      "board": "patchmypc",
+      "timeout": 8.0
+    },
+    {
+      "seq": 9,
+      "t": 0.812,
+      "event": "response",
+      "board": "patchmypc",
+      "http_status": 200,
+      "error": null,
+      "bytes": 73158
+    },
+    {
+      "seq": 10,
+      "t": 0.813,
+      "event": "write_raw",
+      "board": "patchmypc",
+      "path": "evidence/js2/2026-11-10T06-34-30Z_patchmypc.body"
+    },
+    {
+      "seq": 11,
+      "t": 0.814,
+      "event": "observed",
+      "board": "patchmypc",
+      "outcome": "ok",
+      "error": null,
+      "postings": 5,
+      "new": 0
+    },
+    {
+      "seq": 12,
+      "t": 0.814,
+      "event": "write_trace",
+      "path": "runs/js2/2026-11-10T06-34-30Z_normal.json"
+    }
+  ]
+}

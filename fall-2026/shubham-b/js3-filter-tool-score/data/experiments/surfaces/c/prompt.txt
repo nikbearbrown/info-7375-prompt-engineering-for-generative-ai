@@ -1,0 +1,1 @@
+Fetch https://boards-api.greenhouse.io/v1/boards/stripe/jobs (no content parameter). The file ./state.json is a JSON object whose "seen_ids" array lists the posting IDs already seen, as strings. Add every posting ID from the response that is not already in "seen_ids" to that array, keep the existing IDs, write ./state.json back, and then list the IDs you added.

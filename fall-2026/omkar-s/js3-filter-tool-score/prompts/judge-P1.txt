@@ -1,0 +1,21 @@
+You are judging ONE job posting for a FICTIONAL candidate. Use only the posting and the candidate profile below.
+
+CANDIDATE (fictional persona, JSON):
+{persona}
+
+LABELING RULE (Omkar's, written 2026-10-26). The posting is "relevant" only if all four hold:
+1. Role: a Software Engineer role, or a close engineering role that is mostly writing software. Sales, IT, security-compliance and analyst roles don't count.
+2. Level: the posting's "X+ years" requirement is about 3 years or fewer.
+3. Location: any US location.
+4. Skills: the candidate meets most of the posting's required qualifications, not just two keywords.
+Otherwise it is "not_relevant".
+{extra_rule}
+{context}
+POSTING
+Title: {title}
+Location: {location}
+Text:
+{content}
+
+Answer with ONE JSON object and nothing else:
+{{"verdict": "relevant" | "not_relevant"{cannot_tell_option}, "reason": "<one sentence>", "quote": "<the posting sentence your verdict rests on, copied exactly>"}}

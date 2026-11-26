@@ -1,0 +1,75 @@
+{
+ "version": "v2g",
+ "date": "2026-11-25",
+ "role_words": [
+  "Data Analyst",
+  "Business Intelligence",
+  "Analytics",
+  "Business Analyst",
+  "Product Analyst"
+ ],
+ "topic_words": [
+  "SQL",
+  "Python",
+  "Tableau",
+  "Looker",
+  "Power BI",
+  "Excel",
+  "dashboard",
+  "dashboards",
+  "A/B test",
+  "A/B testing",
+  "statistics",
+  "statistical",
+  "data visualization"
+ ],
+ "senior_words": [
+  "Senior",
+  "Sr.",
+  "Staff",
+  "Principal",
+  "Lead",
+  "Director",
+  "Head",
+  "Manager",
+  "III",
+  "Sr"
+ ],
+ "weights": {
+  "role": 4,
+  "topic_each": 1,
+  "topic_cap": 4,
+  "senior": -5,
+  "years_3plus": -3,
+  "not_us": -5,
+  "sponsor_or_citizen": -5,
+  "education": -5
+ },
+ "threshold": 0,
+ "rejected_words": [
+  {
+   "word": "R",
+   "why": "a one-letter word matches initials, list markers and 'R&D'; too many false matches to be worth the recall"
+  }
+ ],
+ "change_from_previous": "senior title -3 -> -5 and add 'Sr' (no dot): with threshold 0, four topic words could outweigh a Senior title ('Senior Data Scientist' reached Mira under v2f)",
+ "extra_citizen": [
+  "Top Secret",
+  "TS/SCI",
+  "Full Scope Poly",
+  "clearance"
+ ],
+ "extra_no_sponsor": [
+  "not eligible for immigration sponsorship",
+  "not eligible for sponsorship",
+  "do not provide visa sponsorship",
+  "sponsorship is not offered"
+ ],
+ "education_title_words": [
+  "PhD",
+  "Ph.D."
+ ],
+ "case_sensitive_topics": [
+  "Excel"
+ ]
+}

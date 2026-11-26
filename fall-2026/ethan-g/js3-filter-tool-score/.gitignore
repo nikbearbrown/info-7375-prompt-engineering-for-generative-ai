@@ -1,0 +1,13 @@
+# Never commit a real résumé
+resume.json
+*.real.json
+# ...except the two redacted FICTIONAL persona copies used as action-surface evidence (location only; no name or contacts)
+!experiments/action_surface/out/b_workdir/resume.json
+!experiments/action_surface/out/c_workdir/resume.json
+persona/*real*
+# Caches / secrets
+__pycache__/
+*.pyc
+.env
+.DS_Store
+# Scratch dirs created by the action-surface script are kept (they are evidence); nothing else.

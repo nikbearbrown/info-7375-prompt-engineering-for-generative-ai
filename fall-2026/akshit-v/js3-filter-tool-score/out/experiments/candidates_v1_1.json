@@ -1,0 +1,47 @@
+{
+ "v1.0_agree": 33,
+ "n": 50,
+ "candidates": {
+  "C1 cut title-level disqualifiers": {
+   "what": "Cut Staff, Principal, Director, Manager, Head of from F2 (keep Intern, PhD, Contract, Temporary).",
+   "why": "My 2026-11-25 definition: title level doesn't count against a posting.",
+   "agree": 33,
+   "flips": [],
+   "corpus_changed": 7,
+   "corpus_kept": 32
+  },
+  "C2 punctuation inside phrases": {
+   "what": "Let any punctuation sit between a phrase's words ('data-quality', 'Data & Integration').",
+   "why": "The gap found by the second-method recompute on 2026-11-24.",
+   "agree": 34,
+   "flips": [
+    {
+     "id": "greenhouse:figma:6249978004",
+     "title": "Technical Operations & Insights Analyst",
+     "from": "reject",
+     "to": "keep",
+     "my_label": "relevant",
+     "toward_my_label": true
+    }
+   ],
+   "corpus_changed": 1,
+   "corpus_kept": 26
+  },
+  "C3 streaming means data streaming": {
+   "what": "T5 counts only data-streaming phrases (streaming data, data streaming, streaming pipeline, streaming pipelines, ...), not bare 'streaming'.",
+   "why": "False friend: 9 of 10 Spotify 'streaming' matches are music/audio streaming.",
+   "agree": 33,
+   "flips": [],
+   "corpus_changed": 0,
+   "corpus_kept": 25
+  },
+  "C4 orchestration means workflow orchestration": {
+   "what": "T4 counts only orchestration tool, orchestration tools, workflow orchestration, data orchestration, pipeline orchestration, ..., not bare 'orchestration'.",
+   "why": "False friend: 'program orchestration', 'resource orchestration', 'compute orchestration'.",
+   "agree": 33,
+   "flips": [],
+   "corpus_changed": 0,
+   "corpus_kept": 25
+  }
+ }
+}

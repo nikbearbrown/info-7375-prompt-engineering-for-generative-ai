@@ -1,0 +1,15 @@
+Probe of `claude mcp serve` (Claude Code 2.1.294), 2026-11-25T23:16:53Z. Sandbox paths shown as <SANDBOX>.
+
+initialize: {"result":{"protocolVersion":"2025-06-18","capabilities":{"tools":{"listChanged":true}},"serverInfo":{"name":"claude/tengu","version":"2.1.294"}},"jsonrpc":"2.0","id":1}
+initialized notification: (notification: no answer)
+tools/list: 28 tools; with annotations: 0
+  Agent, Bash, Read, Edit, Write, NotebookEdit, WebFetch, ReportFindings, WebSearch, TaskStop, Skill, DesignSync, Artifact, ArtifactComments, ArtifactData, EnterWorktree, ExitWorktree, SendMessage, ListAgents, ShareOnboardingGuide, CronCreate, CronDelete, CronList, ScheduleWakeup, RemoteTrigger, Monitor, PushNotification, ToolSearch
+Read inside the folder: {"result":{"content":[{"type":"text","text":"{\"type\":\"text\",\"file\":{\"filePath\":\"<SANDBOX>/allowed/note.txt\",\"content\":\"CONSTRUCTED note inside the allowed folder\\n\",\"numLines\":2,\"startLine\":1,\"totalLines\":2}}"}]},"jsonrpc":"2.0","id":3}
+Read outside the folder (a sibling): {"result":{"content":[{"type":"text","text":"{\"type\":\"text\",\"file\":{\"filePath\":\"<SANDBOX>/outside/secret.txt\",\"content\":\"CONSTRUCTED secret outside the allowed folder\\n\",\"numLines\":2,\"startLine\":1,\"totalLines\":2}}"}]},"jsonrpc":"2.0","id":4}
+Write inside the folder: {"result":{"content":[{"type":"text","text":"{\"type\":\"create\",\"filePath\":\"<SANDBOX>/allowed/new.txt\",\"content\":\"CONSTRUCTED write inside\\n\",\"structuredPatch\":[],\"originalFile\":null,\"userModified\":false}"}]},"jsonrpc":"2.0","id":5}
+Write outside the folder (a sibling): {"result":{"content":[{"type":"text","text":"{\"type\":\"create\",\"filePath\":\"<SANDBOX>/outside/new.txt\",\"content\":\"CONSTRUCTED write outside\\n\",\"structuredPatch\":[],\"originalFile\":null,\"userModified\":false}"}]},"jsonrpc":"2.0","id":6}
+an undeclared tool: {"jsonrpc":"2.0","id":7,"error":{"code":-32603,"message":"Tool apply_to_job not found"}}
+params as a list: (no answer within 20 s)
+
+Files in the sandbox after the run: allowed/new.txt, allowed/note.txt, outside/new.txt, outside/secret.txt
+Client transcript: transcripts/client-claude-mcp-serve-20261125T231622Z.jsonl

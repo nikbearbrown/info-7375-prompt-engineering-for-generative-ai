@@ -1,0 +1,174 @@
+{
+  "purpose": "held-out labels for experiment.py; drawn after the tuning labels and the candidate changes were fixed",
+  "flips_file": "experiments/flips-filter-v1.1-2026-11-18T212545Z.json",
+  "flips_sha256": "17db5fb1632d682968f0e3adf6bd25b6a279dac63d72f8f1f4e88b8f1dcf2367",
+  "candidates_sha256": "a89cc2a1937c7c7e2098deca13cc5d94d32881d4780071dc2a01ff075853d12e",
+  "baseline_run": "filter-v1.1-2026-11-18T212545Z",
+  "excluded_sheets": [
+    {
+      "file": "audit/sample-filter-v1.1-2026-11-18T212545Z/labeling-sheet.csv",
+      "sha256": "d378ab0fe0930fe67dda551e2c5f06dcf6fd456a049afc8993191bbc8e7df99d",
+      "postings": 60
+    }
+  ],
+  "seed": 20261124,
+  "flips_each": 15,
+  "generator": "random.Random(seed).sample per change, flip lists sorted by (board, posting ID)",
+  "population_sizes_at_draw_time": {
+    "flip_X1-threshold-55": 41,
+    "flip_X2-related-needs-2-topics": 5
+  },
+  "verdict_words": [
+    "reject",
+    "keep for review",
+    "confirm",
+    "cannot tell"
+  ],
+  "groups": {
+    "flip_X1-threshold-55": [
+      {
+        "row": 1,
+        "board": "Anthropic",
+        "id": "4020350008",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 2,
+        "board": "Anthropic",
+        "id": "4938432008",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 5,
+        "board": "Anthropic",
+        "id": "5456018008",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 6,
+        "board": "Databricks",
+        "id": "8661758002",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 7,
+        "board": "Databricks",
+        "id": "8886944002",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 8,
+        "board": "OpenAI",
+        "id": "1f99d5d3-4512-4247-aaba-3133a3dabf5a",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 9,
+        "board": "OpenAI",
+        "id": "4d6a5951-9838-434c-830a-22cb938ea228",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 12,
+        "board": "OpenAI",
+        "id": "770d5c3f-4e72-4b49-aec4-d444e8ad7a64",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 13,
+        "board": "OpenAI",
+        "id": "7ade7a12-845c-4e3a-af23-c028420bd181",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 14,
+        "board": "OpenAI",
+        "id": "87e5f8c3-3337-480a-9db2-e4cef5db909b",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 16,
+        "board": "OpenAI",
+        "id": "9d11e1d8-af1d-413b-873f-d8fac2bdee99",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 17,
+        "board": "OpenAI",
+        "id": "b9dee2a0-9bb3-447e-9bce-2b1bed784e5b",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 18,
+        "board": "OpenAI",
+        "id": "c1316397-25bb-4add-9e9d-0e3ea8ba929a",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 19,
+        "board": "OpenAI",
+        "id": "ec317080-e2d2-4a73-93e6-e0a9ae6fdf96",
+        "v1.1": "rejected",
+        "with_change": "review"
+      },
+      {
+        "row": 20,
+        "board": "OpenAI",
+        "id": "ef828b89-41ed-4cde-96a9-94ffe5770d4c",
+        "v1.1": "rejected",
+        "with_change": "review"
+      }
+    ],
+    "flip_X2-related-needs-2-topics": [
+      {
+        "row": 3,
+        "board": "Anthropic",
+        "id": "5196852008",
+        "v1.1": "review",
+        "with_change": "rejected"
+      },
+      {
+        "row": 4,
+        "board": "Anthropic",
+        "id": "5362838008",
+        "v1.1": "review",
+        "with_change": "rejected"
+      },
+      {
+        "row": 10,
+        "board": "OpenAI",
+        "id": "529feb11-4b9b-4baf-9b3f-f2b100156c5a",
+        "v1.1": "review",
+        "with_change": "rejected"
+      },
+      {
+        "row": 11,
+        "board": "OpenAI",
+        "id": "5ceff3dd-3503-4ea0-9ade-eeb36b29f14e",
+        "v1.1": "review",
+        "with_change": "rejected"
+      },
+      {
+        "row": 15,
+        "board": "OpenAI",
+        "id": "98ad9beb-4f91-496c-bd16-ac0b2a8d5bb2",
+        "v1.1": "review",
+        "with_change": "rejected"
+      }
+    ]
+  },
+  "note": "Blind sheet: decisions are only here. No hand verdicts are filled in."
+}

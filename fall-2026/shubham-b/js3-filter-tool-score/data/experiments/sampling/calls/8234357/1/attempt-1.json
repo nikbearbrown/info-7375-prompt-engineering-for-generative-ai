@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 5235,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "5ea5e472495414e15716e5548678413073db030c7817e7b3b88c89f3e69ae6ee",
+  "posting_id": "8234357",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "cc1be57a-bff1-4686-bf6b-e70eb9cca376",
+  "started_at_et": "2026-10-30T23:39:22.611919-04:00",
+  "started_at_utc": "2026-10-31T03:39:22.611919Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4942,\"stop_reason\":\"end_turn\",\"session_id\":\"cc1be57a-bff1-4686-bf6b-e70eb9cca376\",\"total_cost_usd\":0.0217918,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3781,\"cache_read_input_tokens\":1138,\"output_tokens\":655,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3781,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":655,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":3781,\"webSearchRequests\":0,\"costUSD\":0.0217918,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3781,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a full-stack engineer, which matches Kiran's target roles and stack (React, TypeScript, REST APIs). However, it asks for 2-5+ years of industry experience excluding internships and co-ops, and the posting also describes leading and architecting technical projects. That points to a mid-level or senior scope rather than the new grad, entry level, SWE I or SWE II levels Kiran targets. The location is listed as N/A, so it is unclear whether the role fits the US or Remote (US) preference.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting requires 2-5+ years of industry experience excluding internships, which is above the new grad and entry level targets and likely above SWE I/II.\\\"},{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The Full Stack Engineer title matches Kiran's Full-Stack Software Engineer target role.\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The preferred qualifications list HTML, CSS, TypeScript and React, which Kiran has, but they are a bonus and do not offset the experience requirement.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The posting location is N/A, so a match with United States or Remote (US) cannot be confirmed.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The location is N/A, so it is unclear whether the role is in the US or remote.\\\",\\\"The posting does not state the level (for example SWE I or SWE II), so it is unclear whether the 2-5+ years requirement is strictly enforced.\\\",\\\"The posting does not mention U.S. citizenship or security clearance requirements, so it is unclear whether they apply.\\\",\\\"Compensation is not stated, so it is unclear whether the role is paid, though it is very likely to be.\\\"]}\",\"ttft_ms\":4978,\"type\":\"result\",\"duration_ms\":4995,\"uuid\":\"2f6e512a-7201-4010-8281-62f80e727178\",\"ttft_stream_ms\":859,\"time_to_request_ms\":51,\"first_content_frame_ms\":859,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0217918,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,93 @@
+# Sign-off — Job-Search Agent 3
+
+**Checked:** which properties, by which of my own tests
+
+| Property | Test(s) or evidence |
+|---|---|
+| Role needs a whole phrase, not one word | `test_W1_role_needs_whole_phrase` |
+| Topic words are case-sensitive and whole-word ("Scalable" is not Scala, "GitHub" is not Git) | `test_W2_topic_words_case_sensitive_whole_word` |
+| Repeats count once | `test_W3_repeats_count_once` |
+| A missing description is "cannot tell", never a reject | `test_W4_missing_description_is_cannot_tell` |
+| Years come from the first experience phrase | `test_W5_years_from_first_experience_phrase` |
+| "Python a plus" does not support "requires Python" | `test_W6_a_mention_is_not_support` |
+| A bare "Remote" is "cannot tell" | `test_W7_bare_remote_is_cannot_tell` |
+| The held-out labels never choose a change; one look each; tampered labels refused | `test_W8_*` (`tests/test_js3_measure.py`), `labels/HELDOUT_LOCK.json` |
+| "Unable to sponsor" earns no visa points; one location bonus only; maximum 100 | `test_W9_*`, `test_W10_*`, `test_max_score_is_100` |
+| Each wrong version is actually caught | `scripts/js3_sabotage_check.py`: 9 of 9 red |
+| The server speaks the protocol and refuses bad calls | `tests/test_js3_mcp.py` (12 tests); `evidence/mcp/transcript.jsonl` and `v1.3/` |
+| A real client (Claude Code) can use it, and what that client did with the answers | `evidence/mcp/claude_client/` (two sessions; `claude_reply.md`, `claude_reply_2.md`) |
+| The description declares the filter version it runs | `test_description_declares_the_version_it_runs`, written after Claude, as a client, found the stale "v1.2" |
+| The server makes no network requests and writes no files | `test_no_network_during_a_call`, `test_no_file_writes_during_a_call`; audit trace `evidence/mcp/server_audit.txt` |
+| The snapshot is what was downloaded | `jsagent/snapshot.py` checks every file's sha256 against `manifest.json` on load |
+| The logged held-out results reproduce | Recomputed after v1.3: baseline, A and D all match `HELDOUT_LOG.jsonl` |
+| The `fetch` server's declared vs. actual behavior, and that my restricted configuration holds | `evidence/mcp/fetch_run/default/` (the description as sent, npm install, temp file, metadata refused) and `restricted/` (non-allowed hosts refused, no Node or npm, no file writes) |
+
+**How:**
+- **By hand:**
+  - my 72 labels, in two passes, blind to the filter
+  - my 36 audit verdicts
+  - the decisions to adopt A and "internship" and to reject B–E
+  - both trust decisions
+  - on 2026-11-25, in my own terminal, I reran and read:
+    - `python3 -m unittest discover -s tests`: 157 OK. The "usage: … --replay needs --seeded" lines are an inherited JS2
+      test passing: the loop refuses an unlabeled replay
+    - `python3 scripts/js3_sabotage_check.py`: 9 of 9 wrong versions caught
+    - `git show --stat 148f405`: I checked the v1.3 commit's scope myself
+  - I started the Claude Code session that used my server as a tool, typed the prompt, and read and pasted Claude's reply
+  - a spot-check of 4 claim labels (`audit/claim_spotcheck.csv`): I confirmed 2 of the 3 errors Claude claimed and its one "right",
+    and disagreed on "ideal candidate also has" (Databricks). My first round marked all four right; I changed two after Claude
+    pointed to my §2 rule, so it is not independent
+  - all 39 new claim labels in the v1.3 shortlist (`audit/claim_check_v13.csv`), without Claude's view shown and with the order of
+    the answers varied: 3 of 39 wrong, all "requires Scala" from "either Java, Scala or C++" on the three Databricks postings
+- **By a test written before Claude's code:** the filter and claim tests (`35915cd`) and the server tests (`59f714c`) were committed
+  before the code they test. The measurement tests (W8) were **not**: they came in the same commit as `measure.py` (`426f0f5`).
+  *Claude wrote all of these tests too. What makes the first two sets "before" is the commit order.*
+- **By recomputation:** the held-out results reproduced from the code after v1.3; the snapshot hashes on every load.
+- **With Claude's help:**
+  - all the code
+  - the drafts of every document
+  - running the snapshot, the filter and the transcripts
+  - reading the `fetch` source, and running it in a throwaway Python 3.11 environment
+  - checking the 46 v1.2 claim labels, which found 10 wrong
+
+**Not checked:**
+1. **The claim checker after a fix.** The "list of alternatives" error is documented and confirmed by hand, but not fixed, so no
+   corrected labels exist and none were measured.
+2. **The "internship" fix in F2.** It was found on held-out data, so it has no honest measurement.
+3. **Parts of `fetch` I ran but did not trace, or did not run at all:**
+   - What `npm install` downloaded. Its child process isn't traced, and the 33 packages weren't reviewed.
+   - The proxy case, where the private-address guard is weaker.
+   - The user-initiated `fetch` prompt, which skips robots.txt.
+   - These come from its source, not from my runs.
+4. **Other clients and the newest protocol.** Only Claude Code connected, in two sessions. It read the bucket correctly both times,
+   but questioned the over-generous labels only once, and another client might rank by score. My server speaks only up to protocol
+   2025-06-18: it worked because Claude Code fell back from 2026-07-28.
+5. **Postings on other days.** Everything is one snapshot from 2026-11-25. The held-out set has only 7 relevant postings.
+6. **Whether a random reject is wrong at a low rate.** 0 of 30 bounds the error rate only to about 9.5%.
+
+**Not claiming:**
+- that the filter finds every relevant job, or that a kept job is worth applying to
+- that the score ranks jobs well: the AUC differences were noise at this sample size
+- that the claim labels are right: Claude found 10 of 46 wrong (22%); my spot-check confirmed 2 of the 3 I looked at; I found 3 of
+  the 39 new ones wrong (8%)
+- that the server is safe for any client, or that annotations prove anything
+- that anything was trained; every change was a file edit
+
+**Signed or withheld:** Signed, Ethan Gomes, 25 November 2026
+
+---
+
+## Driver's seat
+
+| Part | What Claude should do | What I should do | Why that part stays mine |
+|---|---|---|---|
+| **The filter rules** | Draft FILTER.md from my JS1 contract and persona; flag placeholders and conflicts; write the tests and code from it | Choose every rule and number (score out of 100, visa points, BI titles, years ≤ 3, whole-phrase "Data Engineering") | The rules say what I want; Claude can only guess at that |
+| **Labels and the audit** | Build tools that show the posting, never the filter's answer; point out where my labels break my own rule | Label and judge every posting myself; decide which answer stands when they conflict | The labels are the ground truth every number is measured against. When I saw the filter's verdict first, I agreed with it on a posting I had rejected blind |
+| **Claims and evidence** | Label claims against quoted spans; check its own labels and report the errors | Check the labels by hand myself, and decide how much to trust them | A label that says "supported" can be wrong: 8% of the 39 I checked, 22% of the 46 Claude checked, mostly from "such as A, B or C" lists |
+| **Tools and servers** | Write the server, record the transcripts, trace what it touches, read other servers' source | Make the trust decision for each server | A server's description is a claim made by whoever wrote it, and I live with what it can reach |
+| **What changes the score** | Propose single changes, measure them on tuning, protect the held-out labels in code | Choose what goes to held-out, and adopt or reject each change | One look at held-out cannot be undone |
+
+**Why the judgment that a posting is worth my time stays mine:** the filter can say a posting mentions Python, is in New York, and
+asks for 4+ years. It cannot say whether I want that team, that commute or that company, and its labels about what a posting
+actually requires were wrong between 8% (my check of 39) and 22% (Claude's check of 46) of the time. The score ranks what the text matches. Whether a job is worth an application is about my life, and
+the filter cannot see that.

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4225,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "f6923515502219131d9167352a2fff8e5a80e1bd8a93fbfdf10de6cc93bdd6b1",
+  "posting_id": "8289414",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "1126c155-e59d-47d7-a366-74d80bca1ca5",
+  "started_at_et": "2026-10-30T23:05:05.450648-04:00",
+  "started_at_utc": "2026-10-31T03:05:05.450648Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":3935,\"stop_reason\":\"end_turn\",\"session_id\":\"1126c155-e59d-47d7-a366-74d80bca1ca5\",\"total_cost_usd\":0.0194918,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3726,\"cache_read_input_tokens\":1138,\"output_tokens\":447,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3726,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":447,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":3726,\"webSearchRequests\":0,\"costUSD\":0.0194918,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3726,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a sales management role (leading Account Executives for Platform Sales) based in Dublin. It requires 5+ years of platform sales experience and 2+ years of people management. Kiran is targeting entry-level and mid-level software engineering roles in the United States or remote US, so the role, level and location all fail to match.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The posting is a Sales Manager role, which is not any of the targeted engineering roles.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting requires 5+ years of sales experience and 2+ years of people management, which is far above the new grad to SWE II levels targeted.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The role is located in Dublin, outside the targeted United States and Remote (US) locations.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting lists only sales, leadership and payments-industry requirements and no engineering skills from the résumé.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The posting does not say whether remote work is possible, though it is focused on the UK and Ireland market.\\\"]}\",\"ttft_ms\":3966,\"type\":\"result\",\"duration_ms\":3991,\"uuid\":\"18a470cc-b49a-41e7-a1bf-d8c9b288c5f1\",\"ttft_stream_ms\":1166,\"time_to_request_ms\":52,\"first_content_frame_ms\":1166,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0194918,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

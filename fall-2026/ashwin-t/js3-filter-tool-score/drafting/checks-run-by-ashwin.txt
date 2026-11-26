@@ -1,0 +1,22 @@
+Checks Ashwin ran personally (recorded by Claude Code from the session's terminal input, 2026-11-25 ~15:16 EST)
+
+Commit checked out: b616bc09 (branch ashwin-t/js3-filter-tool-score)
+Python: python3 (3.9.6)
+
+Command, run by Ashwin from the session's shell input:
+cd "<JS3_FOLDER>" && python3 -m unittest; echo "exit $?"
+
+Output, verbatim:
+.........................................labels/audit-minimum-batches.md: 47 postings in 5 batches
+...labels/audit-review-cards.md: 47 cards
+...........
+----------------------------------------------------------------------
+Ran 55 tests in 1.635s
+
+OK
+exit 0
+
+After the run, `git status` showed no changes to tracked files. The tests regenerate the two card files with
+identical content.
+
+Scope: this shows the 55 tests pass on Python 3.9.6 at b616bc09. Ashwin did not write the tests; Claude Code did.

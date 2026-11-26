@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6255,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "17b00e86ae6f52624a6a7f57611b8da1323f61af4690152011a447235ad67b01",
+  "posting_id": "8206731",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "002f7bb1-a78d-4fac-abea-633c0a45468d",
+  "started_at_et": "2026-10-31T14:32:56.679073-04:00",
+  "started_at_utc": "2026-10-31T18:32:56.679073Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5759,\"stop_reason\":\"end_turn\",\"session_id\":\"002f7bb1-a78d-4fac-abea-633c0a45468d\",\"total_cost_usd\":0.024044899999999998,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4285,\"cache_read_input_tokens\":1109,\"output_tokens\":679,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4285,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":679,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":4285,\"webSearchRequests\":0,\"costUSD\":0.024044899999999998,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4285,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a full-stack engineering position at Stripe in San Francisco, which matches Kiran's target role family and skills (TypeScript, React, Node.js, backend services). However, it requires 5+ years of backend/full-stack experience plus leading design and delivery of new products from prototype to production, which is well above Kiran's New Grad, Entry Level, SWE I and SWE II targets. The location is on-site San Francisco with no remote option stated, which only loosely fits a United States target. The level mismatch outweighs the skills overlap.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The content sets a minimum of 5+ years of experience and leading product delivery, which exceeds the New Grad to SWE II levels targeted.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[1]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title is Full Stack Engineer, which matches the targeted Full-Stack Software Engineer role family, but not at the targeted level.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"TypeScript is listed as a preferred language in the posting and is one of Kiran's core languages, though this is only a bonus.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"San Francisco is in the United States, but no remote option is stated, so the fit with US or Remote (US) is only partial.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting does not state whether the role is remote or requires on-site or hybrid work in San Francisco.\\\",\\\"The posting does not state whether U.S. citizenship or a security clearance is required, although none is mentioned.\\\",\\\"The posting does not state compensation, so it is unclear whether the role is paid, although it is very likely to be.\\\",\\\"Kiran's total years of professional experience are not stated in the résumé, so the gap to the 5+ year requirement cannot be measured exactly.\\\"]}\",\"ttft_ms\":5796,\"type\":\"result\",\"duration_ms\":5813,\"uuid\":\"a7ebdac9-3d59-4f1b-92c5-061d29d29d01\",\"ttft_stream_ms\":1275,\"time_to_request_ms\":52,\"first_content_frame_ms\":1275,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.024044899999999998,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

@@ -1,0 +1,44 @@
+# JS2 watch plan (GATE.md). Budgets change only by a dated GATE.md §10 amendment.
+# Paths are relative to the project root. The base settings (résumé, HTTP limits, User-Agent)
+# come from config/agent.toml.
+
+[budget]
+max_boards = 6
+max_requests = 10
+max_seconds = 180
+
+[retry]
+# GATE §5: one retry, transient failures only.
+max_retries = 1
+pause_s = 2.0
+min_seconds_left = 5.0
+
+[policy]
+# GATE §6. Exact host names; HTTPS, port 443, GET only.
+allowed_hosts = ["boards-api.greenhouse.io", "api.ashbyhq.com"]
+write_root = "data/watch"
+
+[[boards]]
+provider = "greenhouse"
+token = "stripe"
+min_postings = 100
+
+[[boards]]
+provider = "greenhouse"
+token = "figma"
+min_postings = 20
+
+[[boards]]
+provider = "ashby"
+token = "ramp"
+min_postings = 20
+
+[[boards]]
+provider = "ashby"
+token = "linear"
+min_postings = 5
+
+# Deliberate failure (GATE §5): Linear's Ashby board is "linear", not "linearapp".
+[[boards]]
+provider = "ashby"
+token = "linearapp"

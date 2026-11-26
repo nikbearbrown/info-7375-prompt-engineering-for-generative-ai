@@ -1,0 +1,12 @@
+# Boundary tests B21-B27 (GATE A3), run by Claude on 2026-11-09T08:39:09Z, before commit (working tree = the fix)
+$ uv run pytest -v -p no:cacheprovider tests/watch/test_plan_policy.py
+tests/watch/test_plan_policy.py::test_b21_plan_cannot_add_a_host PASSED  [ 12%]
+tests/watch/test_plan_policy.py::test_b22_plan_cannot_widen_the_write_root PASSED [ 25%]
+tests/watch/test_plan_policy.py::test_b23_plan_inside_the_write_folder_is_refused PASSED [ 37%]
+tests/watch/test_plan_policy.py::test_b24_private_plan_is_refused_before_parsing PASSED [ 50%]
+tests/watch/test_plan_policy.py::test_b25_narrowing_is_allowed PASSED    [ 62%]
+tests/watch/test_plan_policy.py::test_the_committed_plans_load PASSED    [ 75%]
+tests/watch/test_plan_policy.py::test_b26_resume_in_private_stops_the_loop PASSED [ 87%]
+tests/watch/test_plan_policy.py::test_b27_reset_refuses_an_unsafe_token PASSED [100%]
+============================== 8 passed in 0.13s ===============================
+exit=0

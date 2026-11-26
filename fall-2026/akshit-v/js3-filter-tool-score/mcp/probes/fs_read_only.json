@@ -1,0 +1,50 @@
+[
+ {
+  "note": "Started with --read-only."
+ },
+ {
+  "jsonrpc": "2.0",
+  "id": 1,
+  "method": "initialize",
+  "params": {
+   "protocolVersion": "2025-11-25",
+   "capabilities": {},
+   "clientInfo": {
+    "name": "js3-probe",
+    "version": "1.0"
+   }
+  }
+ },
+ {
+  "jsonrpc": "2.0",
+  "method": "notifications/initialized"
+ },
+ {
+  "jsonrpc": "2.0",
+  "id": 2,
+  "method": "tools/list"
+ },
+ {
+  "jsonrpc": "2.0",
+  "id": 3,
+  "method": "tools/call",
+  "params": {
+   "name": "write_file",
+   "arguments": {
+    "path": "C:\\Users\\Akshit Verma\\AppData\\Local\\Temp\\claude\\8e3a3ef0811808cb\\f1868b53-01bb-49be-9b19-74500b2b501e\\scratchpad\\fs-eval\\sandbox\\allowed\\ro_attempt.txt",
+    "content": "must be refused\n"
+   }
+  }
+ },
+ {
+  "jsonrpc": "2.0",
+  "id": 4,
+  "method": "tools/call",
+  "params": {
+   "name": "read_text_file",
+   "arguments": {
+    "path": "C:\\Users\\Akshit Verma\\AppData\\Local\\Temp\\claude\\8e3a3ef0811808cb\\f1868b53-01bb-49be-9b19-74500b2b501e\\scratchpad\\fs-eval\\sandbox\\allowed\\notes.txt"
+   }
+  }
+ }
+]

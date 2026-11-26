@@ -1,0 +1,21 @@
+== run by: <local user> at 2026-11-25 19:19:33 EST on commit 0981daef844d6ccd0a09655b8e54dcfff3a4055b
+== 1. tests
+49 passed in 17.29s
+== 2. wrong versions
+CAUGHT  W1 substring matching
+CAUGHT  W2 employer name counts as topic
+CAUGHT  W3 raw count, no cap
+CAUGHT  W4 missing description -> reject
+CAUGHT  W5 level read from description
+CAUGHT  W6 (v1.1) boilerplate words count again
+6/6 caught
+== 3. S43 score (compare with your own hand computation from review/postings/S43.md)
+R 4 + S 0 + T 4 + E 0 + Y -3 = 5  ->  reject
+R 4 + S 0 + T 4 + E 0 + Y -1 = 7  ->  keep
+== 4. freeze came before the H2 labels
+9cde2b9f 2026-11-25 18:09:29 -0500 JS3: v1.1 (C-a+C-b+C-e, Aditya's choice) with tests and W6 mutant (6/6 caught); Claude context experiment code and 6-call dev format check; FREEZE.json committed with H2 still blank (aditya-r js3)
+94c0c893 2026-11-25 19:01:48 -0500 JS3: Aditya's H2 labels (edited directly in the sheet) sealed by sha256 before opening (aditya-r js3)
+== 5. H2 sheet unchanged since its seal
+match
+== 6. tool server over real stdio (js3 test client, not Claude)
+12 passed in 1.55s

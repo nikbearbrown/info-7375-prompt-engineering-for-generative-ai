@@ -1,0 +1,11 @@
+== run at 2026-11-25T22:09:56Z, python: Python 3.9.6
+== 1) files before/after one stdio session
+{"jsonrpc": "2.0", "id": 1, "result": {"protocolVersion": "2025-11-25", "capabilities": {"tools": {}}, "serverInfo": {"name": "info7375-readonly", "version": "1.0.0"}}}
+{"jsonrpc": "2.0", "id": 2, "result": {"content": [{"type": "text", "text": "505A Dana Hall"}], "isError": false}}
+no files created or removed in its folder
+== 2) mutant: ready set inside initialize
+26:            self.initialized = True; self.ready = True
+
+OK
+-- mutant answers tools/list with no initialized notification:
+{"jsonrpc": "2.0", "id": 2, "result": {"tools": [{"name": "lookup", "description": "Read a

@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6278,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "50b44b294e33917aba240edbea022b71817a91c862d8a9e33ac13b49708b2c0e",
+  "posting_id": "8249901",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "78e368d1-e3a9-4d36-b19b-5215dbb8be37",
+  "started_at_et": "2026-10-30T23:40:30.323699-04:00",
+  "started_at_utc": "2026-10-31T03:40:30.323699Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5984,\"stop_reason\":\"end_turn\",\"session_id\":\"78e368d1-e3a9-4d36-b19b-5215dbb8be37\",\"total_cost_usd\":0.009189699999999999,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":366,\"cache_read_input_tokens\":4217,\"output_tokens\":730,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":366,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":730,\"cacheReadInputTokens\":4217,\"cacheCreationInputTokens\":366,\"webSearchRequests\":0,\"costUSD\":0.009189699999999999,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":366,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title matches Kiran's target role, but the posting is a mid-level, infrastructure-heavy backend role rather than entry-level or SWE I/II work. It requires a bachelor's degree plus 3 years of experience, and 3 years in each of several areas (AWS and Azure, distributed systems, Linux, NoSQL, critical incident handling). It also centers on tier-0 services, AMI hardening and on-call duties. Kiran has overlapping skills (AWS, Python/Java, observability, backend), but the level and the depth of experience required are a poor fit. The location is Seattle with 50% telecommuting, so it is not clearly remote (US), though it is inside the United States.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets New Grad/Entry/SWE I-II, while the posting's minimum requirements ask for 3 years of experience plus 3 years in each of several specific areas.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"The title 'Software Engineer' matches a target role, but the content describes infrastructure and tier-0 backend work.\\\"},{\\\"resume_path\\\":\\\"$.skills.cloud_devops\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran lists AWS but not Azure, Linux or AMI/EC2 hardening, which the posting requires or emphasizes.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Seattle, WA is in the United States, but the role is only 50% telecommuting, so it is not fully Remote (US).\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas, so sponsorship is uncertain.\\\",\\\"The posting does not mention U.S. citizenship or a security clearance, but the text says it handles security-sensitive data, so it is unclear whether any such requirement applies.\\\",\\\"Kiran's total years of experience are not stated in the résumé, so it is unclear whether Kiran meets the 3-year minimums.\\\",\\\"It is unclear whether 'Multiple Positions Available' includes lower-level openings.\\\"]}\",\"ttft_ms\":6022,\"type\":\"result\",\"duration_ms\":6036,\"uuid\":\"33212a80-133d-4e45-be55-96c3bc3dcdcc\",\"ttft_stream_ms\":1228,\"time_to_request_ms\":50,\"first_content_frame_ms\":1229,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.009189699999999999,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

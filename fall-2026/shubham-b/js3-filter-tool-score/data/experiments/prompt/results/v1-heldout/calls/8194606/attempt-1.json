@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6529,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "00dc44e1efe2ef1fc11e8e2c2a54a8c5c366e160fcc66073ef77f6dc505f2245",
+  "posting_id": "8194606",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "02daeb3d-12cb-4b9f-a57c-019b69a9d7c2",
+  "started_at_et": "2026-10-31T14:33:41.691068-04:00",
+  "started_at_utc": "2026-10-31T18:33:41.691068Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":6233,\"stop_reason\":\"end_turn\",\"session_id\":\"02daeb3d-12cb-4b9f-a57c-019b69a9d7c2\",\"total_cost_usd\":0.0237869,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3958,\"cache_read_input_tokens\":1109,\"output_tokens\":784,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3958,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":784,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":3958,\"webSearchRequests\":0,\"costUSD\":0.0237869,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3958,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The role is a frontend engineer, which matches a target role, and Kiran has React, TypeScript, HTML and CSS experience. However, the posting asks for 2+ years of front-end experience at an advanced level, which is above Kiran's entry-level to SWE II targets and thin front-end history. It also requires demonstrated data-visualization work (D3, SVG, Canvas, WebGL, charting engines), and nothing in the résumé shows that. The core of the job is building custom high-performance charting and rendering engines, which is a poor fit. The location is not stated, so US or remote eligibility cannot be confirmed.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[3]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Frontend Engineer is one of Kiran's target roles, so the title alone fits.\\\"},{\\\"resume_path\\\":\\\"$.skills.frontend[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran lists React, but the posting asks for advanced React plus charting and visualization depth that the résumé does not show.\\\"},{\\\"resume_path\\\":\\\"$.experience[0].bullets[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The React and TypeScript migration is relevant front-end work, but it is a portal migration, not interactive data visualization or rendering engines.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The 2+ years minimum, advanced and deep experience requirements, and the mentorship and technical leadership duties sit above Kiran's New Grad to SWE II range.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The posting location is N/A, so it does not confirm the United States or Remote (US) that Kiran targets.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not say whether the employer sponsors work visas.\\\",\\\"The location is listed as N/A, so US or remote eligibility is not established.\\\",\\\"The posting does not state a specific level such as SWE I or II; seniority is inferred from the years and 'advanced' wording.\\\",\\\"The résumé does not give dates or durations, so Kiran's total years of front-end experience cannot be confirmed.\\\",\\\"The posting does not mention U.S. citizenship or security clearance requirements, so the exclusion cannot be fully ruled out.\\\",\\\"Pay and whether the role is paid are not stated.\\\"]}\",\"ttft_ms\":6266,\"type\":\"result\",\"duration_ms\":6287,\"uuid\":\"135c4c56-6711-4b6d-a88c-f12d54815bed\",\"ttft_stream_ms\":1132,\"time_to_request_ms\":51,\"first_content_frame_ms\":1133,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0237869,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

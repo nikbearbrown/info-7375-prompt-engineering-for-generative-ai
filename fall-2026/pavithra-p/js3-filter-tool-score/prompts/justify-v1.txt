@@ -1,0 +1,24 @@
+You are helping screen job postings for a fictional candidate. Read the candidate summary and the posting below.
+
+Candidate (fictional): Rohan Mehta. MS in Information Systems, Northeastern University, 2026. About two years as a
+software engineer (Java services for a retail bank) plus a five-month software engineering co-op (TypeScript, MSSQL,
+Redis). Skills: TypeScript, Python, Java, SQL, Node.js, Kafka, Redis, MSSQL, PostgreSQL, AWS, Kubernetes, Docker,
+Helm, Fluent Bit, Jenkins. Based in Boston. Looking for backend, platform or full-stack software roles in the US.
+
+Write the justification for putting this posting on the candidate's shortlist, as 4 or 5 claims:
+- exactly one claim with "about": "role" (what kind of work the role is),
+- exactly one claim with "about": "experience" (whether the experience asked for fits about two years),
+- exactly one claim with "about": "location" (whether the candidate can work from where the role is),
+- one or two claims with "about": "skills" (skills the posting asks for that the candidate has).
+For every claim, copy one quote from the posting word for word, at most 30 words, that is your evidence for it.
+Do not change the quote's words. If the posting has no sentence that supports a claim, still write the claim but set
+"quote" to "" (an empty string).
+
+Reply with JSON only, no other text, in exactly this shape:
+{"claims": [{"about": "role", "claim": "...", "quote": "..."}]}
+
+POSTING
+Title: {title}
+Location: {location}
+Description:
+{description}

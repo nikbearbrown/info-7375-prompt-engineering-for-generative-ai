@@ -1,0 +1,12 @@
+1 initialize                                            -> {"jsonrpc": "2.0", "id": 1, "result": {"protocolVersion": "2025-11-25", "capabilities": {"tools": {"listChanged": false}}, "serverInfo": {"name": "js3
+3 tools/list                                            -> {"jsonrpc": "2.0", "id": 2, "result": {"tools": [{"name": "score_posting", "title": "Score a job posting with Anisha's JS3 filter", "description": "Sc
+4 call by id (kept, but not shortlisted)                -> {"jsonrpc": "2.0", "id": 3, "result": {"content": [{"type": "text", "text": "{\"id\": \"greenhouse:stripe:8189909\", \"title\": \"Data Analyst, SF\", 
+5 call by id (kept, score 7)                            -> {"jsonrpc": "2.0", "id": 4, "result": {"content": [{"type": "text", "text": "{\"id\": \"greenhouse:datadog:8267437\", \"title\": \"FP&A Analyst, Cloud
+6 call with title+text                                  -> {"jsonrpc": "2.0", "id": 5, "result": {"content": [{"type": "text", "text": "{\"id\": \"caller-supplied\", \"title\": \"BI Analyst\", \"url\": null, \
+7 unknown id                                            -> {"jsonrpc": "2.0", "id": 6, "result": {"content": [{"type": "text", "text": "posting '../../etc/passwd' not found in the local corpus (1734 postings).
+8 extra argument                                        -> {"jsonrpc": "2.0", "id": 7, "result": {"content": [{"type": "text", "text": "unknown argument(s): ['path']"}], "isError": true}}
+9 undeclared tool                                       -> {"jsonrpc": "2.0", "id": 8, "error": {"code": -32602, "message": "Unknown tool: 'apply_to_job'. This server offers only score_posting."}}
+10 undeclared method                                    -> {"jsonrpc": "2.0", "id": 9, "error": {"code": -32601, "message": "Method not found: resources/list"}}
+11 malformed JSON                                       -> {"jsonrpc": "2.0", "id": null, "error": {"code": -32700, "message": "Parse error"}}
+12 ping                                                 -> {"jsonrpc": "2.0", "id": 11, "result": {}}
+transcript: transcripts/client-own-20261125T141615.jsonl

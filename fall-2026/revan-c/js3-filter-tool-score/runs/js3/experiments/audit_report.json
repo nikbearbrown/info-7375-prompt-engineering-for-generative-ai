@@ -1,0 +1,69 @@
+{
+  "generated_at": "2026-11-26T00:46:34+00:00",
+  "filter_version": "v1",
+  "unlabeled": [],
+  "strata": {
+    "random_reject": {
+      "n_labeled": 30,
+      "filter_wrong": 0,
+      "wilson_95": [
+        0.0,
+        0.114
+      ],
+      "wrong": []
+    },
+    "closest_call": {
+      "n_labeled": 15,
+      "filter_wrong": 0,
+      "wilson_95": [
+        0.0,
+        0.204
+      ],
+      "wrong": []
+    },
+    "kept": {
+      "n_labeled": 4,
+      "filter_wrong": 2,
+      "wilson_95": [
+        0.15,
+        0.85
+      ],
+      "wrong": [
+        {
+          "audit_id": "A38",
+          "board": "patchmypc",
+          "id": "a71b827b-c926-4966-9207-dcc4dff7719a",
+          "title": "Software Engineer, AI",
+          "filter": "relevant",
+          "fate": "kept",
+          "failed_rules": [],
+          "hand": "not_relevant",
+          "reason": "AI software-engineering role requires 5+ years of C#/.NET development; it also explicitly disallows visa sponsorship."
+        },
+        {
+          "audit_id": "A41",
+          "board": "patchmypc",
+          "id": "21f4037e-2b38-4f87-8877-fd4096d36e7f",
+          "title": "Software Engineer, Backend",
+          "filter": "relevant",
+          "fate": "kept",
+          "failed_rules": [],
+          "hand": "not_relevant",
+          "reason": "Backend engineer is topical, but asks for 5+ years of C# development and explicitly disallows visa sponsorship."
+        }
+      ]
+    }
+  },
+  "random_reject_population": 211,
+  "what_the_sample_can_show": "0 of 30 randomly sampled rejects were judged wrongly rejected. The 95% Wilson interval for the share of wrongly rejected postings among the 211 rejects in this snapshot is 0%-11%, under simple random sampling and the assumption that the hand verdicts are right. It is a sample estimate for this one snapshot, not a measured rate for all postings or other dates.",
+  "false_friends_recorded": [
+    [
+      "A06",
+      "platform"
+    ],
+    [
+      "A30",
+      "platform"
+    ]
+  ]
+}

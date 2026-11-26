@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.330 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4191,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "915cfbf14193fa32086ce981e0494053f17a5e364eb7e3efffa7b3d809f1182c",
+  "posting_id": "8160776",
+  "prompt_id": "judge.v2",
+  "prompt_sha256": "effb1d0b5166a56b01ceb7bcec58edd6e2da4ace0ba5e3046d8408d3ff1cfd43",
+  "seeded": null,
+  "session_id": "e8f129ee-62d7-4209-b26d-9c47b6a33cbe",
+  "started_at_et": "2026-11-25T00:57:50.318624-05:00",
+  "started_at_utc": "2026-11-25T05:57:50.318624Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":3847,\"stop_reason\":\"end_turn\",\"session_id\":\"e8f129ee-62d7-4209-b26d-9c47b6a33cbe\",\"total_cost_usd\":0.025167,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4912,\"cache_read_input_tokens\":1450,\"output_tokens\":537,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4912,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":537,\"cacheReadInputTokens\":1450,\"cacheCreationInputTokens\":4912,\"webSearchRequests\":0,\"costUSD\":0.025167,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4912,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"The title passes the title gate and nothing in the posting text excludes on citizenship, clearance or unpaid work. But the location is Singapore, which is a non-US signal and has no US signal, so the US location gate fails. The skill gate also does not pass on the supplied text: it is truncated and names none of Kiran's eligible skills, so at most zero are matched.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran targets the United States, but the posting location is Singapore, a listed non-US signal with no US signal, so the location gate fails.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Title 'Software Engineer, New Grad' contains 'software engineer' and no excluded marker, so the title gate passes.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The visible content mentions no eligible skill such as Java, Python, SQL or React, so the skill gate (at least two matches) is not met.\\\"},{\\\"resume_path\\\":\\\"$.target.excluded[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"No citizenship or clearance exclusion phrase appears in the supplied content, so the exclusion gate passes.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas, so sponsorship is unknown.\\\",\\\"The content is truncated, so skills or exclusion phrases that appear later in the full posting could not be checked.\\\",\\\"The departments entry '5112 General University' gives no information about required skills.\\\"]}\",\"ttft_ms\":3911,\"type\":\"result\",\"duration_ms\":3929,\"uuid\":\"11b888c1-2b1d-4ef6-b9f6-f0eb02f5608e\",\"ttft_stream_ms\":699,\"time_to_request_ms\":79,\"first_content_frame_ms\":699,\"queued_turn_count\":0,\"result_index\":0,\"credential_expires_at\":\"2026-12-10T03:32:49.590Z\"}\n",
+  "total_cost_usd": 0.025167,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

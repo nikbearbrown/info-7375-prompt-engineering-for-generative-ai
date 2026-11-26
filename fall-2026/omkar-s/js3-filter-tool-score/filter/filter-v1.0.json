@@ -1,0 +1,27 @@
+{
+  "_comment": "Machine copy of FILTER.md v1.0. tests/test_filter_doc.py fails if any number or word list here is missing from FILTER.md. Change this file only together with a FILTER.md change-log row.",
+  "version": "1.0",
+  "threshold": 5.0,
+  "close_call_band": 1.0,
+  "min_content_chars": 300,
+  "max_years": 3,
+  "min_supported_skills": 2,
+  "weights": {
+    "T1_role_title": 3.0,
+    "T2_engineer_title": 1.5,
+    "T3_seniority": -2.0,
+    "K1_shipped_skill": 1.0,
+    "K1_cap": 8,
+    "K2_unshipped_skill": 0.25,
+    "Y1_level_evidence": 1.0
+  },
+  "excluded_title_words": ["staff", "principal", "distinguished", "director", "head", "vp", "vice president", "chief", "manager", "intern", "internship"],
+  "role_phrases": ["software engineer", "software developer", "backend engineer", "back-end engineer", "back end engineer", "frontend engineer", "front-end engineer", "full stack engineer", "full-stack engineer", "fullstack engineer", "platform engineer", "infrastructure engineer", "site reliability engineer", "devops engineer", "cloud engineer", "data engineer"],
+  "engineer_words": ["engineer", "developer"],
+  "non_software_phrases": ["sales engineer", "solutions engineer", "support engineer", "customer engineer", "field engineer", "hardware", "mechanical", "electrical", "developer relations", "business developer"],
+  "seniority_words": ["senior", "sr", "lead", "iii", "iv"],
+  "entry_phrases": ["new grad", "new graduate", "entry level", "entry-level", "early career", "early-career", "university grad", "recent graduate"],
+  "requirement_headings": ["requirements", "qualifications", "what you'll need", "what you need", "you have", "you bring", "must have", "what we're looking for", "who you are", "about you", "you'll need", "skills"],
+  "end_headings": ["nice to have", "bonus", "preferred", "plus", "benefits", "perks", "about us", "compensation", "pay"],
+  "negations": ["no", "not", "without"]
+}

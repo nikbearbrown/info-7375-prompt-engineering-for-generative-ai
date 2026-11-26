@@ -1,0 +1,60 @@
+{
+ "version": "v2b",
+ "date": "2026-11-25",
+ "role_words": [
+  "Data Analyst",
+  "Business Intelligence",
+  "Analytics",
+  "Business Analyst",
+  "Product Analyst"
+ ],
+ "topic_words": [
+  "SQL",
+  "Python",
+  "Tableau",
+  "Looker",
+  "Power BI",
+  "Excel",
+  "dashboard",
+  "dashboards",
+  "A/B test",
+  "A/B testing",
+  "statistics",
+  "statistical",
+  "data visualization"
+ ],
+ "senior_words": [
+  "Senior",
+  "Sr.",
+  "Staff",
+  "Principal",
+  "Lead",
+  "Director",
+  "Head",
+  "Manager",
+  "III"
+ ],
+ "weights": {
+  "role": 4,
+  "topic_each": 1,
+  "topic_cap": 4,
+  "senior": -3,
+  "years_3plus": -3,
+  "not_us": -5,
+  "sponsor_or_citizen": -5
+ },
+ "threshold": 0,
+ "rejected_words": [
+  {
+   "word": "R",
+   "why": "a one-letter word matches initials, list markers and 'R&D'; too many false matches to be worth the recall"
+  }
+ ],
+ "change_from_previous": "add clearance phrases to the citizenship list (labeller's notes: 需要美国安全许可)",
+ "extra_citizen": [
+  "Top Secret",
+  "TS/SCI",
+  "Full Scope Poly",
+  "clearance"
+ ]
+}

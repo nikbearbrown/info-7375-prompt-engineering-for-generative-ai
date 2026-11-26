@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.316 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 5138,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "9195e0ed624f06e399c01e4831446534ba9faa5246150e5590a84fef9f5e93f6",
+  "posting_id": "8142304",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": null,
+  "session_id": "4a473cff-fa95-48fa-b29b-f8aae7d1432e",
+  "started_at_et": "2026-10-31T14:22:47.183594-04:00",
+  "started_at_utc": "2026-10-31T18:22:47.183594Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4840,\"stop_reason\":\"end_turn\",\"session_id\":\"4a473cff-fa95-48fa-b29b-f8aae7d1432e\",\"total_cost_usd\":0.0214009,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3924,\"cache_read_input_tokens\":1109,\"output_tokens\":559,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3924,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":559,\"cacheReadInputTokens\":1109,\"cacheCreationInputTokens\":3924,\"webSearchRequests\":0,\"costUSD\":0.0214009,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3924,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a Technical Account Manager role focused on client relationship management, with frequent on-site customer visits and a 10+ year enterprise client-facing requirement. Kiran targets software engineering roles at new grad to SWE II level, so the role type and seniority don't match. SQL, Python and API familiarity overlap a little, but they are secondary to the client-facing work. The posting is in San Francisco with no remote option stated.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Technical Account Manager is a customer-facing account role, not one of Kiran's target software engineering roles.\\\"},{\\\"resume_path\\\":\\\"$.target.levels[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"The posting requires 10+ years of enterprise client-facing experience, far above Kiran's new grad to SWE II target levels.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages[4]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"SQL proficiency is required and Kiran has it, but this is a minor overlap compared with the relationship-management focus.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[1]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The role is based in San Francisco with frequent on-site visits, and no remote US option is stated, though Kiran's United States target could cover it.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting does not say whether remote work is possible.\\\",\\\"The posting does not mention U.S. citizenship or security clearance requirements.\\\",\\\"The posting does not state compensation, so it can't be confirmed as paid, though that is very likely.\\\"]}\",\"ttft_ms\":4879,\"type\":\"result\",\"duration_ms\":4895,\"uuid\":\"dd89d349-763e-41c0-b5bb-5aeee0f64c29\",\"ttft_stream_ms\":1180,\"time_to_request_ms\":52,\"first_content_frame_ms\":1180,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0214009,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

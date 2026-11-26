@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 3971,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "ab42c31351f98a4fb6d9a8124344e1f315ecf41534d05959ac7a09b17307b706",
+  "posting_id": "8316059",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": true,
+  "session_id": "c4a76965-0713-47d6-8e42-46b555a44472",
+  "started_at_et": "2026-10-29T22:21:37.738816-04:00",
+  "started_at_utc": "2026-10-30T02:21:37.738816Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":3696,\"stop_reason\":\"end_turn\",\"session_id\":\"c4a76965-0713-47d6-8e42-46b555a44472\",\"total_cost_usd\":0.0207258,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3972,\"cache_read_input_tokens\":1138,\"output_tokens\":472,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3972,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":472,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":3972,\"webSearchRequests\":0,\"costUSD\":0.0207258,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3972,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a sales role (Account Executive, Terminal) that requires 7+ years of sales experience at a technology company. Kiran targets software engineering roles at new grad to SWE II level. The location is a fit (US-Remote), but the role, level and required experience do not match.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Kiran wants software engineering roles; the posting is an Account Executive sales role.\\\"},{\\\"resume_path\\\":\\\"$.target.levels[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets new grad to SWE II levels; the posting's minimum requirements include 7+ years of sales experience.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[1]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"The posting offers US-Remote, which matches Kiran's location preference, but this does not offset the role mismatch.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend[3]\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"Kiran's engineering skills do not map to the Product Sales - Payments department.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas.\\\",\\\"The posting does not mention U.S. citizenship or security clearance requirements, so the exclusion cannot be checked.\\\",\\\"The posting does not state whether the role is paid, though this is likely.\\\"]}\",\"ttft_ms\":3727,\"type\":\"result\",\"duration_ms\":3744,\"uuid\":\"930a71a9-103b-4d66-8b2f-cc9733a301d0\",\"ttft_stream_ms\":943,\"time_to_request_ms\":45,\"first_content_frame_ms\":943,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.0207258,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

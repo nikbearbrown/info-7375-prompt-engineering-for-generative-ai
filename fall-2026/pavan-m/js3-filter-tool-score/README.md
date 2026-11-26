@@ -71,7 +71,7 @@ Agent runs on three real days: Nov 19, 23 and 25.
 - By recomputation: measure_filter re-scores all postings and reproduced all 48 recorded audit decisions; Wilson intervals for every rate
 - With Claude's help: Claude Code wrote all of `agent/filter.py`, `run_filter.py`, `measure_filter.py`, `mcp_server.py`, `mcp_client.py` and `.mcp.json`. Claude (chat) helped me plan, reviewed FILTER.md, wrote test skeletons and sampling scripts (I wrote every assert and every label), and drafted SHORTLIST.md, TOOL_SERVER.md, WHAT_MOVES_THE_SCORE.md and this README from my results.
 
-**Not checked** **Signed** Pavan Jayant Majji 25/11/2026
+**Not checked**
 1. The Lever retrieval gap is not fixed: the adapter never reads Lever's `lists` field, so Palantir's requirements are invisible to the filter (A30 confirmed; H02, H27 likely).
 2. Abstention works only per posting: claims like "Alex's ~3 years fits" are made even when the posting states no years (S02, S05, S07, S10).
 3. The 50-word rule counts words, not meaning: filler passes it (shown in the Claude Code session).

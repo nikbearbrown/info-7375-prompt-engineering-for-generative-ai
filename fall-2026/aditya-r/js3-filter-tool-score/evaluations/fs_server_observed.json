@@ -1,0 +1,318 @@
+{
+ "server": "@modelcontextprotocol/server-filesystem 2.3.0 (npm, published 2026-11-11; installed with --ignore-scripts)",
+ "node": "v22.14.0 (package declares engines node >=24)",
+ "client": "js3 test client, not Claude",
+ "run_utc": "2026-11-25T21:29:18+00:00",
+ "A_default": {
+  "initialize.capabilities": {
+   "tools": {
+    "listChanged": true
+   },
+   "resources": {
+    "listChanged": true
+   }
+  },
+  "tools": {
+   "read_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_text_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_media_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_multiple_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "write_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "append_file": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "edit_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "create_directory": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "list_directory": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_directory_with_sizes": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "directory_tree": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "move_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "copy_file": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "search_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "get_file_info": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_allowed_directories": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   }
+  },
+  "list_allowed_directories": "ok Allowed directories:\n<SANDBOX>/allowed",
+  "read allowed/note.txt": "ok note inside the allowed directory\n",
+  "read outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read allowed/../outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read allowed/link_out/secret.txt (symlink)": "isError Access denied - symlink target outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read other_root/root_file.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/other_root/root_file.txt not in <SANDBOX>/allowed",
+  "write_file allowed/new.txt": "ok Successfully wrote to <SANDBOX>/allowed/new_A_default.txt",
+  "file exists after write": true
+ },
+ "B_read_only": {
+  "initialize.capabilities": {
+   "tools": {
+    "listChanged": true
+   },
+   "resources": {
+    "listChanged": true
+   }
+  },
+  "tools": {
+   "read_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_text_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_media_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_multiple_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_directory": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_directory_with_sizes": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "directory_tree": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "search_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "get_file_info": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_allowed_directories": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   }
+  },
+  "list_allowed_directories": "ok Allowed directories:\n<SANDBOX>/allowed",
+  "read allowed/note.txt": "ok note inside the allowed directory\n",
+  "read outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read allowed/../outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read allowed/link_out/secret.txt (symlink)": "isError Access denied - symlink target outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read other_root/root_file.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/other_root/root_file.txt not in <SANDBOX>/allowed",
+  "write_file allowed/new.txt": "JSON-RPC error -32602: Tool write_file not found",
+  "file exists after write": false
+ },
+ "C_client_roots": {
+  "initialize.capabilities": {
+   "tools": {
+    "listChanged": true
+   },
+   "resources": {
+    "listChanged": true
+   }
+  },
+  "tools": {
+   "read_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_text_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_media_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_multiple_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "write_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "append_file": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "edit_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "create_directory": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "list_directory": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_directory_with_sizes": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "directory_tree": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "move_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "copy_file": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "search_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "get_file_info": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_allowed_directories": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   }
+  },
+  "list_allowed_directories": "ok Allowed directories:\n<SANDBOX>/other_root",
+  "read allowed/note.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/allowed/note.txt not in <SANDBOX>/other_root",
+  "read outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/other_root",
+  "read allowed/../outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/other_root",
+  "read allowed/link_out/secret.txt (symlink)": "isError Access denied - path outside allowed directories: <SANDBOX>/allowed/link_out/secret.txt not in <SANDBOX>/other_root",
+  "read other_root/root_file.txt": "ok file in a directory the client names as a root\n",
+  "write_file allowed/new.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/allowed/new_C_client_roots.txt not in <SANDBOX>/other_root",
+  "file exists after write": false
+ },
+ "D_confine_roots": {
+  "initialize.capabilities": {
+   "tools": {
+    "listChanged": true
+   },
+   "resources": {
+    "listChanged": true
+   }
+  },
+  "tools": {
+   "read_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_text_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_media_file": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "read_multiple_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "write_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "append_file": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "edit_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "create_directory": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "list_directory": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_directory_with_sizes": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "directory_tree": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "move_file": {
+    "readOnlyHint": false,
+    "destructiveHint": true
+   },
+   "copy_file": {
+    "readOnlyHint": false,
+    "destructiveHint": false
+   },
+   "search_files": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "get_file_info": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   },
+   "list_allowed_directories": {
+    "readOnlyHint": true,
+    "destructiveHint": false
+   }
+  },
+  "list_allowed_directories": "ok Allowed directories:\n<SANDBOX>/allowed",
+  "read allowed/note.txt": "ok note inside the allowed directory\n",
+  "read outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read allowed/../outside/secret.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read allowed/link_out/secret.txt (symlink)": "isError Access denied - symlink target outside allowed directories: <SANDBOX>/outside/secret.txt not in <SANDBOX>/allowed",
+  "read other_root/root_file.txt": "isError Access denied - path outside allowed directories: <SANDBOX>/other_root/root_file.txt not in <SANDBOX>/allowed",
+  "write_file allowed/new.txt": "ok Successfully wrote to <SANDBOX>/allowed/new_D_confine_roots.txt",
+  "file exists after write": true
+ }
+}

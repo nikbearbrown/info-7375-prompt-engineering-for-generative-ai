@@ -8,7 +8,7 @@ Checked:      the properties below, each with the test or check that shows it
 How:          by hand / by a test I wrote before reading Claude's code / by recomputation / with Claude's help
 Not checked:  the items listed under "Not checked"
 Not claiming: the items listed under "Not claiming"
-Signed or withheld: [Tushar: sign or withhold]
+Signed or withheld: None. Claude Code wrote every test. Before implementation, FILTER.md v0.1 was committed with its “Wrong versions” table (821ddee, November 21). Claude chat drafted that specification from my decisions, and Claude Code’s tests implement those rows. I did not personally write a test before reading the implementation.
 ```
 
 ## Checked
@@ -42,14 +42,14 @@ The full suite passed (count in [evidence/test-runs/js3-final.txt](evidence/test
   - My rule decisions: FILTER.md v0.1 (`821ddee3`), v0.2 and its freeze before the held-out comparison (`d74ca782`, `f3edf998`), and the changes I rejected (FILTER.md changelog).
   - The featured shortlist cases (`eaed4d92`).
   - My trust decisions on both MCP servers (`cd745787`, [EVALUATIONS.md](evidence/mcp/EVALUATIONS.md)).
-- **By a test I wrote before reading Claude's code:** none. Claude Code wrote every test in `tests/`. The nearest thing is FILTER.md's "Wrong versions my tests must catch" table, committed in `821ddee3` before any JS3 code, which stated what the tests had to catch. [Tushar: confirm or correct]
+- **By a test I wrote before reading Claude's code:** none. Claude Code wrote every test in `tests/`. The nearest thing is FILTER.md's "Wrong versions my tests must catch" table, committed in `821ddee3` before any JS3 code, which stated what the tests had to catch.
 - **By recomputation:** the report scripts `audit/audit_v01.py`, `audit/audit_v02.py`, `checks/score_report.py` and `checks/shortlist_report.py` recompute every reported number from the committed labels and data, and their tests require the committed reports to match the output exactly. `checks/independent_count.py` recomputes the fetch counts without importing agent code.
 - **With Claude's help:**
   - Claude Code wrote the code, tests, report scripts and labelers. It drafted the prose of the audit, score and shortlist reports, EVAL-FACTS.md, this README, SOURCES.md and this sign-off draft.
   - It proposed the C4 heading definition from a survey of the text of all 979 postings (SCORE-REPORT.md section 1).
   - It ran both `claude -p` client sessions.
   - Claude (`claude-sonnet-5-5`, through the API, 2026-11-23) proposed the 96 shortlist claims and a label for each.
-  - [Tushar: add any Claude chat contribution]
+  - Claude chat drafted FILTER.md v0.1 from my decisions about the persona, using ?content=true, and doing JS3 first. It wrote the prompts for Claude Code and reviewed the reports. It recommended rule changes, the false friend, featured cases, and trust decisions. I made the final decisions and changed several recommendations, including C3, C4, and the experience ranges. It also guided me through fixing the API-key problem.
 
 ## Not checked
 
@@ -73,7 +73,7 @@ The full suite passed (count in [evidence/test-runs/js3-final.txt](evidence/test
 
 ## Signed or withheld
 
-[Tushar: sign or withhold]
+Tushar Vimalbhai Patel 11/25/2026
 
 ## Driver's seat
 

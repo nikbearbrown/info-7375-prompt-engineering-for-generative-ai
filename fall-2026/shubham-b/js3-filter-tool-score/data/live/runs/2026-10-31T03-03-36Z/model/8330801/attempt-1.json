@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 4309,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "dce53339fe6535ac817ac7f20e1db850904b15d515e5067d36d6c299bc5d799f",
+  "posting_id": "8330801",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "3aeb0cc6-4397-4841-b776-34bd664c06d6",
+  "started_at_et": "2026-10-30T23:04:19.559666-04:00",
+  "started_at_utc": "2026-10-31T03:04:19.559666Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4026,\"stop_reason\":\"end_turn\",\"session_id\":\"3aeb0cc6-4397-4841-b776-34bd664c06d6\",\"total_cost_usd\":0.021273800000000002,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":4099,\"cache_read_input_tokens\":1138,\"output_tokens\":476,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":4099,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":476,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":4099,\"webSearchRequests\":0,\"costUSD\":0.021273800000000002,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":4099,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is an enterprise sales (Account Executive) role based in Sydney or Melbourne, Australia, requiring 8+ years of sales experience. Kiran is targeting software engineering roles at entry to SWE II level in the United States or remote (US). The role type, seniority and location all mismatch.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Kiran targets software engineering roles, but the posting is for an Enterprise Account Executive (sales).\\\"},{\\\"resume_path\\\":\\\"$.target.levels[1]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran seeks entry-level to SWE II roles, while the posting requires 8+ years of sales experience.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran wants US or remote-US locations, but the posting is in Sydney or Melbourne, Australia.\\\"},{\\\"resume_path\\\":\\\"$.target.roles[2]\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"The department is APAC Account Executives, not an engineering team matching Kiran's backend, frontend or full-stack targets.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is uncertain.\\\",\\\"Kiran's work authorization for Australia is not stated in the résumé.\\\"]}\",\"ttft_ms\":4053,\"type\":\"result\",\"duration_ms\":4079,\"uuid\":\"2ab296c7-0b14-4609-a365-016ed360a444\",\"ttft_stream_ms\":1260,\"time_to_request_ms\":48,\"first_content_frame_ms\":1260,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.021273800000000002,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

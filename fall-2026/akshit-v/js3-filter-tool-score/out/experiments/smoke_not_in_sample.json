@@ -1,0 +1,66 @@
+{
+ "id": "lever:spotify:03437e2a-2d5e-4593-9e97-11271014932e",
+ "no_tools": {
+  "asked_id": "lever:spotify:03437e2a-2d5e-4593-9e97-11271014932e",
+  "valid": true,
+  "verdict": "not_relevant",
+  "asked_at_utc": "2026-11-25T02:53:45+00:00",
+  "model_requested": "claude-opus-5-5",
+  "mcp_servers": [],
+  "allowed_tools": [],
+  "models_reported": [
+   "claude-haiku-5-5",
+   "claude-opus-5-5"
+  ],
+  "session_id": "f151f507-fb0d-404a-8075-b73cb248fcea",
+  "call_error": null,
+  "raw_text": "{\"verdict\": \"not_relevant\", \"cited_resume_fields\": [\"experience\", \"target_titles\"], \"cited_posting_fields\": [\"title\", \"content\"], \"reason\": \"This is a Product Manager role that owns strategy and roadmap for the data catalogue and lineage, not hands-on data engineering. It also requires 2+ years of Product Management experience, which is absent from a résumé made up entirely of data engineering roles.\"}",
+  "tool_calls": [],
+  "parsed": {
+   "verdict": "not_relevant",
+   "cited_resume_fields": [
+    "experience",
+    "target_titles"
+   ],
+   "cited_posting_fields": [
+    "title",
+    "content"
+   ],
+   "reason": "This is a Product Manager role that owns strategy and roadmap for the data catalogue and lineage, not hands-on data engineering. It also requires 2+ years of Product Management experience, which is absent from a résumé made up entirely of data engineering roles."
+  },
+  "rejection": null
+ },
+ "with_tool": {
+  "asked_id": "lever:spotify:03437e2a-2d5e-4593-9e97-11271014932e",
+  "valid": true,
+  "verdict": "not_relevant",
+  "asked_at_utc": "2026-11-25T02:53:51+00:00",
+  "model_requested": "claude-opus-5-5",
+  "mcp_servers": [
+   "js3-filter"
+  ],
+  "allowed_tools": [
+   "mcp__js3-filter__score_posting"
+  ],
+  "models_reported": [
+   "claude-opus-5-5"
+  ],
+  "session_id": "6d856808-0a3f-41b2-9e3f-43ab65bbc5f7",
+  "call_error": null,
+  "raw_text": "{\"verdict\": \"not_relevant\", \"cited_resume_fields\": [\"experience\", \"target_titles\"], \"cited_posting_fields\": [\"title\", \"content\"], \"reason\": \"This is a Product Manager job: the daily work is owning strategy, the roadmap and KPIs for Spotify's data catalogue and lineage, not building or running data pipelines. Its key requirement is 2+ years of Product Management experience, and the résumé shows only data engineering work and no product management.\"}",
+  "tool_calls": [],
+  "parsed": {
+   "verdict": "not_relevant",
+   "cited_resume_fields": [
+    "experience",
+    "target_titles"
+   ],
+   "cited_posting_fields": [
+    "title",
+    "content"
+   ],
+   "reason": "This is a Product Manager job: the daily work is owning strategy, the roadmap and KPIs for Spotify's data catalogue and lineage, not building or running data pipelines. Its key requirement is 2+ years of Product Management experience, and the résumé shows only data engineering work and no product management."
+  },
+  "rejection": null
+ }
+}

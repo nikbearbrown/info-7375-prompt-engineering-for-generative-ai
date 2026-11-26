@@ -1,0 +1,40 @@
+[
+  {
+    "posting_id": "af8d37e8-624a-4f2c-af53-c599b97192a3",
+    "title": "Field Marketing Manager, Europe",
+    "location": "Europe",
+    "updated_at": "2026-11-10T18:14:08.778+00:00",
+    "rule_verdict": {
+      "label": "NO_MATCH",
+      "location_check": {
+        "label": "NOT_ESTABLISHED",
+        "evidence": [
+          "$.location.name"
+        ],
+        "reason": "The location has no US or non-US signal, and no §6.4 rescue phrase appears in the description."
+      },
+      "evidence": [],
+      "reason": "Failed gate(s): TITLE, SKILLS, LOCATION. The title contains no role-family phrase from $.target.roles, and it contains excluded marker(s): manager. 0 distinct résumé skill(s) appear in the posting; at least 2 are required. Location NOT_ESTABLISHED: The location has no US or non-US signal, and no §6.4 rescue phrase appears in the description.",
+      "failed_gates": [
+        "TITLE",
+        "SKILLS",
+        "LOCATION"
+      ]
+    },
+    "model_judgment": {
+      "status": "UNAVAILABLE",
+      "label": null,
+      "summary": null,
+      "evidence": [],
+      "uncertainties": [],
+      "diagnostic": {
+        "prompt_id": null,
+        "prompt_sha256": null,
+        "model_requested": null,
+        "attempts": [],
+        "unavailable_reason": "backend_none"
+      }
+    },
+    "rule_evidence_errors": []
+  }
+]

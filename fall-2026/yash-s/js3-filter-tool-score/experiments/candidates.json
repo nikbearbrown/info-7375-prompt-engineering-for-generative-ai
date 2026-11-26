@@ -1,0 +1,35 @@
+{
+  "_comment": "Pre-registered 2026-11-24, after my 60 tuning labels (commit e926b963) and before any held-out label existed. Each change alters exactly one value, in memory only (experiment.py). Proposed by Claude from my tuning labels; adopting any of them is my decision and would be a new FILTER.md version.",
+  "registered_on": "2026-11-24",
+  "baseline": "FILTER.md v1.1, run filter-v1.1-2026-11-18T212545Z",
+  "changes": [
+    {
+      "id": "X1-threshold-55",
+      "object": "a setting (the score threshold, FILTER.md section 4)",
+      "path": ["scoring", "threshold"],
+      "from": 65,
+      "to": 55,
+      "proposed_by": "Claude, from my tuning labels",
+      "why": "Tuning row 39 (OpenAI b398e1c6, Backend Software Engineer, Applied Foundations) scored 55 and my hand label is 'should have been kept for review'. Tuning rows 4 and 5 also score 55, and my labels for both are 'correct reject', so the tuning labels already point both ways."
+    },
+    {
+      "id": "X2-related-needs-2-topics",
+      "object": "the filter file (Rule 1, Step 4: a related title needs Rule 2 topics)",
+      "path": ["titles", "related_min_topics"],
+      "from": 1,
+      "to": 2,
+      "default": 1,
+      "proposed_by": "Claude, from my tuning labels",
+      "why": "Tuning rows 55 and 60 are related titles kept in review on a single topic phrase ('model evaluation', 'agentic systems'), and my labels for both are 'should have been rejected'. Tuning row 59 is also a related title with one topic, and my label is 'correctly in review', so this change would also undo a decision I agreed with."
+    },
+    {
+      "id": "X3-may-also-have-is-preferred",
+      "object": "the filter file (Rule 8, preferred-requirement headings)",
+      "path": ["experience", "preferred_heading_words"],
+      "from": ["Preferred", "Nice to have", "Bonus"],
+      "to": ["Preferred", "Nice to have", "Bonus", "may also have"],
+      "proposed_by": "Claude, while building the shortlist claim checker",
+      "why": "Anthropic postings use the heading 'Strong candidates may also have', which Version 1.1 does not treat as preferred, so a year count under it could be read as mandatory. Not found through my labels."
+    }
+  ]
+}

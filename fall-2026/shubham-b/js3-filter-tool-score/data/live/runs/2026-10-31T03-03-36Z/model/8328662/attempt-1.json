@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 6066,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "a1237c434ca2f789e66174ae1dfaf1c6e732b67581c816a73f9f82f5817e5b42",
+  "posting_id": "8328662",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "7488c108-1064-4e26-99ee-673a5842f6ee",
+  "started_at_et": "2026-10-30T23:04:45.314599-04:00",
+  "started_at_utc": "2026-10-31T03:04:45.314599Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":5790,\"stop_reason\":\"end_turn\",\"session_id\":\"7488c108-1064-4e26-99ee-673a5842f6ee\",\"total_cost_usd\":0.022813800000000002,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3924,\"cache_read_input_tokens\":1138,\"output_tokens\":700,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3924,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":700,\"cacheReadInputTokens\":1138,\"cacheCreationInputTokens\":3924,\"webSearchRequests\":0,\"costUSD\":0.022813800000000002,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":3924,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is a summer 2027 PhD machine learning engineering internship. It requires current PhD enrollment in CS or ML and an intent to return to the degree program afterward. Kiran's résumé targets full-time software engineering roles at new grad, entry, SWE I and SWE II levels, with no ML focus, and the posting's ML stack (Scala, Spark, Pandas, scikit-learn, LLMs, RL) is largely absent from the résumé. The posting is an internship, not a full-time role at Kiran's target levels. The only overlap is Python and general production engineering. The locations (San Francisco, New York City, Seattle) are in the US, so location is not the issue.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Posting is a PhD ML Engineer intern role, not a Software Engineer, Full-Stack, Backend or Frontend role.\\\"},{\\\"resume_path\\\":\\\"$.target.levels\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Posting is a summer 2027 internship requiring PhD enrollment and return to the degree program, which does not match New Grad, Entry Level, SWE I or SWE II.\\\"},{\\\"resume_path\\\":\\\"$.skills.languages\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Python overlaps, but the posting's Scala, Spark, Pandas, NumPy and scikit-learn and ML expertise are not in the résumé skills.\\\"},{\\\"resume_path\\\":\\\"$.target.locations\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"San Francisco, New York City and Seattle are in the United States, so location is compatible but does not offset the mismatch.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether the employer sponsors work visas.\\\",\\\"The résumé does not state whether Kiran is enrolled in a PhD program or would accept an internship, so eligibility is inferred from the résumé's target levels only.\\\",\\\"The posting does not state whether the internship is paid, though the résumé excludes unpaid roles.\\\",\\\"The posting does not state whether U.S. citizenship or a security clearance is required.\\\"]}\",\"ttft_ms\":5825,\"type\":\"result\",\"duration_ms\":5842,\"uuid\":\"debf63f8-e6cb-4003-a754-4baa63aa6ae6\",\"ttft_stream_ms\":1235,\"time_to_request_ms\":50,\"first_content_frame_ms\":1236,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.022813800000000002,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

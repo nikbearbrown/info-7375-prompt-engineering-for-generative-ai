@@ -1,0 +1,11 @@
+$ JS3_FILTER=wrong_versions.wv2_wordcount python3 -m unittest tests.test_filter   (2026-11-25 16:10)
+FAIL: test_no_role_word_rejected (tests.test_filter.R1_TitleWholeWord.test_no_role_word_rejected)
+FAIL: test_seniority_words_reject (tests.test_filter.R2_Seniority.test_seniority_words_reject)
+FAIL: test_range_top_above_three_fails (tests.test_filter.R4_Years.test_range_top_above_three_fails)
+FAIL: test_more_skills_ranks_higher_but_capped (tests.test_filter.Ranking.test_more_skills_ranks_higher_but_capped)
+FAIL: test_senior_posting_listing_every_tool_never_ranks (tests.test_filter.Ranking.test_senior_posting_listing_every_tool_never_ranks)
+FAIL: test_penalties (tests.test_filter.Score.test_penalties)
+FAIL: test_rule_failure_rejects_even_with_high_score (tests.test_filter.Score.test_rule_failure_rejects_even_with_high_score)
+FAIL: test_title_plus_two_skills_is_exactly_five_and_kept (tests.test_filter.Score.test_title_plus_two_skills_is_exactly_five_and_kept)
+Ran 28 tests in 0.008s
+FAILED (failures=8)

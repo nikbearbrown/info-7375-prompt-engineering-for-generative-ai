@@ -1,0 +1,152 @@
+{
+  "definitions": {
+    "M": "rule verdict MATCH",
+    "N1": "title pass, >=2 skills, location label not US_BASED",
+    "N2": "title pass, <2 skills",
+    "N3": "title fail, >=2 skills, location label US_BASED"
+  },
+  "notice": "Do not open this file until `jsa exp prompt score`.",
+  "pool_sizes": {
+    "M": 15,
+    "N1": 18,
+    "N2": 30,
+    "N3": 58
+  },
+  "postings": {
+    "7208537": {
+      "failed_gates": [
+        "SKILLS",
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N2"
+    },
+    "7476555": {
+      "failed_gates": [
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N1"
+    },
+    "8039548": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    },
+    "8075570": {
+      "failed_gates": [
+        "TITLE"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N3"
+    },
+    "8128744": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    },
+    "8130876": {
+      "failed_gates": [
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N1"
+    },
+    "8142304": {
+      "failed_gates": [
+        "TITLE"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N3"
+    },
+    "8160776": {
+      "failed_gates": [
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N1"
+    },
+    "8172497": {
+      "failed_gates": [
+        "TITLE"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N3"
+    },
+    "8194606": {
+      "failed_gates": [
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N1"
+    },
+    "8197135": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    },
+    "8197891": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    },
+    "8198280": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    },
+    "8202299": {
+      "failed_gates": [
+        "SKILLS",
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N2"
+    },
+    "8203973": {
+      "failed_gates": [
+        "TITLE"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N3"
+    },
+    "8206731": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    },
+    "8265763": {
+      "failed_gates": [
+        "SKILLS",
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N2"
+    },
+    "8267736": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    },
+    "8318509": {
+      "failed_gates": [
+        "SKILLS",
+        "LOCATION"
+      ],
+      "rule_label": "NO_MATCH",
+      "stratum": "N2"
+    },
+    "8332676": {
+      "failed_gates": [],
+      "rule_label": "MATCH",
+      "stratum": "M"
+    }
+  },
+  "quotas": {
+    "M": 8,
+    "N1": 4,
+    "N2": 4,
+    "N3": 4
+  },
+  "seed": 20261029
+}

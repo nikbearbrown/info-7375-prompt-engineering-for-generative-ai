@@ -1,0 +1,46 @@
+{
+  "argv": [
+    "claude",
+    "-p",
+    "--no-session-persistence",
+    "--tools",
+    "",
+    "--disallowedTools",
+    "mcp__*",
+    "--strict-mcp-config",
+    "--setting-sources",
+    "project",
+    "--safe-mode",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "attempt": 1,
+  "backend_error": null,
+  "claude_version": "2.1.314 (Claude Code)",
+  "cwd_kind": "fresh-empty",
+  "duration_ms": 5424,
+  "exit_code": 0,
+  "first_reply": true,
+  "is_error": false,
+  "model_requested": "claude-sonnet-5-5",
+  "model_served": [
+    "claude-sonnet-5-5"
+  ],
+  "payload_sha256": "138bbd3a4e5dd444feecd69897ae1a5c4ac8b0a7deea613c7cf0adf4d547111f",
+  "posting_id": "8288561",
+  "prompt_id": "judge.v1",
+  "prompt_sha256": "2da84890daded0ba49090dd8164e195ce700e3182239581d40c5e589aa7c032b",
+  "seeded": false,
+  "session_id": "d5551ab0-32b2-4e74-9ca5-e86d82ec0881",
+  "started_at_et": "2026-10-30T23:03:37.297730-04:00",
+  "started_at_utc": "2026-10-31T03:03:37.297730Z",
+  "stderr": "",
+  "stdout_raw": "{\"duration_api_ms\":4936,\"stop_reason\":\"end_turn\",\"session_id\":\"d5551ab0-32b2-4e74-9ca5-e86d82ec0881\",\"total_cost_usd\":0.027158,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":5466,\"cache_read_input_tokens\":0,\"output_tokens\":529,\"output_tokens_details\":{\"thinking_tokens\":0},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":5466,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-sonnet-5-5\":{\"inputTokens\":2,\"outputTokens\":529,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":5466,\"webSearchRequests\":0,\"costUSD\":0.027158,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":0,\"cacheCreationEphemeral5mInputTokens\":0,\"cacheCreationEphemeral1hInputTokens\":5466,\"canonicalModel\":\"claude-sonnet-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"safety_stops\":0,\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"label\\\":\\\"NOT_RELEVANT\\\",\\\"summary\\\":\\\"This is an enterprise sales role (Account Executive) based in Germany, requiring 6+ years of sales experience and fluency in German. Kiran is targeting entry-level to SWE II software engineering roles in the United States or remote (US). The role, level and location all fail to match, and the posting contains no software engineering work.\\\",\\\"evidence\\\":[{\\\"resume_path\\\":\\\"$.target.roles[0]\\\",\\\"posting_path\\\":\\\"$.title\\\",\\\"reason\\\":\\\"Kiran targets software engineering roles; the posting is for an Account Executive, a sales role.\\\"},{\\\"resume_path\\\":\\\"$.target.locations[0]\\\",\\\"posting_path\\\":\\\"$.location.name\\\",\\\"reason\\\":\\\"Kiran wants roles in the United States or remote (US); the posting is located in Germany.\\\"},{\\\"resume_path\\\":\\\"$.target.levels[0]\\\",\\\"posting_path\\\":\\\"$.content\\\",\\\"reason\\\":\\\"Kiran targets new grad to SWE II levels; the posting's minimum requirements include 6+ years of sales experience and German fluency.\\\"},{\\\"resume_path\\\":\\\"$.skills.backend[0]\\\",\\\"posting_path\\\":\\\"$.departments[0].name\\\",\\\"reason\\\":\\\"Kiran's skills are engineering skills such as Node.js; the posting sits in an EMEA Account Executives department, not an engineering team.\\\"}],\\\"uncertainties\\\":[\\\"The posting does not state whether Stripe sponsors work visas, so sponsorship is uncertain.\\\",\\\"The posting does not say whether the role could be done remotely from the US, though the location is listed as Germany.\\\",\\\"The posting does not mention citizenship or security clearance requirements, so the résumé's exclusions cannot be checked.\\\"]}\",\"ttft_ms\":4979,\"type\":\"result\",\"duration_ms\":4989,\"uuid\":\"5da39daa-11ca-434a-871c-5967521a41af\",\"ttft_stream_ms\":1334,\"time_to_request_ms\":53,\"first_content_frame_ms\":1334,\"queued_turn_count\":0,\"result_index\":0}\n",
+  "total_cost_usd": 0.027158,
+  "validation": {
+    "codes": [],
+    "passed": true
+  }
+}

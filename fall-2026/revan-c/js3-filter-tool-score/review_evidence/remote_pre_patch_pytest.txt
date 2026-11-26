@@ -1,0 +1,37 @@
+F.                                                                       [100%]
+=================================== FAILURES ===================================
+___ test_lever_workplace_type_controls_remote_location[remote-relevant-True] ___
+
+workplace_type = 'remote', expected_verdict = 'relevant', location_passes = True
+
+    @pytest.mark.parametrize(
+        ("workplace_type", "expected_verdict", "location_passes"),
+        [
+            ("remote", "relevant", True),
+            ("onsite", "not_relevant", False),
+        ],
+    )
+    def test_lever_workplace_type_controls_remote_location(
+        workplace_type, expected_verdict, location_passes
+    ):
+        item = lever_posting(
+            "constructed-backend-role",
+            text="Software Engineer, Backend",
+            location="United States",
+            description="<p>Python and PostgreSQL services.</p>",
+        )
+        item["workplaceType"] = workplace_type
+        posting = parse_lever(lever_body(item))[0]
+        result = judge_posting(load_resume(RESUME), posting)
+        location = next(
+            evidence for evidence in result["rule_justification"]
+            if evidence["condition"] == "location"
+        )
+    
+>       assert location["passed"] is location_passes
+E       assert False is True
+
+tests/test_js2_remote_review.py:38: AssertionError
+=========================== short test summary info ============================
+FAILED tests/test_js2_remote_review.py::test_lever_workplace_type_controls_remote_location[remote-relevant-True]
+1 failed, 1 passed in 0.04s

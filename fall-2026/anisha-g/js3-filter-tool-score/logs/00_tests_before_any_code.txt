@@ -1,0 +1,11 @@
+$ python3 -m unittest discover -s tests -t .   (2026-11-25 14:09)  -- before any JS3 code exists
+  13     raise JSONDecodeError("Expecting value", s, err.value) from None
+   1 FAILED (errors=44)
+   1 FileNotFoundError: [Errno 2] No such file or directory: '/Users/anishagaikar/info-7375/fall-2026/anisha-g/js3-filter-tool-score/toolserver/server.py'
+   1 ImportError: cannot import name 'evidence' from 'js3' (unknown location)
+   1 ImportError: Failed to import test module: tests.test_evidence
+   1 ImportError: Failed to import test module: tests.test_policy_collect
+  13 json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
+  28 ModuleNotFoundError: No module named 'js3.filter'
+   1 ModuleNotFoundError: No module named 'js3.policy'
+   1 Ran 44 tests in 0.221s

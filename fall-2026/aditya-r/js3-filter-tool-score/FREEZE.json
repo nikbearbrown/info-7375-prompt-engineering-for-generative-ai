@@ -1,0 +1,40 @@
+{
+ "frozen_utc": "2026-11-25T23:09:11+00:00",
+ "decided_by": "Aditya Raj chose v1.1 = C-a + C-b + C-e and the Claude context experiment on H2 only (2026-11-25, in session)",
+ "frozen_filter": "v1.1",
+ "h2_label_status_at_freeze": "H2 sheet still blank (hash of the blank file recorded below); no H2 label exists or has been seen by Claude",
+ "sha256": {
+  "filters/v1.0.json": "6e15893ab4e0800c32b8e18255cc8020ede73a39cec3fb80025904c09da8aaab",
+  "filters/v1.1.json": "aa6d3111080c190a093a3431b79268205be18df48cd860e4717cbce53d27282d",
+  "filters/cand-a_boilerplate.json": "d9b2f14dd3ef75897f4214b8e1fe1be5bbd20749f167bee455022b7ff4cc8044",
+  "filters/cand-b_years.json": "dd606ed6ea82618a528fdd80baac61b241516e87c3780823bb6b50dd87a4b3f9",
+  "filters/cand-e_earlycareer3.json": "7a8324cca4a98731774e57304b00837a5a051174f5505753bcf38473cf9e9401",
+  "filters/cand-r_roles.json": "6b405be6c6fe6d2b255214d5a7269c93fabe2fd0ecd5a8e405853ab20355bfa7",
+  "filters/cand-abe_combined.json": "e2db3b0ccf8a07175423c97db479a621ffe4cfd41d3dea5893a2e81f74ad0321",
+  "filters/boilerplate_segments.json": "b14676577047155714332885408fa829ebb45a3d610f59dc1b0bd2e507d4f781",
+  "js3/filter.py": "01ac073b1bea3bf3bbc7289e68ba3e4e87c6e1fc25ac50a9b4f44d15d14c6b04",
+  "js3/claude_context.py": "491153b1065f4bbf5410aff3abb9dbcb287829310d6271dfd0936c48c53581d7",
+  "review/LABEL_SHEET_H2.csv": "ccbbeb99f7ff360dfb930b27414ceaf54c20006670d4ccc93ea198968d89e0bb"
+ },
+ "preregistered_on_H2": {
+  "baseline": "filter v1.0, threshold 6",
+  "single_changes": {
+   "C-a": "filter file -> cand-a_boilerplate",
+   "C-b": "filter file -> cand-b_years",
+   "C-e": "filter file -> cand-e_earlycareer3",
+   "C-t": "setting: threshold 6 -> 5 (filter v1.0)",
+   "CTX": "context given to Claude: arm A (persona + posting) -> arm B (+ <filter_rules> block); same system prompt, model, effort"
+  },
+  "combination": "v1.1 (C-a + C-b + C-e) vs v1.0, reported as a combination, not one-at-a-time",
+  "metric": "on H2 rows Aditya labeled yes/no: TP, FP, FN, TN; recall TP/(TP+FN); precision TP/(TP+FP); agreement (TP+TN)/decided; every flip listed with both arithmetics. 'unsure' rows reported separately. Claude: invalid responses counted as invalid, never converted.",
+  "not_a_rate": "H2 is stratified (A3) and has no v1.0 keep; numbers describe these 24 postings only"
+ },
+ "claude_context_prompts": {
+  "system_sha256": "edfc7c61bf147fa8e328e2daa551981f4f83a543bf7223edae2f3d2f24e330ad",
+  "rules_block_sha256": "1590191d7705796f0ac8e6f999ed427aca04d40d4978a30694aa48823d24944d",
+  "persona_sha256": "64779d541fdcf0766f8fd1fe409071572cbcd7ade454c06610ef41e4da07e1ec",
+  "model": "claude-opus-5-5",
+  "effort": "medium"
+ },
+ "dev_format_check": "6 calls on dev postings S01, S35, S43 x arms A/B (2026-11-25), format only, not evaluated"
+}
