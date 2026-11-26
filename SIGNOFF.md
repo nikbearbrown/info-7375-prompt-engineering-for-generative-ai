@@ -15,7 +15,7 @@
 | "Unable to sponsor" earns no visa points; one location bonus only; maximum 100 | `test_W9_*`, `test_W10_*`, `test_max_score_is_100` |
 | Each wrong version is actually caught | `scripts/js3_sabotage_check.py`: 9 of 9 red |
 | The server speaks the protocol and refuses bad calls | `tests/test_js3_mcp.py` (12 tests); `evidence/mcp/transcript.jsonl` and `v1.3/` |
-| A real client (Claude Code) can use it, and what that client did with the answers | `evidence/mcp/claude_client/` (transcript and Claude's reply) |
+| A real client (Claude Code) can use it, and what that client did with the answers | `evidence/mcp/claude_client/` (two sessions; `claude_reply.md`, `claude_reply_2.md`) |
 | The description declares the filter version it runs | `test_description_declares_the_version_it_runs`, written after Claude, as a client, found the stale "v1.2" |
 | The server makes no network requests and writes no files | `test_no_network_during_a_call`, `test_no_file_writes_during_a_call`; audit trace `evidence/mcp/server_audit.txt` |
 | The snapshot is what was downloaded | `jsagent/snapshot.py` checks every file's sha256 against `manifest.json` on load |
@@ -59,9 +59,9 @@
    - The proxy case, where the private-address guard is weaker.
    - The user-initiated `fetch` prompt, which skips robots.txt.
    - These come from its source, not from my runs.
-4. **More than one real client session.** Claude Code connected once, with one prompt. It read the bucket correctly, but another
-   client or prompt might rank by score. The description fix (`78b57ea`) is verified by a test, not by a second Claude session.
-   And my server speaks only up to protocol 2025-06-18: it worked because Claude Code fell back from 2026-07-28.
+4. **Other clients and the newest protocol.** Only Claude Code connected, in two sessions. It read the bucket correctly both times,
+   but questioned the over-generous labels only once, and another client might rank by score. My server speaks only up to protocol
+   2025-06-18: it worked because Claude Code fell back from 2026-07-28.
 5. **Postings on other days.** Everything is one snapshot from 2026-11-25. The held-out set has only 7 relevant postings.
 6. **Whether a random reject is wrong at a low rate.** 0 of 30 bounds the error rate only to about 9.5%.
 
@@ -73,7 +73,7 @@
 - that the server is safe for any client, or that annotations prove anything
 - that anything was trained; every change was a file edit
 
-**Signed or withheld:** Signed, Ethan Gomes, 25 November 2026
+**Signed or withheld:** ____________ (name, date)
 
 ---
 

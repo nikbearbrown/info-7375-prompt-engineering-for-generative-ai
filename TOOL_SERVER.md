@@ -31,7 +31,7 @@ its own audit trace.
   - every other answer matches the v1.2 transcript
   - its audit trace again shows 0 writes, 0 network and 0 processes
 
-- `evidence/mcp/claude_client/transcript.jsonl` (13 lines). **Claude Code as the client.** I started a Claude Code session (version
+- `evidence/mcp/claude_client/transcript.jsonl` (24 lines over two sessions). **Claude Code as the client.** I started a Claude Code session (version
   2.1.331) in this folder; it launched the server through `.mcp.json` and `scripts/mcp_logged_server.py`, a recorder that relays every
   line unchanged and logs it, so the server itself still writes nothing. I typed: *"Use the score_posting tool to score these three
   postings: samsara 8141959, samsara 7992889, and kraken 1. Then tell me which one Evan should apply to."* Claude's full reply is in
@@ -47,8 +47,15 @@ its own audit trace.
     output said v1.3. The description was hard-coded. My own v1.3 transcript contained the same mismatch, and I hadn't noticed it.
     Fixed after this session, test first: `test_description_declares_the_version_it_runs` (`a945738`, failing) and then the fix
     (`78b57ea`). The description now takes the version from the code, and it now also says that the bucket decides and a rejected
-    posting still has a score. The fix is verified by the test, not by a second Claude session.
+    posting still has a score.
   - The audit trace shows 0 writes, 0 network and 0 processes.
+  - **A second Claude Code session after the fix** (21:31 ET, 11 more lines in the same file; reply in `claude_reply_2.md`). The
+    description Claude received now said FILTER.md v1.3, and Claude confirmed it matched both outputs, so the fix is checked by a real
+    client as well as by the test. The protocol fallback was the same. Claude again read the bucket, not the score: it said the
+    Canada posting is out under F3. But this time it **repeated the checker's over-generous label without question**: it said the posting
+    states Airflow as a requirement, which comes from "at least one … (e.g Airflow, Dagster, or Prefect)". In session 1 it had
+    flagged exactly that. A client's scepticism varies from session to session, which is one more reason a client is not entitled
+    to trust the labels unchecked.
 
 The table below is from the first transcript:
 
