@@ -32,4 +32,4 @@
 | Trust decisions on both servers | Me | Me |
 | Claim labels | Me, by review | Claude Code drafted |
 
-Signed: *[your name and date]*
+Signed:Rithika (25th Nov, 2026)
