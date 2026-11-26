@@ -136,8 +136,9 @@ Commits: `28cfad43`, `106cd4a7`, `6fc19f50`
 - **Rejected:** Nothing.
 - **What I checked:** I opened the full text for every PM-titled row (the lesson from the audit) and
   judged by the minimum-requirements section only.
-- **Unresolved:** All 40 labels came out not relevant. The sample was enriched with 8 PM titles per
-  half, but almost every PM role asked for 7+ years. Recall on held-out is unmeasured.
+- **Unresolved:** All 40 labels came out not relevant. Of the 16 PM-titled label rows, the filter
+  read 9 as requiring 7+ years, 4 as 5–6, and 3 as not stated (with the extraction limits in
+  §5.4); my notes record why each was not relevant to me. Recall on held-out is unmeasured.
 
 ## Claude calls: spend limit and manual route
 Commits: `59d8fc69`, `3caf2978`, `21609f36`, `9ab830b9`, `0a3cc5e8`, `d495dfb8`, `1d65ff45`

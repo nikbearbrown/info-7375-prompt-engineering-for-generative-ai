@@ -27,7 +27,7 @@ allow-list is unchanged and unused.
 | | Version |
 |---|---|
 | Language | JavaScript, ES modules (`.mjs`) |
-| Runtime | **Node.js v20.20.2** (`~/.nvm/versions/node/v20.20.2/bin/node`). The machine's default `node` is v24; every command below names v20. |
+| Runtime | **Node.js 20.x**: developed and tested on v20.20.2 |
 | Dependencies | **none**: Node built-ins only, no `package.json` |
 | Tests | `node --test` (built-in runner) |
 | Claude, intended path | `claude` CLI **2.1.323**, `claude -p`, tool-less (`src/judge.mjs`). It failed on the spend limit (see Deviations). |
@@ -37,8 +37,11 @@ allow-list is unchanged and unused.
 
 ## Commands
 
-Run from this folder, `fall-2026/aravind-r/js3-filter-tool-score/`. With nvm, replace the full path
-with `nvm use 20 && node …`.
+Run from this folder, `fall-2026/aravind-r/js3-filter-tool-score/`, with Node 20.x on the PATH, for
+example after `nvm use 20`.
+
+> **Note about my machine:** its default `node` is v24, so I ran every command with the full path
+> `~/.nvm/versions/node/v20.20.2/bin/node` in place of `node`.
 
 ```bash
 cd fall-2026/aravind-r/js3-filter-tool-score
@@ -47,63 +50,63 @@ cd fall-2026/aravind-r/js3-filter-tool-score
 The tests (no network; synthetic fixtures plus the frozen snapshot; 71 tests):
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node --test
+nvm use 20
 ```
 
 ```bash
-nvm use 20 && node --test
+node --test
 ```
 
 Run the final filter (v1.1.0-e) over the snapshot. It writes `runs/filter/v1.1.0-e/`:
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/run-filter.mjs
+node tools/run-filter.mjs
 ```
 
 Recompute the audit results from the hand verdicts. View B uses the final filter by default:
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/audit-results.mjs
+node tools/audit-results.mjs
 ```
 
 Known-limit counts and the sponsor/visa grep (measurement only):
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/known-limits.mjs
+node tools/known-limits.mjs
 ```
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/grep-sponsor.mjs > audit/sponsor-visa-hits.md
+node tools/grep-sponsor.mjs > audit/sponsor-visa-hits.md
 ```
 
 Phase 3: render the exact prompts, import the pasted replies, build the claim table, apply the
 confirmed labels:
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/justify-shortlist.mjs --render
+node tools/justify-shortlist.mjs --render
 ```
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/import-manual.mjs --model "Claude Opus 5.5 (as shown in the claude.ai model selector)" --date 2026-11-25
+node tools/import-manual.mjs --model "Claude Opus 5.5 (as shown in the claude.ai model selector)" --date 2026-11-25
 ```
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/justify-shortlist.mjs --no-call
+node tools/justify-shortlist.mjs --no-call
 ```
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/confirm-claims.mjs
+node tools/confirm-claims.mjs
 ```
 
 The MCP server, over stdio. A client starts it; for the client config, see
 `mcp/client-config.example.json`:
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node mcp/server.mjs
+node mcp/server.mjs
 ```
 
 ```bash
-claude mcp add js3-filter -- ~/.nvm/versions/node/v20.20.2/bin/node "$PWD/mcp/server.mjs"
+claude mcp add js3-filter -- "$(command -v node)" "$PWD/mcp/server.mjs"
 ```
 
 Claude Desktop config (used for the 3 real `tools/call`). Add this to
@@ -114,7 +117,7 @@ restart Claude Desktop:
 {
   "mcpServers": {
     "js3-filter": {
-      "command": "<HOME>/.nvm/versions/node/v20.20.2/bin/node",
+      "command": "<ABSOLUTE PATH TO A NODE 20.x BINARY>",
       "args": ["<ABSOLUTE PATH TO>/fall-2026/aravind-r/js3-filter-tool-score/mcp/server.mjs"]
     }
   }
@@ -125,22 +128,22 @@ The judge tool (blind; shows no score, decision, or stratum; saves after every r
 recheck, and labels:
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/judge-audit.mjs
+node tools/judge-audit.mjs
 ```
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/judge-audit.mjs --recheck plan
+node tools/judge-audit.mjs --recheck plan
 ```
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/judge-audit.mjs --sheet labels/label-sheet.csv
+node tools/judge-audit.mjs --sheet labels/label-sheet.csv
 ```
 
 Phase 5: evaluate a run against the dev labels. Held-out requires `--heldout-final --why "…"`, and
 every held-out evaluation is logged:
 
 ```bash
-~/.nvm/versions/node/v20.20.2/bin/node tools/eval-labels.mjs --run runs/filter/v1.1.0-e --set dev
+node tools/eval-labels.mjs --run runs/filter/v1.1.0-e --set dev
 ```
 
 **Not to be re-run:**
@@ -162,6 +165,7 @@ every held-out evaluation is logged:
 | What did **not** run | `claude -p` for the justifications (spend limit, 0 tokens, no reply); a `tools/call` from Claude Code (same limit); any prompt or context change in Phase 5 (no held-out posting labeled relevant or cannot_tell) | `3caf2978`, `82f18acc`, `phase5/RESULTS.md` |
 | Phase 3 via claude.ai (manual) | 7 valid replies, 54 claims, all quotes verbatim. Aravind confirmed 37 supported / 6 contradicted / 11 insufficient. | `shortlist/SHORTLIST.md`, `ffd5e49f` |
 | MCP server, real clients | Claude Code: handshake and `tools/list` (`tools/call` blocked by the spend limit). Claude Desktop: 3 real `tools/call` (keep; veto with quote; `../../README.md` refused). | `transcripts/README.md`, `592026e1` |
+| Phase 5 diff-set (post hoc, not held-out) | Of the 12 postings threshold 0.70 adds as keeps, Aravind labeled **3 relevant, 9 not** (3/12, exact 95% interval 5.5–57.2%). D09 = A065 is a false reject under the final filter (0.775). | `phase5/RESULTS.md`, `5540e14b` |
 | Phase 5 | Held-out has **0 relevant** of 20. The baseline and threshold 0.70 both surfaced 0, so recall and the change could not be measured. No number was fitted on labels. | `phase5/RESULTS.md`, `phase5/ORIGINS.md` |
 
 ## Where each deliverable is

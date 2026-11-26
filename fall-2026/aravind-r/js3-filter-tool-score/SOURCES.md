@@ -29,7 +29,7 @@
 | `tools/run-filter.mjs`, `make-samples.mjs`, `judging-plan.mjs`, `audit-results.mjs`, `false-friends.mjs`, `known-limits.mjs`, `grep-sponsor.mjs` | all | sample sizes, strata, seeds, the judging plan, the recheck lists |
 | `tools/judge-audit.mjs` | all (blind judging, recheck, label modes) | asked for it and specified it |
 | `tools/justify-shortlist.mjs`, `import-manual.mjs`, `confirm-claims.mjs` | all | the manual-route fallback; `my-labels.json` content |
-| `tools/eval-labels.mjs`, `experiments/FILTER.exp1-threshold-0.70.md` | all; the threshold change was chosen and justified by Claude Code (`phase5/PLAN.md`) | approved Phase 5 scope |
+| `tools/eval-labels.mjs`, `tools/make-diffset.mjs`, `experiments/FILTER.exp1-threshold-0.70.md` | all; the threshold change was chosen and justified by Claude Code (`phase5/PLAN.md`) | approved Phase 5 scope |
 | `prompts/justify.v1.md` | the prompt text | approved before any call |
 | `mcp/server.mjs` | all (no MCP SDK) | read-only scope; the description fix |
 | `audit/RESULTS.md`, `shortlist/SHORTLIST.md`, `evaluations/*.md`, `phase5/*.md`, `transcripts/README.md`, `README.md`, `SIGNOFF.md` (template) | drafts and generated text | the trust decisions, the false-friend naming, the relevance-vs-entailment cases, and the sign-off are Aravind's to confirm and sign |
@@ -45,7 +45,8 @@
 - **Claude sessions:** the 7 claude.ai sessions (raw replies in
   `runs/claude/justify.v1-v1.1.0-e/manual/responses/`) and the Claude Desktop session (3 calls,
   screenshots `transcripts/screenshots/`).
-- `FRICTIONAL.md` (dictated entries are marked).
+- `FRICTIONAL.md` and the Not checked / Not claiming / signature parts of `SIGNOFF.md`: Aravind's. As both files state, **chat-Claude (claude.ai, Claude Opus 5.5) helped draft them** from Aravind's answers, and Aravind reviewed and edited the text.
+- Diff-set labels: 12 blind labels (`5540e14b`).
 
 ## Claude responses used as data
 

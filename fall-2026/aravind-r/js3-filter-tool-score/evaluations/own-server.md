@@ -5,7 +5,7 @@
 **Marks:** **[V]** verified, with the evidence named. **[I]** inferred, not tested.
 
 **What it is:** JSON-RPC 2.0 over stdio, one JSON message per line. Written from scratch, with no MCP
-SDK; about 120 lines of Node 20 with no dependencies. It handles `initialize`,
+SDK; 113 lines of Node 20 (at `461b608d`) with no dependencies. It handles `initialize`,
 `notifications/initialized`, `ping`, `tools/list`, and `tools/call`, and has one tool,
 `score_posting`.
 

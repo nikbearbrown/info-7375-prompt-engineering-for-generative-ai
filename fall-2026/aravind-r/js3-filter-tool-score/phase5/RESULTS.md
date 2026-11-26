@@ -46,7 +46,7 @@ If the scorer behaves the same way in a later session, nothing was trained.
 - To claim learning, you would need a model whose parameters changed. Nothing in this project
   changes any model parameter.
 
-## Addendum: diff-set (post hoc, not held-out)
+## Diff-set (post hoc, not held-out)
 
 - **What it is:** a blind sheet of **exactly the 12 postings that threshold 0.70 keeps and v1.1.0-e
   does not** (`phase5/diffset/diffset-sheet.csv`, built by `tools/make-diffset.mjs`, row order
@@ -78,6 +78,13 @@ and 9 not relevant.**
     a relevant posting at threshold 0.80.
   - This was not known when v1.1.0-b was logged: A065 was an unjudged PM-stratum row. No rule was
     changed (the filter is frozen).
+  - **Why it falls below 0.80 under v1.1.0-e:** title core (T = 1, × 0.40 = 0.40) + location "San
+    Francisco" (L = 1, × 0.25 = 0.25) + experience "5+ years" (E = 0.5, × 0.25 = 0.125) + topic none
+    (P = 0, × 0.10 = 0) = **0.775**, which is 0.025 short.
+  - Under v1.1.0-a it had P = 0.5 ("payments"), so 0.825: keep. That one boilerplate word was the
+    whole margin.
+  - **The recall cost at 0.80 on this set:** 1 relevant posting lost (D09), against the 9 wrong keeps
+    that 0.70 would add.
 - **The 9 not-relevant extra keeps are exactly the failure the threshold was raised to prevent**
   (Checkpoint 1, W13):
   - 6 state 8+ or 10+ years: D01–D03, D05–D07
@@ -85,9 +92,13 @@ and 9 not relevant.**
   - 2 are in London: D08, D10
 
   Each scored 0.70 or 0.75 on title + topic + one of location or experience.
-- **Consistency check:** 7 of the 9 rows that are also audit rows had audit verdicts. **All 7 diff-set
-  labels agree with Aravind's final audit verdicts.** The other 2 (A061, A065) were in the unjudged
-  PM stratum.
+- **Consistency check:** 9 of the 12 rows are also audit rows, and 7 of those 9 have a final audit
+  verdict.
+  - **All 7 diff-set labels agree with Aravind's final audit verdicts:** D01 = A037, D02 = A013,
+    D03 = A030, D04 = A022, D05 = A049, D06 = A047, D12 = A042.
+  - **Disagreements: none.**
+  - The other 2 overlapping rows (D08 = A061, D09 = A065) were in the PM stratum, which was never
+    judged, so there is nothing to compare.
 - **Verdict on the one change:** on this post-hoc set, lowering the threshold to 0.70 adds 9 wrong
   keeps for 1 right one. This supports keeping 0.80. It is still not a held-out result, and the set
   was chosen by the change itself.
