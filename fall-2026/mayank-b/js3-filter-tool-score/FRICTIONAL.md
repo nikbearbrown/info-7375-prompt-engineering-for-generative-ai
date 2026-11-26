@@ -2,7 +2,7 @@
 
 
 
-### 1. Writing the filter before the code (JS3-CP1 `0fddc1c2`)
+### 1. Writing the filter before the code (JS3-CP1 `50551836`)
 - **A.** I accepted most ★ answers without much argument, because I wanted the gate committed before the fetch. The one I changed was rag: I had picked it, but Priya's résumé never mentions RAG, so a keep on "rag" would have produced a claim her résumé can't back. I cut it.
 
 
