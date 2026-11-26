@@ -67,7 +67,7 @@
 - that the server is safe for any client, or that annotations prove anything
 - that anything was trained; every change was a file edit
 
-**Signed or withheld:** ____________ (name, date)
+**Signed or withheld:** Signed, Ethan Gomes, 25 November 2026
 
 ---
 
