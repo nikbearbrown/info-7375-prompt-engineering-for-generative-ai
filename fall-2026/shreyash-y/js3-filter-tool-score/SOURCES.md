@@ -61,7 +61,8 @@
 | The "In my own words" entries of FRICTIONAL.md (the "What Shreyash did" list above them is Claude Code's) | `FRICTIONAL.md` |
 | After the re-grade: his account of how he wrote his answers (20:02 EST) and the entry on the double-check (20:03 EST) | `labels/hand-verdicts-provenance.md`; `FRICTIONAL.md` |
 | After the second re-grade: his reasons for what stayed the same in v1.1 (21:04 EST), a second statement on how he wrote his answers (21:06 EST), and his agreement to saving the summaries he judged (21:00 EST) | FILTER.md, last section; `labels/hand-verdicts-provenance.md`; `labels/summaries-shown-2026-11-25.md` |
-| The signature (signed again at 20:03 EST, after the re-grade's changes) | the sign-off in `README.md` |
+| After the second re-grade: a list of five possible improvements (21:21 EST), and his check of the 45 v1.1 claims of the 5 open postings (21:28 EST) | `labels/shortlist-v1.1-claims-by-shreyash.jsonl`; SHORTLIST.md section 6 |
+| The signature (signed again at 20:03 EST, after the re-grade's changes, and at 21:35 EST, after his claim check) | the sign-off in `README.md` |
 
 ## What Claude Code contributed
 

@@ -148,7 +148,8 @@ has"), which was right. The second run added Alex's public profile (no contact d
     the pay range ("For US-based candidates, the expected cash compensation range…"). The ad's own
     location sentence, "This role is open to candidates based in North America.", is not used. The
     label is right for the wrong reason (AUDIT.md section 4, false friend 4).
-  - Claude labeled only v1's 45 claims. The v1.1 shortlist's claims were not labeled independently.
+  - Claude labeled only v1's 45 claims. Shreyash checked the v1.1 claims of the 5 open postings himself
+    (section 6).
   - For 6 of the 7, the full-time claim stays labeled *insufficient*, marked "not stated".
   - Linear's Product Engineer is *supported*: its board lists FullTime.
 - **4 of the 7 reach Alex with their skills claim labeled *insufficient*:** Growth, Android/Kotlin,
@@ -165,3 +166,39 @@ has"), which was right. The second run added Alex's public profile (no contact d
   - Its skills claim is still labeled insufficient, but skills is not a must-have, so the abstention
     rule does not catch it: the "opposite limit" of section 3, now live.
   - `tests/test_js3_filter_v11.py` records it as a known false positive.
+
+## 6. Shreyash's check of the v1.1 claims
+
+*Shreyash's labels and reasons, pasted into the session on 2026-11-25 at 21:28 EST and saved word for
+word in `labels/shortlist-v1.1-claims-by-shreyash.jsonl`. The sheet he filled in is
+`labels/shortlist-v1.1-claim-sheet-shown.md`. The comparison below is Claude Code's.*
+
+- **What he was shown:** the 45 claims of the 5 open v1.1 postings, each with the quotes the code used,
+  but not the code's label. Where a claim had no quote, the sheet said where Alex's skills appear, or
+  that the code found no statement. He labeled each claim supported, contradicted or insufficient.
+- **The result:** he agrees with the code on **42 of 45**. His 45 lines give 33 supported and 12
+  insufficient; his own summary said 34 and 11. In all 3 disagreements, he said insufficient where the
+  code said supported:
+
+| # | Posting, claim | Code | Shreyash's label and why |
+|---|---|---|---|
+| 10 | Android/Kotlin, role | supported | **insufficient**: "The general title matches, but the Android specialization may not match Alex's target roles." |
+| 22 | Conversational Products, skills | supported | **insufficient**: "Python is explicitly required, but FastAPI is an alternative to Django, so two of Alex's specific skills are not necessarily required." |
+| 43 | Product Engineer, full-time | supported | **insufficient**: "FullTime establishes full-time employment but does not establish permanence." |
+
+- **What his labels would change.** This is Claude Code applying the same abstention rule to his
+  labels; it is measured, not proposed.
+  - **The Android/Kotlin job would answer "I cannot tell".** Role is a must-have, and he labels it
+    insufficient. That fits his hand verdict (no) better than the code's "reaches Alex".
+  - **The Product Engineer job depends on how B4 is read.** B4 covers a full-time claim with nothing
+    stated. It does not say what to do when full-time is stated but permanence is not. Read as covering
+    that, the job still reaches Alex; read strictly, it becomes "I cannot tell".
+  - Skills is not a must-have, so 22 changes no answer.
+- **On the Product Engineer location (39), he agreed with the code's label but not with its
+  evidence:** "North America and Remote together support Boston eligibility. The compensation quote
+  alone would not." That is false friend 4 (AUDIT.md section 4), seen by hand.
+- **Still open, in his words:** "I would request the full postings for A, B, C, D and E to resolve the
+  outstanding questions about skill requirements, experience, role suitability and employment
+  permanence." His 12 insufficient labels were made from the quotes alone.
+- **What this check is not:** a relabeling of the full ads. He judged whether the code's own evidence
+  supports each claim. The 2 closed postings were not checked.

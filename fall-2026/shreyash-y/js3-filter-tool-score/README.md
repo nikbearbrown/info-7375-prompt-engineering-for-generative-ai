@@ -13,7 +13,8 @@ closest calls). It was read, and no code was copied. The Reallocation Engine was
 
 - **Shreyash's own words:** the summary, FILTER.md, the 70 hand verdicts, every decision, both trust
   decisions, the How sentences in the sign-off, the driver's seat paragraph, the "In my own words"
-  entries of FRICTIONAL.md, his account of how he wrote his answers, and the signature. How each hand
+  entries of FRICTIONAL.md, his account of how he wrote his answers, his list of improvements, his
+  check of the v1.1 claims, and the signature. How each hand
   verdict was given, including where Claude Code influenced one, is in
   `labels/hand-verdicts-provenance.md`.
 - **Drafted by Claude Code and checked against the files:** everything else (SOURCES.md has the full
@@ -141,6 +142,7 @@ postings, shortened.
 | by 18:28, and 18:30 | **Shreyash ran the tests and the label-hash check himself.** The first command (Claude Code's) hid the result line; the corrected one showed it | 218 tests OK (1 expected failure); `labels/hand-verdicts.jsonl: OK` | `evidence/commands-run-by-shreyash-2026-11-25.txt` |
 | 18:33–18:57 | **Two independent reviews** by Claude Code helpers (a grader and a number check), reading the files and rerunning the scripts on a copy | findings fixed: 39/49 provenance, the held-out set's use on A3, tool-evaluation counts, two server bugs (fixed test-first), wording | FRICTIONAL.md Part 2, `evidence/server-review-bugs-*` |
 | 19:13–19:37, 20:10–20:29 | **Two re-grades** of the submitted zip (commits `a1334cd`, then `77c8e33`) by other Claude Code helpers, with the first grader's instructions | found a fourth false friend ("US" anywhere in an ad), now recorded, not fixed in code; two wrong counts in AUDIT.md and one in SCORE.md, now computed by a script; closed postings shown as reaching Alex (fixed test-first); asked how the pasted answers were written | AUDIT.md section 4, `results/whatif-v1.json`, `evidence/shortlist-closed-*`, `labels/hand-verdicts-provenance.md` |
+| 21:21–21:35 | **Shreyash's list of five possible improvements.** Two were done: the network-module test, which depended on how Python is installed, fixed with before-and-after evidence; and his own check of the 45 v1.1 claims of the 5 open postings, with the code's labels hidden | the check agrees with the code on 42 of 45; the full suite passes with outbound network blocked | `evidence/network-module-test-*`, SHORTLIST.md section 6 |
 
 ## Folder map
 
@@ -195,24 +197,20 @@ postings, shortened.
 
 ## Sign-off — Job-Search Agent 3
 
-*Drafted by Claude Code from the files.*
+*Drafted by Claude Code from the files. On 2026-11-25 Shreyash signed it each time the text below
+changed:*
 
-- **18:21 EST:** Shreyash signed it in the session ("sign shreyash yadav 26th november 2026"), and at
-  18:28 corrected the date to the 25th.
-- **18:30:** he ran the full test suite and the hand-verdict hash check himself
-  (`evidence/commands-run-by-shreyash-2026-11-25.txt`).
-- **After the independent reviews:**
-  - his How sentences and the reviews' corrections were added;
-  - he chose the wording "I labeled the 70 postings myself" over his first draft ("I reviewed the
-    suggested labels for the 70 postings"). By "suggested labels", his account says, he meant the
-    posting information Claude Code showed him (`labels/hand-verdicts-provenance.md`);
-  - at about 18:50 EST he signed the updated text. His answers arrived between commits `85187c4b`
-    (18:48) and `bd093fef` (18:52).
-- **After the re-grade (19:13–19:37):** Claude Code changed the text below in three places: the freeze
-  wording under Checked, "written by me and pasted" under How, and two new Not checked entries. At
-  20:03 EST Shreyash signed the updated text in the session: "Sign. I have read the revised Checked,
-  How and Not checked sections. I agree with the corrections and acknowledge the limitations of my
-  verification."
+- *18:21 EST, with the date corrected to the 25th at 18:28;*
+- *about 18:50, after the independent reviews, with his How sentences;*
+- *20:03, after the re-grade;*
+- *21:35, after his check of the v1.1 claims, answering "Sign it" to Claude Code's question "Sign the
+  updated sign-off?".*
+
+*At 18:30 he ran the full test suite and the hand-verdict hash check himself
+(`evidence/commands-run-by-shreyash-2026-11-25.txt`). In the How sentences he chose "I labeled the 70
+postings myself" over his first draft ("I reviewed the suggested labels for the 70 postings"). By
+"suggested labels", his account says, he meant the posting information Claude Code showed him
+(`labels/hand-verdicts-provenance.md`).*
 
 ```text
 Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js3_filter_doc.py and
@@ -229,6 +227,9 @@ Checked:      - FILTER.md v1 and v1.1 as code: tests/test_js3_filter.py, test_js
                 set has 1 miss and 0 false positives (labels/hand-verdicts-provenance.md).
               - No made-up quotes: every quote the filter and the shortlist use is checked against the
                 posting (0 not found in 789 postings), and so is every quote in Claude's claim labels.
+              - The v1.1 shortlist's claims: I checked the 45 claims of the 5 open postings from the
+                code's quotes, without seeing its labels, and agreed with the code on 42 (SHORTLIST.md
+                section 6, labels/shortlist-v1.1-claims-by-shreyash.jsonl).
               - The tool server: tests/test_js3_mcp_server.py (15, written after the server code),
                 tests/test_js3_mcp_server_review.py (4, written before fixing two bugs the reviews found),
                 and the real transcripts of three claude -p sessions and one scripted session.
@@ -260,7 +261,9 @@ Not checked:  - The miss rate among the 763 rejects outside the held-out set: 0 
               - Whether each quote supports its claim: the check shows that every quote exists in its
                 posting, not that it supports the claim. In v1.1 the Product Engineer job's location
                 claim quotes a pay range (AUDIT.md section 4, false friend 4).
-              - The v1.1 shortlist's claims against a second labeler: Claude labeled only v1's 45.
+              - The v1.1 claims against the full ads: I judged the code's quotes, not the whole
+                postings, and 12 of my 45 answers say the quotes are not enough. The 2 closed postings
+                were not checked.
 Not claiming: That the agent finds good jobs; that the 5 open postings v1.1 keeps are all worth Alex's
               time (by my own label the Android one is not); that Claude agreeing with the filter on
               24 of 24 held-out postings makes either of them right in general; or that anything was

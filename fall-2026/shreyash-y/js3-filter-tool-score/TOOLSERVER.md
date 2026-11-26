@@ -19,7 +19,7 @@ quotes, and, for a kept posting, the labeled claims of its justification.
 | Server | `js3/mcp_server.py` | MCP written from scratch: JSON-RPC 2.0 over stdio, one JSON message per line, Python standard library only. It handles `initialize`, `notifications/initialized`, `ping`, `tools/list` and `tools/call`. Anything else gets -32601. |
 | Client | `js3/mcp_client.py` | A minimal client: `initialize`, `notifications/initialized`, `tools/list`, then the calls it is given. Every line is logged both ways. Used for the scripted session and for the other server. |
 | Offer to Claude | `js3/offer.py` | Runs `claude -p` (Claude Code 2.1.331, `--model opus`) from an empty temporary folder with `--mcp-config` naming only this server, plus `--strict-mcp-config`, `--setting-sources ""` (none of the user's settings, plugins, hooks or CLAUDE.md; Claude Code's six built-in plugins still load, as each transcript's init event shows), `--tools ""` (no built-in tools), `--allowedTools mcp__js3__score_posting` and `--no-session-persistence`. |
-| Tests | `tests/test_js3_mcp_server.py`, `tests/test_js3_mcp_server_review.py` | 15 tests, written **after** the server code (see FRICTIONAL.md); 4 more, written **before** the fix of two bugs the independent reviews found. |
+| Tests | `tests/test_js3_mcp_server.py`, `tests/test_js3_mcp_server_review.py` | 15 tests, written **after** the server code (see FRICTIONAL.md); 4 more, written **before** the fix of two bugs the independent reviews found. At 21:24 EST the network-module test was changed so that it no longer depends on how Python is installed (`evidence/network-module-test-*`). |
 
 **The real transcripts, in both directions.**
 

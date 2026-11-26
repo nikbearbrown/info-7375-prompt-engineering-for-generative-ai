@@ -112,10 +112,17 @@ class Actual(unittest.TestCase):
 
 class Boundaries(unittest.TestCase):
     def test_no_network_module_is_loaded(self):
-        code = ("import sys; from js3 import mcp_server; mcp_server.Server(None); "
-                "print(sorted(m for m in ('socket', 'ssl', 'http.client', 'urllib.request', 'subprocess') "
-                "if m in sys.modules))")
-        out = subprocess.run([sys.executable, "-c", code], capture_output=True, text=True, cwd=HERE, check=True)
+        # Python starts with -I -S, so nothing from the environment (a sitecustomize, a .pth file,
+        # PYTHONPATH) loads first, and only what importing the server adds is counted. Before this
+        # change the test failed on any Python whose start-up imports socket, although the server
+        # imports none of these (evidence/network-module-test-*).
+        mods = ("socket", "ssl", "http.client", "urllib.request", "subprocess")
+        code = (f"import sys; sys.path.insert(0, {str(HERE)!r}); mods = {mods!r}; "
+                "before = {m for m in mods if m in sys.modules}; "
+                "from js3 import mcp_server; mcp_server.Server(None); "
+                "print(sorted(m for m in mods if m in sys.modules and m not in before))")
+        out = subprocess.run([sys.executable, "-I", "-S", "-c", code], capture_output=True, text=True, cwd=HERE,
+                             check=True)
         self.assertEqual(out.stdout.strip(), "[]")
 
     def test_the_transcript_folder_must_be_inside_transcripts(self):

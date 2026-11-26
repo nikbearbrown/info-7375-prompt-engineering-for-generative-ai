@@ -44,6 +44,9 @@ here says what he thought.*
   - wrote his reasons for what stayed the same in v1.1 (FILTER.md, last section), and rewrote the one
     sentence that repeated Claude Code's wrong numbers (21:11);
   - wrote a second statement on how he wrote his answers (`labels/hand-verdicts-provenance.md`).
+- **21:21–21:35.** Wrote a list of five possible improvements, chose the claim check from it, and
+  checked the 45 claims of the 5 open v1.1 postings from the code's quotes, with its labels hidden
+  (SHORTLIST.md section 6). Then he signed the updated sign-off (21:35).
 
 ### In my own words
 
@@ -236,6 +239,21 @@ times are EST on 2026-11-25.*
       section).
   - **What I take from it:** three numbers I had counted by hand were wrong. Each now has a script
     behind it.
+- **21:21–21:35 — Shreyash's list of improvements, and what I did with it.**
+  - **The network-module test (his item 2).** It checked every module the Python process had loaded.
+    On a Python whose start-up imports `socket`, it failed although the server imports none. I
+    showed the failure first, then made the test start Python in isolated mode and count only what
+    the server adds. It still catches a real import, and the whole suite passes with outbound network
+    blocked (`evidence/network-module-test-*`).
+  - **Not done, with my reasons:**
+    - fixing false friend 4: a filter change with calls only he can make, such as whether "North
+      America" counts;
+    - moving the server to v1.1: it would change no finding;
+    - fresh labels: v1 and v1.1 disagree on only 2 postings, and both are labeled.
+  - **His claim check (his item 4).** I built the sheet with the code's labels hidden and its quotes
+    shown. Where a claim had no quote, the sheet said where Alex's skills appear or that nothing was
+    found. He agreed with the code on 42 of 45 (SHORTLIST.md section 6). His summary line miscounted
+    by one (34 and 11 for 33 and 12); his 45 lines are what is recorded.
 - **Still unresolved:**
   - The held-out set is too easy to separate most changes: everything scores 24 of 24 except A3.
   - Only one person labeled.
