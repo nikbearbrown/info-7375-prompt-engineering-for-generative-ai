@@ -2,7 +2,8 @@
 // FILTER.md §5.2) under the given filter run. Every raw response is saved with its date, model,
 // session id, the prompt file and its SHA-256, and the exact prompt sent. Replies are validated;
 // an invalid reply stays invalid (no retry). Claude's labels are PROPOSALS: my_label is left empty.
-// A posting that already has a saved response is not called again.
+// A posting that already has a saved reply is not called again; a call that got no reply is archived
+// under failed/ and made again on the next run.
 // Usage: node tools/justify-shortlist.mjs [--run runs/filter/v1.1.0-e] [--prompt prompts/justify.v1.md] [--model claude-sonnet-5-5]
 import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'node:fs';
 import { createHash } from 'node:crypto';
@@ -34,9 +35,15 @@ const rows = [], perPosting = [];
 for (const r of shortlist) {
   const k = `${r.board}:${r.id}`, p = posts.get(k), name = auditId[k] ?? k.replace(/[^a-z0-9-]/gi, '_');
   const file = join(outDir, `${name}.json`);
-  let rec;
-  if (existsSync(file)) rec = JSON.parse(readFileSync(file, 'utf8'));
-  else {
+  let rec = existsSync(file) ? JSON.parse(readFileSync(file, 'utf8')) : null;
+  // A call that returned NO reply (CLI or account error) is moved to failed/ and may be made again.
+  // A call that returned a reply is kept as it is, valid or not: never retried into a pass.
+  if (rec && rec.reply_text === null) {
+    mkdirSync(join(outDir, 'failed'), { recursive: true });
+    writeFileSync(join(outDir, 'failed', `${name}.${rec.at.replace(/[:.]/g, '')}.json`), JSON.stringify(rec, null, 2) + '\n');
+    rec = null;
+  }
+  if (!rec) {
     const prompt = buildPrompt(template, { definition, persona, posting: postingView(p) });
     process.stderr.write(`calling claude for ${name} (${k}) ... `);
     const call = callClaude(prompt, { model: values.model });

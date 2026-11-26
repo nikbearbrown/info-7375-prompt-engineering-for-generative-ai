@@ -1,0 +1,98 @@
+{
+  "label": "JUDGMENT",
+  "posting": "gh-stripe:7586413",
+  "audit_id": "A020",
+  "decision": "keep",
+  "spec_version": "1.1.0-e",
+  "prompt_file": "prompts/justify.v1.md",
+  "prompt_sha256": "9d5c15d4061eefded5e8e2b2083e37834b10efeea842bce33f599352472c8289",
+  "model_requested": "claude-sonnet-5-5",
+  "at": "2026-11-26T00:03:01.730Z",
+  "models": [],
+  "session_id": "2e68d73e-60e0-4918-a476-d67389e01746",
+  "exit_code": 1,
+  "error": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+  "args_without_prompt": [
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--no-session-persistence",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "prompt": "You are writing a source-grounded justification for one job posting, for one fictional job seeker. You do NOT decide whether she should apply and you do NOT give a score. You state claims about what the posting says that bear on the definition below, and you ground every claim in the posting's own text.\n\nDEFINITION OF A RELEVANT POSTING (from the job seeker's filter document):\nA posting is worth Maya's time when it is:\n- a product-management role\n- whose stated experience requirement fits her application policy: **mostly roles requiring at\n  most 4 years, sometimes 5+ or 6+, never 7+**\n- in a place she can work\n- from an employer that does not rule out sponsorship\n- ideally in one of her domains.\n\nTechnical Program Manager roles:\n- A TPM role counts as PM work for Maya only if the posting describes **owning product\n    direction**: deciding what gets built, setting the product strategy or roadmap. A posting\n    that describes only program delivery (coordinating schedules, dependencies, launches) does\n    not count.\n- The same years, location, and sponsorship conditions then apply.\n\nJOB SEEKER'S PREFERENCES (fictional persona):\n{\n \"preferred_max_years\": 4,\n \"stretch_max_years\": 6,\n \"locations\": [\n  \"San Francisco\",\n  \"Los Angeles\",\n  \"San Jose\",\n  \"Remote\"\n ],\n \"needs_sponsorship\": true,\n \"domains\": [\n  \"payments\",\n  \"fintech\",\n  \"data\",\n  \"e-commerce\",\n  \"mobile\"\n ]\n}\n\nPOSTING (the only source you may use; do not use any outside knowledge about the company):\n{\n \"id\": \"gh-stripe:7586413\",\n \"title\": \"Product Manager, Terminal Developer Experiences\",\n \"location\": \"San Francisco, Seattle\",\n \"department\": \"8258 Terminal - PM\",\n \"text\": \"Who we are\\nAbout Stripe\\nStripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career.\\nAbout the team\\nStripe Terminal helps our users extend their online presence to the physical world. The Terminal team’s mission is to make it as easy for businesses to accept in-person payments as the Stripe API has made it to accept online payments. Whether a user is building a superb retail experience, extending their website to a pop-up store, or enabling mobile point-of-sale payments at their next event, Terminal gives them the building blocks to do it.\\nAlmost every Terminal experience starts with a developer building the integration. The Developer Experiences team owns that work: the SDKs, APIs, integration primitives, documentation, and example apps that developers—and, increasingly, AI agents—use to build on Terminal. In this role, you’ll own how developers and agents integrate in-person payments with Stripe, from making their first test charge to running their integrations at scale in production.\\nWhat you’ll do\\nYou’ll own the roadmap and execution for Terminal’s developer-facing surface: the client SDKs (JavaScript, iOS, Android, React Native, .NET, and Java), the integration primitives developers depend on, and the documentation and example apps that help them make their first successful charge. You’ll work with engineering to ship capabilities that make Terminal faster to integrate and more reliable to run while supporting newer patterns such as server-driven integration and agent-built integrations.\\nResponsibilities\\nOwn the roadmap and execution for Terminal’s developer experience within the team’s strategy: break the roadmap into milestones, define requirements, prioritize work, and drive delivery through sprint planning while making the tradeoffs required by a broad surface area.\\nTalk regularly with external developers, platforms, and internal Stripe teams to validate ideas, requirements, and prototypes and turn what you learn into better developer experiences.\\nPartner with engineering and design to ship functionality that delights developers building on Terminal, balancing impact against engineering cost and delivering measurable results.\\nOwn the integration primitives developers depend on—including connection tokens, integration authentication, device attestation, and connectivity—to ensure that developers can build secure, reliable in-person payment experiences consistently across every SDK and platform.\\nSet the direction for integrations at scale, from server-driven integration and reusable example apps to agentic tooling that allows AI agents to build and test safely, and maintain a high bar for Terminal’s documentation and accessibility.\\nUse data to form a point of view, set success metrics, and determine whether changes are working.\\nCommunicate decisions and status to stakeholders and use your technical judgment to help the team make tradeoff decisions.\\nWho you are\\nWe’re looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\\nMinimum requirements\\n5+ years of product management experience or equivalent experience, with a track record of shipping products that solve real user problems.\\nTechnical expertise gained by building and owning developer-facing products such as APIs, SDKs, or developer tools.\\nA track record of driving execution across cross-functional teams within an established product vision and strategy.\\nStrong written and verbal communication skills, with the ability to make complex concepts accessible and structure ambiguous problems from first principles.\\nComfort working across many functions, stakeholders, and subject-matter experts and engaging in healthy, respectful debate in pursuit of shared goals.\\nPreferred qualifications\\nExperience with mobile SDKs, including iOS or Android, or cross-platform frameworks such as React Native.\\nExperience with payments, in-person commerce, or hardware-adjacent products.\\nExperience building for AI agents or developing agentic tooling.\\nExperience building and launching zero-to-one products.\\nA hands-on approach: you test-drive integrations yourself and improve the documentation before shipping functionality.\"\n}\n\nINSTRUCTIONS\n1. Write 4 to 8 atomic claims. One fact per claim. Cover, when the posting addresses them: the role's title and level; the years of experience it REQUIRES (say whether a years figure is under a required/minimum heading or a preferred/bonus heading); the location; sponsorship or work authorization; the product domain.\n2. For each claim, copy ONE quote from the POSTING TEXT, character for character, that the claim rests on. Do not paraphrase, fix typos, change case, or join separate sentences. Keep it under 300 characters.\n3. If the posting does not state the fact a claim needs, set \"quote\" to null, set \"abstain\" to true, set \"proposed_label\" to \"insufficient\", and write the claim as \"The posting does not state ...\". Never fill a gap from outside knowledge.\n4. \"kind\" is \"quoted\" if the claim only restates what the quote says, or \"judgment\" if it goes beyond the quote (an inference, a comparison with the job seeker's preferences, or a reading of tone).\n5. \"proposed_label\", judged against the posting text only:\n   - \"supported\": the quote, by itself, entails the claim.\n   - \"contradicted\": the quote entails that the claim is false.\n   - \"insufficient\": no quote entails the claim either way, or the quote is only on topic.\n   Write claims that you expect to be supported or insufficient; do not write false claims on purpose.\n\nOUTPUT FORMAT. Reply with one JSON object and nothing else: no prose, no code fences. Exactly these keys:\n{\"posting_id\": \"<the id given above>\",\n \"claims\": [ {\"claim\": \"<one sentence>\", \"kind\": \"quoted\" or \"judgment\", \"quote\": \"<exact substring of the posting text>\" or null, \"proposed_label\": \"supported\" or \"contradicted\" or \"insufficient\", \"abstain\": true or false} ] }\n",
+  "reply_text": null,
+  "envelope": {
+    "duration_api_ms": 0,
+    "stop_reason": "stop_sequence",
+    "session_id": "2e68d73e-60e0-4918-a476-d67389e01746",
+    "total_cost_usd": 0,
+    "usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {},
+    "permission_denials": [],
+    "terminal_reason": "api_error",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": true,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": 429,
+    "api_error_origin": "first_party",
+    "api_error": "usage_limit_reached",
+    "result": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+    "type": "result",
+    "duration_ms": 636,
+    "uuid": "37fad611-b5b9-49d4-9afe-8178e48e979c",
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "credential_expires_at": "2026-11-30T08:40:42.198Z"
+  }
+}

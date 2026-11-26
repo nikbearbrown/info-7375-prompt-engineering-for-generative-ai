@@ -1,0 +1,98 @@
+{
+  "label": "JUDGMENT",
+  "posting": "gh-stripe:7983856",
+  "audit_id": "A025",
+  "decision": "keep",
+  "spec_version": "1.1.0-e",
+  "prompt_file": "prompts/justify.v1.md",
+  "prompt_sha256": "9d5c15d4061eefded5e8e2b2083e37834b10efeea842bce33f599352472c8289",
+  "model_requested": "claude-sonnet-5-5",
+  "at": "2026-11-26T00:03:03.468Z",
+  "models": [],
+  "session_id": "45e9e6f9-ce90-4f59-aa6c-6628c0c8e4de",
+  "exit_code": 1,
+  "error": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+  "args_without_prompt": [
+    "--tools",
+    "",
+    "--strict-mcp-config",
+    "--no-session-persistence",
+    "--output-format",
+    "json",
+    "--model",
+    "claude-sonnet-5-5"
+  ],
+  "prompt": "You are writing a source-grounded justification for one job posting, for one fictional job seeker. You do NOT decide whether she should apply and you do NOT give a score. You state claims about what the posting says that bear on the definition below, and you ground every claim in the posting's own text.\n\nDEFINITION OF A RELEVANT POSTING (from the job seeker's filter document):\nA posting is worth Maya's time when it is:\n- a product-management role\n- whose stated experience requirement fits her application policy: **mostly roles requiring at\n  most 4 years, sometimes 5+ or 6+, never 7+**\n- in a place she can work\n- from an employer that does not rule out sponsorship\n- ideally in one of her domains.\n\nTechnical Program Manager roles:\n- A TPM role counts as PM work for Maya only if the posting describes **owning product\n    direction**: deciding what gets built, setting the product strategy or roadmap. A posting\n    that describes only program delivery (coordinating schedules, dependencies, launches) does\n    not count.\n- The same years, location, and sponsorship conditions then apply.\n\nJOB SEEKER'S PREFERENCES (fictional persona):\n{\n \"preferred_max_years\": 4,\n \"stretch_max_years\": 6,\n \"locations\": [\n  \"San Francisco\",\n  \"Los Angeles\",\n  \"San Jose\",\n  \"Remote\"\n ],\n \"needs_sponsorship\": true,\n \"domains\": [\n  \"payments\",\n  \"fintech\",\n  \"data\",\n  \"e-commerce\",\n  \"mobile\"\n ]\n}\n\nPOSTING (the only source you may use; do not use any outside knowledge about the company):\n{\n \"id\": \"gh-stripe:7983856\",\n \"title\": \"Product Manager, Treasury for Platforms\",\n \"location\": \"Seattle, New-York, San Francisco\",\n \"department\": \"8543 Treasury - PM\",\n \"text\": \"Who we are\\nAbout Stripe\\nStripe is a financial infrastructure platform for businesses. Millions of companies—from the world’s largest enterprises to the most ambitious startups—use Stripe to accept payments, grow their revenue, and accelerate new business opportunities. Our mission is to increase the GDP of the internet, and we have a staggering amount of work ahead. That means you have an unprecedented opportunity to put the global economy within everyone’s reach while doing the most important work of your career.\\nAbout the team\\nTreasury for Platforms sits at the center of Stripe's evolution from a payments processor to a complete financial infrastructure provider. Our mission is to increase the GDP of the internet, and Treasury extends that mission by enabling marketplaces, software-as-a-service platforms, and fintechs to embed fully featured financial services directly into their own products.\\nBy handling bank partnerships, compliance, and regulatory requirements, we allow platforms to launch quickly while focusing on the core parts of their business. We pair this with embedded user interfaces, managed support, and rich treasury features so our users can build great financial experiences.\\nToday, our platforms serve a highly diverse set of use cases, from payout cards for on-demand workers and operational accounts for in-field purchases to financial accounts for small businesses. We proudly power industry-leading products like Shopify Balance and Ambrook Wallet, serving a rapidly growing roster of users across the United States.\\nWhat you’ll do\\nWe are seeking a Product Manager to own and drive critical Treasury for Platforms infrastructure and features, including new account types, checkbooks, and accounting integrations. You will take these products from alpha to general availability across consumer and commercial Treasury. You will work directly with platforms by joining sales calls, running product demos, and shaping integration paths. You will be the most technically fluent person in the room with the user and the most user-fluent person in the room with engineering. Ultimately, you’ll turn every platform into a financial hub for its users.\\nResponsibilities\\nDeeply understand the financial management needs of our diverse user base and how they can benefit from strong treasury features.\\nDevelop and communicate a clear product strategy and roadmap that aligns with Stripe’s broader vision and market demands.\\nDrive product development from ideation to launch, ensuring the delivery of high-value experiences for our users.\\nWork closely with engineering, design, legal, and other teams to ensure cohesive execution and alignment across all phases of product development and launch.\\nAdvocate for the Treasury for Platforms vision internally and externally, ensuring key stakeholders are informed and engaged.\\nWho you are\\nWe’re looking for someone who meets the minimum requirements to be considered for the role. If you meet these requirements, you are encouraged to apply. The preferred qualifications are a bonus, not a requirement.\\nMinimum requirements\\n6+ years of product management experience, with a strong track record of launching impactful products.\\nAn ownership mindset and willingness to do what it takes to solve problems and delight consumers.\\nAbility to handle and prioritize work in a fast-paced, dynamic environment while managing multiple projects and deadlines.\\nStrong written and verbal communication skills, with a talent for distilling user problems into precise, actionable framing.\\nRigorous approach to data, including comfort digging into metrics, writing SQL when needed, and thinking from first principles to deliver the right result.\\nPreferred qualifications\\nExperience in treasury services and financial account management.\\nExperience building platforms with multiparty transaction capabilities.\\nExperience managing high-stakes external partnerships.\\nUnderstanding of international payments, foreign exchange, and compliance.\"\n}\n\nINSTRUCTIONS\n1. Write 4 to 8 atomic claims. One fact per claim. Cover, when the posting addresses them: the role's title and level; the years of experience it REQUIRES (say whether a years figure is under a required/minimum heading or a preferred/bonus heading); the location; sponsorship or work authorization; the product domain.\n2. For each claim, copy ONE quote from the POSTING TEXT, character for character, that the claim rests on. Do not paraphrase, fix typos, change case, or join separate sentences. Keep it under 300 characters.\n3. If the posting does not state the fact a claim needs, set \"quote\" to null, set \"abstain\" to true, set \"proposed_label\" to \"insufficient\", and write the claim as \"The posting does not state ...\". Never fill a gap from outside knowledge.\n4. \"kind\" is \"quoted\" if the claim only restates what the quote says, or \"judgment\" if it goes beyond the quote (an inference, a comparison with the job seeker's preferences, or a reading of tone).\n5. \"proposed_label\", judged against the posting text only:\n   - \"supported\": the quote, by itself, entails the claim.\n   - \"contradicted\": the quote entails that the claim is false.\n   - \"insufficient\": no quote entails the claim either way, or the quote is only on topic.\n   Write claims that you expect to be supported or insufficient; do not write false claims on purpose.\n\nOUTPUT FORMAT. Reply with one JSON object and nothing else: no prose, no code fences. Exactly these keys:\n{\"posting_id\": \"<the id given above>\",\n \"claims\": [ {\"claim\": \"<one sentence>\", \"kind\": \"quoted\" or \"judgment\", \"quote\": \"<exact substring of the posting text>\" or null, \"proposed_label\": \"supported\" or \"contradicted\" or \"insufficient\", \"abstain\": true or false} ] }\n",
+  "reply_text": null,
+  "envelope": {
+    "duration_api_ms": 0,
+    "stop_reason": "stop_sequence",
+    "session_id": "45e9e6f9-ce90-4f59-aa6c-6628c0c8e4de",
+    "total_cost_usd": 0,
+    "usage": {
+      "output_tokens_details": {
+        "thinking_tokens": 0
+      },
+      "input_tokens": 0,
+      "cache_creation_input_tokens": 0,
+      "cache_read_input_tokens": 0,
+      "output_tokens": 0,
+      "server_tool_use": {
+        "web_search_requests": 0,
+        "web_fetch_requests": 0
+      },
+      "service_tier": "standard",
+      "cache_creation": {
+        "ephemeral_1h_input_tokens": 0,
+        "ephemeral_5m_input_tokens": 0
+      },
+      "inference_geo": "",
+      "iterations": [],
+      "speed": "standard",
+      "fallback_credit": null
+    },
+    "modelUsage": {},
+    "permission_denials": [],
+    "terminal_reason": "api_error",
+    "fast_mode_state": "off",
+    "fast_mode_disabled_reason": "sdk_opt_in_required",
+    "subagent_stats": {
+      "spawned": 0,
+      "requested": {
+        "background": 0,
+        "foreground": 0,
+        "unset": 0
+      },
+      "started_in_background": 0,
+      "max_depth": 0,
+      "spawned_by_subagents": 0,
+      "completed": 0,
+      "failed": 0,
+      "killed": {
+        "parent": 0,
+        "user": 0,
+        "system": 0
+      },
+      "refused": {
+        "depth_limit": 0,
+        "concurrency_limit": 0,
+        "budget": 0
+      },
+      "by_type": {}
+    },
+    "safety_stops": 0,
+    "is_error": true,
+    "num_turns": 1,
+    "subtype": "success",
+    "api_error_status": 429,
+    "api_error_origin": "first_party",
+    "api_error": "usage_limit_reached",
+    "result": "You've hit your individual spend limit · run /usage-credits to ask your admin for a higher limit",
+    "type": "result",
+    "duration_ms": 326,
+    "uuid": "23869592-35af-4dac-8f7a-57348b857497",
+    "queued_turn_count": 0,
+    "result_index": 0,
+    "credential_expires_at": "2026-11-30T08:40:42.198Z"
+  }
+}
