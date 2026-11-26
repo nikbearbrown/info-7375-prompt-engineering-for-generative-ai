@@ -63,6 +63,7 @@ Next time I would draw the held-out set first and label it slowly.
   * `e02dffe` the starting agent and the collection;
   * `8b11679` the filter code and the sample, before any label;
   * `70ddf4b` my labels and v1.1, before the held-out check;
+  * `c8e33eb` the reports, the shortlist, my second pass and the signed sign-off;
   * the final commit is in the Canvas submission.
 * My key prompts: "Approve, build", "Yes, reject G", "Yes, commit", "Change to insufficient" (claims #29 and #32), and my predictions "A keep, B reject, C keep".
 * Times: my labels 20:55 to 20:57, second pass 21:54 to 21:55, Claude's shortlist calls 21:09 to 21:10, the context test 21:59 to 22:00, the final tool transcripts 22:34.
