@@ -6,6 +6,8 @@
 // Each reply is validated by the SAME code as an automated reply (src/justify.mjs:
 // schema, exact-substring quote check, label rules). An invalid reply is recorded as invalid:
 // never repaired, re-prompted, or replaced. A record that already exists is not overwritten.
+// A reply whose posting_id names another posting is REJECTED before validation (filing guard,
+// src/justify.mjs checkReplyPosting): nothing is written for it, and the exit code is 3.
 //
 // Usage:
 //   node tools/import-manual.mjs --model "<model as shown in claude.ai>" --date YYYY-MM-DD [--interface "claude.ai web, incognito chat"] [--dir runs/claude/justify.v1-v1.1.0-e] [--run runs/filter/v1.1.0-e]
@@ -17,7 +19,7 @@ import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseArgs } from 'node:util';
 import { loadCorpus } from '../src/corpus.mjs';
-import { validateJustification } from '../src/justify.mjs';
+import { validateJustification, checkReplyPosting } from '../src/justify.mjs';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const { values } = parseArgs({ options: {
@@ -42,6 +44,13 @@ for (const m of manifest.prompts) {
   const prompt = readFileSync(join(DIR, 'manual', 'prompts', m.file), 'utf8');
   if (sha(prompt) !== m.sha256) throw new Error(`${m.file}: prompt changed since it was rendered (SHA-256 mismatch); refusing to import`);
   const raw = readFileSync(join(respDir, `${m.id}.txt`), 'utf8');
+  const guard = checkReplyPosting(raw, m.posting);
+  if (!guard.ok) {
+    const owner = manifest.prompts.find(x => x.posting === guard.got);
+    report.push({ id: m.id, status: `REJECTED, not imported: ${guard.reason}${owner ? ` (that posting is ${owner.id})` : ''}` });
+    process.exitCode = 3;
+    continue;
+  }
   const v = validateJustification(raw, { postingId: m.posting, postingText: posts.get(m.posting).text });
   const rec = {
     label: 'JUDGMENT', posting: m.posting, audit_id: m.id, decision: results.get(m.posting)?.decision ?? m.decision, spec_version: manifest.spec_version,

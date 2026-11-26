@@ -53,3 +53,15 @@ export function validateJustification(text, { postingId, postingText }) {
   const claimErrors = claims.filter(c => c.errors.length).length;
   return { ok: errors.length === 0, errors, claims, claims_with_rule_violations: claimErrors };
 }
+
+// Filing guard for manual pastes: a reply whose posting_id names a different posting than the one
+// its file is for is most likely saved under the wrong filename. It is REJECTED (not imported, not
+// recorded as an invalid Claude reply), so a misfiled reply can never be counted for the wrong posting.
+// A reply that is not parseable JSON passes this guard and is then recorded as invalid by validation.
+export function checkReplyPosting(raw, expectedPostingId) {
+  let obj;
+  try { obj = JSON.parse(String(raw).trim()); } catch { return { ok: true, reason: 'not JSON: left to validation' }; }
+  const got = obj && typeof obj === 'object' ? obj.posting_id : undefined;
+  if (got === expectedPostingId) return { ok: true, reason: 'posting_id matches' };
+  return { ok: false, got: got ?? null, reason: `posting_id ${JSON.stringify(got ?? null)} is not ${expectedPostingId}: likely saved under the wrong filename` };
+}
