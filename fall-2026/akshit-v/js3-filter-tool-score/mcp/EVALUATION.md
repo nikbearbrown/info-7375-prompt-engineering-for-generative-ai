@@ -49,7 +49,7 @@ Speaking the protocol correctly gives a client a well-formed answer. It does not
 
 > **Proposed by Claude Code (pending my decision):** trust it for **read-only scoring inside this project, launched over stdio by me**, as a source of *recomputable keyword evidence*, never as the judgment. Do not expose it over a network transport. Fix or re-word the "every matched word with its offset" claim before anyone else relies on it.
 >
-> **My decision:** ____________
+> **My decision:**I accept the proposal with three amendments. I trust js3-filter for read-only scoring within this project, which was started by me over stdio, as a source of keyword evidence, that can be recalculated by anybody. It never contains a judgement about the value of a job or doesn't run over a network transport. Before someone else uses it I will correct the one false claim as is: I will either add offsets to the role-word matches or modify the description so that it won't state that there will be an offset for every matched word. I don't believe that until then. There will also be two lines added to the tool description. One states that the session is recorded to the folder out/mcp/transcripts/, as a read-only hint shouldn't obscure the fact that it writes. The other states that the answers are only stable if there is a fixed corpus. I'm okay with this amount of trust because it doesn't carry weight with me. It was offered in Chapter 9, but was never called by Claude. If it's different, and an agent begins to rely on its scores, I will dig into it again first.
 
 ---
 
@@ -95,7 +95,7 @@ Speaking the protocol correctly gives a client a well-formed answer. It does not
 
 > **Proposed by Claude Code (pending my decision):** use it only with **`--read-only --confine-roots`**, pointed at a folder that holds nothing private, with the **whole dependency tree pinned by a lockfile**. Re-evaluate on every version change. Never run it in its default mode for an agent that also reads untrusted text, such as job postings, because a posting could ask the agent to write.
 >
-> **My decision:** ____________
+> **My decision:** My compromise: I will agree to anything Claude offers, and I will take it a step further – I will NOT register this server with the job-search agent. The agent doesn't require file access that a server would provide it. It iterates through my own code and I've already a boundary that I have tested my corpus with. Include a third party default writer, ignore extra parameters, and allow some clients to shift its boundary adds risk – it doesn't provide me with anything I want. If I use it again, it will only work as Claude suggested: Run with --read-only --confine-roots, pointing to a non-private folder. Not only the package version, but the entire dependency tree, is locked. Never in default mode with an agent that reads untrusted text. I would also explore search_files prior to using it for that purpose. It lives – it cannot be changed – and its edge is one that I haven't tested. It's ranged as per its protocol revision negotiated by the client. So, besides server update, I re-evaluate on any change of the server dependency, the client also. I have tested against my probe client and Claude Code 2.1.316, using a Windows junction, and with version 2.2.0 along with its dependency at 2.4.0. I don't trust you beyond that.
 
 ### Not checked
 - The 3,166 lines I did not read, and every dependency.

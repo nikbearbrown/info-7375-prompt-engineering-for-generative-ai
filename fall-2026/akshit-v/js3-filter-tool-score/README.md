@@ -160,7 +160,7 @@ python -B experiments/persistence.py
 - That anything was trained. The persistence demonstration shows a behavior that lived in a file.
 - That the filesystem server is safe or unsafe in general. My findings are for 2.2.0, these flags, and these two clients.
 
-**Signed or withheld:** ____________ (name, date)
+**Signed or withheld:** Akshit Verma, 11/25/2026 (name, date)
 
 ## Driver's seat
 

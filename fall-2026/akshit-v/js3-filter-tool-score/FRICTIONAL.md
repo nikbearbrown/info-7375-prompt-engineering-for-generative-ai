@@ -61,12 +61,18 @@
 - The agent's judge is still `judge_v1.md`.
 
 **What surprised me, and what I learned (my own words):**
+The most surprising aspect was where the problems occurred. I thought the filter would be the weak link and the second method recompute and the tests were mostly good. The truth is it had very little to no real skill gaps: the name of the employer as a skill and punctuation within phrases. I felt that the weak link was myself. In 42 minutes, I labeled 80 postings and in about 10, I labeled 69 claims. Both occasions Claude told me that I had been evaluating one of the other things the rule was used to evaluate: the relevance of a job, not how closely it fit my definition or I think it fit; the validity of a quote, not whether it was saying what I thought it was saying. I didn't see either time until it was pointed out to me.
 
-____________
+One of the shocks was the extent to which the outcome was a function of the location where the criterion was written down. Four sets of experiments didn't shift anything since the definition was in a prompt I had inherited and never read. There were 14 verdicts changed in one paragraph. The note loaded was like a memory file and made Claude call a presales role to its attention, even though it had just written the word presales. I took away the understanding the criterion, and anything in the context, is the instrument. Without being able to refer to where the criterion is found in each component, I don't know what I am measuring.
+
+I also learned about some tools that I thought were safe. The filesystem server allowed my client's version of the root to overwrite my allowed root and pinning of a version did not pin its dependency. PINNED and CONFINED were not as bad as I thought when tested.
+
+The thing I struggle to write in part I is a pattern in my decisions. Two times I was told to redo my own work by Claude, which included editing the labels and editing the claim check. On both occasions, I selected the "Change Definition" option and then left E4 in place. All of my choices were recorded in a truthful manner, but when taken together, they tell us that the weakest link in this project was the one that I protected.
 
 **What I would do differently next time (my own words):**
+I'd be on time; the late start is a reason I rushed the two hand checks which needed the most attention. I would write the definition of relevant first, work it through on 10 postings and then make the changes later, rather than making changes to the definition when I wrote the labels. I would call it slower and then have each note indicate which portion of the definition it is placed on. I would also not use the output from the filter in the current session until I had labeled the filter, not until I had finished working on the sheet.
 
-____________
+I would trace all objects that I was inheriting for what it is representing, before experimenting, before I started writing code. I would plan out all the runs that I had held out for and do them once and not add another run after seeing results. I would consider memory files, notes and prompts as versioned elements of the instrument, and depend on a lockfile, not a single version number. When Claude says to redo the work that I've done and I want to say, "No," I would view that same "no" as an "okay".
 
 ## 3. What I accepted, modified, or rejected from Claude
 
@@ -80,8 +86,8 @@ ____________
 | Candidate rules C1, C2, C3, C4 | accepted C2; **rejected** C1, C3, C4 | FILTER.md section 7 |
 | The fitted threshold | accepted (v1.2) | FILTER.md section 7 |
 | Redoing the claim check (Claude's recommended option) | **rejected**; let E4 apply | SHORTLIST.md |
-| Trust decisions proposed by Claude | ____________ | mcp/EVALUATION.md |
-| Drafts of the documents | ____________ | git diff after `27ce26b` |
+| Trust decisions proposed by Claude | **modified**: accepted both with additions. js3-filter: three amendments (fix the role-word offset claim, disclose that sessions are recorded, state that answers are stable only for a fixed corpus) before anyone else relies on it. Filesystem server: accepted Claude's conditions and went further: not registered with the agent at all; re-evaluate on any change to the server, its dependency tree, or the client | mcp/EVALUATION.md |
+| Drafts of the documents | accepted without editing Claude's drafted text; I wrote the "My view" lines, the section 2 reflections, the two trust decisions, and the signature | git diff after `27ce26b` |
 
 ## 4. Traceability
 
