@@ -1,0 +1,102 @@
+{
+  "_comment": "Machine-readable copy of FILTER.md Version 1.2. FILTER.md is the reference: if the two differ, this file is wrong. The only change from Version 1.1 (kept byte for byte in rules/v1.1/) is titles.related_min_topics, 1 -> 2 (change X2, experiments/RULE-CHANGE-LOG.md). tests/test_versions.py checks that nothing else differs.",
+  "version": "1.2",
+
+  "scoring": {
+    "_source": "FILTER.md section 4",
+    "role_points": {"target": 35, "related": 20, "special_review": 20},
+    "topic_points": {"one": 10, "two_or_more": 20},
+    "skill_points": {"one": 10, "two_or_more": 20},
+    "us_location_points": 15,
+    "experience_compatible_points": 10,
+    "threshold": 65,
+    "near_threshold_range": [55, 75]
+  },
+
+  "titles": {
+    "_source": "FILTER.md Rule 1, checked in this order: excluded, special_review, target, related; otherwise no matching role",
+    "excluded": ["Data Center", "Data Centers", "Datacenter", "Datacenters", "Account Executive", "Sales", "Marketing", "Business Development", "Recruiter", "Counsel", "Legal"],
+    "special_review": ["Architect", "Forward Deployed", "FDE", "Solutions Engineer"],
+    "target": ["AI Engineer", "Machine Learning Engineer", "ML Engineer", "Data Engineer", "Machine Learning Infrastructure Engineer", "ML Infrastructure Engineer"],
+    "research_engineer_phrase": "Research Engineer",
+    "research_engineer_topic_words": ["AI", "ML", "Machine Learning", "LLM", "Data", "Reinforcement Learning", "RL"],
+    "related_title_words": ["Engineer", "Scientist"],
+    "related_min_topics": 2
+  },
+
+  "seniority": {
+    "_source": "FILTER.md Rule 5",
+    "title_words": ["Senior", "Sr.", "Sr", "Staff", "Principal", "Lead", "Leader", "Manager", "Director", "Head", "Vice President", "VP", "Chief"],
+    "description_patterns": [
+      "(?<!\\w)As a (Senior|Staff|Principal|Lead)(?!\\w)",
+      "(?<!\\w)(hiring|seeking|looking for) a (Senior|Staff|Principal)(?!\\w)",
+      "(?<!\\w)This is a (Senior|Staff|Principal)(?!\\w)"
+    ]
+  },
+
+  "programs": {
+    "_source": "FILTER.md Rule 6",
+    "title_words": ["Intern", "Internship", "New Grad", "New Graduate", "Fellow", "Fellows", "Fellowship", "Resident", "Residency", "Apprentice", "Apprenticeship", "Emerging Talent"]
+  },
+
+  "topics": {
+    "_source": "FILTER.md Rule 2. Standalone \"AI\" and generic \"artificial intelligence\" are deliberately absent.",
+    "Machine learning": ["machine learning", "ML engineering", "ML models"],
+    "Language models": ["large language models", "LLM", "LLMs", "language model inference"],
+    "Data engineering": ["data engineering", "data pipelines", "ETL", "ELT"],
+    "Model development": ["model training", "model evaluation", "model serving", "model deployment"],
+    "AI systems": ["AI infrastructure", "ML infrastructure", "inference infrastructure"],
+    "Data processing": ["distributed data processing", "data ingestion", "data transformation"],
+    "AI applications": ["retrieval augmented generation", "RAG", "agentic systems", "AI agents"]
+  },
+
+  "skills": {
+    "_source": "FILTER.md Rules 3 and 4. Skills are read from the résumé's counted groups; the excluded ones are removed.",
+    "counted_groups": ["languages", "data_bi", "backend_automation", "database_cloud"],
+    "familiar_only_group": "familiar_with_not_shipped",
+    "excluded": {
+      "Databricks": "company product name (Rule 4); found in every Databricks posting in JS1",
+      "Unity Catalog": "company product name (Rule 4); found in every Databricks posting in JS1"
+    },
+    "expected_counted": ["Python", "SQL", "Power BI", "LangGraph", "MLflow", "Mem0", "Delta Lake", "AWS"]
+  },
+
+  "experience": {
+    "_source": "FILTER.md Rule 8",
+    "screening_cutoff_years": 2,
+    "priya_experience_months": 8,
+    "ignore_numbers_above": 30,
+    "anthropic_boilerplate": "Years of experience required will correlate with the internal job level requirements for the position",
+    "unrelated_patterns": [
+      {"name": "over the next N years", "before": "(?<!\\w)over the next\\s*$", "after": ""},
+      {"name": "in the next N years", "before": "(?<!\\w)in the next\\s*$", "after": ""},
+      {"name": "after N years of", "before": "(?<!\\w)after\\s*$", "after": "^\\s*of(?!\\w)"},
+      {"name": "for the past N years", "before": "(?<!\\w)for the past\\s*$", "after": ""},
+      {"name": "for the last N years", "before": "(?<!\\w)for the last\\s*$", "after": ""},
+      {"name": "N years ago", "before": "", "after": "^\\s*ago(?!\\w)"}
+    ],
+    "preferred_words": ["preferred", "preferably", "ideally", "nice to have", "nice-to-have", "bonus", "a plus"],
+    "preferred_heading_words": ["Preferred", "Nice to have", "Bonus"],
+    "and_words": ["including", "with at least"],
+    "degree_words": ["BS", "BA", "MS", "MA", "PhD", "Ph.D.", "Ph.D", "Bachelor's", "Bachelors", "Master's", "Masters", "Doctorate", "degree"],
+    "no_experience_patterns": ["(?<!\\w)no (prior |previous |professional )?experience (is )?(required|necessary)(?!\\w)"]
+  },
+
+  "boilerplate": {
+    "_source": "FILTER.md Rule 4. The share only proposes candidates for my review; a sentence is removed only when rules/boilerplate.json labels it 'company boilerplate' with a review date.",
+    "candidate_share_of_board_postings": 0.05
+  },
+
+  "review_candidates": {
+    "_source": "FILTER.md section 4: top 10 review-queue postings by descending score, then board name, then posting ID as text",
+    "size": 10
+  },
+
+  "expected_postings": {
+    "_source": "FILTER.md section 2",
+    "Databricks": 916,
+    "Anthropic": 677,
+    "OpenAI": 825,
+    "total": 2418
+  }
+}

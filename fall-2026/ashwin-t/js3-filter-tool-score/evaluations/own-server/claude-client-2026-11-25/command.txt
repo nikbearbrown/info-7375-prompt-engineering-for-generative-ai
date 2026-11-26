@@ -1,0 +1,5 @@
+# Run by Claude Code on 2026-11-25 at 13:21:23 UTC, from a new empty throwaway directory (cwd).
+# The server wrote its own transcript of both directions: transcripts/claude-client-2026-11-25.jsonl
+claude -p "$(cat prompt.txt)" --output-format json --mcp-config mcp-config.json --strict-mcp-config \
+  --tools "" --allowedTools mcp__js3__score_posting --no-session-persistence --setting-sources "" > claude-reply.json
+# claude exit 0. In mcp-config.json, <JS3_FOLDER> stands for this folder's absolute path (jobfilter/redact.py).

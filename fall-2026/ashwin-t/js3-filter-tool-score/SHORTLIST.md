@@ -1,0 +1,121 @@
+# Source-grounded shortlist (Step 2.2): filter v1.0
+
+**This is filter v1.0's shortlist:** the 18 development postings v1.0 kept. Filter v1.1 is a separate one-change
+experiment (`CHANGE.md`). It keeps 20 postings, and the 2 extra ones, both "Software Engineer - Mission Manager", have
+no claims and are not part of this shortlist.
+
+The brief (Step 2.2) asks for every claim to be labeled "for each posting on your shortlist", and names no filter
+version. The submitted shortlist is v1.0's, and all 90 of its claims are labeled.
+
+Drafted by Claude Code on 2026-11-25. All 90 claims are labeled in `shortlist/claim-sheet.csv`. **Every label is a
+Codex AI-assisted label, relayed by Ashwin in chat. None is an independent human judgment.** The `label_source`
+column separates two kinds:
+
+- **29 excerpt-based labels.** Codex made these from the excerpt-only review cards: claims 1–40, apart from the 11
+  listed next. They were first recorded as Ashwin's own labels (commits `2d01d368` … `e13682ec`), which was wrong;
+  Ashwin corrected that on 2026-11-25.
+- **61 labels checked against the saved posting text and structured fields:**
+  - claims 41–90;
+  - the 5 claims left pending: 22, 26, 31, 32 and 37;
+  - 6 corrections of earlier excerpt-based labels: 2, 6, 7, 11, 12 and 17, each changed from I to S. Each corrected
+    row keeps its earlier label in `note`.
+
+**Human check, added 2026-11-25 (evening).** Ashwin labeled a blind random sample of 15 of the 90 claims (seed
+20261128), with the Codex label hidden (`shortlist/claim-human-sheet.csv`, `audit/BLIND-EXTRA.md`). Ashwin agreed
+with Codex on 12 of 15 (H9, H11 and H15 differ). The Codex label was hidden on each card, but the check is not fully
+blind: earlier that day Ashwin had relayed all 90 Codex labels in chat. **Correction:** an earlier version of this
+paragraph said claim H12 (`palantir-71ed917e-c5`) was a Codex error because "relocation" never appears in the
+posting. That was false: the benefits list says "Relocation assistance". Claude Code's case-sensitive search had
+missed it, and the same false fact was shown on Ashwin's card, so Ashwin's first label (C) rested on it. Ashwin
+re-labeled H12 as S with the correct fact; H13 was also corrected after review. The other 75 claims have only the
+Codex label.
+
+## What ran
+
+- **The shortlist:** the 18 development postings that filter v1.0 kept (`runs/v1.0/summary.md`). v1.1's 2 extra
+  KEEPs are outside it, as above.
+- **The claims:** one live, tool-free `claude -p` call per posting on 2026-11-25, 13:23:12–13:23:53 UTC, model
+  `claude-opus-5-5`, prompt `prompts/claims-v1.md` (written by Claude Code, not tuned). Raw replies are in
+  `shortlist/claims-v1-2026-11-25T13-23-12Z/raw/`.
+- **Validity:** 18 of 18 replies passed the strict JSON check, giving 90 claims, 19 of them abstentions.
+- **What Claude saw:** the title, the location text and the description. It **did not see** the structured fields,
+  such as Lever's `workplaceType` (`posting_view` in `jobfilter/claims.py`).
+
+## Labels
+
+| Label | Codex, excerpt-based | Codex, checked against text and fields | All |
+|---|---:|---:|---:|
+| S, supported | 27 | 55 | 82 |
+| C, contradicted | 0 | 1 | 1 |
+| I, insufficient | 2 | 5 | 7 |
+| **Total** | **29** | **61** | **90** |
+
+The 8 claims not labeled S:
+
+| Claim | Label | Source | Why (recorded with the label) |
+|---|---|---|---|
+| 1: Klaviyo, "3+ years… above a typical new-grad level" | I | Codex, excerpt-based | |
+| 16: Apollo Systems NY, "several years… well beyond new-grad level" | I | Codex, excerpt-based | |
+| 42: Defense NY, "I cannot tell… does not label itself Remote or Onsite" | **C** | Codex, checked | The structured field is `workplaceType: onsite` |
+| 46, 66, 76, 81: "N+ years… above / not new-grad level" | I | Codex, checked | The years are stated; the new-grad comparison is interpretation |
+| 71: Query Engines, "requiring only a… degree" | I | Codex, checked | "Only" overstates it; the posting also requires proficiency, fundamentals and coursework/projects |
+
+**Mechanical check versus labels.** 70 claims had their quote found, and every one of them was labeled either S or
+I. Finding the quote never decided the label. The one negation-flagged claim, `6fe5515f-c3` ("…is beneficial, but
+not required"), was labeled S: its claim states the negation correctly. That is why the flag asks a person rather
+than deciding.
+
+## Relevance is not entailment, measured on the filter itself
+
+The filter's top KEEP, `greenhouse/klaviyo/8041054003` (score 8), counts **Redis** from "task/event systems such as
+celery, kafka, sqs, rabbitmq, or redis" and **Kubernetes** from "technologies such as aws, containers, kubernetes,
+infrastructure automation, or ci/cd systems". Both are options in example lists, not requirements. Without them it
+has 1 topic group and score 6, and would be rejected. Across all 18 KEEPs, 13 have at least one such example-list
+match and **7 would drop out without them** (`shortlist/RELEVANCE-EXAMPLE-LISTS.md`, generated by
+`python3 -m jobfilter.such_as v1.0`, every snippet listed). The words make a posting look relevant; the text does not
+say the job needs them. No filter decision was changed.
+
+### The same gap in a claim (claim 1, Codex excerpt-based label)
+
+`greenhouse/klaviyo/8041054003`, "Software Engineer, Conversational Products & Agent Workflows", Boston, is the
+filter's top KEEP at score 8. It matches three of the résumé's topic groups, Python, Redis and Kubernetes, so the
+filter's words say it is relevant.
+
+Claude's claim 1 reads "The posting asks for 3+ years of professional software engineering experience, which is above
+a typical new-grad level." The quote is real. But the posting never says the role is above new-grad level: that part
+is Claude's interpretation. It is labeled **I** (Codex, excerpt-based).
+
+So the posting matches our words, and still does not support the claim made about it. Claims 16, 46, 66, 76 and 81
+show the same pattern, with every one labeled by Codex.
+
+## The abstention rule and a counterexample
+
+**The rule.** `prompts/claims-v1.md` makes the first two claims cover experience level and US-remote work. If the
+posting does not settle one, the claim must read "I cannot tell from this posting: …" with an empty quote, and
+`validate_reply` refuses a reply where the two disagree.
+
+**Counterexample 1: an abstention that should not have abstained (claim 42, C).** Claude said it could not tell
+whether the New York Defense role is remote, because the posting "does not label itself Remote or Onsite". The saved
+posting's structured field says `workplaceType: onsite`, so the abstention is wrong.
+
+The validator passed it, because it checks only that an abstention has an empty quote. It cannot check whether the
+question really was open. The cause is in the context: Claude was never shown the structured fields. The review cards
+originally left them out too; they now show them (`jobfilter/claim_cards.py`).
+
+**Counterexample 2: a question the rule never asks.** The rule covers experience and remote work only. The three "New
+Grad - Production Infrastructure" postings pass the experience claim with a real quote. Yet they require "Active US
+Security clearance, or eligibility and willingness to obtain a US Security clearance", and Supriya's eligibility is
+unknown. No claim abstains on it.
+
+**Hybrid is not remote.** 18 of the 19 abstentions were labeled S, all by Codex after checking the text and fields. Several sit next to Palantir's office
+policy text, "Many teams do offer hybrid options (WFH a day or two a week)" and "a few roles that allow for 'Remote'
+work on an exceptional basis". Hybrid work does not establish permission to work fully remotely from anywhere in the
+US, so "I cannot tell" stays the right answer on remote eligibility for those postings.
+
+## Still open
+
+- **All 90 labels are AI-assisted; 15 also have a human label made with the Codex label hidden (12 of 15 agree).** Ashwin may review any of them and override them in
+  `claim-sheet.csv`. A changed row should keep the earlier label in `note`.
+- The 2 v1.1-only KEEPs have no claims. That is by scope, because the shortlist is v1.0's, but it means the claim check says nothing about them.
+- One possible next change, to one object: add the structured fields to the context Claude is given. It is not
+  measured.

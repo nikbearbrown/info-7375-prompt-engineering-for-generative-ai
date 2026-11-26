@@ -8,8 +8,10 @@ from js3 import filter as F
 S, C, I = "SUPPORTED", "CONTRADICTED", "INSUFFICIENT"
 NICE = re.compile(r"nice[- ]to[- ]haves?|\b(is|are|would be)? ?an? (big |huge |strong )?plus\b|\bpreferred\b|\bbonus\b|"
                   r"\bdesirable\b|\bnot required\b|\bideally\b|\bpreferably\b", re.I)
-HEADING_HINT = re.compile(r"qualifications|requirements|responsibilit|nice|preferred|bonus|about|what you|who you|you will|"
-                          r"you'll|role|skills|experience|benefits|plus", re.I)
+# A heading must START with a heading word (fix 2026-11-25: 'experience'/'skills' anywhere in a short bullet such as
+# "Experience with Oracle Suite" used to count as a heading and ended the Preferred section; tests/test_evidence_regression.py)
+HEADING_HINT = re.compile(r"^(preferred|minimum|basic|required|desired|additional|nice|bonus|what|who|about|responsibilities|"
+                          r"qualifications|requirements|key|your|you'll|you will|in this role|the role|benefits|plus)\b", re.I)
 
 def units(text):
     """[(sentence, in_nice_section)]: lines, then sentences; a short heading line sets the section for the lines below it."""
@@ -35,10 +37,10 @@ def label_skill(text, skill):
         if not nice and not NICE.search(s): return {"label": S, "quote": s, "cannot_tell": False}
     return {"label": I, "quote": hits[0][0] if hits else "", "cannot_tell": True}
 
-def label_years(text, max_years):
+def label_years(text, max_years, ignore=(), range_uses="top"):
     best = None
     for s, _ in units(text):
-        for n, m in F.years_spans(s):
+        for n, m in F.years_spans(s, ignore, range_uses):
             if best is None or n > best[0]: best = (n, s)
     if best is None: return {"label": I, "quote": "", "cannot_tell": True}
     return {"label": S if best[0] <= max_years else C, "quote": best[1], "cannot_tell": False}
@@ -51,10 +53,10 @@ def justify(posting, cfg):
         j["cannot_tell"] = True; j["why_not"] = f"I cannot tell: {d['failed'][0]} (FILTER.md section 3)"; return j
     role = next((w for w in cfg["role_words"] if F.has_phrase(d["title"], w)), None)
     j["claims"].append({"kind": "title", "claim": "is an entry-level analyst role (title)", "source": "title",
-                        "label": S if role and not d["r2_reject"] else C, "quote": d["title"], "cannot_tell": False})
+                        "label": S if role and not d["r2_reject"] and not d.get("r1b_reject") else C, "quote": d["title"], "cannot_tell": False})
     for sk in d["skills"]:
         r = label_skill(text, sk); j["claims"].append(dict(r, kind="skill", claim=f"requires {sk}", source="text"))
-    y = label_years(text, cfg["max_years"])
+    y = label_years(text, cfg["max_years"], cfg.get("years_ignore_if_followed_by", ()), cfg.get("years_range_uses", "top"))
     j["claims"].append(dict(y, kind="years", claim=f"asks for at most {cfg['max_years']} years", source="text"))
     for c in j["claims"]: c["say"] = _say(c["label"], c["claim"], c["quote"])
     supported = sum(1 for c in j["claims"] if c["kind"] == "skill" and c["label"] == S)

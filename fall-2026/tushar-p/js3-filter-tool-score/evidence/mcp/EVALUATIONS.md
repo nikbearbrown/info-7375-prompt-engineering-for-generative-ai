@@ -52,3 +52,5 @@ Fixes made in the same commit as this file:
 **Reason:** its declarations understate what it can reach.
 - Roots can widen access: [L133](EVAL-FACTS.md?plain=1#L133).
 - Error messages reveal absolute paths: [L139](EVAL-FACTS.md?plain=1#L139).
+
+2026-11-25: idempotentHint was later removed; see the EVAL-FACTS.md addendum
