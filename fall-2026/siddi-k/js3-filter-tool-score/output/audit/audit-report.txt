@@ -1,0 +1,78 @@
+
+## random_reject: filter wrong on 18 of 30  (95% CI 40.6%-77.3%)
+  WRONG filter=reject hand=relevant     score=None Android BSP Engineer | Taipei, Taiwan | G4_location | 
+  ok    filter=reject hand=not_relevant score=None Enterprise Support Specialist | Singapore | G1_title_exclusion,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Mid-Market Solutions Consultant, San Francisco | San Francisco, California | G1_title_exclusion | 
+  ok    filter=reject hand=not_relevant score=None Incident Response Manager | Ireland, Dublin | G2_seniority,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Staff Software Engineer, High Availability and Dis | Seattle, San Francisco, S | G2_seniority,G3_years | 
+  ok    filter=reject hand=not_relevant score=None Account Executive, Product (Global Payouts - Hunte | London OR Dublin | G1_title_exclusion,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Strategy & Operations, Infrastructure | Remote US | G3_years | 
+  WRONG filter=reject hand=relevant     score=0 Integration Engineer (Chicago) | Chicago, US-Remote | below_threshold | 
+  WRONG filter=reject hand=relevant     score=None Software Engineer, Revenue and Financial Automatio | San Francisco, New York C | G3_years | 
+  ok    filter=reject hand=not_relevant score=None Enterprise Account Executive - Hunter | Auckland | G1_title_exclusion,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Manager, Customer Success Enterprise | Atlanta, GA; Chicago, IL  | G1_title_exclusion,G2_seniority,G3_years | 
+  ok    filter=reject hand=not_relevant score=None Outcomes Architect Manager | Dublin, Ireland | G1_title_exclusion,G2_seniority,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Solutions Architect, Startups & SMB | Dublin | G1_title_exclusion,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Data Analyst | Canada | G4_location | 
+  WRONG filter=reject hand=relevant     score=None Program Manager, Card Network Office (Card Network | US-SF, US-NYC, US-Seattle | G2_seniority,G3_years | 
+  WRONG filter=reject hand=relevant     score=None Product Manager - Developer Experience, Bridge | San Francisco Or New York | G1_title_exclusion,G2_seniority,G3_years | 
+  WRONG filter=reject hand=relevant     score=None Product Manager: New Grad Accelerator | San Francisco, New York C | G1_title_exclusion,G2_seniority | 
+  ok    filter=reject hand=not_relevant score=None Senior Sales Manager, Startups New Business, EMEA | Dublin | G1_title_exclusion,G2_seniority,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Engineering Manager - Developer Tooling | Dublin  | G2_seniority,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Sanctions, Operations Associate(CDMX) | Mexico City | G4_location | 
+  WRONG filter=reject hand=relevant     score=None Staff Program Manager, Event Design | US | G2_seniority,G3_years | 
+  WRONG filter=reject hand=relevant     score=None Solutions Architect, Platforms, UK | LOCATION | G1_title_exclusion,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Manager, Forward Deployed Architect, Japan & Korea | Tokyo, Japan  | G1_title_exclusion,G2_seniority,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Solutions Consultant, Enterprise, MEDIT | Dublin, Ireland | G1_title_exclusion,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Account Executive, Product Sales (Billing) - Growe | Dublin | G1_title_exclusion,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Training Program Manager | Mexico City | G2_seniority,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Recruiting Scheduler | Chicago | G1_title_exclusion,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Senior Brand Designer, Link | US | G2_seniority,G3_years | 
+  ok    filter=reject hand=not_relevant score=None Third Party Risk Analyst | Bengaluru | G4_location | 
+  ok    filter=reject hand=not_relevant score=None Public Sector Operations Lead, UK | London | G2_seniority,G4_location | 
+
+## close_call: filter wrong on 1 of 8  (95% CI 0.3%-52.7%)
+  ok    filter=reject hand=not_relevant score=3 Security Engineer | US Remote  | below_threshold | 
+  ok    filter=keep   hand=relevant     score=4 Business Systems Engineer | San Francisco, California |  | 
+  ok    filter=reject hand=not_relevant score=3 FX Trading & Risk Management | New York | below_threshold | 
+  WRONG filter=reject hand=relevant     score=3 Software Engineer, Data Warehouse Analytics | Seattle, WA | below_threshold | 
+  ok    filter=reject hand=not_relevant score=3 Security Analyst | US Remote | below_threshold | 
+  ok    filter=keep   hand=relevant     score=4 Software Engineer, Early Career (AI) | San Francisco, California |  | 
+  ok    filter=keep   hand=relevant     score=4 Analytics Engineer | New York |  | 
+  ok    filter=keep   hand=relevant     score=4 Technical Operations Engineer, Revenue | US |  | 
+
+## kept: filter wrong on 1 of 8  (95% CI 0.3%-52.7%)
+  ok    filter=keep   hand=relevant     score=7 Master's Machine Learning Engineer, Intern | San Francisco, New York C |  | 
+  ok    filter=keep   hand=relevant     score=4 Business Systems Engineer | San Francisco, California |  | 
+  ok    filter=keep   hand=relevant     score=7 PhD Data Scientist, Intern | New York, Seattle, South  |  | 
+  ok    filter=keep   hand=relevant     score=7 PhD Machine Learning Engineer, Intern | San Francisco, New York C |  | 
+  WRONG filter=keep   hand=not_relevant score=5 Security Engineer, Detection and Response | San Francisco, California |  | 
+  ok    filter=keep   hand=relevant     score=4 Software Engineer, Early Career (AI) | San Francisco, California |  | 
+  ok    filter=keep   hand=relevant     score=4 Analytics Engineer | New York |  | 
+  ok    filter=keep   hand=relevant     score=4 Technical Operations Engineer, Revenue | US |  | 
+
+## held_out_A: filter wrong on 10 of 12  (95% CI 51.6%-97.9%)
+  WRONG filter=reject hand=relevant     score=None Payments Analyst | LOCATION | G4_location | 
+  WRONG filter=reject hand=relevant     score=None Processing Cost Analyst | IN-Bengaluru | G4_location | 
+  WRONG filter=reject hand=relevant     score=None Account Executive, AI Sales | San Francisco, CA | G1_title_exclusion,G3_years | 
+  ok    filter=reject hand=not_relevant score=None Accounts Receivable Analyst | SEA, NYC | G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Engineering Manager, AI Conversation Platform | Toronto, Canada | G2_seniority,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Partner Development Manager, AI Partnerships | San Francisco; New York C | G1_title_exclusion,G2_seniority | 
+  WRONG filter=reject hand=relevant     score=None Solutions Architect, AI | NYC, SF, or Chicago | G1_title_exclusion,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Account Executive, AI Sales | San Francisco, CA | G1_title_exclusion,G3_years | 
+  ok    filter=reject hand=not_relevant score=None AR Analyst | Bangalore | G4_location | 
+  WRONG filter=reject hand=relevant     score=None Strategic Account Executive, AI Sales | San Francisco, CA | G1_title_exclusion,G3_years | 
+  WRONG filter=reject hand=relevant     score=None Head of AMER Startups (AI Sales) | San Francisco | G1_title_exclusion,G2_seniority,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Solutions Architect, Metronome (AI Native) | London | G1_title_exclusion,G4_location | 
+
+## held_out_B: filter wrong on 3 of 8  (95% CI 8.5%-75.5%)
+  WRONG filter=reject hand=relevant     score=None Solutions Consultant Manager | Singapore | G1_title_exclusion,G2_seniority,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Staff Security Engineer, Abuse Control | Berlin | G2_seniority,G3_years,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Indirect Tax (VAT/GST) Advisory Consultant | SEA, SF, NYC | G1_title_exclusion,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Account Executive, Product - Link | NYC, SF | G1_title_exclusion,G3_years,G4_location | 
+  ok    filter=reject hand=not_relevant score=None Enablement Program Manager, Japan and Korea | Tokyo, Japan  | G2_seniority,G3_years,G4_location | 
+  WRONG filter=reject hand=relevant     score=None Product Manager, Link - Consumer | SF, SEA, NY, Remote-US | G1_title_exclusion,G2_seniority,G3_years | 
+  ok    filter=reject hand=not_relevant score=None Administrative Coordinator | Mexico City | G4_location | 
+  WRONG filter=reject hand=relevant     score=None Account Executive, Commercial & SMB (India) | Bangalore | G1_title_exclusion,G3_years,G4_location | 
+
+Random rejects: 18/30 wrong. Of 967 rejects, the 95% upper bound allows up to 77.3%, i.e. about 747 postings, to be wrongly rejected.
