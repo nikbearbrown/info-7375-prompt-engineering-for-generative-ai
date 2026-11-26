@@ -1,0 +1,22 @@
+# Labeling rule for JS3 hand labels
+
+Written 2026-11-26, before any JS3 posting was labelled. It is Saloni's JS1 rule
+(`../../js1-contract-and-watch/labels/LABELING-RULE.md`), carried over with one addition: `?`.
+Drafted by Claude Code; the labels are Saloni's, entered with `scripts/label.py`.
+
+Read the posting as Priya Nair would (MS Information Systems Dec 2025, one 8-month AI Engineer
+co-op, Python/SQL, LangGraph, MLflow, Databricks). Answer **y (worth her time)** only if all hold:
+
+1. The job is hands-on building: engineering in ML, AI applications, or data. Customer-facing
+   pre-sales, architecture-for-clients, research science, IT and security operations are not.
+2. Its stated requirements are within reach: no more than roughly 3 years required, no PhD
+   required, and her stack covers a real part of what it asks for.
+3. It is not a senior, staff, lead, principal or manager role, whatever the title says.
+
+Otherwise **n**. Location and visa sponsorship are not considered.
+
+**? (I cannot tell)**: only when the posting itself does not say enough to decide one of the
+three points above (for example it never states the experience required and the title is
+ambiguous). Not for "I'd need to look the company up".
+
+The sheet does not show the filter's decision or score. Label before looking at the key files.
