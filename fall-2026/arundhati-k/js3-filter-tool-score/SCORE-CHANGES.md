@@ -83,8 +83,10 @@ effort). Each is one more object, and I didn't measure them.
   rejects. Claude said the same in all three runs ("it explicitly requires 4+ years"). #4's stack words are
   preferred-only, which rule D rejects. Audit #53 (Y) also requires "three (3) years". So the disagreement is between
   **my labels and my rules**, not between the code and my rules. I have not relabeled the held-out set after seeing
-  this, because relabeling it now would make it no longer held out. **[Arundhati: keep the labels or the rules? Your
-  decision. Record it in FRICTIONAL.]**
+  this, because relabeling it now would make it no longer held out. **My answer (2026-11-25,
+  [verbatim](labels/my-label-vs-rule-2026-11-25.txt)):** the labels were wrong, not the rules. "I sometimes used
+  general engineering relevance as a substitute for checking the actual requirements." The labels stay as I gave
+  them, and the numbers above use them.
 - **Claude's one false positive, #18** (a mobile internship), passes every written rule. I marked it N for "not
   backend-focused", and no rule of mine says "backend-focused". That's a judgment I haven't written down.
 - Sample size: a difference of one posting out of 20 is within noise. None of these comparisons separates the
