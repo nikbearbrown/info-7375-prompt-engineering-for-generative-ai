@@ -16,6 +16,9 @@ Every file is written by `mcp/server.mjs` itself: one JSON object per line, `{at
 `d5fd7291a3a5b7dffed2b416a4ff5f94886618b62dc1e9d4b82ce8ef8ca7fa39`, checked after the Desktop run. The tool
 description was fixed afterwards, in a separate commit (see `evaluations/own-server.md`).
 
-**Screenshots** of the three Desktop calls (`desktop-call-1..3.png`, taken around 19:46 ET on
-2026-11-25) are not in the repo yet. They go in `transcripts/screenshots/`.
+**Screenshots** (taken by Aravind in Claude Desktop, 2026-11-25, ET; originally named by macOS "Screenshot 2026-11-25 at …"):
+- `screenshots/desktop-call-1.png` (19:45:35): call 1, `gh-stripe:8186541`, full tool output, decision keep.
+- `screenshots/desktop-call-2.png` (19:45:48): call 2, `gh-airbnb:8299386`, decision reject, with the veto quote visible.
+- `screenshots/desktop-call-3.png` (19:46:47): call 3, `../../README.md`, the tool "Failed" with the "invalid arguments" error.
+- They show Claude's answer prose next to the tool output. The prose is not evidence: the transcript is.
 
