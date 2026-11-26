@@ -19,9 +19,24 @@ exactly as he sent them.*
     reply are saved word for word in `labels/summaries-shown-2026-11-25.md`, with his agreement; the
     rest of the session stays local, as the brief asks for conversation transcripts.
 - **On request,** Claude Code pasted the full requirements of 8 and the full ads of 11 and 20.
-- **Postings 32–70 came in one message** and were answered in one reply. Those answers were saved at
-  18:03:18 EST, about two and a half minutes after the previous batch was saved (18:00:43). Most were
-  rejected on location or role alone.
+- **Postings 32–70 came in one message** and were answered in one reply. Most were rejected on location
+  or role alone.
+- **How long each batch was on screen before its answers were saved.** Each time runs from when Claude
+  Code's message finished (the times in `labels/summaries-shown-2026-11-25.md`) to when the answers were
+  saved (the `at` field in `labels/hand-verdicts.jsonl`). The messages appeared while they were being
+  written, so each batch could be read from somewhat earlier.
+
+  | Batch | Message finished | Answers saved | Lines saved | Time |
+  |---|---|---|---|---|
+  | 2–11 | 17:54:30 | 17:56:57 | 10 | 2 min 27 s |
+  | 12–21, with changed answers for 8 and 11 | 17:58:54 | 17:59:30 | 12 | 36 s |
+  | 22–31, with the changed answer for 20 | 18:00:04 | 18:00:43 | 11 | 39 s |
+  | 32–70, except 39 and 49 | 18:02:09 | 18:03:18 | 37 | 1 min 9 s |
+  | The double-check reply, then 31, 39 and 49 | 18:03:38 | 18:04:43 | 3 | 1 min 5 s |
+
+  *Corrected after the third re-grade of 2026-11-25. This bullet first measured the 32–70 batch from
+  the previous save ("about two and a half minutes"), which made the time it was shown look longer
+  than it was.*
 - **How his answers arrived:** every answer after the first arrived as pasted text, in five replies,
   and so did his 18:07 decisions.
   - The frozen file's `by` field says "typed in the Claude Code chat" on all 74 lines. That was Claude

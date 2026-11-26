@@ -62,13 +62,13 @@
 | After the re-grade: his account of how he wrote his answers (20:02 EST) and the entry on the double-check (20:03 EST) | `labels/hand-verdicts-provenance.md`; `FRICTIONAL.md` |
 | After the second re-grade: his reasons for what stayed the same in v1.1 (21:04 EST), a second statement on how he wrote his answers (21:06 EST), and his agreement to saving the summaries he judged (21:00 EST) | FILTER.md, last section; `labels/hand-verdicts-provenance.md`; `labels/summaries-shown-2026-11-25.md` |
 | After the second re-grade: a list of five possible improvements (21:21 EST), and his check of the 45 v1.1 claims of the 5 open postings (21:28 EST) | `labels/shortlist-v1.1-claims-by-shreyash.jsonl`; SHORTLIST.md section 6 |
-| The signature (signed again at 20:03 EST, after the re-grade's changes, and at 21:35 EST, after his claim check) | the sign-off in `README.md` |
+| The signature (signed again at 20:03 EST, after the re-grade's changes, at 21:35 EST, after his claim check, and at 22:13 EST, after his own test rerun) | the sign-off in `README.md` |
 
 ## What Claude Code contributed
 
 | Part | Notes |
 |---|---|
-| All new code in `js3/` and all new tests (`tests/test_js3_*`) | The filter's, v1.1's and each fix's tests were committed before the code they test, with two exceptions. The tool server's first 15 tests were written after the server. The 'reside:' test was run failing first, but committed together with its fix (`1272a9d8`; see the evidence files' times). |
+| All new code in `js3/` and all new tests (`tests/test_js3_*`) | The filter's, v1.1's and each fix's tests were committed before the code they test, with three exceptions. The tool server's first 15 tests were written after the server. The 'reside:' test was run failing first, but committed together with its fix (`1272a9d8`; see the evidence files' times). So was the closed-posting test, `tests/test_js3_shortlist_closed.py` (`89473464`; `evidence/shortlist-closed-*`). |
 | `FILTER-NOTES.md`, the reading of FILTER.md as code | Each choice FILTER.md did not force is marked **choice**. |
 | The audit draw, the blind labeling tool, and the chat batches shown to Shreyash | It was Claude Code's excerpts that once hid a requirement (AUDIT.md section 3). |
 | Every measurement, and the "Measured" lines in FILTER.md v1.1 | One of them ("36") was stated before it was run; it carries a dated correction. |
@@ -76,7 +76,7 @@
 | The read-only source audit of chrome-devtools-mcp | by a Claude Code helper that ran no code (`evidence/chrome-devtools-mcp-source-audit-2026-11-25.md`) |
 | Drafts of `README.md` (except the summary, the How sentences, the driver's seat paragraph and the signature), `AUDIT.md`, `SHORTLIST.md`, `TOOLSERVER.md`, `SCORE.md`, this file, and Part 2 of `FRICTIONAL.md` | written from the files |
 | Two independent reviews after the documents were drafted (18:33–18:57 EST): a grader and a number check, both Claude Code helpers that read the files and reran the scripts on a copy | Their findings and the fixes are in FRICTIONAL.md Part 2. |
-| Two re-grades of the submitted zip (19:13–19:37 and 20:10–20:29 EST) by other Claude Code helpers, given the first grader's instructions, which read the files and reran the scripts on an unpacked copy | Their findings and the fixes are in FRICTIONAL.md Part 2. The fourth false friend in AUDIT.md section 4 is the first re-grade's finding. |
+| Three re-grades of the submitted zip (19:13–19:37, 20:10–20:29 and 21:44–22:04 EST) by other Claude Code helpers, given the first grader's instructions, which read the files and reran the scripts on an unpacked copy | Their findings and the fixes are in FRICTIONAL.md Part 2. The fourth false friend in AUDIT.md section 4 is the first re-grade's finding. |
 
 **Home-folder paths in history.** Only the final tree is free of them. 17 pushed commits (`100875a5` to
 `0e31a4c3`) have the path in `evidence/*.txt`. That history was not rewritten, so the commit order stays

@@ -141,8 +141,9 @@ postings, shortened.
 | 18:09–18:12 | v1.1 tests, code, and two test-first fixes for A4 | 2 verdicts change (the two misses); audit 45/46 (in-sample: A1 and A2 were designed from these misses); held-out 24/24 (no longer untouched: A3 was rejected on it) | `evidence/v11-*`, `evidence/state-codes-*`, `evidence/reside-colon-*` |
 | by 18:28, and 18:30 | **Shreyash ran the tests and the label-hash check himself.** The first command (Claude Code's) hid the result line; the corrected one showed it | 218 tests OK (1 expected failure); `labels/hand-verdicts.jsonl: OK` | `evidence/commands-run-by-shreyash-2026-11-25.txt` |
 | 18:33–18:57 | **Two independent reviews** by Claude Code helpers (a grader and a number check), reading the files and rerunning the scripts on a copy | findings fixed: 39/49 provenance, the held-out set's use on A3, tool-evaluation counts, two server bugs (fixed test-first), wording | FRICTIONAL.md Part 2, `evidence/server-review-bugs-*` |
-| 19:13–19:37, 20:10–20:29 | **Two re-grades** of the submitted zip (commits `a1334cd`, then `77c8e33`) by other Claude Code helpers, with the first grader's instructions | found a fourth false friend ("US" anywhere in an ad), now recorded, not fixed in code; two wrong counts in AUDIT.md and one in SCORE.md, now computed by a script; closed postings shown as reaching Alex (fixed test-first); asked how the pasted answers were written | AUDIT.md section 4, `results/whatif-v1.json`, `evidence/shortlist-closed-*`, `labels/hand-verdicts-provenance.md` |
+| 19:13–19:37, 20:10–20:29, 21:44–22:04 | **Three re-grades** of the submitted zip (commits `a1334cd`, `77c8e33`, then `395f494`) by other Claude Code helpers, with the first grader's instructions | found a fourth false friend ("US" anywhere in an ad), now recorded, not fixed in code; two wrong counts in AUDIT.md and one in SCORE.md, now computed by a script; closed postings shown as reaching Alex (the test run failing first, then committed together with the fix); asked how the pasted answers were written | AUDIT.md section 4, `results/whatif-v1.json`, `evidence/shortlist-closed-*`, `labels/hand-verdicts-provenance.md` |
 | 21:21–21:35 | **Shreyash's list of five possible improvements.** Two were done: the network-module test, which depended on how Python is installed, fixed with before-and-after evidence; and his own check of the 45 v1.1 claims of the 5 open postings, with the code's labels hidden | the check agrees with the code on 42 of 45; the full suite passes with outbound network blocked | `evidence/network-module-test-*`, SHORTLIST.md section 6 |
+| 22:08 | **Shreyash reran the tests and both hash checks himself**, on the final tree | 224 tests OK (1 expected failure); `labels/hand-verdicts.jsonl: OK`; 19 of 19 frozen test hashes | `evidence/commands-run-by-shreyash-2026-11-25.txt`, run 3 |
 
 ## Folder map
 
@@ -204,10 +205,12 @@ changed:*
 - *about 18:50, after the independent reviews, with his How sentences;*
 - *20:03, after the re-grade;*
 - *21:35, after his check of the v1.1 claims, answering "Sign it" to Claude Code's question "Sign the
-  updated sign-off?".*
+  updated sign-off?";*
+- *22:13, after the third re-grade, with the How sentence naming both of his test runs, again
+  answering "Sign it".*
 
-*At 18:30 he ran the full test suite and the hand-verdict hash check himself
-(`evidence/commands-run-by-shreyash-2026-11-25.txt`). In the How sentences he chose "I labeled the 70
+*At 18:30, and again at 22:08 on the final tree, he ran the full test suite and the hand-verdict hash
+check himself (`evidence/commands-run-by-shreyash-2026-11-25.txt`). In the How sentences he chose "I labeled the 70
 postings myself" over his first draft ("I reviewed the suggested labels for the 70 postings"). By
 "suggested labels", his account says, he meant the posting information Claude Code showed him
 (`labels/hand-verdicts-provenance.md`).*
@@ -243,8 +246,9 @@ How:          The code and tests were written by Claude Code; the tests named ab
               I labeled the 70 postings myself and focused on postings 31, 39 and 49, where the rules
               and job fit were different. I used these cases to decide which rules should change in
               v1.1 and which should stay the same. I ran the full test suite and the hand-verdict hash
-              check myself (evidence/commands-run-by-shreyash-2026-11-25.txt). The rates and counts are
-              recomputations by the scripts (js3 audit, js3.score, js3.whatif).
+              check myself, at 18:30 (218 tests then) and again at 22:08 on the final tree (224 tests,
+              all passing) (evidence/commands-run-by-shreyash-2026-11-25.txt). The rates and counts
+              are recomputations by the scripts (js3 audit, js3.score, js3.whatif).
 Not checked:  - The miss rate among the 763 rejects outside the held-out set: 0 of 30 random rejects
                 gives a one-sided 95% upper bound of 9.5% (about 73 postings), for the four boards that
                 returned postings, on these dates.

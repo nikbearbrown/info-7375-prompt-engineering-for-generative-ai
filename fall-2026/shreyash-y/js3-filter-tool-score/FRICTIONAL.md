@@ -48,6 +48,9 @@ here says what he thought.*
   checked the 45 claims of the 5 open v1.1 postings from the code's quotes, with its labels hidden
   (SHORTLIST.md section 6). Then he signed the updated sign-off (21:35) and wrote the entry on the
   check below (21:41, corrected at 21:42).
+- **22:08, after the third re-grade.** Reran the full test suite and both hash checks himself on the
+  final tree: 224 tests OK, the label hash OK, and 19 of 19 frozen test hashes
+  (`evidence/commands-run-by-shreyash-2026-11-25.txt`, run 3). He signed the updated sign-off at 22:13.
 
 ### In my own words
 
@@ -249,8 +252,8 @@ times are EST on 2026-11-25.*
 
       I had counted all three by hand; `python3 -m js3.whatif` now computes them.
     - **The v1.1 report showed closed postings as reaching Alex.** It printed "not shortlisted" and
-      "reaches Alex" for the same posting. I wrote a failing test first, then the fix
-      (`evidence/shortlist-closed-*`).
+      "reaches Alex" for the same posting. I wrote a failing test first, then the fix, and committed
+      both together (`89473464`; `evidence/shortlist-closed-*`).
     - **Wording:** the first-answers file still said "typed". The README said the init events "do not
       show" the memory path without saying I had removed that field.
     - **Grade estimates:** the documents quoted the helpers' estimated grades. Those are not evidence
@@ -276,6 +279,16 @@ times are EST on 2026-11-25.*
     shown. Where a claim had no quote, the sheet said where Alex's skills appear or that nothing was
     found. He agreed with the code on 42 of 45 (SHORTLIST.md section 6). His summary line miscounted
     by one (34 and 11 for 33 and 12); his 45 lines are what is recorded.
+- **21:44–22:04 — A third re-grade, of `395f494`.**
+  - **What it found, checked and fixed:**
+    - **My timing framing.** `labels/hand-verdicts-provenance.md` measured the 32–70 batch from the
+      previous save. Measured from when each batch was shown, the answers were saved between 36 s and
+      2 min 27 s later. The file now gives all five times.
+    - **A wrong "test-first" claim.** The closed-posting test was run failing first but committed
+      together with its fix. SOURCES.md now lists it as a third exception.
+    - **An out-of-date claim.** "I ran the full test suite myself" referred to the 18:30 run of 218
+      tests; the suite now has 224. Shreyash reran it at 22:08 (224 tests OK), and the sentence now
+      names both runs.
 - **Still unresolved:**
   - The held-out set is too easy to separate most changes: everything scores 24 of 24 except A3.
   - Only one person labeled.

@@ -169,7 +169,8 @@ has"), which was right. The second run added Alex's public profile (no contact d
 
 ## 6. Shreyash's check of the v1.1 claims
 
-*Shreyash's labels and reasons, pasted into the session on 2026-11-25 at 21:28 EST and saved word for
+*The sheet was sent at 21:26:44 EST. Shreyash's labels and reasons were pasted into the session at
+21:28:34 EST and saved word for
 word in `labels/shortlist-v1.1-claims-by-shreyash.jsonl`. The sheet he filled in is
 `labels/shortlist-v1.1-claim-sheet-shown.md`. The comparison below is Claude Code's.*
 
