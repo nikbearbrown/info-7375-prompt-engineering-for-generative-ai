@@ -46,7 +46,7 @@ So **as recorded, my hand check did not test the claims against their quotes.** 
 
 ### The checker's flaw (Claude Code's design)
 
-To keep the checker from being anchored, it was given no résumé. But a `has`/`lacks` claim has a résumé half ("…the résumé lists both"). **About 14 of the checker's 22 "insufficient" labels give "it contains no résumé" as the reason.** They are artifacts of my pipeline, not findings about the posting. A better design would split each has/lacks claim into the posting's requirement, checked against the posting, and the résumé's match, checked against the résumé. Not done.
+To keep the checker from being anchored, it was given no résumé. But a `has`/`lacks` claim has a résumé half ("…the résumé lists both"). **20 of the checker's 22 "insufficient" reasons mention the missing résumé**; the other 2 are the no-quote claims (#16, #64). For some, such as #4, #5 and #52, the reason *also* points at the posting's own wording ("listed under 'We'd love to hear from you if you have'"). For most, the missing résumé is the whole reason. So most of the checker's "insufficient" labels are artifacts of my pipeline, not findings about the posting. A better design would split each has/lacks claim into the posting's requirement, checked against the posting, and the résumé's match, checked against the résumé. Not done.
 
 ## Relevance is not entailment: two real cases
 
