@@ -45,3 +45,18 @@ If the scorer behaves the same way in a later session, nothing was trained.
   it persisted.
 - To claim learning, you would need a model whose parameters changed. Nothing in this project
   changes any model parameter.
+
+## Addendum: diff-set (post hoc, not held-out), labels pending
+
+- **What it is:** a blind sheet of **exactly the 12 postings that threshold 0.70 keeps and v1.1.0-e
+  does not** (`phase5/diffset/diffset-sheet.csv`, built by `tools/make-diffset.mjs`, row order
+  shuffled with seed 20261127).
+- **What it is not:** the set was chosen *by* the filter difference, after the held-out result. It
+  is **post hoc, not held-out, not a random sample.** It can only say whether the extra keeps are
+  right; it cannot give recall.
+- **Overlap:** 9 of the 12 are audit rows Aravind already judged, mostly closest calls. 0 are on the
+  label sheet. Re-labeling them blind doubles as a consistency check against the audit verdicts.
+- **Blind:** the sheet shows no score, decision, or version. Those are in
+  `phase5/diffset/key.json`; don't open it before labeling.
+- **How to label:** with the same tool, in label mode:
+  `~/.nvm/versions/node/v20.20.2/bin/node tools/judge-audit.mjs --sheet phase5/diffset/diffset-sheet.csv`.
