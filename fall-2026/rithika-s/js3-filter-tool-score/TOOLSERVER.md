@@ -25,8 +25,6 @@ stdio, newline-delimited JSON-RPC 2.0, standard library only. One tool, `score_p
 ### Not checked
 Concurrent clients, very large or non-ASCII ids, remote (HTTP) transport, any client other than my scripted one and Claude Code. Whether a client could send `tools/call` after `initialize` but before `notifications/initialized` (my server does not gate on that notice).
 
-### My trust decision
-*[Your words: would you let Claude Code use this server unattended for Priya's search, and under what limits?]*
 
 ## Server I did not build: the course's Week 8 teaching server
 `lessons/08-mcp-from-scratch/code/main.py` (instructor material, run read-only, unmodified). One tool, `lookup(key)`, over a hard-coded dict. Probed with `mcp/probe_other.py`: 11 lines sent (10 requests + 1 malformed). Transcript: `transcripts/teaching-server-probe-20261126T031810Z.jsonl`.
