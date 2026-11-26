@@ -5,6 +5,7 @@ logs every line in both directions, as sent and as received, to transcripts/clie
 Used on my own server and, unchanged, on the other server I evaluate (EVAL-SERVERS.md).
 """
 import json
+import select
 import subprocess
 from datetime import datetime, timezone
 
@@ -16,7 +17,7 @@ def now():
     return datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z")
 
 
-def run_script(command, cwd, script, label, policy=None, timeout=30):
+def run_script(command, cwd, script, label, policy=None, timeout=30, answer_timeout=20):
     """script: (note, message) pairs; a message without "id" is a notification and gets no wait.
 
     Returns [(note, sent, received)] and the transcript path."""
@@ -40,16 +41,23 @@ def run_script(command, cwd, script, label, policy=None, timeout=30):
             if isinstance(msg, dict) and "id" not in msg:
                 rows.append((note, line, None))
                 continue
+            ready, _, _ = select.select([proc.stdout], [], [], answer_timeout)
+            if not ready:  # a server that never answers must not hang the client
+                write("no-answer", "", f"{note}: no answer within {answer_timeout} s")
+                rows.append((note, line, f"(no answer within {answer_timeout} s)"))
+                continue
             answer = proc.stdout.readline().rstrip("\n")
             write("received", answer, note)
             rows.append((note, line, answer))
         proc.stdin.close()
+        # Wait first, with a time limit, and read stderr only after the server has exited (found in review: reading
+        # stderr first could block forever on a server that ignores the end of its input).
         try:
-            err = proc.stderr.read()
             proc.wait(timeout=timeout)
         except subprocess.TimeoutExpired:
             proc.kill()
-            err = ""
+            proc.wait()
+        err = proc.stderr.read()
         write("meta", json.dumps({"exit": proc.returncode, "stderr": err[-2000:]}), "server stopped")
     return rows, path
 

@@ -17,7 +17,7 @@ button.on{background:#1d1d1b;color:#fff}input{width:100%;box-sizing:border-box;m
 is in the posting and says what the claim says. A matching word alone is not enough. The checker's first label is shown in grey;
 yours is the one that counts.</p><div id="rows"></div>
 <script>
-const P=__POSTS__;const KEY="js3-claim-labels-v1";let L={};try{L=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
+const P=__POSTS__;const KEY="js3-claim-labels-role-v1";let L={};try{L=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(L))}catch(e){}count()}
 const total=P.reduce((a,p)=>a+p.claims.length,0);
 function count(){document.getElementById("n").textContent=Object.values(L).filter(x=>x.label).length+" of "+total+" claims labelled"}
@@ -25,7 +25,7 @@ const box=document.getElementById("rows");
 P.forEach((p,i)=>{const d=document.createElement("div");d.className="post";
 d.innerHTML=`<div class="t">${i+1}. ${p.title}</div><div class="m">${p.key} · <a href="${p.url}" target="_blank" rel="noopener">posting</a></div>
 <details><summary>Posting text</summary><div class="d"></div></details>`;d.querySelector(".d").textContent=p.text;
-p.claims.forEach((c,j)=>{const id=p.key+"#"+(j+1);const e=document.createElement("div");e.className="claim";
+p.claims.forEach((c,j)=>{const id=p.key+"#"+c.n;const e=document.createElement("div");e.className="claim";
 e.innerHTML=`<div><b>${c.about}</b>: <span class="c"></span></div><div class="q"></div><div class="mach"></div>
 <div><button data-v="supported">supported</button><button data-v="contradicted">contradicted</button><button data-v="insufficient">insufficient</button></div><input placeholder="note (optional)">`;
 e.querySelector(".c").textContent=c.claim;e.querySelector(".q").textContent=c.quote?"\\u201c"+c.quote+"\\u201d":"(no quote)";
@@ -35,13 +35,17 @@ function paint(){e.querySelectorAll("button").forEach(b=>b.classList.toggle("on"
 e.querySelectorAll("button").forEach(b=>b.onclick=()=>{L[id]=Object.assign(L[id]||{},{label:b.dataset.v,at:new Date().toISOString()});save();paint()});
 inp.oninput=()=>{L[id]=Object.assign(L[id]||{},{note:inp.value});save()};paint();d.appendChild(e)});box.appendChild(d)});count();
 document.getElementById("dl").onclick=()=>{const q=s=>'"'+String(s||"").replace(/"/g,'""')+'"';const lines=["claim_id,about,claim,quote,machine_label,my_label,note,labelled_at"];
-P.forEach(p=>p.claims.forEach((c,j)=>{const id=p.key+"#"+(j+1);const l=L[id]||{};lines.push([q(id),q(c.about),q(c.claim),q(c.quote),q(c.machine_label),q(l.label),q(l.note),q(l.at)].join(","))}));
+P.forEach(p=>p.claims.forEach((c,j)=>{const id=p.key+"#"+c.n;const l=L[id]||{};lines.push([q(id),q(c.about),q(c.claim),q(c.quote),q(c.machine_label),q(l.label),q(l.note),q(l.at)].join(","))}));
 const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([lines.join("\\n")+"\\n"],{type:"text/csv"}));a.download="claim-labels.csv";a.click()};
 </script></body></html>
 """
 
 
-def build(entries, text_by_key):
+def build(entries, text_by_key, about=None):
+    """about: label only the claims of this kind (my choice on 2026-11-25: the 8 role claims), or every claim."""
+    def keep(c):
+        return about is None or c["about"] == about
     posts = [{"key": e["key"], "title": html.escape(e["title"]), "url": html.escape(e["url"]),
-              "text": text_by_key[e["key"]], "claims": e["claims"]} for e in entries if e["valid"]]
+              "text": text_by_key[e["key"]],
+              "claims": [dict(c, n=i) for i, c in enumerate(e["claims"], 1) if keep(c)]} for e in entries if e["valid"]]
     return PAGE.replace("__POSTS__", json.dumps(posts, ensure_ascii=False).replace("</", "<\\/"))

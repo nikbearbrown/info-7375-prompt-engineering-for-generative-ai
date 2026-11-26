@@ -2,7 +2,7 @@
 
 For each kept posting, Claude writes a justification as claims with quotes (prompts/justify-v1.txt). The reply is saved
 before it is parsed; a reply that is not in the fixed shape is shown as invalid, never fixed. Each claim then gets the
-mechanical label from agent/evidence.py, and my hand label (shortlist/claim-labels.csv) is the final one.
+mechanical label from agent/evidence.py, and my hand label (audit/claim-labels.csv) is the final one.
 """
 import json
 import subprocess
@@ -62,10 +62,14 @@ def parse_reply(envelope_text):
     return claims, text
 
 
-def rank(decisions):
-    """The shortlist: kept postings only, highest score first, ties in collection order. No gate-failing posting."""
+SHORTLIST_SIZE = 8  # hand-set (FILTER.md section 7): about as many postings as I would read closely in one sitting
+
+
+def rank(decisions, size=SHORTLIST_SIZE):
+    """The shortlist: kept postings only, highest score first, ties in collection order, at most `size`.
+    No gate-failing posting can be on it."""
     kept = [d for d in decisions if d["verdict"] == filt.KEEP]
-    return sorted(kept, key=lambda d: -d["score"])
+    return sorted(kept, key=lambda d: -d["score"])[:size]
 
 
 def build(decisions, jobs_by_key, spec, persona, template, save_raw, caller=call_claude, now=None):

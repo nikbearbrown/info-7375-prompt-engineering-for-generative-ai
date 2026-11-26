@@ -15,7 +15,7 @@ SCRIPT = c.opening() + [
         {"board": "ashby:ramp", "job_id": "d8925f84-562f-470c-a5bd-4f6c20009361"}})),
     ("call: a kept posting", c.request(4, "tools/call", {"name": "score_posting", "arguments":
         {"board": "greenhouse:figma", "job_id": "5802956004"}})),
-    ("call: the board that failed in this run", c.request(5, "tools/call", {"name": "score_posting", "arguments":
+    ("call: the board that failed in this run (declared, answers I cannot tell)", c.request(5, "tools/call", {"name": "score_posting", "arguments":
         {"board": "lever:no-such-board", "job_id": "1"}})),
     ("call: a job id that is not in the run", c.request(6, "tools/call", {"name": "score_posting", "arguments":
         {"board": "ashby:ramp", "job_id": "not-a-real-id"}})),
@@ -24,6 +24,7 @@ SCRIPT = c.opening() + [
     ("call: an undeclared tool", c.request(8, "tools/call", {"name": "apply_to_job", "arguments": {"job_id": "x"}})),
     ("an undeclared method", c.request(9, "resources/list")),
     ("not JSON", "{this is not json"),
+    ("params as a list, not an object (the crash found in review)", '{"jsonrpc":"2.0","id":11,"method":"tools/call","params":[1,2]}'),
     ("ping", c.request(10, "ping")),
 ]
 

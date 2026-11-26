@@ -5,6 +5,7 @@ course repository, folder at commit d32b8bc, 2026-11-25). I read server.py and a
 It runs from a copy made with `git archive` outside this folder; nothing of it is copied into my folder.
 
     python3 scripts/transcript_other_server.py /path/to/the/copy/of/lavanya-r/js3-filter-tool-score
+    python3 scripts/transcript_other_server.py /path/to/the/copy --blocked   # the same, with the network blocked
 """
 import os
 import sys
@@ -38,7 +39,12 @@ SCRIPT = c.opening() + [
 
 if __name__ == "__main__":
     other = os.path.abspath(sys.argv[1])
-    rows, path = c.run_script([sys.executable, "-B", os.path.join(other, "mcp", "server.py")], other, SCRIPT, "other-lavanya-r")
+    server = os.path.join(other, "mcp", "server.py")
+    if "--blocked" in sys.argv:
+        command, label = [sys.executable, "-B", os.path.join(HERE, "scripts", "run_blocked.py"), server], "other-lavanya-r-blocked"
+    else:
+        command, label = [sys.executable, "-B", server], "other-lavanya-r"
+    rows, path = c.run_script(command, other, SCRIPT, label)
     for note, sent, got in rows:
         print(f"{note:48} -> {(got or '(notification: no answer)')[:170]}")
     print(f"client transcript: {os.path.relpath(path, HERE)}")

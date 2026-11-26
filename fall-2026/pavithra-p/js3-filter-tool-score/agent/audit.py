@@ -123,7 +123,21 @@ def year_sentences(text, limit=3, before=110, after=70):
     return out
 
 
-def label_page(sample, jobs_by_key, decisions_by_key):
+REREAD_SEED = 2026112502
+
+
+def reread_keys(sample, decisions_by_key, seed=REREAD_SEED):
+    """Every tuning posting with Engineer, Engineering or Developer in the title, in a new random order.
+
+    These are the postings where yes or no is a real decision; my careful re-read checks my fast labels on them."""
+    tune = list(dict.fromkeys(k for name, keys in sample["sets"].items() if name != "held_out" for k in keys))
+    keys = [k for k in tune if rule.find_words(decisions_by_key[k]["title"], ("Engineer", "Engineering", "Developer"))]
+    random.Random(seed).shuffle(keys)
+    return keys
+
+
+def label_page(sample, jobs_by_key, decisions_by_key, store="js3-hand-labels-v1", filename="hand-labels.csv",
+               heading="JS3 hand labels", extra=""):
     rows = []
     for k in sample["sheet_order"]:
         job, d = jobs_by_key[k], decisions_by_key[k]
@@ -131,7 +145,10 @@ def label_page(sample, jobs_by_key, decisions_by_key):
         rows.append({"key": k, "title": html.escape(d["title"].strip()), "board": d["board"],
                      "location": html.escape(d["location"]), "url": html.escape(d["url"]), "text": text,
                      "words": len(text.split()), "years": year_sentences(text)})
-    return PAGE.replace("__ROWS__", json.dumps(rows, ensure_ascii=False).replace("</", "<\\/"))
+    page = PAGE.replace("__ROWS__", json.dumps(rows, ensure_ascii=False).replace("</", "<\\/"))
+    page = page.replace('"js3-hand-labels-v1"', json.dumps(store)).replace("hand-labels.csv", filename)
+    page = page.replace("<title>JS3 hand labels</title>", f"<title>{heading}</title>").replace("<b>JS3 hand labels</b>", f"<b>{heading}</b>")
+    return page.replace("<div id=\"rows\"></div>", extra + "<div id=\"rows\"></div>")
 
 
 def read_labels(text):

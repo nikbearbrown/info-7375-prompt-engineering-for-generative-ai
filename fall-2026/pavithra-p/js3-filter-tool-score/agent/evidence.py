@@ -2,7 +2,7 @@
 
 The checker can prove a quote is not in the posting and can see some contradictions (years asked, "Senior" in the
 text, a non-US location). It cannot judge meaning, so every "supported" it gives is marked for a hand check, and my
-hand label is the one that counts (shortlist/claim-labels.csv).
+hand label is the one that counts (audit/claim-labels.csv).
 """
 import re
 
@@ -12,6 +12,7 @@ from . import rule
 SUPPORTED, CONTRADICTED, INSUFFICIENT = "supported", "contradicted", "insufficient"
 ABOUT = ("role", "experience", "location", "skills")
 UNCOVERED = re.compile(r"\b(salary|visa|sponsor\w*|team size|interview\w*)\b", re.IGNORECASE)
+CLAIM_YEARS = 3  # an ask of 3 or more years contradicts a claim that "about two years" fits, whatever G3's limit is
 SENIOR_IN_TEXT = re.compile(r"\bsenior\s+(?:\w+\s+){0,2}(?:engineer|developer)s?\b", re.IGNORECASE)
 
 
@@ -34,8 +35,13 @@ def label_claim(claim, job, spec, skills):
     if UNCOVERED.search(claim.get("claim", "")) and not UNCOVERED.search(description):
         return INSUFFICIENT, "the claim is about something the posting does not cover: I cannot tell", False
     if about == "experience":
-        too_many = [n for n in filt.years_asked(description) if n >= spec["max_years"]]
-        senior = filt.find_words(title, spec["seniority_words"]) or SENIOR_IN_TEXT.findall(description)
+        # Fixed 2026-11-25 after my claim labels (SHORTLIST.md, #15): a claim that itself states the years or the
+        # seniority the posting asks for is not contradicted by them; only a claim that leaves them out is.
+        text = claim.get("claim", "")
+        too_many = [n for n in filt.years_asked(description) if n >= CLAIM_YEARS
+                    and not re.search(rf"(?<![\d.]){n:g}(?![\d])", text)]
+        senior = ((filt.find_words(title, spec["seniority_words"]) or SENIOR_IN_TEXT.findall(description))
+                  and not re.search(r"\bsenior\b", text, re.IGNORECASE))
         if too_many or senior:
             what = (f"the posting asks for {', '.join(f'{n:g}' for n in too_many)} years" if too_many else
                     "the posting asks for a senior engineer")

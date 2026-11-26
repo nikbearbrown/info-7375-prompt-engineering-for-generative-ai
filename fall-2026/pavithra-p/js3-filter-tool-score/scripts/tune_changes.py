@@ -1,5 +1,5 @@
 """Each candidate change alone, measured on the audit's TUNING sets only (random rejects, close calls, kept, gate close
-calls), against my pass-2 hand labels. This is where changes were chosen; the held-out set is measured separately with
+calls), against my hand labels. This is where changes were chosen; the held-out set is measured separately with
 `python3 -m agent measure` (SCORE-REPORT.md).
 
     python3 scripts/tune_changes.py
@@ -18,7 +18,7 @@ from agent.policy import Policy  # noqa: E402
 
 policy = Policy()
 sample = json.loads(open("audit/sample.json").read())
-labels = audit.read_labels(open("audit/hand-labels-pass2.csv").read())
+labels = audit.read_labels(open("audit/hand-labels.csv").read())
 postings, _ = collection.load_run(config.RUNS_DIR / sample["run"], policy)
 jobs = {f"{b}:{j['id']}": (b, j) for b, j in postings}
 persona = resume.load(config.RESUME)

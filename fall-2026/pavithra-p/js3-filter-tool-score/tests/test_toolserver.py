@@ -43,11 +43,33 @@ class Protocol(unittest.TestCase):
         self.assertEqual([t["name"] for t in tools], ["score_posting"])
         self.assertTrue(tools[0]["annotations"]["readOnlyHint"])
         self.assertFalse(tools[0]["annotations"]["openWorldHint"])
+        self.assertIn("version 1.1", tools[0]["description"])  # read from the filter file it really uses
 
     def test_unknown_method_and_unknown_tool_are_errors(self):
         self.assertEqual(call(self.s, "resources/list")["error"]["code"], toolserver.METHOD_NOT_FOUND)
         self.assertEqual(call(self.s, "tools/call", {"name": "apply_to_job", "arguments": {}})["error"]["code"],
                          toolserver.INVALID_PARAMS)
+
+    def test_params_that_are_not_an_object_are_refused_not_a_crash(self):
+        out = io.StringIO()
+        self.s.serve(io.StringIO('{"jsonrpc":"2.0","id":1,"method":"tools/call","params":[1,2]}\n'
+                                 '{"jsonrpc":"2.0","id":2,"method":"ping"}\n'), out)
+        replies = [json.loads(line) for line in out.getvalue().splitlines()]
+        self.assertEqual(replies[0]["error"]["code"], toolserver.INVALID_PARAMS)
+        self.assertEqual(replies[1]["result"], {})  # still serving after the bad request
+
+    def test_an_unexpected_error_is_reported_and_the_session_goes_on(self):
+        out = io.StringIO()
+        with mock.patch.object(self.s, "handle", side_effect=[RuntimeError("boom"), {"jsonrpc": "2.0", "id": 2, "result": {}}]):
+            self.s.serve(io.StringIO('{"jsonrpc":"2.0","id":1,"method":"ping"}\n{"jsonrpc":"2.0","id":2,"method":"ping"}\n'), out)
+        replies = [json.loads(line) for line in out.getvalue().splitlines()]
+        self.assertEqual((replies[0]["id"], replies[0]["error"]["code"]), (1, toolserver.INTERNAL_ERROR))
+        self.assertEqual(replies[1]["result"], {})
+
+    def test_declared_version_is_the_version_used(self):
+        declared = call(self.s, "tools/list")["result"]["tools"][0]["description"]
+        used = call(self.s, "tools/call", {"name": "score_posting", "arguments": HELM})["result"]["structuredContent"]
+        self.assertIn(f"version {used['filter_version']}", declared)
 
     def test_parse_error_through_the_stdio_loop(self):
         out = io.StringIO()
@@ -62,12 +84,22 @@ class Tool(unittest.TestCase):
     def test_scores_a_saved_posting_like_the_filter(self):
         r = call(self.s, "tools/call", {"name": "score_posting", "arguments": HELM})["result"]
         self.assertFalse(r["isError"])
-        self.assertEqual((r["structuredContent"]["verdict"], r["structuredContent"]["score"]), ("reject", 4))
+        # v1.1: role 1 + Python, SQL; "HELM" no longer counts as the skill Helm (change D)
+        self.assertEqual((r["structuredContent"]["verdict"], r["structuredContent"]["score"]), ("reject", 3))
+        self.assertEqual(r["structuredContent"]["filter_version"], "1.1")
 
     def test_undeclared_argument_or_board_is_refused(self):
         for args in ({**HELM, "path": "/etc/passwd"}, {"board": "../../secrets", "job_id": "1"}, {"board": "ashby:ramp"}):
             self.assertEqual(call(self.s, "tools/call", {"name": "score_posting", "arguments": args})["error"]["code"],
                              toolserver.INVALID_PARAMS, args)
+
+    def test_declared_boards_come_from_config_and_a_failed_board_says_cannot_tell(self):
+        tool = call(self.s, "tools/list")["result"]["tools"][0]
+        configured = [f"{b['system']}:{b['name']}" for b in config.load("boards")]
+        self.assertEqual(tool["inputSchema"]["properties"]["board"]["enum"], configured)
+        r = call(self.s, "tools/call", {"name": "score_posting", "arguments": {"board": "lever:no-such-board", "job_id": "1"}})
+        self.assertTrue(r["result"]["isError"])
+        self.assertIn("I cannot tell", r["result"]["content"][0]["text"])
 
     def test_unknown_job_is_a_tool_error_not_a_guess(self):
         r = call(self.s, "tools/call", {"name": "score_posting", "arguments": {"board": "ashby:ramp", "job_id": "nope"}})

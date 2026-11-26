@@ -33,7 +33,7 @@ Words are matched as whole words, ignoring case, so "Java" does not match "JavaS
 
 Threshold: keep if the score is 5 or more. A full role match plus two skills (3 + 2) reaches it, which is what JS1's rule asked for. A plain "Engineer" title needs four skills.
 
-Close calls: postings that pass every gate and score 4 or 5, one point either side of the line. These go into the audit.
+Close calls: postings that pass every gate and score 4 or 5, that is, at the threshold or one point below it. These go into the audit.
 
 ## 3. Expected sources
 
@@ -86,12 +86,12 @@ Written before the audit. The audit will say whether each one happened.
 What the audit found (`AUDIT.md`):
 
 * "Helm" happened. In Ramp's "Research Engineer, Benchmarks & Evaluation", "Helm" matched "HELM", an evaluation benchmark ("lm-evaluation-harness, HELM or similar"), not the Kubernetes tool on the résumé. It added one point to a close call.
-* "AI" and "Software" did not, by my labels. I said yes to the Support Engineer, iOS and Android postings, so they matched for a reason I accept.
+* "AI" and "Software" depend on my labels. On my first pass I said yes to the Support Engineer, iOS and Android postings, so they matched for a reason I accepted. On my second pass I said no to all three, so by those labels they are false friends: the title word matched, but the work is support or mobile, not backend (`AUDIT.md` sections 6 and 8). No rule was changed for them.
 * One I did not predict: Lever's country tag. "Toronto; New York, NY (CA)" is tagged CA (Canada) after its first city, so G1 found no US word, although New York is one of its places.
 
 ## 7. Version 1.1 (2026-11-25, after the reject audit)
 
-Every change below was chosen on the audit's tuning sets (48 postings: the random rejects, the close calls, the kept postings and the gate close calls), with my pass-2 hand labels. The 20 held-out postings were not used to choose. Each change is its own filter file in `filters/changes/`, so it can be measured alone (`SCORE-REPORT.md`). `filters/v1.1.json` is v1.0 plus A to E.
+Every change below was chosen on the audit's tuning sets (48 postings: the random rejects, the close calls, the kept postings and the gate close calls), with my hand labels (including the two location corrections in `AUDIT.md`). The 20 held-out postings were not used to choose. Each change is its own filter file in `filters/changes/`, so it can be measured alone (`SCORE-REPORT.md`). `filters/v1.1.json` is v1.0 plus A to E.
 
 | Change | Rule | Decision | Reason | Tuning sets (agrees with my label, of 48; v1.0 is 35) |
 |---|---|---|---|---|
@@ -100,11 +100,23 @@ Every change below was chosen on the audit's tuning sets (48 postings: the rando
 | C | G1 also accepts US cities written with their state ("New York, NY") | added | the Lever country tag and Figma's city-only locations hide US places | 35, no verdict changes in the tuning sets |
 | D | The skill "Helm" counts only as written, not "HELM" | added | the false friend above | 35, no verdict changes at threshold 5 |
 | E | G4: reject when the description asks for a senior engineer ("We're looking for a Senior Backend Engineer") | added | a Ramp backend title without "Senior" asks for one in its text; the title gate misses it | 35, no verdict changes in the tuning sets |
-| G | Drop Intern and Staff from G2 | rejected | my labels said yes to 4 Intern or Staff postings, but Rohan finished his degree in May 2026, so internships for students do not fit, and Staff titles ask for many more years than he has. I kept those labels as they are and did not change the filter to match them | 37 |
+| G | Drop Intern and Staff from G2 | rejected | my labels said yes to 4 Intern or Staff postings, but Rohan finished the degree in May 2026, so internships for students do not fit, and Staff titles ask for many more years than Rohan has. I kept those labels as they are and did not change the filter to match them | 37 |
+
+Measured again later: on my second pass over the 27 engineering postings in the tuning sets (`AUDIT.md` section 8), v1.0 agrees with my labels on 21 and v1.1 on 18, because A and B were fitted to my first, quick labels. I kept v1.1 as the version the shortlist and the tool use, and I do not claim it is better than v1.0 (`SCORE-REPORT.md`).
+
+## 8. Known limits of the word rules (found in review, not fixed)
+
+Both are found by matching words, not by reading meaning, so they can reject a posting for the wrong reason:
+
+* G3 counts any "N years", not only an ask: "Our company has been operating for 10 years" is read as asking for 10 years.
+* G4 counts any "senior ... engineer", not only the role asked for: "You will work alongside senior software engineers" is read as a senior role.
+
+`tests/test_filter_v1_1.py` (`KnownLimits`) records both on constructed postings, so a later fix would show. I did not fix them in v1.1: the audit and held-out numbers were measured with these rules, and changing them now would change what was measured.
 
 ## Change log
 
 | Version | Date | What changed | Why |
 |---|---|---|---|
 | 1.0 | 2026-11-25 | First version: JS1's four checks split into three gates and a score with a threshold, plus "cannot tell" | JS1's yes or no rule has no close calls to audit |
+| 1.0 wording | 2026-11-25, after review | The close-call sentence in section 2 corrected from "one point either side of the line" to "at the threshold or one point below it". The rule itself (scores 4 and 5) did not change | the old wording did not match the rule |
 | 1.1 | 2026-11-25 | Changes A to E added, G rejected (section 7) | the reject audit: 13 of 48 tuning postings disagreed with my labels under v1.0 |

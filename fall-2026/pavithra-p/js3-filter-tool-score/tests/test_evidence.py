@@ -29,6 +29,11 @@ class Labels(unittest.TestCase):
         j = job(content="<p>5+ years of Python and Kafka</p>")
         self.assertEqual(label("experience", "Fits two years", "Python and Kafka", j)[0], ev.CONTRADICTED)
 
+    def test_experience_claim_that_states_the_years_is_not_contradicted(self):
+        j = job(content="<p>5+ years of Python and Kafka</p>")
+        self.assertEqual(label("experience", "It asks for 5+ years, so Rohan falls short", "5+ years of Python and Kafka", j)[0],
+                         ev.SUPPORTED)
+
     def test_experience_contradicted_by_senior_in_the_text(self):
         j = job(content="<p>We're looking for a Senior Backend Engineer to build Python and Kafka services.</p>")
         self.assertEqual(label("experience", "Fits two years", "build Python and Kafka services", j)[0], ev.CONTRADICTED)

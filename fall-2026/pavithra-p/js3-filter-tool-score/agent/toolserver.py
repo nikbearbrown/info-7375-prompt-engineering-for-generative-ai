@@ -17,20 +17,19 @@ from .policy import Policy, PolicyRefused
 
 SERVER_INFO = {"name": "js3-jobscore", "version": "1.0"}
 SUPPORTED_VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26", "2024-11-05")
-FILTER_FILE = "filters/v1.0.json"
-BOARDS = ("greenhouse:pinterest", "greenhouse:figma", "lever:spotify", "ashby:ramp")
+FILTER_FILE = "filters/v1.1.json"  # the final filter; its version is read from the file, not written here
 
 TOOL = {
     "name": "score_posting",
     "title": "Score one saved job posting",
-    "description": ("Runs Pavithra's JS3 filter (FILTER.md, version 1.0) on one posting from the latest saved "
+    "description": ("Runs Pavithra's JS3 filter (FILTER.md, version {version}) on one posting from the latest saved "
                     "collection and returns the verdict (keep, reject or cannot tell), the gates, the score and the "
                     "reason. Read-only: it reads saved files in its own folder and makes no network request. "
                     "The verdict is a filter record, not advice on whether to apply."),
     "inputSchema": {
         "type": "object",
         "properties": {
-            "board": {"type": "string", "enum": list(BOARDS), "description": "system:board, as in the collection"},
+            "board": {"type": "string", "enum": [], "description": "system:board, as in config/boards.json"},
             "job_id": {"type": "string", "minLength": 1, "maxLength": 64, "description": "the board's job id"},
         },
         "required": ["board", "job_id"],
@@ -39,7 +38,7 @@ TOOL = {
     "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
 }
 
-PARSE_ERROR, INVALID_REQUEST, METHOD_NOT_FOUND, INVALID_PARAMS = -32700, -32600, -32601, -32602
+PARSE_ERROR, INVALID_REQUEST, METHOD_NOT_FOUND, INVALID_PARAMS, INTERNAL_ERROR = -32700, -32600, -32601, -32602, -32603
 
 
 def now():
@@ -85,6 +84,18 @@ class Server:
         text = f"{d['verdict']} (score {d['score']}, filter v{d['filter_version']}, run {run}): {d['reason']}"
         return {"content": [{"type": "text", "text": text}], "structuredContent": d, "isError": False}
 
+    def boards(self):
+        """The configured boards, read from config/boards.json each time, so the declared list cannot drift from it."""
+        return [f"{b['system']}:{b['name']}" for b in config.load("boards")]
+
+    def declared_tool(self):
+        """The tool as declared: the version of the filter it really uses (loaded once per session, together with the
+        collection, so the declared version and the one used cannot differ), and the boards from config."""
+        version = self.data()[3]["version"]
+        schema = json.loads(json.dumps(TOOL["inputSchema"]))
+        schema["properties"]["board"]["enum"] = self.boards()
+        return {**TOOL, "description": TOOL["description"].format(version=version), "inputSchema": schema}
+
     @staticmethod
     def tool_error(message):
         return {"content": [{"type": "text", "text": message}], "isError": True}
@@ -94,7 +105,11 @@ class Server:
         """One parsed message -> the response dict, or None for a notification."""
         if not isinstance(msg, dict) or msg.get("jsonrpc") != "2.0" or not isinstance(msg.get("method"), str):
             return error(msg.get("id") if isinstance(msg, dict) else None, INVALID_REQUEST, "not a JSON-RPC 2.0 request")
-        method, params, mid = msg["method"], msg.get("params") or {}, msg.get("id")
+        method, params, mid = msg["method"], msg.get("params"), msg.get("id")
+        if params is None:
+            params = {}
+        if not isinstance(params, dict):  # found by a review: a list here crashed the server
+            return None if "id" not in msg else error(mid, INVALID_PARAMS, "params must be an object")
         if "id" not in msg:  # a notification: never answered
             if method == "notifications/initialized":
                 self.initialized = True
@@ -108,12 +123,12 @@ class Server:
         if method == "ping":
             return result(mid, {})
         if method == "tools/list":
-            return result(mid, {"tools": [TOOL]})
+            return result(mid, {"tools": [self.declared_tool()]})
         if method == "tools/call":
             name, args = params.get("name"), params.get("arguments")
             if name != TOOL["name"]:
                 return error(mid, INVALID_PARAMS, f"unknown tool: {name!r}")
-            problem = check_args(args)
+            problem = check_args(args, self.boards())
             if problem:
                 return error(mid, INVALID_PARAMS, problem)
             try:
@@ -133,7 +148,11 @@ class Server:
             except ValueError:
                 reply = error(None, PARSE_ERROR, "parse error")
             else:
-                reply = self.handle(msg)
+                try:
+                    reply = self.handle(msg)
+                except Exception as e:  # never crash the session: report it, keep serving
+                    mid = msg.get("id") if isinstance(msg, dict) else None
+                    reply = error(mid, INTERNAL_ERROR, f"internal error: {type(e).__name__}")
             if reply is not None:
                 out = json.dumps(reply, ensure_ascii=False)
                 self.log("out", out)
@@ -141,15 +160,15 @@ class Server:
                 stdout.flush()
 
 
-def check_args(args):
+def check_args(args, boards):
     """The input schema, checked by hand (no schema library): exactly board and job_id, as declared."""
     if not isinstance(args, dict):
         return "arguments must be an object"
     extra = set(args) - set(TOOL["inputSchema"]["properties"])
     if extra:
         return f"unexpected arguments: {sorted(extra)}"
-    if args.get("board") not in BOARDS:
-        return f"board must be one of {list(BOARDS)}"
+    if args.get("board") not in boards:
+        return f"board must be one of {boards}"
     job_id = args.get("job_id")
     if not isinstance(job_id, str) or not 1 <= len(job_id) <= 64:
         return "job_id must be a string of 1 to 64 characters"
