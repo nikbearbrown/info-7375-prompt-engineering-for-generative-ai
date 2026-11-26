@@ -36,6 +36,10 @@
     Code 2.1.323 declared `roots: {listChanged: true}` in `initialize` and requested 2025-11-25, a
     2025-era version. Against this filesystem server, that client's workspace roots would replace
     whatever directories I passed on the command line. [I] (from the code and README; not run)
+  - **Claude Desktop does the same:** in `transcripts/2026-11-26T004241768Z-70635.jsonl` it declared Roots
+    support and sent 3 × `notifications/roots/list_changed` within five minutes. A Roots-honouring server
+    would re-read the roots, and move its boundary, each time. [V] (transcript) / [I] (the effect on the
+    filesystem server)
 - **Annotations are not permission.** A client may auto-approve "read-only" tools. Here
   `readOnlyHint` is enforced server-side only in `--read-only` mode. Without it, write tools are
   listed, and only the client's own approval stands between the model and `write_file`.
