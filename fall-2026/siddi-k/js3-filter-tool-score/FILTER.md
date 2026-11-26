@@ -2,7 +2,7 @@
 
 **Filter version: v1.1** (adopted 2026-11-25; v1's text below is unchanged, and v1.1 adds one rule, §A2) · Persona: fictional "Jordan Lee" (`data/persona_resume.json`, copied unchanged from JS1)
 
-> **Who wrote this.** Claude drafted it on 2026-11-25 (about 21:45 ET), at Siddi's choice ("Claude drafts, I edit").
+> **Who wrote this.** Claude drafted it on 2026-11-25 (shortly before 21:59 ET), at Siddi's choice ("Claude drafts, I edit").
 > It is built from three things Siddi wrote or decided: JS1 `CONTRACT.md` (title words, exclusions, seniority,
 > the years rule, the skill vocab), JS1 `LABELING.md` (what Siddi counts as relevant), and Siddi's decisions on
 > 2026-11-25. At about 21:59 ET Siddi answered the draft's three open questions (location: anywhere in the USA;
@@ -69,7 +69,7 @@ Cannot-tell postings are listed for Siddi and counted on their own. They are nev
 - Ties go to more distinct skills, then board order (Stripe, Notion, Canva), then id.
 - **Why:** a fixed, recomputable order, so a TA can rebuild the list by hand.
 
-## A2. v1.1 (adopted by Siddi, 2026-11-25, about 22:40 ET)
+## A2. v1.1 (adopted by Siddi, 2026-11-25, between 22:25 and 22:30 ET)
 
 **One added rule in G4:** a location part is also in the US if it whole-word contains one of these place names: san francisco, south san francisco, ssf, sf, seattle, sea, chicago, chi, new york, new-york, nyc, atlanta, atl, dc. *(hand-set, from the collection's own location strings, not from labels)*
 

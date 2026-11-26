@@ -1,4 +1,4 @@
-# Siddi's decision about the blind labels (2026-11-25, about 22:35 ET)
+# Siddi's decision about the blind labels (2026-11-25, between 22:25 and 22:30 ET)
 
 After the labels were committed (`4d633be9`), Claude reported two things before writing any audit.
 

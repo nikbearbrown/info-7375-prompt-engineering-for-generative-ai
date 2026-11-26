@@ -41,3 +41,7 @@ Fitting one number happens after the audit labels exist: `keep_threshold`, fitte
 ## What persistence is not proof of
 
 Any difference between B and a variant comes from the prompt, the context, the tools or the setting sent with that call. Every call starts in a new, empty directory with `--no-session-persistence`. No weights change, and nothing carries from one call to the next. If a behaviour looks like it "stuck" across sessions, the cause is something we sent again: a file, a prompt, a tool. It is not evidence that anything was trained.
+
+## Correction (added 2026-11-25, after the fact)
+
+The time in this plan's first line was Claude's estimate, and it is wrong. The plan was committed at **22:15 ET** (commit `77827f07`), before any variant ran and before Siddi's labels existed (`4d633be9`, 22:25 ET). Nothing else in the plan was changed.
