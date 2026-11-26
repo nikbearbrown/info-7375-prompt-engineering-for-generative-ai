@@ -78,6 +78,14 @@ Dated entries. **Claude Code's process notes** are labeled as Claude's: they rec
 - In the 6-call format check, Claude answered "no" for S35 (New Grad, Aarhus) in both arms, citing the graduation window. Aditya had labeled it `yes`, "check the graduation window".
 - This is not an error on either side: it is a different judgment about the same sentence. It is recorded in the driver's-seat table.
 
+**15. The held-out set mostly said "nothing changed" (`94c0c89` and after)**
+- *Expected:* H2 would show whether v1.1's dev gains generalize.
+- *What happened:* v1.1 flipped no H2 posting, so this is a null result. H2 has only 1 yes in 22 decided labels.
+- *Single changes:* C-b alone produced one false keep (H09), which v1.1 avoids only because C-a removes the boilerplate points. The single changes and the combination did not behave additively.
+- *The one H2 yes:* "AI Automation Engineer" was missed by every filter version. The `ai engineer` phrase is not contiguous in that title, and v1.0 deliberately caps postings with no role phrase. Claude with the rules in context (arm B) caught it.
+- *Not acted on:* fixing the role rule now would mean fitting to H2.
+- *Learned:* a held-out set that cannot contain the cases a revision targets cannot validate that revision. Its value here was catching the interaction and the role-phrase blind spot.
+
 **Unresolved:**
 - whether the v1.1 changes generalize (this is what H2 tests);
 - a negation-aware early-career rule (a v1.2 candidate);

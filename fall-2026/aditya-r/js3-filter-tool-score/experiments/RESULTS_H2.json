@@ -1,0 +1,162 @@
+{
+ "labels": "labels/heldout2_labels.csv",
+ "n": 24,
+ "baseline": "filter v1.0, threshold 6",
+ "baseline_metrics": {
+  "TN": 21,
+  "FN": 1,
+  "unsure_reject": 2,
+  "recall": "0/1",
+  "precision": "0/0",
+  "agreement": "21/22"
+ },
+ "comparisons": [
+  {
+   "change": "C-a",
+   "object": "filter file",
+   "filter": "cand-a_boilerplate",
+   "threshold": 6,
+   "metrics": {
+    "TN": 21,
+    "FN": 1,
+    "unsure_reject": 2,
+    "recall": "0/1",
+    "precision": "0/0",
+    "agreement": "21/22"
+   },
+   "flips": []
+  },
+  {
+   "change": "C-b",
+   "object": "filter file",
+   "filter": "cand-b_years",
+   "threshold": 6,
+   "metrics": {
+    "TN": 20,
+    "FP": 1,
+    "FN": 1,
+    "unsure_reject": 2,
+    "recall": "0/1",
+    "precision": "0/1",
+    "agreement": "20/22"
+   },
+   "flips": [
+    {
+     "sheet_id": "H09",
+     "key": "greenhouse:databricks:8012650002",
+     "title": "Software Engineer - Backend",
+     "label": "no",
+     "reason": "The Belgrade role asks for 3+ years of production coding in languages such as Java, Scala or C++. That is a stretch beyond her demonstrated work.",
+     "from": "reject",
+     "to": "keep",
+     "baseline": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5",
+     "changed": "R 2 + S 0 + T 4 + E 0 + Y 0 = 6"
+    }
+   ]
+  },
+  {
+   "change": "C-e",
+   "object": "filter file",
+   "filter": "cand-e_earlycareer3",
+   "threshold": 6,
+   "metrics": {
+    "TN": 21,
+    "FN": 1,
+    "unsure_reject": 2,
+    "recall": "0/1",
+    "precision": "0/0",
+    "agreement": "21/22"
+   },
+   "flips": []
+  },
+  {
+   "change": "C-t",
+   "object": "setting: threshold 6 -> 5",
+   "filter": "v1.0",
+   "threshold": 5,
+   "metrics": {
+    "TN": 19,
+    "FP": 2,
+    "FN": 1,
+    "unsure_reject": 2,
+    "recall": "0/1",
+    "precision": "0/2",
+    "agreement": "19/22"
+   },
+   "flips": [
+    {
+     "sheet_id": "H09",
+     "key": "greenhouse:databricks:8012650002",
+     "title": "Software Engineer - Backend",
+     "label": "no",
+     "reason": "The Belgrade role asks for 3+ years of production coding in languages such as Java, Scala or C++. That is a stretch beyond her demonstrated work.",
+     "from": "reject",
+     "to": "keep",
+     "baseline": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5",
+     "changed": "R 2 + S 0 + T 4 + E 0 + Y -1 = 5"
+    },
+    {
+     "sheet_id": "H16",
+     "key": "greenhouse:databricks:7737233002",
+     "title": "Software Engineer - Backend",
+     "label": "no",
+     "reason": "The backend role asks for two years of professional development or a PhD. Her profile shows an eight-month co-op and an MS.",
+     "from": "reject",
+     "to": "keep",
+     "baseline": "R 2 + S 0 + T 3 + E 0 + Y 0 = 5",
+     "changed": "R 2 + S 0 + T 3 + E 0 + Y 0 = 5"
+    }
+   ]
+  },
+  {
+   "change": "v1.1 (combination)",
+   "object": "three filter-file changes",
+   "filter": "v1.1",
+   "threshold": 6,
+   "metrics": {
+    "TN": 21,
+    "FN": 1,
+    "unsure_reject": 2,
+    "recall": "0/1",
+    "precision": "0/0",
+    "agreement": "21/22"
+   },
+   "flips": []
+  }
+ ],
+ "claude_arm_A": {
+  "TN": 21,
+  "FN": 1,
+  "unsure_reject": 2,
+  "recall": "0/1",
+  "precision": "0/0",
+  "agreement": "21/22",
+  "invalid": 0
+ },
+ "claude_arm_B": {
+  "TN": 21,
+  "TP": 1,
+  "unsure_reject": 1,
+  "unsure_keep": 1,
+  "recall": "1/1",
+  "precision": "1/1",
+  "agreement": "22/22",
+  "invalid": 0
+ },
+ "claude_context_flips": [
+  {
+   "sheet_id": "H10",
+   "title": "AI Automation Engineer",
+   "label": "yes",
+   "A": "reject",
+   "B": "keep"
+  },
+  {
+   "sheet_id": "H17",
+   "title": "Data Scientist  ",
+   "label": "unsure",
+   "A": "reject",
+   "B": "keep"
+  }
+ ]
+}

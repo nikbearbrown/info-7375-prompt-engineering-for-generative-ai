@@ -73,7 +73,8 @@ sh scripts/clean_clone_check.sh                     # all of it in a fresh extra
 | Claude Code as MCP client | 21:26 UTC | **LIVE Claude** | `transcripts/claude_code_2026-11-25_run1.*` |
 | Other server, 4 sessions | | LIVE local process; **js3 test client, not Claude** | `transcripts/fs_*`, `evaluations/` |
 | Claude context experiment: 6 format-check calls (dev) and 48 calls on H2 | 23:09–23:10 UTC for H2 | **LIVE Claude**, before any H2 label existed | `experiments/claude_context/raw/` |
-| Labels on 24 H2 postings | Aditya, blind | human | `labels/heldout2_labels.csv` _(pending)_ |
+| Labels on 24 H2 postings | Aditya, blind, edited in the sheet; sealed `94c0c89` after the freeze `9cde2b9` | human | `labels/heldout2_labels.csv`, `labels/SEAL_H2.json` |
+| Pre-registered comparisons on H2 | after the seal | REPLAY + labels + the saved Claude responses | `experiments/RESULTS_H2.json`, [`WHAT_MOVES_THE_SCORE.md` §3](WHAT_MOVES_THE_SCORE.md) |
 | Clean-extraction check | | fresh venv | `scripts/clean_clone_check.sh` |
 
 ## Rubric → strongest evidence
@@ -84,7 +85,7 @@ sh scripts/clean_clone_check.sh                     # all of it in a fresh extra
 | **Reject audit (12)** | [`audit/AUDIT.md`](audit/AUDIT.md): 30 uniform random rejects judged by Aditya (0/27 decided were misses; 95 % CI 0–12.8 %); the closest calls on both sides; keeps; what the sample can and cannot show. False friend: "agent(s)" and "unity catalog" from employer boilerplate (§3). Every rule added, cut or rejected is in §4. |
 | **Source-grounded shortlist (12)** | [`shortlist/`](shortlist/README.md): 15 postings and 123 claims, each with a label, field and verbatim quote; relevance ≠ entailment (`6865704002`); abstentions; the negation counterexample (`8546367002`). |
 | **Tool server and two evaluations (12)** | `js3/mcp_server.py`; [`transcripts/`](transcripts/) (a real Claude Code session, both directions); [`evaluations/EVALUATIONS.md`](evaluations/EVALUATIONS.md): declared vs observed, what compatibility does not entitle a client to assume, and trust decisions for our server and for `server-filesystem` 2.3.0 |
-| **What moves the score (8)** | [`WHAT_MOVES_THE_SCORE.md`](WHAT_MOVES_THE_SCORE.md): the origin of every number, a score worked by hand, single changes on held-out H2 (pre-registered in `FREEZE.json`), and why persistence is not training |
+| **What moves the score (8)** | [`WHAT_MOVES_THE_SCORE.md`](WHAT_MOVES_THE_SCORE.md): the origin of every number, a score worked by hand, single changes on held-out H2 (pre-registered in `FREEZE.json`), and why persistence is not training. **H2 result:** v1.1 changed nothing (a null result); C-b alone and threshold 5 made false keeps; every filter missed the one yes (H10), which Claude with the rules in context caught. |
 | **Sign-off and driver's seat (6)** | below |
 | Frictional · Sources | [`FRICTIONAL.md`](FRICTIONAL.md) · [`SOURCES.md`](SOURCES.md) |
 
