@@ -248,3 +248,13 @@ Known limit: rule 2 triggers only when **no** span is found. A span that is foun
   - **Negation false friend.** E matches "new graduate" inside "It is **not** intended for internship, new graduate, or entry-level applicants" (`8546367002`). In v1.1 this is worth +3, and it makes that posting the top score (11). A v1.2 candidate would ignore E phrases in a sentence containing a negation ("not", "no").
   - **"junior" describing users**, not the role (`8091041002`), is also amplified to +3 in v1.1.
   - **Graduation windows.** All seven Databricks and Notion New Grad keeps require graduation in fall 2026 to summer 2027 (or by December 2026). The persona graduated in December 2025. The filter has no eligibility rule, and the shortlist's LEVEL checks show the conflict.
+- **Plan amendment A4: a fresh blind reject audit of the frozen v1.1** (2026-11-25). Requested by **Aditya**, written before the draw.
+  - **Purpose:** the §5 hand audit, applied to the scorer that is actually frozen (v1.1). The first audit (`audit/AUDIT.md`) covered v1.0.
+  - **Separate from H2:** A4 uses its own seeds, sheet and label file. **It does not change v1.1.** Any rule it suggests becomes a logged candidate for a later version.
+  - **Pool:** only near-duplicate clusters with no posting on either earlier sheet (63-row dev, 24-row H2). That leaves 670 clusters.
+  - **Draw** (seed `7380`, one posting per cluster):
+    - **30** rejects, uniform over postings among the unseen v1.1 rejects, skipping a cluster already drawn;
+    - **5** closest calls just below the cut-off (v1.1 score 5; 9 unseen clusters available);
+    - **all unseen keep clusters** as the kept sample. Only **2** of v1.1's 11 keep clusters are unseen, and one of them is the only unseen call just above the cut-off (score 6).
+  - **Limitation, stated before labeling:** 9 of 11 keep clusters were already reviewed, so the kept sample is 2 postings and can say almost nothing about precision.
+  - **Sheet:** `review/LABEL_SHEET_A4.csv`, order seed `7381`, blank `verdict` and `reason` columns. It shows no score, group or suggested answer. Aditya enters his judgments directly.
