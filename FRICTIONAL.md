@@ -104,7 +104,11 @@ and rejected B–E (148f405).
 - **Changed:** the years preference (4 → 3 years); the label pool (141 → 107 → 82 → 72); the labeling tool's display, so it shows
   the years and visa lines.
 - **Accepted after checking:** gzip for the raw files, after seeing the hashes re-verified on load; the 25 removals, after reading
-  each quoted phrase; the blind label over my audit answer; change A, after it held on the held-out labels.
+  each quoted phrase; the blind label over my audit answer; change A, after it held on the held-out labels; running fetch for real,
+  and the Claude Code session against my server, after reading what each would install, fetch or record.
+- **Considered and skipped:** fixing the claim checker's "list of alternatives" error. Claude estimated about an hour, and it would
+  have reopened about a third of the write-up and the sign-off after the held-out look. I asked whether skipping it would cost many
+  marks, and I decided to "skip it". The 22% error rate stays a measured, documented finding instead of a rushed late change.
 
 Claude also caught its own mistakes:
 - the stale "(v1)" heading in FILTER.md
@@ -120,10 +124,18 @@ A sample that agrees with everything can be telling me about my own anchoring, n
 as Claude's, and a number that moves on tuning can reverse on held-out. Persisting across sessions is not learning: the scorer changed
 because I edited a file, and Claude remembered my decisions because they were written to memory files.
 
-**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. The commits run from c09a161 (the starting point),
-through 148f405 (v1.3), to the fetch-run and final commits. The tests are the full suite of 158, including test_W1–W10, the server
-tests and scripts/js3_sabotage_check.py (9/9). The server evidence is in evidence/mcp/: both transcripts of my server and both fetch
-runs.
+**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. The main commits are:
+- c09a161, the starting point
+- 5813935 to 33062cb, FILTER.md v1 to v1.2
+- 148f405, v1.3
+- 134df74, the v1.3 transcript
+- 5f582c9, the fetch runs
+- dda391d, the Claude Code session
+- a945738 and 78b57ea, the description fix, test first
+- cc215e3, my final signature
+
+The tests are the full suite of 158, including test_W1–W10, the server tests and scripts/js3_sabotage_check.py (9/9). The server
+evidence is in evidence/mcp/: three transcripts of my server (v1.2, v1.3 and Claude Code as the client) and both fetch runs.
 
 **Still open:**
 - the 39 new claim labels in v1.3 were not checked
