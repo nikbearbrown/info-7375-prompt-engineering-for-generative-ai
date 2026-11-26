@@ -92,6 +92,10 @@ effort). Each is one more object, and I didn't measure them.
 - Sample size: a difference of one posting out of 20 is within noise. None of these comparisons separates the
   variants statistically.
 
+## What I would do next (my words, 2026-11-25)
+
+If I continue working on this, I would first test the claim labeler on a new set of job postings that I haven't used while making these changes. The 16/16 result looks good, but since I used the same 16 claims to improve the labeler, I can't say yet how well it will work on new postings. I would keep rule D for now because keywords mentioned in team descriptions were creating false matches, even though it also rejected postings like #4 where the skills were only listed as nice-to-have. I would also consider adding a backend-focus rule because #18 was a mobile internship and passed the current filter, even though it wasn't the type of role I was looking for.
+
 ## What persistence is not proof of
 
 If a change in behavior survives across sessions, that doesn't mean anything was trained. Claude Code reads
