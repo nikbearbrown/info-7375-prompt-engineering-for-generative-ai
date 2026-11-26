@@ -18,7 +18,7 @@
 - **The tool server** (`score_posting`, read-only, offline) matched all 22 predicted protocol steps. Claude Code connected to it as a real client. Chapter 8's teaching server also matched 22/22 predictions, and its known gaps were confirmed by running it.
 - **Tests and the planted wrong versions.** 74 tests pass. The filter's planted wrong versions WF1–WF4 are each caught (`scripts/wrong_versions.py`), and so is the tool server's WF6. Every saved record equals a recomputation from the raw files.
 - **The reject audit (my verdicts):** 1 of 30 random rejects was wrong (R08, rejected by the exclude word "Lead"); 0 of 15 close calls; 0 of 10 kept. For this snapshot's 874 rejects, the one-sided 95 % upper bound on the wrongly-rejected share is **14.9 %**, a statement about this pool only.
-- **The shortlist:** all 40 claims labelled by me: 33 supported, 2 contradicted (S05 C3, S09 C3), 3 insufficient (S01, S06, S08 C3). The level claim C3 is where relevance and entailment come apart.
+- **The shortlist:** all 40 claims labelled by me: 35 supported, 2 contradicted (S05 C3, S09 C3), 3 insufficient (S01, S06, S08 C3). The level claim C3 is where relevance and entailment come apart.
 - **One change (v0.2: "Lead" cut), measured once on my 30 blind held-out labels:** agreement 19/30 before and after, no change. The held-out set's 9 false rejects are the real weakness (`SCORE.md`).
 
 **Started from:** my JS2 loop and JS1 rule, plus the instructor's Lectern filter as the model for FILTER.md (`SOURCES.md`).
