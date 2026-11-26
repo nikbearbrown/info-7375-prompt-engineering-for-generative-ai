@@ -1,21 +1,34 @@
 # Sign-off: Job-Search Agent 3
 
-Everything in [brackets] is for me (Arundhati) to write in my own words. The test names and pointers are facts from
-the repository.
+My words, typed in chat 2026-11-25. The test list is in the README.
 
 ```text
 Sign-off — Job-Search Agent 3
-Checked:  [which properties, by which tests. Available tests:
-           tests/test_filter.py      WrongVersions (W1 W2 W3), RoleWords, TopicWords, LevelAndUS, Threshold
-           tests/test_filter_options.py  Options (us_required, max_years, topic_in_required_only)
-           tests/test_evidence.py    SkillClaims, Abstention, LevelAndLocation, CurlyApostrophe, SpelledYears, StrictestYearsWins
-           tests/test_mcp_server.py  Handshake, ToolList, ToolCall, Wire
-           plus my own hand checks: 54 audit verdicts, 20 held-out labels]
-How:      [by hand / by a test I wrote before reading Claude's code / by recomputation / with Claude's help.
-           Fact: Claude wrote every test, from my FILTER.md, before writing the code.]
-Not checked: [at least three real items, specific to this agent]
-Not claiming: [what this agent does not show]
-Signed or withheld: ____________ (name, date)
+Checked:
+I checked the filter rules for title matching, topic words, experience level, US location, and the minimum
+topic-word threshold. I also checked the filter options, evidence claims, abstention behavior, level and location
+extraction, and MCP server handshake and tool calls using the repository tests listed above.
+(tests/test_filter.py, tests/test_filter_options.py, tests/test_evidence.py, tests/test_mcp_server.py)
+I also reviewed 54 audit postings and labeled 20 held-out postings. For the shortlist, I reviewed the quoted
+evidence and checked whether the claims were actually supported by the posting.
+
+How:
+I reviewed the rules, made the decisions about which changes to accept or reject, and did the manual posting
+reviews. I ran the automated tests, but Claude wrote every test from my FILTER.md before writing the code. I also
+used Claude's help during the review, so I am not claiming that every part of the evaluation was done independently.
+
+Not checked:
+* I did not verify that every shortlisted posting is still open and accepting applications.
+* I did not verify every extracted claim against every employer's complete, live posting.
+* I did not test every possible sentence structure that could make a skill optional, preferred, or learnable rather
+  than required.
+* I did not test the agent against every possible job-board format or unexpected response.
+
+Not claiming:
+This agent does not prove that a job is a perfect fit, that Rohan meets every employer requirement, or that he will
+get an interview or an offer. It only filters and ranks postings using the rules and evidence available to it.
+
+Signed or withheld: ____________
 ```
 
 ## Driver's seat
