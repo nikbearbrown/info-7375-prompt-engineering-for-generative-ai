@@ -73,7 +73,7 @@
 - that the server is safe for any client, or that annotations prove anything
 - that anything was trained; every change was a file edit
 
-**Signed or withheld:** Signed, Ethan Gomes, 25 November 2026
+**Signed or withheld:** ____________ (name, date)
 
 ---
 
@@ -83,11 +83,11 @@
 |---|---|---|---|
 | **The filter rules** | Draft FILTER.md from my JS1 contract and persona; flag placeholders and conflicts; write the tests and code from it | Choose every rule and number (score out of 100, visa points, BI titles, years ≤ 3, whole-phrase "Data Engineering") | The rules say what I want; Claude can only guess at that |
 | **Labels and the audit** | Build tools that show the posting, never the filter's answer; point out where my labels break my own rule | Label and judge every posting myself; decide which answer stands when they conflict | The labels are the ground truth every number is measured against. When I saw the filter's verdict first, I agreed with it on a posting I had rejected blind |
-| **Claims and evidence** | Label claims against quoted spans; check its own labels and report the errors | Decide how much to trust the labels | A label that says "supported" can be wrong 1 time in 5 |
+| **Claims and evidence** | Label claims against quoted spans; check its own labels and report the errors | Check the labels by hand myself, and decide how much to trust them | A label that says "supported" can be wrong: 8% of the 39 I checked, 22% of the 46 Claude checked, mostly from "such as A, B or C" lists |
 | **Tools and servers** | Write the server, record the transcripts, trace what it touches, read other servers' source | Make the trust decision for each server | A server's description is a claim made by whoever wrote it, and I live with what it can reach |
 | **What changes the score** | Propose single changes, measure them on tuning, protect the held-out labels in code | Choose what goes to held-out, and adopt or reject each change | One look at held-out cannot be undone |
 
 **Why the judgment that a posting is worth my time stays mine:** the filter can say a posting mentions Python, is in New York, and
-asks for 4+ years. It cannot say whether I want that team, that commute or that company, and its labels were wrong 22% of the time on
-what the posting actually requires. The score ranks what the text matches. Whether a job is worth an application is about my life, and
+asks for 4+ years. It cannot say whether I want that team, that commute or that company, and its labels about what a posting
+actually requires were wrong between 8% (my check of 39) and 22% (Claude's check of 46) of the time. The score ranks what the text matches. Whether a job is worth an application is about my life, and
 the filter cannot see that.

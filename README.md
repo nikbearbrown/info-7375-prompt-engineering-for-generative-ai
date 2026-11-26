@@ -8,6 +8,9 @@ engineer with about 4 years of experience, Boston preferred, open to remote or r
 
 **Started from:** my JS2 agent (commit `7404ffb`: the loop, the permission policy and the Greenhouse/Lever adapters, all 113 tests) and
 my JS1 contract and persona (`CONTRACT.md`, `persona/`). JS2's `GATE.md`, `baseline/` and `config/` are carried over unchanged.
+`CONTRACT.md` and `GATE.md` are copied as they were submitted, so their links to `evidence/…` (such as `evidence/RUNS.md` or
+`evidence/crosscheck/`) point to my JS1 and JS2 submissions, not to this folder. JS3's own evidence is in `evidence/mcp/`, `audit/`,
+`labels/` and `runs/`.
 
 ## Language and toolchain
 
