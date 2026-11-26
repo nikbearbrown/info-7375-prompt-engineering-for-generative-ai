@@ -1,0 +1,92 @@
+{
+  "dataset": "audit",
+  "batch": 1,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 1, "batch": 1, "id": "8458710002", "board": "databricks",
+      "title": "Strategic Core Account Executive - Retail",
+      "verdict": "not", "confidence": "high",
+      "reason": "enterprise sales role",
+      "justification": "An account executive running go-to-market campaigns and closing deals in Fortune 500 retail accounts; sales.",
+      "evidence": ["you are a sales professional experienced in leading go-to-market campaigns in Fortune 500 accounts"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 2, "batch": 1, "id": "3254f6a7-6353-4a77-beec-f37b832c99ae", "board": "openai",
+      "title": "Applied AI Engineer, API Platform, Digital Natives",
+      "verdict": "not", "confidence": "low",
+      "reason": "customer advisory applied AI role",
+      "justification": "Despite the AI Engineer title, the team describes itself as a trusted advisor to API customers and the role partners with customer product teams to ship their AI features; the rubric treats that as customer-facing, though it involves building agentic features with frontier models.",
+      "evidence": ["We act as a trusted advisor and thought partner for our API customers", "turn frontier model capabilities into new features and agentic experiences"],
+      "uncertainty": "The excerpt does not say how much code the engineer writes versus advising; the title matches Priya's target title exactly.",
+      "borderline": true,
+      "borderline_note": "Customer-facing role with hands-on LLM application building; title is a direct Priya target keyword."
+    },
+    {
+      "row": 3, "batch": 1, "id": "6384df1b-c2e0-4265-ad9b-d4a7bca706d6", "board": "openai",
+      "title": "Executive in Residence, Cyber",
+      "verdict": "not", "confidence": "high",
+      "reason": "cybersecurity executive outreach role",
+      "justification": "Seeks a CISO-level security executive to be an industry voice and speaker for customers; executive outreach, not engineering.",
+      "evidence": ["OpenAI is seeking an accomplished CISO/CSO or equivalent cybersecurity executive", "You will combine invited speaking and executive engagement"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 4, "batch": 1, "id": "57cfe1d3-27b6-4761-909c-fec7829e9227", "board": "openai",
+      "title": "Applied AI Architect - Tokyo",
+      "verdict": "not", "confidence": "high",
+      "reason": "customer technical owner role",
+      "justification": "Senior technical owner for a portfolio of customers and counterpart to their leadership, working with Sales; a customer-facing architect role.",
+      "evidence": ["you will be the senior technical owner for a named portfolio of customers and the primary technical counterpart to their leadership teams"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 5, "batch": 1, "id": "7654349002", "board": "databricks",
+      "title": "Staff Software Engineer (Money)",
+      "verdict": "unsure", "confidence": "medium",
+      "reason": "boilerplate only and team unclear",
+      "justification": "The excerpt is company boilerplate followed by a Mosaic AI product paragraph; the title only says Money, and nothing shown states what this engineer builds.",
+      "evidence": ["Staff Software Engineer (Money)", "Databricks Mosaic AI offers a unique data-centric approach to building enterprise-quality, Machine Learning and Generative AI solutions"],
+      "uncertainty": "The Mosaic AI paragraph may describe the team or may be general company context; Money could mean billing or something else, which I did not assume.",
+      "borderline": true,
+      "borderline_note": "Open the posting: if the team is Mosaic AI model serving or training this is relevant, if it is billing or payments it is not."
+    },
+    {
+      "row": 6, "batch": 1, "id": "40ed6975-ef61-4807-b748-37c2fa2b76c7", "board": "openai",
+      "title": "Software Engineer, Foundations Search",
+      "verdict": "relevant", "confidence": "medium",
+      "reason": "retrieval systems for frontier models",
+      "justification": "The Search team in Foundations builds agentic search by co-designing model-system interfaces with serving, indexing and retrieval, and large-scale indexing systems that models reason over; ML serving and retrieval infrastructure.",
+      "evidence": ["building agentic search by co-designing model–system interfaces with the core search stack (serving, indexing, retrieval)", "develops large-scale systems that transform and index vast corpora, enabling models to reason over"],
+      "uncertainty": "Sits in a research organization; the engineer's own duties are past the excerpt.",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 7, "batch": 1, "id": "b9a4a809-a965-4dbe-aeef-6ce1593903dd", "board": "openai",
+      "title": "Hardware Operations Engineer",
+      "verdict": "not", "confidence": "high",
+      "reason": "data center hardware operations",
+      "justification": "Keeps compute hardware reliable and available across AI campuses with data center operations partners; hardware operations rather than ML or data-platform software.",
+      "evidence": ["The Hardware Operations team is responsible for ensuring the reliability, availability, and lifecycle health of OpenAI’s compute infrastructure"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 8, "batch": 1, "id": "8716192002", "board": "databricks",
+      "title": "Sr. Developer Advocate, AI and Machine Learning",
+      "verdict": "not", "confidence": "medium",
+      "reason": "developer advocacy community role",
+      "justification": "Developer advocacy aimed at building trust and recognition in the AI practitioner community and attending meetups; it asks for hands-on GenAI, agents and MLOps practice, but the job itself is outreach.",
+      "evidence": ["depends on building trust and recognition within an ever-growing community", "Are you a hands-on practitioner in generative AI, agents, and MLOps"],
+      "uncertainty": "Advocates often build demos and sample code; the excerpt stops before the duties.",
+      "borderline": true,
+      "borderline_note": "Outward-facing role that requires real ML practice; not under the rubric, but a reader focused on skills match could disagree."
+    }
+  ]
+}

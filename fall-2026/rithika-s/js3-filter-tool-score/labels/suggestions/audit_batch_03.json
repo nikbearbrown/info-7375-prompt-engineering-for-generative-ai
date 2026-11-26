@@ -1,0 +1,94 @@
+{
+  "dataset": "audit",
+  "batch": 3,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 17, "batch": 3, "id": "4720573005", "board": "scaleai",
+      "title": "Frontier Agents Engineer (Applied AI)",
+      "verdict": "relevant", "confidence": "medium",
+      "reason": "builds production AI agents",
+      "justification": "Title and text centre on building production AI agents with new foundation models and agent architectures, which is LLM application building close to Priya's agent work.",
+      "evidence": ["Frontier Agents Engineer (Applied AI)", "build production AI agents that automate complex workflows", "building AI systems that reliably solve real-world problems"],
+      "uncertainty": "The excerpt is about Scale and the opportunity, not the engineer's duties; the agents are built with client organizations, so some customer-delivery work is possible.",
+      "borderline": true,
+      "borderline_note": "If the role turns out to be client delivery like an FDE, the rubric would make it not."
+    },
+    {
+      "row": 18, "batch": 3, "id": "8093293002", "board": "databricks",
+      "title": "Staff Software Engineer - Backend",
+      "verdict": "not", "confidence": "medium",
+      "reason": "generic backend distributed systems",
+      "justification": "After the company boilerplate the only duty shown is leading complex distributed systems across services; nothing ties this backend role to ML or to data pipelines.",
+      "evidence": ["Lead the design and implementation of complex, high-impact distributed systems that span multiple services or teams"],
+      "uncertainty": "The team is not named, and any Databricks backend team could touch the data platform.",
+      "borderline": true,
+      "borderline_note": "Infrastructure with an unknown ML link; unsure would also be defensible."
+    },
+    {
+      "row": 19, "batch": 3, "id": "4607930005", "board": "scaleai",
+      "title": "Strategist, Qatar",
+      "verdict": "not", "confidence": "high",
+      "reason": "public sector business development",
+      "justification": "Grows the public-sector business in Qatar by winning opportunities and running a go-to-market strategy; business development.",
+      "evidence": ["you’ll be responsible for growing the Global Public Sector business unit", "You will develop and execute on a go to market strategy for customer acquisition"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 20, "batch": 3, "id": "4660340005", "board": "scaleai",
+      "title": "Machine Learning Fellow - Human Frontier Collective",
+      "verdict": "not", "confidence": "medium",
+      "reason": "expert network fellowship not engineering job",
+      "justification": "Membership in an expert network of mostly doctorate-holding researchers who take part in selected projects and publish; not an engineering role building ML systems, despite the Machine Learning title.",
+      "evidence": ["We bring together researchers, academics, and domain leaders across 70+ fields – over 90% of members hold doctorates", "the network itself, participation in selected AI/ML projects, and opportunities to publish"],
+      "uncertainty": "The excerpt does not say what a fellow actually does day to day or whether it is a job at all.",
+      "borderline": true,
+      "borderline_note": "Title contains a target keyword; the role reads as an expert-network fellowship."
+    },
+    {
+      "row": 21, "batch": 3, "id": "4d6a5951-9838-434c-830a-22cb938ea228", "board": "openai",
+      "title": "Software Engineer, Research - Human Data",
+      "verdict": "relevant", "confidence": "high",
+      "reason": "human feedback platforms for model training",
+      "justification": "Engineers build the platforms, tools and infrastructure for human-feedback data that OpenAI uses to train its models; ML data-platform work feeding training.",
+      "evidence": ["The Human Data engineering team creates the systems that enable scalable, high-quality human feedback", "These systems are essential to how OpenAI trains and improves its most advanced models"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 22, "batch": 3, "id": "8899929002", "board": "databricks",
+      "title": "Startup Core Account Executive",
+      "verdict": "not", "confidence": "high",
+      "reason": "startup sales role",
+      "justification": "An account executive selling to start-up and mid-market accounts under a consumption sales process; sales.",
+      "evidence": ["you come with relevant experience selling to Start-up and Mid-Market accounts"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 23, "batch": 3, "id": "1c516e9f-c97d-4a40-8529-9871dac615a5", "board": "openai",
+      "title": "Research Engineer / Research Scientist- Post Training",
+      "verdict": "relevant", "confidence": "medium",
+      "reason": "post-training model development",
+      "justification": "The Post Training team trains and improves pre-trained models for deployment, and the role researches and develops model improvements with strong ML engineering skills; model training is the main work.",
+      "evidence": ["The Post Training team is responsible for training and improving pre-trained models", "We're looking for individuals with strong ML engineering skills and research experience"],
+      "uncertainty": "Research-heavy role; research experience is asked for, which I did not treat as a criterion.",
+      "borderline": true,
+      "borderline_note": "Research engineer/scientist: relevant under the rubric, but the research emphasis may be a stretch for Priya."
+    },
+    {
+      "row": 24, "batch": 3, "id": "7934782002", "board": "databricks",
+      "title": "Senior Software Engineer - Ingestion",
+      "verdict": "relevant", "confidence": "medium",
+      "reason": "data ingestion platform engineering",
+      "justification": "Senior-level role on Lakeflow Connect, the ingestion connectors that load enterprise data into the Lakehouse for data and AI workflows; data-pipeline platform work.",
+      "evidence": ["Ingesting data into the Lakehouse is a strategic area of investment for Databricks", "Lakeflow Connect is looking to solve this problem by providing ready-to-use, point-and-click connectors"],
+      "uncertainty": "Connector engineering may be integration work more than ML; the excerpt ends before the duties.",
+      "borderline": true,
+      "borderline_note": "Data platform rather than ML; decide together with held-out row 23 (the Staff version of this role)."
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+{
+  "dataset": "heldout",
+  "batch": 2,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 9, "batch": 2, "id": "d8b894e3-c399-4303-a708-3cef8ff5c1a2", "board": "openai",
+      "title": "Forward Deployed Engineer (FDE), Healthcare - SF",
+      "verdict": "not", "confidence": "low",
+      "reason": "forward-deployed customer role",
+      "justification": "The rubric puts forward-deployed roles under customer-facing, and this one is built around healthcare customer engagements; but the shown duties are hands-on model deployment, evaluation and productionization, so it is a close call.",
+      "evidence": ["partners with healthcare organizations to deploy production AI systems", "to own end-to-end deployments of our models within healthcare organizations", "implementation, evaluation, productionization, and handoff"],
+      "uncertainty": "How much of the job is building versus customer discovery and handoff is not stated in the excerpt.",
+      "borderline": true,
+      "borderline_note": "Customer-facing role with substantial ML deployment and evaluation work; LABELING_RULE.md says customer-facing is not, but the work is close to Priya's inference/eval experience."
+    },
+    {
+      "row": 10, "batch": 2, "id": "8905967002", "board": "databricks",
+      "title": "Senior Solutions Architect - Digital Natives",
+      "verdict": "not", "confidence": "high",
+      "reason": "solutions architect customer role",
+      "justification": "A solutions architect owning executive relationships and consumption strategy for complex customer engagements; customer-facing technical sales.",
+      "evidence": ["responsible for the organisation's most complex customer engagements", "You drive consumption strategy, own executive-level relationships"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 11, "batch": 2, "id": "8899462002", "board": "databricks",
+      "title": "Delivery Solutions Architect - Public Sector (DOW, DHS, Intelligence Community)",
+      "verdict": "not", "confidence": "high",
+      "reason": "customer delivery architect role",
+      "justification": "Works with sales and field engineering to grow customers' platform usage; customer-facing delivery role. The posting also requires access to classified information.",
+      "evidence": ["You will collaborate with our sales and field engineering teams to accelerate the adoption and growth of the Databricks Platform", "U.S. citizenship is required to access classified information"],
+      "uncertainty": "The excerpt never uses the word clearance; the not verdict stands on the customer-facing role alone.",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 12, "batch": 2, "id": "21229750-8bd1-4134-a20e-2a8922b88806", "board": "openai",
+      "title": "Systems Software Engineer, BMC & Management Plane",
+      "verdict": "not", "confidence": "high",
+      "reason": "embedded hardware management software",
+      "justification": "BMC firmware and embedded Linux services that monitor server and accelerator hardware; hardware systems software, even though the hardware serves AI workloads.",
+      "evidence": ["with a focus on BMC software and embedded Linux services for server and accelerator manageability", "software that monitors hardware health"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 13, "batch": 2, "id": "2a931dd1-5002-47d1-a367-ec1a19ef7e9e", "board": "openai",
+      "title": "Forward Deployed Engineer (FDE), Healthcare - NYC",
+      "verdict": "not", "confidence": "low",
+      "reason": "forward-deployed customer role",
+      "justification": "Same NYC-based healthcare FDE role as the SF posting: the job is defined by customer deployments with payers and providers, which the rubric counts as customer-facing, while still involving real model evaluation and productionization.",
+      "evidence": ["own end-to-end deployments of our models within healthcare organizations, including payers, providers, health systems", "You will lead technical discovery, architecture, implementation, evaluation, productionization"],
+      "uncertainty": "Text is nearly identical to row 9; the split between building and client work is not given.",
+      "borderline": true,
+      "borderline_note": "Should be decided the same way as row 9 (same role, different city)."
+    },
+    {
+      "row": 14, "batch": 2, "id": "823a05bf-33fb-4d94-9dd8-571723d27b1a", "board": "openai",
+      "title": "Software Engineer, Infrastructure - Core Experimentation",
+      "verdict": "not", "confidence": "low",
+      "reason": "product experimentation infrastructure",
+      "justification": "The Statsig team builds experimentation, rollout, feature-config and analytics infrastructure for every product; model changes are one of many things it evaluates, so the main work reads as product-experimentation infrastructure rather than ML.",
+      "evidence": ["owns the experimentation, rollout, dynamic configuration, and analytics infrastructure", "evaluate product and model changes in production"],
+      "uncertainty": "Priya's resume includes an A/B framework for LLM evaluation, which this platform resembles; the excerpt ends before the role's own duties.",
+      "borderline": true,
+      "borderline_note": "Experimentation/analytics platform with a partial ML-evaluation link; arguably a data platform that model work runs on."
+    },
+    {
+      "row": 15, "batch": 2, "id": "7613aca3-9dd8-41cd-b114-06ef4de967a9", "board": "openai",
+      "title": "Software Engineer, Cooperative AI",
+      "verdict": "relevant", "confidence": "medium",
+      "reason": "builds AI-powered knowledge system",
+      "justification": "The team builds an AI-powered knowledge system on top of OpenAI's models to automate operations; that is LLM application building, the closest match to Priya's agent and routing work.",
+      "evidence": ["We are building an AI powered knowledge system that evolves and learns", "We leverage our state of the art models, technologies, and products"],
+      "uncertainty": "It is applied LLM systems work rather than training models, and the excerpt does not list the engineer's own tasks.",
+      "borderline": true,
+      "borderline_note": "Applied LLM application engineering: relevant under the rubric's deploying/serving clause, but a strict model-building reading could say unsure."
+    },
+    {
+      "row": 16, "batch": 2, "id": "4740043005", "board": "scaleai",
+      "title": "Revenue Operations Manager",
+      "verdict": "not", "confidence": "high",
+      "reason": "revenue operations role",
+      "justification": "Owns go-to-market measurement and pipeline diagnosis; explicitly individual-contributor, but revenue operations, not engineering.",
+      "evidence": ["you will own the measurement layer of our go-to-market engine", "This is an individual contributor role with a wide mandate"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    }
+  ]
+}

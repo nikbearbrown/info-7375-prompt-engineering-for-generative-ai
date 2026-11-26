@@ -1,0 +1,91 @@
+{
+  "dataset": "heldout",
+  "batch": 1,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 1, "batch": 1, "id": "1bb1f351-41a2-43a5-bac1-259859886cb3", "board": "openai",
+      "title": "Software Engineer, GTM Growth Engineering",
+      "verdict": "unsure", "confidence": "medium",
+      "reason": "AI-powered GTM product work not model building",
+      "justification": "The team builds AI-native products for go-to-market and marketing workflows; the text mixes product craft with applied AI, and the excerpt stops before saying whether the engineer builds or evaluates models or mainly builds product surfaces.",
+      "evidence": ["builds AI-native products and systems that help OpenAI's go-to-market and B2B marketing organizations", "Our work combines product craft, applied AI, reliable systems, and thoughtful operational design."],
+      "uncertainty": "Excerpt cut mid-sentence at the role description; amount of hands-on LLM work unknown.",
+      "borderline": true,
+      "borderline_note": "Applied-AI product engineering: relevant if the role means building LLM features (close to Priya's agent work), not if it is mostly GTM web product."
+    },
+    {
+      "row": 2, "batch": 1, "id": "2b5e8e15-7952-4170-a927-2ad68e318ed6", "board": "openai",
+      "title": "Software Engineer, Database Systems",
+      "verdict": "not", "confidence": "low",
+      "reason": "core C++ database engine work",
+      "justification": "The main work is the core distributed database engine (C++, query execution, indexing); the database does serve vector search and RAG, but the shown role is database-engine engineering rather than ML or data-pipeline building.",
+      "evidence": ["our core engine is written in C++", "you'll contribute to the core database engine, driving improvements across ingestion, query execution, indexin", "vector database that powers all vector search and retrieval augmented generation (RAG) at OpenAI"],
+      "uncertainty": "The rubric counts data platforms ML runs on; a vector database for RAG could be read that way.",
+      "borderline": true,
+      "borderline_note": "Infrastructure with a partial ML link: a reader who counts the RAG vector database as an ML data platform would say relevant."
+    },
+    {
+      "row": 3, "batch": 1, "id": "48993416-b5f5-4c3f-b7c8-b8ca7c2395e0", "board": "openai",
+      "title": "AI Support Engineer, Government - San Francisco, CA",
+      "verdict": "not", "confidence": "high",
+      "reason": "customer support role",
+      "justification": "Sits in User Operations and resolves customer issues and adoption questions; this is a customer-facing support role, not ML building.",
+      "evidence": ["OpenAI’s User Operations team shepherds our customers’ adoption of AI", "We resolve complex issues, provide technical guidance, and support customers"],
+      "uncertainty": "none; no clearance is mentioned in the excerpt, so the Government label played no part.",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 4, "batch": 1, "id": "772faf37-f0a0-4ea2-9f94-f9ea2c4a8914", "board": "openai",
+      "title": "Account Director, Manufacturing- Tokyo",
+      "verdict": "not", "confidence": "high",
+      "reason": "sales account role",
+      "justification": "An account director on the Go To Market sales team helping customers adopt products; sales, not engineering.",
+      "evidence": ["Our Sales team has a unique mission to help customers understand the deep impact"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 5, "batch": 1, "id": "daabc150-f22c-421e-b30d-1a50fb4cede3", "board": "openai",
+      "title": "Operations Analyst, User Safety & Risk Operations",
+      "verdict": "not", "confidence": "high",
+      "reason": "safety operations analyst",
+      "justification": "A senior operations analyst turning abuse and fraud risks into operational processes; operations work with no model or pipeline building described.",
+      "evidence": ["We are seeking a Senior Operations Analyst to take on complex, ambiguous safety and risk problems"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 6, "batch": 1, "id": "144b12f3-5821-4727-a266-b5ed9ff46fd2", "board": "openai",
+      "title": "Head of Finance - Data Centers",
+      "verdict": "not", "confidence": "high",
+      "reason": "finance leadership role",
+      "justification": "Finance leader for data center investments: budgets, capital forecasting and investment cases. Finance and a head-of role.",
+      "evidence": ["you will be the finance leader for OpenAI’s self-built data center efforts", "forecasting capital needs, managing construction budgets"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 7, "batch": 1, "id": "6202038a-323b-43ce-ae10-534acba4145c", "board": "openai",
+      "title": "Android Engineer, Applied Foundations",
+      "verdict": "not", "confidence": "high",
+      "reason": "Android mobile product engineering",
+      "justification": "Senior Android engineer building sign-up, account, payments and safety flows in the mobile apps; mobile product work, not ML.",
+      "evidence": ["building the core mobile experiences that power how users sign up, manage their account, family features, pay for services"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 8, "batch": 1, "id": "7994759002", "board": "databricks",
+      "title": "Staff Software Engineer - Security Infrastructure",
+      "verdict": "not", "confidence": "medium",
+      "reason": "security infrastructure engineering",
+      "justification": "Title places the role in security infrastructure under Trust & Safety; the excerpt is company boilerplate and mentions the ML platform only as the product being secured.",
+      "evidence": ["Staff Software Engineer - Security Infrastructure", "Trust & Safety has the mission to build the most trusted data analytics and ML platform"],
+      "uncertainty": "Excerpt ends before the role's duties, so the verdict rests mainly on the title.",
+      "borderline": false, "borderline_note": ""
+    }
+  ]
+}

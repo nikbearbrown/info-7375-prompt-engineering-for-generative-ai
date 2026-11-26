@@ -1,0 +1,92 @@
+{
+  "dataset": "heldout",
+  "batch": 3,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 17, "batch": 3, "id": "1eb32675-b1a0-4c0a-9b57-19ceab07e9e0", "board": "openai",
+      "title": "Data Scientist, Ads Demand",
+      "verdict": "not", "confidence": "high",
+      "reason": "ads measurement and analytics",
+      "justification": "Defines metrics, benchmarks and diagnostic frameworks for ads demand with sales and product leadership; analysis and measurement, with no model or pipeline building shown.",
+      "evidence": ["you will build the measurement and insight foundation for understanding demand health", "Define the North Star metrics, diagnostic framework, and measurement strategy"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 18, "batch": 3, "id": "ac43a452-1f50-42a2-816e-f920fdb51823", "board": "openai",
+      "title": "Financial Systems Engineer",
+      "verdict": "not", "confidence": "high",
+      "reason": "Oracle finance systems engineering",
+      "justification": "Builds Oracle Fusion financial systems and accounting integrations; requires Oracle Financials and accounting process knowledge, unrelated to ML.",
+      "evidence": ["support critical accounting processes across Oracle Fusion Cloud", "This role requires deep Oracle Financials expertise"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 19, "batch": 3, "id": "5e4ed6d1-2417-4bf5-bae0-905931c488e3", "board": "openai",
+      "title": "Software Engineer, Platform Systems",
+      "verdict": "relevant", "confidence": "high",
+      "reason": "model training infrastructure",
+      "justification": "The team writes the core model training software and infrastructure for training flagship models on large supercomputers; ML infrastructure is the main work.",
+      "evidence": ["We build the engineering and research infrastructure required to train OpenAI’s flagship models", "Our team develops core model training software"],
+      "uncertainty": "Deep distributed-systems work (collective communication, parallelism) is a stretch from Priya's experience, but fit level is not a rubric criterion.",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 20, "batch": 3, "id": "8220836002", "board": "databricks",
+      "title": "Staff Fullstack Engineer, Agentic Applications",
+      "verdict": "unsure", "confidence": "medium",
+      "reason": "internal AI apps with fullstack focus",
+      "justification": "Builds internal end-to-end applications with AI-powered capabilities for running the business; the title says fullstack and the excerpt is about roadmap and tech leadership, so it is unclear whether agent/LLM building is the main work.",
+      "evidence": ["build resilient, in-house platforms and AI-powered capabilities", "delivering end-to-end applications that power our business"],
+      "uncertainty": "The excerpt ends at a tech-lead sentence; it says the person is technical leader for a team of software engineers, which may or may not mean people management.",
+      "borderline": true,
+      "borderline_note": "Agentic applications are close to Priya's LangGraph agent work, but the posting reads as fullstack internal tools; also check whether technical leader means manager."
+    },
+    {
+      "row": 21, "batch": 3, "id": "8818577002", "board": "databricks",
+      "title": "Sr Staff Technical Program Manager- Security",
+      "verdict": "not", "confidence": "high",
+      "reason": "security program management",
+      "justification": "A technical program manager running company-wide security programs; program management, not ML engineering.",
+      "evidence": ["We are seeking a Senior Staff Technical Program Manager to own and lead a company-wide portfolio of security programs"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 22, "batch": 3, "id": "4745295005", "board": "scaleai",
+      "title": "Contracts Manager",
+      "verdict": "not", "confidence": "high",
+      "reason": "legal contracts role",
+      "justification": "Reviews, drafts and negotiates agreements as part of the legal team; legal work.",
+      "evidence": ["the legal department by working closely with business and legal teams to review, draft, and negotiate agreements"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 23, "batch": 3, "id": "8200692002", "board": "databricks",
+      "title": "Staff Software Engineer - Ingestion",
+      "verdict": "relevant", "confidence": "medium",
+      "reason": "data ingestion platform engineering",
+      "justification": "Builds Lakeflow Connect ingestion connectors that bring data into the Lakehouse for data and AI workflows; data-platform pipeline engineering, which the rule counts.",
+      "evidence": ["Ingesting data into the Lakehouse is a strategic area of investment for Databricks and a key enabler for Data and AI workflows", "providing ready-to-use, point-and-click connectors"],
+      "uncertainty": "Connector work may be closer to product integration engineering than ML; the excerpt stops before the engineer's duties.",
+      "borderline": true,
+      "borderline_note": "Data platform versus ML: relevant only because LABELING_RULE.md counts data platforms and pipelines."
+    },
+    {
+      "row": 24, "batch": 3, "id": "9ddb1bd1-3ee0-4350-88f7-3710057b8c93", "board": "openai",
+      "title": "Forward Deployed Engineer - Paris",
+      "verdict": "not", "confidence": "low",
+      "reason": "forward-deployed customer role",
+      "justification": "A Paris FDE leading frontier-model deployments alongside strategic customers and partnering directly with their teams; customer-facing by the rubric, though it includes system design, build and eval-driven feedback.",
+      "evidence": ["lead complex end-to-end deployments of frontier models in production alongside our most strategic customers", "eval-driven feedback that changes product and model roadmaps"],
+      "uncertainty": "The share of build work versus customer scoping is not stated.",
+      "borderline": true,
+      "borderline_note": "Same question as rows 9 and 13: is forward-deployed model deployment customer-facing (not) or ML deployment (relevant)?"
+    }
+  ]
+}

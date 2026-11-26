@@ -1,0 +1,95 @@
+{
+  "dataset": "audit",
+  "batch": 6,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 41, "batch": 6, "id": "c8d3feee-2b6a-4ef7-b8c0-90bbd1381c1f", "board": "openai",
+      "title": "Applied AI Engineer, Codex",
+      "verdict": "not", "confidence": "medium",
+      "reason": "Codex customer adoption partner",
+      "justification": "Helps customer engineering teams adopt and integrate Codex as a trusted technical partner and power user of AI coding tools; customer adoption work rather than building models or ML systems.",
+      "evidence": ["The Applied AI Engineering (Codex) team helps customers adopt OpenAI's coding tools", "We act as trusted technical partners, guiding engineering teams"],
+      "uncertainty": "It does involve prototyping AI workflows with customers.",
+      "borderline": true,
+      "borderline_note": "Applied AI Engineer title on a customer-adoption role; less ML building than the other Applied AI rows."
+    },
+    {
+      "row": 42, "batch": 6, "id": "b4196174-9cc3-487d-9d21-848bc283b80f", "board": "openai",
+      "title": "Strategic Finance, Compute",
+      "verdict": "not", "confidence": "high",
+      "reason": "compute finance and FP&A",
+      "justification": "A finance generalist doing FP&A, investment analysis and planning for the compute portfolio; finance.",
+      "evidence": ["This is a finance generalist role that includes core FP&A responsibilities"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 43, "batch": 6, "id": "cc434f5b-dc0b-42fd-97ec-e0171545c6e9", "board": "openai",
+      "title": "Research Engineer, Privacy",
+      "verdict": "not", "confidence": "medium",
+      "reason": "privacy engineering for user data",
+      "justification": "Privacy engineering across products that handle user data: production services, privacy-preserving techniques and tooling for responsible data use; the shown main work is privacy and security, not ML building.",
+      "evidence": ["Our focus is on all OpenAI products and systems handling user data", "develop novel privacy-preserving techniques"],
+      "uncertainty": "Privacy-preserving techniques could apply to training data, but the excerpt does not say so.",
+      "borderline": true,
+      "borderline_note": "Research engineer in privacy with a possible but unstated link to model training data."
+    },
+    {
+      "row": 44, "batch": 6, "id": "8592928002", "board": "databricks",
+      "title": "Sr. Forward Deployed Engineer (FDE) - Financial Services",
+      "verdict": "not", "confidence": "low",
+      "reason": "customer-facing forward-deployed builder",
+      "justification": "Builds and productionizes data and AI systems for financial-services customers and calls itself a hands-on, customer-facing role; it spans data engineering and AI, but the rubric counts customer-facing as not.",
+      "evidence": ["you will work with customers to build and productionize solutions to their data & AI challenges", "This is a hands-on, customer-facing role for builders"],
+      "uncertainty": "Hands-on data engineering and AI building is explicit, which makes the customer-facing rule the only reason for not.",
+      "borderline": true,
+      "borderline_note": "The clearest test of the customer-facing rule: hands-on data and AI building for clients."
+    },
+    {
+      "row": 45, "batch": 6, "id": "8133691002", "board": "databricks",
+      "title": "Software Engineer - New Grad (2027 Start) - Aarhus",
+      "verdict": "unsure", "confidence": "medium",
+      "reason": "new grad team not specified",
+      "justification": "A new-grad software engineer who will build infrastructure and products for the Databricks platform, hired across teams; the shown text does not say whether the placement involves ML or data pipelines.",
+      "evidence": ["you will work with our engineering team to build infrastructure and products for the Databricks platform"],
+      "uncertainty": "Team placement is unknown; a 2027 start date and Aarhus location were not used as criteria.",
+      "borderline": true,
+      "borderline_note": "Generic platform role with unknown team; compare with audit row 18, which I marked not because its shown duties were generic backend."
+    },
+    {
+      "row": 46, "batch": 6, "id": "840963bb-7b1a-4021-91a0-40baf71b7e20", "board": "openai",
+      "title": "Applied AI Engineer, Startups (Codex)",
+      "verdict": "not", "confidence": "low",
+      "reason": "startup advisory with eval feedback",
+      "justification": "Trusted advisor to startup founders and developers using Codex, while feeding insights into evaluation systems and model behavior; customer-facing first, with a real model-quality component.",
+      "evidence": ["We are trusted advisors to, and thought partners with, startups", "turn those insights into evaluation systems, product improvements, and better model behavior"],
+      "uncertainty": "The evaluation-systems work is close to Priya's LLM evaluation experience; its share of the role is not stated.",
+      "borderline": true,
+      "borderline_note": "Applied AI Engineer with an evaluation component; decide with audit rows 2, 10 and 36."
+    },
+    {
+      "row": 47, "batch": 6, "id": "2796d32a-9f7c-4008-a2c5-50dd53b0f2fe", "board": "openai",
+      "title": "Data Engineer, Core Experimentation",
+      "verdict": "relevant", "confidence": "low",
+      "reason": "data engineer on experimentation data platform",
+      "justification": "A data engineer on the Statsig experimentation platform working across data infrastructure and analytics; the rule counts data platforms and pipelines, though the team frames the hire as an experimentation expert.",
+      "evidence": ["Data Engineer, Core Experimentation", "The team operates at the intersection of experimentation methodology, data infrastructure, causal inference, and product analytics"],
+      "uncertainty": "The excerpt asks for experimentation experts, which may mean statistics more than pipelines.",
+      "borderline": true,
+      "borderline_note": "Data engineering versus experimentation analytics; held-out row 14 (Software Engineer on the same team) was marked not, so decide both together."
+    },
+    {
+      "row": 48, "batch": 6, "id": "8567843002", "board": "databricks",
+      "title": "Director, Lakebase Sales Specialists (Central region)",
+      "verdict": "not", "confidence": "high",
+      "reason": "sales director managing specialists",
+      "justification": "Directs a regional team of sales specialists growing the Lakebase business; sales leadership and people management.",
+      "evidence": ["to lead a regional team of specialists across the Central region responsible for growing the Databricks Lakebase business"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    }
+  ]
+}

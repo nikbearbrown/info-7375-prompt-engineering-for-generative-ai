@@ -1,0 +1,94 @@
+{
+  "dataset": "audit",
+  "batch": 4,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 25, "batch": 4, "id": "8431459002", "board": "databricks",
+      "title": "Strategic Core Account Executive - CMEG - Telco",
+      "verdict": "not", "confidence": "high",
+      "reason": "telco enterprise sales",
+      "justification": "Enterprise account executive for telecom Fortune 500 accounts, leading go-to-market campaigns and deals; sales.",
+      "evidence": ["you are a sales professional experienced in leading go-to-market campaigns in Fortune 500 accounts, specificlaly in the TELCO space"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 26, "batch": 4, "id": "8878946002", "board": "databricks",
+      "title": "Evergreen - AI Engineer, AI FDE",
+      "verdict": "not", "confidence": "low",
+      "reason": "customer-facing ML professional services",
+      "justification": "The team calls itself customer-facing and delivers professional-services engagements helping customers build and productionize ML and LLM pipelines; real ML work, but delivered as client services, which the rubric counts as customer-facing.",
+      "evidence": ["is a highly specialized customer-facing ML team at Databricks", "We deliver professional services engagements to help our customers build, scale, and optimize ML pipelines"],
+      "uncertainty": "Evergreen suggests a standing requisition; the share of hands-on building is not stated.",
+      "borderline": true,
+      "borderline_note": "Title is a Priya target keyword and the work is ML pipelines, but for customers; same question as the FDE and Applied AI Engineer rows."
+    },
+    {
+      "row": 27, "batch": 4, "id": "8617901002", "board": "databricks",
+      "title": "Sr Software Engineer- CXI",
+      "verdict": "unsure", "confidence": "medium",
+      "reason": "AI-native workflow platform backend unclear",
+      "justification": "A backend engineer who will architect an AI-native vertical workflow platform for customer experience intelligence; the excerpt cuts off before saying whether that means building ML or LLM components or conventional backend services.",
+      "evidence": ["As a Sr. Backend Software Engineer for Customer Experience Intelligence (CXI ) , you will architect and deliver Databricks' AI-native vertical workflow platform"],
+      "uncertainty": "Only one sentence describes the role; AI-native is not defined in the shown text.",
+      "borderline": true,
+      "borderline_note": "Could be an LLM application platform (relevant) or backend workflow services (not); open the full posting."
+    },
+    {
+      "row": 28, "batch": 4, "id": "872ca3d0-c8c0-4585-9a34-7f9ed6b4dbf9", "board": "openai",
+      "title": "Research Engineer/Research Scientist- Post Training, Model Experience",
+      "verdict": "relevant", "confidence": "medium",
+      "reason": "post-training evals and reward models",
+      "justification": "Model Experience turns desired ChatGPT behavior into the model through human data, evaluations, reward models and post-training; model training and evaluation work, close to Priya's LLM evaluation experience.",
+      "evidence": ["turn that vision into real model behavior through human data, evaluations, reward models, and post-training"],
+      "uncertainty": "Part of the team's work is research and model design; the engineer's own tasks are past the excerpt.",
+      "borderline": true,
+      "borderline_note": "Research engineer/scientist clause; treat consistently with audit row 23."
+    },
+    {
+      "row": 29, "batch": 4, "id": "74842880-e750-4664-9e2e-83b4c96c5a03", "board": "openai",
+      "title": "Principal Software Engineer, Full Stack — Codex",
+      "verdict": "unsure", "confidence": "medium",
+      "reason": "product leadership with partial agent work",
+      "justification": "A product-oriented technical leadership role across UI, developer tooling, orchestration, agent and prompt design, backend and cloud for Codex; agent work is one strand among many, so ML is not clearly the main work.",
+      "evidence": ["agent and prompt design, backend systems, and cloud infrastructure", "This is a highly product-oriented technical leadership role"],
+      "uncertainty": "It says the person leads execution across multiple engineers; whether that is people management is not stated.",
+      "borderline": true,
+      "borderline_note": "Mixed full-stack product role; relevant only if agent and prompt work dominates."
+    },
+    {
+      "row": 30, "batch": 4, "id": "83ac3381-99c0-46a0-897c-abcd8699b466", "board": "openai",
+      "title": "VC Partnerships Manager",
+      "verdict": "not", "confidence": "high",
+      "reason": "venture partnerships role",
+      "justification": "Manages venture-capital partnerships on the Startups go-to-market team; partnerships, not engineering.",
+      "evidence": ["seeking a highly motivated and experienced VC Partnerships Manager to join our Startups Go To Market team"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 31, "batch": 4, "id": "8784103002", "board": "databricks",
+      "title": "Sr. Specialist Solutions Architect -AI&ML Engineer",
+      "verdict": "not", "confidence": "medium",
+      "reason": "ML specialist solutions architect",
+      "justification": "The trusted ML and AI expert to customers and field engineering, guiding customers' production ML architectures with solution architects; deep ML content but a solutions-architecture role.",
+      "evidence": ["you will be the trusted technical ML & AI expert to both Databricks customers and the Field Engineering organization", "Architect production level ML & AI workloads for customers"],
+      "uncertainty": "Specialist SAs can be hands-on; the excerpt emphasizes guiding customers.",
+      "borderline": true,
+      "borderline_note": "Customer-facing role with substantial ML architecture; title includes ML Engineer."
+    },
+    {
+      "row": 32, "batch": 4, "id": "8661758002", "board": "databricks",
+      "title": "Solutions Architect - Manufacturing",
+      "verdict": "not", "confidence": "high",
+      "reason": "pre-sales solutions architect",
+      "justification": "Pre-sales solutions architect working with the account executive on technical strategy, value selling and proofs-of-concept for large accounts.",
+      "evidence": ["We are looking for experienced pre-sales professionals", "You will lean upon your solid background in value selling, technical account management"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    }
+  ]
+}

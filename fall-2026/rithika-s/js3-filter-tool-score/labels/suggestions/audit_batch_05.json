@@ -1,0 +1,92 @@
+{
+  "dataset": "audit",
+  "batch": 5,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 33, "batch": 5, "id": "8755492002", "board": "databricks",
+      "title": "Solutions Architect - Communications, Media, Entertainment and Games",
+      "verdict": "not", "confidence": "high",
+      "reason": "customer solutions architect",
+      "justification": "Owns technical strategy and platform adoption for media and games accounts as a trusted advisor to customer architects; solutions architecture.",
+      "evidence": ["owning architecture discussions, driving platform adoption, and serving as a trusted advisor to customer technical leads and architects"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 34, "batch": 5, "id": "4688021005", "board": "scaleai",
+      "title": "Finance Systems Integration Lead",
+      "verdict": "unsure", "confidence": "medium",
+      "reason": "internal integrations with some agent work",
+      "justification": "Builds integrations, automations and AI agents for finance, people and recruiting workflows; agentic workflows are named, but so are traditional system integrations, and the excerpt does not say which dominates.",
+      "evidence": ["help design and develop integrations, automations, and AI agents that streamline workflows across Finance, Accounting, People, and Recruiting", "from traditional system integrations to intelligent agent-driven workflows"],
+      "uncertainty": "Whether Lead means people management is not stated; the balance of agent work versus integration plumbing is unknown.",
+      "borderline": true,
+      "borderline_note": "Internal business-systems role with agentic workflows similar to Priya's agent work; could go relevant or not."
+    },
+    {
+      "row": 35, "batch": 5, "id": "4736243005", "board": "scaleai",
+      "title": "Public Sector Lead, Defence & Security",
+      "verdict": "not", "confidence": "medium",
+      "reason": "defence public sector business lead",
+      "justification": "The excerpt describes Scale's defence market and the pressure on UK Defence to adopt AI, framing a public-sector lead for that market; a business role, not engineering.",
+      "evidence": ["Public Sector Lead, Defence & Security", "Defence is under pressure to adopt AI at pace"],
+      "uncertainty": "The excerpt ends before the duties; no clearance is mentioned in the shown text, so that played no part.",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 36, "batch": 5, "id": "087aa4f5-1192-413a-ba34-3ae324cf90e5", "board": "openai",
+      "title": "Applied AI Engineer, Enterprise - EDU",
+      "verdict": "not", "confidence": "low",
+      "reason": "education customer technical partner",
+      "justification": "Serves as a technical partner to universities, working directly with their engineering and transformation teams to get AI use cases into production; customer-facing per the rubric, with real production-system work.",
+      "evidence": ["you will serve as a technical partner to leading organizations including universities and other educational institutions", "We work directly with customers’ engineering, product, security, and transformation teams"],
+      "uncertainty": "Hands-on share is not stated; title matches Priya's target title.",
+      "borderline": true,
+      "borderline_note": "Applied AI Engineer customer role; decide with audit rows 2 and 10."
+    },
+    {
+      "row": 37, "batch": 5, "id": "7472e486-0aa6-4f9d-86da-2105a42b2dce", "board": "openai",
+      "title": "Forward Deployed Engineer (FDE) - AI Infra - SF",
+      "verdict": "not", "confidence": "low",
+      "reason": "forward-deployed AI infra customer role",
+      "justification": "Embeds with customers on optimization problems across semiconductors and AI infrastructure, writing software and running experiments on their workloads and hardware; strong ML-infrastructure content, but the job is defined by customer embedding.",
+      "evidence": ["You will embed with customers where model performance matters", "You will write and debug software, run experiments against real workloads and hardware"],
+      "uncertainty": "This FDE variant is more hands-on and infrastructure-focused than the others.",
+      "borderline": true,
+      "borderline_note": "Forward-deployed ML-infrastructure work; the strongest case among the FDE rows for relevant."
+    },
+    {
+      "row": 38, "batch": 5, "id": "577e6673-0a4a-491b-9a0d-facbdd3bdf3c", "board": "openai",
+      "title": "Applied AI Engineer, Codex Core Agent",
+      "verdict": "relevant", "confidence": "high",
+      "reason": "improves the Codex agent in production",
+      "justification": "An internal team that builds the Codex agent's core loop, its token, latency and cost envelope, and the feedback loops that turn usage into better models; LLM agent engineering and serving, not customer work.",
+      "evidence": ["The Codex Core Agent team builds the kernel of Codex", "the feedback loops that turn real-world usage into better models and better agent behavior over time"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 39, "batch": 5, "id": "4d0b1eb5-ea5d-460b-8fe6-23c45b0703f5", "board": "openai",
+      "title": "Electrical Commissioning Lead",
+      "verdict": "not", "confidence": "high",
+      "reason": "electrical commissioning for facilities",
+      "justification": "Plans and oversees electrical commissioning and test execution for a data center project on site; facilities engineering.",
+      "evidence": ["owns electrical commissioning planning, readiness, quality coordination, and test execution oversight for the project"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    },
+    {
+      "row": 40, "batch": 5, "id": "8567991002", "board": "databricks",
+      "title": "Senior Solutions Architect - Lakebase",
+      "verdict": "not", "confidence": "high",
+      "reason": "go-to-market product solutions architect",
+      "justification": "Part of a go-to-market team positioning the Lakebase product with clients alongside account teams to grow adoption; customer-facing.",
+      "evidence": ["They are part of a global go-to-market team mandate", "provide compelling reasons for clients to adopt and grow the usage of the given product"],
+      "uncertainty": "none",
+      "borderline": false, "borderline_note": ""
+    }
+  ]
+}

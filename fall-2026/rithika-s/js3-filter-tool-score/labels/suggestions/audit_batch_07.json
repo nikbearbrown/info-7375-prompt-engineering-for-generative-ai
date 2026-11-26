@@ -1,0 +1,31 @@
+{
+  "dataset": "audit",
+  "batch": 7,
+  "rubric_sha256": "55829cfef808627e578304172cc499756985569c3d57598315d50b87cdf3a2ec",
+  "labeler": "Claude Code (claude-opus-5-5), automated suggestion from the blind sheet text",
+  "human_reviewed": false,
+  "suggestions": [
+    {
+      "row": 49, "batch": 7, "id": "8892970002", "board": "databricks",
+      "title": "Lead Solutions Architect - Generative AI (EMEA Emerging DNB)",
+      "verdict": "not", "confidence": "medium",
+      "reason": "GenAI customer-facing solutions architect",
+      "justification": "The go-to GenAI and LLM expert for account teams and digital-native customers, described as a customer-facing individual contributor; strong LLM content in a solutions-architect role.",
+      "evidence": ["You will be the go-to expert our Account Teams and customers turn to when a GenAI or LLM use case needs to move from an ambitious idea to a production-grade reality", "This is a highly technical, customer-facing individual contrib"],
+      "uncertainty": "Travel across Europe and the France location were not used.",
+      "borderline": true,
+      "borderline_note": "Customer-facing LLM specialist; decide with audit row 31."
+    },
+    {
+      "row": 50, "batch": 7, "id": "8592952002", "board": "databricks",
+      "title": "Sr. Forward Deployed Engineer (FDE) - Financial Services",
+      "verdict": "not", "confidence": "low",
+      "reason": "customer-facing forward-deployed builder",
+      "justification": "The Washington, D.C. listing of the same financial-services FDE role as audit row 44 (same requisition CSQ327R59): hands-on data and AI building for clients, labeled customer-facing.",
+      "evidence": ["CSQ327R59", "This is a hands-on, customer-facing role for builders who thrive at the intersection of technology and business impact"],
+      "uncertainty": "Same as row 44.",
+      "borderline": true,
+      "borderline_note": "Duplicate of audit row 44 in another city; give both the same verdict."
+    }
+  ]
+}
