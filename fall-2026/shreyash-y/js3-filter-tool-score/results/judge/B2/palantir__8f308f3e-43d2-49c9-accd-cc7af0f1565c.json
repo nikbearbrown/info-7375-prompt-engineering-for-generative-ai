@@ -1,0 +1,43 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "B2",
+ "called_at": "2026-11-25T22:30:12+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:8f308f3e-43d2-49c9-accd-cc7af0f1565c",
+ "raw_text": "{\"posting_id\": \"palantir:8f308f3e-43d2-49c9-accd-cc7af0f1565c\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title contains 'Software Engineer', which matches target_roles, and the content names Java and Docker from skills; it is open to all levels, so experience_years passes, and no exclusions apply. However, the departments value 'Dev' is not one of the allowed departments, so Condition 2 fails. The location and offices are New York, NY rather than Boston, MA, and the content allows remote work only on an exceptional basis rather than explicitly supporting US remote employment, so Condition 3 fails despite remote_ok.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:8f308f3e-43d2-49c9-accd-cc7af0f1565c",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "experience_years",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title contains 'Software Engineer', which matches target_roles, and the content names Java and Docker from skills; it is open to all levels, so experience_years passes, and no exclusions apply. However, the departments value 'Dev' is not one of the allowed departments, so Condition 2 fails. The location and offices are New York, NY rather than Boston, MA, and the content allows remote work only on an exceptional basis rather than explicitly supporting US remote employment, so Condition 3 fails despite remote_ok."
+ },
+ "made_up_quotes": [],
+ "session_id": "996d4d7e-7cdd-4714-86b3-5d46ee762550",
+ "cost_usd": 0.0169262,
+ "duration_ms": 7654
+}

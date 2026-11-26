@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:27+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "oscar:7573013",
+ "raw_text": "{\"posting_id\": \"oscar:7573013\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [3, 4, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Condition 3 fails because the posting's location is Los Angeles, California, with a hybrid in-office requirement and no remote-within-US support, which does not match the résumé's Boston, MA location or remote_ok: true. Condition 4 fails because none of the résumé's ten skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker) appear in the posting content. Condition 5 fails because the posting requires 6+ years of experience, above the résumé's experience_years of 3. Conditions 1, 2, and 6 pass: the title contains \\\"Software Engineer,\\\" the department is Engineering, and the title has no excluded words (\\\"Staff\\\" appears only in the body).\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "oscar:7573013",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   3,
+   4,
+   5
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "Condition 3 fails because the posting's location is Los Angeles, California, with a hybrid in-office requirement and no remote-within-US support, which does not match the résumé's Boston, MA location or remote_ok: true. Condition 4 fails because none of the résumé's ten skills (Python, Java, TypeScript, FastAPI, React, LangGraph, RAG, PyTorch, SQL, Docker) appear in the posting content. Condition 5 fails because the posting requires 6+ years of experience, above the résumé's experience_years of 3. Conditions 1, 2, and 6 pass: the title contains \"Software Engineer,\" the department is Engineering, and the title has no excluded words (\"Staff\" appears only in the body)."
+ },
+ "made_up_quotes": [],
+ "session_id": "6b0c3283-a7e7-4faa-9160-191264cdbd92",
+ "cost_usd": 0.00118302,
+ "duration_ms": 6875
+}

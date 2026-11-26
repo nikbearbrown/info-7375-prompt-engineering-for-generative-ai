@@ -1,0 +1,43 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "T",
+ "called_at": "2026-11-25T22:33:46+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": true,
+ "tool_calls": 0,
+ "posting_key": "palantir:ca222ecd-b659-4e3e-aee5-d85655c7bbc8",
+ "raw_text": "{\"posting_id\": \"palantir:ca222ecd-b659-4e3e-aee5-d85655c7bbc8\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title contains 'Software Engineer', which matches target_roles, and the content names Java, Python, React and TypeScript from skills, states no minimum years against experience_years, and has no excluded title word, unpaid or contract-only terms, or explicit relocation requirement. However, the posting departments value 'Dev' is not one of the allowed departments, so Condition 2 fails. The posting location and offices are Washington, D.C., not the résumé location Boston, MA, and the content does not explicitly support US remote work (remote is only 'on an exceptional basis' for some roles), so Condition 3 fails even though remote_ok is true.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:ca222ecd-b659-4e3e-aee5-d85655c7bbc8",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "experience_years",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting title contains 'Software Engineer', which matches target_roles, and the content names Java, Python, React and TypeScript from skills, states no minimum years against experience_years, and has no excluded title word, unpaid or contract-only terms, or explicit relocation requirement. However, the posting departments value 'Dev' is not one of the allowed departments, so Condition 2 fails. The posting location and offices are Washington, D.C., not the résumé location Boston, MA, and the content does not explicitly support US remote work (remote is only 'on an exceptional basis' for some roles), so Condition 3 fails even though remote_ok is true."
+ },
+ "made_up_quotes": [],
+ "session_id": "23bbc083-9d83-40ed-98fd-cf38faad0e78",
+ "cost_usd": 0.0421196,
+ "duration_ms": 8157
+}

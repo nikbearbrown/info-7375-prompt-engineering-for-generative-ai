@@ -1,0 +1,42 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "P",
+ "called_at": "2026-11-25T22:31:07+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/revision-1-quote-evidence.md",
+ "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:94984771-0704-446c-88c6-91ce748f6d92",
+ "raw_text": "{\"posting_id\": \"palantir:94984771-0704-446c-88c6-91ce748f6d92\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title \\\"Software Engineer, New Grad\\\" matches target_roles, the content mentions at least two skills (Java, TypeScript, React, Python), the experience requirement is not stated, and no exclusion terms apply. Condition 2 fails because the posting's departments field is \\\"Dev\\\", which is not an allowed department. Condition 3 fails because the posting's location and offices are \\\"New York, NY\\\", which does not match the résumé location of Boston, MA, and remote work is only described as allowed for \\\"a few roles\\\" \\\"on an exceptional basis\\\", not explicitly for this posting.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:94984771-0704-446c-88c6-91ce748f6d92",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title \"Software Engineer, New Grad\" matches target_roles, the content mentions at least two skills (Java, TypeScript, React, Python), the experience requirement is not stated, and no exclusion terms apply. Condition 2 fails because the posting's departments field is \"Dev\", which is not an allowed department. Condition 3 fails because the posting's location and offices are \"New York, NY\", which does not match the résumé location of Boston, MA, and remote work is only described as allowed for \"a few roles\" \"on an exceptional basis\", not explicitly for this posting."
+ },
+ "made_up_quotes": [],
+ "session_id": "89500af0-39e1-4dc8-a461-afca05b09f04",
+ "cost_usd": 0.042628,
+ "duration_ms": 8281
+}

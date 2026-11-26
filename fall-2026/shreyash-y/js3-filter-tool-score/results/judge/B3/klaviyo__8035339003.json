@@ -1,0 +1,45 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "B3",
+ "called_at": "2026-11-25T22:38:13+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "klaviyo:8035339003",
+ "raw_text": "{\"posting_id\": \"klaviyo:8035339003\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Lead, Global Services Strategy & Operations' contains none of the required role phrases and has the excluded whole word 'Lead', so it fails Conditions 1 and 6 against the résumé's target_roles and exclusions. The department 'Go-To-Market Operations' is not an allowed department (Condition 2), and the content mentions only one résumé skill, SQL, short of the required two (Condition 4). The content requires 4–6 years of experience, above the 3-year limit (Condition 5); Condition 3 passes only because the offices field lists Boston, even though the location field is Denver, CO.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "klaviyo:8035339003",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   4,
+   5,
+   6
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title 'Lead, Global Services Strategy & Operations' contains none of the required role phrases and has the excluded whole word 'Lead', so it fails Conditions 1 and 6 against the résumé's target_roles and exclusions. The department 'Go-To-Market Operations' is not an allowed department (Condition 2), and the content mentions only one résumé skill, SQL, short of the required two (Condition 4). The content requires 4–6 years of experience, above the 3-year limit (Condition 5); Condition 3 passes only because the offices field lists Boston, even though the location field is Denver, CO."
+ },
+ "made_up_quotes": [],
+ "session_id": "3bc208c5-4c88-411b-be4d-96720b47020e",
+ "cost_usd": 0.0197308,
+ "duration_ms": 9713
+}

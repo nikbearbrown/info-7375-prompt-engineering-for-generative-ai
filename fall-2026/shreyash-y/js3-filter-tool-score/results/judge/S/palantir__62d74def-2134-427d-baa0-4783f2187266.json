@@ -1,0 +1,21 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:42+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:62d74def-2134-427d-baa0-4783f2187266",
+ "raw_text": "{\"posting_id\": \"palantir:62d74def-2134-427d-baa0-4783f2187266\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4], \"resume_fields\": [target_roles, skills, location, remote_ok, exclusions], \"posting_fields\": [id, title, departments, location, offices, content], \"justification\": \"The title \\\"Operations Analyst - US Government\\\" contains none of the required role phrases (condition 1), and the department \\\"Business Development\\\" is not an approved department (condition 2). The location is Washington, D.C., which is neither Boston, MA, nor stated as remote within the US (condition 3), and the content mentions none of the applicant's ten listed skills such as Python, SQL, or Docker (condition 4). No experience minimum is stated, and no exclusion applies, so conditions 5 and 6 pass.\"}",
+ "valid": false,
+ "errors": [
+  "not valid JSON: Expecting value"
+ ],
+ "parsed": null,
+ "made_up_quotes": null,
+ "session_id": "a0f1fe71-f4b5-4bbf-84d2-ead416c55b18",
+ "cost_usd": 0.00107652,
+ "duration_ms": 6020
+}

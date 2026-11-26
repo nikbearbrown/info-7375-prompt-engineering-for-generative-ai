@@ -1,0 +1,305 @@
+{
+ "v1": {
+  "kept_in_corpus": [
+   "klaviyo:7696724003",
+   "klaviyo:7792539003",
+   "klaviyo:7855793003",
+   "klaviyo:8041054003",
+   "klaviyo:8199437003"
+  ],
+  "audit": {
+   "n": 46,
+   "agree": 43,
+   "miss": 2,
+   "false_positive": 1
+  },
+  "held_out": {
+   "n": 24,
+   "agree": 24,
+   "miss": 0,
+   "false_positive": 0
+  }
+ },
+ "A2 SQL family": {
+  "kept_in_corpus": [
+   "klaviyo:7696724003",
+   "klaviyo:7792539003",
+   "klaviyo:7855793003",
+   "klaviyo:7855798003",
+   "klaviyo:8041054003",
+   "klaviyo:8199437003"
+  ],
+  "audit": {
+   "n": 46,
+   "agree": 44,
+   "miss": 1,
+   "false_positive": 1
+  },
+  "held_out": {
+   "n": 24,
+   "agree": 24,
+   "miss": 0,
+   "false_positive": 0
+  }
+ },
+ "A3 asked-for skills only": {
+  "kept_in_corpus": [
+   "klaviyo:7855793003",
+   "klaviyo:8041054003"
+  ],
+  "audit": {
+   "n": 46,
+   "agree": 44,
+   "miss": 2,
+   "false_positive": 0
+  },
+  "held_out": {
+   "n": 24,
+   "agree": 22,
+   "miss": 2,
+   "false_positive": 0
+  }
+ },
+ "_more": {
+  "v1_vs_js2_rule": {
+   "postings": 789,
+   "same_verdict": 789,
+   "rule3_cannot_tell": 122,
+   "of_those_js2_failed_condition_3": 84,
+   "of_those_js2_passed_by_kind": {
+    "location field and offices disagree about Boston (6b)": {
+     "klaviyo": 2,
+     "oscar": 6
+    },
+    "office tag names other states; the ad's state list includes Massachusetts": {
+     "oscar": 30
+    }
+   }
+  },
+  "rule3_fail_v1": {
+   "fail": 537,
+   "not_in_home_city_and_not_remote": 476
+  },
+  "filter_changes_corpus": {
+   "F0 v1": {
+    "kept": 5,
+    "closest_calls": 44
+   },
+   "F1 min skills 1": {
+    "kept": 6,
+    "closest_calls": 52
+   },
+   "F2 min skills 3": {
+    "kept": 5,
+    "closest_calls": 25
+   },
+   "F3 + Product Engineer": {
+    "kept": 6,
+    "closest_calls": 43
+   },
+   "F4 max years 5": {
+    "kept": 6,
+    "closest_calls": 62
+   },
+   "F5 no Dev alias": {
+    "kept": 5,
+    "closest_calls": 9
+   },
+   "drop Rule 2": {
+    "kept": 5,
+    "closest_calls": 84
+   }
+  },
+  "claude_conditions_vs_B": {
+   "B": {
+    "valid": 24,
+    "verdict_differs_from_B": 0,
+    "failed_conditions_differ_from_B": 0,
+    "wording_differs_from_B": 0,
+    "palantir_postings": 12,
+    "palantir_failing_department": 12,
+    "palantir_dev_postings": 9,
+    "palantir_dev_failing_department": 9,
+    "cost_usd": 0.884
+   },
+   "B2": {
+    "valid": 24,
+    "verdict_differs_from_B": 0,
+    "failed_conditions_differ_from_B": 0,
+    "wording_differs_from_B": 24,
+    "palantir_postings": 12,
+    "palantir_failing_department": 12,
+    "palantir_dev_postings": 9,
+    "palantir_dev_failing_department": 9,
+    "cost_usd": 0.3762
+   },
+   "P": {
+    "valid": 24,
+    "verdict_differs_from_B": 0,
+    "failed_conditions_differ_from_B": 0,
+    "wording_differs_from_B": 24,
+    "palantir_postings": 12,
+    "palantir_failing_department": 12,
+    "palantir_dev_postings": 9,
+    "palantir_dev_failing_department": 9,
+    "cost_usd": 0.9747
+   },
+   "C": {
+    "valid": 24,
+    "verdict_differs_from_B": 0,
+    "failed_conditions_differ_from_B": 12,
+    "wording_differs_from_B": 24,
+    "palantir_postings": 12,
+    "palantir_failing_department": 3,
+    "palantir_dev_postings": 9,
+    "palantir_dev_failing_department": 0,
+    "cost_usd": 0.9793
+   },
+   "S": {
+    "valid": 21,
+    "verdict_differs_from_B": 0,
+    "failed_conditions_differ_from_B": 1,
+    "wording_differs_from_B": 21,
+    "palantir_postings": 10,
+    "palantir_failing_department": 10,
+    "palantir_dev_postings": 9,
+    "palantir_dev_failing_department": 9,
+    "cost_usd": 0.0286
+   },
+   "T": {
+    "valid": 24,
+    "verdict_differs_from_B": 0,
+    "failed_conditions_differ_from_B": 0,
+    "wording_differs_from_B": 24,
+    "palantir_postings": 12,
+    "palantir_failing_department": 12,
+    "palantir_dev_postings": 9,
+    "palantir_dev_failing_department": 9,
+    "cost_usd": 1.0092
+   },
+   "B3": {
+    "valid": 24,
+    "verdict_differs_from_B": 0,
+    "failed_conditions_differ_from_B": 0,
+    "wording_differs_from_B": 24,
+    "palantir_postings": 12,
+    "palantir_failing_department": 12,
+    "palantir_dev_postings": 9,
+    "palantir_dev_failing_department": 9,
+    "cost_usd": 0.3789
+   }
+  },
+  "held_out_rejects_by_failed_rules": {
+   "only_location": 8,
+   "only_experience": 3,
+   "several_rules": 10,
+   "total": 21
+  },
+  "shortlist_v1_1": [
+   {
+    "key": "klaviyo:7696724003",
+    "answer": "reaches Alex",
+    "skills_label": "insufficient",
+    "full_time_label": "insufficient",
+    "answer_if_skills_were_a_must_have": "I cannot tell"
+   },
+   {
+    "key": "klaviyo:7792539003",
+    "answer": "reaches Alex",
+    "skills_label": "insufficient",
+    "full_time_label": "insufficient",
+    "answer_if_skills_were_a_must_have": "I cannot tell"
+   },
+   {
+    "key": "klaviyo:7855793003",
+    "answer": "reaches Alex",
+    "skills_label": "supported",
+    "full_time_label": "insufficient",
+    "answer_if_skills_were_a_must_have": "reaches Alex"
+   },
+   {
+    "key": "klaviyo:7855798003",
+    "answer": "reaches Alex",
+    "skills_label": "insufficient",
+    "full_time_label": "insufficient",
+    "answer_if_skills_were_a_must_have": "I cannot tell"
+   },
+   {
+    "key": "klaviyo:8041054003",
+    "answer": "reaches Alex",
+    "skills_label": "supported",
+    "full_time_label": "insufficient",
+    "answer_if_skills_were_a_must_have": "reaches Alex"
+   },
+   {
+    "key": "klaviyo:8199437003",
+    "answer": "reaches Alex",
+    "skills_label": "insufficient",
+    "full_time_label": "insufficient",
+    "answer_if_skills_were_a_must_have": "I cannot tell"
+   },
+   {
+    "key": "linear:0c7c2e26-0a98-42cf-a47c-9a3999fb513b",
+    "answer": "reaches Alex",
+    "skills_label": "supported",
+    "full_time_label": "supported",
+    "answer_if_skills_were_a_must_have": "reaches Alex"
+   }
+  ],
+  "rule3_us_mentions": {
+   "passes": 38,
+   "by_quoted_sentence": [
+    {
+     "starts": "For US-based candidates, the expected cash compensation rang",
+     "postings": 13,
+     "kept_v1": 0,
+     "kept_v1_1": [
+      "linear:0c7c2e26-0a98-42cf-a47c-9a3999fb513b"
+     ]
+    },
+    {
+     "starts": "Work Location: This position is fully remote and open to can",
+     "postings": 8,
+     "kept_v1": 0,
+     "kept_v1_1": []
+    },
+    {
+     "starts": "- Employee-friendly equity terms including early exercise in",
+     "postings": 6,
+     "kept_v1": 0,
+     "kept_v1_1": []
+    },
+    {
+     "starts": "This role is open to candidates based in the US and Europe.",
+     "postings": 5,
+     "kept_v1": 0,
+     "kept_v1_1": []
+    },
+    {
+     "starts": "While Linear is a remote-first company across the US and Eur",
+     "postings": 2,
+     "kept_v1": 0,
+     "kept_v1_1": []
+    },
+    {
+     "starts": "- Health, dental, and vision insurance (US)",
+     "postings": 2,
+     "kept_v1": 0,
+     "kept_v1_1": []
+    },
+    {
+     "starts": "This role is open to candidates based in the United States, ",
+     "postings": 1,
+     "kept_v1": 0,
+     "kept_v1_1": []
+    },
+    {
+     "starts": "If you suspect that you've been contacted by a scammer, we r",
+     "postings": 1,
+     "kept_v1": 0,
+     "kept_v1_1": []
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,47 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:26+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "klaviyo:8035339003",
+ "raw_text": "{\"posting_id\": \"klaviyo:8035339003\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4, 5, 6], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title \\\"Lead, Global Services Strategy & Operations\\\" contains none of the required role phrases and includes the excluded whole word \\\"Lead\\\" (conditions 1 and 6). The department \\\"Go-To-Market Operations\\\" is not on the approved list (condition 2). The listed location is Denver, CO, Boston appears only among the offices, and the posting does not support remote US work, so the location condition fails (condition 3). Only SQL from the résumé skills appears in the content, which is one match where two are required (condition 4), and the stated requirement of 4–6 years exceeds the résumé's 3 years (condition 5).\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "klaviyo:8035339003",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title \"Lead, Global Services Strategy & Operations\" contains none of the required role phrases and includes the excluded whole word \"Lead\" (conditions 1 and 6). The department \"Go-To-Market Operations\" is not on the approved list (condition 2). The listed location is Denver, CO, Boston appears only among the offices, and the posting does not support remote US work, so the location condition fails (condition 3). Only SQL from the résumé skills appears in the content, which is one match where two are required (condition 4), and the stated requirement of 4–6 years exceeds the résumé's 3 years (condition 5)."
+ },
+ "made_up_quotes": [],
+ "session_id": "d08bf30c-ed4b-4690-b1ef-d1d4829aa25f",
+ "cost_usd": 0.0014069199999999999,
+ "duration_ms": 7404
+}

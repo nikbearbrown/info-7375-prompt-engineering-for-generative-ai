@@ -1,0 +1,47 @@
+# (The home folder in paths below is shown as ~.)
+# 2026-11-25 18:11:18 EST: before the state-code fix
+test_a_two_letter_state_code_is_a_state (tests.test_js3_filter_v11_state_codes.StateCodes.test_a_two_letter_state_code_is_a_state) ... FAIL
+test_ma_means_massachusetts (tests.test_js3_filter_v11_state_codes.StateCodes.test_ma_means_massachusetts) ... FAIL
+test_the_real_oscar_ads_with_codes (tests.test_js3_filter_v11_state_codes.StateCodes.test_the_real_oscar_ads_with_codes) ... FAIL
+test_words_that_look_like_codes_are_not_states (tests.test_js3_filter_v11_state_codes.StateCodes.test_words_that_look_like_codes_are_not_states) ... ok
+
+======================================================================
+FAIL: test_a_two_letter_state_code_is_a_state (tests.test_js3_filter_v11_state_codes.StateCodes.test_a_two_letter_state_code_is_a_state)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_filter_v11_state_codes.py", line 21, in test_a_two_letter_state_code_is_a_state
+    self.assertEqual(outcome(filtering.evaluate(p, PERSONA, V11), 3), "fail")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'cannot tell' != 'fail'
+- cannot tell
++ fail
+
+
+======================================================================
+FAIL: test_ma_means_massachusetts (tests.test_js3_filter_v11_state_codes.StateCodes.test_ma_means_massachusetts)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_filter_v11_state_codes.py", line 26, in test_ma_means_massachusetts
+    self.assertEqual(outcome(filtering.evaluate(p, PERSONA, V11), 3), "pass")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'fail' != 'pass'
+- fail
++ pass
+
+
+======================================================================
+FAIL: test_the_real_oscar_ads_with_codes (tests.test_js3_filter_v11_state_codes.StateCodes.test_the_real_oscar_ads_with_codes)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_filter_v11_state_codes.py", line 30, in test_the_real_oscar_ads_with_codes
+    self.assertEqual(outcome(filtering.evaluate(POSTS[key], PERSONA, V11), 3), "fail", key)
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 'cannot tell' != 'fail'
+- cannot tell
++ fail
+ : oscar:8013107
+
+----------------------------------------------------------------------
+Ran 4 tests in 0.016s
+
+FAILED (failures=3)

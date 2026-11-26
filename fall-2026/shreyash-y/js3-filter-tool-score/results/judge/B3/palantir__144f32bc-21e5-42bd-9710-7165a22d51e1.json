@@ -1,0 +1,45 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "B3",
+ "called_at": "2026-11-25T22:38:31+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:144f32bc-21e5-42bd-9710-7165a22d51e1",
+ "raw_text": "{\"posting_id\": \"palantir:144f32bc-21e5-42bd-9710-7165a22d51e1\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Senior Identity Security Engineer' contains none of the required phrases, so it does not match target_roles. The department 'Information Security' is not on the allowed list. The location and offices are New York, NY with no explicit US-remote support, which conflicts with the résumé location (Boston, MA) and remote_ok. The content requires 5+ years against experience_years of 3, although it does mention two résumé skills (Python, TypeScript) and has no excluded title words.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:144f32bc-21e5-42bd-9710-7165a22d51e1",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   3,
+   5
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting title 'Senior Identity Security Engineer' contains none of the required phrases, so it does not match target_roles. The department 'Information Security' is not on the allowed list. The location and offices are New York, NY with no explicit US-remote support, which conflicts with the résumé location (Boston, MA) and remote_ok. The content requires 5+ years against experience_years of 3, although it does mention two résumé skills (Python, TypeScript) and has no excluded title words."
+ },
+ "made_up_quotes": [],
+ "session_id": "b9e0ebc6-2ce6-44cc-9012-754c2568efdb",
+ "cost_usd": 0.015909799999999998,
+ "duration_ms": 8091
+}

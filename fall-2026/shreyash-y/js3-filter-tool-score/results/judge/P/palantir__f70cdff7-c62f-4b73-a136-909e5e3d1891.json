@@ -1,0 +1,43 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "P",
+ "called_at": "2026-11-25T22:31:19+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/revision-1-quote-evidence.md",
+ "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:f70cdff7-c62f-4b73-a136-909e5e3d1891",
+ "raw_text": "{\"posting_id\": \"palantir:f70cdff7-c62f-4b73-a136-909e5e3d1891\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title contains the target role phrase \\\"Software Engineer\\\", and the content mentions at least two résumé skills (\\\"Java\\\" and \\\"Python\\\"); it states no minimum experience, and the title has no excluded words. Condition 2 fails because the posting's departments field is \\\"Dev\\\", which is not an allowed department. Condition 3 fails because the posting's location and offices are \\\"London, United Kingdom\\\", not the résumé location of Boston, MA, and the content does not support US remote work despite remote_ok: it says \\\"you must work from the city and or country in which you are employed\\\".\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:f70cdff7-c62f-4b73-a136-909e5e3d1891",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting title contains the target role phrase \"Software Engineer\", and the content mentions at least two résumé skills (\"Java\" and \"Python\"); it states no minimum experience, and the title has no excluded words. Condition 2 fails because the posting's departments field is \"Dev\", which is not an allowed department. Condition 3 fails because the posting's location and offices are \"London, United Kingdom\", not the résumé location of Boston, MA, and the content does not support US remote work despite remote_ok: it says \"you must work from the city and or country in which you are employed\"."
+ },
+ "made_up_quotes": [],
+ "session_id": "cd9a19f5-fe6f-4345-aeaf-2d475adf3c76",
+ "cost_usd": 0.040552,
+ "duration_ms": 8481
+}

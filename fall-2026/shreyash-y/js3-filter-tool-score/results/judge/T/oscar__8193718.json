@@ -1,0 +1,42 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "T",
+ "called_at": "2026-11-25T22:33:20+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": true,
+ "tool_calls": 0,
+ "posting_key": "oscar:8193718",
+ "raw_text": "{\"posting_id\": \"oscar:8193718\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"content\"], \"justification\": \"The posting title 'Senior Analyst, Data Analytics, SIU' has none of the required role phrases from target_roles, so Condition 1 fails. The department 'Compliance' is not an allowed department, so Condition 2 fails. Location passes because the content says the job is fully remote in the U.S. and does not exclude Massachusetts, which fits location and remote_ok. Skills (SQL, Python), experience (1+ years, within experience_years of 3) and exclusions (none of the excluded words in the title; full-time and paid) all pass.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "oscar:8193718",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "experience_years",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "content"
+  ],
+  "justification": "The posting title 'Senior Analyst, Data Analytics, SIU' has none of the required role phrases from target_roles, so Condition 1 fails. The department 'Compliance' is not an allowed department, so Condition 2 fails. Location passes because the content says the job is fully remote in the U.S. and does not exclude Massachusetts, which fits location and remote_ok. Skills (SQL, Python), experience (1+ years, within experience_years of 3) and exclusions (none of the excluded words in the title; full-time and paid) all pass."
+ },
+ "made_up_quotes": [],
+ "session_id": "8a2830a1-0dc4-4b3d-b18b-f81097321b14",
+ "cost_usd": 0.0346916,
+ "duration_ms": 6879
+}

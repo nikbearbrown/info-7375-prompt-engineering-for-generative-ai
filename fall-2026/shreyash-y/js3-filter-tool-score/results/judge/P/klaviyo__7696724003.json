@@ -1,0 +1,39 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "P",
+ "called_at": "2026-11-25T22:30:32+00:00",
+ "model": "claude-opus-5-5",
+ "prompt_file": "prompts/revision-1-quote-evidence.md",
+ "prompt_sha256": "827c5127d9142dca8aa445b2e3b03efb8959575ae0bfd4e3c8e3ba77e5f50651",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "klaviyo:7696724003",
+ "raw_text": "{\"posting_id\": \"klaviyo:7696724003\", \"verdict\": \"Relevant\", \"failed_conditions\": [], \"resume_fields\": [\"target_roles\", \"skills\", \"experience_years\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title \\\"Senior Software Engineer - Growth\\\" contains \\\"Software Engineer\\\" (matching target_roles) and no excluded whole word, and the departments value \\\"Engineering\\\" is an allowed department. The posting location \\\"Boston, MA\\\" and offices \\\"Boston\\\" match the résumé location. The content mentions the résumé skills Python, TypeScript and React. No minimum number of years is stated, so the experience_years check passes, and the posting shows no unpaid, contract-only or relocation-outside-Boston terms that would trigger the résumé exclusions.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "klaviyo:7696724003",
+  "verdict": "Relevant",
+  "failed_conditions": [],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "experience_years",
+   "location",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title \"Senior Software Engineer - Growth\" contains \"Software Engineer\" (matching target_roles) and no excluded whole word, and the departments value \"Engineering\" is an allowed department. The posting location \"Boston, MA\" and offices \"Boston\" match the résumé location. The content mentions the résumé skills Python, TypeScript and React. No minimum number of years is stated, so the experience_years check passes, and the posting shows no unpaid, contract-only or relocation-outside-Boston terms that would trigger the résumé exclusions."
+ },
+ "made_up_quotes": [],
+ "session_id": "31092edf-5eb1-4f34-9de3-67eae8d9dac7",
+ "cost_usd": 0.049528,
+ "duration_ms": 8249
+}

@@ -1,0 +1,45 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:57+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:e1a6c138-98bf-45e2-97f7-2c70371cc38a",
+ "raw_text": "{\"posting_id\": \"palantir:e1a6c138-98bf-45e2-97f7-2c70371cc38a\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Condition 2 fails because the posting's only department is \\\"Dev,\\\" which is not on the allowed list. Condition 3 fails because the posting is located in New York, NY and does not explicitly support remote work in the United States for this role, which conflicts with the resume's Boston, MA location and remote_ok: true. The title matches target_roles (\\\"Software Engineer\\\"), the content mentions at least two resume skills (Java, Python, TypeScript), no experience requirement is stated, and no exclusion terms apply.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:e1a6c138-98bf-45e2-97f7-2c70371cc38a",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "Condition 2 fails because the posting's only department is \"Dev,\" which is not on the allowed list. Condition 3 fails because the posting is located in New York, NY and does not explicitly support remote work in the United States for this role, which conflicts with the resume's Boston, MA location and remote_ok: true. The title matches target_roles (\"Software Engineer\"), the content mentions at least two resume skills (Java, Python, TypeScript), no experience requirement is stated, and no exclusion terms apply."
+ },
+ "made_up_quotes": [
+  "Dev,"
+ ],
+ "session_id": "7bee4924-fae7-4f1c-9ff6-22bcc967fe30",
+ "cost_usd": 0.00128002,
+ "duration_ms": 5737
+}

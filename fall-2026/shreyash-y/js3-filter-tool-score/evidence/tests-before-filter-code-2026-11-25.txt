@@ -1,0 +1,41 @@
+# (The home folder in paths below is shown as ~.)
+# 2026-11-25 17:14:16 EST: python3 -m unittest tests.test_js3_filter tests.test_js3_filter_doc tests.test_js3_boards -v
+# Run by Claude Code after writing the tests and before js3/filtering.py existed.
+test_js3_filter (unittest.loader._FailedTest.test_js3_filter) ... ERROR
+test_closest_call (tests.test_js3_filter_doc.FilterDocAgreesWithConfig.test_closest_call) ... ok
+test_rule1_phrases (tests.test_js3_filter_doc.FilterDocAgreesWithConfig.test_rule1_phrases) ... ok
+test_rule2_departments_and_the_palantir_alias (tests.test_js3_filter_doc.FilterDocAgreesWithConfig.test_rule2_departments_and_the_palantir_alias) ... ok
+test_rule4_skills_and_minimum (tests.test_js3_filter_doc.FilterDocAgreesWithConfig.test_rule4_skills_and_minimum) ... ok
+test_rule5_years (tests.test_js3_filter_doc.FilterDocAgreesWithConfig.test_rule5_years) ... ok
+test_rule6_title_words (tests.test_js3_filter_doc.FilterDocAgreesWithConfig.test_rule6_title_words) ... ok
+test_version (tests.test_js3_filter_doc.FilterDocAgreesWithConfig.test_version) ... ok
+test_js3_boards (unittest.loader._FailedTest.test_js3_boards) ... ERROR
+
+======================================================================
+ERROR: test_js3_filter (unittest.loader._FailedTest.test_js3_filter)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_js3_filter
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_filter.py", line 10, in <module>
+    from js3 import filtering, sections
+ImportError: cannot import name 'filtering' from 'js3' (~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/__init__.py)
+
+
+======================================================================
+ERROR: test_js3_boards (unittest.loader._FailedTest.test_js3_boards)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_js3_boards
+Traceback (most recent call last):
+  File "/opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versions/3.14/lib/python3.14/unittest/loader.py", line 137, in loadTestsFromName
+    module = __import__(module_name)
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_boards.py", line 8, in <module>
+    from js3 import corpus, filtering
+ImportError: cannot import name 'filtering' from 'js3' (~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/js3/__init__.py)
+
+
+----------------------------------------------------------------------
+Ran 9 tests in 0.000s
+
+FAILED (errors=2)

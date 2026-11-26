@@ -1,0 +1,44 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:41+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:2d8b7eaa-5c08-44ef-a0f0-5a96cee2794d",
+ "raw_text": "{\"posting_id\": \"palantir:2d8b7eaa-5c08-44ef-a0f0-5a96cee2794d\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 4], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The posting title 'Product Designer' contains none of the required target-role phrases (condition 1), and its department 'Design' is not an accepted department (condition 2). Its location and office are London, United Kingdom, which is not Boston, MA, and the posting does not offer US-remote work (condition 3). The content mentions only TypeScript from the applicant's skill list (condition 4); HTML, CSS, and JavaScript are not in that list, so only one skill matches. Conditions 5 and 6 pass because no experience requirement is stated and the title has no excluded words.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:2d8b7eaa-5c08-44ef-a0f0-5a96cee2794d",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The posting title 'Product Designer' contains none of the required target-role phrases (condition 1), and its department 'Design' is not an accepted department (condition 2). Its location and office are London, United Kingdom, which is not Boston, MA, and the posting does not offer US-remote work (condition 3). The content mentions only TypeScript from the applicant's skill list (condition 4); HTML, CSS, and JavaScript are not in that list, so only one skill matches. Conditions 5 and 6 pass because no experience requirement is stated and the title has no excluded words."
+ },
+ "made_up_quotes": [],
+ "session_id": "3b2dc5bd-ad4c-428e-b127-25387e5eb9c0",
+ "cost_usd": 0.0010437200000000002,
+ "duration_ms": 6856
+}

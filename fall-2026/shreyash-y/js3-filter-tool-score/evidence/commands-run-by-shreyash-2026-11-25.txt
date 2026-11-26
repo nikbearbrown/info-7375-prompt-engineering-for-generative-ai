@@ -1,0 +1,33 @@
+# Commands Shreyash ran himself, in his own shell in the Claude Code session, copied from the session
+# by Claude Code (input and output exactly as shown there). Recorded at 2026-11-25 18:28 EST (run 1)
+# and 18:30 EST (run 2).
+
+## Run 1
+
+$ cd ~/"Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score" && python3 -m unittest discover -s tests -t . 2>&1 | tail -3 && shasum -a 256 -c labels/hand-verdicts.sha256
+  oscarhealth-doesnotexist   lever      failed            fetched -     new -    error not-found  NEEDS REVIEW
+  whoop                      lever      failed            fetched -     new -    error not-found  NEEDS REVIEW
+summary: runs/_test-regrade2/r1/summary.md   trace: runs/_test-regrade2/r1/trace.jsonl
+labels/hand-verdicts.jsonl: OK
+
+# Note by Claude Code: the hand-verdict hash matched. The test result line is not shown: the command
+# Claude Code gave used 'tail -3', which caught lines that a JS2 test prints (its output reaches the
+# pipe after unittest's summary), so this run does not show whether the tests passed.
+
+## Run 2 (the corrected command, 18:30 EST)
+
+$ cd ~/"Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score" && python3 -m unittest discover -s tests -t . 2>&1 | grep -E "^(Ran|OK|FAILED)" && shasum -a 256 -c labels/hand-verdicts.sha256
+Ran 218 tests in 3.253s
+OK (expected failures=1)
+labels/hand-verdicts.jsonl: OK
+
+## Run 3 (22:08 EST, after the third re-grade, on the final tree)
+
+# Run by Shreyash in his own terminal. The tree was commit 395f494 plus document changes that touch no
+# code or test; they were committed next. The last line counts the frozen JS2 test hashes that match (19 of 19).
+
+$ cd ~/"Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score" && python3 -m unittest discover -s tests -t . 2>&1 | grep -E '^(Ran|OK|FAILED)'; shasum -a 256 -c labels/hand-verdicts.sha256; shasum -a 256 -c tests.frozen.sha256 | grep -c ': OK$'
+Ran 224 tests in 3.497s
+OK (expected failures=1)
+labels/hand-verdicts.jsonl: OK
+19

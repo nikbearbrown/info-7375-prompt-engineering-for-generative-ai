@@ -1,0 +1,21 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:41+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:144f32bc-21e5-42bd-9710-7165a22d51e1",
+ "raw_text": "{\"posting_id\": \"palantir:144f32bc-21e5-42bd-9710-7165a22d51e1\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [1, 2, 3, 5], \"resume_fields\": [target_roles, experience_years, skills, location, remote_ok, exclusions], \"posting_fields\": [id, title, departments, location, offices, content], \"justification\": \"The title \\\"Senior Identity Security Engineer\\\" contains none of the required title phrases (condition 1), and the department \\\"Information Security\\\" is not an allowed department (condition 2). The location is New York, NY, which is neither Boston, MA nor remote US (condition 3), and the content requires 5+ years of experience against the résumé's experience_years of 3 (condition 5). Skills (Python, TypeScript) and exclusions (no excluded title words) pass.\"}",
+ "valid": false,
+ "errors": [
+  "not valid JSON: Expecting value"
+ ],
+ "parsed": null,
+ "made_up_quotes": null,
+ "session_id": "255e6281-8873-4f2e-be9b-c52be0791dd6",
+ "cost_usd": 0.00113112,
+ "duration_ms": 7796
+}

@@ -1,0 +1,22 @@
+# (The home folder in paths below is shown as ~.)
+# 2026-11-25 21:23:51 EST: before the fix.
+# The test is run under a Python whose start-up imports socket (a sitecustomize.py on PYTHONPATH),
+# standing in for installs that preload it. The server is unchanged.
+test_no_network_module_is_loaded (tests.test_js3_mcp_server.Boundaries.test_no_network_module_is_loaded) ... FAIL
+
+======================================================================
+FAIL: test_no_network_module_is_loaded (tests.test_js3_mcp_server.Boundaries.test_no_network_module_is_loaded)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "~/Project Shrey/info7375/course-js3/fall-2026/shreyash-y/js3-filter-tool-score/tests/test_js3_mcp_server.py", line 119, in test_no_network_module_is_loaded
+    self.assertEqual(out.stdout.strip(), "[]")
+    ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: "['socket']" != '[]'
+- ['socket']
++ []
+
+
+----------------------------------------------------------------------
+Ran 1 test in 0.057s
+
+FAILED (failures=1)

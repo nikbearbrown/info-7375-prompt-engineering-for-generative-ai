@@ -1,0 +1,42 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:49+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "palantir:94984771-0704-446c-88c6-91ce748f6d92",
+ "raw_text": "{\"posting_id\": \"palantir:94984771-0704-446c-88c6-91ce748f6d92\", \"verdict\": \"Not Relevant\", \"failed_conditions\": [2, 3], \"resume_fields\": [\"target_roles\", \"skills\", \"location\", \"remote_ok\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"Condition 2 fails because the posting's only department is \\\"Dev\\\", which is not on the allowed list. Condition 3 fails because the posting's location and office are New York, NY, not Boston, MA, and its remote language allows only exceptional remote roles where the employee works from their state, so it does not explicitly support remote work across the US. The title matches \\\"Software Engineer\\\", the content mentions at least two résumé skills (Java, Python, TypeScript, React), no experience requirement is stated, and no exclusion applies.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "palantir:94984771-0704-446c-88c6-91ce748f6d92",
+  "verdict": "Not Relevant",
+  "failed_conditions": [
+   2,
+   3
+  ],
+  "resume_fields": [
+   "target_roles",
+   "skills",
+   "location",
+   "remote_ok",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "Condition 2 fails because the posting's only department is \"Dev\", which is not on the allowed list. Condition 3 fails because the posting's location and office are New York, NY, not Boston, MA, and its remote language allows only exceptional remote roles where the employee works from their state, so it does not explicitly support remote work across the US. The title matches \"Software Engineer\", the content mentions at least two résumé skills (Java, Python, TypeScript, React), no experience requirement is stated, and no exclusion applies."
+ },
+ "made_up_quotes": [],
+ "session_id": "372af173-dde1-413a-b988-2d632be9155c",
+ "cost_usd": 0.00128732,
+ "duration_ms": 7196
+}

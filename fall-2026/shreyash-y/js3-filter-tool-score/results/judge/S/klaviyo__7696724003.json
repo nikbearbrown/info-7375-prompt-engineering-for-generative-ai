@@ -1,0 +1,39 @@
+{
+ "judge": "Claude (judgment, not a fact)",
+ "condition": "S",
+ "called_at": "2026-11-25T22:32:20+00:00",
+ "model": "claude-haiku-5-5",
+ "prompt_file": "prompts/baseline-v1.md",
+ "prompt_sha256": "60bc794a6b2e4f645716725a5a9271b6ea2a63c7ed1eb979dfbfa20bb31b67b9",
+ "with_tool": false,
+ "tool_calls": 0,
+ "posting_key": "klaviyo:7696724003",
+ "raw_text": "{\"posting_id\": \"klaviyo:7696724003\", \"verdict\": \"Relevant\", \"failed_conditions\": [], \"resume_fields\": [\"target_roles\", \"experience_years\", \"skills\", \"location\", \"exclusions\"], \"posting_fields\": [\"id\", \"title\", \"departments\", \"location\", \"offices\", \"content\"], \"justification\": \"The title 'Senior Software Engineer - Growth' contains the target phrase 'Software Engineer' and the department is 'Engineering', both matching the résumé's target_roles. The location is Boston, MA, matching the résumé location. The content mentions at least two of the applicant's skills (TypeScript, React, Python), and it states no numeric experience requirement, so Condition 5 passes without assumption. The title contains no excluded word (Director, Staff, Principal, Manager, Lead), and the posting is not an unpaid, contract-only, or relocation-required role.\"}",
+ "valid": true,
+ "errors": [],
+ "parsed": {
+  "posting_id": "klaviyo:7696724003",
+  "verdict": "Relevant",
+  "failed_conditions": [],
+  "resume_fields": [
+   "target_roles",
+   "experience_years",
+   "skills",
+   "location",
+   "exclusions"
+  ],
+  "posting_fields": [
+   "id",
+   "title",
+   "departments",
+   "location",
+   "offices",
+   "content"
+  ],
+  "justification": "The title 'Senior Software Engineer - Growth' contains the target phrase 'Software Engineer' and the department is 'Engineering', both matching the résumé's target_roles. The location is Boston, MA, matching the résumé location. The content mentions at least two of the applicant's skills (TypeScript, React, Python), and it states no numeric experience requirement, so Condition 5 passes without assumption. The title contains no excluded word (Director, Staff, Principal, Manager, Lead), and the posting is not an unpaid, contract-only, or relocation-required role."
+ },
+ "made_up_quotes": [],
+ "session_id": "8b9b9ba4-3969-467c-ab75-bc4f41fd2b24",
+ "cost_usd": 0.0013400999999999999,
+ "duration_ms": 6913
+}
