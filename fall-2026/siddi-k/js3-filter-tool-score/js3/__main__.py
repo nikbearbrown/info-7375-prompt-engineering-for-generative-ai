@@ -58,6 +58,20 @@ def _filter(args) -> int:
     return 0
 
 
+def _sheet(args) -> int:
+    from . import sheet
+    cfg = load_filter_cfg(args.config)
+    results, _ = run_filter(cfg, args.run)
+    postings = collect.load_postings(policy.ROOT / "data" / "collections" / args.run)
+    manifest, items = sheet.build(results, postings, cfg["keep_threshold"])
+    manifest.update(filter_version=cfg["version"], collection_run=args.run)
+    policy.write_bytes("labels/sheet-manifest.json", (json.dumps(manifest, indent=1) + "\n").encode("utf-8"))
+    policy.write_bytes("labels/labeling-sheet.html", sheet.page(items).encode("utf-8"))
+    print(json.dumps({k: manifest[k] for k in ("counts", "items_shown_sha256")}, indent=2))
+    print(f"wrote labels/labeling-sheet.html ({len(items)} items) and labels/sheet-manifest.json")
+    return 0
+
+
 def main(argv=None) -> int:
     p = argparse.ArgumentParser(prog="python -m js3")
     sub = p.add_subparsers(dest="cmd", required=True)
@@ -66,6 +80,10 @@ def main(argv=None) -> int:
     f.add_argument("--run", required=True, help="collection run id under data/collections/")
     f.add_argument("--config", default="config/filter.v1.json")
     f.set_defaults(fn=_filter)
+    s = sub.add_parser("sheet", help="draw the audit + held-out samples and write the blind labeling sheet")
+    s.add_argument("--run", required=True)
+    s.add_argument("--config", default="config/filter.v1.json")
+    s.set_defaults(fn=_sheet)
     args = p.parse_args(argv)
     return args.fn(args)
 

@@ -9,7 +9,7 @@ from urllib.parse import urlparse
 
 ROOT = Path(__file__).resolve().parent.parent
 ALLOWED_HOSTS = frozenset({"boards-api.greenhouse.io", "api.ashbyhq.com", "api.smartrecruiters.com"})
-WRITE_ROOTS = ("data/collections", "output", "evidence")
+WRITE_ROOTS = ("data/collections", "output", "evidence", "labels")
 SECRET_NAMES = frozenset({".env", ".credentials.json", "credentials.json", "id_rsa", ".netrc", ".git-credentials"})
 
 
