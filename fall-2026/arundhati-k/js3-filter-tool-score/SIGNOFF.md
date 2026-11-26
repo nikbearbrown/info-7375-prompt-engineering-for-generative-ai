@@ -17,7 +17,8 @@ evidence for each claim, with Claude's "read" labels in front of me (SHORTLIST.m
 
 How:
 - Tests: written by Claude, from my FILTER.md, before Claude wrote the code. I did not write any test. I ran the
-  suite myself: evidence/logs/13-tests-run-by-me.txt.
+  suite myself: evidence/logs/13-tests-run-by-me.txt (49 tests, before the labeler fix) and again after it:
+  evidence/logs/20-tests-run-by-me-final.txt (all 57 tests, final code).
 - Rules and rule changes: my decisions (FILTER.md Appendix A, Revisions). Claude measured them.
 - Audit verdicts and held-out labels: by hand, blind to the filter's verdict, typed by me (audit/, labels/).
 - Counts, intervals and Claude-scorer runs: computed by Claude's scripts. I did not recompute them myself.
