@@ -7,7 +7,9 @@
 // score, the components, and any veto quote.
 //
 // What it does NOT do: no network, no Claude call, no child process (it never imports
-// src/judge.mjs); it never returns posting text, apply URLs, or the audit/label files. The only
+// src/judge.mjs); it never returns the posting body (only a quoted veto sentence, <= 300 chars),
+// apply URLs, or the audit/label files. (Description fixed 2026-11-25 after the Claude Desktop run:
+// it used to say "no posting text returned".) The only
 // thing it writes is its own transcript: every message in both directions, timestamped, to
 // transcripts/<start>-<pid>.jsonl inside this folder (checked by real path).
 import { readFileSync, appendFileSync, mkdirSync, realpathSync } from 'node:fs';
@@ -45,7 +47,7 @@ const boards = corpus.boards.map(b => b.board);
 const TOOL = {
   name: 'score_posting',
   title: 'Score a posting (read-only)',
-  description: `Score ONE job posting from the frozen 2026-11-10 snapshot (${corpus.postings.length} postings; boards ${boards.join(', ')}) with filter v${spec.version} for the fictional persona Maya Sehgal. Returns keep / reject / cannot_tell, the score, its components, and a quoted veto if any. Read-only: no network, no writes, no posting text returned.`,
+  description: `Score ONE job posting from the frozen 2026-11-10 snapshot (${corpus.postings.length} postings; boards ${boards.join(', ')}) with filter v${spec.version} for the fictional persona Maya Sehgal. Returns keep / reject / cannot_tell, the score, its components, and, if vetoed, the one veto sentence quoted from the posting (at most 300 characters). Read-only: no network, no writes; the posting body is not returned.`,
   inputSchema: {
     type: 'object',
     properties: { posting_id: { type: 'string', description: 'board:id, e.g. "gh-stripe:8186541"', pattern: '^[a-z0-9-]+:[A-Za-z0-9-]+$' } },

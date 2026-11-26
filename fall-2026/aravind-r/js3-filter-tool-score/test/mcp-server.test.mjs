@@ -95,3 +95,14 @@ test('W12: the server\'s import graph has no judge, no child process, no network
   assert.equal((server.match(/appendFileSync\(/g) ?? []).length, 1, 'one appendFileSync call: the transcript logger');
   assert.ok(!/writeFileSync|rmSync|unlink|rename/.test(server));
 });
+
+test('fixed finding (2026-11-25): the tool description admits the quoted veto sentence', async () => {
+  const sub = `test-d-${process.pid}`;
+  try {
+    const { msgs } = await session([init(), { jsonrpc: '2.0', id: 2, method: 'tools/list' }, call(3, { posting_id: 'gh-airbnb:8299386' })], sub);
+    const d = byId(msgs, 2).result.tools[0].description;
+    assert.match(d, /veto sentence quoted from the posting/); assert.doesNotMatch(d, /no posting text returned/);
+    const v = byId(msgs, 3).result.structuredContent.veto;
+    assert.ok(v.quote.length <= 300 && v.quote.includes('No Visa/Relocation Support.'));
+  } finally { rmSync(join(ROOT, 'transcripts', sub), { recursive: true, force: true }); }
+});
