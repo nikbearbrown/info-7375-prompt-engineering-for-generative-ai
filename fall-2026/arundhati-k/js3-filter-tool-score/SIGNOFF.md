@@ -44,7 +44,7 @@ get an interview or an offer. It only filters and ranks postings using the rules
 It is not fully reliable: v1.1 found neither of my 2 held-out Y postings, and the 0 of 32 reject audit result is a
 sample estimate, not a measured rate for all postings.
 
-Signed or withheld: ____________
+Signed or withheld: Signed — Arundhati Kandelkar, 25/11/2026
 ```
 
 ## Driver's seat
