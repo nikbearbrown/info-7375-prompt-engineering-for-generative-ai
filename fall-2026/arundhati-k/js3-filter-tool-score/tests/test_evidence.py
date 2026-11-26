@@ -101,3 +101,22 @@ class CurlyApostrophe(unittest.TestCase):
     def test_curly_heading_is_required(self):
         body = "What you’ll do\n- Build REST APIs in Java\n"
         self.assertEqual([k for k, _ in sections(body)][1], "required")
+
+
+class SpelledYears(unittest.TestCase):
+    """Found 2026-11-25 reading shortlist postings stripe:8411927 / 8197135: 'four (4) years of experience'."""
+
+    def test_parenthesised_years(self):
+        from jsagent3.evidence import min_required_years
+        body = "Minimum requirements\nMust have a degree plus four (4) years of related experience.\n"
+        self.assertEqual(min_required_years(body)[0], 4)
+        c = {"type": "level", "value": "early-career"}
+        self.assertEqual(label_claim(c, P(body))["label"], "contradicted")
+
+
+class StrictestYearsWins(unittest.TestCase):
+    def test_base_requirement_beats_sub_skill_years(self):  # stripe:8411988 wording
+        from jsagent3.evidence import min_required_years
+        body = ("Minimum requirements\nMust have a degree plus three (3) years of work experience.\n"
+                "Must also have one (1) year of experience in each of the following:\n")
+        self.assertEqual(min_required_years(body)[0], 3)

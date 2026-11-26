@@ -1,9 +1,9 @@
-Filter changes, one at a time (after curly-apostrophe parser fix). Held-out = 20 labels (2 Y).
-Reference: 'reject everything' would agree 18/20 on held-out (TP 0).
+Filter changes, one at a time (after both parser fixes, 2026-11-25). Held-out = 20 labels (2 Y).
+Reference: 'reject everything' agrees 18/20 on held-out (TP 0) and 48/54 on audit (TP 0).
 v1 (baseline)                              HELD-OUT agree 16/20  TP 1 FP 3 FN 1 TN 15  disagree n=[8, 13, 14, 18]
                                            audit    agree 42/54  TP 3 FP 10 FN 2 TN 39  disagree n=[13, 15, 20, 21, 26, 28, 33, 35, 43, 45, 51, 54]
 +B only (max_required_years=2)             HELD-OUT agree 17/20  TP 1 FP 2 FN 1 TN 16  disagree n=[13, 14, 18]
-                                           audit    agree 49/54  TP 3 FP 3 FN 2 TN 46  disagree n=[13, 33, 45, 51, 54]
+                                           audit    agree 50/54  TP 2 FP 1 FN 3 TN 48  disagree n=[13, 51, 53, 54]
 +D only (topic_in_required_only)           HELD-OUT agree 18/20  TP 0 FP 0 FN 2 TN 18  disagree n=[4, 14]
                                            audit    agree 44/54  TP 2 FP 7 FN 3 TN 42  disagree n=[13, 15, 21, 26, 33, 35, 45, 46, 51, 54]
 A only (us_required) [rejected by me]      HELD-OUT agree 18/20  TP 1 FP 1 FN 1 TN 17  disagree n=[14, 18]
@@ -11,4 +11,4 @@ A only (us_required) [rejected by me]      HELD-OUT agree 18/20  TP 1 FP 1 FN 1 
 C only (threshold=1) [rejected by me]      HELD-OUT agree 15/20  TP 2 FP 5 FN 0 TN 13  disagree n=[3, 8, 13, 16, 18]
                                            audit    agree 37/54  TP 5 FP 17 FN 0 TN 32  disagree n=[3, 5, 15, 20, 21, 24, 26, 28, 33, 35, 36, 41, 43, 45, 48, 49, 51]
 v1.1 = B + D                               HELD-OUT agree 18/20  TP 0 FP 0 FN 2 TN 18  disagree n=[4, 14]
-                                           audit    agree 48/54  TP 2 FP 3 FN 3 TN 46  disagree n=[13, 33, 45, 46, 51, 54]
+                                           audit    agree 49/54  TP 1 FP 1 FN 4 TN 48  disagree n=[13, 46, 51, 53, 54]

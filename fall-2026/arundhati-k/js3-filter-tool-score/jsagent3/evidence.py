@@ -19,7 +19,7 @@ SKILL_PATTERNS = {
 CASE_SENSITIVE = {"REST APIs", "AWS"}
 EARLY_TITLE = re.compile(r"(?i)\b(intern|internship|new grad|early career|co-?op|university grad|graduate)\b")
 EARLY_BODY = re.compile(r"(?i)(new grad|recent graduate|0[-–]2 years|0\+ years|1\+ years? of|early[- ]career)")
-YEARS = re.compile(r"(?i)(\d{1,2})\s*(?:\+|[-–]\s*\d{1,2})?\s*\+?\s*years?")
+YEARS = re.compile(r"(?i)\(?(\d{1,2})\)?\s*(?:\+|[-–]\s*\d{1,2})?\s*\+?\s*years?")
 EARLY_MAX_YEARS = 2  # FILTER.md s5 contradiction half, [Claude, pending]: min required years >= 3 contradicts
 
 
@@ -86,7 +86,8 @@ def min_required_years(body):
         if k == "required":
             for m in YEARS.finditer(ln):
                 found.append((int(m.group(1)), ln))
-    return min(found) if found else None
+    # the strictest explicit requirement wins: "3 years ... plus 1 year in each of X" requires 3 (FILTER.md B)
+    return max(found) if found else None
 
 
 def _level(claim, p):
