@@ -46,7 +46,8 @@ here says what he thought.*
   - wrote a second statement on how he wrote his answers (`labels/hand-verdicts-provenance.md`).
 - **21:21–21:35.** Wrote a list of five possible improvements, chose the claim check from it, and
   checked the 45 claims of the 5 open v1.1 postings from the code's quotes, with its labels hidden
-  (SHORTLIST.md section 6). Then he signed the updated sign-off (21:35).
+  (SHORTLIST.md section 6). Then he signed the updated sign-off (21:35) and wrote the entry on the
+  check below (21:41, corrected at 21:42).
 
 ### In my own words
 
@@ -86,6 +87,27 @@ Claude's explanation helped me separate following the filter rules from deciding
 
 *Evidence: `labels/hand-verdicts-provenance.md` (items 31, 39 and 49, and the double-check reply);
 `labels/hand-verdicts-first-answers.jsonl`; AUDIT.md section 3, "The audit set both ways".*
+
+**2026-11-25, 21:26–21:28 — Checking the v1.1 shortlist claims**
+
+*Written by Shreyash shortly after the check and pasted into the session at 21:41 EST. He sent a
+corrected version at 21:42, with the heading's time and the "What I did" line changed: his first
+version gave 21:25, which was Claude Code's suggestion, and its "What I did" described Claude Code's
+part. Claude Code turned the heading into bold text, like the entries above; the evidence line is
+Claude Code's.*
+
+**I tried / expected:** I wanted to check whether the quotes actually supported the claims rather than just checking whether the quoted words appeared in the postings.
+
+**What happened:** The second claim check agreed with 42 out of 45 labels and gave stricter judgments on three claims. This showed that matching words does not always mean the claim is supported.
+
+**What I did:** I labeled all 45 claims as supported, contradicted or insufficient based on the provided quotes, without seeing the code's labels. I gave reasons where the evidence was insufficient and identified where I needed the full posting.
+
+**What I understand now / still do not understand:** A technology list does not necessarily establish a skill requirement, and full-time employment does not automatically mean permanent employment. Some claims cannot be settled confidently without reading the full posting.
+
+**Next step:** Review the full descriptions for the disputed claims before changing the evidence rules. I do not want to change a rule just to improve agreement on this sample.
+
+*Evidence: SHORTLIST.md section 6; `labels/shortlist-v1.1-claims-by-shreyash.jsonl` (his answers,
+21:28); `labels/shortlist-v1.1-claim-sheet-shown.md` (the sheet, 21:26); commit `67cdc79`.*
 
 ## Part 2 — Claude Code's log
 
