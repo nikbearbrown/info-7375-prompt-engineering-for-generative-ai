@@ -1,6 +1,6 @@
 # FRICTIONAL — Job-Search Agent 3
 
-**Status: in progress (2026-11-25).** Aravind writes this log. Entries Claude Code typed from his
+**Status: in progress (2026-11-25).** Aravind writes this log. Entries Claude Code typed from Aravind's
 dictation are marked as dictated.
 
 ## 2026-11-25: manual Phase 3 replies saved under the wrong filenames (dictated by Aravind)
