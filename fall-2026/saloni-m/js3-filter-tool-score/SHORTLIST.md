@@ -67,8 +67,11 @@ Claude's claim from that quote: *"This is a go-to-market customer advisory role 
 hands-on building. That claim is **supported**. The filter's own implicit claim is that this
 title names one of her target roles ("AI Engineer"). The posting text does not entail that
 claim; it entails the opposite. The words match and the claim the match stands for is false.
-Labeling rule 1 excludes "architecture-for-clients". The same holds for the 34 kept
-"Applied AI Architect" postings (AUDIT.md §3).
+Labeling rule 1 excludes "architecture-for-clients", which argues the same for the 34 kept
+"Applied AI Architect" postings. My own hand labels disagreed for most of them: I judged 6 of
+the 7 Architect rows in the dev sample worth Priya's time (AUDIT.md §3). The entailment point
+stands for this posting; whether Architect roles are worth her time is my call, and I made it
+the other way.
 
 ## 3. The abstention rule and a counterexample that breaks it
 

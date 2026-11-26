@@ -1,0 +1,154 @@
+[
+  {
+    "variant": "F0",
+    "changed": "baseline (FILTER.md v1.0)",
+    "tp": 10,
+    "fp": 5,
+    "fn": 5,
+    "tn": 10,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "20/30",
+    "agreement_95ci": [
+      0.47,
+      0.83
+    ]
+  },
+  {
+    "variant": "F1",
+    "changed": "setting: threshold 3 -> 4",
+    "tp": 10,
+    "fp": 5,
+    "fn": 5,
+    "tn": 10,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "20/30",
+    "agreement_95ci": [
+      0.47,
+      0.83
+    ]
+  },
+  {
+    "variant": "F2",
+    "changed": "filter file: C1-no-training.json (topic word \"training\" removed (false-friend candidate))",
+    "tp": 10,
+    "fp": 5,
+    "fn": 5,
+    "tn": 10,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "20/30",
+    "agreement_95ci": [
+      0.47,
+      0.83
+    ]
+  },
+  {
+    "variant": "F3",
+    "changed": "filter file: C2-architect-veto.json (title veto for non-building roles: architect, recruiter)",
+    "tp": 7,
+    "fp": 3,
+    "fn": 8,
+    "tn": 12,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "19/30",
+    "agreement_95ci": [
+      0.44,
+      0.8
+    ]
+  },
+  {
+    "variant": "F4",
+    "changed": "filter file: C3-years-any.json (R4 reads \"N+ years\" / \"N-M years\" without the word experience)",
+    "tp": 9,
+    "fp": 3,
+    "fn": 6,
+    "tn": 12,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "21/30",
+    "agreement_95ci": [
+      0.51,
+      0.85
+    ]
+  },
+  {
+    "variant": "J0",
+    "changed": "baseline",
+    "claude_calls": 30,
+    "ran_utc": "2026-11-26T16:34:50+00:00 .. 2026-11-26T16:35:23+00:00",
+    "tp": 3,
+    "fp": 0,
+    "fn": 10,
+    "tn": 15,
+    "pred_cannot_tell": 2,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "18/28",
+    "agreement_95ci": [
+      0.44,
+      0.81
+    ]
+  },
+  {
+    "variant": "J1",
+    "changed": "prompt",
+    "claude_calls": 30,
+    "ran_utc": "2026-11-26T16:35:27+00:00 .. 2026-11-26T16:35:58+00:00",
+    "tp": 3,
+    "fp": 0,
+    "fn": 10,
+    "tn": 15,
+    "pred_cannot_tell": 2,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "18/28",
+    "agreement_95ci": [
+      0.44,
+      0.81
+    ]
+  },
+  {
+    "variant": "J2",
+    "changed": "context",
+    "claude_calls": 30,
+    "ran_utc": "2026-11-26T16:36:02+00:00 .. 2026-11-26T16:36:30+00:00",
+    "tp": 0,
+    "fp": 0,
+    "fn": 0,
+    "tn": 4,
+    "pred_cannot_tell": 26,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "4/4",
+    "agreement_95ci": [
+      0.4,
+      1.0
+    ]
+  },
+  {
+    "variant": "J3",
+    "changed": "tool list",
+    "claude_calls": 30,
+    "ran_utc": "2026-11-26T16:36:34+00:00 .. 2026-11-26T16:37:21+00:00",
+    "tp": 3,
+    "fp": 0,
+    "fn": 10,
+    "tn": 15,
+    "pred_cannot_tell": 2,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "18/28",
+    "agreement_95ci": [
+      0.44,
+      0.81
+    ]
+  }
+]

@@ -8,10 +8,8 @@ Saloni M · INFO 7375 · Fall 2026 · built and run 2026-11-26 (all run times UT
 persona Priya Nair, the title keywords, the labeling rule, and the `claude -p` calling pattern.
 No Reallocation Engine or Lectern code was used.
 
-> **Status: hand labels and sign-off pending.** Everything a program or Claude can do has
-> run. Nothing that needs Saloni's judgement has been filled in: the 57 dev audit verdicts, 30
-> held-out labels, 72 claim reviews, the FILTER.md §6 decisions, and the sign-off.
-> See "What is left" below.
+> **Status:** all 87 hand labels done (Saloni, 2026-11-26 16:39–17:16), results computed by
+> `scripts/finish.py`. Sign-off pending Saloni's signature.
 
 | Read this | For |
 |---|---|
@@ -77,16 +75,12 @@ samples and labels would no longer match. Re-collect only on purpose.
 | 16:33 | shortlist, 12 Claude calls | 72 claims: 45 supported, 0 contradicted, 27 insufficient; 5 of 12 "I cannot tell" | `out/shortlist/shortlist.json` |
 | 16:34:50–16:37:21 | J0–J3, 120 Claude calls | context change moved 24/30 verdicts; prompt 3/30; tools 3/30 | `out/experiments/` |
 | — | candidates C1–C3 on all 1,651 | C1: 0 flips; C2: 34 keeps → reject; C3: 12 keeps → reject | `out/filter/C*/` |
+| 16:39–17:16 | Saloni's hand labels (57 dev, 30 held-out; 9 dev re-answered) | 7/35 random rejects wrong; C1–C3 rejected; held-out F0 20/30 | AUDIT.md §2, SCORE.md §3 |
 
 ## What is left (Saloni)
 
-1. Label both sheets (one key per row; `q` saves and stops, re-run to continue):
-   `python3 scripts/label.py labels/audit_sheet.csv labels/heldout_sheet.csv`
-2. `python3 scripts/finish.py`. It computes the audit, decides C1–C3 by the rule fixed in
-   AUDIT.md §4 before labelling, measures every variant once on held-out, and writes AUDIT.md
-   §2/§4, FILTER.md §6, SCORE.md §3 and the SIGNOFF counts. Read what it wrote.
-3. Write FRICTIONAL.md Part A (three or four entries, in my words). Edit, then sign, SIGNOFF.md.
-4. Commit, push the branch, put the folder link and final commit hash in Canvas.
+1. Read SIGNOFF.md; replace the `WITHHELD` line with my name and the date.
+2. Push the branch; put the folder link and final commit hash in Canvas.
 
 Optional: `python3 scripts/label.py labels/claims_sheet.csv` to review the checker's 72 claim
 labels. Every claim already carries a mechanical label; this review is not required.

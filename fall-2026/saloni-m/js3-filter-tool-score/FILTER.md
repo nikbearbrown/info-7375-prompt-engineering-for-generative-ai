@@ -135,4 +135,5 @@ Drafted by Claude Code; Saloni confirms or replaces them in the sign-off.
 |---|---|---|---|---|---|
 | 1.0 | 2026-11-26 | first version, before any JS3 data | — | — | — |
 <!-- finish.py:changelog -->
+| C1–C3 | 2026-11-26 | added none; rejected C1, C2, C3 (rule fixed before labelling, AUDIT.md §4) | 57 dev labels, `out/experiments/measure-audit.json` | see AUDIT.md §4 | v1.1 = v1.0 + nothing; decided, not yet run (every number here is from v1.0; SCORE.md §3 measures v1.0 and each candidate side by side) |
 <!-- /finish.py:changelog -->

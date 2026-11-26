@@ -117,6 +117,19 @@ def main():
     split = rep["matched_word_vs_hand_label"]
     words = "\n".join(f"| `{w}` | {c.get('worth_time', 0)} | {c.get('not_worth_time', 0)} | {c.get('cannot_tell', 0)} |"
                       for w, c in list(split.items())[:12])
+    relabel = ""
+    rp = os.path.join(HERE, "labels", "relabel_log.csv")
+    if os.path.exists(rp):
+        with open(rp, newline="", encoding="utf-8") as f:
+            rl = list(csv.DictReader(f))
+        now = {r["row"]: r["hand_label"] for r in dev}
+        changed = [r for r in rl if now[r["row"]] != r["first_label"]]
+        relabel = (f"**Relabelled after seeing the first results.** After the first `finish.py` run I re-answered "
+                   f"{len(rl)} dev rows whose first label conflicted with my rule (`labels/relabel_log.csv` keeps the "
+                   f"first answers and times). {len(changed)} changed: " +
+                   ("; ".join(f"row {r['row']} {r['title'].strip()} {r['first_label']} → {now[r['row']]}" for r in changed) or "none") +
+                   f"; {len(rl) - len(changed)} I kept. The sheet still hid the filter's decision, but I had seen the "
+                   "error list, so these rows were not labelled blind the second time.\n\n")
     put("AUDIT.md", "verdicts", f"""
 Labelled by Saloni with `scripts/label.py`, blind to the filter's decision. Computed by
 `scripts/audit_report.py` into `out/audit_report.json` and written here by `scripts/finish.py`.
@@ -131,7 +144,7 @@ wrong by my label. {rr['if_this_sample_is_typical'].capitalize()}. For keeps: {r
 {rr['n']} cannot show that the filter misses "almost nothing". The near-threshold stratum was
 chosen by score, so it shows where the filter is fragile and gives no rate for anything.
 
-**Rows where the filter and I disagree:**
+{relabel}**Rows where the filter and I disagree:**
 
 {errs}
 
@@ -189,7 +202,7 @@ variants; a difference smaller than the overlap is not evidence of a better vari
     sp = os.path.join(HERE, "SIGNOFF.md")
     with open(sp, encoding="utf-8") as f:
         s = f.read()
-    s = re.sub(r"\[Saloni\] the reject audit: .*", f"the reject audit: {rr['filter_wrong']} of {rr['judged']} judged random "
+    s = re.sub(r"(?:\[Saloni\] )?the reject audit: .*", f"the reject audit: {rr['filter_wrong']} of {rr['judged']} judged random "
                f"rejects wrong, by my hand labels (exact 95% interval {rr['error_rate_95ci'][0]:.1%} – "
                f"{rr['error_rate_95ci'][1]:.1%})", s)
     with open(sp, "w", encoding="utf-8") as f:

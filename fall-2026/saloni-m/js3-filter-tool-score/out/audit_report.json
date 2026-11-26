@@ -1,0 +1,316 @@
+{
+  "filter_results": "out/filter/v1.0/results.jsonl",
+  "strata": {
+    "near_threshold": {
+      "n": 12,
+      "cannot_tell": 0,
+      "judged": 12,
+      "filter_wrong": 2,
+      "note": "chosen by margin, not at random: no rate is claimed for this stratum"
+    },
+    "random_keep": {
+      "n": 10,
+      "cannot_tell": 0,
+      "judged": 10,
+      "filter_wrong": 2,
+      "error_rate_95ci": [
+        0.025,
+        0.556
+      ],
+      "if_this_sample_is_typical": "between 2 and 49 of the 89 keeps could be wrong (95% exact interval, k=2, n=10); a sample estimate, not a measured count"
+    },
+    "random_reject": {
+      "n": 35,
+      "cannot_tell": 0,
+      "judged": 35,
+      "filter_wrong": 7,
+      "error_rate_95ci": [
+        0.084,
+        0.369
+      ],
+      "if_this_sample_is_typical": "between 132 and 577 of the 1,562 rejects could be wrong (95% exact interval, k=7, n=35); a sample estimate, not a measured count"
+    }
+  },
+  "errors": [
+    {
+      "stratum": "near_threshold",
+      "uid": "ashby:openai:e1d8b590-8a91-42bb-ba2e-64b99c87e4ac",
+      "title": "Applied AI Engineer, Codex",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 2,
+      "note": "",
+      "fired": [
+        [
+          "R1",
+          [
+            "ai engineer",
+            "applied ai"
+          ]
+        ],
+        [
+          "R3",
+          [
+            "evaluation",
+            "data pipeline"
+          ]
+        ],
+        [
+          "R4",
+          [
+            "5+ years of relevant experience"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "near_threshold",
+      "uid": "greenhouse:anthropic:5450099008",
+      "title": "Data Engineer, Billing & Payments",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 2,
+      "note": "",
+      "fired": [
+        [
+          "R1",
+          [
+            "data engineer"
+          ]
+        ],
+        [
+          "R3",
+          [
+            "python",
+            "sql",
+            "airflow",
+            "training"
+          ]
+        ],
+        [
+          "R4",
+          [
+            "5+ years of experience"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "random_keep",
+      "uid": "greenhouse:anthropic:5192805008",
+      "title": "Applied AI Architect, Commercial",
+      "filter": "keep",
+      "hand": "not_worth_time",
+      "score": 5,
+      "note": "",
+      "fired": [
+        [
+          "R1",
+          [
+            "applied ai"
+          ]
+        ],
+        [
+          "R3",
+          [
+            "python",
+            "llm",
+            "evaluation",
+            "training"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "random_keep",
+      "uid": "ashby:openai:1328e781-c66c-4f71-8eb0-6c684273833b",
+      "title": "Applied AI Engineer, Cyber | Tokyo",
+      "filter": "keep",
+      "hand": "not_worth_time",
+      "score": 5,
+      "note": "",
+      "fired": [
+        [
+          "R1",
+          [
+            "ai engineer",
+            "applied ai"
+          ]
+        ],
+        [
+          "R3",
+          [
+            "python",
+            "evaluation"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "random_reject",
+      "uid": "ashby:openai:9909555b-3dc4-4ba2-859e-43eae7c97a34",
+      "title": "Software Engineer, Product Velocity",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 1,
+      "note": "",
+      "fired": [
+        [
+          "R3",
+          [
+            "python"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "random_reject",
+      "uid": "ashby:openai:98ad9beb-4f91-496c-bd16-ac0b2a8d5bb2",
+      "title": "Software Engineer, Infrastructure Security",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 2,
+      "note": "",
+      "fired": [
+        [
+          "R3",
+          [
+            "python",
+            "training"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "random_reject",
+      "uid": "ashby:openai:1f148786-2e00-472a-96b9-0b29015980e1",
+      "title": "Product Data Scientist - Youth, Families and Learning",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 2,
+      "note": "",
+      "fired": [
+        [
+          "R3",
+          [
+            "python",
+            "sql"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "random_reject",
+      "uid": "ashby:openai:1dc05fc7-ceb7-4827-a905-9d1beb77a4a0",
+      "title": "Camera Software Engineer, Consumer Devices",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 0,
+      "note": "",
+      "fired": []
+    },
+    {
+      "stratum": "random_reject",
+      "uid": "greenhouse:anthropic:5183044008",
+      "title": "Anthropic Fellows Program, AI Safety & Security",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 2,
+      "note": "",
+      "fired": [
+        [
+          "R3",
+          [
+            "python",
+            "llm",
+            "training"
+          ]
+        ]
+      ]
+    },
+    {
+      "stratum": "random_reject",
+      "uid": "ashby:openai:7ade7a12-845c-4e3a-af23-c028420bd181",
+      "title": "Software Engineer, Codex Core Agents",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 0,
+      "note": "",
+      "fired": []
+    },
+    {
+      "stratum": "random_reject",
+      "uid": "greenhouse:anthropic:5494145008",
+      "title": "Safeguards Enforcement Analyst, Targeting, Tracking & Surveillance",
+      "filter": "reject",
+      "hand": "worth_time",
+      "score": 2,
+      "note": "",
+      "fired": [
+        [
+          "R3",
+          [
+            "python",
+            "sql",
+            "training"
+          ]
+        ]
+      ]
+    }
+  ],
+  "matched_word_vs_hand_label": {
+    "R3:training": {
+      "not_worth_time": 19,
+      "worth_time": 16
+    },
+    "R3:python": {
+      "not_worth_time": 11,
+      "worth_time": 14
+    },
+    "R3:evaluation": {
+      "not_worth_time": 8,
+      "worth_time": 9
+    },
+    "R3:llm": {
+      "not_worth_time": 6,
+      "worth_time": 7
+    },
+    "R1:applied ai": {
+      "worth_time": 8,
+      "not_worth_time": 4
+    },
+    "R3:sql": {
+      "worth_time": 4,
+      "not_worth_time": 4
+    },
+    "R1:machine learning": {
+      "worth_time": 4
+    },
+    "R1:ai engineer": {
+      "worth_time": 2,
+      "not_worth_time": 1
+    },
+    "R1:ml": {
+      "worth_time": 2
+    },
+    "R3:airflow": {
+      "not_worth_time": 1,
+      "worth_time": 1
+    },
+    "R1:data engineer": {
+      "worth_time": 2
+    },
+    "R3:spark": {
+      "not_worth_time": 1
+    },
+    "R3:databricks": {
+      "not_worth_time": 1
+    },
+    "R3:data pipeline": {
+      "worth_time": 1
+    },
+    "R1:inference": {
+      "worth_time": 1
+    }
+  }
+}

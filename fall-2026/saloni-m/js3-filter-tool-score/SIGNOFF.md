@@ -1,7 +1,7 @@
 # Sign-off — Job-Search Agent 3
 
-**DRAFT by Claude Code, 2026-11-26. Withheld:** Saloni has not labelled, read, or signed
-anything yet. Edit every line before signing.
+**Drafted by Claude Code, 2026-11-26.** The hand labels are Saloni's (AUDIT.md §2). The last
+line stays WITHHELD until Saloni reads this and signs it herself.
 
 ```text
 Sign-off — Job-Search Agent 3
@@ -25,12 +25,13 @@ Checked:      - the filter reads FILTER.md and nothing else; every role word has
                 (TestCandidateSwitches)
               - the exact interval code: 0 of 35 gives an upper bound of 1 - 0.025^(1/35)
                 (tests/test_stats.py)
-              - [Saloni] the reject audit: k of 35 random rejects wrong, by my hand labels
+              - the reject audit: 7 of 35 judged random rejects wrong, by my hand labels (exact 95% interval 8.4% – 36.9%)
 How:          - wrong versions and evidence rules: tests written by Claude Code in the same
                 session as the code, NOT before reading it
               - false friend: by recomputation (code counted the boilerplate in 634/634
-                Anthropic postings); [Saloni: by hand on the audited rows]
-              - audit and held-out verdicts: [Saloni] by hand, blind to the filter's decision
+                Anthropic postings); by hand: `training` matched 35 dev rows, which I split 16 worth / 19 not: it does not separate the jobs I want
+              - audit and held-out verdicts: by hand, blind to the filter's decision; 9 dev rows
+                re-answered after seeing the error list (2 changed, labels/relabel_log.csv)
               - MCP behaviour: by observation (audit hooks, wire transcripts), not by reading
                 the server's description of itself
 Not checked:  - run-to-run variation of Claude: each variant ran once

@@ -25,7 +25,53 @@ exactly the threshold, so I changed the rule to always include it (FRICTIONAL.md
 > Claude Code wrote the script; it did not write any label.
 
 <!-- finish.py:verdicts -->
-_Not computed yet: the sheet is unlabelled._
+Labelled by Saloni with `scripts/label.py`, blind to the filter's decision. Computed by
+`scripts/audit_report.py` into `out/audit_report.json` and written here by `scripts/finish.py`.
+
+| Stratum | n | cannot tell | judged | filter wrong (by Saloni's label) | exact 95% interval |
+|---|---|---|---|---|---|
+| random_reject | 35 | 0 | 35 | 7 | 8.4% – 36.9% |
+| near_threshold | 12 | 0 | 12 | 2 | (not random: no rate) |
+| random_keep | 10 | 0 | 10 | 2 | 2.5% – 55.6% |
+
+**What the sample can honestly say.** 7 of 35 judged random rejects were
+wrong by my label. Between 132 and 577 of the 1,562 rejects could be wrong (95% exact interval, k=7, n=35); a sample estimate, not a measured count. For keeps: 2 of
+10 judged random keeps were wrong; between 2 and 49 of the 89 keeps could be wrong (95% exact interval, k=2, n=10); a sample estimate, not a measured count. A sample of
+35 cannot show that the filter misses "almost nothing". The near-threshold stratum was
+chosen by score, so it shows where the filter is fragile and gives no rate for anything.
+
+**Relabelled after seeing the first results.** After the first `finish.py` run I re-answered 9 dev rows whose first label conflicted with my rule (`labels/relabel_log.csv` keeps the first answers and times). 2 changed: row 4 Data Center Strategic Sourcing Lead - Construction worth_time → not_worth_time; row 26 Applied AI Architect, Commercial worth_time → not_worth_time; 7 I kept. The sheet still hid the filter's decision, but I had seen the error list, so these rows were not labelled blind the second time.
+
+**Rows where the filter and I disagree:**
+
+- near_threshold: **Applied AI Engineer, Codex** — filter reject, my label worth_time, score 2
+- near_threshold: **Data Engineer, Billing & Payments** — filter reject, my label worth_time, score 2
+- random_keep: **Applied AI Architect, Commercial** — filter keep, my label not_worth_time, score 5
+- random_keep: **Applied AI Engineer, Cyber | Tokyo** — filter keep, my label not_worth_time, score 5
+- random_reject: **Software Engineer, Product Velocity** — filter reject, my label worth_time, score 1
+- random_reject: **Software Engineer, Infrastructure Security** — filter reject, my label worth_time, score 2
+- random_reject: **Product Data Scientist - Youth, Families and Learning** — filter reject, my label worth_time, score 2
+- random_reject: **Camera Software Engineer, Consumer Devices** — filter reject, my label worth_time, score 0
+- random_reject: **Anthropic Fellows Program, AI Safety & Security** — filter reject, my label worth_time, score 2
+- random_reject: **Software Engineer, Codex Core Agents** — filter reject, my label worth_time, score 0
+- random_reject: **Safeguards Enforcement Analyst, Targeting, Tracking & Surveillance** — filter reject, my label worth_time, score 2
+
+**Each matched word against my labels (dev rows only; top 12 by count):**
+
+| matched word | worth time | not worth time | cannot tell |
+|---|---|---|---|
+| `R3:training` | 16 | 19 | 0 |
+| `R3:python` | 14 | 11 | 0 |
+| `R3:evaluation` | 9 | 8 | 0 |
+| `R3:llm` | 7 | 6 | 0 |
+| `R1:applied ai` | 8 | 4 | 0 |
+| `R3:sql` | 4 | 4 | 0 |
+| `R1:machine learning` | 4 | 0 | 0 |
+| `R1:ai engineer` | 2 | 1 | 0 |
+| `R1:ml` | 2 | 0 | 0 |
+| `R3:airflow` | 1 | 1 | 0 |
+| `R1:data engineer` | 2 | 0 | 0 |
+| `R3:spark` | 0 | 1 | 0 |
 <!-- /finish.py:verdicts -->
 
 ## 3. False friend — measured by code; Saloni confirms by hand
@@ -55,7 +101,11 @@ for ranking and for which calls look close, not for v1.0's decisions.
 titles; **74 are "Applied AI Architect"**, and 34 of the 89 keeps are Architect roles. Every
 Architect posting Claude justified (SHORTLIST.md) describes a customer-facing advisory role
 ("act as the 'CTO of your book of business'"). That is the kind of role labeling rule 1
-excludes. Saloni's hand labels on the 10 random keeps will show whether that is a real error.
+excludes. **My hand labels did not confirm this.** Of the 7 "Applied AI Architect" rows in the dev
+sample, I labelled 6 worth Priya's time and 1 not (row 26, Commercial), after re-reading all 7 a
+second time (`labels/relabel_log.csv`); the one Architect manager role I labelled not worth it. So
+`applied ai` is a suspect word by Claude's reading of the postings, not an error by my labels,
+and that is why C2 was rejected (§4).
 
 ## 4. Rules added, cut, or rejected after measuring
 
@@ -69,11 +119,11 @@ v1.0 stays when there is no evidence for the change. Rows labelled "cannot tell"
 neither side. FILTER.md §6 records the outcome.
 
 <!-- finish.py:candidates -->
-| Candidate | Change | Effect on all 1,651 (measured, no labels needed) | Dev result | Decision |
+| Candidate | Change | Effect on all 1,651 (measured, no labels needed) | Dev result (Saloni's 57 labels) | Decision (by the rule above) |
 |---|---|---|---|---|
-| C1 | cut topic word `training` | 610 score changes, 0 decision flips | _ | _ |
-| C2 | add title veto `architect`, `recruiter` | 34 keeps become rejects | _ | _ |
-| C3 | R4 reads "5+ years" without the word "experience" | 187 score changes, 12 keeps become rejects | _ | _ |
+| C1 | cut topic word `training` | 610 score changes, 0 decision flips | v1.0 11 errors → 11; fixes 0, breaks 0 | **rejected**: no fewer dev errors than v1.0 (tie = keep v1.0) |
+| C2 | add title veto `architect`, `recruiter` | 34 keeps become rejects | v1.0 11 errors → 16; fixes 1, breaks 6 (fixes Applied AI Architect, Commercial; breaks Applied AI Architect - Tokyo; breaks Applied AI Architect (Brazil); breaks Applied AI Architect, Education; breaks Cyber Partner Applied AI Architect; breaks Applied AI Architect; breaks Applied AI Architect) | **rejected**: would turn a correct row into an error |
+| C3 | R4 reads "5+ years" without the word "experience" | 187 score changes, 12 keeps become rejects | v1.0 11 errors → 11; fixes 1, breaks 1 (fixes Applied AI Engineer, Cyber | Tokyo; breaks Applied AI Engineer, Codex) | **rejected**: would turn a correct row into an error |
 <!-- /finish.py:candidates -->
 
 C2 has a trap that Claude Code spotted while drafting it. A veto on `recruiting` would have rejected "Recruiting

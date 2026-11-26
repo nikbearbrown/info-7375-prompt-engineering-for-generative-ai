@@ -73,7 +73,26 @@ What each change did (measured, before any hand label):
 > dev labels.
 
 <!-- finish.py:heldout -->
-_Not computed yet: the held-out sheet is unlabelled._
+Measured once, by `python3 scripts/experiments.py measure`, against Saloni's 30 held-out labels
+(`out/experiments/measure-heldout.json`). Agreement counts only rows where both gave a yes/no.
+The held-out set is 15 random keeps + 15 random rejects, so it over-represents keeps compared
+with all 1,651 postings: agreement here is not the filter's accuracy on all postings.
+
+| Variant | changed | agreement | exact 95% interval | cannot tell (variant) | cannot tell (Saloni) | tp/fp/fn/tn |
+|---|---|---|---|---|---|---|
+| F0 | baseline (FILTER.md v1.0) | 20/30 | 47% – 83% | 0 | 0 | 10/5/5/10 |
+| F1 | setting: threshold 3 -> 4 | 20/30 | 47% – 83% | 0 | 0 | 10/5/5/10 |
+| F2 | filter file: C1-no-training.json (topic word "training" removed (false-friend candidate)) | 20/30 | 47% – 83% | 0 | 0 | 10/5/5/10 |
+| F3 | filter file: C2-architect-veto.json (title veto for non-building roles: architect, recruiter) | 19/30 | 44% – 80% | 0 | 0 | 7/3/8/12 |
+| F4 | filter file: C3-years-any.json (R4 reads "N+ years" / "N-M years" without the word experience) | 21/30 | 51% – 85% | 0 | 0 | 9/3/6/12 |
+| J0 | baseline | 18/28 | 44% – 81% | 2 | 0 | 3/0/10/15 |
+| J1 | prompt | 18/28 | 44% – 81% | 2 | 0 | 3/0/10/15 |
+| J2 | context | 4/4 | 40% – 100% | 26 | 0 | 0/0/0/4 |
+| J3 | tool list | 18/28 | 44% – 81% | 2 | 0 | 3/0/10/15 |
+
+J1's prompt contains my labeling rule, so higher agreement for J1 would show the prompt was told
+the answer key, not that Claude got better. With n = 30, intervals this wide overlap for most
+variants; a difference smaller than the overlap is not evidence of a better variant.
 <!-- /finish.py:heldout -->
 
 ## 4. What persistence is not proof of

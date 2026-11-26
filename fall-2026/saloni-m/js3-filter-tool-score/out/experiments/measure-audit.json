@@ -1,0 +1,82 @@
+[
+  {
+    "variant": "F0",
+    "changed": "baseline (FILTER.md v1.0)",
+    "tp": 14,
+    "fp": 2,
+    "fn": 9,
+    "tn": 32,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "46/57",
+    "agreement_95ci": [
+      0.68,
+      0.9
+    ]
+  },
+  {
+    "variant": "F1",
+    "changed": "setting: threshold 3 -> 4",
+    "tp": 13,
+    "fp": 2,
+    "fn": 10,
+    "tn": 32,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "45/57",
+    "agreement_95ci": [
+      0.66,
+      0.89
+    ]
+  },
+  {
+    "variant": "F2",
+    "changed": "filter file: C1-no-training.json (topic word \"training\" removed (false-friend candidate))",
+    "tp": 14,
+    "fp": 2,
+    "fn": 9,
+    "tn": 32,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "46/57",
+    "agreement_95ci": [
+      0.68,
+      0.9
+    ]
+  },
+  {
+    "variant": "F3",
+    "changed": "filter file: C2-architect-veto.json (title veto for non-building roles: architect, recruiter)",
+    "tp": 8,
+    "fp": 1,
+    "fn": 15,
+    "tn": 33,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "41/57",
+    "agreement_95ci": [
+      0.58,
+      0.83
+    ]
+  },
+  {
+    "variant": "F4",
+    "changed": "filter file: C3-years-any.json (R4 reads \"N+ years\" / \"N-M years\" without the word experience)",
+    "tp": 13,
+    "fp": 1,
+    "fn": 10,
+    "tn": 33,
+    "pred_cannot_tell": 0,
+    "hand_cannot_tell": 0,
+    "no_answer": 0,
+    "agreement": "46/57",
+    "agreement_95ci": [
+      0.68,
+      0.9
+    ]
+  }
+]
