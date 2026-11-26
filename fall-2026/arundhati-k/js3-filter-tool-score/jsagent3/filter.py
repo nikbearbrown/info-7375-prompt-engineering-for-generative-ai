@@ -37,6 +37,9 @@ def level_excluded(title, rules=None):
 
 
 def topic_hits(body, rules):
+    if rules.get("topic_in_required_only"):
+        from .evidence import sections
+        body = "\n".join(ln for k, ln in sections(body) if k == "required")
     hits = []
     for tid, spec in rules["topic"].items():
         flags = re.I if "i" in spec.get("flags", "") else 0
@@ -68,6 +71,12 @@ def is_us(location):
     return False
 
 
+def _years(body):
+    from .evidence import min_required_years
+    y = min_required_years(body)
+    return y[0] if y else None
+
+
 def decide(posting, rules):
     title, body = posting.get("title", ""), posting.get("body", "")
     role = role_match(title, rules)
@@ -82,6 +91,11 @@ def decide(posting, rules):
         reason = f"level excluded: '{level}' in title"
     elif not body.strip():
         reason = "body missing"
+    elif rules.get("us_required") and us is not True:
+        reason = "location not US" if us is False else "location unknown"
+    elif rules.get("max_required_years") is not None and _years(body) is not None \
+            and _years(body) > rules["max_required_years"]:
+        reason = f"requires {_years(body)}+ years > {rules['max_required_years']}"
     elif score < rules["threshold"]:
         reason = f"topic score {score} < threshold {rules['threshold']}"
     else:
