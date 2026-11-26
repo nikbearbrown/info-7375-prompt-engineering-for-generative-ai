@@ -120,3 +120,56 @@ class StrictestYearsWins(unittest.TestCase):
         body = ("Minimum requirements\nMust have a degree plus three (3) years of work experience.\n"
                 "Must also have one (1) year of experience in each of the following:\n")
         self.assertEqual(min_required_years(body)[0], 3)
+
+
+class SentenceMeaning(unittest.TestCase):
+    """Labeler fix 2026-11-25, designed from the 16 shortlist claims (dev set: labels/shortlist-claims-dev.csv).
+
+    Being in a required section is not enough: the sentence must make the skill required.
+    """
+
+    def test_example_list_is_insufficient(self):  # stripe:6042172, stripe:8231439
+        body = "Minimum requirements\n- Ability to write high-quality code (in programming languages like Go, Java, C/C++ etc.)\n"
+        self.assertEqual(label_claim(java_req(), P(body))["label"], "insufficient")
+
+    def test_or_list_is_insufficient(self):
+        body = "Requirements\n- Writing high quality code in programming languages including Go, Java, or C/C++;\n"
+        self.assertEqual(label_claim(java_req(), P(body))["label"], "insufficient")
+
+    def test_plain_requirement_still_supported(self):
+        body = "Requirements\n- Strong experience with Java and SQL\n"
+        self.assertEqual(label_claim(java_req(), P(body))["label"], "supported")
+
+    def test_helpful_curiosity_is_preferred(self):  # notion Collections Infra
+        body = ("Skills you'll need\n- Curiosity about distributed systems, microservices, and data-layer trade-offs; "
+                "experience in these areas is helpful\n")
+        c = {"type": "skill", "skill": "distributed systems", "strength": "required"}
+        self.assertEqual(label_claim(c, P(body))["label"], "contradicted")
+
+    def test_prose_under_about_the_role_is_not_a_requirement(self):  # notion Collections Infra, microservices
+        body = ("About the role\nAs an engineer you'll help scale infrastructure built on microservices across teams.\n"
+                "Skills you'll need\n- Strong fundamentals\n")
+        c = {"type": "skill", "skill": "microservices", "strength": "required"}
+        self.assertEqual(label_claim(c, P(body))["label"], "insufficient")
+
+    def test_open_ended_years_range_does_not_establish_early_career(self):  # stripe:6042172
+        c = {"type": "level", "value": "early-career"}
+        body = "Minimum requirements\n- 2–12+ years of professional software development experience\n"
+        self.assertEqual(label_claim(c, P(body))["label"], "insufficient")
+        self.assertEqual(label_claim(c, P("Requirements\n- 2+ years of backend experience\n"))["label"], "supported")
+
+
+class AbstentionCounterexamples(unittest.TestCase):
+    """The two counterexamples in SHORTLIST.md, now handled: the posting *does* say Java is not required."""
+
+    def test_language_agnostic_contradicts_instead_of_abstaining(self):  # stripe:6567104
+        body = ("Requirements\n- Strong coding skills in any programming language (you can learn new languages on the "
+                "job, and our interview process is language agnostic)\n")
+        r = label_claim(java_req(), P(body))
+        self.assertEqual(r["label"], "contradicted")
+        self.assertNotEqual(r["answer"], "I cannot tell")
+
+    def test_can_be_learned_contradicts_required(self):  # stripe:8128744
+        body = ("Requirements\n- Experience with programming. We work mostly in Java, Ruby, JavaScript, Scala, and Go. "
+                "We believe new programming languages can be learned if the fundamentals are present.\n")
+        self.assertEqual(label_claim(java_req(), P(body))["label"], "contradicted")
