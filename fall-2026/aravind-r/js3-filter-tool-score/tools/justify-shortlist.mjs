@@ -71,13 +71,13 @@ for (const r of shortlist) {
       args_without_prompt: call.args_without_prompt, prompt, reply_text: call.text, envelope: call.envelope };
     writeFileSync(file, JSON.stringify(rec, null, 2) + '\n');
   }
-  const v = rec.reply_text === null ? { ok: false, errors: [rec.error ?? 'no reply'], claims: [] } : validateJustification(rec.reply_text, { postingId: k, postingText: p.text });
+  const v = rec.reply_text === null ? { ok: false, errors: [rec.error ?? 'no reply'], claims: [] } : validateJustification(rec.reply_text, { postingId: k, postingText: p.text, postingLocation: p.location });
   perPosting.push({ audit_id: rec.audit_id, posting: k, title: p.title, decision: r.decision, at: rec.at, models: rec.models, interface: rec.interface ?? 'claude -p', manual_paste: Boolean(rec.manual_paste), valid: v.ok, errors: v.errors, claims: v.claims.length, rule_violations: v.claims_with_rule_violations ?? null });
-  for (const c of v.claims) rows.push({ audit_id: rec.audit_id ?? '', posting: k, title: p.title, decision: r.decision, claim_no: c.n, claim: c.claim, kind: c.kind, quote: c.quote ?? '', quote_check: c.quote_check, proposed_label: c.proposed_label, allowed_labels: (c.allowed_labels ?? []).join('/'), abstain: c.abstain, rule_violations: (c.errors ?? []).join('; '), my_label: '', my_note: '' });
+  for (const c of v.claims) rows.push({ audit_id: rec.audit_id ?? '', posting: k, title: p.title, decision: r.decision, claim_no: c.n, claim: c.claim, kind: c.kind, quote: c.quote ?? '', quote_check: c.quote_check, quote_source: c.quote_source ?? '', proposed_label: c.proposed_label, allowed_labels: (c.allowed_labels ?? []).join('/'), abstain: c.abstain, rule_violations: (c.errors ?? []).join('; '), my_label: '', my_note: '' });
 }
 mkdirSync(join(ROOT, 'shortlist'), { recursive: true });
 const csvPath = join(ROOT, 'shortlist', `claims-${tag}-v${summary.spec_version}.csv`);
 if (existsSync(csvPath) && readFileSync(csvPath, 'utf8').split('\n').slice(1).some(l => /,(supported|contradicted|insufficient),[^,]*$/.test(l))) throw new Error(`${csvPath} already has hand labels; refusing to overwrite`);
-writeFileSync(csvPath, toCsv(rows, ['audit_id', 'posting', 'title', 'decision', 'claim_no', 'claim', 'kind', 'quote', 'quote_check', 'proposed_label', 'allowed_labels', 'abstain', 'rule_violations', 'my_label', 'my_note']));
+writeFileSync(csvPath, toCsv(rows, ['audit_id', 'posting', 'title', 'decision', 'claim_no', 'claim', 'kind', 'quote', 'quote_check', 'quote_source', 'proposed_label', 'allowed_labels', 'abstain', 'rule_violations', 'my_label', 'my_note']));
 writeFileSync(join(ROOT, 'shortlist', `summary-${tag}-v${summary.spec_version}.json`), JSON.stringify({ computed_at: new Date().toISOString(), run: values.run, spec_version: summary.spec_version, prompt_file: values.prompt, prompt_sha256: promptSha, model_requested: values.model, shortlist: perPosting }, null, 2) + '\n');
 console.log(JSON.stringify({ shortlist: perPosting.length, claims: rows.length, invalid: perPosting.filter(x => !x.valid).map(x => x.audit_id ?? x.posting), csv: csvPath.slice(ROOT.length + 1) }));

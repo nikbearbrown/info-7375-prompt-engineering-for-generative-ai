@@ -51,7 +51,7 @@ for (const m of manifest.prompts) {
     process.exitCode = 3;
     continue;
   }
-  const v = validateJustification(raw, { postingId: m.posting, postingText: posts.get(m.posting).text });
+  const v = validateJustification(raw, { postingId: m.posting, postingText: posts.get(m.posting).text, postingLocation: posts.get(m.posting).location });
   const rec = {
     label: 'JUDGMENT', posting: m.posting, audit_id: m.id, decision: results.get(m.posting)?.decision ?? m.decision, spec_version: manifest.spec_version,
     prompt_file: manifest.prompt_file, prompt_template_sha256: manifest.prompt_template_sha256, prompt_sha256: m.sha256,

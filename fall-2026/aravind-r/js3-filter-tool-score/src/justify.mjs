@@ -27,7 +27,15 @@ export function buildPrompt(template, { definition, persona, posting }) {
 
 const CLAIM_KEYS = ['abstain', 'claim', 'kind', 'proposed_label', 'quote'];
 // Invalid replies are recorded as invalid: never repaired, replaced, or retried into a pass.
-export function validateJustification(text, { postingId, postingText }) {
+// Where an exact quote was found (FILTER.md §2.1 amendment, 2026-11-25): the body text, or the board's
+// structured location field, which the filter itself decides on. Body is checked first.
+export function quoteSource(quote, { postingText, postingLocation = null }) {
+  if (quoteCheck(quote, postingText) === 'exact') return 'body';
+  if (postingLocation && quoteCheck(quote, postingLocation) === 'exact') return 'field:location';
+  return null;
+}
+
+export function validateJustification(text, { postingId, postingText, postingLocation = null }) {
   const errors = [];
   let obj;
   try { obj = JSON.parse(String(text).trim()); } catch { return { ok: false, errors: ['not a bare JSON object'], claims: [] }; }
@@ -45,10 +53,11 @@ export function validateJustification(text, { postingId, postingText }) {
     if (typeof c.abstain !== 'boolean') e.push('abstain not boolean');
     if (!(c.quote === null || typeof c.quote === 'string')) e.push('quote must be a string or null');
     if (c.abstain === true && (c.quote !== null || c.proposed_label !== 'insufficient')) e.push('abstain requires quote null and label insufficient');
-    const quote_check = c.quote === null ? 'none' : quoteCheck(c.quote, postingText);
+    const quote_source = c.quote === null ? null : quoteSource(c.quote, { postingText, postingLocation });
+    const quote_check = c.quote === null ? 'none' : quote_source ? 'exact' : 'not a substring';
     const allowed = c.quote === null ? ['insufficient'] : allowedLabels(quote_check);
     if (['supported', 'contradicted', 'insufficient'].includes(c.proposed_label) && !allowed.includes(c.proposed_label)) e.push(`proposed_label ${c.proposed_label} not allowed: quote is ${quote_check}`);
-    return { n: i + 1, ...c, quote_check, allowed_labels: allowed, errors: e };
+    return { n: i + 1, ...c, quote_check, quote_source, allowed_labels: allowed, errors: e };
   });
   const claimErrors = claims.filter(c => c.errors.length).length;
   return { ok: errors.length === 0, errors, claims, claims_with_rule_violations: claimErrors };

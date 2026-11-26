@@ -44,3 +44,14 @@ test('the Claude call is tool-less, MCP-less, and not persisted', () => {
   assert.deepEqual(CLAUDE_ARGS.slice(0, 2), ['--tools', '']);
   assert.ok(CLAUDE_ARGS.includes('--strict-mcp-config') && CLAUDE_ARGS.includes('--no-session-persistence'));
 });
+
+test('amendment 2026-11-25: a quote may come from the location field; its source is recorded', () => {
+  const reply = ok([c({ claim: 'The role is in San Francisco.', quote: 'San Francisco, Seattle', kind: 'quoted' })]);
+  const withField = validateJustification(reply, { postingId: 'b:1', postingText: TEXT, postingLocation: 'San Francisco, Seattle' });
+  assert.equal(withField.claims[0].quote_check, 'exact');
+  assert.equal(withField.claims[0].quote_source, 'field:location');
+  const bodyFirst = validateJustification(ok([c()]), { postingId: 'b:1', postingText: TEXT, postingLocation: 'x' });
+  assert.equal(bodyFirst.claims[0].quote_source, 'body');
+  const noField = validateJustification(reply, { postingId: 'b:1', postingText: TEXT });
+  assert.equal(noField.claims[0].quote_check, 'not a substring');
+});

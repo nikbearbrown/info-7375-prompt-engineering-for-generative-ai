@@ -189,6 +189,20 @@ text** (§3) and nothing else.
 without supporting a claim built on them (e.g. "the role works on payments"). Boilerplate about
 the company is not a statement about the role.
 
+**Amendment to §2.1, 2026-11-25** (Aravind, Checkpoint 3) [DECIDED 2026-11-25]. **Made after seeing
+the 7 Phase 3 replies.**
+- **The board's structured location field counts as the posting's own text.** The filter decides on
+  that field (§1.2, L), so the evidence rules cannot ignore it.
+- A quote may now match **the body text or the location field**. The validator records which one as
+  `quote_source`: `body` or `field:location` (`src/justify.mjs`, `quoteSource`). The body is checked
+  first.
+- **Claude was not re-run.** The replies were written under the earlier rule, where only the body
+  counted.
+  - In 6 of the 7 replies (all Stripe), Claude abstained on location ("The posting does not state a
+    work location …"), even though the location was in a field it was given.
+  - Aravind's confirmed label for those 6 claims is **contradicted**, citing the field value
+    (`shortlist/my-labels.json`).
+
 ### 2.2 Labels attach to claims, not to postings
 
 - One shortlisted posting can carry supported, contradicted, and insufficient claims at once.
