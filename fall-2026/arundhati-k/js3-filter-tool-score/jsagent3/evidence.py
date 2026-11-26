@@ -20,6 +20,14 @@ CASE_SENSITIVE = {"REST APIs", "AWS"}
 EARLY_TITLE = re.compile(r"(?i)\b(intern|internship|new grad|early career|co-?op|university grad|graduate)\b")
 EARLY_BODY = re.compile(r"(?i)(new grad|recent graduate|0[-–]2 years|0\+ years|1\+ years? of|early[- ]career)")
 YEARS = re.compile(r"(?i)\(?(\d{1,2})\)?\s*(?:\+|[-–]\s*\d{1,2})?\s*\+?\s*years?")
+RANGE_YEARS = re.compile(r"(?i)\(?(\d{1,2})\)?\s*[-–]\s*(\d{1,2})\s*\+?\s*years?")
+# Labeler-only patterns (2026-11-25 fix, designed from the 16-claim dev set). Not used by sections(), so the filter's
+# rule D and rule B are unchanged by them.
+CLAIM_PREF = re.compile(r"(?i)(\bhelpful\b|\bcuriosity\b|\bcurious about\b)")
+EXAMPLE_WORDS = re.compile(r"(?i)(\blike\b|\bsuch as\b|\be\.g\.|\bincluding\b|\bany of\b|\bone of\b|"
+                           r"\bsome or all of\b|\bat least one\b|\betc\b)")
+LANG_NOT_REQUIRED = re.compile(r"(?i)(any (modern |general[- ]purpose )?programming language|language[- ]agnostic|"
+                               r"languages? can be learned|learn new (programming )?languages)")
 EARLY_MAX_YEARS = 2  # FILTER.md s5 contradiction half, [Claude, pending]: min required years >= 3 contradicts
 
 
@@ -55,21 +63,51 @@ def _find(skill, body):
     return [(k, ln) for k, ln in sections(body) if re.search(pat, ln, flags)]
 
 
+def _required_kind(skill, line):
+    """How a line in a required section uses the skill: 'required', 'preferred', 'example' or 'prose'."""
+    if not line.startswith("-"):
+        return "prose"  # a team / role description paragraph, not a listed requirement
+    if CLAIM_PREF.search(line):
+        return "preferred"
+    pat = SKILL_PATTERNS.get(skill, re.escape(skill))
+    in_list = re.search(rf"(?i)(,|/|\bor\b)\s*{pat}|{pat}\s*(,|/|\s+or\b)", line)
+    if EXAMPLE_WORDS.search(line) and in_list:
+        return "example"  # "languages like Go, Java, C/C++", "Go, Java, or C/C++": one of several, not this one
+    return "required"
+
+
 def _skill(claim, p):
     body, skill, strength = p.get("body", ""), claim["skill"], claim.get("strength", "required")
     is_lang_claim = skill in ("Java",)
+    if is_lang_claim and strength == "required":
+        m = LANG_NOT_REQUIRED.search(body.replace("\u2019", "'"))
+        if m:
+            line = next((ln for ln in body.splitlines() if m.group(0).lower() in ln.lower()), m.group(0))
+            return {"label": "contradicted", "answer": "not required", "quote": line.strip(),
+                    "why": "the posting says any language is fine / languages can be learned"}
     if is_lang_claim and not LANGS.search(body):
         return {"label": "insufficient", "answer": "I cannot tell", "quote": "",
                 "why": "the posting names no programming language at all (abstention rule)"}
     hits = _find(skill, body)
-    req = [ln for k, ln in hits if k == "required"]
-    pref = [ln for k, ln in hits if k == "preferred"]
+    req = [(_required_kind(skill, ln), ln) for k, ln in hits if k == "required"]
+    pref = [ln for k, ln in hits if k == "preferred"] + [ln for kind, ln in req if kind == "preferred"]
     if strength == "required":
-        if req:
-            return {"label": "supported", "quote": req[0], "why": f"{skill} appears under a required section"}
+        clean = [ln for kind, ln in req if kind == "required"]
+        if clean:
+            return {"label": "supported", "quote": clean[0], "why": f"{skill} is listed as a requirement"}
+        # FILTER.md s5: "contradicted" only when the skill is listed ONLY as optional/preferred. If it is also
+        # mentioned in the requirements as an example or in a role description, the posting is merely unclear.
+        ex = [ln for kind, ln in req if kind == "example"]
+        if ex:
+            return {"label": "insufficient", "quote": ex[0],
+                    "why": f"{skill} is one example in a list of alternatives, not itself required"}
+        prose = [ln for kind, ln in req if kind == "prose"]
+        if prose:
+            return {"label": "insufficient", "quote": prose[0],
+                    "why": f"{skill} appears in a role/team description, not a listed requirement"}
         if pref:
             return {"label": "contradicted", "quote": pref[0],
-                    "why": f"{skill} appears only as preferred/optional, not required"}
+                    "why": f"{skill} appears only as preferred/optional/helpful, not required"}
         if hits:
             return {"label": "insufficient", "quote": hits[0][1],
                     "why": f"{skill} is mentioned only outside requirements/responsibilities"}
@@ -98,6 +136,11 @@ def _level(claim, p):
                 "why": f"requires {yrs[0]}+ years, above early-career ({EARLY_MAX_YEARS} max)"}
     if EARLY_TITLE.search(title):
         return {"label": "supported", "quote": title, "why": "title names an intern/new-grad/early-career role"}
+    if yrs:
+        rng = RANGE_YEARS.search(yrs[1])
+        if rng and int(rng.group(2)) > EARLY_MAX_YEARS:
+            return {"label": "insufficient", "quote": yrs[1],
+                    "why": f"an open range ({rng.group(0)}) does not establish an early-career role"}
     m = EARLY_BODY.search(body)
     if m or (yrs and yrs[0] <= EARLY_MAX_YEARS):
         q = yrs[1] if yrs else m.group(0)

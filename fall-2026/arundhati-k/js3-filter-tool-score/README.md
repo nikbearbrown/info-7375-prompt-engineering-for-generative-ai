@@ -52,7 +52,8 @@ The hashes in these files are the ones on GitHub. My 24 commits were rebased ont
 | my audit verdicts | `7521ea81` | 54 blind verdicts; optional rule keys (off in v1) + tests |
 | my rule decisions | `8c02746e` | FILTER.md v1.1: A rejected, B added, C rejected, D added; held-out labels |
 | parser fixes, test first | `0e23460c`, `401cacdb` | curly-apostrophe headings; "four (4) years"; live Claude runs P1/P2/C2 |
-| write-ups | (this commit and later) | [AUDIT.md](AUDIT.md), [SHORTLIST.md](SHORTLIST.md), [SCORE-CHANGES.md](SCORE-CHANGES.md), SIGNOFF, SOURCES, FRICTIONAL |
+| write-ups | (later commits) |
+| labeler fix, test first | (after the first push) | dev set 10/16 → 16/16; logs 14–18; SHORTLIST.md "Improvement" | [AUDIT.md](AUDIT.md), [SHORTLIST.md](SHORTLIST.md), [SCORE-CHANGES.md](SCORE-CHANGES.md), SIGNOFF, SOURCES, FRICTIONAL |
 
 ## Language and toolchain
 
@@ -82,6 +83,10 @@ python3 make_shortlist.py v1.1
 ```
 
 ```bash
+python3 measure_claims.py
+```
+
+```bash
 python3 mcp_client.py own
 ```
 
@@ -93,7 +98,7 @@ claude -p --mcp-config mcp-config.json --strict-mcp-config --allowedTools mcp__j
 python3 claude_score.py P1 P2 C2
 ```
 
-- The first command runs the 49 tests. They are offline and deterministic.
+- The first command runs the 57 tests. They are offline and deterministic.
 - The `run_filter.py` and `make_shortlist.py` commands run offline on the saved snapshot.
 - `mcp_client.py own` records a fresh transcript to `transcripts/01-own-client.*`.
 - The `claude -p` and `claude_score.py` commands are **live** Claude calls, need a logged-in Claude Code, and
@@ -108,7 +113,8 @@ python3 claude_score.py P1 P2 C2
   about 9% of rejects being wrong. 8 of 10 sampled keeps were wrong ([AUDIT.md](AUDIT.md)).
 - **Held-out (20, 2 Y):** filter v1 16/20, v1.1 18/20 (TP 0). The LIVE Claude scorer gave 17/20 under every
   prompt and context tried ([SCORE-CHANGES.md](SCORE-CHANGES.md)).
-- **Tool server:** 11 server tests (49 in total), and 3 real transcripts. One of them is a live `claude -p` session that called the tool
+- **Claim labeler fix (dev set):** agreement with my checked labels went from 10/16 to 16/16, test-first (SHORTLIST.md, logs 14–18).
+- **Tool server:** 11 server tests (57 in total), and 3 real transcripts. One of them is a live `claude -p` session that called the tool
   twice.
 
 **Known gap:** the tool server scores with **filter v1**, the version it was built and recorded with. Every result

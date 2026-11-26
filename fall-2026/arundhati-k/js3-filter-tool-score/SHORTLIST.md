@@ -48,7 +48,7 @@ Labels: S = supported, C = contradicted, I = insufficient.
 | early-career | S | S | "2+ years of experience in backend software development" (2 ≤ the FILTER.md cutoff) |
 | US-based | C | C | location field (Canada); kept because US is only a preference |
 
-**Count.** There are 16 claims. Auto: 14 S, 1 C, 1 I. Read: 8 S, 2 C, 6 I. **The labeler was too generous on 6 of
+**Count (labeler before the fix below).** There are 16 claims. Auto: 14 S, 1 C, 1 I. Read: 8 S, 2 C, 6 I. **The labeler was too generous on 6 of
 16 claims.** It never failed in the strict direction. All 6 errors come from one blind spot: it checks *which
 section* a word is in, but not *what the sentence does with the word* ("like X, Y", "X or Y", "is helpful").
 
@@ -87,9 +87,50 @@ Languages are named, so the rule never abstains, and because the line is in the 
 "is a language word present?" can't see either case. It would need to read what the sentence says about the
 language.
 
+## Improvement: the labeler now reads what the sentence does (2026-11-25, after the first submission build)
+
+The "auto" columns above are the labeler **before** this fix. The same blind spot caused both counterexamples, so I
+fixed it test-first:
+
+1. **Measured before** (`python3 measure_claims.py`, [log 14](evidence/logs/14-claims-before-fix.txt)): auto agreed
+   with my checked labels on **10/16** claims.
+2. **Tests written first** (`tests/test_evidence.py`, classes `SentenceMeaning` and `AbstentionCounterexamples`):
+   7 of 8 new tests failed ([log 15](evidence/logs/15-labeler-tests-before-fix.txt)).
+3. **The fix** is in `jsagent3/evidence.py`, and it changes the labeler only. `sections()` and the years parser are
+   untouched, so filter v1.1 still keeps the same 4 postings and every filter number in SCORE-CHANGES.md stands.
+   - "like / such as / e.g. / including / one of …" next to a list (`X, Y`, `X or Y`) → **insufficient**: one example
+     among alternatives, not required.
+   - "helpful / curiosity about" → **preferred**.
+   - A prose paragraph inside a requirements-type section (for example ABOUT THE ROLE) → **insufficient**: a
+     description, not a listed requirement.
+   - **Contradicted** now applies only when the skill is listed *only* as preferred, matching FILTER.md §5's
+     "only as optional".
+   - An open years range such as "2–12+" → **insufficient** for early-career.
+   - "any programming language / language agnostic / languages can be learned" → **contradicted**, with the answer
+     "not required" instead of "I cannot tell". This closes both abstention counterexamples. stripe:6567104 and
+     stripe:8128744 now both give `contradicted / not required`.
+4. **Measured after** ([log 17](evidence/logs/17-claims-after-fix.txt)): **16/16**. All 57 tests pass
+   ([log 16](evidence/logs/16-tests-after-labeler-fix.txt)).
+
+**What 16/16 does and does not show.** These 16 claims are a **dev set**. The rules were written while looking at
+these exact sentences, so 16/16 shows the fix does what I designed it to do. It does not show the labeler is right
+on postings it hasn't seen. Two things make it weaker still:
+
+- 10 of the 16 "my label" values are rows where Claude's reading matched the old auto label, and I did not
+  re-check those separately (the `source` column in [labels/shortlist-claims-dev.csv](labels/shortlist-claims-dev.csv)).
+- Getting 16/16 took three tries. The first version scored 12/16, because a bare "or" ("contributing to *or*
+  building") counted as a list, and "familiarity" counted as preferred. The second version scored 14/16. Both
+  problems were found by looking at these same 16 claims, which is overfitting risk in plain sight.
+
+**Effect on claims nobody checked by hand** ([log 18](evidence/logs/18-labeler-change-on-v1-shortlist.txt)). On the
+25-posting v1 shortlist (112 claims), the fix changed **16** labels: 15 supported → insufficient and 1 supported →
+contradicted. 4 of those 25 postings are the dev set. Whether the other changes are right is **not checked**.
+Every change went in the strict direction, which fits the bias found above (too generous), but is not proof.
+
+Not re-run after the fix: the tool-server transcripts (01, 02) and the Claude scorer runs. They show the labeler as it
+was when they ran.
+
 ## What I would change next (not done)
 
-- Treat "like X, Y, Z", "X or Y", "any of", "is helpful", "curiosity about" and "can be learned" as **not
-  required**. Then re-measure the auto-vs-read agreement on these 16 claims, since they are now the labeled set for
-  that change.
-- Replace the abstention rule with three answers: required / explicitly not required / cannot tell.
+- Check the 16 changed labels on the v1 shortlist by hand. That would be the first held-out test of this fix.
+- Re-record transcript 01, so the tool's claims reflect the fixed labeler.

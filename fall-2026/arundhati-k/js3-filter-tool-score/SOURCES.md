@@ -36,6 +36,7 @@ Raw responses: `data/raw/2026-11-25/*.json.gz`. No login, no applying, no messag
 | tool server | wrote the server and client, ran the transcripts, drafted TOOL-EVALUATIONS facts | both trust decisions (TOOL-EVALUATIONS.md) |
 | score changes | wrote judge_v2 from my rules, ran P1/P2/C2 live, wrote SCORE-CHANGES.md | (none) |
 | parser bugs | found and fixed both (curly apostrophe; "four (4) years"), tests first | (none) |
+| labeler fix | proposed it, wrote the tests and the fix, measured 10/16 → 16/16 on the dev set and the 16 unchecked changes | asked for it to be reported as a dev set |
 
 **Lookup I did myself (2026-11-25, my words):** I opened the Stripe job link (https://stripe.com/jobs/search?gh_jid=6042172). It displays Backend Engineer, Core Technology, and the line is present under Minimum requirements: "Ability to write high-quality code (in programming languages like Go, Java, C/C++ etc.)". This matches the saved snapshot text that SHORTLIST.md quotes for posting 1.
 
