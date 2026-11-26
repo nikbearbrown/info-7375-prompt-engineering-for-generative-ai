@@ -50,6 +50,28 @@ So the checker repeats wrong version 6 ("a word counts as support") in a form my
 "such as Go, Python, Scala, or Java" is not. The 39 new claims in v1.3 were not checked one by one. The first new posting already shows
 the same error: *"5+ years of production level experience in either Java, Scala or C++"* is labeled as supporting "requires Scala".
 
+### My own spot-check of Claude's check (`audit/claim_spotcheck.csv`)
+
+The 10-of-46 figure was Claude judging Claude's checker. On 2026-11-25 I judged 4 of those claims myself: 3 that Claude called wrong
+and 1 it called right. For each I was shown the claim, the checker's label and the posting sentence.
+
+| Claim | Checker | Claude | Me (final) |
+|---|---|---|---|
+| "requires Python": *"at least one … such as Go, Python, Scala, or Java"* | supported | wrong | **wrong** |
+| "requires Databricks": *"An ideal candidate also has: Experience with Databricks…"* | supported | wrong | **right** |
+| Palantir "requires Python": *"Expertise in Python and data manipulation…"* | insufficient | wrong | **wrong** |
+| "requires SQL": *"Expertise in SQL, Python, and working with REST APIs."* | supported | right | **right** |
+
+I confirmed 2 of the 3 errors Claude claimed, and the one correct label. On Databricks I disagree with Claude. That verdict also
+conflicts with my own FILTER.md §2 rule ("a plus" does not support "requires"), so the rule and my judgment differ on "ideal candidate
+also has", and the 10-of-46 figure is at best 9 of 46 by my reading.
+
+What this spot-check can't show:
+- **The first round wasn't independent.** I first marked all four "checker is right". I changed claims 1 and 3 only after Claude
+  pointed to my §2 rule and asked again, so the second round was steered.
+- **The order of the options may have mattered.** In both rounds every answer I picked was the first option listed.
+- **The sample is small.** Four claims checked by hand is a spot-check, not an error rate.
+
 ## The abstention rule and its counterexample
 
 **Rule** (FILTER.md §2): when a field a claim needs is missing, the agent says "I cannot tell from the posting", names the field, and

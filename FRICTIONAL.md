@@ -109,6 +109,12 @@ and rejected B–E (148f405).
 - **Considered and skipped:** fixing the claim checker's "list of alternatives" error. Claude estimated about an hour, and it would
   have reopened about a third of the write-up and the sign-off after the held-out look. I asked whether skipping it would cost many
   marks, and I decided to "skip it". The 22% error rate stays a measured, documented finding instead of a rushed late change.
+- **Checked by hand instead:** I asked whether the checker's error rate depended on my own hand checks. It didn't: only Claude had
+  judged the claim labels. So I spot-checked 4 of them myself (audit/claim_spotcheck.csv). In the first round I marked all four
+  "checker is right". After Claude pointed to my own FILTER.md §2 rule and asked again, I changed two of them. In the end I confirmed 2
+  of the 3 errors Claude claimed, and disagreed on "An ideal candidate also has: Experience with Databricks", which I count as
+  required even though my §2 rule says a nice-to-have is not. Claude also noted that in both rounds I picked the first option every
+  time. So this check is steered and small, and SHORTLIST.md says so.
 
 Claude also caught its own mistakes:
 - the stale "(v1)" heading in FILTER.md
@@ -132,7 +138,7 @@ because I edited a file, and Claude remembered my decisions because they were wr
 - 5f582c9, the fetch runs
 - dda391d, the Claude Code session
 - a945738 and 78b57ea, the description fix, test first
-- cc215e3, my final signature
+- cc215e3, an earlier signature; the claim spot-check and my final signature come after it
 
 The tests are the full suite of 158, including test_W1–W10, the server tests and scripts/js3_sabotage_check.py (9/9). The server
 evidence is in evidence/mcp/: three transcripts of my server (v1.2, v1.3 and Claude Code as the client) and both fetch runs.

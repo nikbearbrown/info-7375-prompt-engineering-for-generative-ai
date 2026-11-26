@@ -34,6 +34,9 @@
     - `python3 scripts/js3_sabotage_check.py`: 9 of 9 wrong versions caught
     - `git show --stat 148f405`: I checked the v1.3 commit's scope myself
   - I started the Claude Code session that used my server as a tool, typed the prompt, and read and pasted Claude's reply
+  - a spot-check of 4 claim labels (`audit/claim_spotcheck.csv`): I confirmed 2 of the 3 errors Claude claimed and its one "right",
+    and disagreed on "ideal candidate also has" (Databricks). My first round marked all four right; I changed two after Claude
+    pointed to my §2 rule, so it is not independent
 - **By a test written before Claude's code:** the filter and claim tests (`35915cd`) and the server tests (`59f714c`) were committed
   before the code they test. The measurement tests (W8) were **not**: they came in the same commit as `measure.py` (`426f0f5`).
   *Claude wrote all of these tests too. What makes the first two sets "before" is the commit order.*
@@ -63,11 +66,11 @@
 **Not claiming:**
 - that the filter finds every relevant job, or that a kept job is worth applying to
 - that the score ranks jobs well: the AUC differences were noise at this sample size
-- that the claim labels are right; 22% of the checked ones were wrong
+- that the claim labels are right: Claude found 10 of 46 wrong (22%); my spot-check confirmed 2 of the 3 I looked at
 - that the server is safe for any client, or that annotations prove anything
 - that anything was trained; every change was a file edit
 
-**Signed or withheld:** Signed, Ethan Gomes, 25 November 2026
+**Signed or withheld:** ____________ (name, date)
 
 ---
 
