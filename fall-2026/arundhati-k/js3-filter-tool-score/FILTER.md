@@ -5,7 +5,7 @@ with a version number, the date, and the measurement that caused it. v1 is not e
 
 **Where the words come from.** Sections 1–5 are my answers, typed in chat on 2026-11-25 (verbatim in
 [Appendix A](#appendix-a--my-answers-verbatim)). The choices are mine; I used ChatGPT to help word and organise some of
-them (disclosed 2026-11-25, see SOURCES.md). Claude Code formatted them into rule tables. Anything Claude had to
+them (disclosed 2026-11-25, see SOURCES.md; this provenance sentence was added in a later commit, the rules were not changed). Claude Code formatted them into rule tables. Anything Claude had to
 fill in because my answers didn't cover it is marked **[Claude, pending]**, and its reason is Claude's, not mine. The
 "training" false-friend example also appears in the assignment brief and in Claude's question to me.
 
