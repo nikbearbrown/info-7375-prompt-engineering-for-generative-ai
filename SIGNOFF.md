@@ -25,6 +25,11 @@
   - my 36 audit verdicts
   - the decisions to adopt A and "internship" and to reject B–E
   - both trust decisions
+  - on 2026-11-25, in my own terminal, I reran and read:
+    - `python3 -m unittest discover -s tests`: 157 OK. The "usage: … --replay needs --seeded" lines are an inherited JS2
+      test passing: the loop refuses an unlabeled replay
+    - `python3 scripts/js3_sabotage_check.py`: 9 of 9 wrong versions caught
+    - `git show --stat 148f405`: I checked the v1.3 commit's scope myself
 - **By a test written before Claude's code:** the filter and claim tests (`35915cd`) and the server tests (`59f714c`) were committed
   before the code they test. The measurement tests (W8) were **not**: they came in the same commit as `measure.py` (`426f0f5`).
   *Claude wrote all of these tests too. What makes the first two sets "before" is the commit order.*
