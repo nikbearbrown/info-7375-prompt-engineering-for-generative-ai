@@ -37,8 +37,7 @@ Raw responses: `data/raw/2026-11-25/*.json.gz`. No login, no applying, no messag
 | score changes | wrote judge_v2 from my rules, ran P1/P2/C2 live, wrote SCORE-CHANGES.md | (none) |
 | parser bugs | found and fixed both (curly apostrophe; "four (4) years"), tests first | (none) |
 
-**Lookup I did myself:** [Arundhati: open one posting in your own browser, for example stripe:8128744 or
-stripe:6042172, and write what you saw and whether it matches the saved text.]
+**Lookup I did myself (2026-11-25, my words):** I opened the Stripe job link (https://stripe.com/jobs/search?gh_jid=6042172). It displays Backend Engineer, Core Technology, and the line is present under Minimum requirements: "Ability to write high-quality code (in programming languages like Go, Java, C/C++ etc.)". This matches the saved snapshot text that SHORTLIST.md quotes for posting 1.
 
 **Help on my FILTER.md answers:** [Arundhati: say whether your five answers were written by you alone or with
 ChatGPT/Claude help.]
