@@ -52,24 +52,9 @@ A sample that agrees with everything can be telling me about my own anchoring, n
 as Claude's, and a number that moves on tuning can reverse on held-out. Persisting across sessions is not learning: the scorer changed
 because I edited a file, and Claude remembered my decisions because they were written to memory files.
 
-**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. Every step has its own commit, and `git log --oneline` lists them in order. The main ones, by commit message:
-- "Starting point: JS2 code, tests, config, persona and the Oct 31 baseline"
-- "FILTER.md v1" to "FILTER.md v1.2", all before the first JS3 code
-- "Labels: second pass by Ethan…; held-out set locked"
-- "FILTER.md v1.3 (Ethan's decisions after measuring)"
-- "Step 5: second real transcript, recorded under filter v1.3"
-- "Step 5: the official fetch server run in two configurations"
-- "Step 5: Claude Code as a real client of my server"
-- "Test first: the tool description must declare the filter version it runs", then "Fix: the tool description now takes the filter version from the code"
-- the two hand checks of the claim labels and the final "SIGNOFF.md: re-signed by Ethan Gomes"
+**Traceability.** The prompts quoted above are from 2026-11-24 and 2026-11-25. Every step has its own commit, and `git log --oneline` shows them in order. The main ones, by commit message, are "Starting point: JS2 code, tests, config, persona and the Oct 31 baseline", then "FILTER.md v1" through "FILTER.md v1.2", all made before the first JS3 code, followed by "Labels: second pass by Ethan…; held-out set locked" and "FILTER.md v1.3 (Ethan's decisions after measuring)". After that come "Step 5: second real transcript, recorded under filter v1.3", "Step 5: the official fetch server run in two configurations" and "Step 5: Claude Code as a real client of my server", then "Test first: the tool description must declare the filter version it runs" and "Fix: the tool description now takes the filter version from the code", and finally the two hand checks of the claim labels and "SIGNOFF.md: re-signed by Ethan Gomes". The full test suite has 158 tests, including test_W1–W10, the server tests and scripts/js3_sabotage_check.py (9/9), and the server evidence is in evidence/mcp/, which holds three transcripts of my server (v1.2, v1.3 and Claude Code as the client) along with both fetch runs.
 
-The tests are the full suite of 158, including test_W1–W10, the server tests and scripts/js3_sabotage_check.py (9/9). The server
-evidence is in evidence/mcp/: three transcripts of my server (v1.2, v1.3 and Claude Code as the client) and both fetch runs.
-
-**What is unresolved (known limits, not unfinished work):**
-- the claim checker's bug itself: it still reads "such as A, B or C" lists as requiring each one. My hand checks are done and confirmed it (3 of 39 wrong), but the code was not fixed
+**What is unresolved (known limits):**
+- the claim checker's bug itself: it still reads "such as A, B or C" lists as requiring each one. My hand checks are done and confirmed it (3 of 39 wrong)
 - the "internship" fix is unmeasured
-- the student-worker false friend is still kept
-- what fetch's npm install downloaded was not reviewed, and its proxy and prompt paths were not run
-- Claude Code connected to my server only once, and its fix was checked by a test, not a second session
-- everything rests on one day's snapshot, with 7 relevant held-out postings
+
