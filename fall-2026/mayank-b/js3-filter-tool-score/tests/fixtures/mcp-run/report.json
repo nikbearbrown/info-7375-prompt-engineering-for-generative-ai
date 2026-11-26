@@ -1,0 +1,50 @@
+{
+ "run_id": "fixture-mcp-run",
+ "note": "Hand-made test fixture for tests/test_mcp.py; not a real fetch. example.invalid URLs.",
+ "results": [
+  {
+   "board": "greenhouse/acme",
+   "ats": "greenhouse",
+   "result": "ok",
+   "attempts": [
+    {
+     "attempt": 1,
+     "kind": "ok",
+     "status": 200,
+     "raw": "raw/greenhouse__acme__a1__200.json",
+     "sha256": "2b3921b2b0a9057abdfae84a9a558a0c2846f047d1904f1a93e80688310e03df",
+     "bytes": 1084
+    }
+   ]
+  },
+  {
+   "board": "ashby/beta",
+   "ats": "ashby",
+   "result": "ok",
+   "attempts": [
+    {
+     "attempt": 1,
+     "kind": "ok",
+     "status": 200,
+     "raw": "raw/ashby__beta__a1__200.json",
+     "sha256": "da1059121f0f50a245a092208bd7edb482c12b4fb4407736932e9c7fe86a0fc9",
+     "bytes": 410
+    }
+   ]
+  },
+  {
+   "board": "greenhouse/gone",
+   "ats": "greenhouse",
+   "result": "error",
+   "error_kind": "http-4xx",
+   "error": "HTTP 404",
+   "attempts": [
+    {
+     "attempt": 1,
+     "kind": "http-4xx",
+     "status": 404
+    }
+   ]
+  }
+ ]
+}

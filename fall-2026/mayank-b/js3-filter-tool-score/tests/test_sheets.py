@@ -72,3 +72,17 @@ class CreateOnly(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class CorpusPaths(unittest.TestCase):
+    def test_raw_path_cannot_leave_the_run_folder(self):
+        import json as _j, shutil, tempfile
+        from pathlib import Path as P
+        from jsa3 import corpus
+        d = P(tempfile.mkdtemp()) / "run"; d.mkdir()
+        (d / "report.json").write_text(_j.dumps({"run_id": "x", "results": [{"board": "greenhouse/a", "ats": "greenhouse", "result": "ok",
+            "attempts": [{"kind": "ok", "raw": "../outside.json", "sha256": "0"}]}]}))
+        (d.parent / "outside.json").write_text("{}")
+        with self.assertRaises(corpus.CorpusError):
+            corpus.load(d)
+        shutil.rmtree(d.parent)

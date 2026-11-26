@@ -28,7 +28,10 @@ def load(run_dir: str | Path) -> dict:
             info[board] = {"error": f"{res.get('error_kind')}: {res.get('error')}"}
             continue
         att = next(a for a in reversed(res["attempts"]) if a["kind"] == "ok")
-        data = (run_dir / att["raw"]).read_bytes()
+        raw = (run_dir / att["raw"]).resolve()
+        if not raw.is_relative_to(run_dir.resolve()):   # a tampered report.json must not point outside the run folder
+            raise CorpusError(f"{att['raw']}: raw file outside the run folder")
+        data = raw.read_bytes()
         if hashlib.sha256(data).hexdigest() != att["sha256"]:
             raise CorpusError(f"{att['raw']}: SHA-256 does not match the trace")
         jobs = boards.parse(res["ats"], data)
