@@ -43,7 +43,7 @@ I built this agent using my JS2 agent and added a tool called `score_posting` to
 
 - **Language:** Python 3, standard library only, with nothing to install. Tested on Python 3.14.6
   (macOS). The code uses 3.9+ syntax.
-- **Tests:** `unittest`. 222 tests, with 1 expected failure (JS2's Physician Reviewer test of the
+- **Tests:** `unittest`. 224 tests, with 1 expected failure (JS2's Physician Reviewer test of the
   inherited rule).
 - **Claude runs:** the Claude Code CLI, `claude` 2.1.331, with `--model opus` (claude-opus-5-5), and
   `haiku` (claude-haiku-5-5) for the 24 calls of condition S. It is logged in with Shreyash's
@@ -53,8 +53,8 @@ I built this agent using my JS2 agent and added a tool called `score_posting` to
     files load.
   - Claude Code's six built-in plugins and built-in skills still load; each transcript's init event
     lists them.
-  - Memory is kept per folder, and each run's folder was new. The saved init events do not show the
-    memory path.
+  - Memory is kept per folder, and each run's folder was new. `memory_paths` was removed from the
+    saved init events (it is listed in their `redacted_keys`), so the files do not show it.
 - **The other tool server:** `chrome-devtools-mcp` 1.10.1, already in the local npx cache, run with
   Node 24.22.2 and Google Chrome 157.
 - **Network:**
@@ -139,8 +139,8 @@ postings, shortened.
 | 18:07 | **Shreyash's v1.1 decisions** after measuring | adopt A1, A2, A4, B4; reject A3, A5 | FILTER.md "Version 1.1" |
 | 18:09–18:12 | v1.1 tests, code, and two test-first fixes for A4 | 2 verdicts change (the two misses); audit 45/46 (in-sample: A1 and A2 were designed from these misses); held-out 24/24 (no longer untouched: A3 was rejected on it) | `evidence/v11-*`, `evidence/state-codes-*`, `evidence/reside-colon-*` |
 | by 18:28, and 18:30 | **Shreyash ran the tests and the label-hash check himself.** The first command (Claude Code's) hid the result line; the corrected one showed it | 218 tests OK (1 expected failure); `labels/hand-verdicts.jsonl: OK` | `evidence/commands-run-by-shreyash-2026-11-25.txt` |
-| 18:33–18:57 | **Two independent reviews** by Claude Code helpers (a grader and a number check), reading the files and rerunning the scripts on a copy | estimated 82/100; findings fixed: 39/49 provenance, the held-out set's use on A3, tool-evaluation counts, two server bugs (fixed test-first), wording | FRICTIONAL.md Part 2, `evidence/server-review-bugs-*` |
-| 19:13–19:37 | **A re-grade** of the submitted zip (commit `a1334cd`) by another Claude Code helper, with the first grader's instructions | estimated 84/100; found a fourth false friend ("US" anywhere in an ad), now recorded, not fixed in code; asked how the pasted answers were written | AUDIT.md section 4, `results/whatif-v1.json`, `labels/hand-verdicts-provenance.md` |
+| 18:33–18:57 | **Two independent reviews** by Claude Code helpers (a grader and a number check), reading the files and rerunning the scripts on a copy | findings fixed: 39/49 provenance, the held-out set's use on A3, tool-evaluation counts, two server bugs (fixed test-first), wording | FRICTIONAL.md Part 2, `evidence/server-review-bugs-*` |
+| 19:13–19:37, 20:10–20:29 | **Two re-grades** of the submitted zip (commits `a1334cd`, then `77c8e33`) by other Claude Code helpers, with the first grader's instructions | found a fourth false friend ("US" anywhere in an ad), now recorded, not fixed in code; two wrong counts in AUDIT.md and one in SCORE.md, now computed by a script; closed postings shown as reaching Alex (fixed test-first); asked how the pasted answers were written | AUDIT.md section 4, `results/whatif-v1.json`, `evidence/shortlist-closed-*`, `labels/hand-verdicts-provenance.md` |
 
 ## Folder map
 

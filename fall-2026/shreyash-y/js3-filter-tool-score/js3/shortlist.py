@@ -40,8 +40,9 @@ def markdown(cfg, items):
          "the posting; every one was checked to be in the field it names.", ""]
     for i in items:
         state = "open" if i["open_in_latest_run"] else f"closed since {i['last_seen']}: not shortlisted"
+        closed = "" if i["open_in_latest_run"] else " (on its claims; the posting is closed, so it is not shortlisted)"
         L += [f"## {i['title']}", "", f"`{i['key']}` ({state}) · {i['url']}", "",
-              f"**Agent's answer: {i['answer']}**" + (f" because {', '.join(i['abstain_because'])}" if i["abstain_because"] else ""),
+              f"**Agent's answer: {i['answer']}**" + (f" because {', '.join(i['abstain_because'])}" if i["abstain_because"] else "") + closed,
               f" · made-up quotes: {len(i['made_up_quotes'])}", "",
               "| Claim | Must-have | Label | Quote(s) from the posting | Why |", "|---|---|---|---|---|"]
         for c in i["claims"]:

@@ -22,10 +22,13 @@ after the independent review of 2026-11-25 found that two first answers were mis
   calls** (fail exactly one rule).
 - **Compared with JS2's rule v2 rev 3** (`results/whatif-v1.json`, `_more.v1_vs_js2_rule`): the same verdict on all 789. Only the reasons changed: for
   example, 122 location results became "cannot tell". JS2 had failed 84 of them and passed 38:
-  - 29 Oscar ads whose office tag names one state, such as "Remote (Texas)", while the ad's own state
+  - 30 Oscar ads whose office tag names one state, such as "Remote (Texas)", while the ad's own state
     list includes Massachusetts. JS2 trusted the list; answer 6a calls the two a disagreement.
-  - 8 postings where the location field and the office list disagree about Boston.
-  - 1 other.
+  - 8 postings (6 Oscar, 2 Klaviyo) where the location field and the office list disagree about
+    Boston.
+
+  *Corrected after the re-grade of 2026-11-25: this list first said 29, 8 and "1 other", counted by
+  hand. The split is now computed in `_more.v1_vs_js2_rule.of_those_js2_passed_by_kind`.*
 
   Every one of the 122 also fails another rule.
 
@@ -199,9 +202,10 @@ code). The version log there has one row for each.
 - JS2's reading of Palantir `Dev`: 0 verdicts;
 - minimum skills 3: 0 verdicts;
 - maximum years 5: +1 posting kept. Checked against the audit labels afterwards, that posting is one
-  Shreyash rejected (7+ years), so it would be a false positive.
+  Shreyash rejected (item 26: "Requires 5+ years of experience."), so it would be a false positive.
+  *(Corrected after the re-grade: this line first said "7+ years".)*
 
-**Filter v1.1 against the same labels** (`results/filter-v1.1/`, 222 tests pass):
+**Filter v1.1 against the same labels** (`results/filter-v1.1/`, 224 tests pass):
 
 - **Kept:** 7 (5 open). It changes exactly 2 verdicts, the two misses.
 - **Audit:** **45 of 46** agree.

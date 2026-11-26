@@ -140,8 +140,9 @@ has"), which was right. The second run added Alex's public profile (no contact d
 - **7 postings kept**, 5 of them open: Growth, Android/Kotlin, Conversational Products, Flows, and
   Linear's Product Engineer.
   - Recommendations is kept too, but it is closed, as is Test Frameworks.
-- **All 7 now answer "reaches Alex".** B4 removed the only must-have gap they had. Every quote was
-  checked (0 not found).
+- **All 7 now answer "reaches Alex" on their claims.** B4 removed the only must-have gap they had.
+  Recommendations and Test Frameworks are closed, so they are not shortlisted: the 5 open postings
+  reach Alex. Every quote was checked (0 not found).
   - That check shows each quote exists in its posting, not that it supports the claim. One does not.
     Linear's Product Engineer location claim is labeled *supported*, but its only quote from the ad is
     the pay range ("For US-based candidates, the expected cash compensation range…"). The ad's own
@@ -153,7 +154,8 @@ has"), which was right. The second run added Alex's public profile (no contact d
 - **4 of the 7 reach Alex with their skills claim labeled *insufficient*:** Growth, Android/Kotlin,
   Recommendations and Flows. This happens because skills is not a must-have.
   - Measured, not proposed: if skills were a must-have, those 4 would become "I cannot tell" and 3
-    would reach Alex (Test Frameworks, Conversational Products, Product Engineer). The source is
+    would reach Alex on their claims (Test Frameworks, which is closed, Conversational Products and
+    Product Engineer). The source is
     `results/whatif-v1.json`, `_more.shortlist_v1_1`.
   - That change would also hold back Growth and Flows, which Shreyash wants. It is the same trade-off
     as A3.

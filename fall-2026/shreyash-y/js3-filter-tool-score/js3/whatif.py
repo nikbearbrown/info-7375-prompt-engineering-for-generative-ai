@@ -58,6 +58,27 @@ def more_numbers(persona, cfg, posts, base, sets, hand):
     ct = [k for k in posts if base[k]["rules"][2]["outcome"] == "cannot tell"]
     out["v1_vs_js2_rule"] = {"postings": len(posts), "same_verdict": same, "rule3_cannot_tell": len(ct),
                              "of_those_js2_failed_condition_3": sum(3 in js2[k]["failed_conditions"] for k in ct)}
+    # Added after the re-grade, which found AUDIT.md's split of the 38 wrong: why v1 says "cannot tell"
+    # where JS2 passed condition 3, by kind and board.
+    split = {}
+    for k in ct:
+        if 3 in js2[k]["failed_conditions"]:
+            continue
+        d = base[k]["rules"][2]["detail"]
+        if d.startswith("the office tag limits remote work"):
+            listed, _ = filtering.ad_states(posts[k]["content"], posts[k], cfg)
+            kind = ("office tag names other states; the ad's state list includes " + cfg["rule3_home_state"]
+                    if cfg["rule3_home_state"] in listed else "office tag names other states; the ad says otherwise")
+        elif "(FILTER.md 6b)" in d:
+            kind = "location field and offices disagree about " + cfg["rule3_home_city"] + " (6b)"
+        else:
+            kind = "other"
+        board = k.split(":")[0]
+        split.setdefault(kind, {})[board] = split.setdefault(kind, {}).get(board, 0) + 1
+    out["v1_vs_js2_rule"]["of_those_js2_passed_by_kind"] = split
+    neither = f"the job is not in {cfg['rule3_home_city']} and not remote"
+    out["rule3_fail_v1"] = {"fail": sum(base[k]["rules"][2]["outcome"] == "fail" for k in posts),
+                            "not_in_home_city_and_not_remote": sum(base[k]["rules"][2]["detail"] == neither for k in posts)}
     changes = {"F0 v1": {}, "F1 min skills 1": {"rule4_min_skills": 1}, "F2 min skills 3": {"rule4_min_skills": 3},
                "F3 + Product Engineer": {"rule1_title_phrases": cfg["rule1_title_phrases"] + ["Product Engineer"]},
                "F4 max years 5": {"rule5_max_years": 5}, "F5 no Dev alias": {"rule2_department_aliases": {}}}

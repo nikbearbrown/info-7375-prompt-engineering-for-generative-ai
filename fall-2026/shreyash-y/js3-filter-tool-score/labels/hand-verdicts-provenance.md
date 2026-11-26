@@ -26,7 +26,9 @@ exactly as he sent them.*
   - The frozen file's `by` field says "typed in the Claude Code chat" on all 74 lines. That was Claude
     Code's wording, and it is wrong for every answer after the first. The file is frozen, so the
     correction is recorded here.
-- **How he wrote them, in his words** (sent in the session at 20:02 EST, after the re-grade asked):
+- **How he wrote them, in his words.** After the re-grade raised the question, Claude Code asked him
+  how the pasted labels and decision answers were written, offering two answers: "Another tool helped"
+  and "I wrote them all". He chose "I wrote them all" (19:42 EST), then sent this account (20:02 EST):
 
   > I read the posting summaries Claude provided and asked for the full descriptions wherever I
   > needed more information. I wrote my answers and decisions and pasted them into the session. When I

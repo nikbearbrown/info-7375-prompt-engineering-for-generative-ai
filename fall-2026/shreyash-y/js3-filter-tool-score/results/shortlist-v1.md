@@ -44,7 +44,7 @@
 
 `klaviyo:7855793003` (closed since 20261110T204749Z: not shortlisted) · https://www.klaviyo.com/careers/jobs/7855793003?gh_jid=7855793003
 
-**Agent's answer: I cannot tell** because full_time: insufficient
+**Agent's answer: I cannot tell** because full_time: insufficient (on its claims; the posting is closed, so it is not shortlisted)
  · made-up quotes: 0
 
 | Claim | Must-have | Label | Quote(s) from the posting | Why |

@@ -134,7 +134,9 @@ is **hand-set by Claude Code** (the 50 postal codes).
 - Three of these changes (F2, F5 and dropping Rule 2) move **no** verdict in 789 postings.
 - Each of the other three (F1, F3, F4) adds exactly one posting.
 - The source of these counts is `results/whatif-v1.json`, `_more.filter_changes_corpus`.
-- Location does the work: 476 postings fail it outright.
+- Location does the work: 537 postings fail Rule 3, 476 of them because the job is neither in Boston
+  nor remote (`results/whatif-v1.json`, `_more.rule3_fail_v1`). *(Corrected after the re-grade: this
+  line first said "476 postings fail it outright".)*
 
 ## 3. What persistence is not proof of
 
