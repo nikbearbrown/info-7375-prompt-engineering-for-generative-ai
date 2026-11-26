@@ -39,6 +39,11 @@ here says what he thought.*
     Claude Code's explanation (`labels/hand-verdicts-provenance.md`);
   - wrote the entry on the double-check below;
   - signed the updated sign-off (20:03).
+- **21:00–21:11, after the second re-grade.** He:
+  - agreed to saving the summaries he judged (`labels/summaries-shown-2026-11-25.md`);
+  - wrote his reasons for what stayed the same in v1.1 (FILTER.md, last section), and rewrote the one
+    sentence that repeated Claude Code's wrong numbers (21:11);
+  - wrote a second statement on how he wrote his answers (`labels/hand-verdicts-provenance.md`).
 
 ### In my own words
 
@@ -225,6 +230,10 @@ times are EST on 2026-11-25.*
       show" the memory path without saying I had removed that field.
     - **Grade estimates:** the documents quoted the helpers' estimated grades. Those are not evidence
       about the work, so I removed them.
+    - **My error, afterwards.** In the facts I gave Shreyash for his reasons, I wrote that the Palantir
+      `Dev` exception "cuts the closest calls from 44 to 9". It raises them, from 9 to 44. His first
+      draft repeated my numbers, and he rewrote that sentence once I pointed it out (FILTER.md, last
+      section).
   - **What I take from it:** three numbers I had counted by hand were wrong. Each now has a script
     behind it.
 - **Still unresolved:**

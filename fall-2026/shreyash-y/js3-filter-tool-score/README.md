@@ -164,7 +164,8 @@ postings, shortened.
   - `inherited/js2-postings.json`: the raw JS2 job objects of the 152 postings that closed, with their
     runs and sha256.
 - **`runs/`:** today's live run.
-- **`labels/`:** the draw, its plan, and the hand verdicts with their hash.
+- **`labels/`:** the draw, its plan, the hand verdicts with their hash, and the posting summaries
+  Shreyash judged (`summaries-shown-2026-11-25.md`).
 - **`results/`:** every generated report.
 - **`transcripts/`:** the MCP transcripts.
 - **`prompts/`:** JS1's two prompts, byte for byte, and the FILTER.md-context prompt.

@@ -216,3 +216,28 @@ because none of the five ads says "full-time".*
 | v1.1 | 2026-11-25 | **Added** to the evidence rules: "full-time not stated" passes, marked not stated (B4) | shortlist: all 5 kept were "I cannot tell" only for this | Shreyash |
 | v1.1 | 2026-11-25 | **Rejected**: count a skill only where the ad asks for it (A3) | audit: fixes 1 false positive; held-out: creates 2 misses | Shreyash |
 | v1.1 | 2026-11-25 | **Rejected**: minimum skills 1, the fitted number (A5) | audit: +1 agreement; held-out: tie | Shreyash |
+| v1.1 | 2026-11-25 | **Kept**, with reasons written after the re-grade: minimum skills 2, Boston and eligible remote jobs, Rule 2, and the Android job as a known false positive (next section) | the measurements above and in SCORE.md section 2 | Shreyash |
+
+## Version 1.1: my reasons for what stayed the same
+
+*Shreyash's words, written by him and pasted into the session on 2026-11-25 at 21:04 EST, after the
+second re-grade asked for his own reasons. Claude Code changed nothing. No rule changed: v1.1 stands as
+decided above. The last three sentences under 3 were sent at 21:11 EST. They replace his first
+sentence on the Palantir `Dev` exception, which repeated Claude Code's backwards numbers ("reduces the
+closest calls from 44 to 9").*
+
+**1. Skills — Keep the minimum at two.**
+
+I kept the minimum at two because one matching skill is not enough to decide whether a job fits my profile. A posting might mention one familiar technology without having relevant responsibilities. Increasing the minimum to three changes no verdicts, so I don't see a reason to change it.
+
+**2. Location — Keep Boston and eligible remote jobs.**
+
+I selected Boston because I am currently based here. I would also consider Cambridge and nearby towns if commuting is manageable. Since none of the 789 postings tests this situation, I would keep the current rule until I have enough evidence to evaluate a broader location rule.
+
+**3. Rule 2 — Keep the department rule.**
+
+Even though removing this rule changes no verdicts, I prefer keeping it as an additional check against unrelated departments. I would keep the Palantir Dev exception because Dev is a relevant engineering department. Even though it increases the closest calls from 9 to 44, I prefer accurate department classification over reducing the number of postings I need to review. The final verdicts remain unchanged.
+
+**4. Android job — Keep it as a known false positive.**
+
+I would reject this job manually because its main requirements are Android and Kotlin. I would not adopt A3 because it would also remove Growth and Flows, which I consider relevant. I would rather review an occasional false positive than miss suitable opportunities. The filter helps me shortlist jobs, but the final decision remains mine.

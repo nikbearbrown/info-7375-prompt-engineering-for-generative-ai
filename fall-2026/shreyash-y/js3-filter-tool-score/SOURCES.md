@@ -60,6 +60,7 @@
 | The README summary, the How sentences in the sign-off (he chose "I labeled the 70 postings myself" over his first draft) and the "why the judgment stays mine" paragraph | `README.md` |
 | The "In my own words" entries of FRICTIONAL.md (the "What Shreyash did" list above them is Claude Code's) | `FRICTIONAL.md` |
 | After the re-grade: his account of how he wrote his answers (20:02 EST) and the entry on the double-check (20:03 EST) | `labels/hand-verdicts-provenance.md`; `FRICTIONAL.md` |
+| After the second re-grade: his reasons for what stayed the same in v1.1 (21:04 EST), a second statement on how he wrote his answers (21:06 EST), and his agreement to saving the summaries he judged (21:00 EST) | FILTER.md, last section; `labels/hand-verdicts-provenance.md`; `labels/summaries-shown-2026-11-25.md` |
 | The signature (signed again at 20:03 EST, after the re-grade's changes) | the sign-off in `README.md` |
 
 ## What Claude Code contributed

@@ -15,8 +15,9 @@ exactly as he sent them.*
   - Each was a **summary written by Claude Code**: title, board, location, offices, department,
     whether it was closed, and the requirements in short.
   - The summaries never said what the filter decided. They are shorter than the tool's view
-    (`python3 -m js3 label --print 1 70` regenerates that view). The chat text itself stays in the local
-    session, as the brief asks for conversation transcripts.
+    (`python3 -m js3 label --print 1 70` regenerates that view). The four batches and the double-check
+    reply are saved word for word in `labels/summaries-shown-2026-11-25.md`, with his agreement; the
+    rest of the session stays local, as the brief asks for conversation transcripts.
 - **On request,** Claude Code pasted the full requirements of 8 and the full ads of 11 and 20.
 - **Postings 32–70 came in one message** and were answered in one reply. Those answers were saved at
   18:03:18 EST, about two and a half minutes after the previous batch was saved (18:00:43). Most were
@@ -34,6 +35,12 @@ exactly as he sent them.*
   > needed more information. I wrote my answers and decisions and pasted them into the session. When I
   > said “I reviewed the suggested labels,” I meant that I reviewed the posting information provided
   > by Claude, although some of my final decisions were influenced by its explanation.
+
+  After the second re-grade, Claude Code asked him again where he wrote the answers he pasted, and
+  whether any other AI tool or chat drafted, worded or suggested any of them. He wrote (21:06 EST):
+
+  > I wrote my original answers myself and pasted them into the session. The original verdicts and
+  > decisions were mine, although Claude's explanation influenced some of my later revisions.
 
 ## Where an answer was influenced, item by item
 
