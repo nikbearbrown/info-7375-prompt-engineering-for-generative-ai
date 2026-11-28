@@ -1,0 +1,64 @@
+{
+  "independent_check": {
+    "command": [
+      "python3",
+      "-I",
+      "checks/independent_check.py",
+      "replay/runs/SEEDED-2-2026-11-24",
+      "--earlier",
+      "runs/2026-11-08-normal-1"
+    ],
+    "exit": 0,
+    "output": "  report: status staged, state_advanced False\n  greenhouse/anthropic: saved body is HTTP 200, 9545028 bytes, 631 jobs\n  greenhouse/databricks: saved body is HTTP 200, 9748826 bytes, 890 jobs\n  ashby/linear: saved body is HTTP 200, 418959 bytes, 30 jobs\n  greenhouse/anthropic: against 1 earlier capture(s): 93 new, 137 missing from this list (liveness unresolved), 0 returned\n  greenhouse/databricks: against 1 earlier capture(s): 99 new, 131 missing from this list (liveness unresolved), 0 returned\n  ashby/linear: against 1 earlier capture(s): 1 new, 3 missing from this list (liveness unresolved), 0 returned\n  state not checked (count-only mode: no --state-before or --state-after given)\nPASS: no contradiction found between the trace, the report, its displays, the saved bodies and the earlier captures (state not checked)\n"
+  },
+  "planted_count": {
+    "command": [
+      "python3",
+      "-I",
+      "checks/independent_check.py",
+      "fixtures/count-42-planted-99"
+    ],
+    "exit": 1,
+    "output": "  report: status finished, state_advanced False\n  greenhouse/fixture-count-42: saved body is HTTP 200, 1650 bytes, 42 jobs\n  state not checked (count-only mode: no --state-before or --state-after given)\n  new postings not checked (no --earlier capture and no state files)\nFLAG greenhouse/fixture-count-42: results.json reports 99 jobs; its saved response has 42\nFLAG greenhouse/fixture-count-42: results.md shows 99 jobs; its saved response has 42\nFAIL: 2 contradiction(s) between the trace, the report, its displays, the saved bodies (state not checked)\n",
+    "rejected": true
+  },
+  "stale_write_fixture": {
+    "refused": true,
+    "bytes_unchanged": true,
+    "expected": {
+      "revision": 0,
+      "sha256": "f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d"
+    },
+    "found": {
+      "revision": 1,
+      "sha256": "aad3b91ad4242cd8210d9899a81eac7d293a6a79cfe30c3f0ceb35427a2b42f3"
+    },
+    "boards": [
+      "greenhouse/anthropic",
+      "greenhouse/databricks"
+    ],
+    "note": "a disposable fixture in a temporary folder, with simulated approvals; not the student's"
+  },
+  "closure_case": {
+    "fixture": "fixtures/closure/2026-11-28-closure.json",
+    "fixture_sha256": "a46295d0ef4b34fea0b091da5b6544392faa261fa9d0ec301de3a103de45e0af",
+    "label": "SEEDED CLOSURE FIXTURE: constructed by Claude Code on 2026-11-28 for the \"fresh is not true\" case (PLAN.md v0.2; MEMORY-GATE.md A2). Not a board response. It says nothing about whether this posting is open in the real world.",
+    "board": "greenhouse/anthropic",
+    "key": "5456619008",
+    "before": {
+      "statement": "Listed as of the capture time",
+      "as_of": "2026-11-24T22:36:19Z"
+    },
+    "after": {
+      "statement": "Closed in the seeded fixture as of the stated time",
+      "as_of": "2026-11-25T12:00:00Z"
+    },
+    "shown": true,
+    "note": "computed in memory on the staged state; the closure is not written to the replay state"
+  },
+  "instruction_like": [],
+  "gate": {
+    "passed": true,
+    "problems": []
+  }
+}
