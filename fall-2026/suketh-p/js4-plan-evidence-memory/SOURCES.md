@@ -22,7 +22,7 @@ Claude Code drafted this file on 2026-11-28, and the student checks it.
 
 | Part | Who |
 | --- | --- |
-| PLAN.md v0.1 and Frictional entry 1 | The student. Drafting help, if any: *waiting for the student's answer* |
+| PLAN.md v0.1 and Frictional entry 1 | The student. On 2026-11-28 Claude Code asked whether anyone or anything helped draft v0.1; the student answered "Yes, done by me" |
 | The PLAN worksheet: questions and facts, no answers | Claude Code, 2026-11-25. It is in the student's local notes, not in this folder |
 | The 271 count, `evidence/2026-11-25-memory-vs-nov-24-lists.txt` | Claude Code. See the correction below |
 | The review of v0.1 | Claude, model alias `sonnet`, in the student's own `claude -p` session. The record is in `evidence/plan-review/` |
@@ -37,6 +37,8 @@ Claude Code drafted this file on 2026-11-28, and the student checks it.
 | Which checks count as independent, the sign-off and the driver's seat | The student |
 
 The approvals in the tests are simulated fixtures in temporary folders. Every write to `replay/` used the student's own approval.
+
+The student's sign-off says: "I used drafting help for the plan, premortem, memory gate, and Frictional entries." The table above lists only the help on the record: Claude Code's PLAN worksheet and question skeletons. Whether the sign-off means that help or other help too is *waiting for the student's answer*.
 
 ## Corrections
 

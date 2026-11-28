@@ -100,4 +100,33 @@ Every approval is quoted word for word in [replay/APPROVALS.md](replay/APPROVALS
 
 ## The sign-off and the driver's seat
 
-The student writes these. They will go here.
+*The student's words, sent in the chat by 09:20 EST on 2026-11-28 and placed here unchanged. [evidence/2026-11-28-sign-off-as-sent.txt](evidence/2026-11-28-sign-off-as-sent.txt) is the reply exactly as received. Claude Code added only Markdown: headings for the two parts, bold for the template's labels, and table pipes in place of the tabs. It also left out the reply's "2. " numbering before "Sign-off". A script rebuilt the reply's lines from this section and found them identical.*
+
+### Sign-off · Job-Search Agent 4
+
+**Checked**
+
+- I ran shasum -a 256 replay/state/state.json replay/premortem/state.json. Both digests matched the final publish and recovery receipts.
+- I ran python3 -I checks/independent_check.py replay/runs/SEEDED-2-2026-11-24 --earlier runs/2026-11-08-normal-1. The checker passed and recomputed 193 new keys, 271 missing from the later lists, and zero returned. My Terminal output is in evidence/student-checks/2026-11-28-hand-check-as-pasted.txt at 48d33602.
+
+**How** I ran both checks in my own Terminal. The checker ran in count-only mode, and shasum verified the saved state bytes against the receipts. I used Claude for the v0.1 review and for help building the checker, replay, and tests. I used drafting help for the plan, premortem, memory gate, and Frictional entries. The recorded project tests supply the evidence for the planted 42/99 rejection, the stale-write refusal and recovery, and the seeded closure case.
+
+**Not checked**
+
+- Whether the 271 missing postings are currently open or closed.
+- A fact-by-fact lookup of every committed memory entry against its raw source.
+- Role-specific location, work authorization, sponsorship, or pay across the JS4 replay postings.
+
+**Not claiming** My sign-off covers consistency with the two saved captures and behavior in the recorded offline fixtures. The closure fixture demonstrates how memory handles explicit closure evidence for one key. The two-day diff establishes which keys appeared or disappeared from the saved lists.
+
+**Signed or withheld** Signed for the scope above · Suketh Reddy Produtoor · November 28, 2026
+
+### Driver’s seat
+
+| Task | What Claude should do | What I should do |
+| --- | --- | --- |
+| Verify counts and claims | Generate the report, rerun the raw-response checker, and flag discrepancies with the exact source. | Run the checks I rely on and decide whether they can catch an error in the report. |
+| Publish and recover shared state | Stage both watcher contributions, enforce the revision and hash checks, and record any refusal. | Approve the exact write and decide whether a refused proposal still makes sense against the newer state. |
+| Interpret liveness and sign off | Preserve capture dates, source references, fixture labels, and check results. | Decide what the evidence supports, keep unresolved claims visible, and sign for the scope I checked. |
+
+**Why deciding which check counts as independent stays mine** I count shasum as an independent check of the saved bytes. I count the separate raw-response parser as independent recomputation of the report counts because it can catch a mistake in the agent’s parser or report. Both routes still use the same saved captures. I have to decide whether the check can fail differently and whether it answers the question I’m relying on.
