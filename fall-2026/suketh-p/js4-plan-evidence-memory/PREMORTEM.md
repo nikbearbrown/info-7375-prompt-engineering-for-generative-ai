@@ -21,7 +21,7 @@ The student's premortem is quoted word for word below, with the time it arrived.
 The student approved both writes in the chat; [replay/APPROVALS.md](replay/APPROVALS.md) holds the reply word for word. Claude Code then ran this from the JS4 folder at 13:44:30 UTC:
 
 ```bash
-python3 -m jobwatch.replay premortem --capture runs/2026-11-08-normal-1 --approve-anthropic PREMORTEM-anthropic:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d --approve-databricks PREMORTEM-databricks:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d
+python3 -B -W error -m jobwatch.replay premortem --capture runs/2026-11-08-normal-1 --approve-anthropic PREMORTEM-anthropic:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d --approve-databricks PREMORTEM-databricks:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d
 ```
 
 | Line | What the record shows |
@@ -40,7 +40,7 @@ Whether the prediction held is the student's judgment, for Frictional entry 3.
 The student decided in the chat, by 08:50 EST: "Rebuild the update against revision 1 so revision 2 preserves the accepted Anthropic records and adds Databricks." The full reply is quoted in [replay/APPROVALS.md](replay/APPROVALS.md). With the student's approval of the new run ID `PREMORTEM-databricks-2` against revision 1, Claude Code ran this at 13:52:44 UTC:
 
 ```bash
-python3 -m jobwatch.replay premortem-resume --capture runs/2026-11-08-normal-1 --watcher databricks --approve PREMORTEM-databricks-2:replay/premortem/state.json:1:72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9
+python3 -B -W error -m jobwatch.replay premortem-resume --capture runs/2026-11-08-normal-1 --watcher databricks --approve PREMORTEM-databricks-2:replay/premortem/state.json:1:72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9
 ```
 
 It reread revision 1 (sha256 `72352a71…`, Anthropic only) and rebuilt the Databricks update on it from the Nov 8 capture's 922 keys. Then it committed revision 2, sha256 `96016689d3515d54f9326a4196cef77134481610c81c1a2a814c169ab678859c`. The state now holds 3,194 facts. The 1,350 Anthropic facts are unchanged and still credited to `PREMORTEM-anthropic`; the 1,844 Databricks facts are credited to `PREMORTEM-databricks-2`. The refused `PREMORTEM-databricks` approval stays void. Record: [resume-PREMORTEM-databricks-2.json](replay/premortem/resume-PREMORTEM-databricks-2.json).
