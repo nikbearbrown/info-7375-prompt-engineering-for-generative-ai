@@ -212,7 +212,7 @@ class ReplayTest(unittest.TestCase):
         self.assertEqual(code, 0)
         record = read(self.root / "replay" / "premortem" / "resume-PM-databricks-2.json")
         self.assertEqual((record["status"], record["reread"]["revision"], record["revision_after"]), ("committed", 1, 2))
-        self.assertEqual(record["boards_after"], [DB, GH])
+        self.assertEqual(record["boards_after"], [GH, DB])     # sorted: anthropic before databricks
         self.assertIs(record["earlier_facts_kept"], True)
         two = memory.load(self.root / rel)
         self.assertEqual(two["facts"][:len(one["facts"])], one["facts"])

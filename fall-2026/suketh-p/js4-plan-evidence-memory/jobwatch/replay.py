@@ -6,6 +6,8 @@
                                    [--approve RUN_ID:PATH:REVISION:SHA256] [--closure FIXTURE.json]
     python3 -m jobwatch.replay premortem --capture runs/CAPTURE --approve-anthropic TEXT
                                          --approve-databricks TEXT [--state PATH]
+    python3 -m jobwatch.replay premortem-resume --capture runs/CAPTURE --watcher databricks
+                                                --approve RUN_ID:PATH:REVISION:SHA256 [--state PATH]
 
 A replay makes no HTTP request and no model call. It reads saved captures under runs/, the
 fictional persona, the checker and labelled fixtures. It writes its own run folder under
@@ -454,6 +456,54 @@ def premortem(root, state_rel, capture, approvals, *, clock=None):
     return record
 
 
+def premortem_resume(root, state_rel, capture, watcher, approval, *, clock=None):
+    """PREMORTEM.md line 5, after the plan owner's decision: reread the latest state, rebuild the refused
+    watcher's update on it, and commit it under a new run ID and approval. Writes resume-<RUN_ID>.json
+    and .md next to the disposable state, whatever the outcome."""
+    root = Path(root).resolve()
+    clock = clock or memory._utc_now
+    _, _, captures, _, _ = _verify(root, capture)
+    home = PurePosixPath(state_rel).parent
+    board = watchers.WATCHERS[watcher]
+    raw = (root / state_rel).read_bytes()
+    state = json.loads(raw.decode("utf-8"))
+    problem = memory.validate(state)
+    if problem:
+        raise StateError(f"{state_rel} is damaged: {problem}")
+    cap = _with_ref(captures[board], f"{home}/resume-{approval.run_id}.json#{watcher}")
+    proposal = memory.propose(state, approval.run_id, [cap])
+    try:
+        receipt = memory.commit(root, state_rel, approval, proposal, f"{home}/runs/{approval.run_id}",
+                                label="PREMORTEM RESUME", clock=clock)
+        outcome = {"status": "committed", "receipt": receipt._asdict()}
+    except memory.StaleWrite as error:
+        outcome = {"status": "refused", "expected": error.expected, "found": error.found, "message": str(error)}
+    except StateError as error:
+        outcome = {"status": "not committed", "message": str(error)}
+    after_raw = (root / state_rel).read_bytes()
+    after = json.loads(after_raw.decode("utf-8"))
+    record = {"label": "PREMORTEM RESUME (PREMORTEM.md line 5), offline, on the disposable state file",
+              "state": state_rel, "capture": capture, "watcher": watcher, "board": board, "run_id": approval.run_id,
+              "approval": str(approval),
+              "reread": {"revision": state["revision"], "sha256": _sha(raw), "boards": sorted(state["boards"])},
+              **outcome,
+              "earlier_facts_kept": after["facts"][:len(state["facts"])] == state["facts"],
+              "revision_after": after["revision"], "sha256_after": _sha(after_raw),
+              "boards_after": sorted(after["boards"]), "facts_after": len(after["facts"]), "at": clock()}
+    _write(root / home / f"resume-{approval.run_id}.json", record)
+    lines = ["# Premortem resume", "", record["label"] + ".", "",
+             f"- Reread `{state_rel}`: revision {record['reread']['revision']} "
+             f"(sha256 {record['reread']['sha256'][:12]}…), boards {record['reread']['boards']}.",
+             f"- Rebuilt the {watcher} update ({board}) on that revision, as run `{approval.run_id}`: {record['status']}."]
+    if record["status"] != "committed":
+        lines.append(f"- {record['message']}")
+    lines += [f"- Every earlier fact kept unchanged: {record['earlier_facts_kept']}.",
+              f"- The state is at revision {record['revision_after']} (sha256 {record['sha256_after'][:12]}…) with "
+              f"the boards {record['boards_after']} and {record['facts_after']} facts."]
+    _write(root / home / f"resume-{approval.run_id}.md", "\n".join(lines) + "\n")
+    return record
+
+
 def _parser():
     parser = argparse.ArgumentParser(prog="python3 -m jobwatch.replay", description=__doc__.split("\n\n")[0])
     commands = parser.add_subparsers(dest="command", required=True)
@@ -473,6 +523,13 @@ def _parser():
     for watcher in watchers.ORDER:
         trigger.add_argument(f"--approve-{watcher}", required=True, type=memory.WriteApproval.parse,
                              metavar="RUN_ID:PATH:REVISION:SHA256")
+    resume = commands.add_parser("premortem-resume",
+                                 help="rebuild a refused premortem update on the latest revision (PREMORTEM.md line 5)")
+    resume.add_argument("--capture", required=True, metavar="runs/CAPTURE")
+    resume.add_argument("--watcher", required=True, choices=watchers.ORDER)
+    resume.add_argument("--state", default=PREMORTEM_STATE)
+    resume.add_argument("--approve", required=True, type=memory.WriteApproval.parse,
+                        metavar="RUN_ID:PATH:REVISION:SHA256")
     return parser
 
 
@@ -498,6 +555,11 @@ def main(argv=None, *, root=None):
         print(f"{result['run_id']}: {result['status']} (exit {result['exit']}). {result['reason']}")
         print(f"Evidence: {result['run_dir']}/")
         return result["exit"]
+    if args.command == "premortem-resume":
+        record = premortem_resume(root, args.state, args.capture, args.watcher, args.approve)
+        print((root / PurePosixPath(args.state).parent / f"resume-{args.approve.run_id}.md").read_text(encoding="utf-8"),
+              end="")
+        return 0 if record["status"] == "committed" else 1
     record = premortem(root, args.state, args.capture,
                        {watcher: getattr(args, f"approve_{watcher}") for watcher in watchers.ORDER})
     print((root / PurePosixPath(args.state).parent / "record.md").read_text(encoding="utf-8"), end="")
