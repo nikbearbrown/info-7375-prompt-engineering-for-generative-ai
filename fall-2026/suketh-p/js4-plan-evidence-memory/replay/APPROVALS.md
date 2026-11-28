@@ -46,3 +46,4 @@ The student's reply, word for word, received in the chat by 08:50 EST:
 | Run ID | What the write did (UTC) |
 | --- | --- |
 | `SEEDED-2-2026-11-24` | 13:50:22: committed revision 2 of `replay/state/state.json`, sha256 `dc40d7b9d7bffe47f876f81ebd017fce6d2b343087e0ef033aa081deb9307a88`. Evidence: [runs/SEEDED-2-2026-11-24/](runs/SEEDED-2-2026-11-24/) |
+| `PREMORTEM-databricks-2` | 13:52:44: reread `replay/premortem/state.json` at revision 1, rebuilt the Databricks update on it (the Nov 8 capture's 922 keys) and committed revision 2, sha256 `96016689d3515d54f9326a4196cef77134481610c81c1a2a814c169ab678859c`. The 1,350 Anthropic facts are unchanged. Record: [premortem/resume-PREMORTEM-databricks-2.json](premortem/resume-PREMORTEM-databricks-2.json) |
