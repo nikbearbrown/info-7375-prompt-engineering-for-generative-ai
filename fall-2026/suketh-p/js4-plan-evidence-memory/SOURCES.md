@@ -38,7 +38,7 @@ Claude Code drafted this file on 2026-11-28, and the student checks it.
 
 The approvals in the tests are simulated fixtures in temporary folders. Every write to `replay/` used the student's own approval.
 
-The student's sign-off says: "I used drafting help for the plan, premortem, memory gate, and Frictional entries." The table above lists only the help on the record: Claude Code's PLAN worksheet and question skeletons. Whether the sign-off means that help or other help too is *waiting for the student's answer*.
+The student's sign-off says: "I used drafting help for the plan, premortem, memory gate, and Frictional entries." On 2026-11-28 Claude Code asked whether that help was only its PLAN worksheet and question skeletons. The student answered "Yes, only those". No other drafting help was used.
 
 ## Corrections
 
