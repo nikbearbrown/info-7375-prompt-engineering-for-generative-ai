@@ -1,0 +1,102 @@
+{
+  "run_id": "SEEDED-2-2026-11-24",
+  "label": "SEEDED",
+  "status": "finished",
+  "reason": "every board was usable, both watchers' notes merged, the checks passed and revision 2 was committed",
+  "state_advanced": true,
+  "events": [
+    {
+      "seq": 1,
+      "at": "2026-11-24T22:36:19Z",
+      "event": "request",
+      "board": "greenhouse/anthropic",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "elapsed_s": 0.699,
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 9545028,
+      "sha256": "25ab0e62b65a964709dcd994f93a1ca6c51ed42450a97c4a199c39066a480292",
+      "raw": "../../../runs/2026-11-24-js3-corpus/raw/greenhouse-anthropic.body.gz",
+      "outcome": "usable",
+      "jobs": 631,
+      "reason": null
+    },
+    {
+      "seq": 2,
+      "at": "2026-11-24T22:36:20Z",
+      "event": "request",
+      "board": "greenhouse/databricks",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "elapsed_s": 3.961,
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 9748826,
+      "sha256": "438008f8ae9c53a9e1b5cea9f15b5a97771ad3d7742d12dd8985930036336e89",
+      "raw": "../../../runs/2026-11-24-js3-corpus/raw/greenhouse-databricks.body.gz",
+      "outcome": "usable",
+      "jobs": 890,
+      "reason": null
+    },
+    {
+      "seq": 3,
+      "at": "2026-11-24T22:36:24Z",
+      "event": "request",
+      "board": "ashby/linear",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "elapsed_s": 0.262,
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 418959,
+      "sha256": "ffbe5745fc0c4a3e1e3105ffba661f7739590d711034b53907e94832bd03851b",
+      "raw": "../../../runs/2026-11-24-js3-corpus/raw/ashby-linear.body.gz",
+      "outcome": "usable",
+      "jobs": 30,
+      "reason": null
+    },
+    {
+      "event": "preflight",
+      "at": "2026-11-28T13:50:21Z",
+      "detail": "state replay/state/state.json at revision 1 (sha256 3539364075cf…); approval: given"
+    },
+    {
+      "event": "verify",
+      "at": "2026-11-28T13:50:21Z",
+      "detail": "greenhouse/anthropic: usable, 631 jobs; greenhouse/databricks: usable, 890 jobs; ashby/linear: usable, 30 jobs"
+    },
+    {
+      "event": "watcher anthropic",
+      "at": "2026-11-28T13:50:21Z",
+      "detail": "93 note(s) on greenhouse/anthropic"
+    },
+    {
+      "event": "watcher databricks",
+      "at": "2026-11-28T13:50:21Z",
+      "detail": "99 note(s) on greenhouse/databricks"
+    },
+    {
+      "event": "coordinator",
+      "at": "2026-11-28T13:50:21Z",
+      "detail": "notes.json written: anthropic 93, databricks 99"
+    },
+    {
+      "event": "stage",
+      "at": "2026-11-28T13:50:21Z",
+      "detail": "proposal and diff staged: {'listed': 1551, 'first seen': 193, 'missing from the list': 271}"
+    },
+    {
+      "event": "checks",
+      "at": "2026-11-28T13:50:22Z",
+      "detail": "passed"
+    },
+    {
+      "event": "publish",
+      "at": "2026-11-28T13:50:22Z",
+      "detail": "revision 1 → 2 (sha256 dc40d7b9d7bf…)"
+    },
+    {
+      "event": "exit",
+      "at": "2026-11-28T13:50:22Z",
+      "detail": "finished: every board was usable, both watchers' notes merged, the checks passed and revision 2 was committed"
+    }
+  ]
+}

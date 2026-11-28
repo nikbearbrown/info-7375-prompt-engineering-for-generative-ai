@@ -1,0 +1,43 @@
+{
+  "label": "PREMORTEM TRIGGER (PREMORTEM.md lines 2-4), offline, on a disposable state file",
+  "state": "replay/premortem/state.json",
+  "capture": "runs/2026-11-08-normal-1",
+  "started_from": {
+    "revision": 0,
+    "sha256": "f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d"
+  },
+  "first": {
+    "run_id": "PREMORTEM-anthropic",
+    "approval": "PREMORTEM-anthropic:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d",
+    "status": "committed",
+    "receipt": {
+      "path": "replay/premortem/state.json",
+      "revision": 1,
+      "sha256": "72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9"
+    },
+    "at": "2026-11-28T13:44:30Z"
+  },
+  "second": {
+    "run_id": "PREMORTEM-databricks",
+    "approval": "PREMORTEM-databricks:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d",
+    "status": "refused",
+    "expected": {
+      "revision": 0,
+      "sha256": "f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d"
+    },
+    "found": {
+      "revision": 1,
+      "sha256": "72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9"
+    },
+    "message": "stale write refused for run PREMORTEM-databricks: the approval expected revision 0 (sha256 f046969f9ae5…) and found revision 1 (sha256 72352a71ed7f…). The state was not changed, and this run's approval is now void. The plan owner rereads the latest state, reconciles the proposal and approves a new run ID against the new revision and hash (MEMORY-GATE.md, trigger 1).",
+    "refusal_record": "replay/premortem/runs/PREMORTEM-databricks/write-refused.json",
+    "at": "2026-11-28T13:44:30Z"
+  },
+  "after_first_sha256": "72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9",
+  "after_refusal_sha256": "72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9",
+  "bytes_unchanged_by_refusal": true,
+  "revision_after": 1,
+  "boards_after": [
+    "greenhouse/anthropic"
+  ]
+}

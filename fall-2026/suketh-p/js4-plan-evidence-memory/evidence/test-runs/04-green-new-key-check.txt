@@ -1,0 +1,27 @@
+GREEN: after extending checks/independent_check.py with --earlier
+Run by Claude Code at 2026-11-25T17:51:44Z, Python 3.12.7, from the JS4 folder (uncommitted change on top of 9d68029c):
+  python3 -B -W error -m unittest tests.test_new_key_check -v
+  python3 -B -W error -m unittest
+
+test_a_baseline_claim_for_a_board_with_history_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_a_baseline_claim_for_a_board_with_history_is_flagged) ... ok
+test_a_board_that_no_earlier_capture_lists_is_a_baseline (tests.test_new_key_check.NewKeyCheckTest.test_a_board_that_no_earlier_capture_lists_is_a_baseline) ... ok
+test_a_correct_new_key_claim_passes (tests.test_new_key_check.NewKeyCheckTest.test_a_correct_new_key_claim_passes) ... ok
+test_a_returning_key_is_not_new (tests.test_new_key_check.NewKeyCheckTest.test_a_returning_key_is_not_new) ... ok
+test_a_wrong_new_key_claim_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_a_wrong_new_key_claim_is_flagged) ... ok
+test_an_earlier_capture_that_does_not_match_its_hash_is_flagged (tests.test_new_key_check.NewKeyCheckTest.test_an_earlier_capture_that_does_not_match_its_hash_is_flagged) ... ok
+test_captures_given_out_of_time_order_are_flagged (tests.test_new_key_check.NewKeyCheckTest.test_captures_given_out_of_time_order_are_flagged) ... ok
+test_the_new_count_shown_in_results_md_is_checked (tests.test_new_key_check.NewKeyCheckTest.test_the_new_count_shown_in_results_md_is_checked) ... ok
+test_without_earlier_captures_or_state_files_new_keys_are_not_checked (tests.test_new_key_check.NewKeyCheckTest.test_without_earlier_captures_or_state_files_new_keys_are_not_checked) ... ok
+test_nov_24_against_nov_8 (tests.test_new_key_check.RealCapturesNewKeyTest.test_nov_24_against_nov_8) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.387s
+
+OK
+exit code: 0
+
+--- the whole suite
+Ran 323 tests in 7.666s
+
+OK
+exit code: 0

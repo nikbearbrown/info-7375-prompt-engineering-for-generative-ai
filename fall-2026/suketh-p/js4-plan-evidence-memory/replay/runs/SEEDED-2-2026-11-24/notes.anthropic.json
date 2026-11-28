@@ -1,0 +1,1202 @@
+{
+  "watcher": "anthropic",
+  "board": "greenhouse/anthropic",
+  "run_id": "SEEDED-2-2026-11-24",
+  "base": {
+    "path": "replay/state/state.json",
+    "revision": 1,
+    "sha256": "3539364075cf9f1304f73b9604936ce8bd057a051f03c26feba7ed299b4f31e5"
+  },
+  "source": {
+    "capture_run_id": "2026-11-24-js3-corpus",
+    "path": "runs/2026-11-24-js3-corpus/raw/greenhouse-anthropic.body.gz",
+    "sha256": "25ab0e62b65a964709dcd994f93a1ca6c51ed42450a97c4a199c39066a480292",
+    "captured_at": "2026-11-24T22:36:19Z"
+  },
+  "baseline": false,
+  "rule": "the JS1 relevance rule: jobwatch/rule.py, copied unchanged from JS3 ae850602",
+  "notes": [
+    {
+      "posting_key": "5471539008",
+      "title": "Accounting Analytics & BI Engineer",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role"
+      ],
+      "justification": "not_relevant: failed engineering_role. posting.title \"Accounting Analytics & BI Engineer\" contains none of resume.preferences.focus_terms. posting.title \"Accounting Analytics & BI Engineer\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content contains python and resume.skills \"sql\", \"aws\".",
+      "source_locator": "jobs[].id = 5471539008"
+    },
+    {
+      "posting_key": "5476577008",
+      "title": "Applied AI Architect",
+      "location": "Seoul, South Korea",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Applied AI Architect\" lacks resume.preferences.title_word \"engineer\". posting.title \"Applied AI Architect\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Seoul, South Korea\" contains none of resume.preferences.location_terms. posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5476577008"
+    },
+    {
+      "posting_key": "5486776008",
+      "title": "Applied AI Architect, Beneficial Deployment",
+      "location": "Bangalore, India",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Applied AI Architect, Beneficial Deployment\" lacks resume.preferences.title_word \"engineer\". posting.title \"Applied AI Architect, Beneficial Deployment\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Bangalore, India\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5486776008"
+    },
+    {
+      "posting_key": "5486780008",
+      "title": "Applied AI Architect, Beneficial Deployment",
+      "location": "Sydney, Australia",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Applied AI Architect, Beneficial Deployment\" lacks resume.preferences.title_word \"engineer\". posting.title \"Applied AI Architect, Beneficial Deployment\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Sydney, Australia\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5486780008"
+    },
+    {
+      "posting_key": "5484035008",
+      "title": "Applied AI Architect, Beneficial Deployments (Non-Profits)",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Applied AI Architect, Beneficial Deployments (Non-Profits)\" lacks resume.preferences.title_word \"engineer\". posting.title \"Applied AI Architect, Beneficial Deployments (Non-Profits)\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5484035008"
+    },
+    {
+      "posting_key": "5466640008",
+      "title": "Applied AI Architect, Industries",
+      "location": "Zürich, CH",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Applied AI Architect, Industries\" lacks resume.preferences.title_word \"engineer\". posting.title \"Applied AI Architect, Industries\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Zürich, CH\" contains none of resume.preferences.location_terms. posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5466640008"
+    },
+    {
+      "posting_key": "5491480008",
+      "title": "Applied AI Architect, Technology Partnerships",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Applied AI Architect, Technology Partnerships\" lacks resume.preferences.title_word \"engineer\". posting.title \"Applied AI Architect, Technology Partnerships\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5491480008"
+    },
+    {
+      "posting_key": "5483945008",
+      "title": "Applied AI Engineer, Commercial",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "skills"
+      ],
+      "justification": "not_relevant: failed skills. posting.title \"Applied AI Engineer, Commercial\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"ai\". posting.title \"Applied AI Engineer, Commercial\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5483945008"
+    },
+    {
+      "posting_key": "5486656008",
+      "title": "AWS Partnerships Lead",
+      "location": "London, UK",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"AWS Partnerships Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"AWS Partnerships Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5486656008"
+    },
+    {
+      "posting_key": "5491575008",
+      "title": "Campaign Manager",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Campaign Manager\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Campaign Manager\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5491575008"
+    },
+    {
+      "posting_key": "5481396008",
+      "title": "CMC & Manufacturing Lead, Life Sciences",
+      "location": "Remote-Friendly, United States",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"CMC & Manufacturing Lead, Life Sciences\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"CMC & Manufacturing Lead, Life Sciences\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5481396008"
+    },
+    {
+      "posting_key": "5478939008",
+      "title": "Commercial Activation Lead",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Commercial Activation Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Commercial Activation Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5478939008"
+    },
+    {
+      "posting_key": "5490950008",
+      "title": "Commercial Counsel, GTM Strategic Alliances ",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Commercial Counsel, GTM Strategic Alliances \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Commercial Counsel, GTM Strategic Alliances \" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5490950008"
+    },
+    {
+      "posting_key": "5486907008",
+      "title": "Community Engagement Manager, Data Centres (Canada)",
+      "location": "Alberta, CAN | Remote-Friendly, Canada",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Community Engagement Manager, Data Centres (Canada)\" lacks resume.preferences.title_word \"engineer\". posting.title \"Community Engagement Manager, Data Centres (Canada)\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"Alberta, CAN | Remote-Friendly, Canada\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5486907008"
+    },
+    {
+      "posting_key": "5485582008",
+      "title": "Compute Capacity Strategy & Operations",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Compute Capacity Strategy & Operations\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Compute Capacity Strategy & Operations\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5485582008"
+    },
+    {
+      "posting_key": "5462511008",
+      "title": "Corporate Counsel, Public Reporting",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Corporate Counsel, Public Reporting\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Corporate Counsel, Public Reporting\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5462511008"
+    },
+    {
+      "posting_key": "5489564008",
+      "title": "Corporate Network Engineer",
+      "location": "Remote-Friendly (Travel Required) | San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Corporate Network Engineer\" contains none of resume.preferences.focus_terms. posting.title \"Corporate Network Engineer\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Remote-Friendly (Travel Required) | San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5489564008"
+    },
+    {
+      "posting_key": "5477150008",
+      "title": "Customer Marketing Lead, Startups Program",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Customer Marketing Lead, Startups Program\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Customer Marketing Lead, Startups Program\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477150008"
+    },
+    {
+      "posting_key": "5206870008",
+      "title": "Developer Relations, Platform",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Developer Relations, Platform\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Developer Relations, Platform\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5206870008"
+    },
+    {
+      "posting_key": "5482310008",
+      "title": "Docs Lead, Platform ",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Docs Lead, Platform \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Docs Lead, Platform \" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5482310008"
+    },
+    {
+      "posting_key": "5469291008",
+      "title": "Engineering Manager, Billing Platform",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority. posting.title \"Engineering Manager, Billing Platform\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Engineering Manager, Billing Platform\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content contains python and resume.skills \"sql\".",
+      "source_locator": "jobs[].id = 5469291008"
+    },
+    {
+      "posting_key": "5490122008",
+      "title": "Engineering Manager, Privacy Infrastructure",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Engineering Manager, Privacy Infrastructure\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Engineering Manager, Privacy Infrastructure\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5490122008"
+    },
+    {
+      "posting_key": "5477774008",
+      "title": "Enterprise Account Executive",
+      "location": "Tokyo, Japan",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Enterprise Account Executive\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Enterprise Account Executive\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Tokyo, Japan\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477774008"
+    },
+    {
+      "posting_key": "5484875008",
+      "title": "Enterprise Account Executive, Enterprise Account Executive, Hedge Funds & Quantitative Trading",
+      "location": "London, UK",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location"
+      ],
+      "justification": "not_relevant: failed engineering_role, location. posting.title \"Enterprise Account Executive, Enterprise Account Executive, Hedge Funds & Quantitative Trading\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Enterprise Account Executive, Enterprise Account Executive, Hedge Funds & Quantitative Trading\" contains none of resume.preferences.excluded_title_words. posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content contains python and resume.skills \"aws\".",
+      "source_locator": "jobs[].id = 5484875008"
+    },
+    {
+      "posting_key": "5479890008",
+      "title": "External Affairs, Southeast Asia",
+      "location": "Singapore",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"External Affairs, Southeast Asia\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"External Affairs, Southeast Asia\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Singapore\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5479890008"
+    },
+    {
+      "posting_key": "5437933008",
+      "title": "Finance & Strategy, Deal Strategy",
+      "location": "Dublin, IE",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Finance & Strategy, Deal Strategy\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Finance & Strategy, Deal Strategy\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Dublin, IE\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5437933008"
+    },
+    {
+      "posting_key": "5433843008",
+      "title": "Finance & Strategy, Deal Strategy",
+      "location": "London, UK",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Finance & Strategy, Deal Strategy\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Finance & Strategy, Deal Strategy\" contains none of resume.preferences.excluded_title_words. posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5433843008"
+    },
+    {
+      "posting_key": "5483403008",
+      "title": "Finance Systems Production Support Lead",
+      "location": "San Francisco, CA | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Finance Systems Production Support Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Finance Systems Production Support Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | Seattle, WA\" contains resume.preferences.location_terms \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5483403008"
+    },
+    {
+      "posting_key": "5237923008",
+      "title": "Global Head of Renewals, Product & Engineering",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Global Head of Renewals, Product & Engineering\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Global Head of Renewals, Product & Engineering\" contains resume.preferences.excluded_title_words \"head\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5237923008"
+    },
+    {
+      "posting_key": "5485591008",
+      "title": "GTM Strategy & Operations Business Partner",
+      "location": "San Francisco, CA | New York City, NY | Washington, DC",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role"
+      ],
+      "justification": "not_relevant: failed engineering_role. posting.title \"GTM Strategy & Operations Business Partner\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"GTM Strategy & Operations Business Partner\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY | Washington, DC\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content contains python and resume.skills \"sql\".",
+      "source_locator": "jobs[].id = 5485591008"
+    },
+    {
+      "posting_key": "5481842008",
+      "title": "GTM Strategy & Operations - Strategic Planning",
+      "location": "New York City, NY; San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"GTM Strategy & Operations - Strategic Planning\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"GTM Strategy & Operations - Strategic Planning\" contains none of resume.preferences.excluded_title_words. posting.location.name \"New York City, NY; San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5481842008"
+    },
+    {
+      "posting_key": "5491578008",
+      "title": "Head of Campaign Operations",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Head of Campaign Operations\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Head of Campaign Operations\" contains resume.preferences.excluded_title_words \"head\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5491578008"
+    },
+    {
+      "posting_key": "5456315008",
+      "title": "Head of Community Relations, Compute",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Head of Community Relations, Compute\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Head of Community Relations, Compute\" contains resume.preferences.excluded_title_words \"head\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5456315008"
+    },
+    {
+      "posting_key": "5490494008",
+      "title": "Head of Laboratory Facilities",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Head of Laboratory Facilities\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Head of Laboratory Facilities\" contains resume.preferences.excluded_title_words \"head\". posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5490494008"
+    },
+    {
+      "posting_key": "5482207008",
+      "title": "Head of PMO, Workplace",
+      "location": "New York City, NY; San Francisco, CA | New York City, NY; Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Head of PMO, Workplace\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Head of PMO, Workplace\" contains resume.preferences.excluded_title_words \"head\". posting.location.name \"New York City, NY; San Francisco, CA | New York City, NY; Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5482207008"
+    },
+    {
+      "posting_key": "5416020008",
+      "title": "Head of Regulated Industries, Customer Success",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Head of Regulated Industries, Customer Success\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Head of Regulated Industries, Customer Success\" contains resume.preferences.excluded_title_words \"head\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5416020008"
+    },
+    {
+      "posting_key": "5391155008",
+      "title": "Head of Technology Partnerships",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Head of Technology Partnerships\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Head of Technology Partnerships\" contains resume.preferences.excluded_title_words \"head\". posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5391155008"
+    },
+    {
+      "posting_key": "5293104008",
+      "title": "Industry Principal, Insurance",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Industry Principal, Insurance\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Industry Principal, Insurance\" contains resume.preferences.excluded_title_words \"principal\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5293104008"
+    },
+    {
+      "posting_key": "5475136008",
+      "title": "International Infrastructure Accounting",
+      "location": "Dublin, IE",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"International Infrastructure Accounting\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"International Infrastructure Accounting\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Dublin, IE\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5475136008"
+    },
+    {
+      "posting_key": "5490502008",
+      "title": "Life Sciences Operator, External Research",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Life Sciences Operator, External Research\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Life Sciences Operator, External Research\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5490502008"
+    },
+    {
+      "posting_key": "5480986008",
+      "title": "Manager, Applied AI Architect",
+      "location": "Seoul, South Korea",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Manager, Applied AI Architect\" lacks resume.preferences.title_word \"engineer\". posting.title \"Manager, Applied AI Architect\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"Seoul, South Korea\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5480986008"
+    },
+    {
+      "posting_key": "5473344008",
+      "title": "Manager, Enterprise Sales - Industries, ANZ",
+      "location": "Sydney, Australia",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Manager, Enterprise Sales - Industries, ANZ\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Manager, Enterprise Sales - Industries, ANZ\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"Sydney, Australia\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5473344008"
+    },
+    {
+      "posting_key": "5475099008",
+      "title": "National Security Lead, APAC",
+      "location": "Canberra, Australia",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"National Security Lead, APAC\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"National Security Lead, APAC\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"Canberra, Australia\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5475099008"
+    },
+    {
+      "posting_key": "5482967008",
+      "title": "[Paris] Applied AI Architect, Industries",
+      "location": "Paris, France",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"[Paris] Applied AI Architect, Industries\" lacks resume.preferences.title_word \"engineer\". posting.title \"[Paris] Applied AI Architect, Industries\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Paris, France\" contains none of resume.preferences.location_terms. posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5482967008"
+    },
+    {
+      "posting_key": "5475150008",
+      "title": "Partner Account Manager, ANZ",
+      "location": "Sydney, Australia",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Partner Account Manager, ANZ\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Partner Account Manager, ANZ\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"Sydney, Australia\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5475150008"
+    },
+    {
+      "posting_key": "5391203008",
+      "title": "Partner Account Manager, Systems Integrators",
+      "location": "Tokyo, Japan",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Partner Account Manager, Systems Integrators\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Partner Account Manager, Systems Integrators\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"Tokyo, Japan\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5391203008"
+    },
+    {
+      "posting_key": "5473362008",
+      "title": "Partner Marketing Lead, APAC",
+      "location": "Sydney, Australia",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Partner Marketing Lead, APAC\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Partner Marketing Lead, APAC\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"Sydney, Australia\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5473362008"
+    },
+    {
+      "posting_key": "5473999008",
+      "title": "Partner Marketing Manager, Cloud Partners EMEA",
+      "location": "London, UK",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Partner Marketing Manager, Cloud Partners EMEA\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Partner Marketing Manager, Cloud Partners EMEA\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5473999008"
+    },
+    {
+      "posting_key": "5458159008",
+      "title": "Partnerships Enablement Specialist, Japan",
+      "location": "Tokyo, Japan",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Partnerships Enablement Specialist, Japan\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Partnerships Enablement Specialist, Japan\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Tokyo, Japan\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5458159008"
+    },
+    {
+      "posting_key": "5427025008",
+      "title": "Partner Success Lead",
+      "location": "London, UK",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Partner Success Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Partner Success Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5427025008"
+    },
+    {
+      "posting_key": "5453322008",
+      "title": "Partner Support Operations Lead",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Partner Support Operations Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Partner Support Operations Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5453322008"
+    },
+    {
+      "posting_key": "5490974008",
+      "title": "Principal Engineer Capacity/Compute",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority. posting.title \"Principal Engineer Capacity/Compute\" contains none of resume.preferences.focus_terms. posting.title \"Principal Engineer Capacity/Compute\" contains resume.preferences.excluded_title_words \"principal\". posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content contains python and resume.skills \"sql\".",
+      "source_locator": "jobs[].id = 5490974008"
+    },
+    {
+      "posting_key": "5490976008",
+      "title": "Principal Engineer Capacity/Compute",
+      "location": "New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority. posting.title \"Principal Engineer Capacity/Compute\" contains none of resume.preferences.focus_terms. posting.title \"Principal Engineer Capacity/Compute\" contains resume.preferences.excluded_title_words \"principal\". posting.location.name \"New York City, NY\" contains resume.preferences.location_terms \"new york\". posting.content contains python and resume.skills \"sql\".",
+      "source_locator": "jobs[].id = 5490976008"
+    },
+    {
+      "posting_key": "5490978008",
+      "title": "Principal Engineer Capacity/Compute",
+      "location": "Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority. posting.title \"Principal Engineer Capacity/Compute\" contains none of resume.preferences.focus_terms. posting.title \"Principal Engineer Capacity/Compute\" contains resume.preferences.excluded_title_words \"principal\". posting.location.name \"Seattle, WA\" contains resume.preferences.location_terms \"seattle\". posting.content contains python and resume.skills \"sql\".",
+      "source_locator": "jobs[].id = 5490978008"
+    },
+    {
+      "posting_key": "5477753008",
+      "title": "Principal Engineer, Privacy",
+      "location": "London, UK; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Principal Engineer, Privacy\" contains none of resume.preferences.focus_terms. posting.title \"Principal Engineer, Privacy\" contains resume.preferences.excluded_title_words \"principal\". posting.location.name \"London, UK; Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5477753008"
+    },
+    {
+      "posting_key": "5477601008",
+      "title": "Product Manager, Seller Experience ",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Product Manager, Seller Experience \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Product Manager, Seller Experience \" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477601008"
+    },
+    {
+      "posting_key": "5470528008",
+      "title": "Product Marketing Manager, Knowledge Work - Enterprise",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Product Marketing Manager, Knowledge Work - Enterprise\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Product Marketing Manager, Knowledge Work - Enterprise\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5470528008"
+    },
+    {
+      "posting_key": "5491573008",
+      "title": "Program Manager, Cloud Partners",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Program Manager, Cloud Partners\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Program Manager, Cloud Partners\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5491573008"
+    },
+    {
+      "posting_key": "5391277008",
+      "title": "Program Operations, Coordination & Logistics, Claude Frontier Academy",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Program Operations, Coordination & Logistics, Claude Frontier Academy\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Program Operations, Coordination & Logistics, Claude Frontier Academy\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5391277008"
+    },
+    {
+      "posting_key": "5422952008",
+      "title": "Protective Intelligence Analyst ",
+      "location": "San Francisco, CA | New York City, NY | Washington, DC",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Protective Intelligence Analyst \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Protective Intelligence Analyst \" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY | Washington, DC\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5422952008"
+    },
+    {
+      "posting_key": "5476704008",
+      "title": "Recruiter, Communications",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Recruiter, Communications\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Recruiter, Communications\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5476704008"
+    },
+    {
+      "posting_key": "5468548008",
+      "title": "Resale Operations Lead",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Resale Operations Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Resale Operations Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5468548008"
+    },
+    {
+      "posting_key": "5477416008",
+      "title": "Research Engineer, AI Monitoring",
+      "location": "London, UK",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed location, skills. posting.title \"Research Engineer, AI Monitoring\" contains resume.preferences.title_word \"engineer\" and resume.preferences.focus_terms \"ai\". posting.title \"Research Engineer, AI Monitoring\" contains none of resume.preferences.excluded_title_words. posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477416008"
+    },
+    {
+      "posting_key": "5485188008",
+      "title": "Research Engineer, Beneficial Deployments",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Research Engineer, Beneficial Deployments\" contains none of resume.preferences.focus_terms. posting.title \"Research Engineer, Beneficial Deployments\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5485188008"
+    },
+    {
+      "posting_key": "5459191008",
+      "title": "Research Engineer, Cybersecurity RL",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Research Engineer, Cybersecurity RL\" contains none of resume.preferences.focus_terms. posting.title \"Research Engineer, Cybersecurity RL\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5459191008"
+    },
+    {
+      "posting_key": "5489567008",
+      "title": "Research Engineer, Finetuning",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Research Engineer, Finetuning\" contains none of resume.preferences.focus_terms. posting.title \"Research Engineer, Finetuning\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5489567008"
+    },
+    {
+      "posting_key": "5490492008",
+      "title": "Research Operations, External Artifacts",
+      "location": "Remote-Friendly, United States",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Research Operations, External Artifacts\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Research Operations, External Artifacts\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5490492008"
+    },
+    {
+      "posting_key": "5475156008",
+      "title": "Revenue Strategy and Operations , ANZ",
+      "location": "Sydney, Australia",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, location, skills. posting.title \"Revenue Strategy and Operations , ANZ\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Revenue Strategy and Operations , ANZ\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Sydney, Australia\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5475156008"
+    },
+    {
+      "posting_key": "5474013008",
+      "title": "Sales Director ",
+      "location": "Seoul, South Korea",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Sales Director \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Sales Director \" contains resume.preferences.excluded_title_words \"director\". posting.location.name \"Seoul, South Korea\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5474013008"
+    },
+    {
+      "posting_key": "5476579008",
+      "title": "Security Engineer, RF and Technical Surveillance Countermeasures",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Security Engineer, RF and Technical Surveillance Countermeasures\" contains none of resume.preferences.focus_terms. posting.title \"Security Engineer, RF and Technical Surveillance Countermeasures\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5476579008"
+    },
+    {
+      "posting_key": "5477464008",
+      "title": "Security Risk & Compliance, SOX IT ",
+      "location": "San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Security Risk & Compliance, SOX IT \" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Security Risk & Compliance, SOX IT \" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | Seattle, WA | New York City, NY | Washington, DC\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477464008"
+    },
+    {
+      "posting_key": "4942024008",
+      "title": "Software Engineer, Beneficial Deployments ",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Software Engineer, Beneficial Deployments \" contains none of resume.preferences.focus_terms. posting.title \"Software Engineer, Beneficial Deployments \" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 4942024008"
+    },
+    {
+      "posting_key": "5484171008",
+      "title": "Software Engineer, Datacenter Server Lifecycle",
+      "location": "Remote-Friendly, United States",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role"
+      ],
+      "justification": "not_relevant: failed engineering_role. posting.title \"Software Engineer, Datacenter Server Lifecycle\" contains none of resume.preferences.focus_terms. posting.title \"Software Engineer, Datacenter Server Lifecycle\" contains none of resume.preferences.excluded_title_words. posting.location.name \"Remote-Friendly, United States\" contains resume.preferences.location_terms \"united states\". posting.content contains python and resume.skills \"aws\".",
+      "source_locator": "jobs[].id = 5484171008"
+    },
+    {
+      "posting_key": "5487188008",
+      "title": "Software Engineer, Model-to-Product Behavior Engineering",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Software Engineer, Model-to-Product Behavior Engineering\" contains none of resume.preferences.focus_terms. posting.title \"Software Engineer, Model-to-Product Behavior Engineering\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content contains python but no other item from resume.skills.",
+      "source_locator": "jobs[].id = 5487188008"
+    },
+    {
+      "posting_key": "5490979008",
+      "title": "Staff+ Software Engineer, Capacity Engineering",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority. posting.title \"Staff+ Software Engineer, Capacity Engineering\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Capacity Engineering\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content contains python and resume.skills \"sql\".",
+      "source_locator": "jobs[].id = 5490979008"
+    },
+    {
+      "posting_key": "5477746008",
+      "title": "Staff+ Software Engineer, Claude Design",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff+ Software Engineer, Claude Design\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Claude Design\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477746008"
+    },
+    {
+      "posting_key": "5477652008",
+      "title": "Staff+ Software Engineer, Consumer",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff+ Software Engineer, Consumer\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Consumer\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477652008"
+    },
+    {
+      "posting_key": "5484144008",
+      "title": "Staff+ Software Engineer, Deployment",
+      "location": "London, UK",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Staff+ Software Engineer, Deployment\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Deployment\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"London, UK\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5484144008"
+    },
+    {
+      "posting_key": "5250091008",
+      "title": "Staff+ Software Engineer, GRC Platform",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority. posting.title \"Staff+ Software Engineer, GRC Platform\" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, GRC Platform\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content contains python and resume.skills \"aws\".",
+      "source_locator": "jobs[].id = 5250091008"
+    },
+    {
+      "posting_key": "5481096008",
+      "title": "Staff Software Engineer, Internal Products",
+      "location": "Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff Software Engineer, Internal Products\" contains none of resume.preferences.focus_terms. posting.title \"Staff Software Engineer, Internal Products\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"Remote-Friendly (Travel-Required) | San Francisco, CA | Seattle, WA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5481096008"
+    },
+    {
+      "posting_key": "5477379008",
+      "title": "Staff+ Software Engineer, Safeguards Evals ",
+      "location": "New York City, NY; San Francisco, CA; Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff+ Software Engineer, Safeguards Evals \" contains none of resume.preferences.focus_terms. posting.title \"Staff+ Software Engineer, Safeguards Evals \" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"New York City, NY; San Francisco, CA; Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5477379008"
+    },
+    {
+      "posting_key": "5478876008",
+      "title": "Staff Software Engineer, Support Technology",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Staff Software Engineer, Support Technology\" contains none of resume.preferences.focus_terms. posting.title \"Staff Software Engineer, Support Technology\" contains resume.preferences.excluded_title_words \"staff\". posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5478876008"
+    },
+    {
+      "posting_key": "5480875008",
+      "title": "Strategic Account Executive, Financial Services",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Strategic Account Executive, Financial Services\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Strategic Account Executive, Financial Services\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5480875008"
+    },
+    {
+      "posting_key": "5480893008",
+      "title": "Strategic Account Executive, HCLS",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Strategic Account Executive, HCLS\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Strategic Account Executive, HCLS\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5480893008"
+    },
+    {
+      "posting_key": "5490572008",
+      "title": "Strategic Account Executive, Hedge Funds",
+      "location": "New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Strategic Account Executive, Hedge Funds\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Strategic Account Executive, Hedge Funds\" contains none of resume.preferences.excluded_title_words. posting.location.name \"New York City, NY\" contains resume.preferences.location_terms \"new york\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5490572008"
+    },
+    {
+      "posting_key": "5138549008",
+      "title": "Strategic Account Executive, Tech",
+      "location": "San Francisco, CA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, skills. posting.title \"Strategic Account Executive, Tech\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Strategic Account Executive, Tech\" contains none of resume.preferences.excluded_title_words. posting.location.name \"San Francisco, CA\" contains resume.preferences.location_terms \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5138549008"
+    },
+    {
+      "posting_key": "5486380008",
+      "title": "Strategic Pursuits Lead, DACH",
+      "location": "Munich, Germany",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Strategic Pursuits Lead, DACH\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Strategic Pursuits Lead, DACH\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"Munich, Germany\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5486380008"
+    },
+    {
+      "posting_key": "5478799008",
+      "title": "Tech Lead Manager, Growth Data Science",
+      "location": "San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority. posting.title \"Tech Lead Manager, Growth Data Science\" lacks resume.preferences.title_word \"engineer\". posting.title \"Tech Lead Manager, Growth Data Science\" contains resume.preferences.excluded_title_words \"lead\", \"manager\". posting.location.name \"San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"new york\", \"san francisco\", \"seattle\". posting.content contains python and resume.skills \"sql\".",
+      "source_locator": "jobs[].id = 5478799008"
+    },
+    {
+      "posting_key": "5479122008",
+      "title": "Technical Program Manager, External Evaluators",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Technical Program Manager, External Evaluators\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Technical Program Manager, External Evaluators\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5479122008"
+    },
+    {
+      "posting_key": "5481980008",
+      "title": "Technical Program Manager, Life Sciences Research (Genetic Medicine)",
+      "location": "Boston, MA; San Francisco, CA | New York City, NY | Seattle, WA",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Technical Program Manager, Life Sciences Research (Genetic Medicine)\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Technical Program Manager, Life Sciences Research (Genetic Medicine)\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"Boston, MA; San Francisco, CA | New York City, NY | Seattle, WA\" contains resume.preferences.location_terms \"boston\", \"new york\", \"san francisco\", \"seattle\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5481980008"
+    },
+    {
+      "posting_key": "5479135008",
+      "title": "Technical Program Manager, Pacing",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Technical Program Manager, Pacing\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Technical Program Manager, Pacing\" contains resume.preferences.excluded_title_words \"manager\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5479135008"
+    },
+    {
+      "posting_key": "5447793008",
+      "title": "Transaction Principal",
+      "location": "Sydney, Australia",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "location",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, location, skills. posting.title \"Transaction Principal\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Transaction Principal\" contains resume.preferences.excluded_title_words \"principal\". posting.location.name \"Sydney, Australia\" contains none of resume.preferences.location_terms. posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5447793008"
+    },
+    {
+      "posting_key": "5465637008",
+      "title": "Web Strategy Lead",
+      "location": "San Francisco, CA | New York City, NY",
+      "verdict": "not_relevant",
+      "failed_conditions": [
+        "engineering_role",
+        "title_seniority",
+        "skills"
+      ],
+      "justification": "not_relevant: failed engineering_role, title_seniority, skills. posting.title \"Web Strategy Lead\" lacks resume.preferences.title_word \"engineer\" and contains none of resume.preferences.focus_terms. posting.title \"Web Strategy Lead\" contains resume.preferences.excluded_title_words \"lead\". posting.location.name \"San Francisco, CA | New York City, NY\" contains resume.preferences.location_terms \"new york\", \"san francisco\". posting.content does not contain python as a whole word.",
+      "source_locator": "jobs[].id = 5465637008"
+    }
+  ]
+}

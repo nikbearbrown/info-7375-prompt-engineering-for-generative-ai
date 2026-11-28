@@ -1,0 +1,41 @@
+The count check (checks/independent_check.py, count-only mode) on the two real captures and the two FIXTURES
+Run by Claude Code at 2026-11-25T16:48:13Z, Python 3.12.7, from the JS4 folder, at commit 2c72eab9.
+No request was sent, no model was called, and state/state.json was not read or written.
+
+=== runs/2026-11-08-normal-1   (a real saved capture)
+$ python3 -I checks/independent_check.py runs/2026-11-08-normal-1
+  report: status finished, state_advanced True
+  greenhouse/anthropic: saved body is HTTP 200, 10279433 bytes, 675 jobs
+  greenhouse/databricks: saved body is HTTP 200, 10058900 bytes, 922 jobs
+  ashby/linear: saved body is HTTP 200, 452742 bytes, 32 jobs
+  state not checked (count-only mode: no --state-before or --state-after given)
+PASS: no contradiction found between the trace, the report, its displays and the saved bodies (state not checked)
+exit code: 0
+
+=== runs/2026-11-24-js3-corpus   (a real saved capture)
+$ python3 -I checks/independent_check.py runs/2026-11-24-js3-corpus
+  report: status incomplete, state_advanced False
+  greenhouse/anthropic: saved body is HTTP 200, 9545028 bytes, 631 jobs
+  greenhouse/databricks: saved body is HTTP 200, 9748826 bytes, 890 jobs
+  ashby/linear: saved body is HTTP 200, 418959 bytes, 30 jobs
+  state not checked (count-only mode: no --state-before or --state-after given)
+PASS: no contradiction found between the trace, the report, its displays and the saved bodies (state not checked)
+exit code: 0
+
+=== fixtures/count-42   (FIXTURE: constructed, not a board response)
+$ python3 -I checks/independent_check.py fixtures/count-42
+  report: status finished, state_advanced False
+  greenhouse/fixture-count-42: saved body is HTTP 200, 1650 bytes, 42 jobs
+  state not checked (count-only mode: no --state-before or --state-after given)
+PASS: no contradiction found between the trace, the report, its displays and the saved bodies (state not checked)
+exit code: 0
+
+=== fixtures/count-42-planted-99   (FIXTURE: constructed, not a board response)
+$ python3 -I checks/independent_check.py fixtures/count-42-planted-99
+  report: status finished, state_advanced False
+  greenhouse/fixture-count-42: saved body is HTTP 200, 1650 bytes, 42 jobs
+  state not checked (count-only mode: no --state-before or --state-after given)
+FLAG greenhouse/fixture-count-42: results.json reports 99 jobs; its saved response has 42
+FLAG greenhouse/fixture-count-42: results.md shows 99 jobs; its saved response has 42
+FAIL: 2 contradiction(s) between the trace, the report, its displays and the saved bodies (state not checked)
+exit code: 1

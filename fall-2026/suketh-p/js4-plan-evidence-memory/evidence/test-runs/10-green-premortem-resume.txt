@@ -1,0 +1,35 @@
+GREEN: after adding premortem_resume and the premortem-resume command to jobwatch/replay.py
+Run by Claude Code at 2026-11-28T13:52:18Z, Python 3.12.7, from the JS4 folder (uncommitted code on top of b9f76228):
+  python3 -B -W error -m unittest tests.test_replay -v
+  python3 -B -W error -m unittest
+
+A correction to the RED test, made before this run: its expected boards_after was written [databricks,
+anthropic], but the record lists boards sorted, [anthropic, databricks]. The first run with the new code
+failed only on that line; every assertion before it passed. Only that literal was changed.
+
+test_a_replay_without_approval_stages_and_checks_everything_and_changes_nothing (tests.test_replay.ReplayTest.test_a_replay_without_approval_stages_and_checks_everything_and_changes_nothing) ... ok
+test_a_used_run_id_is_refused_and_nothing_is_written (tests.test_replay.ReplayTest.test_a_used_run_id_is_refused_and_nothing_is_written) ... ok
+test_an_approval_for_an_older_revision_is_refused_and_voided (tests.test_replay.ReplayTest.test_an_approval_for_an_older_revision_is_refused_and_voided) ... ok
+test_an_approved_replay_commits_one_revision_and_keeps_both_versions (tests.test_replay.ReplayTest.test_an_approved_replay_commits_one_revision_and_keeps_both_versions) ... ok
+test_posting_text_that_asks_for_a_write_stays_data_and_changes_nothing (tests.test_replay.ReplayTest.test_posting_text_that_asks_for_a_write_stays_data_and_changes_nothing) ... ok
+test_the_closure_case_shows_fresh_is_not_true (tests.test_replay.ReplayTest.test_the_closure_case_shows_fresh_is_not_true) ... ok
+test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision (tests.test_replay.ReplayTest.test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision)
+PREMORTEM.md line 5, after the plan owner's decision: reread the latest state, rebuild the refused ... ok
+test_the_premortem_trigger_refuses_the_second_write_and_keeps_the_first (tests.test_replay.ReplayTest.test_the_premortem_trigger_refuses_the_second_write_and_keeps_the_first) ... ok
+test_the_receipt_command_prints_the_values_an_approval_names (tests.test_replay.ReplayTest.test_the_receipt_command_prints_the_values_an_approval_names) ... ok
+test_the_second_day_shows_the_diff_and_both_watchers_notes (tests.test_replay.ReplayTest.test_the_second_day_shows_the_diff_and_both_watchers_notes) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.649s
+
+OK
+
+exit code: 0
+
+The whole suite:
+----------------------------------------------------------------------
+Ran 376 tests in 9.180s
+
+OK
+
+exit code: 0

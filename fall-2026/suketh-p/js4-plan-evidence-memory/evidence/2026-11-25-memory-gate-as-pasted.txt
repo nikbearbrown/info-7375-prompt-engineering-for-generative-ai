@@ -1,0 +1,56 @@
+Memory gate · Job-Search Agent 4
+Written November 25, 2026, 11:29 p.m. EST, before the memory code.
+Basis Approved PLAN.md v0.2 and the premortem in 9a8f1cc3.
+A. The record
+1. What every remembered fact holds
+- board · The ATS and board slug, such as greenhouse/anthropic.
+- posting_key · The board’s posting identifier. I’ll use the Greenhouse id or the Ashby jobUrl as stored text.
+- fact_type · The observation I’m keeping, such as first seen, listed, missing from the list, or closed.
+- value · What the source supports about that posting at the time of observation.
+- captured_at · When the source captured the observation. A replay keeps the original capture time.
+- capture_run_id · The run that saved the underlying response.
+- recorded_by_run_id · The run that committed the fact to memory.
+- source_kind · Whether the evidence comes from a saved capture, a seeded fixture, or a legacy import.
+- source_path · The approved relative path to the saved response or fixture.
+- source_sha256 · The digest that identifies the exact source bytes the check used.
+- source_locator · The posting key and field to inspect, or the full board key set if the claim is about absence.
+- verification_ref · The check result that links the fact back to its source.
+Watcher notes stay proposals until the coordinator validates them. Posting text stays literal data throughout the handoff.
+
+Who decided Suketh Reddy Produtoor, plan owner.
+2. What memory may say about whether a posting is still open
+Statement	Evidence I require
+Listed as of the capture time	The exact board and posting key appear in a usable saved response whose hash and key set pass verification.
+Missing from this list. Status unknown.	The exact key is absent from a later usable response for the same board. Keep its first-seen record and last confirmed listing.
+Closed in the seeded fixture as of the stated time	A later, explicitly labeled closure fixture names the same board and key. A real-world closure claim would need a separately approved source that explicitly establishes it.
+I cannot tell	The board failed, the response is unusable, the evidence conflicts, or the available observation is too old to answer a present-tense question. A failed check leaves the last verified observation in history.
+
+
+If the key returns on the same board, record the new listing observation and keep its original first-seen record.
+
+Who decided Suketh Reddy Produtoor, plan owner.
+B. The revision boundary
+3. What one revision covers
+One revision covers the entire jobwatch-state/3 file in the replay workspace, including all boards, seen keys, remembered observations, source references, and committed runs. A decision about new postings can depend on several boards, so I want one consistent starting snapshot. The per-run watcher files and merged notes.json are evidence for the proposed update.
+
+The replay starts at revision 0. The writer holds the lock while it rereads the file, compares the approved starting revision and SHA-256, and atomically replaces the state. A successful commit advances the revision once. A mismatch voids that run’s approval and preserves the current state.
+
+Who decided Suketh Reddy Produtoor, plan owner.
+4. Which decisions read which parts of memory
+Decision	What it reads
+Is this new?	The board’s full seen-key history and the current verified key set. A board’s first usable capture establishes its baseline.
+What can I say about liveness?	The last verified observation and its timestamp, plus any later verified listing or explicit closure evidence for the same board and key.
+What changed between the two days?	Both dated captures, their verified key sets, and the committed revisions that link them.
+Can the watcher notes merge?	Both staged contributions, their board and source references, and the shared starting revision and hash.
+Can state advance?	The full current state, the verified proposal, and my approval for the exact run ID, path, starting revision, and SHA-256.
+
+
+Who decided Suketh Reddy Produtoor, plan owner.
+C. The triggers
+5. Events that reopen a decision
+Event	Earlier decision it reopens	Owner	Work that pauses	When work can resume	Who decided
+The revision or hash differs from the approved starting values.	Approval for that write.	The writer refuses the write. I own the next decision.	Publication of that proposal.	I reread the latest state, reconcile the proposal, and approve a new run ID against the new revision and hash.	Suketh Reddy Produtoor
+A later verified list omits a remembered key or an explicit closure source conflicts with the last observation.	What I can say about the posting’s liveness.	I review the dated evidence.	Any claim that the posting is still open or has closed.	The checker confirms the exact key and date. The report states the supported observation or records unknown.	Suketh Reddy Produtoor
+A required source is unusable, its digest fails, or the independent recount disagrees with the summary.	Whether the capture supports the report and state update.	The checker flags the failure. I decide whether to accept corrected evidence.	The affected claims and state publication.	The source and summary agree after an independent check in a newly approved run.	Suketh Reddy Produtoor
+A watcher contribution is missing, duplicated, or tied to the wrong board or starting revision.	Whether the shared notes are complete and consistent.	The coordinator stops the merge. I decide how to resolve the handoff.	The notes merge and state publication.	Both expected contributions validate against their own captures and the same starting state.	Suketh Reddy Produtoor
+Posting text reaches the action path as a command.	Whether the worker can safely use that input.	The policy check stops the operation. I review the boundary.	Actions and publication from the affected run.	An offline replay shows the text stays literal and produces no requested action. I then approve any new run.	Suketh Reddy Produtoor

@@ -1,0 +1,22 @@
+The new-key check (checks/independent_check.py --earlier) on the two real captures
+Run by Claude Code at 2026-11-25T17:52:20Z, Python 3.12.7, from the JS4 folder, at commit bd4d7865.
+No request was sent, no model was called, and state/state.json was not read or written: the prior
+seen keys come from the Nov 8 capture's raw bodies, not from the state file.
+
+$ python3 -I checks/independent_check.py runs/2026-11-24-js3-corpus --earlier runs/2026-11-08-normal-1
+  report: status incomplete, state_advanced False
+  greenhouse/anthropic: saved body is HTTP 200, 9545028 bytes, 631 jobs
+  greenhouse/databricks: saved body is HTTP 200, 9748826 bytes, 890 jobs
+  ashby/linear: saved body is HTTP 200, 418959 bytes, 30 jobs
+  greenhouse/anthropic: against 1 earlier capture(s): 93 new, 137 missing from this list (liveness unresolved), 0 returned
+  greenhouse/databricks: against 1 earlier capture(s): 99 new, 131 missing from this list (liveness unresolved), 0 returned
+  ashby/linear: against 1 earlier capture(s): 1 new, 3 missing from this list (liveness unresolved), 0 returned
+  state not checked (count-only mode: no --state-before or --state-after given)
+PASS: no contradiction found between the trace, the report, its displays, the saved bodies and the earlier captures (state not checked)
+exit code: 0
+
+Cross-checks, by other routes:
+- The JS3 run's own claim (results.json new_keys, computed by the loop against state.json): 93 / 99 / 1 new.
+- Claude Code's offline count of 14:49 UTC (evidence/2026-11-25-memory-vs-nov-24-lists.txt, read from state.json):
+  93 / 99 / 1 new and 137 / 131 / 3 remembered keys absent from the Nov 24 lists.
+- The student's recount (evidence/plan-review/): 137 / 131 / 3 absent.

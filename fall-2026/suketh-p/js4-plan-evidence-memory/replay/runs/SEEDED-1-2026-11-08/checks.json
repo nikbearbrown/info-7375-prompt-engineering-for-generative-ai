@@ -1,0 +1,46 @@
+{
+  "independent_check": {
+    "command": [
+      "python3",
+      "-I",
+      "checks/independent_check.py",
+      "replay/runs/SEEDED-1-2026-11-08"
+    ],
+    "exit": 0,
+    "output": "  report: status staged, state_advanced False\n  greenhouse/anthropic: saved body is HTTP 200, 10279433 bytes, 675 jobs\n  greenhouse/databricks: saved body is HTTP 200, 10058900 bytes, 922 jobs\n  ashby/linear: saved body is HTTP 200, 452742 bytes, 32 jobs\n  state not checked (count-only mode: no --state-before or --state-after given)\n  new postings not checked (no --earlier capture and no state files)\nPASS: no contradiction found between the trace, the report, its displays, the saved bodies (state not checked)\n"
+  },
+  "planted_count": {
+    "command": [
+      "python3",
+      "-I",
+      "checks/independent_check.py",
+      "fixtures/count-42-planted-99"
+    ],
+    "exit": 1,
+    "output": "  report: status finished, state_advanced False\n  greenhouse/fixture-count-42: saved body is HTTP 200, 1650 bytes, 42 jobs\n  state not checked (count-only mode: no --state-before or --state-after given)\n  new postings not checked (no --earlier capture and no state files)\nFLAG greenhouse/fixture-count-42: results.json reports 99 jobs; its saved response has 42\nFLAG greenhouse/fixture-count-42: results.md shows 99 jobs; its saved response has 42\nFAIL: 2 contradiction(s) between the trace, the report, its displays, the saved bodies (state not checked)\n",
+    "rejected": true
+  },
+  "stale_write_fixture": {
+    "refused": true,
+    "bytes_unchanged": true,
+    "expected": {
+      "revision": 0,
+      "sha256": "f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d"
+    },
+    "found": {
+      "revision": 1,
+      "sha256": "24e52f35350f7194b05295287f9476fff65c8e114bbd37fac2a4b7b85acc54d4"
+    },
+    "boards": [
+      "greenhouse/anthropic",
+      "greenhouse/databricks"
+    ],
+    "note": "a disposable fixture in a temporary folder, with simulated approvals; not the student's"
+  },
+  "closure_case": null,
+  "instruction_like": [],
+  "gate": {
+    "passed": true,
+    "problems": []
+  }
+}

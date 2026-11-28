@@ -1,0 +1,30 @@
+{
+ "rank": 8,
+ "board": "greenhouse/anthropic",
+ "key": "5390811008",
+ "started": "2026-11-24T22:57:26+00:00",
+ "ended": "2026-11-24T22:57:39+00:00",
+ "prompt_file": "prompts/claims-v1.md",
+ "prompt_sha256": "46a9522ad5d978a55ab1e4994847102f9d2b6858e43009b61c562cefdad7b5f9",
+ "user_message_sha256": "a1ea37adcd0585ddf3e00842f771766e40710f97d9c1f0a3ea089952152a6c67",
+ "command": [
+  "claude",
+  "-p",
+  "--model",
+  "claude-opus-5-5",
+  "--system-prompt",
+  "<prompts/claims-v1.md, # System>",
+  "--tools",
+  "",
+  "--setting-sources",
+  "",
+  "--strict-mcp-config",
+  "--disable-slash-commands",
+  "--no-session-persistence",
+  "--output-format",
+  "json"
+ ],
+ "returncode": 0,
+ "stdout": "{\"duration_api_ms\":12671,\"stop_reason\":\"end_turn\",\"session_id\":\"0ff1ba69-6e6b-4022-815d-bf99e6c17818\",\"total_cost_usd\":0.061624,\"usage\":{\"input_tokens\":2,\"cache_creation_input_tokens\":3867,\"cache_read_input_tokens\":0,\"output_tokens\":1534,\"output_tokens_details\":{\"thinking_tokens\":869},\"server_tool_use\":{\"web_search_requests\":0,\"web_fetch_requests\":0},\"service_tier\":\"standard\",\"cache_creation\":{\"ephemeral_1h_input_tokens\":3867,\"ephemeral_5m_input_tokens\":0},\"inference_geo\":\"global\",\"iterations\":[],\"speed\":\"standard\",\"fallback_credit\":null},\"modelUsage\":{\"claude-opus-5-5\":{\"inputTokens\":2,\"outputTokens\":1534,\"cacheReadInputTokens\":0,\"cacheCreationInputTokens\":3867,\"webSearchRequests\":0,\"costUSD\":0.061624,\"contextWindow\":1000000,\"maxOutputTokens\":128000,\"thinkingTokens\":869,\"canonicalModel\":\"claude-opus-5-5\",\"provider\":\"firstParty\",\"costBasis\":\"list\"}},\"permission_denials\":[],\"terminal_reason\":\"completed\",\"fast_mode_state\":\"off\",\"fast_mode_disabled_reason\":\"sdk_opt_in_required\",\"subagent_stats\":{\"spawned\":0,\"requested\":{\"background\":0,\"foreground\":0,\"unset\":0},\"started_in_background\":0,\"max_depth\":0,\"spawned_by_subagents\":0,\"completed\":0,\"failed\":0,\"killed\":{\"parent\":0,\"user\":0,\"system\":0},\"refused\":{\"depth_limit\":0,\"concurrency_limit\":0,\"budget\":0},\"by_type\":{}},\"is_error\":false,\"num_turns\":1,\"subtype\":\"success\",\"api_error_status\":null,\"result\":\"{\\\"claims\\\": [{\\\"kind\\\": \\\"work\\\", \\\"claim\\\": \\\"The role owns the technical-to-go-to-market handoff for model launches.\\\", \\\"quote\\\": \\\"Own the technical < > GTM handshake for model and product launches\\\", \\\"source_field\\\": \\\"description\\\"}, {\\\"kind\\\": \\\"location\\\", \\\"claim\\\": \\\"The role is located in San Francisco, CA or New York City, NY.\\\", \\\"quote\\\": \\\"San Francisco, CA | New York City, NY\\\", \\\"source_field\\\": \\\"location\\\"}, {\\\"kind\\\": \\\"new_grads\\\", \\\"claim\\\": \\\"I cannot tell whether this role accepts new graduates or early-career applicants.\\\", \\\"quote\\\": null, \\\"source_field\\\": null}, {\\\"kind\\\": \\\"qualification\\\", \\\"claim\\\": \\\"The posting lists 6+ years of experience as a Software Engineer, Technical Product Manager, Forward Deployed Engineer, AI startup founder, or similar technical role as a sign of good fit.\\\", \\\"quote\\\": \\\"6+ years of experience as a Software Engineer, Technical Product Manager, Forward Deployed Engineer, AI startup founder, or similar technical role\\\", \\\"source_field\\\": \\\"description\\\"}, {\\\"kind\\\": \\\"qualification\\\", \\\"claim\\\": \\\"The minimum education is a Bachelor’s degree or an equivalent combination of education, training, or experience.\\\", \\\"quote\\\": \\\"Minimum education: Bachelor’s degree or an equivalent combination of education, training, and/or experience\\\", \\\"source_field\\\": \\\"description\\\"}, {\\\"kind\\\": \\\"qualification\\\", \\\"claim\\\": \\\"The posting lists meaningful experience building with large language models as a sign of good fit.\\\", \\\"quote\\\": \\\"Meaningful experience building with large language models\\\", \\\"source_field\\\": \\\"description\\\"}, {\\\"kind\\\": \\\"work_authorization\\\", \\\"claim\\\": \\\"I cannot tell what this posting requires regarding authorization to work.\\\", \\\"quote\\\": null, \\\"source_field\\\": null}, {\\\"kind\\\": \\\"sponsorship\\\", \\\"claim\\\": \\\"The posting says Anthropic sponsors visas, though not for every role or candidate.\\\", \\\"quote\\\": \\\"We do sponsor visas! However, we aren't able to successfully sponsor visas for every role and every candidate.\\\", \\\"source_field\\\": \\\"description\\\"}]}\",\"ttft_ms\":8240,\"type\":\"result\",\"duration_ms\":12712,\"uuid\":\"bcfacc6c-5964-4f2e-8b11-9215fd0e16b6\",\"ttft_stream_ms\":1006,\"time_to_request_ms\":29,\"time_to_request_phases_ms\":{\"other\":3,\"system_prompt\":4,\"resume_other\":0,\"process_user_input\":0,\"input_attachments\":16,\"input_hooks\":1,\"tool_pool_refresh\":0,\"init_message\":1,\"engine_pickup\":0,\"message_prep\":0,\"model_config_wait\":0,\"autocompact\":0,\"query_setup\":1,\"auto_mode_context_wait\":0,\"model_gates\":0,\"tool_schema_build\":1,\"message_normalization\":0,\"client_creation\":1,\"request_build\":1},\"turn_start_resume_kind\":\"none\",\"process_turn_index\":0,\"time_to_request_loop_lag_ms\":0,\"time_to_request_cpu_ms\":46,\"time_to_request_major_faults\":0,\"input_attachments_detail\":{\"slowest_producer\":\"at_mentioned_files\",\"slowest_producer_ms\":13,\"cpu_ms\":28,\"major_faults\":0},\"first_content_frame_ms\":1007,\"queued_turn_count\":0,\"result_index\":0}\n",
+ "stderr": ""
+}

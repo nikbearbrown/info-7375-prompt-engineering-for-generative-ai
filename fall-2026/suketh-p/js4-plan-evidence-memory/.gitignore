@@ -1,0 +1,10 @@
+# Caches and local secrets never leave this machine.
+__pycache__/
+*.pyc
+.DS_Store
+.env
+*.key
+# Anything personal (a real résumé, transcripts, an application tracker) stays outside the repo.
+private/
+# The memory writer's lock files (empty; jobwatch/memory.py keeps one next to each state file).
+replay/**/.*.lock

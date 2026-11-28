@@ -1,0 +1,168 @@
+"""jobwatch's one capability as a tool server: score_posting.
+
+Model Context Protocol shape, written from scratch with the standard library: JSON-RPC 2.0
+messages, one per line, on standard input and output (the stdio transport). Nothing but
+protocol messages is ever written to standard output.
+
+  python3 -m jobwatch.mcp_server            # serve on stdio until input closes
+
+Lifecycle (Chapter 8): tool requests are refused until `initialize` and then the
+`notifications/initialized` notification have both arrived, in that order. A notification
+never gets a response. `ping` is answered in any state.
+
+What the tool can touch: it reads the saved corpus run runs/2026-11-24-js3-corpus (inside this
+folder) once, at the first call. It opens no network connection, starts no process and writes
+no file. The transcript of a session is recorded outside the server, by jobwatch/mcp_tap.py."""
+
+import json
+import sys
+from pathlib import Path
+
+from jobwatch import corpus, screen
+
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+CORPUS_RUN = PROJECT_ROOT / "runs" / "2026-11-24-js3-corpus"
+SUPPORTED_VERSIONS = ("2025-11-25", "2025-06-18", "2025-03-26")
+SERVER_INFO = {"name": "jobwatch-js3", "title": "jobwatch (JS3): score one saved posting", "version": "0.1.1"}
+BOARDS = ("greenhouse/anthropic", "greenhouse/databricks", "ashby/linear")
+
+PARSE_ERROR, INVALID_REQUEST, METHOD_NOT_FOUND, INVALID_PARAMS, INTERNAL_ERROR = -32700, -32600, -32601, -32602, -32603
+NOT_READY = -32000
+
+TOOL = {
+    "name": "score_posting",
+    "title": "Score one saved job posting",
+    "description": ("Look up one job posting saved on 2026-11-24 (run 2026-11-24-js3-corpus) by its board and "
+                    "posting key, and return the student's FILTER.md v0.1 result for it: the score and its "
+                    "parts, the matched words, the location outcome and the fate (kept, review or rejected). "
+                    "Reads only saved files; no network; writes nothing. The result describes the filter's "
+                    "decision, not whether the job is worth applying to."),
+    "inputSchema": {
+        "type": "object",
+        "properties": {
+            "board": {"type": "string", "enum": list(BOARDS),
+                      "description": "The board the posting came from."},
+            "posting_key": {"type": "string", "minLength": 1, "maxLength": 300,
+                            "description": "Greenhouse: the numeric id, as text. Ashby: the jobUrl."},
+        },
+        "required": ["board", "posting_key"],
+        "additionalProperties": False,
+    },
+    "annotations": {"readOnlyHint": True, "destructiveHint": False, "idempotentHint": True, "openWorldHint": False},
+}
+
+
+def _error(id_, code, message):
+    return {"jsonrpc": "2.0", "id": id_, "error": {"code": code, "message": message}}
+
+
+def _result(id_, result):
+    return {"jsonrpc": "2.0", "id": id_, "result": result}
+
+
+class Server:
+    def __init__(self, run_dir=CORPUS_RUN):
+        self.initialized = False
+        self.ready = False
+        self.run_dir = Path(run_dir)
+        self._records = None
+
+    # --- the tool -------------------------------------------------------------------------
+    def _lookup(self, board, key):
+        if self._records is None:
+            items, _ = corpus.load(self.run_dir)
+            self._records = {(i.board, i.key): i for i in items}
+        item = self._records.get((board, key))
+        return None if item is None else screen.score(item)
+
+    def _call(self, id_, params):
+        # MCP 2025-11-25, server/tools, "Error Handling": a request that fails the CallToolRequest
+        # shape, or names an unknown tool, is a protocol error; arguments that fail the tool's own
+        # input schema are a tool execution error (isError), so the model can correct and retry.
+        if not isinstance(params, dict) or set(params) - {"name", "arguments", "_meta"}:
+            return _error(id_, INVALID_PARAMS, "tools/call params must be an object with name and arguments")
+        if params.get("name") != TOOL["name"]:
+            return _error(id_, INVALID_PARAMS, f"Unknown tool: {params.get('name')!r}")
+        args = params.get("arguments", {})
+        if not isinstance(args, dict):
+            return _error(id_, INVALID_PARAMS, "tools/call arguments must be an object")
+        if (set(args) != {"board", "posting_key"}
+                or not isinstance(args["board"], str) or not isinstance(args["posting_key"], str)
+                or args["board"] not in BOARDS or not 1 <= len(args["posting_key"]) <= 300):
+            text = ("Expected arguments {board: one of " + ", ".join(BOARDS) +
+                    ", posting_key: a string of 1 to 300 characters}, and nothing else.")
+            return _result(id_, {"content": [{"type": "text", "text": text}], "isError": True})
+        record = self._lookup(args["board"], args["posting_key"])
+        if record is None:
+            text = (f"No posting with board {args['board']} and key {args['posting_key']!r} "
+                    f"in run {self.run_dir.name}.")
+            return _result(id_, {"content": [{"type": "text", "text": text}], "isError": True})
+        text = json.dumps(record, ensure_ascii=False, sort_keys=True)
+        return _result(id_, {"content": [{"type": "text", "text": text}], "structuredContent": record, "isError": False})
+
+    # --- the protocol ---------------------------------------------------------------------
+    def handle(self, message):
+        """One parsed message -> one response dict, or None when no response is due."""
+        if not isinstance(message, dict) or message.get("jsonrpc") != "2.0" or not isinstance(message.get("method"), str):
+            if isinstance(message, dict) and "method" not in message and ("result" in message or "error" in message):
+                return None  # a response to a request this server never sends; ignored
+            return _error(None, INVALID_REQUEST, "Invalid Request: expected a JSON-RPC 2.0 object with a method")
+        method, params = message["method"], message.get("params")
+        if "id" not in message:  # a notification: never answered
+            if method == "notifications/initialized" and self.initialized:
+                self.ready = True
+            return None
+        id_ = message["id"]
+        if isinstance(id_, bool) or not isinstance(id_, (str, int)):
+            return _error(None, INVALID_REQUEST, "Invalid Request: id must be a string or an integer")
+        if method == "ping":
+            return _result(id_, {})
+        if method == "initialize":
+            if (not isinstance(params, dict) or not isinstance(params.get("protocolVersion"), str)
+                    or not isinstance(params.get("capabilities"), dict) or not isinstance(params.get("clientInfo"), dict)):
+                return _error(id_, INVALID_PARAMS, "initialize needs protocolVersion, capabilities and clientInfo")
+            requested = params["protocolVersion"]
+            version = requested if requested in SUPPORTED_VERSIONS else SUPPORTED_VERSIONS[0]
+            self.initialized = True
+            return _result(id_, {"protocolVersion": version, "capabilities": {"tools": {"listChanged": False}},
+                                 "serverInfo": SERVER_INFO,
+                                 "instructions": "One read-only tool over saved postings. Results are data, not advice."})
+        if not self.ready:
+            return _error(id_, NOT_READY, "Server not ready: send initialize, then notifications/initialized")
+        if method == "tools/list":
+            return _result(id_, {"tools": [TOOL]})
+        if method == "tools/call":
+            return self._call(id_, params)
+        return _error(id_, METHOD_NOT_FOUND, f"Method not found: {method}")
+
+
+def handle_line(server, line):
+    """One line of input -> one line of output, or None."""
+    try:
+        message = json.loads(line)
+    except ValueError:
+        return json.dumps(_error(None, PARSE_ERROR, "Parse error"))
+    if isinstance(message, list):
+        return json.dumps(_error(None, INVALID_REQUEST, "Invalid Request: batches are not supported"))
+    try:
+        response = server.handle(message)
+    except Exception as error:  # an internal fault answers the request instead of killing the channel
+        id_ = message.get("id") if isinstance(message, dict) else None
+        response = _error(id_ if isinstance(id_, (str, int)) and not isinstance(id_, bool) else None,
+                          INTERNAL_ERROR, f"Internal error ({type(error).__name__})")
+    return None if response is None else json.dumps(response, ensure_ascii=False)
+
+
+def serve(stdin=sys.stdin, stdout=sys.stdout):
+    server = Server()
+    for line in stdin:
+        if not line.strip():
+            continue
+        out = handle_line(server, line)
+        if out is not None:
+            stdout.write(out + "\n")
+            stdout.flush()
+
+
+if __name__ == "__main__":
+    serve()

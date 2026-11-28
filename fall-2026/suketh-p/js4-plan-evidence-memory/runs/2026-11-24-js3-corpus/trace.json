@@ -1,0 +1,74 @@
+{
+  "run_id": "2026-11-24-js3-corpus",
+  "status": "incomplete",
+  "reason": "the state was not saved: no approval was given for this run; results are provisional",
+  "state_advanced": false,
+  "budget": {
+    "max_boards": 4,
+    "max_requests": 4,
+    "max_seconds": 30.0,
+    "max_request_seconds": 5.0
+  },
+  "used": {
+    "boards": 3,
+    "requests": 3,
+    "seconds": 5.471
+  },
+  "events": [
+    {
+      "seq": 1,
+      "at": "2026-11-24T22:36:19Z",
+      "event": "request",
+      "board": "greenhouse/anthropic",
+      "url": "https://boards-api.greenhouse.io/v1/boards/anthropic/jobs?content=true",
+      "elapsed_s": 0.699,
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 9545028,
+      "sha256": "25ab0e62b65a964709dcd994f93a1ca6c51ed42450a97c4a199c39066a480292",
+      "raw": "raw/greenhouse-anthropic.body.gz",
+      "outcome": "usable",
+      "jobs": 631,
+      "reason": null
+    },
+    {
+      "seq": 2,
+      "at": "2026-11-24T22:36:20Z",
+      "event": "request",
+      "board": "greenhouse/databricks",
+      "url": "https://boards-api.greenhouse.io/v1/boards/databricks/jobs?content=true",
+      "elapsed_s": 3.961,
+      "status": 200,
+      "content_type": "application/json",
+      "bytes": 9748826,
+      "sha256": "438008f8ae9c53a9e1b5cea9f15b5a97771ad3d7742d12dd8985930036336e89",
+      "raw": "raw/greenhouse-databricks.body.gz",
+      "outcome": "usable",
+      "jobs": 890,
+      "reason": null
+    },
+    {
+      "seq": 3,
+      "at": "2026-11-24T22:36:24Z",
+      "event": "request",
+      "board": "ashby/linear",
+      "url": "https://api.ashbyhq.com/posting-api/job-board/linear",
+      "elapsed_s": 0.262,
+      "status": 200,
+      "content_type": "application/json; charset=utf-8",
+      "bytes": 418959,
+      "sha256": "ffbe5745fc0c4a3e1e3105ffba661f7739590d711034b53907e94832bd03851b",
+      "raw": "raw/ashby-linear.body.gz",
+      "outcome": "usable",
+      "jobs": 30,
+      "reason": null
+    },
+    {
+      "seq": 4,
+      "at": "2026-11-24T22:36:25Z",
+      "event": "exit",
+      "status": "incomplete",
+      "reason": "the state was not saved: no approval was given for this run; results are provisional"
+    }
+  ]
+}
