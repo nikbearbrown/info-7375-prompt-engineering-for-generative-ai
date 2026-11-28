@@ -529,9 +529,8 @@ def commit(root, path, approval, proposal, run_dir, *, label, clock=None, before
         raise ApprovalProblem(f"the approval names run {approval.run_id!r}, not this run ({proposal.run_id!r})")
     if approval.path != path:
         raise ApprovalProblem(f"the approval names {approval.path!r}, not {path!r}")
-    if proposal.base_revision != approval.revision:
-        raise ApprovalProblem(f"the proposal was built on revision {proposal.base_revision}, but the approval names "
-                              f"revision {approval.revision}; build the proposal again from the approved revision")
+    # A proposal built on another revision than the file holds is refused by apply(), after the compare:
+    # an approval that names an older revision is first of all a stale approval, and must be voided.
     root = Path(root).resolve()
     target = _target(root, path)
     refusal_rel = (PurePosixPath(run_dir) / REFUSAL_FILE).as_posix()
