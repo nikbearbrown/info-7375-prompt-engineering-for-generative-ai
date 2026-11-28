@@ -1,0 +1,34 @@
+RED: the premortem resume test, before jobwatch/replay.py has a resume command
+Run by Claude Code at 2026-11-28T13:51:23Z, Python 3.12.7, from the JS4 folder (an uncommitted test on top of 7b6121a7):
+  python3 -B -W error -m unittest tests.test_replay -v
+
+The new test errors because jobwatch.replay has no premortem_resume yet; the other 9 replay tests pass.
+
+test_a_replay_without_approval_stages_and_checks_everything_and_changes_nothing (tests.test_replay.ReplayTest.test_a_replay_without_approval_stages_and_checks_everything_and_changes_nothing) ... ok
+test_a_used_run_id_is_refused_and_nothing_is_written (tests.test_replay.ReplayTest.test_a_used_run_id_is_refused_and_nothing_is_written) ... ok
+test_an_approval_for_an_older_revision_is_refused_and_voided (tests.test_replay.ReplayTest.test_an_approval_for_an_older_revision_is_refused_and_voided) ... ok
+test_an_approved_replay_commits_one_revision_and_keeps_both_versions (tests.test_replay.ReplayTest.test_an_approved_replay_commits_one_revision_and_keeps_both_versions) ... ok
+test_posting_text_that_asks_for_a_write_stays_data_and_changes_nothing (tests.test_replay.ReplayTest.test_posting_text_that_asks_for_a_write_stays_data_and_changes_nothing) ... ok
+test_the_closure_case_shows_fresh_is_not_true (tests.test_replay.ReplayTest.test_the_closure_case_shows_fresh_is_not_true) ... ok
+test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision (tests.test_replay.ReplayTest.test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision)
+PREMORTEM.md line 5, after the plan owner's decision: reread the latest state, rebuild the refused ... ERROR
+test_the_premortem_trigger_refuses_the_second_write_and_keeps_the_first (tests.test_replay.ReplayTest.test_the_premortem_trigger_refuses_the_second_write_and_keeps_the_first) ... ok
+test_the_receipt_command_prints_the_values_an_approval_names (tests.test_replay.ReplayTest.test_the_receipt_command_prints_the_values_an_approval_names) ... ok
+test_the_second_day_shows_the_diff_and_both_watchers_notes (tests.test_replay.ReplayTest.test_the_second_day_shows_the_diff_and_both_watchers_notes) ... ok
+
+======================================================================
+ERROR: test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision (tests.test_replay.ReplayTest.test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision)
+PREMORTEM.md line 5, after the plan owner's decision: reread the latest state, rebuild the refused
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/sukethreddyprodutoor/Desktop/Prompt Engineering/fork/fall-2026/suketh-p/js4-plan-evidence-memory/tests/test_replay.py", line 200, in test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision
+    void = replay.premortem_resume(self.root, rel, self.day1, "databricks", self.approve("PM-databricks", rel),
+           ^^^^^^^^^^^^^^^^^^^^^^^
+AttributeError: module 'jobwatch.replay' has no attribute 'premortem_resume'
+
+----------------------------------------------------------------------
+Ran 10 tests in 0.666s
+
+FAILED (errors=1)
+
+exit code: 1

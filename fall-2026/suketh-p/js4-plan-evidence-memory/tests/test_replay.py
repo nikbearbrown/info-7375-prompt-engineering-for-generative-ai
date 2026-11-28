@@ -187,6 +187,37 @@ class ReplayTest(unittest.TestCase):
         self.assertTrue((self.root / "replay" / "premortem" / "runs" / "PM-databricks" / "write-refused.json").exists())
         self.assertEqual(read(self.root / "replay" / "premortem" / "record.json"), record)
 
+    def test_the_premortem_resume_rebuilds_the_refused_update_on_the_new_revision(self):
+        """PREMORTEM.md line 5, after the plan owner's decision: reread the latest state, rebuild the refused
+        update on it, and commit it under a new run ID and approval. Chapter 12: test recovery, not only
+        detection."""
+        rel = "replay/premortem/state.json"
+        replay.init_state(self.root, rel)
+        sha0 = memory.receipt(self.root, rel).sha256
+        replay.premortem(self.root, rel, self.day1, {"anthropic": self.approve("PM-anthropic", rel),
+                                                     "databricks": self.approve("PM-databricks", rel)}, clock=lambda: NOW)
+        one = memory.load(self.root / rel)
+        void = replay.premortem_resume(self.root, rel, self.day1, "databricks", self.approve("PM-databricks", rel),
+                                       clock=lambda: NOW)
+        self.assertEqual(void["status"], "not committed")
+        self.assertIn("void", void["message"])
+        stale = replay.premortem_resume(self.root, rel, self.day1, "databricks",
+                                        memory.WriteApproval("PM-databricks-stale", rel, 0, sha0), clock=lambda: NOW)
+        self.assertEqual((stale["status"], stale["found"]["revision"]), ("refused", 1))
+        self.assertEqual(memory.load(self.root / rel), one)
+        out = io.StringIO()
+        with contextlib.redirect_stdout(out):
+            code = replay.main(["premortem-resume", "--capture", self.day1, "--watcher", "databricks", "--state", rel,
+                                "--approve", str(self.approve("PM-databricks-2", rel))], root=self.root)
+        self.assertEqual(code, 0)
+        record = read(self.root / "replay" / "premortem" / "resume-PM-databricks-2.json")
+        self.assertEqual((record["status"], record["reread"]["revision"], record["revision_after"]), ("committed", 1, 2))
+        self.assertEqual(record["boards_after"], [DB, GH])
+        self.assertIs(record["earlier_facts_kept"], True)
+        two = memory.load(self.root / rel)
+        self.assertEqual(two["facts"][:len(one["facts"])], one["facts"])
+        self.assertEqual({fact["board"] for fact in two["facts"][len(one["facts"]):]}, {DB})
+
     def test_the_receipt_command_prints_the_values_an_approval_names(self):
         sha0 = hashlib.sha256(self.state.read_bytes()).hexdigest()
         out = io.StringIO()
