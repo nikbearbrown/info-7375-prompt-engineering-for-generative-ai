@@ -1,0 +1,18 @@
+{
+  "event": "stale write refused",
+  "run_id": "PREMORTEM-databricks",
+  "path": "replay/premortem/state.json",
+  "approval": "PREMORTEM-databricks:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d",
+  "expected": {
+    "revision": 0,
+    "sha256": "f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d"
+  },
+  "found": {
+    "revision": 1,
+    "sha256": "72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9"
+  },
+  "at": "2026-11-28T13:44:30Z",
+  "state_changed": false,
+  "approval_void": true,
+  "next": "The plan owner rereads the latest state, reconciles the proposal and approves a new run ID against the new revision and hash (MEMORY-GATE.md, trigger 1)."
+}
