@@ -1,0 +1,13 @@
+Frictional entry 4 · Job-Search Agent 4
+Written November 28, 2026, 9:24 a.m. EST, before submission.
+1. What changed in how I read the results. The stale-write test showed that the writer protected the first update. The closure fixture showed how memory at the current revision can still carry an outdated observation. I needed separate evidence for each conclusion.
+2. What I checked myself. I ran shasum on the two saved state files and ran the count checker against the November 8 and November 24 captures. I used the recorded tests and run artifacts to review the stale-write refusal, recovery, and closure fixture. I used drafting and implementation help and made the recorded approvals and recovery decision.
+3. Which memory choices I kept. I kept listing statements tied to their capture time because the replays used saved responses. I kept “I cannot tell” for a closure recorded after the latest listing that gives an earlier or equal closure time. I also kept returned for a known key that appears again on the same board after its latest observation was missing or closed. It keeps its original first-seen record.
+4. What counts as independent in the evidence matrix.
+   Row	My decision
+   Listed	Partly checked. The hashes and recount cover the saved bytes and totals. An independent check of an individual listing still needs an exact board-and-key lookup in the dated raw response.
+   Closed	Fixture behavior only. The run shows how memory responds to one constructed closure record. A real closure claim needs separate, dated evidence for that exact posting.
+   Location	Pending. JS4 ran no location check. I’d compare the saved location field and any office, hybrid, or travel requirements directly with the claim.
+   Sponsorship	Pending. JS4 ran no sponsorship check. I’d check the original passage for wording that applies to the specific role. General employer policy leaves that question open.
+5. What I’m leaving unresolved. The 271 missing keys tell me what disappeared from the later lists. Their real-world status remains unknown. My sign-off stays within the saved captures, matching state hashes, and recorded fixture behavior.
+6. Where to see it. The plan is in d349bacb and ac451bf5, with approval in a1b9e3a2. The premortem is 9a8f1cc3, the memory gate is aa5d3f62, and the memory implementation is 3943f5ee. The replays are 5d9faf79 and 7b6121a7. The refusal and recovery are 4fb18fe6 and 17a5a2ca. My Terminal check is 48d33602, and my sign-off is 7d9be61d.

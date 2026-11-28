@@ -35,3 +35,24 @@ The student's entries are quoted word for word, with the time each one arrived. 
 > 6. Where to see it. `PREMORTEM.md` records the prediction at `9a8f1cc3` and the refusal at `4fb18fe6`. The two-day replay is in `7b6121a7`, and the Databricks recovery is in `17a5a2ca`. My Terminal output is in `evidence/student-checks/2026-11-28-hand-check-as-pasted.txt` at `48d33602`.
 
 *Note by Claude Code, for traceability:* the six parts follow a skeleton of questions that Claude Code gave in the chat after commit 17a5a2ca. The student reworded the labels, and the text above is as the student sent it. Claude Code added only the quote markers and a Markdown line break after the title line. The five commits the entry names exist as named. Its 193 new and 271 missing keys are the sums of the checker's per-board counts (93 + 99 + 1 and 137 + 131 + 3) in the student's own output, evidence/student-checks/2026-11-28-hand-check-as-pasted.txt.
+
+## Entry 4 — before submitting (the student dated it November 28, 2026, 9:24 a.m. EST; received in the chat by 09:26 EST)
+
+> Frictional entry 4 · Job-Search Agent 4  
+> Written November 28, 2026, 9:24 a.m. EST, before submission.
+> 1. What changed in how I read the results. The stale-write test showed that the writer protected the first update. The closure fixture showed how memory at the current revision can still carry an outdated observation. I needed separate evidence for each conclusion.
+> 2. What I checked myself. I ran shasum on the two saved state files and ran the count checker against the November 8 and November 24 captures. I used the recorded tests and run artifacts to review the stale-write refusal, recovery, and closure fixture. I used drafting and implementation help and made the recorded approvals and recovery decision.
+> 3. Which memory choices I kept. I kept listing statements tied to their capture time because the replays used saved responses. I kept “I cannot tell” for a closure recorded after the latest listing that gives an earlier or equal closure time. I also kept returned for a known key that appears again on the same board after its latest observation was missing or closed. It keeps its original first-seen record.
+> 4. What counts as independent in the evidence matrix.
+>
+> | Row | My decision |
+> | --- | --- |
+> | Listed | Partly checked. The hashes and recount cover the saved bytes and totals. An independent check of an individual listing still needs an exact board-and-key lookup in the dated raw response. |
+> | Closed | Fixture behavior only. The run shows how memory responds to one constructed closure record. A real closure claim needs separate, dated evidence for that exact posting. |
+> | Location | Pending. JS4 ran no location check. I’d compare the saved location field and any office, hybrid, or travel requirements directly with the claim. |
+> | Sponsorship | Pending. JS4 ran no sponsorship check. I’d check the original passage for wording that applies to the specific role. General employer policy leaves that question open. |
+>
+> 5. What I’m leaving unresolved. The 271 missing keys tell me what disappeared from the later lists. Their real-world status remains unknown. My sign-off stays within the saved captures, matching state hashes, and recorded fixture behavior.
+> 6. Where to see it. The plan is in d349bacb and ac451bf5, with approval in a1b9e3a2. The premortem is 9a8f1cc3, the memory gate is aa5d3f62, and the memory implementation is 3943f5ee. The replays are 5d9faf79 and 7b6121a7. The refusal and recovery are 4fb18fe6 and 17a5a2ca. My Terminal check is 48d33602, and my sign-off is 7d9be61d.
+
+*Note by Claude Code, for traceability:* the six parts follow a skeleton of questions that Claude Code gave in the chat after commit f69ff806. The student reworded the labels, and the words above are as the student sent them. [evidence/2026-11-28-frictional-4-as-pasted.txt](evidence/2026-11-28-frictional-4-as-pasted.txt) is the entry exactly as received. Claude Code added the quote markers and a Markdown line break after the title line. It also turned line 4's tab-separated rows, indented three spaces, into a Markdown table, so they show as a table. A script rebuilt the entry's lines and found them identical. The twelve commits the entry names all exist. Its line-4 decisions are quoted in EVIDENCE-MATRIX.md's last column.
