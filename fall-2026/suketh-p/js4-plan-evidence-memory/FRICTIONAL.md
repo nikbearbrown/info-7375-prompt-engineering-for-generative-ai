@@ -21,3 +21,17 @@ The student's entries are quoted word for word, with the time each one arrived. 
 > 6. Where to see it. v0.1 is `d349bacb`, the dated review is in `evidence/plan-review/` at `861cd461`, and v0.2 is `ac451bf5`. The planted count results are in `evidence/checks/2026-11-25-count-check.txt`. The memory tests are in `tests/test_memory.py`, with results in `evidence/test-runs/06-green-memory.txt`.
 
 *Note by Claude Code, for traceability:* the six parts follow a skeleton of questions that Claude Code gave in the chat after committing the memory (3943f5ee). The student reworded the labels, and the text above is as the student sent it. Claude Code added only the quote markers and a Markdown line break after the title line. The commits and files the entry names exist as named. PLAN-v0.1.md's Steps 4 and 6 do describe a shared writer, and a revision and hash comparison under that writer's lock.
+
+## Entry 3 — after the premortem trigger and the two replays (the student dated it November 28, 2026, 9:08 a.m. EST; received in the chat by 09:09 EST)
+
+> Frictional entry 3 · Job-Search Agent 4  
+> Written November 28, 2026, 9:08 a.m. EST.
+>
+> 1. Did my prediction hold? Yes. Both proposals started at revision 0. Anthropic committed revision 1 first, and the writer refused Databricks with “expected revision 0 … found revision 1.” The revision-1 hash matched before and after the refusal, so the accepted Anthropic records survived.
+> 2. What I checked myself, and how. I ran `shasum -a 256` on both final state files. The hashes matched the replay and recovery receipts. I also ran `checks/independent_check.py` on the November 24 replay with November 8 as the earlier capture. It passed and counted 193 new keys, 271 missing, and zero returned. That command ran in count-only mode. My separate hash check covered the saved state bytes.
+> 3. What I decided after the refusal. I approved `PREMORTEM-databricks-2` against revision 1. Rebuilding from the November 8 capture added the 922 Databricks keys at revision 2 and preserved all 1,350 Anthropic facts.
+> 4. What I accepted, modified, or rejected. I accepted the stale-write refusal and chose to rebuild the proposal with a fresh approval. I count `shasum` as independent verification of the saved bytes and the checker’s separate raw-response parser as independent recomputation of the counts. Both checks are scoped to the saved evidence.
+> 5. What’s still unresolved. I still can’t tell whether the 271 missing postings closed. The replay demonstrated closure for one explicitly labeled fixture. A write can start from the right revision and still carry a claim the source doesn’t support.
+> 6. Where to see it. `PREMORTEM.md` records the prediction at `9a8f1cc3` and the refusal at `4fb18fe6`. The two-day replay is in `7b6121a7`, and the Databricks recovery is in `17a5a2ca`. My Terminal output is in `evidence/student-checks/2026-11-28-hand-check-as-pasted.txt` at `48d33602`.
+
+*Note by Claude Code, for traceability:* the six parts follow a skeleton of questions that Claude Code gave in the chat after commit 17a5a2ca. The student reworded the labels, and the text above is as the student sent it. Claude Code added only the quote markers and a Markdown line break after the title line. The five commits the entry names exist as named. Its 193 new and 271 missing keys are the sums of the checker's per-board counts (93 + 99 + 1 and 137 + 131 + 3) in the student's own output, evidence/student-checks/2026-11-28-hand-check-as-pasted.txt.
