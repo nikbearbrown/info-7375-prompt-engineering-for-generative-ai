@@ -15,3 +15,22 @@ The student's premortem is quoted word for word below, with the time it arrived.
 > 6. What the design still misses. A writer can start from the current revision and still save a wrong fact. If a posting disappears from a board list, I’d still need separate source evidence before calling it closed.
 
 *Note by Claude Code, for traceability:* the six parts follow a skeleton of six questions that Claude Code gave the student in the chat at 23:12 EST. Claude Code built it from the brief and from Chapter 12's premortem rows (failure, trigger, control, detection evidence, owner and resume condition, residual risk). The student reworded the six labels, and the text above is as the student sent it. Claude Code added only the quote markers and a Markdown line break after the title line, so the title shows on its own line.
+
+## What happened when the failure was triggered (Claude Code's record, 2026-11-28)
+
+The student approved both writes in the chat; [replay/APPROVALS.md](replay/APPROVALS.md) holds the reply word for word. Claude Code then ran this from the JS4 folder at 13:44:30 UTC:
+
+```bash
+python3 -m jobwatch.replay premortem --capture runs/2026-11-08-normal-1 --approve-anthropic PREMORTEM-anthropic:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d --approve-databricks PREMORTEM-databricks:replay/premortem/state.json:0:f046969f9ae59329fe59cd35ae89f2646852312efa07620522efc6416a824f7d
+```
+
+| Line | What the record shows |
+| --- | --- |
+| 1 | Both updates were built on revision 0 of `replay/premortem/state.json`. The Anthropic update committed first. The Databricks update was refused, so it did not erase the Anthropic update. |
+| 2 | The disposable file started empty at revision 0 (sha256 `f046969f…`). The two updates carry different posting keys: the Nov 8 capture's 675 Anthropic keys and its 922 Databricks keys. Each had its own run ID and an approval naming revision 0 and that SHA-256. |
+| 3 | `jobwatch/memory.py` compared the approved revision and SHA-256 with the file while holding the lock. It refused the second write, voided the `PREMORTEM-databricks` approval, and reported "expected revision 0 … found revision 1". |
+| 4 | The command read the file after the first commit and again after the refusal. Both times it was the same bytes, sha256 `72352a71ed7fb862e8f6bfd0b46a6dba7bb4be6d75927dd5fbdfb0ee3589fda9`. The state is at revision 1 with only `greenhouse/anthropic`: 1,350 facts (675 first-seen, 675 listed), each with its source fields. The refusal is recorded in [write-refused.json](replay/premortem/runs/PREMORTEM-databricks/write-refused.json) and [record.json](replay/premortem/record.json). The premortem command writes no separate trace file. |
+| 5 | Not done yet: the student decides whether the Databricks update still makes sense after rereading revision 1. |
+| 6 | Not tested by this trigger. |
+
+Whether the prediction held is the student's judgment, for Frictional entry 3.
