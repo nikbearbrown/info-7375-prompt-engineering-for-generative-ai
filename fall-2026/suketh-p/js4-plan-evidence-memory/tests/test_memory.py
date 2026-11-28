@@ -303,6 +303,18 @@ class CommitTest(unittest.TestCase):
         self.assertIn("revision 0", str(caught.exception))
         self.assertEqual(self.sha_now(), receipt.sha256)
 
+    def test_an_approval_for_an_older_revision_is_refused_as_stale_and_voided(self):
+        """Another run committed revision 1 after this approval named revision 0. The proposal itself was
+        built on revision 1. MEMORY-GATE.md trigger 1: the mismatch voids this run's approval."""
+        first = memory.propose(self.state0, "S1", [capture(GH, [1], T1, "R1")])
+        receipt = self.commit(self.approve("S1", 0, self.sha0), first)
+        on_one = memory.propose(memory.load(self.path), "S2", [capture(GH, [1, 2], T2, "R2")])
+        with self.assertRaises(memory.StaleWrite) as caught:
+            self.commit(self.approve("S2", 0, self.sha0), on_one)
+        self.assertIn("found revision 1", str(caught.exception))
+        self.assertEqual(self.sha_now(), receipt.sha256)
+        self.assertTrue((self.root / "runs" / "S2" / "write-refused.json").exists())
+
     def test_a_committed_run_cannot_commit_again(self):
         first = memory.propose(self.state0, "S1", [capture(GH, [1], T1, "R1")])
         receipt = self.commit(self.approve("S1", 0, self.sha0), first)
